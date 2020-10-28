@@ -57,11 +57,10 @@ function Badger() {
 
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
-    // TODO there are async migrations
-    // TODO is this the right place for migrations?
-    self.runMigrations();
+    let migrationsPromise = self.runMigrations();
+    await migrationsPromise;
 
-    self.setPrivacyOverrides();
+    self.setPrivacyOverrides().catch(console.error);
 
     // kick off async initialization steps
     let ylistPromise = self.initializeYellowlist().catch(console.error),
@@ -238,9 +237,6 @@ Badger.prototype = {
    * Sets various browser privacy overrides.
    */
   setPrivacyOverrides: function () {
-    if (!chrome.privacy) {
-      return;
-    }
 
     let self = this;
 
@@ -248,82 +244,102 @@ Badger.prototype = {
      * Sets a browser setting if Privacy Badger is allowed to set it.
      */
     function _set_override(name, api, value) {
-      if (!api) {
-        return;
-      }
+      return new Promise(function (resolve, reject) {
 
-      api.get({}, (result) => {
-        // exit if this browser setting is controlled by something else
-        if (!result.levelOfControl.endsWith("_by_this_extension")) {
-          return;
+        if (!api) {
+          return resolve();
         }
 
-        // if value is null, we want to relinquish control over the setting
-        if (value === null) {
-          // exit early if the setting isn't actually set (nothing to clear)
-          if (result.levelOfControl == "controllable_by_this_extension") {
+        api.get({}, (result) => {
+          // exit if this browser setting is controlled by something else
+          if (!result.levelOfControl.endsWith("_by_this_extension")) {
+            return resolve();
+          }
+
+          // if value is null, we want to relinquish control over the setting
+          if (value === null) {
+            // exit early if the setting isn't actually set (nothing to clear)
+            if (result.levelOfControl == "controllable_by_this_extension") {
+              return resolve();
+            }
+
+            // clear the browser setting and exit
+            api.clear({
+              scope: 'regular'
+            }, () => {
+              if (chrome.runtime.lastError) {
+                let error = chrome.runtime.lastError;
+                console.error("Failed clearing override:", error);
+                reject(error);
+              } else {
+                console.log("Cleared override", name);
+                resolve();
+              }
+            });
+
             return;
           }
 
-          // clear the browser setting and exit
-          api.clear({
+          // exit if setting is already set to value
+          if (result.value === value &&
+              result.levelOfControl == "controlled_by_this_extension") {
+            return resolve();
+          }
+
+          // otherwise set the value
+          api.set({
+            value,
             scope: 'regular'
           }, () => {
             if (chrome.runtime.lastError) {
-              console.error("Failed clearing override:", chrome.runtime.lastError);
+              let error = chrome.runtime.lastError;
+              console.error("Failed setting override:", error);
+              reject(error);
             } else {
-              console.log("Cleared override", name);
+              console.log("Set override", name, "to", value);
+              resolve();
             }
           });
-
-          return;
-        }
-
-        // exit if setting is already set to value
-        if (result.value === value &&
-            result.levelOfControl == "controlled_by_this_extension") {
-          return;
-        }
-
-        // otherwise set the value
-        api.set({
-          value,
-          scope: 'regular'
-        }, () => {
-          if (chrome.runtime.lastError) {
-            console.error("Failed setting override:", chrome.runtime.lastError);
-          } else {
-            console.log("Set override", name, "to", value);
-          }
         });
+
       });
     }
 
-    if (chrome.privacy.services) {
-      _set_override(
-        "alternateErrorPagesEnabled",
-        chrome.privacy.services.alternateErrorPagesEnabled,
-        (self.getSettings().getItem("disableGoogleNavErrorService") ? false : null)
-      );
-    }
+    return new Promise(function (resolve) {
+      if (!chrome.privacy) {
+        return resolve();
+      }
 
-    if (chrome.privacy.websites) {
-      _set_override(
-        "hyperlinkAuditingEnabled",
-        chrome.privacy.websites.hyperlinkAuditingEnabled,
-        (self.getSettings().getItem("disableHyperlinkAuditing") ? false : null)
-      );
-    }
+      let promises = [];
 
-    // when enabled, WebRTC IP handling policy is set to Mode 3
-    // https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
-    if (badger.webRTCAvailable) {
-      _set_override(
-        "webRTCIPHandlingPolicy",
-        chrome.privacy.network.webRTCIPHandlingPolicy,
-        (self.getSettings().getItem("preventWebRTCIPLeak") ? 'default_public_interface_only' : null)
-      );
-    }
+      if (chrome.privacy.services) {
+        promises.push(_set_override(
+          "alternateErrorPagesEnabled",
+          chrome.privacy.services.alternateErrorPagesEnabled,
+          (self.getSettings().getItem("disableGoogleNavErrorService") ? false : null)
+        ));
+      }
+
+      if (chrome.privacy.websites) {
+        promises.push(_set_override(
+          "hyperlinkAuditingEnabled",
+          chrome.privacy.websites.hyperlinkAuditingEnabled,
+          (self.getSettings().getItem("disableHyperlinkAuditing") ? false : null)
+        ));
+      }
+
+      // when enabled, WebRTC IP handling policy is set to Mode 3
+      // https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
+      if (badger.webRTCAvailable) {
+        promises.push(_set_override(
+          "webRTCIPHandlingPolicy",
+          chrome.privacy.network.webRTCIPHandlingPolicy,
+          (self.getSettings().getItem("preventWebRTCIPLeak") ? 'default_public_interface_only' : null)
+        ));
+      }
+
+      resolve(Promise.all(promises));
+    });
   },
 
   /**
@@ -809,13 +825,18 @@ Badger.prototype = {
     }
   },
 
-  runMigrations: function() {
-    var self = this;
-    var settings = self.getSettings();
-    var migrationLevel = settings.getItem('migrationLevel');
+  /**
+   * @return {Promise}
+   */
+  runMigrations: function () {
+    let self = this,
+      settings = self.getSettings(),
+      migrationLevel = settings.getItem('migrationLevel'),
+      promises = [];
+
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently
-    var migrations = [
+    const MIGRATIONS = [
       Migrations.changePrivacySettings,
       Migrations.migrateAbpToStorage,
       Migrations.migrateBlockedSubdomainsToCookieblock,
@@ -838,11 +859,15 @@ Badger.prototype = {
       Migrations.resetWebRtcIpHandlingPolicy3,
     ];
 
-    for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations, self);
+    for (let i = migrationLevel; i < MIGRATIONS.length; i++) {
+      let value = MIGRATIONS[i].call(Migrations, self);
+      if (value) {
+        promises.push(value);
+      }
       settings.setItem('migrationLevel', i+1);
     }
 
+    return Promise.all(promises);
   },
 
   /**
@@ -1144,9 +1169,11 @@ Badger.prototype = {
    *
    * @param {Object} data the user data to merge in
    * @param {Boolean} [skip_migrations=false] set when running from a migration to avoid infinite loop
+   * @returns {Promise}
    */
   mergeUserData: function (data, skip_migrations) {
     let self = this;
+
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
     ["snitch_map", "action_map", "settings_map"].forEach(function (key) {
@@ -1155,10 +1182,12 @@ Badger.prototype = {
       }
     });
 
-    // for exports from older Privacy Badger versions:
-    // fix yellowlist getting out of sync, remove non-tracking domains, etc.
-    if (!skip_migrations) {
-      self.runMigrations();
+    if (skip_migrations) {
+      return Promise.resolve();
+    } else {
+      // for exports from older Privacy Badger versions:
+      // fix yellowlist getting out of sync, remove non-tracking domains, etc.
+      return self.runMigrations();
     }
   }
 

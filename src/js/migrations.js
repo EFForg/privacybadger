@@ -252,49 +252,54 @@ exports.Migrations= {
   },
 
   forgetCloudflare: function (badger) {
-    let config = {
-      name: '__cfduid'
-    };
-    if (badger.firstPartyDomainPotentiallyRequired) {
-      config.firstPartyDomain = null;
-    }
-
-    chrome.cookies.getAll(config, function (cookies) {
-      console.log("Forgetting Cloudflare domains ...");
-
-      let actionMap = badger.storage.getStore("action_map"),
-        actionClones = actionMap.getItemClones(),
-        snitchMap = badger.storage.getStore("snitch_map"),
-        snitchClones = snitchMap.getItemClones(),
-        correctedSites = {},
-        // assume the tracking domains seen on these sites are all Cloudflare
-        cfduidFirstParties = new Set();
-
-      cookies.forEach(function (cookie) {
-        // get the base domain (also removes the leading dot)
-        cfduidFirstParties.add(window.getBaseDomain(cookie.domain));
-      });
-
-      for (let domain in snitchClones) {
-        let newSnitches = snitchClones[domain].filter(
-          item => !cfduidFirstParties.has(item));
-
-        if (newSnitches.length) {
-          correctedSites[domain] = newSnitches;
-        }
+    return new Promise(function (resolve) {
+      let config = {
+        name: '__cfduid'
+      };
+      if (badger.firstPartyDomainPotentiallyRequired) {
+        config.firstPartyDomain = null;
       }
 
-      // clear existing maps and then use mergeUserData to rebuild them
-      actionMap.updateObject({});
-      snitchMap.updateObject({});
+      chrome.cookies.getAll(config, function (cookies) {
+        console.log("Forgetting Cloudflare domains ...");
 
-      const data = {
-        snitch_map: correctedSites,
-        action_map: actionClones
-      };
+        let actionMap = badger.storage.getStore("action_map"),
+          actionClones = actionMap.getItemClones(),
+          snitchMap = badger.storage.getStore("snitch_map"),
+          snitchClones = snitchMap.getItemClones(),
+          correctedSites = {},
+          // assume the tracking domains seen on these sites are all Cloudflare
+          cfduidFirstParties = new Set();
 
-      // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
-      badger.mergeUserData(data, true);
+        cookies.forEach(function (cookie) {
+          // get the base domain (also removes the leading dot)
+          cfduidFirstParties.add(window.getBaseDomain(cookie.domain));
+        });
+
+        for (let domain in snitchClones) {
+          let newSnitches = snitchClones[domain].filter(
+            item => !cfduidFirstParties.has(item));
+
+          if (newSnitches.length) {
+            correctedSites[domain] = newSnitches;
+          }
+        }
+
+        // clear existing maps and then use mergeUserData to rebuild them
+        actionMap.updateObject({});
+        snitchMap.updateObject({});
+
+        const data = {
+          snitch_map: correctedSites,
+          action_map: actionClones
+        };
+
+        // pass in boolean 2nd parameter to flag that it's run in a migration,
+        // preventing infinite loop
+        badger.mergeUserData(data, true);
+
+        resolve();
+      });
     });
   },
 
@@ -307,23 +312,25 @@ exports.Migrations= {
   resetWebRTCIPHandlingPolicy2: noop,
 
   resetWebRtcIpHandlingPolicy3: function (badger) {
-    if (!badger.webRTCAvailable) {
-      return;
-    }
-
-    console.log("Migrating WebRTC IP protection ...");
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (res) {
-      if (res.levelOfControl != 'controlled_by_this_extension') {
-        return;
+    return new Promise(function (resolve) {
+      if (!badger.webRTCAvailable) {
+        return resolve();
       }
 
-      // since we previously enabled this privacy override,
-      // update corresponding Badger setting
-      badger.getSettings().setItem("preventWebRTCIPLeak", true);
+      console.log("Migrating WebRTC IP protection ...");
+      chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (res) {
+        if (res.levelOfControl != 'controlled_by_this_extension') {
+          return resolve();
+        }
 
-      // update the browser setting
-      // in case it needs to be migrated from Mode 4 to Mode 3
-      badger.setPrivacyOverrides();
+        // since we previously enabled this privacy override,
+        // update corresponding Badger setting
+        badger.getSettings().setItem("preventWebRTCIPLeak", true);
+
+        // update the browser setting
+        // in case it needs to be migrated from Mode 4 to Mode 3
+        resolve(badger.setPrivacyOverrides());
+      });
     });
   }
 

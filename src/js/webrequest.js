@@ -1179,14 +1179,16 @@ function dispatcher(request, sender, sendResponse) {
 
   case "mergeUserData": {
     // called when a user imports data exported from another Badger instance
-    badger.mergeUserData(request.data);
-    badger.blockWidgetDomains();
-    badger.setPrivacyOverrides();
-    sendResponse({
-      disabledSites: badger.getDisabledSites(),
-      origins: badger.storage.getTrackingDomains(),
+    badger.mergeUserData(request.data).then(() => {
+      badger.blockWidgetDomains();
+      badger.setPrivacyOverrides();
+      sendResponse({
+        disabledSites: badger.getDisabledSites(),
+        origins: badger.storage.getTrackingDomains(),
+      });
     });
-    break;
+    // indicate this is an async response to chrome.runtime.onMessage
+    return true;
   }
 
   case "updateSettings": {
@@ -1203,9 +1205,11 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "setPrivacyOverrides": {
-    badger.setPrivacyOverrides();
-    sendResponse();
-    break;
+    badger.setPrivacyOverrides().then(() => {
+      sendResponse();
+    });
+    // indicate this is an async response to chrome.runtime.onMessage
+    return true;
   }
 
   case "updateBadge": {
