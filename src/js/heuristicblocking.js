@@ -328,7 +328,7 @@ HeuristicBlocker.prototype = {
     }
 
     // If community learning is enabled, queue up a request to the EFF server
-    if (badger.getSettings().getItem("shareLearning")) {
+    if (badger.isCommunityLearningEnabled(tab_id)) {
       let page_fqdn = (new URI(this.tabUrls[tab_id])).host;
       this.shareTrackerInfo(page_fqdn, tracker_fqdn, tracker_type);
     }

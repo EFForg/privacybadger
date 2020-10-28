@@ -939,14 +939,25 @@ Badger.prototype = {
   },
 
   /**
+   * Is community learning generally enabled,
+   * and is tab_id in a regular (not incognito) window?
+   */
+  isCommunityLearningEnabled(tab_id) {
+    return (
+      this.getSettings().getItem("shareLearning") &&
+      !incognito.isIncognito(tab_id)
+    );
+  },
+
+  /**
    * Is any kind of learning (local or community) enabled on this tab?
    *
    * TODO: should community learning happen in incognito tabs?
    */
   isLearningEnabled(tab_id) {
     return (
-      this.getSettings().getItem("shareLearning") ||
-      this.isLocalLearningEnabled(tab_id)
+      this.isLocalLearningEnabled(tab_id) ||
+      this.isCommunityLearningEnabled(tab_id)
     );
   },
 

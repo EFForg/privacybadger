@@ -25,23 +25,30 @@ function startListeners() {
   chrome.tabs.onRemoved.addListener(onRemovedListener);
 }
 
+function isIncognito(tab_id) {
+  // if we don't have incognito data for whatever reason,
+  // default to "true"
+  if (!tabs.hasOwnProperty(tab_id)) {
+    return true;
+  }
+  // else, do not learn in incognito tabs
+  return tabs[tab_id];
+}
+
 function learningEnabled(tab_id) {
   if (badger.getSettings().getItem("learnInIncognito")) {
     // treat all pages as if they're not incognito
     return true;
   }
-  // if we don't have incognito data for whatever reason,
-  // default to disabled
-  if (!tabs.hasOwnProperty(tab_id)) {
-    return false;
-  }
-  // else, do not learn in incognito tabs
-  return !tabs[tab_id];
+
+  // otherwise, return true if this tab is _not_ incognito
+  return !isIncognito(tab_id);
 }
 
 /************************************** exports */
 let exports = {
   learningEnabled,
+  isIncognito,
   startListeners,
 };
 return exports;
