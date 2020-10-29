@@ -943,14 +943,9 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "fpReport": {
-    if (Array.isArray(request.data)) {
-      request.data.forEach(function (msg) {
-        recordFingerprinting(sender.tab.id, msg);
-      });
-    } else {
-      recordFingerprinting(sender.tab.id, request.data);
-    }
-
+    request.data.forEach(function (msg) {
+      recordFingerprinting(sender.tab.id, msg);
+    });
     break;
   }
 
