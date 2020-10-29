@@ -450,6 +450,12 @@ function recordSupercookie(tab_id, frame_url) {
     window.getBaseDomain(frame_host),
     window.getBaseDomain(page_host)
   );
+
+  // log for popup
+  let action = checkAction(tab_id, frame_host);
+  if (action) {
+    badger.logThirdPartyOriginOnTab(tab_id, frame_host, action);
+  }
 }
 
 /**
@@ -516,9 +522,15 @@ function recordFingerprinting(tab_id, msg) {
           scriptData.canvas.fingerprinting = true;
           log(script_host, 'caught fingerprinting on', document_host);
 
-          // Mark this as a strike
+          // mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
             script_host, script_origin, window.getBaseDomain(document_host));
+
+          // log for popup
+          let action = checkAction(tab_id, script_host);
+          if (action) {
+            badger.logThirdPartyOriginOnTab(tab_id, script_host, action);
+          }
         }
       }
       // This is a canvas write
