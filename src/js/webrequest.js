@@ -455,19 +455,22 @@ function recordSupercookie(tab_id, frame_url) {
 /**
  * Record canvas fingerprinting
  *
- * @param {Integer} tabId the tab ID
+ * @param {Integer} tab_id the tab ID
  * @param {Object} msg specific fingerprinting data
  */
-function recordFingerprinting(tabId, msg) {
-  // Abort if we failed to determine the originating script's URL
-  // TODO find and fix where this happens
+function recordFingerprinting(tab_id, msg) {
+  // exit if we failed to determine the originating script's URL
   if (!msg.scriptUrl) {
+    // TODO find and fix where this happens
+    return;
+  } else if (msg.scriptUrl.startsWith("data:")) {
+    // TODO find initiator for script data URLs
     return;
   }
 
-  // Ignore first-party scripts
+  // ignore first-party scripts
   let script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = badger.getFrameData(tabId).host;
+    document_host = badger.getFrameData(tab_id).host;
   if (!utils.isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -481,22 +484,22 @@ function recordFingerprinting(tabId, msg) {
     toDataURL: true
   };
 
-  if (!badger.tabData[tabId].hasOwnProperty('fpData')) {
-    badger.tabData[tabId].fpData = {};
+  if (!badger.tabData[tab_id].hasOwnProperty('fpData')) {
+    badger.tabData[tab_id].fpData = {};
   }
 
   let script_origin = window.getBaseDomain(script_host);
 
   // Initialize script TLD-level data
-  if (!badger.tabData[tabId].fpData.hasOwnProperty(script_origin)) {
-    badger.tabData[tabId].fpData[script_origin] = {
+  if (!badger.tabData[tab_id].fpData.hasOwnProperty(script_origin)) {
+    badger.tabData[tab_id].fpData[script_origin] = {
       canvas: {
         fingerprinting: false,
         write: false
       }
     };
   }
-  let scriptData = badger.tabData[tabId].fpData[script_origin];
+  let scriptData = badger.tabData[tab_id].fpData[script_origin];
 
   if (msg.extra.hasOwnProperty('canvas')) {
     if (scriptData.canvas.fingerprinting) {
