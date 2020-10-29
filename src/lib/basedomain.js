@@ -222,6 +222,7 @@ function extractHostFromURL(/**String*/ url) { // eslint-disable-line no-unused-
   try {
     host = new URI(url).host;
   } catch (e) {
+    console.error("Failed to extract host from %s\n", url, e);
     // Keep the empty string for invalid URIs.
   }
 
