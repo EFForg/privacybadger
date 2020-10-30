@@ -4,8 +4,6 @@ import unittest
 
 import pbtest
 
-from popup_test import get_domain_slider_state
-
 
 class CookieTest(pbtest.PBSeleniumTest):
     """Basic test to make sure the PB doesn't mess up with the cookies."""
@@ -52,111 +50,30 @@ class CookieTest(pbtest.PBSeleniumTest):
         self.load_pb_ui(SITE1_URL)
         # TODO it takes another visit (or a page reload)
         # TODO to show the domain as not-yet-blocked-but-tracking?
-        #self.assertIn(THIRD_PARTY_DOMAIN, self.notYetBlocked)
+        #sliders = self.get_tracker_state()
+        #self.assertIn(THIRD_PARTY_DOMAIN, sliders['notYetBlocked'])
         self.close_window_with_url(SITE1_URL)
 
         # go to second site
         self.load_url(SITE2_URL)
         self.load_pb_ui(SITE2_URL)
-        self.assertIn(THIRD_PARTY_DOMAIN, self.notYetBlocked)
+        sliders = self.get_tracker_state()
+        self.assertIn(THIRD_PARTY_DOMAIN, sliders['notYetBlocked'])
         self.close_window_with_url(SITE2_URL)
 
         # go to third site
         self.load_url(SITE3_URL)
         self.load_pb_ui(SITE3_URL)
-        self.assertIn(THIRD_PARTY_DOMAIN, self.notYetBlocked)
+        sliders = self.get_tracker_state()
+        self.assertIn(THIRD_PARTY_DOMAIN, sliders['notYetBlocked'])
         self.close_window_with_url(SITE3_URL)
 
         # revisiting the first site should cause
         # the third-party domain to be blocked
         self.load_url(SITE1_URL)
         self.load_pb_ui(SITE1_URL)
-        self.assertIn(THIRD_PARTY_DOMAIN, self.blocked)
-
-    def load_pb_ui(self, target_url):
-        """Show the PB popup as a new tab.
-
-        If Selenium would let us just programmatically launch an extension from its icon,
-        we wouldn't need this method. Alas it will not.
-
-        But! We can open a new tab and set the url to the extension's popup html page and
-        test away. That's how most devs test extensions. But**2!! PB's popup code uses
-        the current tab's url to report the current tracker status.  And since we changed
-        the current tab's url when we loaded the popup as a tab, the popup loses all the
-        blocker status information from the original tab.
-
-        The workaround is to execute a new convenience function in the popup codebase that
-        looks for a given url in the tabs and, if it finds a match, refreshes the popup
-        with the associated tabid. Then the correct status information will be displayed
-        in the popup."""
-
-        self.open_window()
-        self.load_url(self.popup_url)
-
-        # get the popup populated with status information for the correct url
-        self.switch_to_window_with_url(self.popup_url)
-        self.js("""
-/**
- * if the query url pattern matches a tab, switch the module's tab object to that tab
- */
-(function (url) {
-  chrome.tabs.query({url}, function (tabs) {
-    if (!tabs || !tabs.length) {
-      return;
-    }
-    chrome.runtime.sendMessage({
-      type: "getPopupData",
-      tabId: tabs[0].id,
-      tabUrl: tabs[0].url
-    }, (response) => {
-      setPopupData(response);
-      refreshPopup();
-      window.DONE_REFRESHING = true;
-    });
-  });
-}(arguments[0]));""", target_url)
-
-        # wait for popup to be ready
-        self.wait_for_script(
-            "return typeof window.DONE_REFRESHING != 'undefined' &&"
-            "window.POPUP_INITIALIZED &&"
-            "window.SLIDERS_DONE"
-        )
-
-        self.get_tracker_state()
-
-    def get_tracker_state(self):
-        """Parse the UI to group all third party origins into their respective action states."""
-        self.notYetBlocked = {}
-        self.cookieBlocked = {}
-        self.blocked = {}
-
-        self.driver.switch_to.window(self.driver.current_window_handle)
-
-        domain_divs = self.driver.find_elements_by_css_selector(
-            "#blockedResourcesInner > div.clicker[data-origin]")
-        for div in domain_divs:
-            origin = div.get_attribute('data-origin')
-
-            # assert that this origin is never duplicated in the UI
-            self.assertNotIn(origin, self.notYetBlocked)
-            self.assertNotIn(origin, self.cookieBlocked)
-            self.assertNotIn(origin, self.blocked)
-
-            # get slider state for given origin
-            action_type = get_domain_slider_state(self.driver, origin)
-
-            # non-tracking domains are hidden by default
-            # so if we see a slider set to "allow",
-            # it must be in the tracking-but-not-yet-blocked section
-            if action_type == 'allow':
-                self.notYetBlocked[origin] = True
-            elif action_type == 'cookieblock':
-                self.cookieBlocked[origin] = True
-            elif action_type == 'block':
-                self.blocked[origin] = True
-            else:
-                self.fail("what is this?!? %s" % action_type)
+        sliders = self.get_tracker_state()
+        self.assertIn(THIRD_PARTY_DOMAIN, sliders['blocked'])
 
 
 if __name__ == "__main__":

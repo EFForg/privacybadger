@@ -12,12 +12,6 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-def get_domain_slider_state(driver, domain):
-    label = driver.find_element_by_css_selector(
-        'input[name="{}"][checked]'.format(domain))
-    return label.get_attribute('value')
-
-
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
@@ -197,7 +191,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
-        new_action = get_domain_slider_state(self.driver, DOMAIN)
+        new_action = self.get_domain_slider_state(DOMAIN)
 
         self.assertEqual(new_action, "block",
             "The domain should be blocked on options page.")
@@ -219,7 +213,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
-        new_action = get_domain_slider_state(self.driver, DOMAIN)
+        new_action = self.get_domain_slider_state(DOMAIN)
 
         self.assertEqual(new_action, "block",
             "The domain should still be blocked on options page.")
@@ -255,7 +249,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
 
         # assert the action is not what we manually clicked
-        action = get_domain_slider_state(self.driver, DOMAIN)
+        action = self.get_domain_slider_state(DOMAIN)
         self.assertEqual(action, "cookieblock",
             "Domain's action should have been restored.")
 
