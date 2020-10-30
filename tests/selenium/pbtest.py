@@ -547,8 +547,6 @@ class PBSeleniumTest(unittest.TestCase):
             "window.SLIDERS_DONE"
         )
 
-        self.driver.switch_to.window(self.driver.current_window_handle)
-
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
 
