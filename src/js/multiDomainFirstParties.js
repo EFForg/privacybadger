@@ -458,6 +458,7 @@ let multiDomainFirstPartiesArray = [
     "jtvnw.net",
     "ttvnw.net",
 
+    "a2z.com",
     "amazonpay.com",
     "media-amazon.com",
     "ssl-images-amazon.com",
