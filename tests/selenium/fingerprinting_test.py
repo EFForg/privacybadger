@@ -5,10 +5,6 @@ import unittest
 
 import pbtest
 
-from functools import partial
-
-from pbtest import retry_until
-
 
 class FingerprintingTest(pbtest.PBSeleniumTest):
     """Tests to make sure fingerprinting detection works as expected."""
@@ -25,16 +21,6 @@ return (
       fpData[tracker_origin].canvas.fingerprinting === true;
   }})
 );""".format(domain))
-
-    def detected_tracking(self, domain, page_url):
-        return self.js("""let tracker_origin = window.getBaseDomain("{}"),
-  site_origin = window.getBaseDomain((new URI("{}")).host),
-  map = chrome.extension.getBackgroundPage().badger.storage.snitch_map.getItemClones();
-
-return (
-  map.hasOwnProperty(tracker_origin) &&
-    map[tracker_origin].indexOf(site_origin) != -1
-);""".format(domain, page_url))
 
     def get_fillText_source(self):
         return self.js("""
@@ -65,18 +51,17 @@ return (
         # visit the page
         self.load_url(FIXTURE_URL)
 
-        # now open a new window (to avoid clearing badger.tabData)
-        # and verify results
-        self.open_window()
+        # open popup and check slider state
+        self.load_pb_ui(FIXTURE_URL)
+        sliders = self.get_tracker_state()
+        self.assertIn(
+            FINGERPRINTING_DOMAIN,
+            sliders['notYetBlocked'],
+            "Canvas fingerprinting domain should be reported in the popup"
+        )
 
-        # check that we detected the fingerprinting domain as a tracker
+        # check that we detected canvas fingerprinting specifically
         self.load_url(self.options_url)
-        # TODO unnecessary retrying?
-        self.assertTrue(
-            retry_until(partial(self.detected_tracking, FINGERPRINTING_DOMAIN, FIXTURE_URL)),
-            "Canvas fingerprinting resource was detected as a tracker.")
-
-        # check that we detected canvas fingerprinting
         self.assertTrue(
             self.detected_fingerprinting(FINGERPRINTING_DOMAIN),
             "Canvas fingerprinting resource was detected as a fingerprinter."
