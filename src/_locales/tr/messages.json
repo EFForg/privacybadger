@@ -154,11 +154,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "Gezintinizden yeni takipçileri engellemeyi öğren",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Enabling learning may make you more identifiable to websites",
+        "message": "Öğrenmeyi etkinleştirmek sizi websitelere daha tanımlanabilir hale getirebilir",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
@@ -170,15 +170,15 @@
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "message": "Privacy Badger artık varsayılan olarak gezintinizden öğrenim yapmayacak.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "Daha fazla bilgi için aşağıya tıklayın.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "Privacy Badger'ın nasıl değiştiğini öğrenin",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
@@ -198,7 +198,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
+        "message": "Bu, şu bilgileri otomatik olarak EFF'ye gönderecektir: şu an ziyaret ettiğiniz sayfa, tarayıcı sürümünüz, Privacy Badger sürümü, ve bu sitedeki tüm kaydırıcıların durumu.",
         "description": ""
     },
     "popup_enable_for_site": {
@@ -262,11 +262,11 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "Gizlilik",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
-        "message": "Advanced",
+        "message": "Gelişmiş",
         "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
@@ -322,11 +322,11 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "Otomatikmen öğrenir",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "Neleri engelleyeceğinin listesini tutmak yerine, Privacy Badger takipçileri davranışlarına bakarak otomatik olarak keşfeder.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
@@ -334,7 +334,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Görünmez takip etme pek çok yolla gerçekleşir; reklamlar buzdağının sadece görünen kısmıdır. Privacy Badger <a href='https://globalprivacycontrol.org/' target='_blank'>Global Gizlilik Kontrol sinyali</a> göndererek sizi veri paylaşım ve satışından geri çeker, ve <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track sinyali</a> göndererek şirektlere sizi takip etmemesini söyler. Eğer isteklerinizi yerine getirmezlerse, Privacy Badger onları engellemeyi öğrenir - ister reklam ister başka türlü bir takipçi olsun.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -378,15 +378,15 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "Websitelere \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Gizlilik Kontrolü</a>\" ve \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" sinyali gönder",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
+        "message": "Google'a ziyaret ettiğiniz web adreslerini göndermeyi devre dışı bırak. Bu, bir sayfa bulunamadığında benzer sayfa önermeyi devre dışı bırakır.",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disable hyperlink auditing",
+        "message": "Hyperlink denetimini devre dışı bırak",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -394,7 +394,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_instructions": {
-        "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
+        "message": "$COUNT$ potansiyel $LINK_START$takipçi$LINK_END$ engellendi",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -411,7 +411,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "message": "Hiçbir $LINK_START$takipçi$LINK_END$ engellenmedi",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -424,7 +424,7 @@
         }
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page. Hooray for privacy!",
+        "message": "Bu sayfada hiçbir üçüncü parti kaynağı yok. Yaşasın gizlilik!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
@@ -448,7 +448,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "message": "Privacy Badger, şu ana kadar $COUNT$ potansiyel $TRACKER_LINK_START$takipçi adresi$TRACKER_LINK_END$ engellemeye karar verdi",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -605,7 +605,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger blocked $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "Privacy Badger $COUNT$ potansiyel takipçiyi $DOMAIN$ adresinde engelledi:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -655,7 +655,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
+        "message": "<p>Privacy Badger müteakip sitelerde devre dışı bırakıldı. Bu, Privacy Badger'ın bu listedeki sitelerde hiçbir şeyi engellemeyeceği anlamına gelir; aynı zamanda Do Not Track veya Global Gizlilik Kontolü sinyallerini göndermez.</p><p>Eğer Privacy Badger'ın bir sayfayı bozduğunu düşünüyorsanız, veya belli bir sitenin verilerinizi paylaşmasına veya satmasına izin vermek istiyorsanız, sayfanın adresini aşağıdaki kutucuğa yazıp \"Adresi ekle\" butonuna tıklayın.</p><p>Alternatif olarak, sayfanın sekmesi seçili iken tarayıcı araç çubuğundan Privacy Badger butonuna tıklayın ve \"Devre Dışı Bırak\" tuşuna basın.</p>",
         "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
     },
     "allowlist_domain_input_placeholder": {
