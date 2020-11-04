@@ -3585,6 +3585,21 @@ let multiDomainFirstPartiesArray = [
     "toyota-europe.com",
   ],
   [
+    "tribpub.com",
+
+    "baltimoresun.com",
+    "bestreviews.com",
+    "chicagotribune.com",
+    "courant.com",
+    "dailypress.com",
+    "mcall.com",
+    "nydailynews.com",
+    "orlandosentinel.com",
+    "pilotonline.com",
+    "sun-sentinel.com",
+    "thedailymeal.com",
+  ],
+  [
     "tripadvisor.com",
 
     "tripadvisor.at",
