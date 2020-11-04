@@ -3080,6 +3080,7 @@ let multiDomainFirstPartiesArray = [
   ["pornhub.com", "phncdn.com"],
   ["postepay.it", "poste.it"],
   ["postimees.ee", "city24.ee", "city24.lv", "pmo.ee"],
+  ["pressreader.com", "prcdn.co"],
   [
     "pricerunner.com",
 
