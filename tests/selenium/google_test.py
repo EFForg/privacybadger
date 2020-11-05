@@ -37,7 +37,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
         def _check_results():
             # select all anchor elements with non-empty href attributes
             SELECTOR = "a[href]:not([href=''])"
-            search_results = self.driver.find_elements_by_tag_name(SELECTOR)
+            search_results = self.driver.find_elements_by_css_selector(SELECTOR)
 
             # verify these appear to be actual search results
             hrefs = [link.get_attribute('href') for link in search_results]
