@@ -24,6 +24,9 @@ function cleanLink(a) {
   // reassign href when in firefox android
   if (a.href.startsWith(document.location.origin) && (new URL(a.href).searchParams.get('q'))) {
     let href = new URL(a.href).searchParams.get('q');
+    if (!window.isURL(href)) {
+      return;
+    }
     a.href = href;
   }
 }
