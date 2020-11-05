@@ -22,9 +22,9 @@ function cleanLink(a) {
   a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
 
   // reassign href when in firefox android
-  if (a.href.startsWith(document.location.origin) && (new URL(a.href).searchParams.get('q'))) {
-    let href = new URL(a.href).searchParams.get('q');
-    if (window.isURL(href)) {
+  if (a.href.startsWith(document.location.origin + "/url?q=")) {
+    let href = (new URL(a.href)).searchParams.get('q');
+    if (href && window.isURL(href)) {
       a.href = href;
     }
   }
