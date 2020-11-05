@@ -30,6 +30,12 @@ function cleanLink(a) {
   }
 }
 
+function cleanAllLinks() {
+  findInAllFrames(trap_link).forEach((link) => {
+    cleanLink(link);
+  });
+}
+
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
   type: "checkEnabled"
@@ -38,9 +44,10 @@ chrome.runtime.sendMessage({
     return;
   }
 
-  // since the page is rendered all at once, no need to set up a
-  // mutationObserver or setInterval
-  findInAllFrames(trap_link).forEach((link) => {
-    cleanLink(link);
-  });
+  // since the page is rendered all at once,
+  // no need to set up a mutationObserver or setInterval
+  cleanAllLinks();
+  // there does appear to be a timing issue here though,
+  // so let's rerun after a delay
+  setTimeout(cleanAllLinks, 2000);
 });
