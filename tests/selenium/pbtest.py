@@ -247,7 +247,7 @@ def if_firefox(wrapper):
     return test_catcher
 
 
-def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ..."):
+def retry_until(fun, tester=None, times=3, msg=None):
     """
     Execute function `fun` until either its return is truthy
     (or if `tester` is set, until the result of calling `tester` with `fun`'s return is truthy),
@@ -262,9 +262,10 @@ def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ...")
         elif result:
             break
 
-        if i == 0:
-            print("")
-        print(msg)
+        if msg:
+            if i == 0:
+                print("")
+            print(msg)
 
         time.sleep(2 ** i)
 
