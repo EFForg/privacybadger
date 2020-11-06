@@ -8,7 +8,7 @@ import time
 import unittest
 
 from contextlib import contextmanager
-from functools import wraps
+from functools import partial, wraps
 from shutil import copytree
 
 from selenium import webdriver
@@ -247,7 +247,7 @@ def if_firefox(wrapper):
     return test_catcher
 
 
-def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ..."):
+def retry_until(fun, tester=None, times=3, msg=None):
     """
     Execute function `fun` until either its return is truthy
     (or if `tester` is set, until the result of calling `tester` with `fun`'s return is truthy),
@@ -262,13 +262,26 @@ def retry_until(fun, tester=None, times=5, msg="Waiting a bit and retrying ...")
         elif result:
             break
 
-        if i == 0:
-            print("")
-        print(msg)
+        if msg:
+            if i == 0:
+                print("")
+            print(msg)
 
         time.sleep(2 ** i)
 
     return result
+
+
+def convert_exceptions_to_false(fun, silent=False):
+    def converter(fun, silent):
+        try:
+            result = fun()
+        except Exception as e:
+            if not silent:
+                print("\nCaught exception:", str(e))
+            return False
+        return result
+    return partial(converter, fun, silent)
 
 
 attempts = {} # used to count test retries

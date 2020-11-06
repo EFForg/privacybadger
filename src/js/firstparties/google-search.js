@@ -1,7 +1,6 @@
 /* globals findInAllFrames:false */
-// In Firefox, outbound google links have the `rwt(...)` mousedown trigger.
-// In Chrome, they just have a `ping` attribute.
-let trap_link = "a[onmousedown^='return rwt(this,'], a[ping]";
+// Outbound Google links are different across browsers. In order here: Firefox, Chrome, Firefox Android
+let trap_link = "a[onmousedown^='return rwt(this,'], a[ping], a[href^='/url?q=']";
 
 // Remove excessive attributes and event listeners from link a
 function cleanLink(a) {
@@ -21,6 +20,20 @@ function cleanLink(a) {
   // block event listeners on the link
   a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
   a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
+
+  // reassign href when in firefox android
+  if (a.href.startsWith(document.location.origin + "/url?q=")) {
+    let href = (new URL(a.href)).searchParams.get('q');
+    if (href && window.isURL(href)) {
+      a.href = href;
+    }
+  }
+}
+
+function cleanAllLinks() {
+  findInAllFrames(trap_link).forEach((link) => {
+    cleanLink(link);
+  });
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
@@ -31,9 +44,10 @@ chrome.runtime.sendMessage({
     return;
   }
 
-  // since the page is rendered all at once, no need to set up a
-  // mutationObserver or setInterval
-  findInAllFrames(trap_link).forEach((link) => {
-    cleanLink(link);
-  });
+  // since the page is rendered all at once,
+  // no need to set up a mutationObserver or setInterval
+  cleanAllLinks();
+  // there does appear to be a timing issue here though,
+  // so let's rerun after a delay
+  setTimeout(cleanAllLinks, 2000);
 });
