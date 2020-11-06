@@ -403,10 +403,9 @@ class PBSeleniumTest(unittest.TestCase):
         self.driver.switch_to.window(self.driver.current_window_handle)
 
         if wait_for_body_text:
+            # wait for document.body.textContent to become truthy
             retry_until(
-                lambda: self.driver.find_element_by_tag_name('body').text,
-                msg="Waiting for document.body.textContent to get populated ..."
-            )
+                lambda: self.driver.find_element_by_tag_name('body').text)
 
     def txt_by_css(self, css_selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Find an element by CSS selector and return its text."""
