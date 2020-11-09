@@ -1080,6 +1080,7 @@ function dispatcher(request, sender, sendResponse) {
         console.error(err);
       }
       badger.blockWidgetDomains();
+      badger.blockPanopticlickDomains();
       sendResponse();
     });
     // indicate this is an async response to chrome.runtime.onMessage

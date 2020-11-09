@@ -93,10 +93,11 @@ function Badger() {
     await dntHashesPromise;
     await tabDataPromise;
 
-    // block all widget domains
-    // only need to do this when the widget list could have gotten updated
     if (badger.isFirstRun || badger.isUpdate) {
+      // block all widget domains
+      // only need to do this when the widget list could have gotten updated
       self.blockWidgetDomains();
+      self.blockPanopticlickDomains();
     }
 
     // start the listeners
@@ -390,7 +391,7 @@ Badger.prototype = {
    * to ensure that all widgets that could get replaced
    * do get replaced by default for all users.
    */
-  blockWidgetDomains: function () {
+  blockWidgetDomains() {
     let self = this;
 
     // compile set of widget domains
@@ -408,6 +409,17 @@ Badger.prototype = {
     for (let domain of domains) {
       self.heuristicBlocking.blocklistOrigin(
         window.getBaseDomain(domain), domain);
+    }
+  },
+
+  /**
+   * Blocks the test domains used by Panopticlick.
+   *
+   * https://github.com/EFForg/privacybadger/issues/2712
+   */
+  blockPanopticlickDomains() {
+    for (let domain of ["trackersimulator.org", "eviltracker.net"]) {
+      this.heuristicBlocking.blocklistOrigin(domain, domain);
     }
   },
 
