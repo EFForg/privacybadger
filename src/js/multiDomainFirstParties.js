@@ -2112,6 +2112,28 @@ let multiDomainFirstPartiesArray = [
   ["jobware.de", "jobware.com", "jobware.net"],
   ["jotform.com", "jotfor.ms"],
   [
+    "kaspersky.com",
+
+    "kaspersky.ca",
+    "kaspersky.co.in",
+    "kaspersky.com.au",
+    "kaspersky.com.br",
+    "kaspersky.com.cn",
+    "kaspersky.com.tr",
+    "kaspersky.com.tw",
+    "kaspersky.co.uk",
+    "kaspersky.de",
+    "kaspersky.es",
+    "kaspersky.fi",
+    "kaspersky.fr",
+    "kaspersky.gr",
+    "kaspersky.it",
+    "kaspersky.nl",
+    "kaspersky.ru",
+
+    "kaspersky-labs.com",
+  ],
+  [
     "kayak.com",
 
     "kayak.ae",
