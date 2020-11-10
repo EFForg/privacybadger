@@ -1,6 +1,6 @@
 # Translating Privacy Badger
 
-We need your help in translating Privacy Badger to every possible language!
+We need your help in translating Privacy Badger to [every possible language](https://developer.chrome.com/webstore/i18n?csw=1#localeTable)!
 
 When translating you should always use the source (American English) locale as
 the reference. You can also use existing translations from other languages to
