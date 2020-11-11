@@ -451,12 +451,12 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     widget_link.href = elToReplace.src;
     widget_link.innerHTML = name + ' widget';
 
-    textDiv.innerHTML = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX widget", ' ')
-    textDiv.appendChild(widget_link)
+    textDiv.innerHTML = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX widget", ' ');
+    textDiv.appendChild(widget_link);
   } else {
     textDiv.appendChild(document.createTextNode(
       TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
-  };
+  }
 
   let infoIcon = document.createElement('a'),
     info_icon_id = _make_id("ico-help");
