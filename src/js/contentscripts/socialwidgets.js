@@ -443,8 +443,21 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
 
   let textDiv = document.createElement('div');
   textDiv.style = styleAttrs.join(" !important;") + " !important";
-  textDiv.appendChild(document.createTextNode(
-    TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
+  // add link to replaced widget text if it has a src
+  if (elToReplace.getAttribute("src")) {
+    let widget_link = document.createElement("a");
+    widget_link.rel = "noreferrer";
+    widget_link.target = "_blank";
+    widget_link.href = elToReplace.src;
+    widget_link.innerHTML = name + ' widget';
+
+    textDiv.innerHTML = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX widget", ' ')
+    textDiv.appendChild(widget_link)
+  } else {
+    textDiv.appendChild(document.createTextNode(
+      TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
+  };
+
   let infoIcon = document.createElement('a'),
     info_icon_id = _make_id("ico-help");
   infoIcon.id = info_icon_id;
