@@ -451,7 +451,15 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     widget_link.href = elToReplace.src;
     widget_link.innerHTML = name + ' widget';
 
-    textDiv.innerHTML = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX widget", ' ');
+    let widget_link_styles = [
+      "color: #ec9329",
+      "margin-left: 3px",
+      "text-decoration: none"
+    ];
+
+    widget_link.style = widget_link_styles.join(" !important;") + " !important";
+
+    textDiv.innerHTML = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX widget", '');
     textDiv.appendChild(widget_link);
   } else {
     textDiv.appendChild(document.createTextNode(
