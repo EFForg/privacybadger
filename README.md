@@ -1,4 +1,4 @@
-Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadger.svg?branch=master)](https://travis-ci.org/EFForg/privacybadger)
+Privacy Badger [![Build Status](https://travis-ci.com/EFForg/privacybadger.svg?branch=master)](https://travis-ci.com/EFForg/privacybadger)
 ===================
 Privacy Badger is a browser extension that automatically learns to block invisible trackers. Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.
 
