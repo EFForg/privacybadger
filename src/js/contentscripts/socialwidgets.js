@@ -445,22 +445,22 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   textDiv.style = styleAttrs.join(" !important;") + " !important";
   // add link to replaced widget text if it has a src
   if (elToReplace.getAttribute("src")) {
-    let widget_link = document.createElement("a");
-    widget_link.rel = "noreferrer";
-    widget_link.target = "_blank";
-    widget_link.href = elToReplace.src;
-    widget_link.innerHTML = name + ' widget';
+    let widgetLink = document.createElement("a");
+    widgetLink.rel = "noreferrer";
+    widgetLink.target = "_blank";
+    widgetLink.href = elToReplace.src;
+    widgetLink.innerHTML = name + ' widget';
 
-    let widget_link_styles = [
+    let widgetLinkStyles = [
       "color: #ec9329",
       "margin-left: 3px",
       "text-decoration: none"
     ];
 
-    widget_link.style = widget_link_styles.join(" !important;") + " !important";
+    widgetLink.style = widgetLinkStyles.join(" !important;") + " !important";
 
     textDiv.innerHTML = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX widget", '');
-    textDiv.appendChild(widget_link);
+    textDiv.appendChild(widgetLink);
   } else {
     textDiv.appendChild(document.createTextNode(
       TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
