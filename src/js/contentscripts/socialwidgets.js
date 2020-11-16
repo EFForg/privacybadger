@@ -443,8 +443,9 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
 
   let textDiv = document.createElement('div');
   textDiv.style = styleAttrs.join(" !important;") + " !important";
+
   // add link to replaced widget text if it has a src
-  if (elToReplace.getAttribute("src")) {
+  if (elToReplace.getAttribute("src") && elToReplace.tagName == 'IFRAME') {
     let widgetLink = document.createElement("a");
     widgetLink.rel = "noreferrer";
     widgetLink.target = "_blank";
