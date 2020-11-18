@@ -3585,6 +3585,7 @@ let multiDomainFirstPartiesArray = [
   ["suning.com", "suning.cn", "hksuning.com"],
   ["target.com", "targetimg1.com"],
   ["techdata.com", "techdata.ch"],
+  ["telegraaf.nl", "tcdn.nl", "tmgonlinemedia.nl", "tnet.nl"],
   ["telegram.org", "telegram.me", "t.me"],
   ["telekom.com", "t-online.de"],
   ["tesla.com", "teslamotors.com"],
