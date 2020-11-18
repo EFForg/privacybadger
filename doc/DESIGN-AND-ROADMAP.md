@@ -72,69 +72,66 @@ Privacy Badger:
 
 #### Further Details
 
-# :warning: THIS SECTION IS OUTDATED AND NEEDS TO BE REWRITTEN :warning:
+Learning from cookies happens in [`heuristicblocking.js`](src/js/heuristicblocking.js) [*sic*].
 
-Data Structures:
+Privacy Badger also learns from [fingerprinting](src/js/contentscripts/fingerprinting.js) and [HTML5 local storage "supercookies"](src/js/contentscripts/supercookie.js).
 
-- action_map = { 'google.com': blocked, 'fonts.google.com': 'cookieblocked', 'apis.fonts.google.com': 'user_cookieblock', 'foo.tracker.net': 'allow', 'tracker.net': 'DNT', }
-- snitch_map = {google.com: array('cooperq.com', 'noah.com', 'eff.org'), tracker.net: array(a.com, b.com, c.com)}
-- dnt_domains = array('tracker.net', 'dnt.eff.org')
-- settings = {social_widgets = true, ...}
-- cookie_block_list = "{'fonts.google.com': true, 'maps.google.com', true}"
+Request blocking/modification happens in [`webrequest.js`](src/js/webrequest.js).
 
+##### Data Structures:
 
-On Request():
+`action_map` is an object keyed by fully qualified domain names of third parties (potential trackers). The value for each key is another object containing at least one (`heuristicAction`) and up to four entries:
 
-      if privacy badger is not enabled for the tab domain then return
-      if fqdn is not a third party then return
+- `heuristicAction`: one of `""` (no tracking seen), `"allow"` (Privacy Badger has not yet made a decision to block), `"cookieblock"`, `"block"`
+- `userAction`: one of `"user_allow"`, `"user_cookieblock"`, `"user_block"`. Set if the user moves the slider for the corresponding third party FQDN.
+- `dnt`: `true` or `false`
+- `nextUpdateTime`: an integer timestamp of the earliest time we should recheck for presence of EFF's DNT Policy
 
-      action = check_action(fqdn) (described below)
+For example:
 
-      if action is block then cancel request
-      if action is cookie_block then strip headers
-      if fqdn is nontracking (i.e check_action returned nothing) then do nothing
-      if action is noaction or any user override then async_check_tracking
-      if action is allow && count == 2 then blocking_check_tracking
-        if check_tracking changed action then call check_action again
-        else do_nothing
+```json
+{
+    "google.com": {
+        "heuristicAction": "block",
+        "nextUpdateTime": 1602051816434
+    },
+    "fonts.google.com": {
+        "heuristicAction": "cookieblock"
+    },
+    "accounts.google.com": {
+        "heuristicAction": "cookieblock",
+        "userAction": "user_allow"
+    },
+    "maybe.a.tracker.example.net": {
+        "heuristicAction": "allow"
+    },
+    "privacy.respectful.example.com": {
+        "dnt": true,
+        "heuristicAction": "",
+        "nextUpdateTime": 1602130658236
+    }
+}
+```
 
-      async_check_dnt(fqdn)
+`snitch_map` is an object keyed by [eTLD+1](https://en.wikipedia.org/wiki/Public_Suffix_List) (no subdomains!) domain names of third parties (potential trackers). The values are arrays of eTLD+1 domain names of first parties (sites you visit directly) that the corresponding third party was seen perform tracking on. For example:
 
-check_action(fqdn): returns action
+```json
+{
+    "google-analytics.com": [
+        "linkedin.com",
+        "theguardian.com",
+        "godaddy.com"
+    ]
+}
+```
 
-      related_domains = array()
-      best_action = 'noaction'
-
-      for $domain in range(fqdn ... etld+1)
-        if action_map contains $domain
-          related_domains.shift($domain)
-
-        for each domain in related domains
-          if score(domain.action) > score(best_action)
-            best_action = domain.action
-
-        return best_action
-
-check_tracking(fqdn): return boolean
-
-      var base_domain = etld+1(fqdn)
-
-      if has_cookie or has_supercookie or has_fingerprinting
-        if snitch_map doesn't have base domain add it
-        if snitch_map doesn't have first party add it
-        if snitch_map.base_domain.len >= 3
-          add base domain to action map as blocked
-          add all chlidren of base_domain and self from yellow list to action map
-          return true
 
 ##### What is an "origin" for Privacy Badger?
 
 Privacy Badger has two notions of origin.  One is the [effective top level
 domain](https://wiki.mozilla.org/Public_Suffix_List) plus one level of
 subdomain (eTLD+1), computed using
-[getBaseDomain](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIEffectiveTLDService)
-(which is built-in to Firefox; in Chrome we [ship a
-copy](https://github.com/EFForg/privacybadger/blob/8e8ad9838b74b6d13354163f78d362ca60dd44f9/src/lib/basedomain.js#L75).
+[`getBaseDomain()`](https://github.com/EFForg/privacybadger/blob/8e8ad9838b74b6d13354163f78d362ca60dd44f9/src/lib/basedomain.js#L75).
 The accounting for which origins are trackers or not is performed by looking
 up how many first party fully qualified domain names (FQDNs) have been tracked by each
 of these eTLD + 1 origins.  This is a conservative choice, which avoids the
@@ -147,33 +144,6 @@ Users are able to override Privacy Badger's decision for any given FQDN if they
 do not wish to block something that is otherwise blocked (or block something
 that is not blocked).
 
-To illustrate this, suppose the site <tt>tracking.co.uk</tt> was embedded on
-every site on the Web, but each embed came from a randomly selected subdomain
-<tt>a.tracking.co.uk</tt>, <tt>b.tracking.co.uk</tt>,
-<tt>c.tracking.co.uk</tt>, etc.  Suppose the user visits
-<tt>www.news-example.com</tt> and <tt>search.jobs-example.info</tt>.
-
-The accounting data structure <tt>seenThirdParties</tt> would come to include:
-
-```
-{
-  ...
-  "tracking.co.uk" : {
-    "news-example.com"  : true,
-    "jobs-example.info" : true,
-  }
-  ...
-}
-```
-
-Now suppose the user visits a third site, <tt>clickbait.nonprofit.org</tt>,
-and is tracked by <tt>q.tracking.co.uk</tt> on that site.  The
-seenThirdParties data structure will have a third entry added to it, meeting
-the threshold of three first party origins and defining
-<tt>tracking.co.uk</tt> as a tracking eTLD+1.  At this point
-<tt>tracking.co.uk</tt> will be added to the block list. Any future requests to
-<tt>tracking.co.uk</tt>, or any of its subdomains, will be blocked.
-The user can manually unblock specific subdomains as necessary via the popup menu.
 
 ##### What is a "low entropy" cookie?
 
