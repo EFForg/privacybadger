@@ -3,7 +3,7 @@
 This document explains the need for each [extension permission](https://developer.chrome.com/extensions/declare_permissions) declared in Privacy Badger's [extension manifest](/src/manifest.json).
 
 ## Privacy
-The Privacy API lets extensions modify browser-wide privacy settings. Privacy Badger uses it to disable a setting that lets Chrome send third-party requests to resolve errors, and to turns off link tracking via the HTML ping attribute. We also give users the option to change their WebRTC privacy level in order to prevent leaking local network address information.
+The Privacy API lets extensions modify browser-wide privacy settings. Privacy Badger uses the Privacy API to disable [hyperlink auditing](https://www.bleepingcomputer.com/news/software/major-browsers-to-prevent-disabling-of-click-tracking-privacy-risk/). Privacy Badger also disables suggestions for similar pages when a page can't be found in Chrome, as this Chrome feature sends visited web addresses to Google. In addition, Privacy Badger allows users to set a stricter WebRTC IP handling policy in order to prevent leaking local network address information.
 
 ## Cookies
 Privacy Badger needs access to the cookies API in order to detect and correct a common error where Cloudflare domains are identified as trackers and blocked.
