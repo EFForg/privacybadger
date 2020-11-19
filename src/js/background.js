@@ -208,17 +208,16 @@ Badger.prototype = {
           fpData: {
             <script_origin>: {
               canvas: {
-                fingerprinting: boolean,
-                write: boolean
+                fingerprinting: {Boolean},
+                write: {Boolean}
               }
             },
             ...
           },
           frames: {
             <frame_id>: {
-              url: string,
-              host: string,
-              parent: int
+              url: {String},
+              host: {String}
             },
             ...
           },
