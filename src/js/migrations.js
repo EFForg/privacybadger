@@ -340,7 +340,12 @@ exports.Migrations= {
       // in case it needs to be migrated from Mode 4 to Mode 3
       badger.setPrivacyOverrides();
     });
-  }
+  },
+
+  forgetOpenDNS: (badger) => {
+    console.log("Forgetting Cisco OpenVPN domains ...");
+    badger.storage.forget("opendns.com");
+  },
 
 };
 

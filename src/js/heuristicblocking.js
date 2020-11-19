@@ -310,6 +310,11 @@ HeuristicBlocker.prototype = {
       return; // We already know about the presence of this tracker on the given domain
     }
 
+    // do not record Cisco OpenDNS/Umbrella proxy domains
+    if (tracker_fqdn.endsWith(".id.opendns.com")) {
+      return;
+    }
+
     // record that we've seen this tracker on this domain (in snitch map)
     firstParties.push(page_origin);
     snitchMap.setItem(tracker_origin, firstParties);

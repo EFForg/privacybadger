@@ -847,6 +847,7 @@ Badger.prototype = {
       Migrations.forgetConsensu,
       Migrations.resetWebRTCIPHandlingPolicy2,
       Migrations.resetWebRtcIpHandlingPolicy3,
+      Migrations.forgetOpenDNS,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
