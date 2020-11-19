@@ -822,6 +822,8 @@ let multiDomainFirstPartiesArray = [
     "ciscolive.com",
     "duo.com",
     "netacad.com",
+    "opendns.com",
+    "umbrella.com",
     "webex.com",
 
     "static-cisco.com",
