@@ -446,25 +446,45 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
 
   // add link to replaced widget text if it has a src
   if (elToReplace.getAttribute("src") && elToReplace.tagName == 'IFRAME') {
+    // create wrapper divs for link and text nodes
+    let wrapperDiv = document.createElement("div");
+    let textNode1 = document.createElement("span");
+    let textNode2 = document.createElement("span");
+
     let widgetLink = document.createElement("a");
     widgetLink.rel = "noreferrer";
     widgetLink.target = "_blank";
     widgetLink.href = elToReplace.src;
-    widgetLink.innerHTML = name + ' widget';
+    widgetLink.id = ("widgetLink");
+    widgetLink.innerText = 'this ' + name + ' widget';
 
     let widgetLinkStyles = [
       "color: #ec9329",
-      "margin-left: 3px",
       "text-decoration: none"
     ];
 
     widgetLink.style = widgetLinkStyles.join(" !important;") + " !important";
 
-    textDiv.innerHTML = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX widget", '');
-    textDiv.appendChild(widgetLink);
+    // create html chunk
+    wrapperDiv.appendChild(textNode1).appendChild(widgetLink).appendChild(textNode2);
+
+    // replace placeholders in locale string
+    let textChunk = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", "");
+    textChunk = textChunk.replace("start_anchor_tag", "");
+    textChunk = textChunk.replace("end_anchor_tag", "");
+    textChunk = textChunk.replace("this", "");
+    textChunk = textChunk.replace("widget", "");
+
+    textDiv.appendChild(document.createTextNode(textChunk));
+
+    textDiv.appendChild(wrapperDiv);
   } else {
-    textDiv.appendChild(document.createTextNode(
-      TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
+    // there is no link to construct onto the widget replacement modal
+    // replace and remove the placeholders on the locales string
+    let textChunk = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name);
+    textChunk = textChunk.replace("start_anchor_tag", "");
+    textChunk = textChunk.replace("end_anchor_tag", "");
+    textDiv.appendChild(document.createTextNode(textChunk));
   }
 
   let infoIcon = document.createElement('a'),
