@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-LATEST_SDK_VERSION=5.3.0
+LATEST_SDK_VERSION=5.4.0
 WEB_EXT=../node_modules/.bin/web-ext
 
 # Auto-generated XPI name from 'web-ext sign'
