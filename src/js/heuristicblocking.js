@@ -294,20 +294,10 @@ HeuristicBlocker.prototype = {
    * @param {String} page_origin Base domain of page where tracking occurred
    */
   _recordPrevalence: function (tracker_fqdn, tracker_origin, page_origin) {
-    var snitchMap = this.storage.getStore('snitch_map');
-    var firstParties = [];
-    if (snitchMap.hasItem(tracker_origin)) {
-      firstParties = snitchMap.getItem(tracker_origin);
-    }
-
     // GDPR Consent Management Provider
     // https://github.com/EFForg/privacybadger/pull/2245#issuecomment-545545717
     if (tracker_origin == "consensu.org") {
       return;
-    }
-
-    if (firstParties.indexOf(page_origin) != -1) {
-      return; // We already know about the presence of this tracker on the given domain
     }
 
     // do not record Cisco OpenDNS/Umbrella proxy domains
@@ -315,23 +305,33 @@ HeuristicBlocker.prototype = {
       return;
     }
 
-    // record that we've seen this tracker on this domain (in snitch map)
+    let self = this,
+      firstParties = [],
+      snitchMap = self.storage.getStore('snitch_map');
+
+    if (snitchMap.hasItem(tracker_origin)) {
+      firstParties = snitchMap.getItem(tracker_origin);
+    }
+
+    // do not record if already recorded this tracker on the given domain
+    if (firstParties.includes(page_origin)) {
+      return;
+    }
+
+    // record that we've seen this tracker on this domain
     firstParties.push(page_origin);
     snitchMap.setItem(tracker_origin, firstParties);
 
     // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
     // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
     // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
-    this.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
-    this.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
-
-    // Blocking based on outbound cookies
-    var httpRequestPrevalence = firstParties.length;
+    self.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
+    self.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
 
     // block the origin if it has been seen on multiple first party domains
-    if (httpRequestPrevalence >= constants.TRACKING_THRESHOLD) {
+    if (firstParties.length >= constants.TRACKING_THRESHOLD) {
       log('blocklisting origin', tracker_fqdn);
-      this.blocklistOrigin(tracker_origin, tracker_fqdn);
+      self.blocklistOrigin(tracker_origin, tracker_fqdn);
     }
   }
 };
