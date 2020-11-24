@@ -1,8 +1,17 @@
 let g_wrapped_link = "a[href^='https://www.google.com/url?']";
 
-// Unwrap a Hangouts tracking link
 function unwrapLink(a) {
-  let href = new URL(a.href).searchParams.get('q');
+  let href,
+    searchParams = (new URL(a.href)).searchParams;
+
+  // Gmail
+  if (searchParams.has('url')) {
+    href = searchParams.get('url');
+  // Hangouts
+  } else if (searchParams.has('q')) {
+    href = searchParams.get('q');
+  }
+
   if (!window.isURL(href)) {
     return;
   }

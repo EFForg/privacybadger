@@ -453,6 +453,8 @@
         "js/firstparties/google-static.js"
       ],
       "matches": [
+        "https://mail.google.com/*",
+        "http://mail.google.com/*",
         "https://hangouts.google.com/*",
         "http://hangouts.google.com/*",
         "https://docs.google.com/*",
