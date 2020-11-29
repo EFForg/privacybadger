@@ -451,6 +451,10 @@
         "message": "and is enforcing <a href='https://www.eff.org/deeplinks/2018/05/privacy-badger-rolls-out-new-ways-fight-facebook-tracking'>link tracking protections</a>.",
         "description": "message shown on a site where first party outgoing link tracking protections are enabled"
     },
+    "popup_info_firstparty_protections_no_trackers": {
+        "message": "<a href='https://www.eff.org/deeplinks/2018/05/privacy-badger-rolls-out-new-ways-fight-facebook-tracking'>Link tracking protections</a> are enforced.",
+        "description": "message shown on a site where first party outgoing link tracking protections are enabled, but there are no third party trackers detected."
+    },
     "popup_blocked": {
         "message": "There are no third party resources on this page. Hooray for privacy!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
