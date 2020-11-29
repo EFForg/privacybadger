@@ -169,6 +169,11 @@ function init() {
     $overlay.toggleClass('active');
   }
 
+  // show firstparty link tracking protection if we scrub links on this tab host
+  if (POPUP_DATA.tabHost == 'www.facebook.com' || POPUP_DATA.tabHost == 'www.google.com') {
+    $("#instructions_firstparty_protections").show();
+  }
+
   $("#error").on("click", function() {
     $overlay.toggleClass('active');
   });
@@ -599,11 +604,6 @@ function refreshPopup() {
 
     // show "no trackers" message
     $("#instructions-no-trackers").show();
-
-    // show first party protections message if link tracker cleaning is enabled on this tabHost
-    if (POPUP_DATA.tabHost == 'www.facebook.com' || POPUP_DATA.tabHost == 'www.google.com') {
-      $("#instructions_firstparty_protections_no_trackers").show();
-    }
   } else {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
       "popup_instructions", [
@@ -611,11 +611,6 @@ function refreshPopup() {
         "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
       ]
     )).find(".tooltip").tooltipster();
-
-    // show first party protections message if link tracker cleaning is enabled on this tabHost
-    if (POPUP_DATA.tabHost == 'www.facebook.com' || POPUP_DATA.tabHost == 'www.google.com') {
-      $("#instructions_firstparty_protections").show();
-    }
   }
 
   function renderDomains() {
