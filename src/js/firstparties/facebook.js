@@ -8,33 +8,57 @@ function stopPropagation(e) {
   e.stopImmediatePropagation();
 }
 
-// remove all attributes from a link except for class and ARIA attributes
+// remove all attributes from a link
 function cleanAttrs(elem) {
-  for (let i = elem.attributes.length - 1; i >= 0; --i) {
-    const attr = elem.attributes[i];
-    if (attr.name !== 'class' && !attr.name.startsWith('aria-')) {
+  for (let attr of elem.attributes) {
+    // with some exceptions
+    if (attr.name != 'href' && attr.name != 'class' && !attr.name.startsWith('aria-')) {
       elem.removeAttribute(attr.name);
     }
   }
 }
 
-// Remove excessive attributes and event listeners from link a and replace
-// its destination with href
+/**
+ * Cleans link elements:
+ *
+ *  - removes link redirection/"unwraps" the href
+ *  - removes fbclid parameter
+ *  - removes non-essential attributes
+ *  - stops mouse events
+ *
+ * Could be called multiple times on the same element.
+ *
+ * @param {Element} a the link element
+ */
 function cleanLink(a) {
-  let href = new URL(a.href).searchParams.get('u');
+  let cleaned = false,
+    url = new URL(a.href);
 
-  // If we can't extract a good URL, abort without breaking the links
-  if (!window.isURL(href)) {
+  // remove link redirection
+  if (url.searchParams.has('u')) {
+    let u_param = url.searchParams.get('u');
+    if (window.isURL(u_param)) {
+      // now remove fbclid
+      let uParamUrl = new URL(u_param);
+      uParamUrl.searchParams.delete('fbclid');
+      a.href = uParamUrl.toString();
+      cleaned = true;
+    }
+
+  // just remove fbclid
+  } else if (url.searchParams.has('fbclid')) {
+    url.searchParams.delete('fbclid');
+    a.href = url.toString();
+    cleaned = true;
+  }
+
+  if (!cleaned) {
     return;
   }
 
-  let href_url = new URL(href);
-  href_url.searchParams.delete('fbclid');
-  href = href_url.toString();
-
   cleanAttrs(a);
-  a.href = href;
-  a.rel = "noreferrer";
+
+  a.rel = "noreferrer noopener";
   a.target = "_blank";
 
   a.addEventListener("click", stopPropagation, true);
@@ -56,6 +80,6 @@ chrome.runtime.sendMessage({
     cleanLink(link);
   });
 
-  // Execute redirect unwrapping each time new content is added to the page
+  // execute redirect unwrapping each time new content is added to the page
   observeMutations(fb_wrapped_link, cleanLink);
 });
