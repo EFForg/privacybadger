@@ -28,11 +28,11 @@ function cleanAttrs(elem) {
  *
  * Could be called multiple times on the same element.
  *
- * @param {Element} a the link element
+ * @param {Element} el the link element
  */
-function cleanLink(a) {
+function cleanLink(el) {
   let cleaned = false,
-    url = new URL(a.href);
+    url = new URL(el.href);
 
   // remove link redirection
   if (url.searchParams.has('u')) {
@@ -41,14 +41,14 @@ function cleanLink(a) {
       // now remove fbclid
       let uParamUrl = new URL(u_param);
       uParamUrl.searchParams.delete('fbclid');
-      a.href = uParamUrl.toString();
+      el.href = uParamUrl.toString();
       cleaned = true;
     }
 
   // just remove fbclid
   } else if (url.searchParams.has('fbclid')) {
     url.searchParams.delete('fbclid');
-    a.href = url.toString();
+    el.href = url.toString();
     cleaned = true;
   }
 
@@ -56,15 +56,15 @@ function cleanLink(a) {
     return;
   }
 
-  cleanAttrs(a);
+  cleanAttrs(el);
 
-  a.rel = "noreferrer noopener";
-  a.target = "_blank";
+  el.rel = "noreferrer noopener";
+  el.target = "_blank";
 
-  a.addEventListener("click", stopPropagation, true);
-  a.addEventListener("mousedown", stopPropagation, true);
-  a.addEventListener("mouseup", stopPropagation, true);
-  a.addEventListener("mouseover", stopPropagation, true);
+  el.addEventListener("click", stopPropagation, true);
+  el.addEventListener("mousedown", stopPropagation, true);
+  el.addEventListener("mouseup", stopPropagation, true);
+  el.addEventListener("mouseover", stopPropagation, true);
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
