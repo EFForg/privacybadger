@@ -4,6 +4,10 @@
 // facebookcorewwwi.onion
 let fb_wrapped_link = `a[href*='${document.domain.split(".").slice(-2).join(".")}/l.php?']:not([aria-label])`;
 
+function stopPropagation(e) {
+  e.stopImmediatePropagation();
+}
+
 // remove all attributes from a link except for class and ARIA attributes
 function cleanAttrs(elem) {
   for (let i = elem.attributes.length - 1; i >= 0; --i) {
@@ -32,10 +36,11 @@ function cleanLink(a) {
   a.href = href;
   a.rel = "noreferrer";
   a.target = "_blank";
-  a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
-  a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
-  a.addEventListener("mouseup", function (e) { e.stopImmediatePropagation(); }, true);
-  a.addEventListener("mouseover", function (e) { e.stopImmediatePropagation(); }, true);
+
+  a.addEventListener("click", stopPropagation, true);
+  a.addEventListener("mousedown", stopPropagation, true);
+  a.addEventListener("mouseup", stopPropagation, true);
+  a.addEventListener("mouseover", stopPropagation, true);
 }
 
 // TODO race condition; fix waiting on https://crbug.com/478183
