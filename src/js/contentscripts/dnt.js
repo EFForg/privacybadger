@@ -22,17 +22,21 @@ function getPageScript() {
   // return a string
   return "(" + function (NAVIGATOR, OBJECT) {
 
-    OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
-      get: function doNotTrack() {
-        return "1";
-      }
-    });
+    if (!NAVIGATOR.doNotTrack) {
+      OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
+        get: function doNotTrack() {
+          return "1";
+        }
+      });
+    }
 
-    OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "globalPrivacyControl", {
-      get: function globalPrivacyControl() {
-        return true;
-      }
-    });
+    if (!NAVIGATOR.globalPrivacyControl) {
+      OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "globalPrivacyControl", {
+        get: function globalPrivacyControl() {
+          return true;
+        }
+      });
+    }
 
   // save locally to keep from getting overwritten by site code
   } + "(window.navigator, Object));";
