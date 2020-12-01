@@ -31,11 +31,13 @@ function getPageScript() {
     }
 
     if (!NAVIGATOR.globalPrivacyControl) {
-      OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "globalPrivacyControl", {
-        get: function globalPrivacyControl() {
-          return true;
-        }
-      });
+      try {
+        OBJECT.defineProperty(NAVIGATOR, "globalPrivacyControl", {
+          value: true
+        });
+      } catch (e) {
+        console.error("Privacy Badger failed to set navigator.globalPrivacyControl, probably because another extension set it in an incompatible way first.");
+      }
     }
 
   // save locally to keep from getting overwritten by site code
