@@ -279,8 +279,8 @@ class DntTest(pbtest.PBSeleniumTest):
         )
         self.assertEqual(
             self.js("return navigator.globalPrivacyControl"),
-            "1",
-            "navigator.globalPrivacyControl should have been set to \"1\""
+            True,
+            "navigator.globalPrivacyControl should have been set to true"
         )
 
     def test_navigator_unmodified_when_disabled_on_site(self):

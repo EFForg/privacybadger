@@ -30,7 +30,7 @@ function getPageScript() {
 
     OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "globalPrivacyControl", {
       get: function globalPrivacyControl() {
-        return "1";
+        return true;
       }
     });
 
