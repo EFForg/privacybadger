@@ -22,7 +22,7 @@ function getPageScript() {
   // return a string
   return "(" + function (NAVIGATOR, OBJECT) {
 
-    if (!NAVIGATOR.doNotTrack) {
+    if (NAVIGATOR.doNotTrack != "1") {
       OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
         get: function doNotTrack() {
           return "1";
