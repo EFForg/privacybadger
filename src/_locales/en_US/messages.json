@@ -91,6 +91,10 @@
         "message": "Prevent WebRTC from leaking local IP address",
         "description": "Checkbox label on the general settings page"
     },
+    "options_allow_sites_widget_replacement": {
+        "message": "Allows allow media widgets on these sites:",
+        "description": "Text above the options page area that lets users add or remove sites from the widget replacement always allow list."
+    },
     "intro_welcome": {
         "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
         "description": "Intro page welcome paragraph."
