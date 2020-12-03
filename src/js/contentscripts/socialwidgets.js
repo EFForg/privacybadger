@@ -450,24 +450,24 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     let wrapperDiv = document.createElement("div");
 
     // construct the widget link
-    let localeText = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)
+    let localeText = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name);
 
-    let node1Text = localeText.slice(0, localeText.indexOf('start_anchor_tag'))
-    let node2Text = localeText.slice(localeText.indexOf('end_anchor_tag') + 14, localeText.length)
-    let widgetLinkText = localeText.slice(localeText.indexOf('start_anchor_tag') + 16, localeText.indexOf('end_anchor_tag'))
+    let node1Text = localeText.slice(0, localeText.indexOf('start_anchor_tag'));
+    let node2Text = localeText.slice(localeText.indexOf('end_anchor_tag') + 14, localeText.length);
+    let widgetLinkText = localeText.slice(localeText.indexOf('start_anchor_tag') + 16, localeText.indexOf('end_anchor_tag'));
 
-    let widgetLink = document.createElement("a")
-    widgetLink.textContent = widgetLinkText
+    let widgetLink = document.createElement("a");
+    widgetLink.textContent = widgetLinkText;
     widgetLink.rel = "noreferrer";
     widgetLink.target = "_blank";
     widgetLink.id = ("widgetLink");
     widgetLink.href = elToReplace.src;
 
-    let firstNode = document.createElement("span")
-    firstNode.textContent = node1Text
+    let firstNode = document.createElement("span");
+    firstNode.textContent = node1Text;
 
-    let secondNode = document.createElement("span")
-    secondNode.textContent = node2Text
+    let secondNode = document.createElement("span");
+    secondNode.textContent = node2Text;
 
     let widgetLinkStyles = [
       "color: #ec9329",
@@ -477,8 +477,8 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     widgetLink.style = widgetLinkStyles.join(" !important;") + " !important";
 
     // package up one solid html chunk and append that to the replaced widget text node
-    wrapperDiv.appendChild(firstNode)
-    wrapperDiv.appendChild(widgetLink)
+    wrapperDiv.appendChild(firstNode);
+    wrapperDiv.appendChild(widgetLink);
     wrapperDiv.appendChild(secondNode);
 
     textDiv.appendChild(wrapperDiv);
