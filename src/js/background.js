@@ -70,7 +70,7 @@ function Badger() {
 
     // seed data depends on the yellowlist
     await ylistPromise;
-    let seedDataPromise = self.loadFirstRunSeedData().catch(console.error);
+    let seedDataPromise = self.updateTrackerData().catch(console.error);
 
     // set badge text color to white in Firefox 63+
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
@@ -353,19 +353,56 @@ Badger.prototype = {
   },
 
   /**
-   * Loads seed data upon first run.
+   * Loads seed data on extension installation.
+   *
+   * Clears the database (preserving user-customized sliders)
+   * and loads seed data on extension update
+   * when local learning is disabled.
    *
    * @returns {Promise}
    */
-  loadFirstRunSeedData: function () {
+  updateTrackerData: function () {
     let self = this;
 
     return new Promise(function (resolve, reject) {
-      if (!self.isFirstRun) {
-        log("No need to load seed data");
+      if (!self.isFirstRun && !self.isUpdate) {
+        log("No need to load seed data (existing installation, no update)");
         return resolve();
       }
 
+      if (self.isUpdate) {
+        if (self.getSettings().getItem("learnLocally")) {
+          log("No need to load seed data (local learning is enabled)");
+          return resolve();
+
+        } else {
+          let actions = Object.entries(
+              self.storage.getStore('action_map').getItemClones()),
+            userActions = [];
+
+          log("Clearing tracker data ...");
+
+          // save user slider modifications
+          for (const [domain, actionData] of actions) {
+            if (actionData.userAction != "") {
+              userActions.push({
+                domain,
+                action: actionData.userAction
+              });
+            }
+          }
+
+          // clear existing data
+          self.storage.clearTrackerData();
+
+          // reapply customized sliders
+          for (const item of userActions) {
+            self.storage.setupUserAction(item.domain, item.action);
+          }
+        }
+      }
+
+      log("Loading seed data ...");
       self.loadSeedData(err => {
         log("Seed data loaded! (err=%o)", err);
         return (err ? reject(err) : resolve());

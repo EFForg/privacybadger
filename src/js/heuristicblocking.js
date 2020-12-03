@@ -328,9 +328,9 @@ HeuristicBlocker.prototype = {
     self.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
     self.storage.setupHeuristicAction(tracker_origin, constants.ALLOW);
 
-    // block the origin if it has been seen on multiple first party domains
+    // (cookie)block the tracker if it has been seen on multiple first party domains
     if (firstParties.length >= constants.TRACKING_THRESHOLD) {
-      log('blocklisting origin', tracker_fqdn);
+      log("blocklisting", tracker_fqdn);
       self.blocklistOrigin(tracker_origin, tracker_fqdn);
     }
   }
