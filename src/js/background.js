@@ -370,6 +370,8 @@ Badger.prototype = {
         return resolve();
       }
 
+      let userActions = [];
+
       if (self.isUpdate) {
         if (self.getSettings().getItem("learnLocally")) {
           log("No need to load seed data (local learning is enabled)");
@@ -377,12 +379,11 @@ Badger.prototype = {
 
         } else {
           let actions = Object.entries(
-              self.storage.getStore('action_map').getItemClones()),
-            userActions = [];
+            self.storage.getStore('action_map').getItemClones());
 
           log("Clearing tracker data ...");
 
-          // save user slider modifications
+          // first save user slider modifications
           for (const [domain, actionData] of actions) {
             if (actionData.userAction != "") {
               userActions.push({
@@ -394,17 +395,18 @@ Badger.prototype = {
 
           // clear existing data
           self.storage.clearTrackerData();
-
-          // reapply customized sliders
-          for (const item of userActions) {
-            self.storage.setupUserAction(item.domain, item.action);
-          }
         }
       }
 
       log("Loading seed data ...");
       self.loadSeedData(err => {
         log("Seed data loaded! (err=%o)", err);
+
+        // reapply customized sliders if any
+        for (const item of userActions) {
+          self.storage.setupUserAction(item.domain, item.action);
+        }
+
         return (err ? reject(err) : resolve());
       });
     });
