@@ -3607,6 +3607,23 @@ let multiDomainFirstPartiesArray = [
   ["squareup.com", "cash.app", "mkt.com", "squarecdn.com"],
   ["steampowered.com", "steamstatic.com", "steamcommunity.com"],
   ["suning.com", "suning.cn", "hksuning.com"],
+  [
+    "surveymonkey.com",
+
+    "surveymonkey.ca",
+    "surveymonkey.co.uk",
+    "surveymonkey.de",
+    "surveymonkey.eu",
+    "surveymonkey.fr",
+    "surveymonkey.net",
+    "surveymonkey.nl",
+    "surveymonkey.ru",
+
+    "feedbackeconomy.com",
+    "research.net",
+
+    "smassets.net",
+  ],
   ["target.com", "targetimg1.com"],
   ["techdata.com", "techdata.ch"],
   ["telegraaf.nl", "tcdn.nl", "tmgonlinemedia.nl", "tnet.nl"],
