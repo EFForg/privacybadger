@@ -343,7 +343,7 @@ exports.Migrations= {
   },
 
   forgetOpenDNS: (badger) => {
-    console.log("Forgetting Cisco OpenVPN domains ...");
+    console.log("Forgetting Cisco OpenDNS domains ...");
     badger.storage.forget("opendns.com");
   },
 
