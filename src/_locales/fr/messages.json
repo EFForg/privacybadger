@@ -218,7 +218,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importer des données utilisateur :<ul><li>Remplace les réglages généraux</li><li>Combine les listes blanches</li><li>Combine les informations sur les sites que Privacy Badger a vus</li><li>Remplace les personnalisations des curseurs</li></ul>",
+        "message": "Importer des données utilisateur :<ul><li>Remplace les réglages généraux</li><li>Combine les listes des sites désactivés</li><li>Combine les informations sur les sites que Privacy Badger a vus</li><li>Remplace les personnalisations des curseurs</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -561,7 +561,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
-        "message": "Synchronisation avec le nuage : <ul><li>Nécessite Firefox ou Chrome Sync</li><li>Le téléversement écrase toutes données de Privacy Badger dans le nuage</li><li>Télécharger combinera la liste blanche avec celle présente</li></ul>",
+        "message": "Synchronisation avec le nuage : <ul><li>Nécessite Firefox ou Chrome Sync</li><li>Le téléversement écrase toutes données de Privacy Badger dans le nuage</li><li>Télécharger combine les listes des sites pour lesquels votre Privacy Badger est désactivé</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
@@ -569,11 +569,11 @@
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Exporter la liste blanche dans le nuage",
+        "message": "Exporter vers le nuage les sites désactivés",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Importer la liste blanche du nuage",
+        "message": "Importer du nuage les sites désactivés",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
@@ -651,7 +651,7 @@
         "description": "Introduction to the Widget Replacement tab on the options page."
     },
     "disabled_sites": {
-        "message": "Liste blanche",
+        "message": "Sites désactivés",
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
