@@ -453,7 +453,7 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
 
     // construct the widget link
     let text_before = summary.slice(0, summary.indexOf('start_anchor_tag'));
-    let text_after = summary.slice(summary.indexOf('end_anchor_tag') + 14, summary.length);
+    let text_after = summary.slice(summary.indexOf('end_anchor_tag') + 14);
     let link_text = summary.slice(summary.indexOf('start_anchor_tag') + 16, summary.indexOf('end_anchor_tag'));
 
     let widgetLink = document.createElement("a");
