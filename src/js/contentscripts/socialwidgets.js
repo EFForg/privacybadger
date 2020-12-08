@@ -445,8 +445,8 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   textDiv.style = styleAttrs.join(" !important;") + " !important";
 
   let summary = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name),
-    link_start = "start_anchor_tag",
-    link_end = "end_anchor_tag";
+    link_start = "YYY",
+    link_end = "ZZZ";
 
   // add link to replaced widget text if it has a src
   if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
