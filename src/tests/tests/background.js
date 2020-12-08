@@ -464,4 +464,138 @@ QUnit.test("forgetFirstPartySnitches migration properly handles snitch entries w
   );
 });
 
+(function () {
+  let IS_UPDATE, LEARN_LOCALLY;
+
+  let newActionMap = {
+    "google-analytics.com": {
+      dnt: false,
+      heuristicAction: constants.BLOCK,
+      nextUpdateTime: 1602152953782,
+      userAction: ""
+    },
+    "youtube.com": {
+      dnt: false,
+      heuristicAction: constants.COOKIEBLOCK,
+      nextUpdateTime: 0,
+      userAction: ""
+    },
+  };
+  let newSnitchMap = {
+    "google-analytics.com": [
+      "linkedin.com",
+      "google.com",
+      "godaddy.com"
+    ],
+    "youtube.com": [
+      "apache.org",
+      "github.com",
+      "who.int",
+    ],
+  };
+
+  QUnit.module("updateTrackerData()", {
+    before: (/*assert*/) => {
+      IS_UPDATE = badger.isUpdate;
+      LEARN_LOCALLY = badger.getSettings().getItem("learnLocally");
+
+      badger.isUpdate = true;
+      badger.getSettings().setItem("learnLocally", false);
+
+      server = sinon.fakeServer.create({
+        respondImmediately: true
+      });
+    },
+
+    after: (/*assert*/) => {
+      server.restore();
+
+      badger.getSettings().setItem("learnLocally", LEARN_LOCALLY);
+      badger.isUpdate = IS_UPDATE;
+    }
+  });
+
+  QUnit.test("user-set sliders are preserved", async (assert) => {
+    const NUM_TESTS = 2;
+    let done = assert.async();
+    assert.expect(NUM_TESTS);
+
+    // initial state
+    ["youtube.com", "linkedin.com", "netflix.com"].forEach(site => {
+      badger.heuristicBlocking.updateTrackerPrevalence(
+        "doubleclick.net", "doubleclick.net", site);
+    });
+    badger.storage.setupUserAction("example.com", constants.USER_COOKIEBLOCK);
+    let customSliders = {
+      "example.com": badger.storage.getStore('action_map').getItem("example.com"),
+    };
+
+    // perform the update
+    server.respondWith(
+      "GET", (new URL(constants.SEED_DATA_LOCAL_URL)).pathname,
+      [200, {}, JSON.stringify({
+        action_map: newActionMap,
+        snitch_map: newSnitchMap
+      })]
+    );
+    await badger.updateTrackerData();
+
+    // check what happened
+    let expectedActionMap = Object.assign(customSliders, newActionMap);
+    assert.deepEqual(
+      badger.storage.getStore('action_map').getItemClones(),
+      expectedActionMap,
+      "action map was replaced but custom slider was kept"
+    );
+    assert.deepEqual(
+      badger.storage.getStore('snitch_map').getItemClones(),
+      newSnitchMap,
+      "snitch map was replaced"
+    );
+
+    done();
+  });
+
+  QUnit.test("user-set actions are added to heuristic actions", async (assert) => {
+    const NUM_TESTS = 2;
+    let done = assert.async();
+    assert.expect(NUM_TESTS);
+
+    // initial state
+    ["youtube.com", "linkedin.com", "netflix.com"].forEach(site => {
+      badger.heuristicBlocking.updateTrackerPrevalence(
+        "doubleclick.net", "doubleclick.net", site);
+    });
+    // youtube.com is also in the incoming action map
+    badger.storage.setupUserAction("youtube.com", constants.USER_BLOCK);
+
+    // perform the update
+    server.respondWith(
+      "GET", (new URL(constants.SEED_DATA_LOCAL_URL)).pathname,
+      [200, {}, JSON.stringify({
+        action_map: newActionMap,
+        snitch_map: newSnitchMap
+      })]
+    );
+    await badger.updateTrackerData();
+
+    // check what happened
+    let expectedActionMap = Object.assign({}, newActionMap);
+    expectedActionMap["youtube.com"].userAction = constants.USER_BLOCK;
+    assert.deepEqual(
+      badger.storage.getStore('action_map').getItemClones(),
+      expectedActionMap,
+      "action map was replaced and custom slider was merged in"
+    );
+    assert.deepEqual(
+      badger.storage.getStore('snitch_map').getItemClones(),
+      newSnitchMap,
+      "snitch map was replaced"
+    );
+
+    done();
+  });
+
+}());
+
 }());
