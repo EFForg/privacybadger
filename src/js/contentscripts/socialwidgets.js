@@ -448,8 +448,14 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     link_start = "YYY",
     link_end = "ZZZ";
 
-  // add link to replaced widget text if it has a src
+  // get a direct link to widget content when available
+  let widget_url;
+  // use the frame URL for framed widgets
   if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
+    widget_url = elToReplace.src;
+  }
+
+  if (widget_url) {
     // construct link to original widget frame
     let text_before = summary.slice(0, summary.indexOf(link_start)),
       text_after = summary.slice(summary.indexOf(link_end) + link_end.length),
@@ -464,9 +470,9 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     }
 
     let widgetLink = document.createElement("a");
+    widgetLink.href = widget_url;
     widgetLink.rel = "noreferrer";
     widgetLink.target = "_blank";
-    widgetLink.href = elToReplace.src;
     widgetLink.appendChild(document.createTextNode(link_text));
     wrapperDiv.appendChild(widgetLink);
 
