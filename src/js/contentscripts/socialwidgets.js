@@ -445,7 +445,7 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   textDiv.style = styleAttrs.join(" !important;") + " !important";
 
   // add link to replaced widget text if it has a src
-  if (elToReplace.getAttribute("src") && elToReplace.tagName == 'IFRAME') {
+  if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
     // create wrapper divs for link and text nodes
     let wrapperDiv = document.createElement("div");
 
