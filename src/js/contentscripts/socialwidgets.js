@@ -444,41 +444,41 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   let textDiv = document.createElement('div');
   textDiv.style = styleAttrs.join(" !important;") + " !important";
 
-  let summary = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name);
+  let summary = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name),
+    link_start = "start_anchor_tag",
+    link_end = "end_anchor_tag";
 
   // add link to replaced widget text if it has a src
   if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
-    // create wrapper divs for link and text nodes
+    // construct link to original widget frame
+    let text_before = summary.slice(0, summary.indexOf(link_start)),
+      text_after = summary.slice(summary.indexOf(link_end) + link_end.length),
+      link_text = summary.slice(
+        summary.indexOf(link_start) + link_start.length, summary.indexOf(link_end));
+
+    // nest in a wrapper to preserve whitespace (flexbox)
     let wrapperDiv = document.createElement("div");
 
-    // construct the widget link
-    let text_before = summary.slice(0, summary.indexOf('start_anchor_tag'));
-    let text_after = summary.slice(summary.indexOf('end_anchor_tag') + 14);
-    let link_text = summary.slice(summary.indexOf('start_anchor_tag') + 16, summary.indexOf('end_anchor_tag'));
+    if (text_before) {
+      wrapperDiv.appendChild(document.createTextNode(text_before));
+    }
 
     let widgetLink = document.createElement("a");
-    widgetLink.textContent = link_text;
     widgetLink.rel = "noreferrer";
     widgetLink.target = "_blank";
     widgetLink.href = elToReplace.src;
-
-    let firstNode = document.createElement("span");
-    firstNode.textContent = text_before;
-
-    let secondNode = document.createElement("span");
-    secondNode.textContent = text_after;
-
-    // package up one solid html chunk and append that to the replaced widget text node
-    wrapperDiv.appendChild(firstNode);
+    widgetLink.appendChild(document.createTextNode(link_text));
     wrapperDiv.appendChild(widgetLink);
-    wrapperDiv.appendChild(secondNode);
+
+    if (text_after) {
+      wrapperDiv.appendChild(document.createTextNode(text_after));
+    }
 
     textDiv.appendChild(wrapperDiv);
+
   } else {
-    // there is no link to construct onto the widget replacement modal
-    // replace and remove the placeholders on the locales string
-    summary = summary.replace("start_anchor_tag", "");
-    summary = summary.replace("end_anchor_tag", "");
+    // no link to construct, remove the link markers
+    summary = summary.replace(link_start, "").replace(link_end, "");
     textDiv.appendChild(document.createTextNode(summary));
   }
 
