@@ -460,7 +460,6 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     widgetLink.textContent = link_text;
     widgetLink.rel = "noreferrer";
     widgetLink.target = "_blank";
-    widgetLink.id = ("widgetLink");
     widgetLink.href = elToReplace.src;
 
     let firstNode = document.createElement("span");
@@ -468,13 +467,6 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
 
     let secondNode = document.createElement("span");
     secondNode.textContent = text_after;
-
-    let widgetLinkStyles = [
-      "color: #ec9329",
-      "text-decoration: none"
-    ];
-
-    widgetLink.style = widgetLinkStyles.join(" !important;") + " !important";
 
     // package up one solid html chunk and append that to the replaced widget text node
     wrapperDiv.appendChild(firstNode);
@@ -622,6 +614,13 @@ html, body {
   width: 1em;
 }
 #${info_icon_id}:hover:before {
+  color: #ec9329;
+}
+a {
+  text-decoration: underline;
+  color: black;
+}
+a:hover {
   color: #ec9329;
 }
   `.trim();
