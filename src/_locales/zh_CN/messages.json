@@ -543,12 +543,20 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "隐私獾已经替换了这个$WIDGET$小工具",
+        "message": "隐私獾已经替换了$START_ANCHOR_TAG$这个$WIDGET$小工具$END_ANCHOR_TAG$",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
                 "content": "$1",
                 "example": "Google reCAPTCHA"
+            },
+            "start_anchor_tag": {
+                "content": "$2",
+                "example": "<a href='https://vimeo.com/76979871'>"
+            },
+            "end_anchor_tag": {
+                "content": "$3",
+                "example": "</a>"
             }
         }
     },
