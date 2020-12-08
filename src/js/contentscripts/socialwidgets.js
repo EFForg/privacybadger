@@ -443,8 +443,51 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
 
   let textDiv = document.createElement('div');
   textDiv.style = styleAttrs.join(" !important;") + " !important";
-  textDiv.appendChild(document.createTextNode(
-    TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name)));
+
+  let summary = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name),
+    link_start = "YYY",
+    link_end = "ZZZ";
+
+  // get a direct link to widget content when available
+  let widget_url;
+  // use the frame URL for framed widgets
+  if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
+    widget_url = elToReplace.src;
+  }
+
+  if (widget_url) {
+    // construct link to original widget frame
+    let text_before = summary.slice(0, summary.indexOf(link_start)),
+      text_after = summary.slice(summary.indexOf(link_end) + link_end.length),
+      link_text = summary.slice(
+        summary.indexOf(link_start) + link_start.length, summary.indexOf(link_end));
+
+    // nest in a wrapper to preserve whitespace (flexbox)
+    let wrapperDiv = document.createElement("div");
+
+    if (text_before) {
+      wrapperDiv.appendChild(document.createTextNode(text_before));
+    }
+
+    let widgetLink = document.createElement("a");
+    widgetLink.href = widget_url;
+    widgetLink.rel = "noreferrer";
+    widgetLink.target = "_blank";
+    widgetLink.appendChild(document.createTextNode(link_text));
+    wrapperDiv.appendChild(widgetLink);
+
+    if (text_after) {
+      wrapperDiv.appendChild(document.createTextNode(text_after));
+    }
+
+    textDiv.appendChild(wrapperDiv);
+
+  } else {
+    // no link to construct, remove the link markers
+    summary = summary.replace(link_start, "").replace(link_end, "");
+    textDiv.appendChild(document.createTextNode(summary));
+  }
+
   let infoIcon = document.createElement('a'),
     info_icon_id = _make_id("ico-help");
   infoIcon.id = info_icon_id;
@@ -577,6 +620,13 @@ html, body {
   width: 1em;
 }
 #${info_icon_id}:hover:before {
+  color: #ec9329;
+}
+a {
+  text-decoration: underline;
+  color: black;
+}
+a:hover {
   color: #ec9329;
 }
   `.trim();

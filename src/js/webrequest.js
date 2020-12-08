@@ -631,7 +631,7 @@ let getWidgetList = (function () {
     },
     {
       key: "widget_placeholder_pb_has_replaced",
-      placeholders: ["XXX"]
+      placeholders: ["XXX", "YYY", "ZZZ"]
     },
     { key: "allow_once" },
     { key: "allow_on_site" },
