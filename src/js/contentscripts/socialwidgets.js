@@ -444,30 +444,30 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   let textDiv = document.createElement('div');
   textDiv.style = styleAttrs.join(" !important;") + " !important";
 
+  let summary = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name);
+
   // add link to replaced widget text if it has a src
   if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
     // create wrapper divs for link and text nodes
     let wrapperDiv = document.createElement("div");
 
     // construct the widget link
-    let localeText = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name);
-
-    let node1Text = localeText.slice(0, localeText.indexOf('start_anchor_tag'));
-    let node2Text = localeText.slice(localeText.indexOf('end_anchor_tag') + 14, localeText.length);
-    let widgetLinkText = localeText.slice(localeText.indexOf('start_anchor_tag') + 16, localeText.indexOf('end_anchor_tag'));
+    let text_before = summary.slice(0, summary.indexOf('start_anchor_tag'));
+    let text_after = summary.slice(summary.indexOf('end_anchor_tag') + 14, summary.length);
+    let link_text = summary.slice(summary.indexOf('start_anchor_tag') + 16, summary.indexOf('end_anchor_tag'));
 
     let widgetLink = document.createElement("a");
-    widgetLink.textContent = widgetLinkText;
+    widgetLink.textContent = link_text;
     widgetLink.rel = "noreferrer";
     widgetLink.target = "_blank";
     widgetLink.id = ("widgetLink");
     widgetLink.href = elToReplace.src;
 
     let firstNode = document.createElement("span");
-    firstNode.textContent = node1Text;
+    firstNode.textContent = text_before;
 
     let secondNode = document.createElement("span");
-    secondNode.textContent = node2Text;
+    secondNode.textContent = text_after;
 
     let widgetLinkStyles = [
       "color: #ec9329",
@@ -485,10 +485,9 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   } else {
     // there is no link to construct onto the widget replacement modal
     // replace and remove the placeholders on the locales string
-    let textChunk = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name);
-    textChunk = textChunk.replace("start_anchor_tag", "");
-    textChunk = textChunk.replace("end_anchor_tag", "");
-    textDiv.appendChild(document.createTextNode(textChunk));
+    summary = summary.replace("start_anchor_tag", "");
+    summary = summary.replace("end_anchor_tag", "");
+    textDiv.appendChild(document.createTextNode(summary));
   }
 
   let infoIcon = document.createElement('a'),
