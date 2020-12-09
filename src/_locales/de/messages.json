@@ -80,7 +80,7 @@
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Hier klicken, um zu verhindern, dass diese Domain Cookies setzt",
+        "message": "Hier klicken, um diese Domain am Setzen von Cookies zu hindern",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
