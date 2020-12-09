@@ -1,6 +1,17 @@
 Privacy Badger Release Notes
 ============================
 
+2020.12.10
+* Added a direct link to widget content to replacements for widgets like
+YouTube, Vimeo, SoundCloud and Spotify. You can click this link to watch
+a video (for example) without sharing the page you are on with the video
+provider. You can also right-click the link to copy the link URL.
+* Fixed "fbclid" tracking parameter removal on Facebook
+* Enabled Google Search link unwrapping on Firefox for Android
+* Fixed various site breakages
+* Improved translations (Dutch, Esperanto, French, German, Hebrew, Polish,
+Russian, Swedish, Turkish, Ukrainian)
+
 2020.10.7
 * Disabled learning (by default) to address privacy concerns.
 Visit https://www.eff.org/badger-evolution to learn more.
