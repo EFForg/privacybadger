@@ -3356,11 +3356,18 @@ let multiDomainFirstPartiesArray = [
     "s-kanava.fi",
 
     "abcasemat.fi",
+    "foodie.fi",
+    "prisma.fi",
     "raflaamo.fi",
     "s-mobiili.fi",
+    "sokos.fi",
     "sokoshotels.fi",
+    "s-pankki.fi",
+    "s-ryhma.fi",
+    "tok.fi",
     "yhteishyva.fi",
 
+    "s-cloud.fi",
     "sok.fi",
     "s-palvelut.fi",
   ],
