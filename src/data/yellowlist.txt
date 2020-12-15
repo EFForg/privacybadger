@@ -692,6 +692,7 @@ typepad.com
 typography.com
 assets.ubuntu.com
 uicdn.com
+uicdn.net
 ui-portal.de
 ultimedia.com
 ultraimg.com
