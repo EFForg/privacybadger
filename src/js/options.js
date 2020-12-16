@@ -116,6 +116,20 @@ function loadOptions() {
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.settings.checkForDNTPolicy).prop("disabled", !OPTIONS_DATA.settings.sendDNTSignal);
 
+  // only show the networkPredictionEnabled override when the browser supports it
+  if (chrome.privacy && chrome.privacy.network && chrome.privacy.network.networkPredictionEnabled) {
+    $("#privacy-settings-header").show();
+    $("#disable-network-prediction").show();
+    $('#disable-network-prediction-checkbox')
+      .prop("checked", OPTIONS_DATA.settings.disableNetworkPrediction)
+      .on("click", function () {
+        updatePrivacyOverride(
+          "disableNetworkPrediction",
+          $("#disable-network-prediction-checkbox").prop("checked")
+        );
+      });
+  }
+
   // only show the alternateErrorPagesEnabled override if browser supports it
   if (chrome.privacy && chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
     $("#privacy-settings-header").show();
