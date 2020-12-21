@@ -154,11 +154,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "在您浏览时学习屏蔽新的追踪器",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Enabling learning may make you more identifiable to websites",
+        "message": "开启学习可能让您更容易被网站识别",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
@@ -166,19 +166,19 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "启用“在隐私/无痕模式学习”后，你的隐私浏览历史可能会在电脑中留下痕迹。默认设置下，隐私獾会在隐私/无痕模式时屏蔽已知的追踪器，但不会学习新的追踪器。如果你平时经常使用隐私/无痕模式的话，你可能想要启用这个选项。",
+        "message": "启用“在隐私/无痕模式学习”后，你的隐私浏览历史可能会在电脑中留下痕迹。默认设置下，隐私獾会在隐私/无痕模式时屏蔽已知的追踪器，但不会学习新的追踪器。如果你平时经常使用隐私/无痕模式的话，您可能想要启用这个选项。",
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "message": "隐私獾默认不会从您的浏览行为中学习。",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "点击下面以了解更多。",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "了解隐私獾的如何改变",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
@@ -322,11 +322,11 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "自动学习",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "隐私獾不会保存一个屏蔽列表，而是根据追踪器的行为自动发现它们。",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
@@ -334,7 +334,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器发送<a href='https://globalprivacycontrol.org/' target='_blank'>“全局隐私控制”信号</a>以让您拒绝数据分享和贩卖，同时发送<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿追踪”信号</a>，告诉公司以停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止它们——无论它们是广告、追踪器或是其他的东西。",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -378,7 +378,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "向网站发送<a href='https://globalprivacycontrol.org/' target='_blank'>“全局隐私控制”</a>和<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿追踪”</a>信号",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
@@ -394,7 +394,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_instructions": {
-        "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
+        "message": "屏蔽了$COUNT$个潜在的$LINK_START$追踪器$LINK_END$",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -411,7 +411,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "message": "没有被屏蔽的$LINK_START$追踪器$LINK_END$",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -448,7 +448,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "message": "到现在为止，隐私獾决定屏蔽$COUNT$个潜在的$TRACKER_LINK_START$追踪域名$TRACKER_LINK_END$",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -613,7 +613,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger blocked $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "隐私獾在$DOMAIN$屏蔽了$COUNT$个潜在的追踪器：",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -663,7 +663,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
+        "message": "<p>隐私獾已在以下网站上禁用。您浏览这些网站时，隐私獾不会屏蔽任何东西，也不会发送请勿追踪或全局隐私控制信号。</p><p>如果您认为隐私獾破坏了某个页面，或者您希望允许一个特定的网站分享和贩卖您的数据，请在下面的文本框中输入页面的域名，然后点击“添加域名”按钮。</p><p>您也可以在浏览页面时点击浏览器工具栏上的隐私獾按钮，然后点击“禁用”按钮。</p>",
         "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
     },
     "allowlist_domain_input_placeholder": {
