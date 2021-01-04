@@ -128,6 +128,14 @@ function loadOptions() {
           $("#disable-network-prediction-checkbox").prop("checked")
         );
       });
+    // use a different help link in Firefox
+    if (chrome.runtime.getBrowserInfo) {
+      chrome.runtime.getBrowserInfo((info) => {
+        if (info.name == "Firefox" || info.name == "Waterfox") {
+          $('#disable-network-prediction-help-link')[0].href = "https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ";
+        }
+      });
+    }
   }
 
   // only show the alternateErrorPagesEnabled override if browser supports it
