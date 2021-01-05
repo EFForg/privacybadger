@@ -152,7 +152,8 @@ function _createButtonReplacement(widget, callback) {
   if (button_type === 0) {
     let popup_url = buttonData.details + encodeURIComponent(window.location.href);
 
-    button.addEventListener("click", function () {
+    button.addEventListener("click", function (e) {
+      if (!e.isTrusted) { return; }
       window.open(popup_url);
     });
 
@@ -161,14 +162,16 @@ function _createButtonReplacement(widget, callback) {
   } else if (button_type == 1) {
     let iframe_url = buttonData.details + encodeURIComponent(window.location.href);
 
-    button.addEventListener("click", function () {
+    button.addEventListener("click", function (e) {
+      if (!e.isTrusted) { return; }
       replaceButtonWithIframeAndUnblockTracker(button, widget.name, iframe_url);
     }, { once: true });
 
   // in place button type; replace the existing button with code
   // specified in the widgets JSON
   } else if (button_type == 2) {
-    button.addEventListener("click", function () {
+    button.addEventListener("click", function (e) {
+      if (!e.isTrusted) { return; }
       replaceButtonWithHtmlCodeAndUnblockTracker(button, widget.name, buttonData.details);
     }, { once: true });
   }
@@ -558,11 +561,14 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
       siteButton = widgetFrame.contentDocument.getElementById(site_button_id);
 
     onceButton.addEventListener("click", function (e) {
+      if (!e.isTrusted) { return; }
       e.preventDefault();
       activationFn(name);
     }, { once: true });
 
     siteButton.addEventListener("click", function (e) {
+      if (!e.isTrusted) { return; }
+
       e.preventDefault();
 
       // first message the background page to record that
