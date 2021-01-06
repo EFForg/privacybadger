@@ -512,8 +512,9 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     "transition: background-color 0.25s ease-out, border-color 0.25s ease-out, color 0.25s ease-out",
     "border-radius: 3px",
     "cursor: pointer",
-    "font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif",
-    "font-size: 12px",
+    // systemfontstack.com
+    "font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif",
+    "font-size: 14px",
     "font-weight: bold",
     "line-height: 16px",
     "padding: 10px",
