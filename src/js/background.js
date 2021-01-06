@@ -299,6 +299,14 @@ Badger.prototype = {
       });
     }
 
+    if (chrome.privacy.network) {
+      _set_override(
+        "networkPredictionEnabled",
+        chrome.privacy.network.networkPredictionEnabled,
+        (self.getSettings().getItem("disableNetworkPrediction") ? false : null)
+      );
+    }
+
     if (chrome.privacy.services) {
       _set_override(
         "alternateErrorPagesEnabled",
@@ -798,6 +806,7 @@ Badger.prototype = {
     disabledSites: [],
     disableGoogleNavErrorService: true,
     disableHyperlinkAuditing: true,
+    disableNetworkPrediction: true,
     hideBlockedElements: true,
     learnInIncognito: false,
     learnLocally: false,
