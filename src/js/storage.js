@@ -20,38 +20,13 @@
 var constants = require("constants");
 var utils = require("utils");
 
-require.scopes.storage = (function() {
-
+require.scopes.storage = (function () {
 
 /**
- * # Storage Objects
+ * See the following link for documentation of
+ * Privacy Badger's data objects in extension storage:
  *
- * snitch_map is our collection of potential tracking base_domains.
- * The key is a base domain (ETLD+1) and the value is an array of first
- * party domains on which this tracker has been seen.
- * it looks like this:
- * {
- *   "third-party.com": ["a.com", "b.com", "c.com"],
- *   "eviltracker.net": ["eff.org", "a.com"]
- * }
- *
- * action_map is where we store the action for each domain that we have
- * decided on an action for. Each subdomain gets its own entry. For example:
- * {
- *   "google.com": { heuristicAction: "block", dnt: false, userAction: ""}
- *   "fonts.google.com": { heuristicAction: "cookieblock", dnt: false, userAction: ""}
- *   "apis.google.com": { heuristicAction: "cookieblock", dnt: false, userAction: "user_block"}
- *   "widget.eff.org": { heuristicAction: "block", dnt: true, userAction: ""}
- * }
- *
- * cookieblock_list is where we store the current yellowlist as
- * downloaded from eff.org. The keys are the domains which should be "cookieblocked".
- * The values are simply 'true'. For example:
- * {
- *   "maps.google.com": true,
- *   "creativecommons.org": true,
- * }
- *
+ * https://github.com/EFForg/privacybadger/blob/master/doc/DESIGN-AND-ROADMAP.md#data-structures
  */
 
 function BadgerPen(callback) {
