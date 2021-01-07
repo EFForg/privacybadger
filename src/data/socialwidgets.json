@@ -150,6 +150,19 @@
             "type": 0
         }
     },
+    "OK Video Player": {
+        "domain": "ok.ru",
+        "buttonSelectors": [
+            "iframe[src^='https://ok.ru/videoembed/']",
+            "iframe[src^='//ok.ru/videoembed/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "ok.ru"
+            ],
+            "type": 3
+        }
+    },
     "Pinterest": {
         "domain": "assets.pinterest.com",
         "buttonSelectors": [
