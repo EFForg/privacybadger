@@ -389,6 +389,10 @@
         "message": "Отключить аудит гиперссылок",
         "description": "Checkbox label found on the general settings page"
     },
+    "options_disable_network_prediction": {
+        "message": "Disable prefetching",
+        "description": "Checkbox label found on the general settings page"
+    },
     "options_domain_filter_user": {
         "message": "измененные пользователем",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
