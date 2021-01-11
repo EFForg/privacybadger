@@ -1244,6 +1244,26 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // adds a domain to the widgetSiteAllowlist, managed in the UI of the options page
+  case "addDomainWidgetReplacementExceptions": {
+    badger.addDomainWidgetReplacementExceptions(request.domain);
+    sendResponse({
+      widgetSiteAllowlist: badger.getSettings().getItem("widgetSiteAllowlist")
+    });
+    break;
+  }
+
+  // removes domain(s) selected in options page UI to be removed from widgetSiteAllowlist
+  case "removeDomainWidgetReplacementExceptions": {
+    request.domains.forEach((domain) => {
+      badger.removeDomainWidgetReplacementExceptions(domain);
+    });
+    sendResponse({
+      widgetSiteAllowlist: badger.getSettings().getItem("widgetSiteAllowlist")
+    });
+    break;
+  }
+
   case "removeOrigin": {
     badger.storage.getStore("snitch_map").deleteItem(request.origin);
     badger.storage.getStore("action_map").deleteItem(request.origin);
