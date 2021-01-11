@@ -1043,6 +1043,35 @@ Badger.prototype = {
     }
   },
 
+  addDomainWidgetReplacementExceptions: function(domain) {
+    let settings = this.getSettings();
+    let exceptionsList = settings.getItem("widgetSiteAllowlist");
+
+    // grab all the widget types that badger currently covers
+    let widgetTypes = [];
+    for (let widget of this.widgetList) {
+      widgetTypes.push(widget.name);
+    }
+
+    // permit all widget types on the given domain
+    exceptionsList[domain] = widgetTypes;
+
+    // reset the new modified widget site allow list
+    settings.setItem("widgetSiteAllowlist", exceptionsList);
+  },
+
+  // run from a loop of domains given in ./webrequest.js
+  removeDomainWidgetReplacementExceptions: function(domain) {
+    let settings = this.getSettings();
+    let exceptionsList = settings.getItem("widgetSiteAllowlist");
+
+    // remove the domain entirely from the exceptions list
+    delete exceptionsList[domain];
+
+    // apply these changes to the widget site allowlist settings map
+    settings.setItem("widgetSiteAllowlist", exceptionsList);
+  },
+
   /**
    * Checks if local storage ( in dict) has any high-entropy keys
    *
