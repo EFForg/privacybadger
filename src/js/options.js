@@ -49,6 +49,8 @@ function loadOptions() {
   $('#exportTrackers').on("click", exportUserData);
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
+  $('#widget-site-allowlist-form').on("submit", addWidgetSiteAllowlist);
+  $('#remove-widget-allowlist-site-button').on("click", removeWidgetSiteAllowlist);
 
   if (OPTIONS_DATA.settings.showTrackingDomains) {
     $('#tracking-domains-overlay').hide();
@@ -244,6 +246,7 @@ function loadOptions() {
 
   reloadDisabledSites();
   reloadTrackingDomainsTab();
+  reloadWidgetSitesAllowlist();
 
   $('html').css({
     overflow: 'visible',
@@ -313,6 +316,7 @@ function parseUserDataFile(storageMapsList) {
 
     reloadDisabledSites();
     reloadTrackingDomainsTab();
+    reloadWidgetSitesAllowlist();
     // TODO general settings are not updated
 
     alert(i18n.getMessage("import_successful"));
@@ -555,6 +559,61 @@ function removeDisabledSite(event) {
   });
 }
 
+// update the select box on the widget site allow list options page when domains are added/removed
+function reloadWidgetSitesAllowlist() {
+
+  let sites = Object.keys(OPTIONS_DATA.settings.widgetSiteAllowlist),
+    $select = $('#widget-allowlist-select');
+
+  // sort widget exemptions sites the same way other options page domains lists are
+  sites = htmlUtils.sortDomains(sites);
+
+  $select.empty();
+  for (let i of sites) {
+    $('<option>').text(i).appendTo($select);
+  }
+}
+
+// takes domain from allowlist input box on widgets tab of options page and passes along to be added to settings map
+function addWidgetSiteAllowlist(event) {
+  event.preventDefault();
+
+  let domain = utils.getHostFromDomainInput(
+    document.getElementById("widget-site-allow-list-input").value.replace(/\s/g, "")
+  );
+
+  if (!domain) {
+    return alert(i18n.getMessage("invalid_domain"));
+  }
+
+  chrome.runtime.sendMessage({
+    type: "addDomainWidgetReplacementExceptions",
+    domain
+  }, (response) => {
+    OPTIONS_DATA.settings.widgetSiteAllowlist = response.widgetSiteAllowlist;
+    reloadWidgetSitesAllowlist();
+    document.getElementById("widget-site-allow-list-input").value = "";
+  });
+}
+
+// takes domain(s) from select list on widgets tab of options page and passes along to be removed from settings map
+function removeWidgetSiteAllowlist(event) {
+  event.preventDefault();
+
+  let domains = [];
+  let $selected = $("#widget-allowlist-select option:selected");
+  for (let i of $selected) {
+    domains.push(i.text);
+  }
+
+  chrome.runtime.sendMessage({
+    type: "removeDomainWidgetReplacementExceptions",
+    domains
+  }, (response) => {
+    OPTIONS_DATA.settings.widgetSiteAllowlist = response.widgetSiteAllowlist;
+    reloadWidgetSitesAllowlist();
+  });
+}
 // Tracking Domains slider functions
 
 /**
