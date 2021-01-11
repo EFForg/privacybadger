@@ -92,8 +92,8 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_allow_sites_widget_replacement": {
-        "message": "Allows allow media widgets on these sites:",
-        "description": "Text above the options page area that lets users add or remove sites from the widget replacement always allow list."
+        "message": "Always allow media widgets on these sites:",
+        "description": "Text above the options page area that lets users add or remove domains from the widget site allow list."
     },
     "intro_welcome": {
         "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
