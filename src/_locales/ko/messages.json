@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger)는 보이지 않는 추적기를 자동으로 차단하는 방법을 학습하는 브라우저 확장 기능입니다. Privacy Badger는 온라인에서 당신의 권리를 위해 싸우는 비영리 단체인 Electronic Frontier Foundation에서 만들어졌습니다.",
+        "message": "Privacy Badger (privacybadger.org)는 보이지 않는 추적기를 자동으로 차단하는 방법을 학습하는 브라우저 확장 기능입니다. Privacy Badger는 온라인에서 당신의 권리를 위해 싸우는 비영리 단체인 Electronic Frontier Foundation에서 만들어졌습니다.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

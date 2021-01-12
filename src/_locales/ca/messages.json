@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "El Privacy Badger (www.eff.org/privacybadger) és una extensió del navegador que aprèn automàticament a blocar rastrejadors invisibles. El Privacy Badger l'ha creat l'Electronic Frontier Foundation, una entitat sense ànim de lucre que lluita pels vostres drets en línia.",
+        "message": "El Privacy Badger (privacybadger.org) és una extensió del navegador que aprèn automàticament a blocar rastrejadors invisibles. El Privacy Badger l'ha creat l'Electronic Frontier Foundation, una entitat sense ànim de lucre que lluita pels vostres drets en línia.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

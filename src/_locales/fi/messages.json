@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) on selainlaajennus, joka oppii automaattisesti estämään näkymättömät jäljittimet. Privacy Badgerin on tehnyt Electronic Frontier Foundation, voittoa tavoittelematon järjestö joka taistelee oikeuksiesi puolesta verkossa.",
+        "message": "Privacy Badger (privacybadger.org) on selainlaajennus, joka oppii automaattisesti estämään näkymättömät jäljittimet. Privacy Badgerin on tehnyt Electronic Frontier Foundation, voittoa tavoittelematon järjestö joka taistelee oikeuksiesi puolesta verkossa.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

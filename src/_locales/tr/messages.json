@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger), görünmez takipçileri otomatik olarak engellemeyi öğrenen bir tarayıcı eklentisidir. Privacy Badger, çevrimiçi haklarınız için savaşan, kar amacı gütmeyen bir kuruluş olan Electronic Frontier Foundation tarafından yapılmıştır.",
+        "message": "Privacy Badger (privacybadger.org), görünmez takipçileri otomatik olarak engellemeyi öğrenen bir tarayıcı eklentisidir. Privacy Badger, çevrimiçi haklarınız için savaşan, kar amacı gütmeyen bir kuruluş olan Electronic Frontier Foundation tarafından yapılmıştır.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

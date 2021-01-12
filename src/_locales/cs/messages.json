@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) je rozšíření prohlížeče, které automaticky detekuje neviditelné sledovací prvky. Privacy Badger je tvořen kolektivem Electronic Frontier Foundation, neziskovou organizací, která bojuje za Vaše práva na internetu.",
+        "message": "Privacy Badger (privacybadger.org) je rozšíření prohlížeče, které automaticky detekuje neviditelné sledovací prvky. Privacy Badger je tvořen kolektivem Electronic Frontier Foundation, neziskovou organizací, která bojuje za Vaše práva na internetu.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

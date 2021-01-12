@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) är ett webbläsartillägg som automatiskt lär sig att blockera osynliga spårare. Privacy Badger är gjord av Electronic Frontier Foundation, en ideell organisation som kämpar för dina rättigheter på nätet.",
+        "message": "Privacy Badger (privacybadger.org) är ett webbläsartillägg som automatiskt lär sig att blockera osynliga spårare. Privacy Badger är gjord av Electronic Frontier Foundation, en ideell organisation som kämpar för dina rättigheter på nätet.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

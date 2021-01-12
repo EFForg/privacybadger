@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) е разширение за браузер, което автоматично се научава да блокира невидими преследвачи. Privacy Badger е направен от Electronic Frontier Foundation, организация с нестопанска цел, която се бори за твоите онлайн права.",
+        "message": "Privacy Badger (privacybadger.org) е разширение за браузер, което автоматично се научава да блокира невидими преследвачи. Privacy Badger е направен от Electronic Frontier Foundation, организация с нестопанска цел, която се бори за твоите онлайн права.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

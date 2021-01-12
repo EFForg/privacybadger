@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) הוא הרחבת דפדפן אשר לומדת באופן אוטומטי לחסום עוקבנים בלתי נראים. Privacy Badger נוצר על ידי הקרן של החזית האלקטרונית, ארגון ללא מטרות רווח שנלחם על זכויותיך באופן מקוון.",
+        "message": "Privacy Badger (privacybadger.org) הוא הרחבת דפדפן אשר לומדת באופן אוטומטי לחסום עוקבנים בלתי נראים. Privacy Badger נוצר על ידי הקרן של החזית האלקטרונית, ארגון ללא מטרות רווח שנלחם על זכויותיך באופן מקוון.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

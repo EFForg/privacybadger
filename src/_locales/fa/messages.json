@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "پرایوسی بجر (www.eff.org/privacybadger) یک افزونه‌ی مرورگر است که به صورت خودکار می‌آموزد تا ردیاب‌های مخفی را مسدود کند. پرایوسی بجر توسط Electronic Frontier Foundation ساخته شده که به صورت غیر انتفاعی و آنلاین برای حقوق شما به می‌جنگد.",
+        "message": "پرایوسی بجر (privacybadger.org) یک افزونه‌ی مرورگر است که به صورت خودکار می‌آموزد تا ردیاب‌های مخفی را مسدود کند. پرایوسی بجر توسط Electronic Frontier Foundation ساخته شده که به صورت غیر انتفاعی و آنلاین برای حقوق شما به می‌جنگد.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

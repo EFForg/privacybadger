@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) is een browserextensie die automatisch leert om onzichtbare volgers te blokkeren. Privacy Badger is gemaakt door de Electronic Frontier Foundation, een organisatie zonder winstoogmerk die vecht voor uw online rechten.",
+        "message": "Privacy Badger (privacybadger.org) is een browserextensie die automatisch leert om onzichtbare volgers te blokkeren. Privacy Badger is gemaakt door de Electronic Frontier Foundation, een organisatie zonder winstoogmerk die vecht voor uw online rechten.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

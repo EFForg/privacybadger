@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privata Melo (www.eff.org/privacybadger) estas retumila etendaĵo, kiu aŭtomate lernas kiel bloki nevideblajn spurilojn. Privata Melo estas farita de Electronic Frontier Foundation, ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la interreto.",
+        "message": "Privata Melo (privacybadger.org) estas retumila etendaĵo, kiu aŭtomate lernas kiel bloki nevideblajn spurilojn. Privata Melo estas farita de Electronic Frontier Foundation, ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la interreto.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

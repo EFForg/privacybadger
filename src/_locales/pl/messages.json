@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) jest rozszerzeniem przeglądarkowym, które automatycznie uczy się blokować niewidzialne elementy śledzące. Privacy Badger jest dziełem Electronic Frontier Foundation – organizacji non-profit walczącej o Twoje prawa w Sieci.",
+        "message": "Privacy Badger (privacybadger.org) jest rozszerzeniem przeglądarkowym, które automatycznie uczy się blokować niewidzialne elementy śledzące. Privacy Badger jest dziełem Electronic Frontier Foundation – organizacji non-profit walczącej o Twoje prawa w Sieci.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

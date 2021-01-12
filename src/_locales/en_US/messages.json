@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block invisible trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) - це розширення для браузера, що автоматично навчається блокувати невидимі елементи стеження. Privacy Badger розроблено некомерційною організацією Electronic Frontier Foundation, яка відстоює ваші права онлайн.",
+        "message": "Privacy Badger (privacybadger.org) - це розширення для браузера, що автоматично навчається блокувати невидимі елементи стеження. Privacy Badger розроблено некомерційною організацією Electronic Frontier Foundation, яка відстоює ваші права онлайн.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

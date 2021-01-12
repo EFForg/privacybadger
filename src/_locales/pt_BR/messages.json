@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "O Privacy Badger (www.eff.org/privacybadger) é uma extensão de navegador que aprende automaticamente a bloquear rastreadores invisíveis. O Privacy Badger é feito pela Electronic Frontier Foundation, uma organização sem fins lucrativos que luta pelos seus direitos online.",
+        "message": "O Privacy Badger (privacybadger.org) é uma extensão de navegador que aprende automaticamente a bloquear rastreadores invisíveis. O Privacy Badger é feito pela Electronic Frontier Foundation, uma organização sem fins lucrativos que luta pelos seus direitos online.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

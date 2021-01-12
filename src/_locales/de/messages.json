@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) ist eine Browser-Erweiterung, die automatisch lernt, unsichtbare Tracker zu blocken. Privacy Badger wird von der Electronic Frontier Foundation entwickelt, einer gemeinnützigen Organisation, die sich für Ihre Rechte im Internet einsetzt.",
+        "message": "Privacy Badger (privacybadger.org) ist eine Browser-Erweiterung, die automatisch lernt, unsichtbare Tracker zu blocken. Privacy Badger wird von der Electronic Frontier Foundation entwickelt, einer gemeinnützigen Organisation, die sich für Ihre Rechte im Internet einsetzt.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

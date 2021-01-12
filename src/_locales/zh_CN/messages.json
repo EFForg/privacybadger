@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "隐私獾（www.eff.org/privacybadger）是一款浏览器扩展，它能够自动学习去屏蔽不可见的追踪器。隐私獾由一家为您在线权利而战的非营利组织——电子前哨基金会创造。",
+        "message": "隐私獾（privacybadger.org）是一款浏览器扩展，它能够自动学习去屏蔽不可见的追踪器。隐私獾由一家为您在线权利而战的非营利组织——电子前哨基金会创造。",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

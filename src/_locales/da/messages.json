@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) er en browserudvidelse som automatisk lærer at blokere usynlige sporinger. Privacy Badger laves af Electronic Frontier Foundation, en nonprofit-orginsation der kæmper for dine rettigheder online.",
+        "message": "Privacy Badger (privacybadger.org) er en browserudvidelse som automatisk lærer at blokere usynlige sporinger. Privacy Badger laves af Electronic Frontier Foundation, en nonprofit-orginsation der kæmper for dine rettigheder online.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {

@@ -631,7 +631,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (www.eff.org/privacybadger) 是一個會自動學習阻擋不可見追蹤器的瀏覽器附加元件。Privacy Badger 由電子前鋒基金會製作，它是一個為您的線上權利戰鬥的非營利組織。",
+        "message": "Privacy Badger (privacybadger.org) 是一個會自動學習阻擋不可見追蹤器的瀏覽器附加元件。Privacy Badger 由電子前鋒基金會製作，它是一個為您的線上權利戰鬥的非營利組織。",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
