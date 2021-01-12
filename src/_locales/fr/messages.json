@@ -390,7 +390,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "Disable prefetching",
+        "message": "Désactiver la prédiction des actions sur le réseau",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
