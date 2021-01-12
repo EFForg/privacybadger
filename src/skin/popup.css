@@ -332,6 +332,9 @@ button {
     font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
     font-size: 14px;
     font-weight: bold;
+    /* fix overly bold text on macOS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     line-height: 16px;
     margin-top: 8px;
     padding: 10px;

@@ -516,6 +516,9 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     "font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif",
     "font-size: 14px",
     "font-weight: bold",
+    // fix overly bold text on macOS
+    "-webkit-font-smoothing: antialiased",
+    "-moz-osx-font-smoothing: grayscale",
     "line-height: 16px",
     "padding: 10px",
     "margin: 4px",
