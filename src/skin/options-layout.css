@@ -216,18 +216,6 @@ p, #settingsForm {
     margin-top: 30px;
 }
 
-#widget-site-allow-input-section {
-    float: left;
-    max-width: 400px;
-    width: 100%;
-    margin-inline-end: 30px;
-    padding-top: 5px
-}
-
-#widget-site-allow-list-input {
-    width: 100%;
-}
-
 #widget-allowed-sites-list-section {
     float: left;
     max-width: 420px;

@@ -49,7 +49,6 @@ function loadOptions() {
   $('#exportTrackers').on("click", exportUserData);
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
-  $('#widget-site-allowlist-form').on("submit", addWidgetSiteAllowlist);
   $('#remove-widget-allowlist-site-button').on("click", removeWidgetSiteAllowlist);
 
   if (OPTIONS_DATA.settings.showTrackingDomains) {
@@ -572,28 +571,6 @@ function reloadWidgetSitesAllowlist() {
   for (let i of sites) {
     $('<option>').text(i).appendTo($select);
   }
-}
-
-// takes domain from allowlist input box on widgets tab of options page and passes along to be added to settings map
-function addWidgetSiteAllowlist(event) {
-  event.preventDefault();
-
-  let domain = utils.getHostFromDomainInput(
-    document.getElementById("widget-site-allow-list-input").value.replace(/\s/g, "")
-  );
-
-  if (!domain) {
-    return alert(i18n.getMessage("invalid_domain"));
-  }
-
-  chrome.runtime.sendMessage({
-    type: "addDomainWidgetReplacementExceptions",
-    domain
-  }, (response) => {
-    OPTIONS_DATA.settings.widgetSiteAllowlist = response.widgetSiteAllowlist;
-    reloadWidgetSitesAllowlist();
-    document.getElementById("widget-site-allow-list-input").value = "";
-  });
 }
 
 // takes domain(s) from select list on widgets tab of options page and passes along to be removed from settings map
