@@ -92,7 +92,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_allow_sites_widget_replacement": {
-        "message": "Always allow media widgets on these sites:",
+        "message": "Always allow widgets on these sites:",
         "description": "Text above the options page area that lets users add or remove domains from the widget site allow list."
     },
     "intro_welcome": {
