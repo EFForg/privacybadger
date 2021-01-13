@@ -1,5 +1,5 @@
 // only observed links with this format out in the wild
-let tumblr_links = "a[href^='https://t.umblr.com/redirect?']"
+let tumblr_links = "a[href^='https://t.umblr.com/redirect?']";
 
 // reassigns the href and scrubs link of all unnecessary attributes
 function unwrapLink(a) {
@@ -10,7 +10,7 @@ function unwrapLink(a) {
 
   for (let attr of a.attributes) {
     if (!['target', 'class', 'style'].includes(attr.name)) {
-      a.removeAttribute(attr.name)
+      a.removeAttribute(attr.name);
     }
   }
 
