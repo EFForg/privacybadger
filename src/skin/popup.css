@@ -486,3 +486,64 @@ div.overlay.active {
         margin-right: 0px;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    body,
+    #instruction,
+    .key {
+        background-color: #333;
+        color: #ddd;
+    }
+
+    button,
+    #pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a,
+    #pbInstructions,
+    #special-browser-page,
+    #disabled-site-message {
+        color: #ddd;
+    }
+
+    /* TODO:
+     *  - Add f06a0a color on hover
+     */
+    #fittslaw,
+    #help,
+    #options,
+    #share {
+        filter: invert(0.85);
+    }
+
+    #privacyBadgerHeader h2 {
+    	  color: #f9f9f9;
+    }
+
+    textarea,
+    #share_output {
+        background-color: #333;
+        border: solid 1px #555;
+        border-radius: 3px;
+        color: #ddd;
+    }
+
+    #version {
+        color: #bbb;
+    }
+
+    .clicker,
+    .origin {
+        color: #ddd;
+    }
+    .clicker {
+        border-top: solid 1px #555;
+    }
+
+    .clickerContainer {
+        background-color: #3a3a3a;
+     }
+
+    .pbButton {
+        background-color: #333;
+        border: solid 2px #ddd;
+    }
+
+}

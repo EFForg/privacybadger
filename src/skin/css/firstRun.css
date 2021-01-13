@@ -796,3 +796,33 @@ body {
     margin-bottom:5rem;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  body,
+  #pb-privacy-policy {
+    background-color: #222;
+    color: #ddd;
+  }
+
+  a:hover, a:focus {
+  	color: #f06a0a;
+  }
+
+  a:hover.button {
+    color: #f9f9f9;
+  }
+
+  #pb-settings {
+  	background-image: linear-gradient(#EC9329, #EC9329 30%, #222 30%);
+  }
+  #pb-donate {
+  	background-image: linear-gradient(#333, #333 45%, #222 45%);
+  	padding: 7rem 0;
+  }
+
+  .share-links > a span {
+  	background-color: #555;
+  	border-left: 0.4275rem solid #bbb;
+    color: #f9f9f9;
+  }
+}
