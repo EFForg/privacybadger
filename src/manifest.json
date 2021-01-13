@@ -463,6 +463,20 @@
     },
     {
       "js": [
+        "js/firstparties/lib/utils.js",
+        "js/firstparties/tumblr.js"
+      ],
+      "matches": [
+        "https://tumblr.com/*",
+        "http://tumblr.com/*",
+        "https://*.tumblr.com/*",
+        "http://*.tumblr.com/*"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
         "js/contentscripts/utils.js",
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
