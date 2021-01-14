@@ -91,10 +91,6 @@
         "message": "Prevent WebRTC from leaking local IP address",
         "description": "Checkbox label on the general settings page"
     },
-    "options_allow_sites_widget_replacement": {
-        "message": "Always allow widgets on these sites:",
-        "description": "Text above the options page area that lets users add or remove domains from the widget site allow list."
-    },
     "intro_welcome": {
         "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
         "description": "Intro page welcome paragraph."
@@ -130,6 +126,10 @@
     "options_social_widgets_checkbox": {
         "message": "Enable widget replacement",
         "description": "Checkbox label on the widget replacement tab"
+    },
+    "options_allow_sites_widget_replacement": {
+        "message": "Always allow widgets on these sites:",
+        "description": "Label for the widget site exceptions form"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Show domains that don't appear to be tracking you",
