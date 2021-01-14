@@ -1043,18 +1043,6 @@ Badger.prototype = {
     }
   },
 
-  // run from a loop of domains given in ./webrequest.js
-  removeDomainWidgetReplacementExceptions: function(domain) {
-    let settings = this.getSettings();
-    let exceptionsList = settings.getItem("widgetSiteAllowlist");
-
-    // remove the domain entirely from the exceptions list
-    delete exceptionsList[domain];
-
-    // apply these changes to the widget site allowlist settings map
-    settings.setItem("widgetSiteAllowlist", exceptionsList);
-  },
-
   /**
    * Checks if local storage ( in dict) has any high-entropy keys
    *
