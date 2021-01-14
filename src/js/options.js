@@ -568,8 +568,8 @@ function reloadWidgetSitesAllowlist() {
   sites = htmlUtils.sortDomains(sites);
 
   $select.empty();
-  for (let i of sites) {
-    $('<option>').text(i).appendTo($select);
+  for (let domain of sites) {
+    $('<option>').text(domain).appendTo($select);
   }
 }
 
