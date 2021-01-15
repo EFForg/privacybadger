@@ -572,7 +572,9 @@ function reloadWidgetSitesAllowlist() {
 
   $select.empty();
   for (let domain of sites) {
-    $('<option>').text(domain).appendTo($select);
+    // list allowed widget types alongside the domain they belong to in exempted list select box
+    let textBlob = domain + " (" + OPTIONS_DATA.settings.widgetSiteAllowlist[domain].join(', ') + ")";
+    $('<option>').text(textBlob).appendTo($select);
   }
 }
 
@@ -583,7 +585,9 @@ function removeWidgetSiteAllowlist(event) {
   let domains = [];
   let $selected = $("#widget-allowlist-select option:selected");
   for (let i of $selected) {
-    domains.push(i.text);
+    // isolate site name from longer string of site + allowed widget types
+    let site = i.text.substring(0, i.text.indexOf(' '));
+    domains.push(site);
   }
 
   chrome.runtime.sendMessage({
