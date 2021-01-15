@@ -75,7 +75,7 @@ function setTextDirection() {
     document.body.appendChild(css);
 
     // fix floats
-    ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div'].forEach((selector) => {
+    ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div', '#widget-allowed-sites-list-section', '#remove-widget-allowlist-site-button'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
   }
