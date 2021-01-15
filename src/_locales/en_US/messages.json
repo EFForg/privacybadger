@@ -129,7 +129,7 @@
     },
     "options_allow_sites_widget_replacement": {
         "message": "Always allow widgets on these sites:",
-        "description": "Label for the widget site exceptions form"
+        "description": "Label for the site exceptions form on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Show domains that don't appear to be tracking you",
