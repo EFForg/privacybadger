@@ -220,14 +220,17 @@ function loadOptions() {
     });
 
   const widgetSelector = $("#hide-widgets-select");
+  const widgetSitesSelectBox = $("#widget-allowlist-select");
   widgetSelector.prop("disabled",
     OPTIONS_DATA.isWidgetReplacementEnabled ? false : "disabled");
 
   $("#replace-widgets-checkbox").on("change", function () {
     if ($(this).is(":checked")) {
       widgetSelector.prop("disabled", false);
+      widgetSitesSelectBox.prop("disabled", false);
     } else {
       widgetSelector.prop("disabled", "disabled");
+      widgetSitesSelectBox.prop("disabled", "disabled");
     }
   });
 
