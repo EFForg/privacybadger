@@ -398,7 +398,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_instructions": {
-        "message": "Zablokowanych możliwych $LINK_START$elementów śledzących$LINK_END$: $COUNT$",
+        "message": "Zablokowanych możliwych $LINK_START$elementów śledzących$LINK_END$: $COUNT$",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {

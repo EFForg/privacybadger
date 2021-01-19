@@ -52,7 +52,7 @@
         "description": ""
     },
     "dnt_tooltip": {
-        "message": "תחום זה מבטיח לא לעקוב אחריך.",
+        "message": "תחום זה מבטיח לא לעקוב אחריך",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
@@ -378,7 +378,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "שלח אל אתרים את האותות \"<a href='https://globalprivacycontrol.org/' target='_blank'>בקרה גלובלית של פרטיות</a>\" ו \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>אל תעקוב</a>\"",
+        "message": "שלח אל אתרים את האותות \"<a href='https://globalprivacycontrol.org/' target='_blank'>בקרה גלובלית של פרטיות</a>\" ו\"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>אל תעקוב</a>\"",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
