@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Данные успешно загружены в облако.",
+        "message": "Данные успешно загружены в облако",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Данные не могут быть загружены в облако.",
+        "message": "Данные не могут быть загружены в облако",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

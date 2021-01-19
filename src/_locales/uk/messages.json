@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Дані успішно вивантажено в хмарне сховище.",
+        "message": "Дані успішно вивантажено в хмарне сховище",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Не вдалося вивантажити дані в хмарне сховище.",
+        "message": "Не вдалося вивантажити дані в хмарне сховище",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

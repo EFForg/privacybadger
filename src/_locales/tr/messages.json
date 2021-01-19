@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Veri başarıyla buluta yüklendi.",
+        "message": "Veri başarıyla buluta yüklendi",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Veri, buluta yüklenemedi.",
+        "message": "Veri, buluta yüklenemedi",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

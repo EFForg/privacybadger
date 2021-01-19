@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Качих успешно данните в обалака.",
+        "message": "Качих успешно данните в облака",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Не успях да кача данните в облака.",
+        "message": "Не успях да кача данните в облака",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

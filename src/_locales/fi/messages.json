@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Data ladattu pilveen.",
+        "message": "Data ladattu pilveen",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Dataa ei voitu ladata pilveen.",
+        "message": "Dataa ei voitu ladata pilveen",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

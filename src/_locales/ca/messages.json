@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "S'han carregat les dades al núvol correctament.",
+        "message": "S'han carregat les dades al núvol correctament",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Les dades no s'han pogut carregar al núvol.",
+        "message": "Les dades no s'han pogut carregar al núvol",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Los datos para nube se han subido correctamente.",
+        "message": "Data successfully uploaded to the cloud",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "No se han podido subir los datos para la nube.",
+        "message": "No se han podido subir los datos para la nube",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

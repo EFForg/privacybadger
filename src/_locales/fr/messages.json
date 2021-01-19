@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Les données ont été téléversées vers le nuage avec succès.",
+        "message": "Les données ont été téléversées vers le nuage avec succès",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Les données n’ont pas pu être téléversées vers le nuage.",
+        "message": "Les données n’ont pas pu être téléversées vers le nuage",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

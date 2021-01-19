@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Pomyślnie wysłano dane na serwer.",
+        "message": "Pomyślnie wysłano dane na serwer",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Nie udało się wysłać danych na serwer.",
+        "message": "Nie udało się wysłać danych na serwer",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

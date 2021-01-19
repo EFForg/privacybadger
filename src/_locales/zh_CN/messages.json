@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "成功上传数据到云端。",
+        "message": "成功上传数据到云端",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "无法上传数据到云端。",
+        "message": "无法上传数据到云端",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

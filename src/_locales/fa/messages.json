@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "داده ابری با موفقیت آپلود شد.",
+        "message": "Data successfully uploaded to the cloud",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "داده ابری آپلود نشد.",
+        "message": "Data could not be uploaded to the cloud",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

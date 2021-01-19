@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Cloud-Daten erfolgreich hochgeladen.",
+        "message": "Daten erfolgreich in die Cloud hochgeladen",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Cloud-Daten konnten nicht hochgeladen werden.",
+        "message": "Daten konnten nicht in die Cloud hochgeladen werden",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {

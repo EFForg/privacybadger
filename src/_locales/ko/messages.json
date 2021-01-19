@@ -597,11 +597,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "클라우드 데이터가 성공적으로 업로드 되었습니다.",
+        "message": "Data successfully uploaded to the cloud",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "클라우드 데이터를 업로드할 수 없습니다.",
+        "message": "Data could not be uploaded to the cloud",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
