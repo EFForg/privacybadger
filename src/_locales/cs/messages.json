@@ -56,11 +56,11 @@
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
-        "message": "Blocking this domain is known to break websites",
+        "message": "Blokování této domény narušuje zobrazování některých webových stránek",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
-        "message": "Click to return control of this domain to Privacy Badger",
+        "message": "Kliknutím vrátíte kontrolu nad touto doménou Privacy Badgeru",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "next_section": {
@@ -120,15 +120,15 @@
         "description": ""
     },
     "options_hide_social_widgets": {
-        "message": "Don't replace the following widgets:",
+        "message": "Nenahrazujte následující widgety:",
         "description": "Multiple selection box on the widget replacement tab"
     },
     "options_social_widgets_checkbox": {
-        "message": "Enable widget replacement",
+        "message": "Povolit nahrazování widgetů",
         "description": "Checkbox label on the widget replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
-        "message": "Show domains that don't appear to be tracking you",
+        "message": "Zobrazit domény, u kterých se nezdá, že by vás sledovaly",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "report_button": {
@@ -154,11 +154,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "Učit se během prohlížení blokovat nové sledovací prvky",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Enabling learning may make you more identifiable to websites",
+        "message": "Pokud zapnete učení, mohou vás webové stránky jednodušeji identifikovat",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
@@ -170,11 +170,11 @@
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "message": "Privacy Badger se již ve výchozím nastavení neučí z vašeho prohlížení.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "Pro více informací klikněte níže.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
@@ -262,11 +262,11 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "Ochrana soukromí",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
-        "message": "Advanced",
+        "message": "Pokročilé",
         "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
@@ -415,7 +415,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "message": "Nejsou zablokovány žádné $LINK_START$sledovací prvky$LINK_END$",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -547,7 +547,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger has replaced $START_ANCHOR_TAG$this $WIDGET$ widget$END_ANCHOR_TAG$",
+        "message": "Privacy Badger nahradil $START_ANCHOR_TAG$tento widget $WIDGET$ $END_ANCHOR_TAG$",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
@@ -565,7 +565,7 @@
         }
     },
     "allow_once": {
-        "message": "Allow once",
+        "message": "Povolit jednou",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "allow_on_site": {
@@ -617,7 +617,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger blocked $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "Privacy Badger zablokoval $COUNT$ potencionálních sledovačů na $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -643,7 +643,7 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "Nothing to do on this page",
+        "message": "Na této stránce není potřeba dělat nic",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
