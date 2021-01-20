@@ -119,6 +119,14 @@
         "message": "Import",
         "description": ""
     },
+    "options_widget_replacement_widget_exceptions": {
+        "message": "Widget Exceptions",
+        "description": "Header text above the section to add/remove widget exceptions"
+    },
+    "options_widget_replacement_site_exceptions": {
+        "message": "Site Exceptions",
+        "description": "Header text above the section to remove site exceptions"
+    },
     "options_hide_social_widgets": {
         "message": "Don't replace the following widgets:",
         "description": "Multiple selection box on the widget replacement tab"
