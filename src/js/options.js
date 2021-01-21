@@ -111,7 +111,7 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.settings.showCounter);
   $("#replace-widgets-checkbox")
     .on("click", updateWidgetReplacement)
-    .prop("checked", OPTIONS_DATA.isWidgetReplacementEnabled);
+    .prop("checked", OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
   $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.settings.sendDNTSignal);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
@@ -233,7 +233,7 @@ function loadOptions() {
       $('#widget-site-exceptions-remove-button').button("option", "disabled", true);
     }
   }
-  _disable_widget_forms(OPTIONS_DATA.isWidgetReplacementEnabled);
+  _disable_widget_forms(OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
   $("#replace-widgets-checkbox").on("change", function () {
     _disable_widget_forms($(this).is(":checked"));
   });

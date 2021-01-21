@@ -363,7 +363,7 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
   }
 
   // don't hide widget frames
-  if (badger.isWidgetReplacementEnabled()) {
+  if (badger.getSettings().getItem("socialWidgetReplacementEnabled")) {
     let exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
     for (let widget of badger.widgetList) {
       if (exceptions.includes(widget.name)) {
@@ -998,7 +998,7 @@ function dispatcher(request, sender, sendResponse) {
       tab_host = window.extractHostFromURL(sender.tab.url);
 
     if (badger.isPrivacyBadgerEnabled(tab_host) &&
-        badger.isWidgetReplacementEnabled()) {
+        badger.getSettings().getItem("socialWidgetReplacementEnabled")) {
       response = getWidgetList(sender.tab.id);
     }
 
@@ -1063,7 +1063,6 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse({
       cookieblocked,
-      isWidgetReplacementEnabled: badger.isWidgetReplacementEnabled(),
       origins,
       settings: badger.getSettings().getItemClones(),
       webRTCAvailable: badger.webRTCAvailable,
