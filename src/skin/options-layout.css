@@ -94,7 +94,7 @@ p, #settingsForm {
     margin: 10px 0;
 }
 
-#allowlist-form  {
+#allowlist-form {
     margin: 20px 0 0;
 }
 
@@ -297,13 +297,16 @@ header {
     input[type="text"],
     #allowlist-select,
     .select2-container--default .select2-selection--multiple,
-    .select2-dropdown {
+    .select2-dropdown,
+    #widget-site-exceptions-select {
         background-color: #222;
         border: 1px solid #555;
         color: #ddd;
     }
 
-    input[type="text"]:focus, #allowlist-select:focus {
+    input[type="text"]:focus,
+    #allowlist-select:focus,
+    #widget-site-exceptions-select:focus {
         border: 1px solid #f06a0a;
         outline: none;
     }
