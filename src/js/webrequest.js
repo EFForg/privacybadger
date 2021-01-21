@@ -1244,22 +1244,20 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  // removes domain(s) selected in options page UI to be removed from widgetSiteAllowlist
-  case "removeDomainWidgetReplacementExceptions": {
-    let settings = badger.getSettings();
-    let exceptionsList = settings.getItem("widgetSiteAllowlist");
+  case "removeWidgetSiteExceptions": {
+    let settings = badger.getSettings(),
+      allowedWidgets = settings.getItem("widgetSiteAllowlist");
 
-    request.domains.forEach((domain) => {
-      // remove the domain entirely from the exceptions list
-      delete exceptionsList[domain];
-    });
+    for (let domain of request.domains) {
+      delete allowedWidgets[domain];
+    }
 
-    // apply these changes to the widget site allowlist settings map
-    settings.setItem("widgetSiteAllowlist", exceptionsList);
+    settings.setItem("widgetSiteAllowlist", allowedWidgets);
 
     sendResponse({
-      widgetSiteAllowlist: settings.getItem("widgetSiteAllowlist")
+      widgetSiteAllowlist: allowedWidgets
     });
+
     break;
   }
 

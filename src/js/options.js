@@ -49,7 +49,7 @@ function loadOptions() {
   $('#exportTrackers').on("click", exportUserData);
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
-  $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteAllowlist);
+  $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteExceptions);
 
   if (OPTIONS_DATA.settings.showTrackingDomains) {
     $('#tracking-domains-overlay').hide();
@@ -252,7 +252,7 @@ function loadOptions() {
 
   reloadDisabledSites();
   reloadTrackingDomainsTab();
-  reloadWidgetSitesAllowlist();
+  reloadWidgetSiteExceptions();
 
   $('html').css({
     overflow: 'visible',
@@ -322,7 +322,7 @@ function parseUserDataFile(storageMapsList) {
 
     reloadDisabledSites();
     reloadTrackingDomainsTab();
-    reloadWidgetSitesAllowlist();
+    reloadWidgetSiteExceptions();
     // TODO general settings are not updated
 
     alert(i18n.getMessage("import_successful"));
@@ -565,9 +565,10 @@ function removeDisabledSite(event) {
   });
 }
 
-// update the select box on the widget site allow list options page when domains are added/removed
-function reloadWidgetSitesAllowlist() {
-
+/**
+ * Updates the Site Exceptions form on the Widget Replacement tab.
+ */
+function reloadWidgetSiteExceptions() {
   let sites = Object.keys(OPTIONS_DATA.settings.widgetSiteAllowlist),
     $select = $('#widget-site-exceptions-select');
 
@@ -576,32 +577,24 @@ function reloadWidgetSitesAllowlist() {
 
   $select.empty();
   for (let domain of sites) {
-    // list allowed widget types alongside the domain they belong to in exempted list select box
-    let textBlob = domain + " (" + OPTIONS_DATA.settings.widgetSiteAllowlist[domain].join(', ') + ")";
-    $('<option>').text(textBlob).appendTo($select);
+    // list allowed widget types alongside the domain they belong to
+    let display_text = domain + " (" + OPTIONS_DATA.settings.widgetSiteAllowlist[domain].join(', ') + ")";
+    $('<option>').text(display_text).val(domain).appendTo($select);
   }
 }
 
-// takes domain(s) from select list on widgets tab of options page and passes along to be removed from settings map
-function removeWidgetSiteAllowlist(event) {
+function removeWidgetSiteExceptions(event) {
   event.preventDefault();
 
-  let domains = [];
-  let $selected = $("#widget-site-exceptions-select option:selected");
-  for (let i of $selected) {
-    // isolate site name from longer string of site + allowed widget types
-    let site = i.text.substring(0, i.text.indexOf(' '));
-    domains.push(site);
-  }
-
   chrome.runtime.sendMessage({
-    type: "removeDomainWidgetReplacementExceptions",
-    domains
+    type: "removeWidgetSiteExceptions",
+    domains: $("#widget-site-exceptions-select").val()
   }, (response) => {
     OPTIONS_DATA.settings.widgetSiteAllowlist = response.widgetSiteAllowlist;
-    reloadWidgetSitesAllowlist();
+    reloadWidgetSiteExceptions();
   });
 }
+
 // Tracking Domains slider functions
 
 /**
