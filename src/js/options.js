@@ -317,13 +317,15 @@ function parseUserDataFile(storageMapsList) {
     type: "mergeUserData",
     data: lists
   }, (response) => {
-    OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     OPTIONS_DATA.origins = response.origins;
+    OPTIONS_DATA.settings = response.settings;
 
+    // TODO general settings are not updated
     reloadDisabledSites();
     reloadTrackingDomainsTab();
+    // TODO widget replacement toggle not updated
+    // TODO widget replacement exceptions not updated
     reloadWidgetSiteExceptions();
-    // TODO general settings are not updated
 
     alert(i18n.getMessage("import_successful"));
   });

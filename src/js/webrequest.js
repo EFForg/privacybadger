@@ -1193,8 +1193,8 @@ function dispatcher(request, sender, sendResponse) {
     badger.blockWidgetDomains();
     badger.setPrivacyOverrides();
     sendResponse({
-      disabledSites: badger.getDisabledSites(),
       origins: badger.storage.getTrackingDomains(),
+      settings: badger.getSettings().getItemClones(),
     });
     break;
   }
