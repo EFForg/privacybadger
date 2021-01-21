@@ -49,7 +49,7 @@ function loadOptions() {
   $('#exportTrackers').on("click", exportUserData);
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
-  $('#remove-widget-allowlist-site-button').on("click", removeWidgetSiteAllowlist);
+  $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteAllowlist);
 
   if (OPTIONS_DATA.settings.showTrackingDomains) {
     $('#tracking-domains-overlay').hide();
@@ -220,18 +220,22 @@ function loadOptions() {
     });
 
   const widgetSelector = $("#hide-widgets-select");
-  const widgetSitesSelectBox = $("#widget-allowlist-select");
-  widgetSelector.prop("disabled",
-    OPTIONS_DATA.isWidgetReplacementEnabled ? false : "disabled");
 
-  $("#replace-widgets-checkbox").on("change", function () {
-    if ($(this).is(":checked")) {
+  // disable Widget Replacement form elements when widget replacement is off
+  function _disable_widget_forms(enable) {
+    if (enable) {
       widgetSelector.prop("disabled", false);
-      widgetSitesSelectBox.prop("disabled", false);
+      $("#widget-site-exceptions-select").prop("disabled", false);
+      $('#widget-site-exceptions-remove-button').button("option", "disabled", false);
     } else {
       widgetSelector.prop("disabled", "disabled");
-      widgetSitesSelectBox.prop("disabled", "disabled");
+      $("#widget-site-exceptions-select").prop("disabled", "disabled");
+      $('#widget-site-exceptions-remove-button').button("option", "disabled", true);
     }
+  }
+  _disable_widget_forms(OPTIONS_DATA.isWidgetReplacementEnabled);
+  $("#replace-widgets-checkbox").on("change", function () {
+    _disable_widget_forms($(this).is(":checked"));
   });
 
   // Initialize Select2 and populate options
@@ -565,7 +569,7 @@ function removeDisabledSite(event) {
 function reloadWidgetSitesAllowlist() {
 
   let sites = Object.keys(OPTIONS_DATA.settings.widgetSiteAllowlist),
-    $select = $('#widget-allowlist-select');
+    $select = $('#widget-site-exceptions-select');
 
   // sort widget exemptions sites the same way other options page domains lists are
   sites = htmlUtils.sortDomains(sites);
@@ -583,7 +587,7 @@ function removeWidgetSiteAllowlist(event) {
   event.preventDefault();
 
   let domains = [];
-  let $selected = $("#widget-allowlist-select option:selected");
+  let $selected = $("#widget-site-exceptions-select option:selected");
   for (let i of $selected) {
     // isolate site name from longer string of site + allowed widget types
     let site = i.text.substring(0, i.text.indexOf(' '));

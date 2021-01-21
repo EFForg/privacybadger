@@ -90,7 +90,7 @@ p, #settingsForm {
     margin: 10px 0;
 }
 
-#allowlist-form {
+#allowlist-form  {
     margin: 20px 0 0;
 }
 
@@ -203,36 +203,27 @@ p, #settingsForm {
     max-height: 400px; /* override popup.css */
 }
 
-#hide-widgets-row {
-    width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
+label[for=hide-widgets-select] {
+    display: block;
 }
-
 #hide-widgets-select {
-  width: 420px;
+    width: 420px;
 }
 
-#always-allow-sites-widget-section {
-    margin-top: 20px;
-}
-
-#widget-allowed-sites-list-section {
+#widget-site-exceptions-select-div {
     float: left;
     max-width: 420px;
     width: 100%;
     margin-inline-end: 10px;
-    padding-top: 5px;
 }
 
-#remove-widget-allowlist-site-button {
+#widget-site-exceptions-remove-button {
     float: left;
     margin-top: 5px;
 }
 
-#widget-allowlist-select {
+#widget-site-exceptions-select {
     width: 100%;
-    background: white;
 }
 
 #tabs, header {
