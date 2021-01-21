@@ -492,9 +492,7 @@ div.overlay.active {
 }
 
 @media (prefers-color-scheme: dark) {
-    body,
-    #instruction,
-    .key {
+    body, #instruction, .key {
         background-color: #333;
         color: #ddd;
     }
@@ -510,19 +508,15 @@ div.overlay.active {
     /* TODO:
      *  - Add f06a0a color on hover
      */
-    #fittslaw,
-    #help,
-    #options,
-    #share {
+    #fittslaw, #help, #options, #share {
         filter: invert(0.85);
     }
 
     #privacyBadgerHeader h2 {
-    	  color: #f9f9f9;
+        color: #f9f9f9;
     }
 
-    textarea,
-    #share_output {
+    textarea, #share_output {
         background-color: #333;
         border: solid 1px #555;
         border-radius: 3px;
@@ -533,8 +527,7 @@ div.overlay.active {
         color: #bbb;
     }
 
-    .clicker,
-    .origin {
+    .clicker, .origin {
         color: #ddd;
     }
     .clicker {
@@ -549,5 +542,4 @@ div.overlay.active {
         background-color: #333;
         border: solid 2px #ddd;
     }
-
 }
