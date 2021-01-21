@@ -497,6 +497,13 @@ div.overlay.active {
         color: #ddd;
     }
 
+    #instruction {
+        box-shadow: none;
+    }
+    #instruction-outer {
+        opacity: 0.6;
+    }
+
     button,
     #pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a,
     #pbInstructions,
@@ -519,7 +526,6 @@ div.overlay.active {
     textarea, #share_output {
         background-color: #333;
         border: solid 1px #555;
-        border-radius: 3px;
         color: #ddd;
     }
 
