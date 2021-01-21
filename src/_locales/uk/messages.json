@@ -119,13 +119,33 @@
         "message": "Імпорт",
         "description": ""
     },
-    "options_hide_social_widgets": {
-        "message": "Не замінювати такі віджети:",
-        "description": "Multiple selection box on the widget replacement tab"
+    "options_widget_replacement_tab": {
+        "message": "Заміна віджетів",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "При блокуванні кнопок соціальних мереж та інших потенційно корисних віджетів (відео, аудіо, коментарі), Privacy Badger може замінювати їх спеціальними елементами з можливістю вибіркової активації.",
+        "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
         "message": "Увімкнути заміну віджетів",
-        "description": "Checkbox label on the widget replacement tab"
+        "description": "Checkbox label on the Widget Replacement tab"
+    },
+    "options_widget_exceptions_header": {
+        "message": "Widget Exceptions",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_hide_social_widgets": {
+        "message": "Не замінювати такі віджети:",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_header": {
+        "message": "Site Exceptions",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_label": {
+        "message": "Always allow widgets on these sites:",
+        "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Показувати домени, що не стежать за вами",
@@ -653,14 +673,6 @@
     "popup_disabled_site_header": {
         "message": "Privacy Badger вимкнений на цьому сайті",
         "description": "Shown in the popup on disabled sites."
-    },
-    "options_widget_replacement_tab": {
-        "message": "Заміна віджетів",
-        "description": "Options page tab heading"
-    },
-    "options_widget_replacement_desc": {
-        "message": "При блокуванні кнопок соціальних мереж та інших потенційно корисних віджетів (відео, аудіо, коментарі), Privacy Badger може замінювати їх спеціальними елементами з можливістю вибіркової активації.",
-        "description": "Introduction to the Widget Replacement tab on the options page."
     },
     "disabled_sites": {
         "message": "Вимкнені сайти",

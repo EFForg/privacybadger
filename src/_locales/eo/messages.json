@@ -119,13 +119,33 @@
         "message": "Enporti",
         "description": ""
     },
-    "options_hide_social_widgets": {
-        "message": "Ne anstataŭigi la jenajn ret‑aplikaĵetojn:",
-        "description": "Multiple selection box on the widget replacement tab"
+    "options_widget_replacement_tab": {
+        "message": "Anstataŭigi ret‑aplikaĵetojn",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "Privata Melo povas bloki butonojn de sociaj retejoj kaj aliajn virtuale uzeblajn aplikaĵetojn (filmetojn, aŭdaĵojn, komentojn), tiu ĉi eblaĵo anstataŭigas ilin per klakeblaj (ne aŭtomate montriĝantaj) butonoj.",
+        "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
         "message": "Aktivigi anstataŭigon de ret‑aplikaĵetoj",
-        "description": "Checkbox label on the widget replacement tab"
+        "description": "Checkbox label on the Widget Replacement tab"
+    },
+    "options_widget_exceptions_header": {
+        "message": "Widget Exceptions",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_hide_social_widgets": {
+        "message": "Ne anstataŭigi la jenajn ret‑aplikaĵetojn:",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_header": {
+        "message": "Site Exceptions",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_label": {
+        "message": "Always allow widgets on these sites:",
+        "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Montri nomregnojn, kiuj verŝajne ne spuras vin",
@@ -653,14 +673,6 @@
     "popup_disabled_site_header": {
         "message": "Privata Melo estas malaktivigita por tiu ĉi retejo",
         "description": "Shown in the popup on disabled sites."
-    },
-    "options_widget_replacement_tab": {
-        "message": "Anstataŭigi ret‑aplikaĵetojn",
-        "description": "Options page tab heading"
-    },
-    "options_widget_replacement_desc": {
-        "message": "Privata Melo povas bloki butonojn de sociaj retejoj kaj aliajn virtuale uzeblajn aplikaĵetojn (filmetojn, aŭdaĵojn, komentojn), tiu ĉi eblaĵo anstataŭigas ilin per klakeblaj (ne aŭtomate montriĝantaj) butonoj.",
-        "description": "Introduction to the Widget Replacement tab on the options page."
     },
     "disabled_sites": {
         "message": "Neblokataj retejoj",

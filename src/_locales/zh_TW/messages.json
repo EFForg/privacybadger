@@ -119,13 +119,33 @@
         "message": "匯入",
         "description": ""
     },
-    "options_hide_social_widgets": {
-        "message": "不要取代下列的小工具：",
-        "description": "Multiple selection box on the widget replacement tab"
+    "options_widget_replacement_tab": {
+        "message": "小工具取代",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "當阻擋社群媒體按鈕與其他可能有用（影片、音訊、留言）的小工具時，Privacy Badger 可以使用點擊啟用的按鈕來取代它們。",
+        "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
         "message": "啟用小工具取代",
-        "description": "Checkbox label on the widget replacement tab"
+        "description": "Checkbox label on the Widget Replacement tab"
+    },
+    "options_widget_exceptions_header": {
+        "message": "Widget Exceptions",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_hide_social_widgets": {
+        "message": "不要取代下列的小工具：",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_header": {
+        "message": "Site Exceptions",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_label": {
+        "message": "Always allow widgets on these sites:",
+        "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "顯示似乎未在追蹤您的網域",
@@ -653,14 +673,6 @@
     "popup_disabled_site_header": {
         "message": "Privacy Badger 已對此網站停用",
         "description": "Shown in the popup on disabled sites."
-    },
-    "options_widget_replacement_tab": {
-        "message": "小工具取代",
-        "description": "Options page tab heading"
-    },
-    "options_widget_replacement_desc": {
-        "message": "當阻擋社群媒體按鈕與其他可能有用（影片、音訊、留言）的小工具時，Privacy Badger 可以使用點擊啟用的按鈕來取代它們。",
-        "description": "Introduction to the Widget Replacement tab on the options page."
     },
     "disabled_sites": {
         "message": "停用的網站",
