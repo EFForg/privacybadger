@@ -1038,13 +1038,6 @@ Badger.prototype = {
     );
   },
 
-  /**
-   * Check if widget replacement functionality is enabled.
-   */
-  isWidgetReplacementEnabled: function () {
-    return this.getSettings().getItem("socialWidgetReplacementEnabled");
-  },
-
   isDNTSignalEnabled: function() {
     return this.getSettings().getItem("sendDNTSignal");
   },

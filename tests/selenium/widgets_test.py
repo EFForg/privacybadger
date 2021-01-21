@@ -13,11 +13,13 @@ from selenium.common.exceptions import (
     TimeoutException
 )
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 
 
 class WidgetsTest(pbtest.PBSeleniumTest):
 
     FIXTURES_URL = "https://efforg.github.io/privacybadger-test-fixtures/html/"
+    FIXTURES_HOST = "efforg.github.io"
     BASIC_FIXTURE_URL = FIXTURES_URL + "widget_basic.html"
     DYNAMIC_FIXTURE_URL = FIXTURES_URL + "widget_dynamic.html"
     THIRD_PARTY_DOMAIN = "privacybadger-tests.eff.org"
@@ -252,6 +254,19 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         # verify basic widget is neither replaced nor blocked
         self.assert_no_replacement()
         self.assert_widget()
+
+        # remove the site exception
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-manage-widgets"]').click()
+        select = Select(self.driver.find_element_by_id('widget-site-exceptions-select'))
+        select.select_by_value(self.FIXTURES_HOST)
+        self.driver.find_element_by_id('widget-site-exceptions-remove-button').click()
+
+        # verify basic widget is replaced again
+        self.open_window()
+        self.load_url(self.BASIC_FIXTURE_URL)
+        self.assert_replacement()
 
     def test_disabling_site(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)

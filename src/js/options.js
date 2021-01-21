@@ -49,6 +49,7 @@ function loadOptions() {
   $('#exportTrackers').on("click", exportUserData);
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
+  $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteExceptions);
 
   if (OPTIONS_DATA.settings.showTrackingDomains) {
     $('#tracking-domains-overlay').hide();
@@ -110,7 +111,7 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.settings.showCounter);
   $("#replace-widgets-checkbox")
     .on("click", updateWidgetReplacement)
-    .prop("checked", OPTIONS_DATA.isWidgetReplacementEnabled);
+    .prop("checked", OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
   $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.settings.sendDNTSignal);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
@@ -241,15 +242,22 @@ function loadOptions() {
     });
 
   const widgetSelector = $("#hide-widgets-select");
-  widgetSelector.prop("disabled",
-    OPTIONS_DATA.isWidgetReplacementEnabled ? false : "disabled");
 
-  $("#replace-widgets-checkbox").on("change", function () {
-    if ($(this).is(":checked")) {
+  // disable Widget Replacement form elements when widget replacement is off
+  function _disable_widget_forms(enable) {
+    if (enable) {
       widgetSelector.prop("disabled", false);
+      $("#widget-site-exceptions-select").prop("disabled", false);
+      $('#widget-site-exceptions-remove-button').button("option", "disabled", false);
     } else {
       widgetSelector.prop("disabled", "disabled");
+      $("#widget-site-exceptions-select").prop("disabled", "disabled");
+      $('#widget-site-exceptions-remove-button').button("option", "disabled", true);
     }
+  }
+  _disable_widget_forms(OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
+  $("#replace-widgets-checkbox").on("change", function () {
+    _disable_widget_forms($(this).is(":checked"));
   });
 
   // Initialize Select2 and populate options
@@ -266,6 +274,7 @@ function loadOptions() {
 
   reloadDisabledSites();
   reloadTrackingDomainsTab();
+  reloadWidgetSiteExceptions();
 
   $('html').css({
     overflow: 'visible',
@@ -330,12 +339,15 @@ function parseUserDataFile(storageMapsList) {
     type: "mergeUserData",
     data: lists
   }, (response) => {
-    OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     OPTIONS_DATA.origins = response.origins;
+    OPTIONS_DATA.settings = response.settings;
 
+    // TODO general settings are not updated
     reloadDisabledSites();
     reloadTrackingDomainsTab();
-    // TODO general settings are not updated
+    // TODO widget replacement toggle not updated
+    // TODO widget replacement exceptions not updated
+    reloadWidgetSiteExceptions();
 
     alert(i18n.getMessage("import_successful"));
   });
@@ -574,6 +586,36 @@ function removeDisabledSite(event) {
   }, (response) => {
     OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     reloadDisabledSites();
+  });
+}
+
+/**
+ * Updates the Site Exceptions form on the Widget Replacement tab.
+ */
+function reloadWidgetSiteExceptions() {
+  let sites = Object.keys(OPTIONS_DATA.settings.widgetSiteAllowlist),
+    $select = $('#widget-site-exceptions-select');
+
+  // sort widget exemptions sites the same way other options page domains lists are
+  sites = htmlUtils.sortDomains(sites);
+
+  $select.empty();
+  for (let domain of sites) {
+    // list allowed widget types alongside the domain they belong to
+    let display_text = domain + " (" + OPTIONS_DATA.settings.widgetSiteAllowlist[domain].join(', ') + ")";
+    $('<option>').text(display_text).val(domain).appendTo($select);
+  }
+}
+
+function removeWidgetSiteExceptions(event) {
+  event.preventDefault();
+
+  chrome.runtime.sendMessage({
+    type: "removeWidgetSiteExceptions",
+    domains: $("#widget-site-exceptions-select").val()
+  }, (response) => {
+    OPTIONS_DATA.settings.widgetSiteAllowlist = response.widgetSiteAllowlist;
+    reloadWidgetSiteExceptions();
   });
 }
 
