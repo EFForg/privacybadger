@@ -132,7 +132,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "Винятки віджетів",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -140,11 +140,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "Винятки сайтів",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "Завжди дозволяти віджети на цих сайтах:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {

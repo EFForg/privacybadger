@@ -132,7 +132,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "小工具異常",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -140,11 +140,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "網站異常",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "一律在這些頁面上允許小工具：",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
