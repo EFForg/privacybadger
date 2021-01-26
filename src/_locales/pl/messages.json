@@ -144,7 +144,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Zezwól widżety na następujących witrynach:",
+        "message": "Zawsze odblokuj widżety na następujących witrynach:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {

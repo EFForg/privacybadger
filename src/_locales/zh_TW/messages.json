@@ -144,7 +144,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "一律在這些頁面上允許小工具：",
+        "message": "一律在這些網站上允許小工具：",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {

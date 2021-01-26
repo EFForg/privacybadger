@@ -144,7 +144,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Laat altijd widgets toe op deze websites:",
+        "message": "Sta altijd widgets toe op deze websites:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
