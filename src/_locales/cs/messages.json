@@ -198,11 +198,11 @@
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "Zjistěte více o změnách v Privacy Badgeru",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
-        "message": "Show count of trackers",
+        "message": "Zobrazit počet sledovacích prvků",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -218,7 +218,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
+        "message": "Tímto automaticky pošlete EFF následující informace: stránku, kterou právě prohlížíte, verzi vašeho prohlížeče, verzi Privacy Badgeru a stav všech posuvníků na této stránce.",
         "description": ""
     },
     "popup_enable_for_site": {
@@ -342,11 +342,11 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "Automatické učení",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "Místo udržování seznamu prvků, které se mají blokovat, bude Privacy Badger automaticky rozpoznávat sledovací prvky podle jejich chování.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
