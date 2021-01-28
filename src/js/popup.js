@@ -169,10 +169,29 @@ function init() {
     $overlay.toggleClass('active');
   }
 
-  // show firstparty link tracking protection if we scrub links on this tab host
-  if (POPUP_DATA.tabHost == 'www.facebook.com' || POPUP_DATA.tabHost == 'www.google.com') {
-    $("#instructions_firstparty_protections").show();
+  async function fetchFirstPartiesManifest() {
+    // fetch the manifest
+    const response = await fetch('../manifest.json');
+    const blob = await response.json();
+
+    // isolate the firstparties urls from that blob
+    const firstParties = [];
+
+    // remove the 'www.' from current tab for string matching against first parties manifest url schemes
+    let current_tab = POPUP_DATA.tabHost.slice(4);
+
+    // if current tab is in first parties list, show the popup message
+    for (let firstPartyObj of blob.content_scripts) {
+      firstPartyObj.matches.forEach((urlScheme) => {
+        firstParties.push(urlScheme);
+        if (urlScheme.includes(current_tab)) {
+          $("#instructions_firstparty_protections").show();
+        }
+      });
+    }
   }
+
+  fetchFirstPartiesManifest();
 
   $("#error").on("click", function() {
     $overlay.toggleClass('active');
