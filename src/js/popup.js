@@ -169,13 +169,11 @@ function init() {
     $overlay.toggleClass('active');
   }
 
+  // check if any firstparty scripts are run on current tab & show message in popup
   async function fetchFirstPartiesManifest() {
     // fetch the manifest
     const response = await fetch('../manifest.json');
     const blob = await response.json();
-
-    // isolate the firstparties urls from that blob
-    const firstParties = [];
 
     // remove the 'www.' from current tab for string matching against first parties manifest url schemes
     let current_tab = POPUP_DATA.tabHost.slice(4);
@@ -183,9 +181,8 @@ function init() {
     // if current tab is in first parties list, show the popup message
     for (let firstPartyObj of blob.content_scripts) {
       firstPartyObj.matches.forEach((urlScheme) => {
-        firstParties.push(urlScheme);
         if (urlScheme.includes(current_tab)) {
-          $("#instructions_firstparty_protections").show();
+          $("#instructions-firstparty-protections").show();
         }
       });
     }
@@ -623,6 +620,7 @@ function refreshPopup() {
 
     // show "no trackers" message
     $("#instructions-no-trackers").show();
+
   } else {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
       "popup_instructions", [
