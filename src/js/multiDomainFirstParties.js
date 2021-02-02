@@ -3507,7 +3507,6 @@ let multiDomainFirstPartiesArray = [
   ],
   [
     "shopify.com",
-    "myshopify.com",
     "shopifycdn.com",
     "shopifyapps.com",
     "shopifycloud.com",
