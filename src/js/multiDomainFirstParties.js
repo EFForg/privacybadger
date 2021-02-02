@@ -4199,6 +4199,7 @@ let multiDomainFirstPartiesArray = [
 
     "dilcdn.com",
     "disney.io",
+    "disney-plus.net",
   ],
   [
     "wargaming.com",
