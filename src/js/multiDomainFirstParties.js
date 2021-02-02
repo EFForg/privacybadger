@@ -2868,6 +2868,29 @@ let multiDomainFirstPartiesArray = [
     "whimn.com.au",
   ],
   [
+    "nineforbrands.com.au",
+
+    "2gb.com",
+    "9news.com.au",
+    "9now.com.au",
+    "afr.com",
+    "brisbanetimes.com.au",
+    "businessinsider.com.au",
+    "canberratimes.com.au",
+    "caradvice.com.au",
+    "fairfaxmedia.com.au",
+    "gizmodo.com.au",
+    "kotaku.com.au",
+    "lifehacker.com.au",
+    "smh.com.au",
+    "theage.com.au",
+    "traveller.com.au",
+    "watoday.com.au",
+
+    "ffx.io",
+    "nine.com.au",
+  ],
+  [
     "nintendo.com",
 
     "nintendo.at",
@@ -3508,18 +3531,6 @@ let multiDomainFirstPartiesArray = [
   ["skysports.com", "skybet.com", "skyvegas.com"],
   ["slashdot.org", "sourceforge.net", "fsdn.com"],
   ["slickdeals.net", "slickdealscdn.com"],
-  [
-    "smh.com.au",
-
-    "afr.com",
-    "brisbanetimes.com.au",
-    "canberratimes.com.au",
-    "fairfaxmedia.com.au",
-    "theage.com.au",
-    "watoday.com.au",
-
-    "ffx.io",
-  ],
   ["snapfish.com", "snapfish.ca"],
   [
     "sony.com",
