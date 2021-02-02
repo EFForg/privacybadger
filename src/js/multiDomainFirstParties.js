@@ -2867,13 +2867,12 @@ let multiDomainFirstPartiesArray = [
   ],
   [
     "nintendo.com",
-    "nintendo.net",
-    "nintendo-europe.com",
-    "nintendonyc.com",
 
     "nintendo.at",
     "nintendo.be",
+    "nintendo.ca",
     "nintendo.ch",
+    "nintendo.co.jp",
     "nintendo.co.uk",
     "nintendo.co.za",
     "nintendo.de",
@@ -2882,8 +2881,12 @@ let multiDomainFirstPartiesArray = [
     "nintendo.fr",
     "nintendo.it",
     "nintendo.nl",
+    "nintendonyc.com",
     "nintendo.pt",
     "nintendo.ru",
+
+    "nintendo-europe.com",
+    "nintendo.net",
 
     "animal-crossing.com",
     "smashbros.com",
