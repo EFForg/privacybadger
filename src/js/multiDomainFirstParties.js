@@ -1506,22 +1506,23 @@ let multiDomainFirstPartiesArray = [
   ],
   ["gitlab.com", "gitlab-static.net"],
   [
-    "gizmodo.com",
+    "g-omedia.com",
 
     "avclub.com",
     "deadspin.com",
+    "gizmodo.com",
     "jalopnik.com",
     "jezebel.com",
-    "kinja.com",
-    "kinja-img.com",
-    "kinja-static.com",
     "kotaku.com",
     "lifehacker.com",
-    "technoratimedia.com",
     "theinventory.com",
     "theonion.com",
     "theroot.com",
     "thetakeout.com",
+
+    "kinja.com",
+    "kinja-img.com",
+    "kinja-static.com",
   ],
   [
     "glassdoor.com",
