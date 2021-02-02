@@ -101,10 +101,9 @@ HeuristicBlocker.prototype = {
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
    * @param {Object} details request/response details
-   * @param {Boolean} check_for_cookie_share whether to check for cookie sharing
    */
   // TODO more like heuristicLearningFromCookies ... check DESIGN doc
-  heuristicBlockingAccounting: function (details, check_for_cookie_share) {
+  heuristicBlockingAccounting: function (details) {
     // ignore requests that are outside a tabbed window
     if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
       return {};
@@ -154,120 +153,6 @@ HeuristicBlocker.prototype = {
     if (hasCookieTracking(details)) {
       self._recordPrevalence(request_host, request_base, tab_base);
       return {};
-    }
-
-    // check for cookie sharing iff this is an image in the top-level frame, and the request URL has parameters
-    if (check_for_cookie_share && details.type == 'image' && details.frameId === 0 && details.url.indexOf('?') > -1) {
-      // get all non-HttpOnly cookies for the top-level frame
-      // and pass those to the cookie-share accounting function
-      let tab_url = self.tabUrls[details.tabId];
-
-      let config = {
-        url: tab_url
-      };
-      if (badger.firstPartyDomainPotentiallyRequired) {
-        config.firstPartyDomain = null;
-      }
-
-      chrome.cookies.getAll(config, function (cookies) {
-        cookies = cookies.filter(cookie => !cookie.httpOnly);
-        if (cookies.length >= 1) {
-          // TODO refactor with new URI() above?
-          let searchParams = (new URL(details.url)).searchParams;
-          self.pixelCookieShareAccounting(tab_url, tab_base, searchParams, request_host, request_base, cookies);
-        }
-      });
-    }
-  },
-
-  /**
-   * Checks for cookie sharing: requests to third-party domains
-   * that include high entropy data from first-party cookies.
-   *
-   * Only catches plain-text verbatim sharing (b64 encoding etc. defeat it).
-   *
-   * Assumes any long string that doesn't contain URL fragments
-   * or stopwords is an identifier.
-   *
-   * Doesn't catch cookie syncing (3rd party -> 3rd party),
-   * but most of those tracking cookies should be blocked anyway.
-   */
-  pixelCookieShareAccounting: function (tab_url, tab_base, searchParams, request_host, request_base, cookies) {
-    const TRACKER_ENTROPY_THRESHOLD = 33,
-      MIN_STR_LEN = 8;
-
-    for (let p of searchParams) {
-      let key = p[0],
-        value = p[1];
-
-      // the argument must be sufficiently long
-      if (!value || value.length < MIN_STR_LEN) {
-        continue;
-      }
-
-      // check if this argument is derived from a high-entropy first-party cookie
-      for (let cookie of cookies) {
-        // the cookie value must be sufficiently long
-        if (!cookie.value || cookie.value.length < MIN_STR_LEN) {
-          continue;
-        }
-
-        // find the longest common substring between this arg and the cookies
-        // associated with the document
-        let substrings = utils.findCommonSubstrings(cookie.value, value) || [];
-        for (let s of substrings) {
-          // ignore the substring if it's part of the first-party URL. sometimes
-          // content servers take the url of the page they're hosting content
-          // for as an argument. e.g.
-          // https://example-cdn.com/content?u=http://example.com/index.html
-          if (tab_url.indexOf(s) != -1) {
-            continue;
-          }
-
-          // elements of the user agent string are also commonly included in
-          // both cookies and arguments; e.g. "Mozilla/5.0" might be in both.
-          // This is not a special tracking risk since third parties can see
-          // this info anyway.
-          if (navigator.userAgent.indexOf(s) != -1) {
-            continue;
-          }
-
-          // Sometimes the entire url and then some is included in the
-          // substring -- the common string might be "https://example.com/:true"
-          // In that case, we only care about the information around the URL.
-          if (s.indexOf(tab_url) != -1) {
-            s = s.replace(tab_url, "");
-          }
-
-          // During testing we found lots of common values like "homepage",
-          // "referrer", etc. were being flagged as high entropy. This searches
-          // for a few of those and removes them before we go further.
-          let lower = s.toLowerCase();
-          lowEntropyQueryValues.forEach(function (qv) {
-            let start = lower.indexOf(qv);
-            if (start != -1) {
-              s = s.replace(s.substring(start, start + qv.length), "");
-            }
-          });
-
-          // at this point, since we might have removed things, make sure the
-          // string is still long enough to bother with
-          if (s.length < MIN_STR_LEN) {
-            continue;
-          }
-
-          // compute the entropy of this common substring. if it's greater than
-          // our threshold, record the tracking action and exit the function.
-          let entropy = utils.estimateMaxEntropy(s);
-          if (entropy > TRACKER_ENTROPY_THRESHOLD) {
-            log("Found high-entropy cookie share from", tab_base, "to", request_host,
-              ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
-              "\n  arg:", key, "=", value, "\n  substring:", s);
-            this._recordPrevalence(request_host, request_base, tab_base);
-            return;
-          }
-        }
-      }
     }
   },
 
@@ -564,51 +449,6 @@ var lowEntropyCookieValues = {
   "zu":8
 };
 
-const lowEntropyQueryValues = [
-  "https",
-  "http",
-  "://",
-  "%3A%2F%2F",
-  "www",
-  "url",
-  "undefined",
-  "impression",
-  "session",
-  "homepage",
-  "client",
-  "version",
-  "business",
-  "title",
-  "get",
-  "site",
-  "name",
-  "category",
-  "account_id",
-  "smartadserver",
-  "front",
-  "page",
-  "view",
-  "first",
-  "visit",
-  "platform",
-  "language",
-  "automatic",
-  "disabled",
-  "landing",
-  "entertainment",
-  "amazon",
-  "official",
-  "webvisor",
-  "anonymous",
-  "across",
-  "narrative",
-  "\":null",
-  "\":false",
-  "\":\"",
-  "\",\"",
-  "\",\"",
-];
-
 /**
  * Extract cookies from onBeforeSendHeaders
  *
@@ -697,7 +537,7 @@ function startListeners() {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    return badger.heuristicBlocking.heuristicBlockingAccounting(details, true);
+    return badger.heuristicBlocking.heuristicBlockingAccounting(details);
   }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   /**
@@ -716,7 +556,7 @@ function startListeners() {
       }
     }
     if (hasSetCookie) {
-      return badger.heuristicBlocking.heuristicBlockingAccounting(details, false);
+      return badger.heuristicBlocking.heuristicBlockingAccounting(details);
     }
   },
   {urls: ["<all_urls>"]}, extraInfoSpec);
