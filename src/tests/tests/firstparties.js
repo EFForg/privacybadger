@@ -5,6 +5,7 @@ let fb_wrap = 'https://facebook.com/l.php?u=' + destination;
 let fb_xss = 'https://facebook.com/l.php?u=javascript://bad.site/%250Aalert(1)';
 let g_wrap = 'https://www.google.com/url?q=' + destination;
 let g_ping = '/url?url=' + destination;
+let tumblr_wrap = 'https://t.umblr.com/redirect?z=' + destination;
 
 function makeLink(href) {
   let element = document.createElement('a');
@@ -161,6 +162,40 @@ QUnit.test('google search de-instrumentation', (assert) => {
   stub([ff_link, chrome_link], 'onmousedown^=');
   fixture.appendChild(ff_link);
   fixture.appendChild(chrome_link);
+  fixture.appendChild(util_script);
+});
+
+QUnit.test('tumblr link unwrapping', (assert) => {
+  const NUM_CHECKS = 2,
+    done = assert.async();
+  assert.expect(NUM_CHECKS);
+
+  let fixture = document.getElementById('qunit-fixture');
+  let tumblr_link = makeLink(tumblr_wrap);
+
+  // create first-party utility script
+  let util_script = document.createElement('script');
+  util_script.src = '../js/firstparties/lib/utils.js';
+
+  // create the content script
+  let tumblr_script = document.createElement('script');
+  tumblr_script.src = '../js/firstparties/tumblr.js';
+  tumblr_script.onload = function() {
+    assert.equal(tumblr_link.href, destination, 'unwrapped tumblr link');
+    assert.ok(tumblr_link.rel.includes('noreferrer'),
+      'added noreferrer to tumblr link');
+
+    unstub();
+    done();
+  };
+
+  // after the utility script has finished loading, add the content script
+  util_script.onload = function() {
+    fixture.append(tumblr_script);
+  };
+
+  stub([tumblr_link], '/url?');
+  fixture.appendChild(tumblr_link);
   fixture.appendChild(util_script);
 });
 
