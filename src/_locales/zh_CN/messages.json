@@ -132,7 +132,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "例外小部件",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -140,11 +140,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "例外网站",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "总是在以下网站允许小部件：",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -567,7 +567,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "隐私獾已经替换了$START_ANCHOR_TAG$这个$WIDGET$小工具$END_ANCHOR_TAG$",
+        "message": "隐私獾已经替换了$START_ANCHOR_TAG$这个 $WIDGET$ 小部件$END_ANCHOR_TAG$",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
