@@ -39,6 +39,15 @@ class GoogleTest(pbtest.PBSeleniumTest):
             SELECTOR = "a[href]:not([href=''])"
             search_results = self.driver.find_elements_by_css_selector(SELECTOR)
 
+            # remove "About this result" links as they do not get cleaned
+            # (they don't match any of the `trap_link` selectors)
+            # and so they fail the rel check below
+            search_results = [a for a in search_results if (
+                a.text or
+                a.get_attribute('textContent') != self.SEARCH_RESULT_URL or
+                a.get_attribute('innerHTML') != self.SEARCH_RESULT_URL
+            )]
+
             # verify these appear to be actual search results
             hrefs = [link.get_attribute('href') for link in search_results]
             self.assertIn(self.SEARCH_RESULT_URL, hrefs,
