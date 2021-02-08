@@ -14,7 +14,7 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "האם אתה בטוח שאתה רוצה להסיר תחום זה מתוך Privacy Badger?",
+        "message": "האם אתה בטוח שאתה רוצה להסיר תחום זה מן Privacy Badger?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
@@ -218,7 +218,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "זה ישלח באופן אוטומטי את המידע הבא אל EFF: הדף שאתה כרגע מבקר בו, גרסת הדפדפן שלך, הגרסה של Privacy Badger והמצב של כל המחוונים בדף זה.",
+        "message": "זה ישלח באופן אוטומטי את המידע הבא אל EFF: הדף שאתה כרגע מבקר בו, גרסת הדפדפן שלך, הגרסה של Privacy Badger והמצב של כל המחלקים בדף זה.",
         "description": ""
     },
     "popup_enable_for_site": {
@@ -238,7 +238,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "יבוא נתוני משתמש:<ul><li>דריסת הגדרות כלליות</li><li>שילוב רשימות של אתרים מושבתים</li><li>שילוב מידע על אילו עוקבנים Privacy Badger ראה</li><li>דריסת התאמות אישיות של מחוונים</li></ul>",
+        "message": "יבוא נתוני משתמש:<ul><li>דריסת הגדרות כלליות</li><li>שילוב רשימות של אתרים מושבתים</li><li>שילוב מידע על אילו עוקבנים Privacy Badger ראה</li><li>דריסת התאמות אישיות של מחלקים</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -338,7 +338,7 @@
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
-        "message": "מרכז את המחוון כדי לחסום עוגיות",
+        "message": "מרכז את המַחְלֵק כדי לחסום עוגיות",
         "description": ""
     },
     "intro_learns": {
@@ -394,7 +394,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "הזז את המחוון שמאלה כדי לחסום תחום",
+        "message": "הזז את המַחְלֵק שמאלה כדי לחסום תחום",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
@@ -456,7 +456,7 @@
         "description": ""
     },
     "tooltip_allow": {
-        "message": "הזז את המחוון ימינה כדי להתיר תחום",
+        "message": "הזז את המַחְלֵק ימינה כדי להתיר תחום",
         "description": ""
     },
     "popup_disable_for_site": {
