@@ -764,6 +764,7 @@ yahoo.net
 yahooapis.com
 api-maps.yandex.ru
 img-fotki.yandex.ru
+maps.yandex.net
 yardbarker.com
 yastatic.net
 yellowpages.com
