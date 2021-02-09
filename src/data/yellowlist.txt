@@ -142,6 +142,7 @@ custhelp.com
 d3js.org
 dailymotion.com
 danid.dk
+check.ddos-guard.net
 dealer.com
 dealerinspire.com
 delicious.com
