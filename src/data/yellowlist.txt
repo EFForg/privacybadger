@@ -549,6 +549,7 @@ pricegrabber.com
 printfriendly.com
 prismic.io
 privacymanager.io
+cdn.privacy-mgmt.com
 providesupport.com
 psswrdbx.com
 publiekeomroep.nl
