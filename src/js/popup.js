@@ -585,7 +585,7 @@ function refreshPopup() {
     $("#instructions-no-trackers").css("margin", "10px 0");
   }
 
-  if (printable.length) {
+  if (printable.length && POPUP_DATA.showExpandedTrackingSection) {
     // get containing HTML for domain list along with toggle legend icons
     $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
   }

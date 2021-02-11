@@ -1039,6 +1039,7 @@ function dispatcher(request, sender, sendResponse) {
       noTabData: false,
       origins,
       seenComic: badger.getSettings().getItem("seenComic"),
+      showExpandedTrackingSection: badger.getSettings().getItem("showExpandedTrackingSection"),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
       showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
       tabHost: tab_host,
