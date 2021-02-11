@@ -451,6 +451,14 @@
         "message": "There are no third party resources on this page. Hooray for privacy!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
+    "popup_show_more": {
+        "message": "Show more",
+        "description": "Instructions to click to expand the blocked resources container on the popup"
+    },
+    "popup_show_less": {
+        "message": "Show less",
+        "description": "Instructions to click to collapse the blocked resources container on the popup"
+    },
     "intro_by_eff": {
         "message": "A project of the Electronic Frontier Foundation",
         "description": ""
