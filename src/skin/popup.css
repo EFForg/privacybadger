@@ -548,4 +548,7 @@ div.overlay.active {
         background-color: #333;
         border: solid 2px #ddd;
     }
+    .userset .honeybadgerPowered {
+        filter: invert(100%);
+    }
 }
