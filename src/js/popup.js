@@ -189,8 +189,8 @@ function init() {
   $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
 
-  $('#expand-blocked-resources-text').on('click', showBlockedResourcesHandler)
-  $('#collapse-blocked-resources-text').on('click', hideBlockedResourcesHandler)
+  $('#expand-blocked-resources-text').on('click', showBlockedResourcesHandler);
+  $('#collapse-blocked-resources-text').on('click', hideBlockedResourcesHandler);
 
   $("#version").text(
     chrome.i18n.getMessage("version", chrome.runtime.getManifest().version)
@@ -463,7 +463,7 @@ function showBlockedResourcesHandler() {
   $("#expand-blocked-resources-text").hide();
   chrome.runtime.sendMessage({
     type: "showTrackingDomainsSection"
-  })
+  });
 }
 
 /**
@@ -474,7 +474,7 @@ function hideBlockedResourcesHandler() {
   $("#expand-blocked-resources-text").show();
   chrome.runtime.sendMessage({
     type: "hideTrackingDomainsSection"
-  })
+  });
 }
 
 /**
