@@ -189,6 +189,9 @@ function init() {
   $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
 
+  $('#expand-blocked-resources-text').on('click', showBlockedResourcesHandler)
+  $('#collapse-blocked-resources-text').on('click', hideBlockedResourcesHandler)
+
   $("#version").text(
     chrome.i18n.getMessage("version", chrome.runtime.getManifest().version)
   );
@@ -450,6 +453,28 @@ function revertDomainControl(event) {
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
   });
+}
+
+/**
+ * Click handler for expanding the blocked resources section
+ */
+function showBlockedResourcesHandler() {
+  $("#collapse-blocked-resources-text").show();
+  $("#expand-blocked-resources-text").hide();
+  chrome.runtime.sendMessage({
+    type: "showTrackingDomainsSection"
+  })
+}
+
+/**
+ * Click handler for hiding the blocked resources section
+ */
+function hideBlockedResourcesHandler() {
+  $("#collapse-blocked-resources-text").hide();
+  $("#expand-blocked-resources-text").show();
+  chrome.runtime.sendMessage({
+    type: "hideTrackingDomainsSection"
+  })
 }
 
 /**
