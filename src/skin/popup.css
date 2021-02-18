@@ -173,6 +173,10 @@ font-size: 16px;
     min-height: 70px;
 }
 
+#toggleBlockedResourcesContainer {
+    text-align: center;
+}
+
 #intro-reminder-btn, #critical-error-link, #learning-prompt-btn {
     background-color: #ff641c;
     border: 2px solid #ff641c;
