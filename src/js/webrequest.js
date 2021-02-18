@@ -1127,6 +1127,18 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  case "showTrackingDomainsSection": {
+    badger.getSettings().setItem("showExpandedTrackingSection", true);
+    sendResponse();
+    break;
+  }
+
+  case "hideTrackingDomainsSection": {
+    badger.getSettings().setItem("showExpandedTrackingSection", false);
+    sendResponse();
+    break;
+  }
+
   case "downloadCloud": {
     chrome.storage.sync.get("disabledSites", function (store) {
       if (chrome.runtime.lastError) {
