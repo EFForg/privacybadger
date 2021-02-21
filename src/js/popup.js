@@ -192,6 +192,16 @@ function init() {
   $('#expand-blocked-resources-text').on('click', showBlockedResourcesHandler);
   $('#collapse-blocked-resources-text').on('click', hideBlockedResourcesHandler);
 
+  if (POPUP_DATA.showExpandedTrackingSection) {
+    $('#expand-blocked-resources-text').hide();
+    $('#collapse-blocked-resources-text').show();
+    $('#blockedResources').show();
+  } else if (!POPUP_DATA.showExpandedTrackingSection) {
+    $('#expand-blocked-resources-text').show();
+    $('#collapse-blocked-resources-text').hide();
+    $('#blockedResources').hide();
+  }
+
   $("#version").text(
     chrome.i18n.getMessage("version", chrome.runtime.getManifest().version)
   );
@@ -461,6 +471,7 @@ function revertDomainControl(event) {
 function showBlockedResourcesHandler() {
   $("#collapse-blocked-resources-text").show();
   $("#expand-blocked-resources-text").hide();
+  $("#blockedResources").show();
   chrome.runtime.sendMessage({
     type: "showTrackingDomainsSection"
   });
@@ -472,6 +483,7 @@ function showBlockedResourcesHandler() {
 function hideBlockedResourcesHandler() {
   $("#collapse-blocked-resources-text").hide();
   $("#expand-blocked-resources-text").show();
+  $("#blockedResources").hide();
   chrome.runtime.sendMessage({
     type: "hideTrackingDomainsSection"
   });
