@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": false,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "strict": true,
+        "types": ["node", "firefox-webext-browser"]
+    },
+    "exclude": ["node_modules"]
+}
