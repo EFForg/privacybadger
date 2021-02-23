@@ -543,9 +543,10 @@ function refreshPopup() {
   }
 
   if (!originsArr.length) {
-    // hide the number of trackers and slider instructions message
+    // hide the number of trackers, slider instructions messages
     // if no sliders will be displayed
     $("#instructions-many-trackers").hide();
+    $("#toggleBlockedResourcesContainer").hide();
 
     // show "no trackers" message
     $("#instructions-no-trackers").show();
