@@ -230,6 +230,9 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.open_popup(origins={DOMAIN:"cookieblock"})
 
+        # make sure the 'see more' blocked resources container is expanded
+        self.driver.find_element_by_id("expand-blocked-resources-text").click()
+
         # set the domain to user control
         # click input with JavaScript to avoid "Element ... is not clickable" /
         # "Other element would receive the click" Selenium limitation
