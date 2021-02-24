@@ -132,7 +132,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "Gränssnittskomponentsundantag",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -140,11 +140,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "Webbplatsundantag",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "Tillåt alltid gränssnittskomponenter på dessa webbplatser:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -410,7 +410,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "Disable prefetching",
+        "message": "Inaktivera förhämtning",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -418,7 +418,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_instructions": {
-        "message": "$COUNT$ potential $LINK_START$spårare$LINK_END$ blockerad",
+        "message": "$COUNT$ potentiell $LINK_START$spårare$LINK_END$ blockerad",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -472,7 +472,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger har beslutat att blockera $COUNT$ potential $TRACKER_LINK_START$spårningsdomäner$TRACKER_LINK_END$ än så länge",
+        "message": "Privacy Badger har beslutat att blockera $COUNT$ potentiella $TRACKER_LINK_START$spårningsdomäner$TRACKER_LINK_END$ än så länge",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -617,11 +617,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Data successfully uploaded to the cloud",
+        "message": "Data har laddats upp till molnet",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Data could not be uploaded to the cloud",
+        "message": "Data kunde inte laddas upp till molnet",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
