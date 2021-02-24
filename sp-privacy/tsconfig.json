@@ -1,10 +1,13 @@
 {
     "compilerOptions": {
-        "allowSyntheticDefaultImports": false,
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
+        "target": "ES2015",
+        "module": "ES2020",
         "strict": true,
-        "types": ["node", "firefox-webext-browser"]
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": ["node", "firefox-webext-browser"],
+        "outDir": "./lib/esm"
     },
-    "exclude": ["node_modules"]
+    "include": ["./index.ts"],
+    "exclude": ["node_modules", "./lib/**/*", "./src/**/*"]
 }

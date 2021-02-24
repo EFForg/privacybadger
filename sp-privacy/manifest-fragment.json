@@ -1,6 +1,7 @@
 {
     "background": {
         "scripts": [
+            "sp-js/browser-polyfill.js",
             "js/bootstrap.js",
             "lib/vendor/punycode-1.4.1.js",
             "lib/publicSuffixList.js",
@@ -24,10 +25,7 @@
     },
     "content_scripts": [
         {
-            "js": [
-                "js/firstparties/lib/utils.js",
-                "js/firstparties/facebook.js"
-            ],
+            "js": ["js/firstparties/lib/utils.js", "js/firstparties/facebook.js"],
             "matches": [
                 "https://*.facebook.com/*",
                 "http://*.facebook.com/*",
@@ -39,10 +37,7 @@
             "all_frames": false
         },
         {
-            "js": [
-                "js/firstparties/lib/utils.js",
-                "js/firstparties/google-search.js"
-            ],
+            "js": ["js/firstparties/lib/utils.js", "js/firstparties/google-search.js"],
             "matches": [
                 "https://www.google.com/*",
                 "http://www.google.com/*",
@@ -429,10 +424,7 @@
             "all_frames": false
         },
         {
-            "js": [
-                "js/firstparties/lib/utils.js",
-                "js/firstparties/google-static.js"
-            ],
+            "js": ["js/firstparties/lib/utils.js", "js/firstparties/google-static.js"],
             "matches": [
                 "https://hangouts.google.com/*",
                 "http://hangouts.google.com/*",
