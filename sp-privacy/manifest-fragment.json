@@ -20,7 +20,8 @@
             "js/migrations.js",
             "js/firefoxandroid.js",
             "js/webrequest.js",
-            "js/background.js"
+            "js/background.js",
+            "sp-js/backgroundOverrides.js"
         ]
     },
     "content_scripts": [
