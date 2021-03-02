@@ -40,7 +40,7 @@
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Βοηθήστε μας κάνοντας μια προσφορά και μοιράζοντας την υποστήριξή σας για τα εργαλεία μας",
+        "message": "Βοηθήστε μας κάνοντας μια δωρεά και μοιράζοντας την υποστήριξή σας για τα εργαλεία μας",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
@@ -190,7 +190,7 @@
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Το Privacy Badger δε θα μαθαίνει πλέον από το ιστορικό σας.",
+        "message": "Το Privacy Badger δε θα μαθαίνει πλέον από το ιστορικό σας αυτόματα.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
@@ -210,7 +210,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Μην ξεχάσετε να μας ενημερώσετε για το πρόβλημα που αντιμετωπίζετε. Σεβόμαστε την ιδιωτικότητά σας, γι' αυτό δε στέλνουμε αυτόματες αναφορές.",
+        "message": "Μην ξεχάσετε να μας ενημερώσετε για το πρόβλημα που αντιμετωπίζετε κάνοντας κλικ στο κουμπί 'Η ιστοσελίδα υπολειτουργεί'. Σεβόμαστε την ιδιωτικότητά σας και γι' αυτό δε στέλνουμε αυτόματες αναφορές.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -334,7 +334,7 @@
         "description": ""
     },
     "report_broken_site": {
-        "message": "Η ιστοσελίδα υπολειτουργεί λόγω του Privacy Badger; Ενημερώστε μας!",
+        "message": "Η ιστοσελίδα υπολειτουργεί; Ενημερώστε μας!",
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
@@ -593,7 +593,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
-        "message": "Ο συγχρονισμός με το cloud:<ul><li>Απαιτεί συγχρονισμό Firefox/Chrome</li><li>Αντικαθιστά, μετά τη μεταφόρτωση, ό,τι δεδομένα υπήρχαν από το Privacy Badger</li><li>Συνδυάζει, μετά τη λήψη, τις λίστες ιστοσελίδων που το Privacy Badger έχει απενεργοποιήσει</li></ul>",
+        "message": "Ο συγχρονισμός με το cloud:<ul><li>Απαιτεί συγχρονισμό Firefox/Chrome</li><li>Αντικαθιστά, μετά τη μεταφόρτωση, ό,τι δεδομένα υπήρχαν από το Privacy Badger</li><li>Συνδυάζει, μετά τη λήψη, τις λίστες ιστοσελίδων όπου το Privacy Badger είναι απενεργοποιημένο</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
@@ -609,15 +609,15 @@
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "Οι απενεργοποιημένες ιστοσελίδες εισήχθησαν επιτυχώς.",
+        "message": "Τα δεδομένα από το cloud εισήχθησαν επιτυχώς.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
-        "message": "Δεν μπορέσαμε να κατεβάσουμε τις πληροφορίες από το cloud",
+        "message": "Δεν μπορέσαμε να κατεβάσουμε τις πληροφορίες από το cloud.",
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Οι απενεργοποιημένες ιστοσελίδες μεταφορτώθηκαν επιτυχώς στο cloud",
+        "message": "Τα δεδομένα σας μεταφορτώθηκαν επιτυχώς στο cloud",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
@@ -651,7 +651,7 @@
         }
     },
     "share_base_message": {
-        "message": "Το Privacy Badger (privacybadger.org) είναι ένα πρόσθετο που αυτόματα μαθαίνει να αποκλείει \"αόρατους\" ιχνηλάτες. Το Privacy Badger έχει δημιουργηθεί από την Electronic Frontier Foundation, μία μη κερδοσκοπική εταιρία που παλεύει για τα διακαιώματά σας στο διαδίκτυο.",
+        "message": "Το Privacy Badger (privacybadger.org) είναι ένα πρόσθετο που αυτόματα μαθαίνει να αποκλείει \"αόρατους\" ιχνηλάτες. Το Privacy Badger έχει δημιουργηθεί από την Electronic Frontier Foundation, μία μη κερδοσκοπική εταιρία που παλεύει για τα δικαιώματά σας στο διαδίκτυο.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -667,7 +667,7 @@
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Το Privacy Badger δε λειτουργεί σε ιστοσελίδες όπως αυτή. Προσπαθήστε να σερφάρετε κάπου αλλού.",
+        "message": "Το Privacy Badger δε λειτουργεί σε ειδικές σελίδες όπως αυτή. Προσπαθήστε να σερφάρετε κάπου αλλού.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
