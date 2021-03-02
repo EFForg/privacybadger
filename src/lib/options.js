@@ -57,8 +57,12 @@ function getOriginsArray(origins, filter_text, type_filter, status_filter, show_
         if (!value.startsWith("user")) {
           return false;
         }
-      } else {
-        if (value != type_filter) {
+      } else if (type_filter == "dnt") {
+        if (value != "dnt") {
+          return false;
+        }
+      } else if (type_filter == "-dnt") {
+        if (value == "dnt") {
           return false;
         }
       }

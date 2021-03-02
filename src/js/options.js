@@ -671,7 +671,7 @@ function updateSummary() {
   $("#tracking-domains-div").show();
 
   // count unique (cookie)blocked tracking base domains
-  let blockedDomains = getOriginsArray(OPTIONS_DATA.origins, null, null, null, false);
+  let blockedDomains = getOriginsArray(OPTIONS_DATA.origins, null, "-dnt", null, false);
   let baseDomains = new Set(blockedDomains.map(d => window.getBaseDomain(d)));
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [
