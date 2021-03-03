@@ -448,7 +448,7 @@
         }
     },
     "popup_blocked": {
-        "message": "Δεν υπάρχει κανένας ιχνηλάτης σε αυτήν τη σελίδα. Ζήτω η ασφάλεια!",
+        "message": "Δεν υπάρχει κανένας ιχνηλάτης σε αυτήν τη σελίδα. Ζήτω η ιδιωτικότητα!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
@@ -613,7 +613,7 @@
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
-        "message": "Δεν μπορέσαμε να κατεβάσουμε τις πληροφορίες από το cloud.",
+        "message": "Δεν μπορέσαμε να κατεβάσουμε τα δεδομένα σας από το cloud.",
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
@@ -621,7 +621,7 @@
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Δεν μπορέσαμε να μεταφορτώσουμε τις πληροφορίες σας στο cloud",
+        "message": "Δεν μπορέσαμε να μεταφορτώσουμε τα δεδομένα σας στο cloud",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
