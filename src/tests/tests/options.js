@@ -23,8 +23,8 @@ QUnit.test("getOriginsArray", (assert) => {
       return memo;
     }, {}
   );
-  const originsSansDnt = _.reduce(
-    origins, (memo, val, key) => {
+  const originsSansAllowedSansDnt = _.reduce(
+    originsSansAllowed, (memo, val, key) => {
       if (val != "dnt") {
         memo[key] = val;
       }
@@ -60,8 +60,8 @@ QUnit.test("getOriginsArray", (assert) => {
     },
     {
       msg: "Type filter (non-DNT)",
-      args: [origins, "", "-dnt", null, true],
-      expected: Object.keys(originsSansDnt)
+      args: [origins, "", "-dnt"],
+      expected: Object.keys(originsSansAllowedSansDnt)
     },
     {
       msg: "Status filter",
