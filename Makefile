@@ -7,6 +7,9 @@ updatepsl:
 updateseed:
 	scripts/updateseeddata.sh
 
+apply_effdntlist:
+	scripts/apply_effdntlist.py src/data/seed.json
+
 updategoogle:
 	scripts/updategoogle.sh
 
@@ -32,4 +35,4 @@ runff:
 runfn:
 	./node_modules/.bin/web-ext run --start-url "about:debugging#/runtime/this-firefox" -s src/ -f nightly
 
-.PHONY: lint updatepsl updateseed updategoogle todo tx runch runff runfn
+.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle todo tx runch runff runfn
