@@ -448,7 +448,7 @@
         }
     },
     "popup_blocked": {
-        "message": "Δεν υπάρχει κανένας ιχνηλάτης σε αυτήν τη σελίδα. Ζήτω η ιδιωτικότητα!",
+        "message": "Κανένας τρίτος δεν έχει πρόσβαση σε αυτήν τη σελίδα. Ζήτω η ιδιωτικότητα!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
