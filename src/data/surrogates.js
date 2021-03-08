@@ -59,6 +59,7 @@ const hostnames = {
   ],
   'cdn.krxd.net': 'noopjs',
   'widgets.outbrain.com': '/outbrain.js',
+  's7.addthis.com': '/addthis_widget.js',
 };
 
 /**
@@ -439,6 +440,27 @@ const surrogates = {
         obr.extern[a] = noopfn;
       });
       window.OBR = window.OBR || obr;
+    } + ')();',
+
+
+  // https://github.com/uBlockOrigin/uAssets/blob/577af0626fde9e7c48658891be045bd0fac7f27a/filters/resources.txt#L890-L906
+  '/addthis_widget.js': '(' +
+    function() {
+      var noopfn = function() {
+        ;
+      };
+      window.addthis = {
+        addEventListener: noopfn,
+        button: noopfn,
+        init: noopfn,
+        layers: noopfn,
+        ready: noopfn,
+        sharecounters: {
+          getShareCounts: noopfn
+        },
+        toolbox: noopfn,
+        update: noopfn
+      };
     } + ')();',
 
   // https://github.com/uBlockOrigin/uAssets/blob/0efcadb2ecc2a9f0daa5a1df79841d794b83860f/filters/resources.txt#L38-L41
