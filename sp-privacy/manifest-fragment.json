@@ -1,7 +1,6 @@
 {
     "background": {
         "scripts": [
-            "sp-js/browser-polyfill.js",
             "js/bootstrap.js",
             "lib/vendor/punycode-1.4.1.js",
             "lib/publicSuffixList.js",
