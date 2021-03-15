@@ -1,6 +1,7 @@
 /*
  * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
  * Copyright (C) 2014 Electronic Frontier Foundation
+ *
  * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
