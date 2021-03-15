@@ -1,5 +1,5 @@
 /*
- * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
+ * This file is part of Privacy Badger <https://privacybadger.org/>
  * Copyright (C) 2014 Electronic Frontier Foundation
  * Derived from ShareMeNot
  * Copyright (C) 2011-2014 University of Washington
