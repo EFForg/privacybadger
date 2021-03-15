@@ -16,7 +16,7 @@
     "sinon": "2.0.0",
     "tooltipster": "4.2.6",
     "underscore": "1.9.1",
-    "web-ext": "~5.5.0"
+    "web-ext": "~6.0.0"
   },
   "private": true
 }
