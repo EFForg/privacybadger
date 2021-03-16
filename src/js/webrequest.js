@@ -77,6 +77,11 @@ function onBeforeRequest(details) {
   let tab_host = getHostForTab(tab_id);
   let request_host = window.extractHostFromURL(url);
 
+  // CNAME uncloaking
+  if (badger.cnameDomains.hasOwnProperty(request_host)) {
+    request_host = badger.cnameDomains[request_host];
+  }
+
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     return {};
   }
@@ -160,6 +165,11 @@ function onBeforeSendHeaders(details) {
 
   let tab_host = getHostForTab(tab_id);
   let request_host = window.extractHostFromURL(url);
+
+  // CNAME uncloaking
+  if (badger.cnameDomains.hasOwnProperty(request_host)) {
+    request_host = badger.cnameDomains[request_host];
+  }
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     if (badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -260,9 +270,6 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  let tab_host = getHostForTab(tab_id);
-  let response_host = window.extractHostFromURL(url);
-
   if (details.type == 'main_frame' && badger.isFlocOverwriteEnabled()) {
     let responseHeaders = details.responseHeaders || [];
     responseHeaders.push({
@@ -270,6 +277,14 @@ function onHeadersReceived(details) {
       value: 'interest-cohort=()'
     });
     return { responseHeaders };
+  }
+
+  let tab_host = getHostForTab(tab_id);
+  let response_host = window.extractHostFromURL(url);
+
+  // CNAME uncloaking
+  if (badger.cnameDomains.hasOwnProperty(response_host)) {
+    response_host = badger.cnameDomains[response_host];
   }
 
   if (!utils.isThirdPartyDomain(response_host, tab_host)) {
@@ -449,11 +464,6 @@ function recordSupercookie(tab_id, frame_url) {
   const frame_host = window.extractHostFromURL(frame_url),
     page_host = badger.getFrameData(tab_id).host;
 
-  if (!utils.isThirdPartyDomain(frame_host, page_host)) {
-    // Only happens on the start page for google.com
-    return;
-  }
-
   badger.heuristicBlocking.updateTrackerPrevalence(
     frame_host,
     window.getBaseDomain(frame_host),
@@ -483,9 +493,15 @@ function recordFingerprinting(tab_id, msg) {
     return;
   }
 
+  let document_host = badger.getFrameData(tab_id).host,
+    script_host = window.extractHostFromURL(msg.scriptUrl);
+
+  // CNAME uncloaking
+  if (badger.cnameDomains.hasOwnProperty(script_host)) {
+    script_host = badger.cnameDomains[script_host];
+  }
+
   // ignore first-party scripts
-  let script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = badger.getFrameData(tab_id).host;
   if (!utils.isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -897,6 +913,11 @@ function dispatcher(request, sender, sendResponse) {
     let frame_host = window.extractHostFromURL(request.frameUrl),
       tab_host = window.extractHostFromURL(sender.tab.url);
 
+    // CNAME uncloaking
+    if (badger.cnameDomains.hasOwnProperty(frame_host)) {
+      frame_host = badger.cnameDomains[frame_host];
+    }
+
     // Ignore requests that aren't from a third party.
     if (!frame_host || !utils.isThirdPartyDomain(frame_host, tab_host)) {
       return sendResponse();
@@ -1001,6 +1022,11 @@ function dispatcher(request, sender, sendResponse) {
   case "inspectLocalStorage": {
     let tab_host = window.extractHostFromURL(sender.tab.url),
       frame_host = window.extractHostFromURL(request.frameUrl);
+
+    // CNAME uncloaking
+    if (badger.cnameDomains.hasOwnProperty(frame_host)) {
+      frame_host = badger.cnameDomains[frame_host];
+    }
 
     sendResponse(frame_host &&
       badger.isLearningEnabled(sender.tab.id) &&

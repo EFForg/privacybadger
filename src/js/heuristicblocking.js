@@ -110,20 +110,29 @@ HeuristicBlocker.prototype = {
     }
 
     let self = this,
-      request_host = (new URI(details.url)).host,
-      request_origin = window.getBaseDomain(request_host);
+      request_host = (new URI(details.url)).host;
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
-      self.tabOrigins[details.tabId] = request_origin;
+      self.tabOrigins[details.tabId] = window.getBaseDomain(request_host);
       self.tabUrls[details.tabId] = details.url;
       return {};
     }
 
     let tab_origin = self.tabOrigins[details.tabId];
+    if (!tab_origin) {
+      return {};
+    }
+
+    // CNAME uncloaking
+    if (badger.cnameDomains.hasOwnProperty(request_host)) {
+      request_host = badger.cnameDomains[request_host];
+    }
+
+    let request_origin = window.getBaseDomain(request_host);
 
     // ignore first-party requests
-    if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
+    if (!utils.isThirdPartyDomain(request_origin, tab_origin)) {
       return {};
     }
 

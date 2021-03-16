@@ -66,7 +66,8 @@ function Badger() {
     // kick off async initialization steps
     let ylistPromise = self.initializeYellowlist().catch(console.error),
       dntHashesPromise = self.initializeDnt().catch(console.error),
-      tabDataPromise = self.updateTabList().catch(console.error);
+      tabDataPromise = self.updateTabList().catch(console.error),
+      cnamesPromise = self.initializeCnames().catch(console.error);
 
     // seed data depends on the yellowlist
     await ylistPromise;
@@ -92,6 +93,7 @@ function Badger() {
     await seedDataPromise;
     await dntHashesPromise;
     await tabDataPromise;
+    await cnamesPromise;
 
     if (badger.isFirstRun || badger.isUpdate) {
       // block all widget domains
@@ -550,6 +552,14 @@ Badger.prototype = {
       }
     }
     return null;
+  },
+
+  initializeCnames: function () {
+    return fetch(constants.CNAME_DOMAINS_LOCAL_URL)
+      .then(response => response.json())
+      .then(data => {
+        badger.cnameDomains = data;
+      });
   },
 
   /**
