@@ -196,13 +196,16 @@ function isPrivateDomain(domain) { // eslint-disable-line no-unused-vars
  * @param {String} requestHost The host of the 3rd party request
  * @param {String} documentHost The host of the document
  */
-function isThirdParty(/**String*/ requestHost, /**String*/ documentHost) { // eslint-disable-line no-unused-vars
-  // Remove trailing dots
-  requestHost = requestHost.replace(/\.+$/, "");
-  documentHost = documentHost.replace(/\.+$/, "");
+function isThirdParty(requestHost, documentHost) { // eslint-disable-line no-unused-vars
+  if (!requestHost || !documentHost) {
+    return true;
+  }
+  if (requestHost == documentHost) {
+    return false;
+  }
 
   // Extract domain name - leave IP addresses unchanged, otherwise leave only base domain
-  var documentDomain = getBaseDomain(documentHost);
+  let documentDomain = getBaseDomain(documentHost);
   if (requestHost.length > documentDomain.length) {
     return (requestHost.substr(requestHost.length - documentDomain.length - 1) != "." + documentDomain);
   } else {
