@@ -450,7 +450,7 @@
         {
             "js": [
                 "js/contentscripts/collapser.js",
-                "js/contentscripts/socialwidgets.js",
+                "sp-js/socialwidgetsOverrides.js",
                 "js/contentscripts/supercookie.js"
             ],
             "matches": ["<all_urls>"],
