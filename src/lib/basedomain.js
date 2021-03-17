@@ -72,9 +72,11 @@ function isIPv6(address) {
  * Returns base domain for specified host based on Public Suffix List.
  * @param {String} hostname The name of the host to get the base domain for
  */
-function getBaseDomain(/**String*/ hostname) /**String*/ {
-  // remove trailing dot(s)
-  hostname = hostname.replace(/\.+$/, '');
+function getBaseDomain(hostname) {
+  // remove trailing dot
+  if (hostname.charAt(hostname.length - 1) == ".") {
+    hostname = hostname.slice(0, -1);
+  }
 
   // return IP address untouched
   if (isIPv6(hostname) || isIPv4(hostname)) {
@@ -193,13 +195,25 @@ function isPrivateDomain(domain) { // eslint-disable-line no-unused-vars
  * Checks whether a request is third party for the given document, uses
  * information from the public suffix list to determine the effective domain
  * name for the document.
+ *
  * @param {String} requestHost The host of the 3rd party request
  * @param {String} documentHost The host of the document
+ *
+ * @return {Boolean}
  */
 function isThirdParty(requestHost, documentHost) { // eslint-disable-line no-unused-vars
   if (!requestHost || !documentHost) {
     return true;
   }
+
+  // remove trailing dot
+  if (requestHost.charAt(requestHost.length - 1) == ".") {
+    requestHost = requestHost.slice(0, -1);
+  }
+  if (documentHost.charAt(documentHost.length - 1) == ".") {
+    documentHost = documentHost.slice(0, -1);
+  }
+
   if (requestHost == documentHost) {
     return false;
   }
@@ -216,7 +230,7 @@ function isThirdParty(requestHost, documentHost) { // eslint-disable-line no-unu
 /**
  * Extracts host name from a URL.
  */
-function extractHostFromURL(/**String*/ url) { // eslint-disable-line no-unused-vars
+function extractHostFromURL(url) { // eslint-disable-line no-unused-vars
   if (url && extractHostFromURL._lastURL == url) {
     return extractHostFromURL._lastDomain;
   }
@@ -240,7 +254,7 @@ function extractHostFromURL(/**String*/ url) { // eslint-disable-line no-unused-
  * TODO: Make sure the parsing actually works the same as nsStandardURL.
  * @constructor
  */
-function URI(/**String*/ spec) {
+function URI(spec) {
   this.spec = spec;
   this._schemeEnd = spec.indexOf(":");
   if (this._schemeEnd < 0) {
