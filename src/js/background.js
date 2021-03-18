@@ -66,8 +66,10 @@ function Badger() {
     // kick off async initialization steps
     let ylistPromise = self.initializeYellowlist().catch(console.error),
       dntHashesPromise = self.initializeDnt().catch(console.error),
-      tabDataPromise = self.updateTabList().catch(console.error),
-      cnamesPromise = self.initializeCnames().catch(console.error);
+      tabDataPromise = self.updateTabList().catch(console.error);
+
+    // async load known CNAME domain aliases (but don't wait on them)
+    self.initializeCnames().catch(console.error);
 
     // seed data depends on the yellowlist
     await ylistPromise;
@@ -93,7 +95,6 @@ function Badger() {
     await seedDataPromise;
     await dntHashesPromise;
     await tabDataPromise;
-    await cnamesPromise;
 
     if (badger.isFirstRun || badger.isUpdate) {
       // block all widget domains
@@ -233,6 +234,10 @@ Badger.prototype = {
    */
   tabData: {},
 
+  /**
+   * Mapping of known CNAME domain aliases
+   */
+  cnameDomains: {},
 
   // Methods
 
