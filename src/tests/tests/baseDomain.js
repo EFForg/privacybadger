@@ -251,6 +251,13 @@ QUnit.test("Third party checks", function (assert) {
     ["foo.co.uk", "bar.co.uk", true],
     ["foo.example.co.uk", "bar.example.co.uk", false],
     ["1.2.3.4", "2.2.3.4", true],
+    [null, "example.com", true],
+    [undefined, "example.com", true],
+    [null, null, true],
+    ["example.com", null, true],
+    ["example.com", undefined, true],
+    ["example.com.", "example.com", false], // first param has trailing dot
+    ["example.com", "example.com.", false], // second param has trailing dot
   ];
 
   for (var i = 0; i < tests.length; i++) {

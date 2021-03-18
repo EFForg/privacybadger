@@ -196,34 +196,34 @@ function isPrivateDomain(domain) { // eslint-disable-line no-unused-vars
  * information from the public suffix list to determine the effective domain
  * name for the document.
  *
- * @param {String} requestHost The host of the 3rd party request
- * @param {String} documentHost The host of the document
+ * @param {String} request_host The request host
+ * @param {String} site_host The document (first-party) host
  *
- * @return {Boolean}
+ * @returns {Boolean}
  */
-function isThirdParty(requestHost, documentHost) { // eslint-disable-line no-unused-vars
-  if (!requestHost || !documentHost) {
+function isThirdParty(request_host, site_host) { // eslint-disable-line no-unused-vars
+  if (!request_host || !site_host) {
     return true;
   }
 
   // remove trailing dot
-  if (requestHost.charAt(requestHost.length - 1) == ".") {
-    requestHost = requestHost.slice(0, -1);
+  if (request_host.charAt(request_host.length - 1) == ".") {
+    request_host = request_host.slice(0, -1);
   }
-  if (documentHost.charAt(documentHost.length - 1) == ".") {
-    documentHost = documentHost.slice(0, -1);
+  if (site_host.charAt(site_host.length - 1) == ".") {
+    site_host = site_host.slice(0, -1);
   }
 
-  if (requestHost == documentHost) {
+  if (request_host == site_host) {
     return false;
   }
 
   // Extract domain name - leave IP addresses unchanged, otherwise leave only base domain
-  let documentDomain = getBaseDomain(documentHost);
-  if (requestHost.length > documentDomain.length) {
-    return (requestHost.substr(requestHost.length - documentDomain.length - 1) != "." + documentDomain);
+  let site_base = getBaseDomain(site_host);
+  if (request_host.length > site_base.length) {
+    return !request_host.endsWith("." + site_base);
   } else {
-    return (requestHost != documentDomain);
+    return (request_host != site_base);
   }
 }
 
