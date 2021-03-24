@@ -69,6 +69,7 @@ function isIPv6(address) {
 /**
  * Returns base domain for specified host based on Public Suffix List.
  * @param {String} hostname The name of the host to get the base domain for
+ * @returns {String} The base domain
  */
 function getBaseDomain(hostname) {
   // remove trailing dot
@@ -82,34 +83,33 @@ function getBaseDomain(hostname) {
   }
 
   // search through PSL
-  var prevDomains = [];
-  var curDomain = hostname;
-  var nextDot = curDomain.indexOf('.');
-  var tld = 0;
+  let tld = 0,
+    prevDomains = [],
+    cur_domain = hostname,
+    next_dot = cur_domain.indexOf('.');
 
   for (;;) {
-    var suffix = window.publicSuffixes[curDomain];
-    if (typeof suffix != 'undefined') {
-      tld = suffix;
+    if (window.publicSuffixes.hasOwnProperty(cur_domain)) {
+      tld = window.publicSuffixes[cur_domain];
       break;
     }
 
-    if (nextDot < 0) {
+    if (next_dot < 0) {
       tld = 1;
       break;
     }
 
-    prevDomains.push(curDomain.substring(0,nextDot));
-    curDomain = curDomain.substring(nextDot+1);
-    nextDot = curDomain.indexOf('.');
+    prevDomains.push(cur_domain.slice(0, next_dot));
+    cur_domain = cur_domain.slice(next_dot + 1);
+    next_dot = cur_domain.indexOf('.');
   }
 
   while (tld > 0 && prevDomains.length > 0) {
-    curDomain = prevDomains.pop() + '.' + curDomain;
+    cur_domain = prevDomains.pop() + '.' + cur_domain;
     tld--;
   }
 
-  return curDomain;
+  return cur_domain;
 }
 
 /**
