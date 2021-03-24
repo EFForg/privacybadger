@@ -72,11 +72,6 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 Alternatively, this code may be distributed or
 otherwise used under the terms of GPL v3
 
-Incorporating code from Punycode.js
-http://mths.be/punycode
-Copyright 2011 Mathias Bynens <http://mathiasbynens.be/>
-Licensed MIT
-
 Tooltipster
 http://iamceege.github.io/tooltipster/
 Copyright (c) 2012,2016 Caleb Jacob and Louis Ameline

@@ -4,8 +4,6 @@
  * Available under MIT license <http://mths.be/mit>
  */
 
-/* globals punycode:false */
-
 const RE_V4 = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|0x[0-9a-f][0-9a-f]?|0[0-7]{3})\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|0x[0-9a-f][0-9a-f]?|0[0-7]{3})$/i;
 const RE_V4_HEX = /^0x([0-9a-f]{8})$/i;
 const RE_V4_NUMERIC = /^[0-9]+$/;
@@ -81,11 +79,6 @@ function getBaseDomain(hostname) {
   // return IP address untouched
   if (isIPv6(hostname) || isIPv4(hostname)) {
     return hostname;
-  }
-
-  // decode punycode if exists
-  if (hostname.indexOf('xn--') >= 0) {
-    hostname = punycode.toUnicode(hostname);
   }
 
   // search through PSL
@@ -309,14 +302,6 @@ URI.prototype = {
   },
   get host() {
     return this.spec.substring(this._hostStart, this._hostEnd);
-  },
-  get asciiHost() {
-    var host = this.host;
-    if (/^[\x00-\x7F]+$/.test(host)) { // eslint-disable-line no-control-regex
-      return host;
-    } else {
-      return punycode.toASCII(host);
-    }
   },
   get hostPort() {
     return this.spec.substring(this._hostPortStart, this._hostPortEnd);
