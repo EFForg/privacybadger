@@ -1,6 +1,6 @@
 {
   "name": "sp-privacy",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "description": "Privacy tools for the Startpage Privacy Tools extension",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

@@ -175,6 +175,6 @@ export const getManifestFragmentPath = () => {
 
 export const getCopyablesPaths = () => {
     const SRC_PATH = 'src';
-    const copyables = [`${SRC_PATH}/data`, `${SRC_PATH}/js`, `${SRC_PATH}/lib`, 'sp-js', 'sp-icons'];
+    const copyables = [`${SRC_PATH}/data`, `${SRC_PATH}/js`, `${SRC_PATH}/lib`, 'sp-js'];
     return copyables;
 };

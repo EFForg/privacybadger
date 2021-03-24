@@ -9,3 +9,8 @@ window.badger.updateBadge = () => {
 window.badger.updateIcon = () => {
     /* NOOP */
 };
+
+// Disable privacy badger first run page
+window.badger.showFirstRunPage = () => {
+    /* NOOP */
+};
