@@ -815,6 +815,7 @@ Badger.prototype = {
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
+    showExpandedTrackingSection: false,
     showIntroPage: true,
     showNonTrackingDomains: false,
     showTrackingDomains: false,
