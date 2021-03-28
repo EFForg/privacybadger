@@ -283,7 +283,7 @@ font-size: 16px;
 #options {
     margin-inline-end: 3px;
 }
-#pbInstructions, #special-browser-page, #disabled-site-message {
+#pbInstructions, #special-browser-page, #disabled-site-message, #firstparty-protections-container {
     color: #505050;
     font-size: 16px;
     margin: 0;
@@ -297,7 +297,18 @@ font-size: 16px;
 #pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a:hover {
     color: #ec9329
 }
-#instructions-no-trackers, #special-browser-page, #disabled-site-message {
+#firstparty-protections-container a {
+    text-decoration: underline;
+    color: black;
+    font-weight: bold;
+}
+#firstparty-protections-container a:hover {
+    color: #ec9329
+}
+#instructions-firstparty-description {
+    font-size: 14px;
+}
+#instructions-no-trackers, #special-browser-page, #disabled-site-message, #instructions-firstparty-protections {
     text-align: center;
     margin: 45px 0;
     padding: 0;
@@ -306,7 +317,7 @@ font-size: 16px;
     text-align: center;
     margin: 10px 0;
 }
-#instructions-many-trackers, #instructions-no-trackers, #no-third-parties {
+#instructions-many-trackers, #instructions-no-trackers, #no-third-parties, #instructions-firstparty-description {
     display: block;
 }
 #no-third-parties {
@@ -459,6 +470,9 @@ div.overlay.active {
 .tooltipster-sidetip .tooltipster-arrow-border {
     border: none;
 }
+/* #firstparty-protections-container {
+    display: none;
+} */
 
 @media screen and (max-width: 400px){
     .origin {
