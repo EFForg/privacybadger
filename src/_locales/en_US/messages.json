@@ -417,6 +417,14 @@
         "message": "user-controlled",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
+    "popup_info_firstparty_description": {
+        "message": "Some websites, such as the one you're on right now, use hyperlinks to track where you're going. When you click on these links, instead of going straight to where you expect, it first directs you to one of this website's tracking servers, then to the final destination that you intended to navigate to. This happens in miliseconds without you even noticing! Privacy Badger removes all that creepy tracking stuff this website puts on these links, and once again provides you with faster, more private browsing.",
+        "description": "message show under the firstparty protections collapsible container on popup"
+    },
+    "popup_info_firstparty_protections": {
+        "message": "<a href='https://privacybadger.org/#What-about-tracking-by-the-sites-I-actively-visit%2c-like-NYTimes.com-or-Facebook.com'>Link tracking</a> protection is enforced on this site",
+        "description": "message shown on a site where first party outgoing link tracking protections are enabled"
+    },
     "popup_instructions": {
         "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
         "description": "Popup message shown when at least one tracker was blocked.",
