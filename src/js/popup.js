@@ -194,8 +194,21 @@ function init() {
     chrome.i18n.getMessage("version", chrome.runtime.getManifest().version)
   );
 
+  $('#expand-blocked-resources').on('click', showBlockedResourcesHandler);
+  $('#collapse-blocked-resources').on('click', hideBlockedResourcesHandler);
+
   $('#expand-firstparty-popup').on('click', showFirstPartyInfoHandler);
   $('#collapse-firstparty-popup').on('click', hideFirstPartyInfoHandler);
+
+  if (POPUP_DATA.showExpandedTrackingSection) {
+    $('#expand-blocked-resources').hide();
+    $('#collapse-blocked-resources').show();
+    $('#blockedResources').show();
+  } else if (!POPUP_DATA.showExpandedTrackingSection) {
+    $('#expand-blocked-resources').show();
+    $('#collapse-blocked-resources').hide();
+    $('#blockedResources').hide();
+  }
 
   $('#instructions-firstparty-description').hide();
   $('#collapse-firstparty-popup').hide();
@@ -462,7 +475,26 @@ function share() {
   }
   $("#share_output").val(share_msg);
 }
+/**
+ * Click handlers for showing/hiding the blocked resources section
+ */
+function showBlockedResourcesHandler() {
+  $("#collapse-blocked-resources").show();
+  $("#expand-blocked-resources").hide();
+  $("#blockedResources").show();
+  chrome.runtime.sendMessage({
+    type: "showTrackingDomainsSection"
+  });
+}
 
+function hideBlockedResourcesHandler() {
+  $("#collapse-blocked-resources").hide();
+  $("#expand-blocked-resources").show();
+  $("#blockedResources").hide();
+  chrome.runtime.sendMessage({
+    type: "hideTrackingDomainsSection"
+  });
+}
 /**
  * Click handlers for showing/hiding the firstparty popup info text
  */
@@ -552,6 +584,7 @@ function refreshPopup() {
     // hide the number of trackers and slider instructions message
     // if no sliders will be displayed
     $("#instructions-many-trackers").hide();
+    $("#toggleBlockedResourcesContainer").hide();
 
     // show "no trackers" message
     $("#instructions-no-trackers").show();
