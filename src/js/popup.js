@@ -226,7 +226,9 @@ function init() {
     for (let firstPartyObj of blob.content_scripts) {
       firstPartyObj.matches.forEach((urlScheme) => {
         if (urlScheme.includes(current_tab)) {
-          $("#firstpartyProtectionsContainer").show();
+          $("#firstparty-protections-container").show();
+          // in the edge case that no-trackers are detected, align text to left to match
+          $("#instructions-no-trackers").css("text-align","left");
         }
       });
     }
