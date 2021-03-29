@@ -2,19 +2,29 @@
 
 We need your help in translating Privacy Badger to [every possible language](https://developer.chrome.com/docs/webstore/i18n/?csw=1#choosing-locales-to-support)!
 
-When translating you should always use the source (American English) locale as
-the reference. You can also use existing translations from other languages to
-help you in case of doubt, but you should always consider the English version
-as the correct one.
+You can contribute directly on GitHub, or you could [join us on Transifex](https://www.transifex.com/eff/privacy-badger/), a localization platform. (We may [migrate from Transifex to potentially Weblate](https://github.com/EFForg/privacybadger/issues/2591#issuecomment-616816017) in the future.)
+
+See below for miscellaneous notes as well as instructions for contributing via GitHub.
+
+## Notes
+
+- When translating you should always use
+the [source (American English) locale](../src/_locales/en_US/messages.json)
+as the reference. You can use existing translations from other languages
+to help you in case of doubt, but you should always consider the English
+version as the correct one.
 
 
-#### A note about adding translation strings in PRs
-
-While working on a Privacy Badger enhancement, you might need to add one or
+- While working on a Privacy Badger pull request, you might need to add one or
 more localized strings. You only need to add new strings to the source
 (`en_US`) locale. There is no need to manually add untranslated copies of new
 messages to all other locales. This will be taken care of later by a Privacy
 Badger maintainer.
+
+- To learn about outstanding translations-related issues, and to
+see how translations have been handled in the past, take a look
+at issues and pull requests marked with
+the [translations label](https://github.com/EFForg/privacybadger/issues?utf8=%E2%9C%93&q=label%3Atranslations%20).
 
 
 ## Working with translations on GitHub
@@ -80,13 +90,6 @@ A quick/hacky way to change Privacy Badger's locale is to temporarily copy the l
 
 The proper way would be to launch the browser in your desired locale.
 
-For Chrome, it might be as easy as [launching it from the command line with `LANGUAGE=fr` (for example) in front of the executable](https://stackoverflow.com/questions/24992240/start-google-chrome-with-a-specific-locale-using-a-command-line-argument).
+For Chrome, it might be as simple as [launching it from the command line with `LANGUAGE=fr` (for example) in front of the executable](https://stackoverflow.com/questions/24992240/start-google-chrome-with-a-specific-locale-using-a-command-line-argument).
 
 Firefox requires [downloading a language pack](https://addons.mozilla.org/en-US/firefox/language-tools/) and [setting it as your locale from about:config](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization#Testing_out_your_extension).
-
-
-## Other information
-
-To learn about outstanding translations-related issues, and to
-see how translations have been handled in the past, take a look
-at issues and pull requests marked with the [translations label](https://github.com/EFForg/privacybadger/issues?utf8=%E2%9C%93&q=label%3Atranslations%20).
