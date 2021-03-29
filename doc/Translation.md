@@ -1,6 +1,6 @@
 # Translating Privacy Badger
 
-We need your help in translating Privacy Badger to [every possible language](https://developer.chrome.com/webstore/i18n?csw=1#localeTable)!
+We need your help in translating Privacy Badger to [every possible language](https://developer.chrome.com/docs/webstore/i18n/?csw=1#choosing-locales-to-support)!
 
 When translating you should always use the source (American English) locale as
 the reference. You can also use existing translations from other languages to
@@ -41,7 +41,7 @@ user intro page"). You should not translate it.
 
 To contribute on GitHub, first check the status of your local language
 translation: if you don't see a folder with your
-[local language code](https://developer.chrome.com/webstore/i18n?csw=1#localeTable),
+[local language code](https://developer.chrome.com/docs/webstore/i18n/?csw=1#choosing-locales-to-support),
 the translation for that language is missing. In this case you should follow
 the instructions below to set up the JSON file for your language. If the
 translation for your language is already there, you can contribute by checking
@@ -54,7 +54,7 @@ To add a new language on GitHub, follow these steps:
 
 1. Fork this repository
 2. Inside your fork, create a folder in `src/_locales/` and name it
-with your [local language code](https://developer.chrome.com/webstore/i18n?csw=1#localeTable)
+with your [local language code](https://developer.chrome.com/docs/webstore/i18n/?csw=1#choosing-locales-to-support)
 3. Copy the `src/_locales/en_US/messages.json` file to the folder you created
 4. Start translating each message to your language by replacing the
 English strings with the translated ones
