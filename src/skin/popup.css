@@ -171,6 +171,7 @@ font-size: 16px;
 
 #blockedResourcesContainer {
     min-height: 70px;
+    margin-top: 10px;
 }
 
 #intro-reminder-btn, #critical-error-link, #learning-prompt-btn {
@@ -307,14 +308,14 @@ font-size: 16px;
 }
 #instructions-firstparty-description {
     font-size: 14px;
+    margin-top: -30px;
 }
-#instructions-no-trackers, #special-browser-page, #disabled-site-message, #instructions-firstparty-protections {
+#instructions-no-trackers, #special-browser-page, #disabled-site-message {
     text-align: center;
     margin: 45px 0;
     padding: 0;
 }
 #instructions-many-trackers {
-    text-align: center;
     margin: 10px 0;
 }
 #instructions-many-trackers, #instructions-no-trackers, #no-third-parties, #instructions-firstparty-description {
@@ -470,10 +471,31 @@ div.overlay.active {
 .tooltipster-sidetip .tooltipster-arrow-border {
     border: none;
 }
-/* #firstparty-protections-container {
+#firstparty-protections-container {
     display: none;
-} */
-
+    border-top: 1px solid #707070;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+#instructions-firstparty-protections {
+    margin: 45px 0;
+    padding: 0;
+}
+#toggle-firstparty-info-section {
+    float: right;
+    margin-top: -65px;
+}
+#toggle-blocked-resources-container {
+    float: right;
+    margin-top: -30px;
+}
+.ui-icon.ui-icon-caret-d, .ui-icon.ui-icon-caret-u {
+    font-size: 18px;
+}
+.ui-icon.ui-icon-caret-d, .ui-icon.ui-icon-caret-u {
+    font-size: 18px;
+}
 @media screen and (max-width: 400px){
     .origin {
         max-width: 150px;
