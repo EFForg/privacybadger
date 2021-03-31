@@ -93,23 +93,31 @@ class GoogleTest(pbtest.PBSeleniumTest):
         # so that we can test our selectors
         self.disable_badger_on_site(self.GOOGLE_SEARCH_DOMAIN)
 
-        self.perform_google_search()
+        def _perform_search_and_check_results():
+            self.perform_google_search()
 
-        search_results = self.driver.find_elements_by_css_selector(SELECTOR)
+            search_results = self.driver.find_elements_by_css_selector(SELECTOR)
 
-        # remove "About this result" links as they do not get cleaned
-        # (they don't match any of the `trap_link` selectors)
-        # and so they fail the rel check below
-        search_results = [a for a in search_results if (
-            a.text or
-            a.get_attribute('textContent') != self.SEARCH_RESULT_URL or
-            a.get_attribute('innerHTML') != self.SEARCH_RESULT_URL
-        )]
+            # remove "About this result" links as they do not get cleaned
+            # (they don't match any of the `trap_link` selectors)
+            # and so they fail the rel check below
+            search_results = [a for a in search_results if (
+                a.text or
+                a.get_attribute('textContent') != self.SEARCH_RESULT_URL or
+                a.get_attribute('innerHTML') != self.SEARCH_RESULT_URL
+            )]
 
-        # check the results
-        hrefs = [link.get_attribute('href') for link in search_results]
-        self.assertIn(self.SEARCH_RESULT_URL, hrefs,
-            "At least one search result points to our homepage")
+            # check the results
+            hrefs = [link.get_attribute('href') for link in search_results]
+            self.assertIn(self.SEARCH_RESULT_URL, hrefs,
+                "At least one search result points to our homepage")
+
+            return True
+
+        self.assertTrue(
+            pbtest.retry_until(
+                pbtest.convert_exceptions_to_false(_perform_search_and_check_results)),
+            "Search results still fail our checks after several attempts")
 
 
 if __name__ == "__main__":
