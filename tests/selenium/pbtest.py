@@ -400,7 +400,6 @@ class PBSeleniumTest(unittest.TestCase):
                     time.sleep(2 ** i)
                     continue
                 raise e
-        self.driver.switch_to.window(self.driver.current_window_handle)
 
         if wait_for_body_text:
             # wait for document.body.textContent to become truthy
