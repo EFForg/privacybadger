@@ -14,7 +14,7 @@
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Biztosan el szeretné távolítani ezt a tartományt a Privacy Badger listájáról?",
+        "message": "Biztosan el szeretné távolítani ezt a tartományt a Privacy Badgerből?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
@@ -28,7 +28,7 @@
         }
     },
     "non_tracker_tip": {
-        "message": "A Privacy Badger jelenleg csak azt ellenőrzi, hogy a harmadik felek használnak-e sütiket, HTML helyi tárolókat vagy vászon segítségével történő ujjlenyomat-készítést a böngészése nyomon követéséhez. Ezen tartományok némelyike olyan követési módszereket is használhat, amelyeket a Privacy Badger nem ismer fel.",
+        "message": "A Privacy Badger jelenleg csak azt ellenőrzi, hogy a harmadik felek használnak-e sütiket, HTML helyi tárolókat vagy vászon segítségével történő ujjlenyomat-készítést a böngészése nyomon követéséhez. Ezen tartományok némelyike olyan követési módszereket használhat, amelyeket a Privacy Badger nem ismer fel.",
         "description": ""
     },
     "options_dnt_policy_setting": {
@@ -48,7 +48,7 @@
         "description": "Intro page paragraph heading."
     },
     "report_success": {
-        "message": "Köszönjük! Le fogjuk tenni az aljára.",
+        "message": "Köszönjük! Megoldást fogunk találni rá.",
         "description": ""
     },
     "dnt_tooltip": {
@@ -354,7 +354,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "A láthatatlan követés mindenféle módon történhet, a reklámok csak a jéghegy csúcsát jelentik. A Privacy Badger elküldi a <a href='https://globalprivacycontrol.org/' target='_blank'>globális adatvédelmi szabályozás jelzését</a>, hogy lemondjon az Ön nevében az adatmegosztásról és az adateladásról, valamint a <a href='https://www.eff.org/issues/do-not-track' target='_blank'>ne kövessen jelzést</a>, hogy közölje a vállalatokkal, hogy ne kövessék Önt. Ha azok figyelmen kívül hagyják a kéréseit, akkor a Privacy Badger meg fogja tanulni tiltani azokat – legyenek azok hirdetők vagy bármilyen fajta követők.",
+        "message": "A láthatatlan követés mindenféle módon történhet, a reklámok csak a jéghegy csúcsát jelentik. A Privacy Badger elküldi a <a href='https://globalprivacycontrol.org/' target='_blank'>globális adatvédelmi szabályozás jelzést</a>, hogy lemondjon az Ön nevében az adatmegosztásról és az adateladásról, valamint a <a href='https://www.eff.org/issues/do-not-track' target='_blank'>ne kövessen jelzést</a>, hogy közölje a vállalatokkal, hogy ne kövessék Önt. Ha azok figyelmen kívül hagyják a kéréseit, akkor a Privacy Badger meg fogja tanulni tiltani azokat – legyenek azok hirdetők vagy bármilyen fajta követők.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -366,7 +366,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT-kompatibilis",
+        "message": "NK-kompatibilis",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -394,7 +394,7 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "Húzza a csúszkát balra egy tartomány tiltásához",
+        "message": "Mozgassa a csúszkát balra egy tartomány tiltásához",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
@@ -402,7 +402,7 @@
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Meglátogatott webcímek küldésének letiltása a Google számára. Ez letiltja a javaslatokat és a hasonló oldalakat, ha egy oldal nem található.",
+        "message": "Meglátogatott webcímek küldésének letiltása a Google számára. Ez letiltja a hasonló oldalak javaslatait, ha egy oldal nem található.",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
@@ -456,7 +456,7 @@
         "description": ""
     },
     "tooltip_allow": {
-        "message": "Húzza a csúszkát jobbra egy tartomány engedélyezéséhez",
+        "message": "Mozgassa a csúszkát jobbra egy tartomány engedélyezéséhez",
         "description": ""
     },
     "popup_disable_for_site": {
