@@ -132,6 +132,8 @@ cdn.cnetcontent.com
 ws.cnetcontent.com
 codepen.io
 codesandbox.io
+cdn.cohesionapps.com
+make.cohesionapps.com
 cloudplatform.coveo.com
 platform.cloud.coveo.com
 static.cloud.coveo.com
