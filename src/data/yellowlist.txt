@@ -411,6 +411,7 @@ licdn.com
 licensebuttons.net
 addon.lidl.de
 media.lidl.com
+lightboxcdn.com
 linkwithin.com
 list-manage.com
 i.lithium.com
