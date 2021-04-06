@@ -366,7 +366,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "NK-kompatibilis",
+        "message": "„Ne kövessenek”-kompatibilis",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -509,7 +509,7 @@
         "description": ""
     },
     "intro_donate1": {
-        "message": "A Privacy Badger használatakor Ön is csatlakozik az <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationhöz</a> és több millió más felhasználóhoz az adatvédelemért folytatott harcban. Nonprofit szervezetként küzdünk az Ön internetes jogaiért. Köszönjük, hogy csatlakozott hozzánk!",
+        "message": "A Privacy Badger használatakor Ön is csatlakozik az <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationhöz</a> és több millió más felhasználóhoz az adatvédelemért folytatott harcban. Nonprofit alapítványként küzdünk az Ön internetes jogaiért. Köszönjük, hogy csatlakozott hozzánk!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
