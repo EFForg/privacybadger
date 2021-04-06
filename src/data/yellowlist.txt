@@ -267,6 +267,7 @@ clients1.google.com
 clients6.google.com
 consent.google.com
 cse.google.com
+dai.google.com
 datastudio.google.com
 developers.google.com
 docs.google.com
