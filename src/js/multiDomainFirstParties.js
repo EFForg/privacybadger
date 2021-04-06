@@ -4141,6 +4141,7 @@ let multiDomainFirstPartiesArray = [
     "espnfc.us",
 
     "fivethirtyeight.com",
+    "nationalgeographic.com",
 
     "babble.com",
     "d23.com",
