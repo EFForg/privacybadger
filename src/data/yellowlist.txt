@@ -642,6 +642,7 @@ stackoverflow.com
 staticamzn.com
 cdn.static-economist.com
 staticflickr.com
+statuspage.io
 steampowered.com
 store.akamai.steamstatic.com
 steamusercontent.com
