@@ -274,6 +274,7 @@ drive.google.com
 feedburner.google.com
 feedproxy.google.com
 fonts.google.com
+fundingchoicesmessages.google.com
 fusiontables.google.com
 groups.google.com
 kh.google.com
@@ -284,8 +285,8 @@ khms3.google.com
 khms4.google.com
 labs.google.com
 maps-api-ssl.google.com
-mapsengine.google.com
 maps.google.com
+mapsengine.google.com
 mt0.google.com
 mt1.google.com
 mts0.google.com
