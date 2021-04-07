@@ -1,0 +1,553 @@
+/*
+ * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
+ * Copyright (C) 2014 Electronic Frontier Foundation
+ *
+ * Privacy Badger is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * Privacy Badger is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ /*adjoining-classes:ignore*/
+ /*csslint ids:ignore*/
+
+body {
+  box-sizing: border-box;
+
+  background: #fefefe;
+  color: #333;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 12px;
+
+  margin: 0;
+  padding: 7px 12px;
+
+  min-width: 430px; /* Chrome */
+  max-width: 100%;  /* FF android */
+  min-height: 270px;
+}
+@media screen and (min--moz-device-pixel-ratio:0) {
+    body {
+        min-width: 200px; /* FF android */
+        width: 430px;     /* FF desktop */
+    }
+}
+
+@font-face {
+    font-family: "Chunk-Five";
+    src: url("./fonts/Chunk.ttf");
+}
+
+a { text-decoration: none }
+
+a:hover { color: #ec9329 }
+
+.spacer {
+  height: 7px;
+  width: 5px;
+  display: block;
+  clear: both;
+}
+.clear {
+    clear: both;
+}
+
+.clicker {
+    border-top: 1px solid #aaaaaa;
+    padding: 5px;
+    height: 40px;
+    overflow: hidden;
+    line-height: normal;
+}
+.clicker:not(#not-yet-blocked-header):not(#non-trackers-header) {
+    direction: ltr;
+}
+.origin{
+  max-width: 210px;
+  color: #555555;
+  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.switch-container {
+    width: 115px;
+    display: block;
+    margin-left: 220px;
+}
+.switch-toggle {
+    background-color: #515050;
+    height: 16px;
+}
+.switch-toggle > label {
+    cursor: pointer;
+}
+.options .switch-container {
+    max-width: 114px;
+}
+
+.switch-candy:hover {
+    background-color: #868686;
+}
+.block .switch-candy a {
+    background-color: #c61223;
+}
+.cookieblock .switch-candy a {
+    background-color: #ffcc00;
+}
+.allow .switch-candy a, .noaction .switch-candy a {
+    background-color: #339900;
+}
+
+.honeybadgerPowered {
+    display: none;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: 340px;
+    bottom: 15px;
+}
+.userset .honeybadgerPowered {
+    display: block;
+    background: url('/icons/badger-pin.png') no-repeat;
+}
+
+.removeOrigin {
+    float: right;
+    margin-right: 0;
+    width: 10px;
+}
+.removeOrigin:hover {
+    color: red;
+}
+
+#blockedResources .breakage-warning {
+    color: red;
+    display: none;
+    font-size: 1.3em;
+    margin: 0 2px 2px 0;
+}
+#blockedResources .show-breakage-warning .breakage-warning {
+    display: inline-block;
+}
+
+#privacyBadgerHeader{
+color: #505050;
+font-size: 16px;
+}
+
+#title {
+    padding-top: 4px;
+}
+
+#header-image-stack {
+    display: table;
+    float: left;
+    margin: 2px 10px 0 10px;
+    line-height: 1.0;
+}
+
+#privacyBadgerHeader h2{
+  display: table-row;
+  color: #000;
+  font-size: 24px;
+  font-weight: normal;
+  clear: initial;
+  font-family: "Chunk-Five", serif;
+  margin-top: 5px;
+}
+
+#privacyBadgerHeader img {
+    float: left;
+}
+
+#blockedResourcesContainer {
+    min-height: 70px;
+}
+
+#intro-reminder-btn, #critical-error-link, #learning-prompt-btn {
+    background-color: #ff641c;
+    border: 2px solid #ff641c;
+    color: #fff;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 1.5;
+    padding: 1.2em 1em;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+#critical-error-link {
+    border-radius: 3px;
+}
+
+#intro-reminder-btn:hover, #critical-error-link:hover, #learning-prompt-btn:hover {
+    background-color: #f58728;
+}
+.clickerContainer {
+    max-height: 290px;
+    overflow-y: auto;
+    background-color: #E8E9EA;
+    position: relative;
+    margin-top: 25px;
+}
+.keyContainer{
+    direction: ltr;
+    position: relative;
+}
+.key {
+    position: absolute;
+    height: 25px;
+    left: 215px;
+    right: 0;
+    z-index: 30;
+    background: #fefefe;
+    padding-top: 4px;
+    width: 117px;
+}
+.key img {
+    margin-left: 19px;
+}
+
+.flex-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+#instruction-outer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background-color: #000;
+  opacity: 0.1;
+  width: 100%;
+  height: 100%;
+}
+#instruction {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #fff;
+  color: #333;
+  text-align: start;
+  margin: 8px;
+  padding: 15px;
+  font-size: 15px;
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  width: calc(100% - 46px);
+}
+.instruction-logo {
+    align-self: center;
+    flex-shrink: 0;
+    padding-inline-end: 15px;
+}
+#instruction .flex-wrapper > div {
+    padding-inline-end: 5px;
+}
+#intro-reminder-btn, #error-message, #learning-prompt-btn {
+    margin-top: 1em;
+}
+#error-message {
+    text-align: center;
+}
+#fittslaw {
+    float: right;
+}
+#options, #share, #help {
+    float: right;
+    margin-top: 7px;
+}
+#share {
+    margin-left: 10px;
+    margin-right: 12px;
+}
+#options {
+    margin-inline-end: 3px;
+}
+#pbInstructions, #special-browser-page, #disabled-site-message {
+    color: #505050;
+    font-size: 16px;
+    margin: 0;
+    padding-top: 10px;
+}
+#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a {
+    text-decoration: underline;
+    color: black;
+    font-weight: bold;
+}
+#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a:hover {
+    color: #ec9329
+}
+#instructions-no-trackers, #special-browser-page, #disabled-site-message {
+    text-align: center;
+    margin: 45px 0;
+    padding: 0;
+}
+#instructions-many-trackers {
+    text-align: center;
+    margin: 10px 0;
+}
+#instructions-many-trackers, #instructions-no-trackers, #no-third-parties {
+    display: block;
+}
+#no-third-parties {
+    font-size: 12px;
+}
+
+#siteControls, #report-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 5px;
+    text-align: center;
+}
+button {
+    color: #333;
+}
+.pbButton {
+    background-color: #fefefe;
+    border: 2px solid;
+    border-radius: 3px;
+    cursor: pointer;
+    /* systemfontstack.com */
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    /* fix overly bold text on macOS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 16px;
+    margin-top: 8px;
+    padding: 10px;
+    text-align: center;
+    width: 49%;
+}
+.pbButton:hover:enabled {
+    border: 2px solid #F06A0A;
+}
+.pbButton:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: auto;
+}
+#donate {
+    width: 100%;
+}
+
+#not-yet-blocked-header, #non-trackers-header {
+  text-align: center;
+  color: #f9f9f9;
+  background: #555;
+  height: auto;
+  font-size: 14px;
+  font-weight: bold;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  font-size: 0.8em;
+  z-index: -1;
+  opacity: 0;
+  padding: 3%;
+  box-sizing: border-box;
+  color: #ccc;
+  background: url("/skin/background.png");
+  transition: opacity .1s ease;
+  overflow-y: auto;
+}
+div.overlay.active {
+  z-index: 31;
+  opacity: 1;
+}
+#error_input {
+    display: block;
+    width: 98%;
+}
+.overlay_title {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0 10px;
+}
+#report_label {
+  display: block;
+  margin: 1% 0;
+  font-weight: bold;
+}
+#report-success, #report-fail {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+#report-success {
+    color: green;
+}
+#report-fail {
+    color: red;
+}
+#report-terms {
+    margin: 10px 0 !important;
+}
+.overlay_close {
+  display: inline-block;
+  float: right;
+  background: none;
+  border: 0;
+  font-size: 1.4em;
+  color: #ccc;
+}
+.overlay_close:before {
+  content: '\2716';
+  margin: 4px;
+}
+#share_output {
+  display: block;
+  width: 98%;
+  height: 60%;
+}
+#dnt-compliant {
+  float: left;
+  display: inline;
+  padding-right: 5px;
+}
+#overlay p {
+  font-size: 12px;
+  margin: 0 0 10px;
+}
+#overlay label {
+  font-size: 13px;
+}
+
+#version{
+  color: #707070;
+  font-size: 10px;
+  float: left;
+}
+.faded-bw-color-scheme {
+    filter: grayscale(1) opacity(0.6);
+}
+
+.tooltipster-sidetip .tooltipster-box {
+    color: #fcfcfc;
+    font-size: 13px;
+    background: #555;
+    border: none;
+    border-radius: 7px;
+}
+.tooltipster-sidetip .tooltipster-arrow-border {
+    border: none;
+}
+
+@media screen and (max-width: 400px){
+    .origin {
+        max-width: 150px;
+    }
+
+    .switch-container{
+        width: 100px;
+        display: block;
+        margin-left: 150px;
+    }
+
+    .key {
+        left: 150px;
+    }
+    .key img {
+        margin-left: 12px;
+    }
+
+    .honeybadgerPowered {
+        left: 255px;
+    }
+
+    #share {
+        margin-left: 6px;
+        margin-right: 8px;
+    }
+    #options {
+        margin-right: 0px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body,
+    #instruction,
+    .key {
+        background-color: #333;
+        color: #ddd;
+    }
+
+    button,
+    #pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a,
+    #pbInstructions,
+    #special-browser-page,
+    #disabled-site-message {
+        color: #ddd;
+    }
+
+    /* TODO:
+     *  - Add f06a0a color on hover
+     */
+    #fittslaw,
+    #help,
+    #options,
+    #share {
+        filter: invert(0.85);
+    }
+
+    #privacyBadgerHeader h2 {
+    	  color: #f9f9f9;
+    }
+
+    textarea,
+    #share_output {
+        background-color: #333;
+        border: solid 1px #555;
+        border-radius: 3px;
+        color: #ddd;
+    }
+
+    #version {
+        color: #bbb;
+    }
+
+    .clicker,
+    .origin {
+        color: #ddd;
+    }
+    .clicker {
+        border-top: solid 1px #555;
+    }
+
+    .clickerContainer {
+        background-color: #3a3a3a;
+     }
+
+    .pbButton {
+        background-color: #333;
+        border: solid 2px #ddd;
+    }
+
+}

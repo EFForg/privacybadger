@@ -1,0 +1,48 @@
+{
+    "type": "object",
+    "properties": {
+        "checkForDNTPolicy": {
+            "title": "Check if third-parties comply with EFF's DNT policy",
+            "description": "If set to false then do not query third-party domains for declared compliance with EFF's Do Not Track policy.",
+            "type": "boolean"
+        },
+        "disabledSites": {
+            "title": "Disabled sites",
+            "description": "List of site domains where Privacy Badger is disabled.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "learnLocally": {
+            "title": "Learn to block new trackers from your browsing",
+            "description": "Enabling learning may make you more identifiable to websites. Please see https://www.eff.org/badger-evolution for more information.",
+            "type": "boolean"
+        },
+        "learnInIncognito": {
+            "title": "Learn in Private/Incognito windows",
+            "description": "Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
+            "type": "boolean"
+        },
+        "sendDNTSignal": {
+            "title": "Send websites the Do Not Track signal",
+            "description": "Toggles sending the DNT header and setting navigator.doNotTrack on websites.",
+            "type": "boolean"
+        },
+        "showCounter": {
+            "title": "Show count of blocked items",
+            "description": "Toggles showing the counter over Privacy Badger's button in the browser toolbar.",
+            "type": "boolean"
+        },
+        "showIntroPage": {
+            "title": "Show intro page",
+            "description": "If set to false then do not open the new user intro page upon install.",
+            "type": "boolean"
+        },
+        "socialWidgetReplacementEnabled": {
+            "title": "Replace social widgets",
+            "description": "Toggles social widget replacement.",
+            "type": "boolean"
+        }
+    }
+}

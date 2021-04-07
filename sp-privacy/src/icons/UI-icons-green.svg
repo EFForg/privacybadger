@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>UI-icons-green</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M19.646945,7.3567547 C19.8771137,8.19873229 20,9.08501533 20,10 C20,15.5228475 15.5228475,20 10,20 C4.4771525,20 0,15.5228475 0,10 C0,4.4771525 4.4771525,0 10,0 C13.3226641,0 16.2668405,1.62049863 18.0853086,4.11427536 L10.6900172,11.5095667 L6.78667323,7.60622275 L4.38461538,10.0082806 L10.6900172,16.3136824 L19.646945,7.3567547 Z" id="UI-icons-green" fill="#66CC00"></path>
+    </g>
+</svg>

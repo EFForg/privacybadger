@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<!--
+  - This file was part of Adblock Plus <http://adblockplus.org/>,
+  - Copyright (C) 2006-2013 Eyeo GmbH
+
+  - Modified for Privacy Badger
+  - Copyright (C) 2013- Electronic Frontier Foundation & others
+
+  -
+  - Adblock Plus is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License version 3 as
+  - published by the Free Software Foundation.
+  -
+  - Adblock Plus is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" href="/lib/vendor/jquery-ui-iconfont-2.3.2/jquery-ui-1.12.icon-font.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.css" />
+<link type="text/css" media="screen" href="/lib/vendor/toggle-switch.css" rel="stylesheet" />
+<link type="text/css" media="screen" href="/skin/popup.css" rel="stylesheet" />
+
+<script type="text/javascript" src="/lib/vendor/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="/lib/vendor/tooltipster-4.2.6/tooltipster.bundle.js"></script>
+<script type="text/javascript" src="/lib/vendor/underscore-1.9.1.js"></script>
+
+<!-- required because of window.getBaseDomain() in htmlutils.js -->
+<script type="text/javascript" src="/lib/vendor/punycode-1.4.1.js"></script>
+<script type="text/javascript" src="/lib/publicSuffixList.js"></script>
+<script type="text/javascript" src="/lib/basedomain.js"></script>
+
+<script type="text/javascript" src="/lib/i18n.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/constants.js"></script>
+<script type="text/javascript" src="/js/htmlutils.js"></script>
+<script type="text/javascript" src="/js/firefoxandroid.js"></script>
+<script type="text/javascript" src="/js/popup.js"></script>
+</head>
+<body id="main">
+  <div id="instruction-outer">
+  </div>
+  <div id="instruction">
+    <a href="" id="fittslaw"><svg width="26" height="22" fill="white">
+      <line x1="5" y1="5" x2="20" y2="20" style="stroke:rgb(22,22,22);stroke-width:3;fill:transparent"/>
+      <line x1="5" y1="20" x2="20" y2="5" style="stroke:rgb(22,22,22);stroke-width:3;fill:transparent"/>
+    </svg></a>
+
+    <div id="instruction-text">
+      <div class="flex-wrapper">
+        <img class="instruction-logo" src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
+        <div>
+          <div class="i18n_intro_text1"></div>
+          <div class="i18n_intro_text2" style="margin-top:0.5em"></div>
+        </div>
+      </div>
+      <button id="intro-reminder-btn" class="i18n_first_run_text pbButton"></button>
+    </div>
+
+    <div id="error-text" style="display:none">
+      <div class="flex-wrapper">
+        <img class="instruction-logo" src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
+        <div class="i18n_extension_error_text"></div>
+      </div>
+      <div style="color:#cc0000" id="error-message"></div>
+    </div>
+
+    <div id="learning-prompt-div" style="display:none">
+      <div class="flex-wrapper">
+        <img class="instruction-logo" src="/icons/badger-48.png" srcset="/icons/badger-128.png 2x" width="48" alt="">
+        <div>
+          <div class="i18n_learning_prompt_text1"></div>
+          <div class="i18n_learning_prompt_text2" style="margin-top:0.5em"></div>
+        </div>
+      </div>
+      <button id="learning-prompt-btn" class="i18n_learning_prompt_button pbButton"></button>
+    </div>
+
+  </div><!-- end of div#instruction -->
+
+  <div id="overlay" class="overlay">
+    <h1 id="report_title" class="i18n_report_title overlay_title"></h1>
+    <a href="" id="report_close" class="i18n_report_close overlay_close"></a>
+    <p id="report_text" class="i18n_report_text"></p>
+    <label id="report_label" for="error_input" class="i18n_report_input_label"></label>
+    <textarea id="error_input" name="error_input" maxlength="300" rows=3 placeholder="i18n_error_input"></textarea>
+    <div id="report-controls">
+      <button id="report-button" class="i18n_report_button pbButton"></button>
+      <button id="report-cancel" class="i18n_report_cancel pbButton"></button>
+    </div>
+    <div id="report-success" class="i18n_report_success" style="display:none"></div>
+    <div id="report-fail" class="i18n_report_fail" style="display:none"></div>
+    <p id="report-terms" class="i18n_report_terms"></p>
+  </div>
+  <div id="share_overlay" class="overlay">
+    <h1 id="share_title" class="i18n_share_title overlay_title"></h1>
+    <a href="" id="share_close" class="i18n_report_close overlay_close"></a>
+    <textarea id="share_output" name="share_output"></textarea>
+    <button id="copy-button" class="i18n_copy_button_initial pbButton"></button>
+  </div>
+
+<div id='privacyBadgerHeader'>
+  <a id="options" title="i18n_popup_options_button" href='/skin/options.html' class="tooltip" target="_blank"><img width="25" src="/icons/options.svg" alt="i18n_popup_options_button"></a>
+  <a id="share" href="" title="i18n_popup_share_button" class="tooltip" target="_blank"><img width="23" height="auto" src="/icons/share.svg" alt="i18n_popup_share_button"></a>
+  <a id="help" title="i18n_popup_help_button" href='https://privacybadger.org/#faq' class="tooltip" target="_blank"><img width="25" src="/icons/help.svg" alt="i18n_popup_help_button"></a>
+  <div id='title'>
+    <img src="../icons/badger-bw-noborder.svg" width="48" alt="" id="badger-header-logo">
+    <div id='header-image-stack'>
+      <a href="https://www.eff.org/" target="_blank"><img id='header-red-eff-logo' src="./images/EFF-red.svg" width="48" alt="" title="i18n_intro_by_eff" class="tooltip" data-tooltipster='{"distance":20,"maxWidth":180}'></a>
+      <h2 id="title-name"><span class="i18n_name"></span></h2>
+    </div>
+  </div>
+  <div class='clear'></div>
+</div>
+
+<div id="blockedResourcesContainer">
+  <p id="pbInstructions">
+    <span id="instructions-many-trackers"></span>
+    <span id="instructions-no-trackers" style="display:none">
+      <span class="i18n_popup_instructions_no_trackers" data-i18n_contents_placeholders="<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"></span>
+      <span id="no-third-parties" class="i18n_popup_blocked" style="display:none"></span>
+    </span>
+  </p>
+  <div class="spacer"></div>
+  <div id="blockedResources"></div>
+</div>
+
+<div id="special-browser-page" style="display:none">
+    <p><b><span class="i18n_popup_special_page_header"></span></b></p>
+    <p><span class="i18n_popup_special_page_paragraph"></span></p>
+</div>
+
+<div id="disabled-site-message" style="display:none">
+    <p><b><span class="i18n_popup_disabled_site_header"></span></b></p>
+</div>
+
+<div id="siteControls">
+    <button id="deactivate_site_btn" class="i18n_popup_disable_for_site pbButton"></button>
+    <button id="activate_site_btn" class="i18n_popup_enable_for_site pbButton" style="display:none"></button>
+    <button id="error" class="i18n_report_broken_site pbButton"></button>
+    <button id="donate" class="pbButton" target="_blank"><span class="ui-icon ui-icon-heart" style="color:#ec1e1e"></span> <span class="i18n_donate_to_eff"></span></button>
+</div>
+<span id="version" class="i18n_version"></span>
+<div class='clear'></div>
+</body>
+</html>

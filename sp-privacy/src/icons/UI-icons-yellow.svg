@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>UI-icons-yellow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="UI-icons-yellow" transform="translate(0.000000, -2.000000)">
+            <path d="M19.8857582,10.4835307 C19.9609891,10.9780483 20,11.4844684 20,12 C20,17.5228475 15.5228475,22 10,22 C4.4771525,22 0,17.5228475 0,12 C0,6.4771525 4.4771525,2 10,2 C10.5155316,2 11.0219517,2.03901093 11.5164693,2.11424183 C9.99308495,3.20235678 9,4.98520468 9,7 C9,10.3137085 11.6862915,13 15,13 C17.0147953,13 18.7976432,12.0069151 19.8857582,10.4835307 Z" id="Combined-Shape" fill="#CC9933"></path>
+            <circle id="Oval-5" fill="#100C04" cx="3.5" cy="10.5" r="1.5"></circle>
+            <circle id="Oval-5-Copy" fill="#100C04" cx="13.5" cy="18.5" r="1.5"></circle>
+            <circle id="Oval-5-Copy-2" fill="#100C04" cx="9.5" cy="13.5" r="1.5"></circle>
+            <circle id="Oval-5-Copy-3" fill="#100C04" cx="5.5" cy="16.5" r="1.5"></circle>
+            <polygon id="Combined-Shape" fill="#EC1C23" transform="translate(15.363961, 6.363961) rotate(-315.000000) translate(-15.363961, -6.363961) " points="14.363961 5.36396103 10.863961 5.36396103 10.863961 7.36396103 14.363961 7.36396103 14.363961 10.863961 16.363961 10.863961 16.363961 7.36396103 19.863961 7.36396103 19.863961 5.36396103 16.363961 5.36396103 16.363961 1.86396103 14.363961 1.86396103"></polygon>
+        </g>
+    </g>
+</svg>
