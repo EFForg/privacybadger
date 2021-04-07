@@ -23,6 +23,14 @@ QUnit.test("getOriginsArray", (assert) => {
       return memo;
     }, {}
   );
+  const originsSansAllowedSansDnt = _.reduce(
+    originsSansAllowed, (memo, val, key) => {
+      if (val != "dnt") {
+        memo[key] = val;
+      }
+      return memo;
+    }, {}
+  );
 
   const tests = [
     {
@@ -41,9 +49,19 @@ QUnit.test("getOriginsArray", (assert) => {
       expected: Object.keys(origins)
     },
     {
-      msg: "Type filter",
+      msg: "Type filter (user-controlled)",
       args: [origins, "", "user"],
       expected: ["UserAllowed.net", "uuuserblocked.nyc"]
+    },
+    {
+      msg: "Type filter (DNT)",
+      args: [origins, "", "dnt"],
+      expected: ["dntDomain.co.uk"]
+    },
+    {
+      msg: "Type filter (non-DNT)",
+      args: [origins, "", "-dnt"],
+      expected: Object.keys(originsSansAllowedSansDnt)
     },
     {
       msg: "Status filter",

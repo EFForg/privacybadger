@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Update the pre-trained "seed" tracker list
+# Updates pre-trained "seed" data
 
 # stop on errors (nonzero exit codes), uninitialized vars
 set -eu
@@ -10,7 +10,7 @@ TEMPFILE=$(mktemp)
 
 trap 'rm $TEMPFILE' EXIT
 
-echo "fetching seed tracker lists..."
+echo "fetching seed data ..."
 if wget -q -T 30 -O "$TEMPFILE" -- $SEED_URL && [ -s "$TEMPFILE" ]; then
   if ! python scripts/verify_json.py "$TEMPFILE"; then
     echo "    new seed data is not formatted correctly"

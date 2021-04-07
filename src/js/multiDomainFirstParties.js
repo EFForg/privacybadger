@@ -1114,6 +1114,7 @@ let multiDomainFirstPartiesArray = [
     "ebay-us.com",
   ],
   ["elsevier.com", "sciencedirect.com", "sciencedirectassets.com"],
+  ["ename.com", "ename.cn", "ename.net"],
   [
     "enterprise.com",
 
@@ -1505,22 +1506,23 @@ let multiDomainFirstPartiesArray = [
   ],
   ["gitlab.com", "gitlab-static.net"],
   [
-    "gizmodo.com",
+    "g-omedia.com",
 
     "avclub.com",
     "deadspin.com",
+    "gizmodo.com",
     "jalopnik.com",
     "jezebel.com",
-    "kinja.com",
-    "kinja-img.com",
-    "kinja-static.com",
     "kotaku.com",
     "lifehacker.com",
-    "technoratimedia.com",
     "theinventory.com",
     "theonion.com",
     "theroot.com",
     "thetakeout.com",
+
+    "kinja.com",
+    "kinja-img.com",
+    "kinja-static.com",
   ],
   [
     "glassdoor.com",
@@ -2866,14 +2868,36 @@ let multiDomainFirstPartiesArray = [
     "whimn.com.au",
   ],
   [
+    "nineforbrands.com.au",
+
+    "2gb.com",
+    "9news.com.au",
+    "9now.com.au",
+    "afr.com",
+    "brisbanetimes.com.au",
+    "businessinsider.com.au",
+    "canberratimes.com.au",
+    "caradvice.com.au",
+    "fairfaxmedia.com.au",
+    "gizmodo.com.au",
+    "kotaku.com.au",
+    "lifehacker.com.au",
+    "smh.com.au",
+    "theage.com.au",
+    "traveller.com.au",
+    "watoday.com.au",
+
+    "ffx.io",
+    "nine.com.au",
+  ],
+  [
     "nintendo.com",
-    "nintendo.net",
-    "nintendo-europe.com",
-    "nintendonyc.com",
 
     "nintendo.at",
     "nintendo.be",
+    "nintendo.ca",
     "nintendo.ch",
+    "nintendo.co.jp",
     "nintendo.co.uk",
     "nintendo.co.za",
     "nintendo.de",
@@ -2882,8 +2906,12 @@ let multiDomainFirstPartiesArray = [
     "nintendo.fr",
     "nintendo.it",
     "nintendo.nl",
+    "nintendonyc.com",
     "nintendo.pt",
     "nintendo.ru",
+
+    "nintendo-europe.com",
+    "nintendo.net",
 
     "animal-crossing.com",
     "smashbros.com",
@@ -2990,6 +3018,37 @@ let multiDomainFirstPartiesArray = [
     "geforce.cn",
     "geforce.com.tw",
     "geforce.co.uk",
+  ],
+  [
+    "olxgroup.com",
+
+    "olx.ba",
+    "olx.bg",
+    "olx.co.id",
+    "olx.com",
+    "olx.com.ar",
+    "olx.com.br",
+    "olx.com.co",
+    "olx.com.ec",
+    "olx.com.eg",
+    "olx.com.pe",
+    "olx.com.pk",
+    "olx.com.sv",
+    "olx.co.za",
+    "olx.in",
+    "olx.kz",
+    "olx.pl",
+    "olx.pt",
+    "olx.ro",
+    "olx.ua",
+    "olx.uz",
+
+    "otodom.pl",
+    "otomoto.pl",
+
+    "olxcdn.com",
+    "olxssa.com",
+    "olx-st.com",
   ],
   ["onlineatnsb.com", "norwaysavingsbank.com"],
   ["openstreetmap.org", "osmfoundation.org"],
@@ -3448,7 +3507,6 @@ let multiDomainFirstPartiesArray = [
   ],
   [
     "shopify.com",
-    "myshopify.com",
     "shopifycdn.com",
     "shopifyapps.com",
     "shopifycloud.com",
@@ -3472,18 +3530,6 @@ let multiDomainFirstPartiesArray = [
   ["skysports.com", "skybet.com", "skyvegas.com"],
   ["slashdot.org", "sourceforge.net", "fsdn.com"],
   ["slickdeals.net", "slickdealscdn.com"],
-  [
-    "smh.com.au",
-
-    "afr.com",
-    "brisbanetimes.com.au",
-    "canberratimes.com.au",
-    "fairfaxmedia.com.au",
-    "theage.com.au",
-    "watoday.com.au",
-
-    "ffx.io",
-  ],
   ["snapfish.com", "snapfish.ca"],
   [
     "sony.com",
@@ -4095,6 +4141,7 @@ let multiDomainFirstPartiesArray = [
     "espnfc.us",
 
     "fivethirtyeight.com",
+    "nationalgeographic.com",
 
     "babble.com",
     "d23.com",
@@ -4153,6 +4200,7 @@ let multiDomainFirstPartiesArray = [
 
     "dilcdn.com",
     "disney.io",
+    "disney-plus.net",
   ],
   [
     "wargaming.com",

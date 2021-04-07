@@ -1,6 +1,16 @@
 Privacy Badger Release Notes
 ============================
 
+2021.2.2
+* Added a dark theme. To see it, enable dark mode in operating system
+or device preferences.
+* Added a section to the Widget Replacement tab on the options page to manage
+the list of widgets that were set to be always allowed on certain sites
+* Disabled network prefetching/preloading to improve privacy
+* Added replacements for Dailymotion and OK.ru video player widgets
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Czech, French, Hebrew)
+
 2020.12.10
 * Added a direct link to widget content to replacements for widgets like
 YouTube, Vimeo, SoundCloud and Spotify. You can click this link to watch
@@ -18,7 +28,7 @@ Visit https://www.eff.org/badger-evolution to learn more.
 * Added support for Global Privacy Control, a new specification that
 lets you tell companies you'd like to opt out of data sharing and selling.
 Visit https://globalprivacycontrol.org/ to learn more.
-* Added a new section to the options page to display the browser settings
+* Added a section to the options page to display the browser settings
 that Privacy Badger overrides for privacy reasons
 * Fixed various site breakages
 * Improved translations (Simplified Chinese, Dutch, Finnish, Hebrew, Italian,

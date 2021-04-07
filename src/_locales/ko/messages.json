@@ -119,13 +119,33 @@
         "message": "가져오기",
         "description": ""
     },
-    "options_hide_social_widgets": {
-        "message": "다음 위젯을 교체하지 마세요:",
-        "description": "Multiple selection box on the widget replacement tab"
+    "options_widget_replacement_tab": {
+        "message": "위젯 교체",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "소셜 버튼 및 기타 잠재적으로 유용한 (비디오, 오디오, 댓글) 위젯을 차단할 때 Privacy Badger는 이를 클릭하여 활성화하는 플레이스홀더로 대체할 수 있습니다.",
+        "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
         "message": "위젯 교체를 사용하도록 설정합니다.",
-        "description": "Checkbox label on the widget replacement tab"
+        "description": "Checkbox label on the Widget Replacement tab"
+    },
+    "options_widget_exceptions_header": {
+        "message": "Widget Exceptions",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_hide_social_widgets": {
+        "message": "다음 위젯을 교체하지 마세요:",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_header": {
+        "message": "Site Exceptions",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_label": {
+        "message": "Always allow widgets on these sites:",
+        "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "사용자를 추적하지 않는 것으로 보이는 도메인을 표시합니다.",
@@ -653,14 +673,6 @@
     "popup_disabled_site_header": {
         "message": "Privacy Badger is disabled on this site",
         "description": "Shown in the popup on disabled sites."
-    },
-    "options_widget_replacement_tab": {
-        "message": "위젯 교체",
-        "description": "Options page tab heading"
-    },
-    "options_widget_replacement_desc": {
-        "message": "소셜 버튼 및 기타 잠재적으로 유용한 (비디오, 오디오, 댓글) 위젯을 차단할 때 Privacy Badger는 이를 클릭하여 활성화하는 플레이스홀더로 대체할 수 있습니다.",
-        "description": "Introduction to the Widget Replacement tab on the options page."
     },
     "disabled_sites": {
         "message": "비활성화 사이트",

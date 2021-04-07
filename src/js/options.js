@@ -1,18 +1,21 @@
 /*
- * This file is part of Adblock Plus <http://adblockplus.org/>,
+ * This file is part of Privacy Badger <https://privacybadger.org/>
+ * Copyright (C) 2014 Electronic Frontier Foundation
+ *
+ * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
- * Adblock Plus is free software: you can redistribute it and/or modify
+ * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
  * published by the Free Software Foundation.
  *
- * Adblock Plus is distributed in the hope that it will be useful,
+ * Privacy Badger is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 window.OPTIONS_INITIALIZED = false;
@@ -49,6 +52,7 @@ function loadOptions() {
   $('#exportTrackers').on("click", exportUserData);
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
+  $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteExceptions);
 
   if (OPTIONS_DATA.settings.showTrackingDomains) {
     $('#tracking-domains-overlay').hide();
@@ -110,7 +114,7 @@ function loadOptions() {
   $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.settings.showCounter);
   $("#replace-widgets-checkbox")
     .on("click", updateWidgetReplacement)
-    .prop("checked", OPTIONS_DATA.isWidgetReplacementEnabled);
+    .prop("checked", OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
   $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.settings.sendDNTSignal);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
@@ -241,15 +245,22 @@ function loadOptions() {
     });
 
   const widgetSelector = $("#hide-widgets-select");
-  widgetSelector.prop("disabled",
-    OPTIONS_DATA.isWidgetReplacementEnabled ? false : "disabled");
 
-  $("#replace-widgets-checkbox").on("change", function () {
-    if ($(this).is(":checked")) {
+  // disable Widget Replacement form elements when widget replacement is off
+  function _disable_widget_forms(enable) {
+    if (enable) {
       widgetSelector.prop("disabled", false);
+      $("#widget-site-exceptions-select").prop("disabled", false);
+      $('#widget-site-exceptions-remove-button').button("option", "disabled", false);
     } else {
       widgetSelector.prop("disabled", "disabled");
+      $("#widget-site-exceptions-select").prop("disabled", "disabled");
+      $('#widget-site-exceptions-remove-button').button("option", "disabled", true);
     }
+  }
+  _disable_widget_forms(OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
+  $("#replace-widgets-checkbox").on("change", function () {
+    _disable_widget_forms($(this).is(":checked"));
   });
 
   // Initialize Select2 and populate options
@@ -266,6 +277,7 @@ function loadOptions() {
 
   reloadDisabledSites();
   reloadTrackingDomainsTab();
+  reloadWidgetSiteExceptions();
 
   $('html').css({
     overflow: 'visible',
@@ -330,12 +342,15 @@ function parseUserDataFile(storageMapsList) {
     type: "mergeUserData",
     data: lists
   }, (response) => {
-    OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     OPTIONS_DATA.origins = response.origins;
+    OPTIONS_DATA.settings = response.settings;
 
+    // TODO general settings are not updated
     reloadDisabledSites();
     reloadTrackingDomainsTab();
-    // TODO general settings are not updated
+    // TODO widget replacement toggle not updated
+    // TODO widget replacement exceptions not updated
+    reloadWidgetSiteExceptions();
 
     alert(i18n.getMessage("import_successful"));
   });
@@ -577,6 +592,36 @@ function removeDisabledSite(event) {
   });
 }
 
+/**
+ * Updates the Site Exceptions form on the Widget Replacement tab.
+ */
+function reloadWidgetSiteExceptions() {
+  let sites = Object.keys(OPTIONS_DATA.settings.widgetSiteAllowlist),
+    $select = $('#widget-site-exceptions-select');
+
+  // sort widget exemptions sites the same way other options page domains lists are
+  sites = htmlUtils.sortDomains(sites);
+
+  $select.empty();
+  for (let domain of sites) {
+    // list allowed widget types alongside the domain they belong to
+    let display_text = domain + " (" + OPTIONS_DATA.settings.widgetSiteAllowlist[domain].join(', ') + ")";
+    $('<option>').text(display_text).val(domain).appendTo($select);
+  }
+}
+
+function removeWidgetSiteExceptions(event) {
+  event.preventDefault();
+
+  chrome.runtime.sendMessage({
+    type: "removeWidgetSiteExceptions",
+    domains: $("#widget-site-exceptions-select").val()
+  }, (response) => {
+    OPTIONS_DATA.settings.widgetSiteAllowlist = response.widgetSiteAllowlist;
+    reloadWidgetSiteExceptions();
+  });
+}
+
 // Tracking Domains slider functions
 
 /**
@@ -629,7 +674,7 @@ function updateSummary() {
   $("#tracking-domains-div").show();
 
   // count unique (cookie)blocked tracking base domains
-  let blockedDomains = getOriginsArray(OPTIONS_DATA.origins, null, null, null, false);
+  let blockedDomains = getOriginsArray(OPTIONS_DATA.origins, null, "-dnt", null, false);
   let baseDomains = new Set(blockedDomains.map(d => window.getBaseDomain(d)));
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [

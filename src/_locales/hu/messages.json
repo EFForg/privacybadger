@@ -1,6 +1,6 @@
 {
     "badger_status_block": {
-        "message": "Bloccato $DOMAIN$",
+        "message": "$DOMAIN$ tiltva",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -10,15 +10,15 @@
         }
     },
     "invalid_json": {
-        "message": "File JSON non valido.",
+        "message": "Érvénytelen JSON-file.",
         "description": ""
     },
     "options_remove_origin_confirm": {
-        "message": "Sei sicuro di voler rimuovere questo dominio da Privacy Badger?",
+        "message": "Biztosan el szeretné távolítani ezt a tartományt a Privacy Badgerből?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "badger_status_noaction": {
-        "message": "Nessun tracciamento da $DOMAIN$",
+        "message": "Nincs követés ennél a tartománynál: $DOMAIN$",
         "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -28,135 +28,135 @@
         }
     },
     "non_tracker_tip": {
-        "message": "Al momento Privacy Badger sta controllando esclusivamente se terze parti stanno usando dei cookie, local storage HTML5 o il canvas fingerprinting per tracciare la navigazione. Alcuni di questi domini potrebbero utilizzare metodi di tracciamento che Privacy Badger non è in grado rilevare.",
+        "message": "A Privacy Badger jelenleg csak azt ellenőrzi, hogy a harmadik felek használnak-e sütiket, HTML helyi tárolókat vagy vászon segítségével történő ujjlenyomat-készítést a böngészése nyomon követéséhez. Ezen tartományok némelyike olyan követési módszereket használhat, amelyeket a Privacy Badger nem ismer fel.",
         "description": ""
     },
     "options_dnt_policy_setting": {
-        "message": "Controlla se i <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domini di terze parti</a> rispettano la <a target='_blank' href='https://www.eff.org/dnt-policy'>politica Do Not Track della EFF</a>",
+        "message": "Annak ellenőrzése, hogy a <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>harmadik felek tartományai</a> betartják-e az <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF „ne kövessenek” irányelvét</a>",
         "description": "Checkbox label on the general settings page"
     },
     "donate_to_eff": {
-        "message": "Dona alla EFF",
+        "message": "Adományozás az EFF-nek",
         "description": "Button shown in the popup and on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Aiutaci donando e offrendo il tuo supporto per i nostri strumenti",
+        "message": "Segítsen nekünk adományozással és az eszközeink támogatásának megosztásával",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Non un ad-blocker, sono diverso",
+        "message": "Nem reklámblokkoló, és más vagyok",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
-        "message": "Grazie! Indagheremo a fondo.",
+        "message": "Köszönjük! Megoldást fogunk találni rá.",
         "description": ""
     },
     "dnt_tooltip": {
-        "message": "Questo dominio si impegna a non tracciarti",
+        "message": "Ez a tartomány azt ígéri, hogy nem követi Önt",
         "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
-        "message": "Bloccando questo dominio si rovinano alcuni siti web",
+        "message": "A tartomány tiltása köztudottan megakadályozza a weboldalak helyes működését",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
-        "message": "Clicca per restituire il controllo di questo dominio a Privacy Badger",
+        "message": "Kattintson, hogy visszaadja a tartomány vezérlését a Privacy Badger számára",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "next_section": {
-        "message": "prossima sezione",
+        "message": "következő szakasz",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "extension_error_text": {
-        "message": "<a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>Scrivici</a> riguardo il seguente errore:",
+        "message": "<a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>Mondjon el nekünk</a> valamit a következő hibáról:",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
-        "message": "Gestione dati",
+        "message": "Adatok kezelése",
         "description": "This is an options page tab heading."
     },
     "report_title": {
-        "message": "Segnala un errore",
+        "message": "Hiba jelentése",
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Clicca qui per bloccare questo dominio dalle impostazioni dei cookie",
+        "message": "Kattintson ide, hogy letiltsa a tartományt a sütik beállításától",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
-        "message": "bloccati",
+        "message": "letiltva",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Impedisci a WebRTC di rivelare l'indirizzo IP locale",
+        "message": "A WebRTC megakadályozása a helyi IP-cím kiszivárogtatásában",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger impara automaticamente a bloccare i tracker invisibili. Prenditi un minuto per vedere come.",
+        "message": "A Privacy Badger automatikusan megtanulja a láthatatlan követők tiltását. Szánjon rá egy percet, hogy meglássa hogyan.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
-        "message": "Cosa c'è che non va?",
+        "message": "Mi a baj?",
         "description": ""
     },
     "options_domain_list_tab": {
-        "message": "Domini Traccianti",
+        "message": "Követő tartományok",
         "description": "This is an options page tab heading."
     },
     "share_button_title_twitter": {
-        "message": "Condividi su Twitter",
+        "message": "Megosztás Twitteren",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "first_run_text": {
-        "message": "Scopri come Privacy Badger protegge la tua privacy",
+        "message": "Tudja meg, hogy a Privacy Badger hogyan védi a magánszféráját",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "download": {
-        "message": "Scarica",
+        "message": "Letöltés",
         "description": ""
     },
     "import": {
-        "message": "Importa",
+        "message": "Importálás",
         "description": ""
     },
     "options_widget_replacement_tab": {
-        "message": "Sostituzione dei widget",
+        "message": "Felületi elem cseréje",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "Quando vengono bloccati i pulsanti social ed altri widget possibilmente utili (video, audio, commenti), Privacy Badger li può sostituire con segnaposto clicca-per-attivare.",
+        "message": "Közösségi gombok és egyéb lehetséges hasznos (videó, hang, hozzászólások) felületi elemek tiltásakor a Privacy Badger ki tudja cserélni azokat kattintásra aktiválódó helykitöltőkre.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
-        "message": "Attiva sostituzione dei widget",
+        "message": "Felületi elem cseréjének engedélyezése",
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Eccezioni widget",
+        "message": "Felületi elem kivételek",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Non sostituire i seguenti widget:",
+        "message": "Ne cserélje ki a következő felületi elemeket:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Eccezioni sito",
+        "message": "Oldal kivételek",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Permetti sempre i widget in questi siti:",
+        "message": "Mindig engedélyezze a felületi elemeket ezeken az oldalakon:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
-        "message": "Mostra i domini che non sembra ti stiano tracciando",
+        "message": "Tartományok megjelenítése, amelyekről úgy tűnik, hogy nem követik Önt",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "report_button": {
-        "message": "Invia errore",
+        "message": "Hiba elküldése",
         "description": ""
     },
     "badger_status_allow": {
-        "message": "Permesso $DOMAIN$",
+        "message": "$DOMAIN$ engedélyezve",
         "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -166,139 +166,139 @@
         }
     },
     "privacy_badger_what_is": {
-        "message": "Cos'è Privacy Badger?",
+        "message": "Mi a Privacy Badger?",
         "description": ""
     },
     "options_domain_search": {
-        "message": "Cerca domini:",
+        "message": "Tartományok keresése:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Impara a bloccare nuovi tracker dalla tua navigazione",
+        "message": "Tanulja meg az új követők tiltását a böngészésétől",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "L'attivazione dell'apprendimento può renderti più identificabile dai siti",
+        "message": "A tanulás engedélyezése azonosíthatóbbá teheti Önt a weboldalak számára",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
-        "message": "Apprendi nelle finestre Private/Incognito",
+        "message": "Tanulás privát vagy inkognitó ablakokban",
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "L'attivazione dell'apprendimento nelle finestre Private/Incognito potrebbe lasciare tracce nel computer della tua cronologia privata. Normalmente, nelle finestre Private/Incognito Privacy Badger blocca i tracker che conosce già, ma non ricorderà quelli nuovi. Potresti volere attivare questa opzione se navighi spesso utilizzando le finestre Private/Incognito.",
+        "message": "A tanulás engedélyezése a privát vagy inkognitó ablakban nyomokat hagyhat a számítógépén a személyes böngészési előzményeiről. Alapértelmezetten a Privacy Badger tiltani fogja azokat a követőket, amelyek már tudnak a privát vagy inkognitó ablakokról, de nem fogja megtanulni az új követőket. Akkor lehet érdemes engedélyeznie ezt a beállítást, ha a böngészése nagy részét privát vagy inkognitó ablakban végzi.",
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger non imparerà più dalla tua navigazione in modo predefinito.",
+        "message": "A Privacy Badger többé nem fog tanulni a böngészéséről alapértelmezetten.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Clicca sotto per maggiori informazioni.",
+        "message": "Kattintson lent, hogy többet tudjon meg.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Scopri come Privacy Badger sta cambiando",
+        "message": "Tudja meg, hogy a Privacy Badger hogyan változik",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
-        "message": "Mostra numero di tracker",
+        "message": "Követők számának megjelenítése",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
-        "message": "Cos'è un tracker?",
+        "message": "Mi az a követő?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Non dimenticare di cliccare 'Privacy Badger ha dato problemi a questo sito'. Rispettiamo la tua privacy, quindi non inviamo segnalazioni automatiche.",
+        "message": "Ne felejtsen el el rákattintani az „A Privacy Badger elrontotta ezt az oldalt” gombra. Tiszteletben tartjuk a magánszféráját, ezért nem küldünk automatikus jelentéseket.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
-        "message": "Opzioni di Privacy Badger",
+        "message": "Privacy Badger beállításai",
         "description": ""
     },
     "report_terms": {
-        "message": "Verranno inviate automaticamente le seguenti informazioni alla EFF: la pagina che stai visitando, la versione del browser, la versione di Privacy Badger e lo stato di tutti i pulsanti per questa pagina.",
+        "message": "Ez a következő információkat fogja elküldeni automatikusan az EFF-nek: a jelenleg meglátogatott oldalt, a böngészője verzióját, a Privacy Badger verzióját, valamint az ezen az oldalon lévő összes csúszka állapotát.",
         "description": ""
     },
     "popup_enable_for_site": {
-        "message": "Attiva Privacy Badger per questo sito",
+        "message": "A Privacy Badger engedélyezése ennél az oldalnál",
         "description": ""
     },
     "options_domain_type_filter": {
-        "message": "Filtra per tipo:",
+        "message": "Szűrés típus szerint:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
-        "message": "Lista di tracker e impostazioni aggiornate correttamente!",
+        "message": "A követőlista és a beállítások sikeresen frissítve!",
         "description": ""
     },
     "export_user_data": {
-        "message": "Esporta dati utente",
+        "message": "Felhasználói adatok exportálása",
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importazione dati utente:<ul><li>Sovrascrive impostazioni generali</li><li>Combina liste di siti disattivati</li><li>Combina informazioni su quali tracker ha visto Privacy Badger</li><li>Sovrascrive le scelte dei pulsanti</li></ul>",
+        "message": "Felhasználói adatok importálása:<ul><li>Felülírja az általános beállításokat</li><li>Egyesíti a letiltott oldalak listáit</li><li>Egyesíti azokat az információkat, hogy a Privacy Badger milyen követőket látott</li><li>Felülírja a csúszka személyre szabásait</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
-        "message": "Ripristina",
+        "message": "Visszaállítás",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Ripristina domini traccianti",
+        "message": "Követő tartományok visszaállítása",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Il ripristino dei domini traccianti causa:\n\n  • L'eliminazione di tutti i dati sui tracker che Privacy Badger ha imparato dalla tua navigazione\n  • Il ripristino dell'elenco dei domini traccianti all'ultimo elenco pre-istruzione (visita www.eff.org/badger-pretraining per altre info)",
+        "message": "A követő tartományok visszaállítása a következőket fogja tenni:\n\n  • Az összes adat törlése azzal kapcsolatban, amit a Privacy Badger megtanult a böngészéséről\n  • A követő tartományok listájának visszaállítása a legutolsó előre megtanított listára (látogassa meg a www.eff.org/badger-pretraining oldalt a további részletekért)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
-        "message": "Rimuovi tutto",
+        "message": "Összes eltávolítása",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Rimuovi tutti i domini traccianti",
+        "message": "Összes követő tartomány eltávolítása",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "La rimozione di tutti i domini traccianti causa:\n\n  • L'eliminazione di tutto ciò che Privacy Badger sa sui tracker\n  • Privacy Badger non bloccherà nulla finchè non ha avuto la possibilità di re-imparare dalla tua navigazione",
+        "message": "Az összes követő tartomány eltávolítása a következőket fogja tenni:\n\n  • Minden törlése azzal kapcsolatban, amit a Privacy Badger a követőkről tud\n  • Azt okozza, hogy a Privacy Badger nem tilt semmit, amíg nincs lehetősége újra megtanulni a böngészését",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
-        "message": "Ora sei protetto da Privacy Badger.",
+        "message": "Önt mostantól védi a Privacy Badger.",
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
-        "message": "Per conoscere il funzionamento del programma, cliccare sotto per una breve guida.",
+        "message": "Annak megismeréséhez, hogy a Privacy Badger hogyan működik, kattintson a lenti gyors ismertetőért.",
         "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
-        "message": "WebRTC può rivelare il tuo indirizzo IP locale. Nota che attivare questa opzione potrebbe incidere sulle prestazioni con app di conferenze web come Google Hangouts.",
+        "message": "A WebRTC kiszivárogtathatja a helyi IP-címet. Ne feledje, hogy ezen beállítás engedélyezése leronthatja az olyan webkonferencia alkalmazásoknál a teljesítményt, mint például a Google Hangouts.",
         "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
-        "message": "Impostazioni generali",
+        "message": "Általános beállítások",
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "Adatvédelem",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
-        "message": "Avanzate",
+        "message": "Speciális",
         "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
-        "message": "Fai un giro",
+        "message": "Bemutató megtekintése",
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
-        "message": "Clicca qui per bloccare completamente questo dominio",
+        "message": "Kattintson ide a teljes tartomány tiltásához",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
-        "message": "versione $VERSION_STRING$",
+        "message": "verzió: $VERSION_STRING$",
         "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
         "placeholders": {
             "version_string": {
@@ -308,7 +308,7 @@
         }
     },
     "badger_status_cookieblock": {
-        "message": "Cookie bloccati da $DOMAIN$",
+        "message": "A(z) $DOMAIN$ tartományból tiltott sütik",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -318,107 +318,107 @@
         }
     },
     "options_domain_filter_cookieblock": {
-        "message": "parzialmente bloccati",
+        "message": "részlegesen tiltva",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "show_tracking_domains_acknowledgement": {
-        "message": "Ho capito; mostrami comunque l'elenco dei domini traccianti",
+        "message": "Megértettem, mindenképp jelenítse meg a követő tartományok listáját",
         "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "firstRun_title": {
-        "message": "Grazie per aver installato Privacy Badger!",
+        "message": "Köszönjük, hogy telepítette a Privacy Badger kiegészítőt!",
         "description": ""
     },
     "import_select_file": {
-        "message": "Seleziona un file da importare.",
+        "message": "Válasszon egy fájlt az importáláshoz.",
         "description": ""
     },
     "report_broken_site": {
-        "message": "Privacy Badger ha dato problemi a questo sito? Faccelo sapere!",
+        "message": "A Privacy Badger elrontotta ezt az oldalt? Tudassa velünk!",
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
-        "message": "Sposta il pulsante al centro per bloccare i cookie",
+        "message": "Állítsa középre a csúszkát a sütik tiltásához",
         "description": ""
     },
     "intro_learns": {
-        "message": "Impara automaticamente",
+        "message": "Automatikusan tanul",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Invece di tenere liste di cosa bloccare, Privacy Badger scopre automaticamente i tracker in base al loro comportamento.",
+        "message": "Ahelyett, hogy listát tartana fent arról, hogy mit kell tiltani, a Privacy Badger automatikusan felfedezi a követőket a viselkedésük alapján.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
-        "message": "Cattura i tracker subdoli",
+        "message": "Elkapja az alattomos követőket",
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Il tracciamento invisibile ha molte forme; le pubblicità sono solo la punta visibile dell'iceberg. Privacy Badger invia il <a href='https://globalprivacycontrol.org/' target='_blank'>segnale Global Privacy Control</a> per escluderti dalla condivisione e vendita di dati e il <a href='https://www.eff.org/issues/do-not-track' target='_blank'>segnale Do Not Track</a> per dire alle aziende di non tracciarti. Se ignorano le tue scelte, Privacy Badger imparerà a bloccarli—che siano inserzionisti o tracker di altro tipo.",
+        "message": "A láthatatlan követés mindenféle módon történhet, a reklámok csak a jéghegy csúcsát jelentik. A Privacy Badger elküldi a <a href='https://globalprivacycontrol.org/' target='_blank'>globális adatvédelmi szabályozás jelzést</a>, hogy lemondjon az Ön nevében az adatmegosztásról és az adateladásról, valamint a <a href='https://www.eff.org/issues/do-not-track' target='_blank'>ne kövessen jelzést</a>, hogy közölje a vállalatokkal, hogy ne kövessék Önt. Ha azok figyelmen kívül hagyják a kéréseit, akkor a Privacy Badger meg fogja tanulni tiltani azokat – legyenek azok hirdetők vagy bármilyen fajta követők.",
         "description": "Intro page paragraph."
     },
     "report_close": {
-        "message": "Chiudi",
+        "message": "Bezárás",
         "description": ""
     },
     "import_user_data": {
-        "message": "Importa dati utente",
+        "message": "Felhasználói adatok importálása",
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT-compatibili",
+        "message": "„Ne kövessenek”-kompatibilis",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
-        "message": "Aiuto",
+        "message": "Súgó",
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "options_domain_filter_allow": {
-        "message": "permessi",
+        "message": "engedélyezve",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "intro_donate_heading": {
-        "message": "La privacy è un gioco di squadra!",
+        "message": "Az adatvédelem csapatsport!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "show_tracking_domains_message": {
-        "message": "Non dovresti aver bisogno di modificare nulla qui.",
+        "message": "Itt nem kellene semmit sem módosítania.",
         "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
-        "message": "tutti",
+        "message": "összes",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "report_cancel": {
-        "message": "Annulla",
+        "message": "Mégse",
         "description": ""
     },
     "tooltip_block": {
-        "message": "Sposta il pulsante a sinistra per bloccare un dominio",
+        "message": "Mozgassa a csúszkát balra egy tartomány tiltásához",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Invia ai siti i segnali \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" e \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\"",
+        "message": "A „<a href='https://globalprivacycontrol.org/' target='_blank'>globális adatvédelmi szabályozás</a>” és a „<a href='https://www.eff.org/issues/do-not-track' target='_blank'>ne kövessen</a>” jelzések küldése a weboldalaknak",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Disattiva l'invio degli indirizzi web che visiti a Google. Ciò disattiva i suggerimenti per pagine simili quando una pagina non può essere trovata.",
+        "message": "Meglátogatott webcímek küldésének letiltása a Google számára. Ez letiltja a hasonló oldalak javaslatait, ha egy oldal nem található.",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disattiva controllo dei link ipertestuali",
+        "message": "Hiperhivatkozás vizsgálatának letiltása",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "Disattiva il precaricamento",
+        "message": "Előtöltés letiltása",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
-        "message": "utente-dipendenti",
+        "message": "felhasználó által vezérelt",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_instructions": {
-        "message": "$COUNT$ potenziali $LINK_START$tracker$LINK_END$ bloccati",
+        "message": "$COUNT$ lehetséges $LINK_START$követő$LINK_END$ tiltva",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -435,7 +435,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "Nessun $LINK_START$tracker$LINK_END$ bloccato",
+        "message": "Nincsenek $LINK_START$követők$LINK_END$ tiltva",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -448,31 +448,31 @@
         }
     },
     "popup_blocked": {
-        "message": "Non ci sono risorse di terze parti in questa pagina. Urrà per la privacy!",
+        "message": "Nincsenek harmadik féltől származó erőforrások ezen az oldalon. Éljen az adatvédelem!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
-        "message": "Un progetto della Electronic Frontier Foundation",
+        "message": "Az Electronic Frontier Foundation egy projektje",
         "description": ""
     },
     "tooltip_allow": {
-        "message": "Spostare il pulsante a destra per consentire un dominio",
+        "message": "Mozgassa a csúszkát jobbra egy tartomány engedélyezéséhez",
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Disattiva Privacy Badger per questo sito",
+        "message": "A Privacy Badger letiltása ennél az oldalnál",
         "description": "Button in the popup."
     },
     "domain_slider_allow_tooltip": {
-        "message": "Clicca qui per permettere questo dominio",
+        "message": "Kattintson ide a tartomány engedélyezéséhez",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
-        "message": "Privacy Badger non condivide MAI i tuoi dati di navigazione a meno che non lo scegli.",
+        "message": "A Privacy Badger SOHA nem fog megosztani adatokat a böngészéséről, hacsak nem választja azt, hogy megossza.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger ha deciso di bloccare $COUNT$ potenziali $TRACKER_LINK_START$domini traccianti$TRACKER_LINK_END$ finora",
+        "message": "A Privacy Badger eddig $COUNT$ lehetséges $TRACKER_LINK_START$követő tartomány$TRACKER_LINK_END$ letiltásáról döntött",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -489,7 +489,7 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger non ha ancora rilevato alcun <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio tracciante</a> . Continua a navigare!",
+        "message": "A Privacy Badger még nem észlelt semmilyen <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>követő tartományt</a> sem. Folytassa a böngészést!",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
@@ -497,67 +497,67 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger inizia a bloccare una volta visto lo stesso tracker su tre siti diversi. Tre colpi ed è fuori!",
+        "message": "A Privacy Badger akkor kezd el tiltani, ha meglátja ugyanazt a követőt három különböző weboldalon. Három csapás és vége!",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
-        "message": "Filtra per stato:",
+        "message": "Szűrés állapot szerint:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
-        "message": "Descrivi brevemente l'errore qui sotto.",
+        "message": "Röviden írja le a hibát lent.",
         "description": ""
     },
     "intro_donate1": {
-        "message": "Quando usi Privacy Badger ti unisci alla <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> e a milioni di altri utenti nella lotta per la privacy. Siamo senza scopo di lucro e combattiamo per i diritti nella rete. Grazie per la partecipazione!",
+        "message": "A Privacy Badger használatakor Ön is csatlakozik az <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationhöz</a> és több millió más felhasználóhoz az adatvédelemért folytatott harcban. Nonprofit alapítványként küzdünk az Ön internetes jogaiért. Köszönjük, hogy csatlakozott hozzánk!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "Per escludere domini, apponi al termine di ricerca il segno \"-\". Ad esempio, \".co -.com\" mostrerà i domini .co e .co.uk ma non .com.",
+        "message": "Tartományok kizárásához tegyen egy „-” jelet a keresési kifejezés elé. Például a „.co -.com” meg fogja jeleníteni a .co és .co.uk tartományokat, de a .com tartományokat nem.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Se pensi che Privacy Badger stia dando problemi a una pagina (ad esempio un video non si avvia), puoi cliccare il tasto 'Disattiva' per spegnere Privacy Badger in quel sito.",
+        "message": "Ha úgy gondolja, hogy a Privacy Badger elront egy oldalt (például egy videó nem játszható le), akkor rákattinthat a „Letiltás” gombra a Privacy Badger azon az oldalon való kikapcsolásához.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
-        "message": "Politica sulla privacy",
+        "message": "Adatvédelmi irányelv",
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "report_input_label": {
-        "message": "Descrizione",
+        "message": "Leírás",
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Il tuo tasso non ha ancora deciso se questi domini andrebbero bloccati",
+        "message": "A Privacy Badger még nem döntötte el, hogy ezeket a tartományokat tiltani kell-e",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Mostra i domini che il tuo tasso non ha ancora deciso di bloccare:",
+        "message": "Tartományok megjelenítése, amelyek tiltásáról a Privacy Badger még nem döntött:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
-        "message": "I domini sottostanti sembrano non tracciarti",
+        "message": "Az alábbi tartományokról úgy tűnik, hogy nem követik Önt",
         "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
-        "message": "Opzioni",
+        "message": "Beállítások",
         "description": ""
     },
     "share_button_title_facebook": {
-        "message": "Condividi su Facebook",
+        "message": "Megosztás Facebookon",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger impara automaticamente a bloccare i tracker invisibili.",
+        "message": "A Privacy Badger automatikusan megtanulja a láthatatlan követők tiltását.",
         "description": ""
     },
     "report_fail": {
-        "message": "Ops. Qualcosa è andato storto.",
+        "message": "Hoppá. Valami elromlott.",
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger ha sostituito questo pulsante $BUTTON$",
+        "message": "A Privacy Badger kicserélte az itt lévő $BUTTON$ gombot",
         "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
@@ -567,7 +567,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger ha sostituito $START_ANCHOR_TAG$questo widget $WIDGET$ $END_ANCHOR_TAG$",
+        "message": "A Privacy Badger kicserélte $START_ANCHOR_TAG$az itt lévő $WIDGET$ felületi elemet$END_ANCHOR_TAG$",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
@@ -585,59 +585,59 @@
         }
     },
     "allow_once": {
-        "message": "Permetti una volta",
+        "message": "Engedélyezés egyszer",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "allow_on_site": {
-        "message": "Permetti sempre in questo sito",
+        "message": "Mindig engedélyezze ezen az oldalon",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
-        "message": "Sincronizzazione cloud:<ul><li>Richiede Firefox/Chrome Sync</li><li>L'invio sovrascrive qualsiasi dato di Privacy Badger nel cloud</li><li>Lo scaricamento combina gli elenchi di siti dove il tuo tasso è disattivato</li></ul>",
+        "message": "Felhőszinkronizálás:<ul><li>Firefox vagy Chrome szinkronizálás szükséges hozzá</li><li>A feltöltés felülírja az összes meglévő Privacy Badger adatot a felhőben</li><li>A letöltés egyesíti azon oldalak listáját, ahol a Privacy Badger le van tiltva</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
-        "message": "Invia",
+        "message": "Feltöltés",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Esporta nel cloud i siti disattivati",
+        "message": "Letiltott oldalak exportálása a felhőbe",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Importa dal cloud i siti disattivati",
+        "message": "Letiltott oldalak importálása a felhőből",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "Dati cloud importati con successo.",
+        "message": "A felhőadatok sikeresen importálva.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
-        "message": "Impossibile scaricare i dati cloud.",
+        "message": "A felhőadatokat nem sikerült letölteni.",
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Dati inviati correttamente sul cloud",
+        "message": "Az adatok sikeresen feltöltve a felhőbe",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Invio dei dati sul cloud fallito",
+        "message": "Az adatokat nem sikerült feltölteni a felhőbe",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
-        "message": "Nessun dato cloud da scaricare.",
+        "message": "Nincsenek letöltendő felhőadatok.",
         "description": "'Error' message when there is on cloud data to download."
     },
     "share_title": {
-        "message": "Dillo ai tuoi amici",
+        "message": "Mondja el az ismerőseinek",
         "description": "Title of the share overlay."
     },
     "popup_share_button": {
-        "message": "Condividi",
+        "message": "Megosztás",
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger ha bloccato $COUNT$ potenziali tracker su $DOMAIN$:",
+        "message": "A Privacy Badger $COUNT$ lehetséges követőt tiltott a(z) $DOMAIN$ tartományon:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -651,51 +651,51 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) è un'estensione del browser che impara automaticamente a bloccare i tracker invisibili. Privacy Badger è creato da Electronic Frontier Foundation, un'organizzazione senza scopo di lucro che combatte per i tuoi diritti nella rete.",
+        "message": "A Privacy Badger (privacybadger.org) egy böngészőkiegészítő, amely automatikusan megtanulja a láthatatlan követők tiltását. A Privacy Badger alkalmazást az Electronic Frontier Foundation készítette, amely az internetes jogaiért küzdő nonprofit alapítvány.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
-        "message": "Copia negli appunti",
+        "message": "Másolás a vágólapra",
         "description": "Initial text of the copy button on the share overlay."
     },
     "copy_button_copied": {
-        "message": "Copiato",
+        "message": "Lemásolva",
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_special_page_header": {
-        "message": "Niente da fare in questa pagina",
+        "message": "Nincs mit tenni ezen az oldalon",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger non funziona in pagine speciali come questa. Prova a navigare altrove.",
+        "message": "A Privacy Badger nem működik az olyan különleges oldalakon, mint amelyen ez is. Próbáljon meg máshol böngészni.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger è disattivato in questo sito",
+        "message": "A Privacy Badger le van tiltva ezen az oldalon",
         "description": "Shown in the popup on disabled sites."
     },
     "disabled_sites": {
-        "message": "Siti disattivati",
+        "message": "Letiltott oldalak",
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger è disattivato nei seguenti siti. Ciò significa che Privacy Badger non bloccherà nulla mentre visiti i siti elencati qui e non invierà i segnali Do Not Track e Global Privacy Control.</p><p>Se pensi che con Privacy Badger non funzioni bene una pagina, o se volessi permettere a uno specifico sito di condividere o vendere i tuoi dati, puoi digitare il dominio di quella pagina nella casella sotto e cliccare il pulsante \"Aggiungi dominio\".</p><p>Altrimenti, quando la scheda della pagina è selezionata, puoi cliccare il pulsante di Privacy Badger nella barra degli strumenti e poi cliccare il pulsante \"Disattiva\".</p>",
+        "message": "<p>A Privacy Badger le van tiltva a következő oldalakon. Ez azt jelenti, hogy a Privacy Badger semmit sem fog tiltani, ha meglátogatja az itt felsorolt oldalakat, és nem fog „ne kövessen” vagy „globális adatvédelmi szabályozás” jelzéseket küldeni.</p><p>Ha úgy gondolja, hogy a Privacy Badger elront egy oldalt, vagy engedélyezni szeretne egy bizonyos oldalt, hogy megossza vagy eladja az Ön adatait, akkor írja be annak az oldalnak a tartományát a lenti szövegdobozba, majd kattintson a „Tartomány hozzáadása” gombra.</p><p>Alternatívaként, ha már kiválasztotta az oldal böngészőlapját, akkor egyszerűen kattintson a böngésző eszköztárán lévő Privacy Badger gombra, majd kattintson a „Letiltás” gombra.</p>",
         "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
     },
     "allowlist_domain_input_placeholder": {
-        "message": "es. www.example.com, *.example.net, example.org",
+        "message": "például www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Aggiungi dominio",
+        "message": "Tartomány hozzáadása",
         "description": "Button found under the Disabled Sites tab on the options page"
     },
     "remove_button": {
-        "message": "Rimuovi selezionati",
+        "message": "Kijelöltek eltávolítása",
         "description": "Button found under the Disabled Sites tab on the options page"
     },
     "invalid_domain": {
-        "message": "Inserisci un dominio o URL valido",
+        "message": "Adjon meg egy érvényes tartományt vagy URL-t",
         "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     }
 }

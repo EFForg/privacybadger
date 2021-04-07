@@ -1,5 +1,5 @@
 /*
- * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
+ * This file is part of Privacy Badger <https://privacybadger.org/>
  * Copyright (C) 2014 Electronic Frontier Foundation
  *
  * Derived from Adblock Plus
@@ -1036,13 +1036,6 @@ Badger.prototype = {
       this.getSettings().getItem("learnLocally") &&
       incognito.learningEnabled(tab_id)
     );
-  },
-
-  /**
-   * Check if widget replacement functionality is enabled.
-   */
-  isWidgetReplacementEnabled: function () {
-    return this.getSettings().getItem("socialWidgetReplacementEnabled");
   },
 
   isDNTSignalEnabled: function() {

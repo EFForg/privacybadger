@@ -119,13 +119,33 @@
         "message": "Importera",
         "description": ""
     },
-    "options_hide_social_widgets": {
-        "message": "Ersätt inte följande gränssnittskomponenter:",
-        "description": "Multiple selection box on the widget replacement tab"
+    "options_widget_replacement_tab": {
+        "message": "Gränssnittskomponentsersättning",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "Vid blockering av sociala knappar och andra potentiellt användbara gränssnittskomponenter (video, ljud, kommentarer) kan Privacy Badger ersätta med klick-för-att-aktivera platshållare.",
+        "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
         "message": "Aktivera gränssnittskomponentsersättning",
-        "description": "Checkbox label on the widget replacement tab"
+        "description": "Checkbox label on the Widget Replacement tab"
+    },
+    "options_widget_exceptions_header": {
+        "message": "Gränssnittskomponentsundantag",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_hide_social_widgets": {
+        "message": "Ersätt inte följande gränssnittskomponenter:",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_header": {
+        "message": "Webbplatsundantag",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_label": {
+        "message": "Tillåt alltid gränssnittskomponenter på dessa webbplatser:",
+        "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Visa domäner som inte verkar spåra dig",
@@ -390,7 +410,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "Disable prefetching",
+        "message": "Inaktivera förhämtning",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -398,7 +418,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_instructions": {
-        "message": "$COUNT$ potential $LINK_START$spårare$LINK_END$ blockerad",
+        "message": "Potentiella $LINK_START$spårare$LINK_END$ blockerade: $COUNT$",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -452,7 +472,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger har beslutat att blockera $COUNT$ potential $TRACKER_LINK_START$spårningsdomäner$TRACKER_LINK_END$ än så länge",
+        "message": "Privacy Badger har beslutat att blockera $COUNT$ potentiella $TRACKER_LINK_START$spårningsdomäner$TRACKER_LINK_END$ än så länge",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -597,11 +617,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Data successfully uploaded to the cloud",
+        "message": "Data har laddats upp till molnet",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Data could not be uploaded to the cloud",
+        "message": "Data kunde inte laddas upp till molnet",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
@@ -617,7 +637,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger blockerad $COUNT$ potentiella spårare på $DOMAIN$:",
+        "message": "Privacy Badger blockerade $COUNT$ potentiella spårare på $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -653,14 +673,6 @@
     "popup_disabled_site_header": {
         "message": "Privacy Badger är inaktiverad på denna webbplats",
         "description": "Shown in the popup on disabled sites."
-    },
-    "options_widget_replacement_tab": {
-        "message": "Gränssnittskomponentsersättning",
-        "description": "Options page tab heading"
-    },
-    "options_widget_replacement_desc": {
-        "message": "Vid blockering av sociala knappar och andra potentiellt användbara gränssnittskomponenter (video, ljud, kommentarer) kan Privacy Badger ersätta med klick-för-att-aktivera platshållare.",
-        "description": "Introduction to the Widget Replacement tab on the options page."
     },
     "disabled_sites": {
         "message": "Inaktiverade webbplatser",

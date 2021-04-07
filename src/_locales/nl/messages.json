@@ -119,13 +119,33 @@
         "message": "Importeren",
         "description": ""
     },
-    "options_hide_social_widgets": {
-        "message": "De volgende widgets niet vervangen:",
-        "description": "Multiple selection box on the widget replacement tab"
+    "options_widget_replacement_tab": {
+        "message": "Widgets vervangen",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "Wanneer socialemedia-knoppen en andere potentieel nuttige widgets worden geblokkeerd, dan kan Privacy Badger ze vervangen door klikken-om-te-activeren-plaatsvervangers.",
+        "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
         "message": "Widgets vervangen inschakelen",
-        "description": "Checkbox label on the widget replacement tab"
+        "description": "Checkbox label on the Widget Replacement tab"
+    },
+    "options_widget_exceptions_header": {
+        "message": "Widget-uitzonderingen",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_hide_social_widgets": {
+        "message": "De volgende widgets niet vervangen:",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_header": {
+        "message": "Website-uitzonderingen",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_label": {
+        "message": "Sta altijd widgets toe op deze websites:",
+        "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Geef domeinen weer welke u niet lijken te volgen",
@@ -597,11 +617,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Data successfully uploaded to the cloud",
+        "message": "Gegevens succesvol geüpload naar de cloud",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Data could not be uploaded to the cloud",
+        "message": "Gegevens kunnen niet worden geüpload naar de cloud",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
@@ -653,14 +673,6 @@
     "popup_disabled_site_header": {
         "message": "Privacy Badger is voor deze website uitgeschakeld",
         "description": "Shown in the popup on disabled sites."
-    },
-    "options_widget_replacement_tab": {
-        "message": "Widgets vervangen",
-        "description": "Options page tab heading"
-    },
-    "options_widget_replacement_desc": {
-        "message": "Wanneer socialemedia-knoppen en andere potentieel nuttige widgets worden geblokkeerd, dan kan Privacy Badger ze vervangen door klikken-om-te-activeren-plaatsvervangers.",
-        "description": "Introduction to the Widget Replacement tab on the options page."
     },
     "disabled_sites": {
         "message": "Uitgeschakelde websites",

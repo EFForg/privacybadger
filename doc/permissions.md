@@ -1,6 +1,6 @@
 # Permissions
 
-This document explains the need for each [extension permission](https://developer.chrome.com/extensions/declare_permissions) declared in Privacy Badger's [extension manifest](/src/manifest.json).
+This document explains the need for each [extension permission](https://developer.chrome.com/docs/extensions/mv3/declare_permissions/) declared in Privacy Badger's [extension manifest](/src/manifest.json).
 
 ## Privacy
 The Privacy API lets extensions modify browser-wide privacy settings. Privacy Badger uses the Privacy API to disable:

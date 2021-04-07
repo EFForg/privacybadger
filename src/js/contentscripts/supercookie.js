@@ -1,5 +1,5 @@
 /*
- * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
+ * This file is part of Privacy Badger <https://privacybadger.org/>
  * Copyright (C) 2015 Electronic Frontier Foundation
  *
  * Derived from Chameleon <https://github.com/ghostwords/chameleon>

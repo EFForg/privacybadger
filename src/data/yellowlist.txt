@@ -132,6 +132,8 @@ cdn.cnetcontent.com
 ws.cnetcontent.com
 codepen.io
 codesandbox.io
+cdn.cohesionapps.com
+make.cohesionapps.com
 cloudplatform.coveo.com
 platform.cloud.coveo.com
 static.cloud.coveo.com
@@ -142,6 +144,7 @@ custhelp.com
 d3js.org
 dailymotion.com
 danid.dk
+check.ddos-guard.net
 dealer.com
 dealerinspire.com
 delicious.com
@@ -264,6 +267,7 @@ clients1.google.com
 clients6.google.com
 consent.google.com
 cse.google.com
+dai.google.com
 datastudio.google.com
 developers.google.com
 docs.google.com
@@ -271,6 +275,7 @@ drive.google.com
 feedburner.google.com
 feedproxy.google.com
 fonts.google.com
+fundingchoicesmessages.google.com
 fusiontables.google.com
 groups.google.com
 kh.google.com
@@ -281,8 +286,8 @@ khms3.google.com
 khms4.google.com
 labs.google.com
 maps-api-ssl.google.com
-mapsengine.google.com
 maps.google.com
+mapsengine.google.com
 mt0.google.com
 mt1.google.com
 mts0.google.com
@@ -408,6 +413,7 @@ licdn.com
 licensebuttons.net
 addon.lidl.de
 media.lidl.com
+lightboxcdn.com
 linkwithin.com
 list-manage.com
 i.lithium.com
@@ -549,6 +555,7 @@ pricegrabber.com
 printfriendly.com
 prismic.io
 privacymanager.io
+cdn.privacy-mgmt.com
 providesupport.com
 psswrdbx.com
 publiekeomroep.nl
@@ -636,6 +643,7 @@ stackoverflow.com
 staticamzn.com
 cdn.static-economist.com
 staticflickr.com
+statuspage.io
 steampowered.com
 store.akamai.steamstatic.com
 steamusercontent.com
@@ -762,6 +770,7 @@ yahoo.net
 yahooapis.com
 api-maps.yandex.ru
 img-fotki.yandex.ru
+maps.yandex.net
 yardbarker.com
 yastatic.net
 yellowpages.com

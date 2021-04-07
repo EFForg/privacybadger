@@ -27,6 +27,20 @@
             "type": 3
         }
     },
+    "Dailymotion Player": {
+        "domain": "www.dailymotion.com",
+        "buttonSelectors": [
+            "iframe[src^='http://www.dailymotion.com/embed/video/']",
+            "iframe[src^='https://www.dailymotion.com/embed/video/']",
+            "iframe[src^='//www.dailymotion.com/embed/video/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.dailymotion.com"
+            ],
+            "type": 3
+        }
+    },
     "Digg": {
         "domain": "widgets.digg.com",
         "buttonSelectors": [

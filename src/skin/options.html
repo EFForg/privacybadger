@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 
 <!--
-  - This file is part of Adblock Plus <http://adblockplus.org/>,
-  - Copyright (C) 2006-2013 Eyeo GmbH
-  -
-  - Adblock Plus is free software: you can redistribute it and/or modify
-  - it under the terms of the GNU General Public License version 3 as
-  - published by the Free Software Foundation.
-  -
-  - Adblock Plus is distributed in the hope that it will be useful,
-  - but WITHOUT ANY WARRANTY; without even the implied warranty of
-  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  - GNU General Public License for more details.
-  -
-  - You should have received a copy of the GNU General Public License
-  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
-  -->
+ - This file is part of Privacy Badger <https://privacybadger.org/>
+ - Copyright (C) 2014 Electronic Frontier Foundation
+ -
+ - Derived from Adblock Plus
+ - Copyright (C) 2006-2013 Eyeo GmbH
+ -
+ - Privacy Badger is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License version 3 as
+ - published by the Free Software Foundation.
+ -
+ - Privacy Badger is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
+ -->
 
 <html style="visibility:hidden; overflow:hidden">
 <head>
@@ -265,11 +268,26 @@
       <span class="i18n_options_social_widgets_checkbox"></span>
     </label>
     </p>
-    <div id="hide-widgets-row" class="indent1">
+
+    <h4 class="i18n_options_widget_exceptions_header"></h4>
+
+    <div>
       <label for="hide-widgets-select">
         <span class="i18n_options_hide_social_widgets"></span>
       </label>
       <select name="states[]" multiple="multiple" id="hide-widgets-select"></select>
+    </div>
+
+    <h4 class="i18n_options_widget_site_exceptions_header"></h4>
+
+    <div>
+      <span class="i18n_options_widget_site_exceptions_label"></span>
+      <form action="#">
+        <div id="widget-site-exceptions-select-div">
+          <select id="widget-site-exceptions-select" size="10" multiple></select>
+        </div>
+        <button id="widget-site-exceptions-remove-button" class="i18n_remove_button"></button>
+      </form>
     </div>
   </div>
 

@@ -1,5 +1,5 @@
 /*
- * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
+ * This file is part of Privacy Badger <https://privacybadger.org/>
  * Copyright (C) 2018 Electronic Frontier Foundation
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
@@ -57,8 +57,12 @@ function getOriginsArray(origins, filter_text, type_filter, status_filter, show_
         if (!value.startsWith("user")) {
           return false;
         }
-      } else {
-        if (value != type_filter) {
+      } else if (type_filter == "dnt") {
+        if (value != "dnt") {
+          return false;
+        }
+      } else if (type_filter == "-dnt") {
+        if (value == "dnt") {
           return false;
         }
       }

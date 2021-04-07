@@ -1,18 +1,21 @@
 /*
- * This file is part of Adblock Plus <http://adblockplus.org/>,
+ * This file is part of Privacy Badger <https://privacybadger.org/>
+ * Copyright (C) 2014 Electronic Frontier Foundation
+ *
+ * Derived from Adblock Plus
  * Copyright (C) 2006-2013 Eyeo GmbH
  *
- * Adblock Plus is free software: you can redistribute it and/or modify
+ * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
  * published by the Free Software Foundation.
  *
- * Adblock Plus is distributed in the hope that it will be useful,
+ * Privacy Badger is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 (function () {
@@ -40,7 +43,7 @@ function setTextDirection() {
   }
 
   // https://www.w3.org/International/questions/qa-scripts#examples
-  // https://developer.chrome.com/webstore/i18n?csw=1#localeTable
+  // https://developer.chrome.com/docs/webstore/i18n/?csw=1#choosing-locales-to-support
   // TODO duplicated in src/js/webrequest.js
   const RTL_LOCALES = ['ar', 'he', 'fa'];
   if (!RTL_LOCALES.includes(LOCALE)) {
@@ -75,7 +78,7 @@ function setTextDirection() {
     document.body.appendChild(css);
 
     // fix floats
-    ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div'].forEach((selector) => {
+    ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div', '#widget-site-exceptions-select-div', '#widget-site-exceptions-remove-button'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
   }
