@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "module": "ES2020",
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": ["node", "firefox-webext-browser"],
+        "outDir": "./lib/esm"
+    },
+    "include": ["./index.ts"],
+    "exclude": ["node_modules", "./lib/**/*", "./src/**/*"]
+}
