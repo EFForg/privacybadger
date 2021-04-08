@@ -651,7 +651,7 @@
         }
     },
     "share_base_message": {
-        "message": "A Privacy Badger (privacybadger.org) egy böngészőkiegészítő, amely automatikusan megtanulja a láthatatlan követők tiltását. A Privacy Badger alkalmazást az Electronic Frontier Foundation készítette, amely az internetes jogaiért küzdő nonprofit alapítvány.",
+        "message": "A Privacy Badger (privacybadger.org) egy böngészőkiegészítő, amely automatikusan megtanulja a láthatatlan követők tiltását. A Privacy Badger alkalmazást az Electronic Frontier Foundation készítette, amely az Ön internetes jogaiért küzdő nonprofit alapítvány.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
