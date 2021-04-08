@@ -33,7 +33,8 @@ let constants = require("constants"),
   utils = require("utils");
 
 /************ Local Variables *****************/
-let tempAllowlist = {};
+let tempAllowlist = {},
+  tempAllowedWidgets = {};
 
 /***************** Blocking Listener Functions **************/
 
@@ -54,7 +55,7 @@ function onBeforeRequest(details) {
       is_reload = oldTabData && oldTabData.url == url;
     forgetTab(tab_id, is_reload);
     badger.recordFrame(tab_id, frame_id, url);
-    initializeAllowedWidgets(tab_id, badger.getFrameData(tab_id).host);
+    initAllowedWidgets(tab_id, badger.getFrameData(tab_id).host);
     return {};
   }
 
@@ -336,7 +337,7 @@ function onNavigate(details) {
 
   let tab_host = badger.getFrameData(tab_id).host;
 
-  initializeAllowedWidgets(tab_id, tab_host);
+  initAllowedWidgets(tab_id, tab_host);
 
   // initialize tab data bookkeeping used by heuristicBlockingAccounting()
   // to avoid missing or misattributing learning
@@ -549,6 +550,7 @@ function forgetTab(tab_id, is_reload) {
   delete badger.tabData[tab_id];
   if (!is_reload) {
     delete tempAllowlist[tab_id];
+    delete tempAllowedWidgets[tab_id];
   }
 }
 
@@ -666,6 +668,16 @@ let getWidgetList = (function () {
       }
 
       widgetList.push(widget);
+
+      // replace only if we haven't already allowed this widget for the tab/site
+      // so that sites that dynamically insert nested frames with widgets
+      // like Tumblr do the right thing after a widget is allowed
+      // (but the page hasn't yet been reloaded)
+      // and don't keep replacing an already allowed widget type in those frames
+      if (tempAllowedWidgets.hasOwnProperty(tab_id) &&
+          tempAllowedWidgets[tab_id].includes(widget.name)) {
+        continue;
+      }
 
       // replace only if at least one of the associated domains was blocked
       if (!tabOrigins || !tabOrigins.length) {
@@ -791,8 +803,9 @@ function getWidgetDomains(widget_name) {
  *
  * @param {Integer} tab_id the ID of the tab
  * @param {Array} domains the domains
+ * @param {String} widget_name the name (ID) of the widget
  */
-function allowOnTab(tab_id, domains) {
+function allowOnTab(tab_id, domains, widget_name) {
   if (!tempAllowlist.hasOwnProperty(tab_id)) {
     tempAllowlist[tab_id] = [];
   }
@@ -801,19 +814,24 @@ function allowOnTab(tab_id, domains) {
       tempAllowlist[tab_id].push(domain);
     }
   }
+
+  if (!tempAllowedWidgets.hasOwnProperty(tab_id)) {
+    tempAllowedWidgets[tab_id] = [];
+  }
+  tempAllowedWidgets[tab_id].push(widget_name);
 }
 
 /**
  * Called upon navigation to prepopulate the temporary allowlist
  * with domains for widgets marked as always allowed on a given site.
  */
-function initializeAllowedWidgets(tab_id, tab_host) {
+function initAllowedWidgets(tab_id, tab_host) {
   let allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist');
   if (allowedWidgets.hasOwnProperty(tab_host)) {
     for (let widget_name of allowedWidgets[tab_host]) {
       let widgetDomains = getWidgetDomains(widget_name);
       if (widgetDomains) {
-        allowOnTab(tab_id, widgetDomains);
+        allowOnTab(tab_id, widgetDomains, widget_name);
       }
     }
   }
@@ -899,7 +917,7 @@ function dispatcher(request, sender, sendResponse) {
     if (!widgetDomains) {
       return sendResponse();
     }
-    allowOnTab(sender.tab.id, widgetDomains);
+    allowOnTab(sender.tab.id, widgetDomains, request.widgetName);
     sendResponse();
     break;
   }
