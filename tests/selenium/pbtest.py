@@ -483,7 +483,7 @@ class PBSeleniumTest(unittest.TestCase):
             "(function (domain) {"
             "  let bg = chrome.extension.getBackgroundPage();"
             "  let base_domain = window.getBaseDomain(domain);"
-            "  bg.badger.heuristicBlocking.blocklistOrigin(domain, base_domain);"
+            "  bg.badger.heuristicBlocking.blocklistOrigin(base_domain, domain);"
             "}(arguments[0]));"
         ), domain)
 
