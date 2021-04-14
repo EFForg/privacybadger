@@ -284,18 +284,19 @@ font-size: 16px;
 #options {
     margin-inline-end: 3px;
 }
-#pbInstructions, #special-browser-page, #disabled-site-message, #firstparty-protections-container {
+.pbInstructions, #special-browser-page, #disabled-site-message, #firstparty-protections-container {
     color: #505050;
     font-size: 16px;
     margin: 0;
     padding-top: 10px;
+    cursor: pointer;
 }
-#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a {
+.pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a {
     text-decoration: underline;
     color: black;
     font-weight: bold;
 }
-#pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a:hover {
+.pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a:hover {
     color: #ec9329
 }
 #firstparty-protections-container a {
@@ -310,7 +311,7 @@ font-size: 16px;
     font-size: 14px;
     margin-top: -30px;
 }
-#instructions-no-trackers, #special-browser-page, #disabled-site-message {
+#instructions-no-trackers, #special-browser-page, #disabled-site-message, #instructions-many-trackers, #firstparty-protections-container {
     text-align: center;
     margin: 45px 0;
     padding: 0;
@@ -476,7 +477,6 @@ div.overlay.active {
     border-top: 1px solid #707070;
     padding: 0;
     margin: 0;
-    text-align: left;
 }
 #instructions-firstparty-protections {
     margin: 45px 0;
@@ -541,8 +541,8 @@ div.overlay.active {
     }
 
     button,
-    #pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a,
-    #pbInstructions,
+    .pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a,
+    .pbInstructions,
     #special-browser-page,
     #disabled-site-message {
         color: #ddd;
