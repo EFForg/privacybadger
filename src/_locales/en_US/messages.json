@@ -644,6 +644,10 @@
         "message": "Share",
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
+    "show_more_information": {
+        "message": "Click to show more information",
+        "description": "Tooltip that shows when you hover on the click-to-expand popup information sections."
+    },
     "share_tracker_header": {
         "message": "Privacy Badger blocked $COUNT$ potential trackers on $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
