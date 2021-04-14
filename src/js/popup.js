@@ -197,8 +197,8 @@ function init() {
   $('#expand-blocked-resources').on('click', showBlockedResourcesHandler);
   $('#collapse-blocked-resources').on('click', hideBlockedResourcesHandler);
 
-  $('#expand-firstparty-popup').on('click', showFirstPartyInfoHandler);
-  $('#collapse-firstparty-popup').on('click', hideFirstPartyInfoHandler);
+  // set up visibility click handler for firstparty protections header section
+  $('#expand-firstparty-popup, #collapse-firstparty-popup, #instructions-firstparty-protections').on('click', toggleFirstPartyInfoHandler);
 
   if (POPUP_DATA.showExpandedTrackingSection) {
     $('#expand-blocked-resources').hide();
@@ -225,10 +225,8 @@ function init() {
     // if current tab is in first parties list, show the popup message
     for (let firstPartyObj of blob.content_scripts) {
       firstPartyObj.matches.forEach((urlScheme) => {
-        if (urlScheme.includes(current_tab)) {
+        if (urlScheme.includes(current_tab) && POPUP_DATA.enabled) {
           $("#firstparty-protections-container").show();
-          // in the edge case that no-trackers are detected, align text to left to match
-          $("#instructions-no-trackers").css("text-align","left");
         }
       });
     }
@@ -498,18 +496,16 @@ function hideBlockedResourcesHandler() {
   });
 }
 /**
- * Click handlers for showing/hiding the firstparty popup info text
+ * Click handler for showing/hiding the firstparty popup info text
  */
-function showFirstPartyInfoHandler() {
-  $("#collapse-firstparty-popup").show();
-  $("#expand-firstparty-popup").hide();
-  $("#instructions-firstparty-description").show();
-}
-
-function hideFirstPartyInfoHandler() {
-  $("#collapse-firstparty-popup").hide();
-  $("#expand-firstparty-popup").show();
-  $("#instructions-firstparty-description").hide();
+function toggleFirstPartyInfoHandler() {
+  if($('#collapse-firstparty-popup').is(":visible")) {
+    $("#collapse-firstparty-popup, #instructions-firstparty-description").hide();
+    $("#expand-firstparty-popup").show();
+  } else {
+    $("#collapse-firstparty-popup, #instructions-firstparty-description").show();
+    $("#expand-firstparty-popup").hide();
+  }
 }
 
 /**
