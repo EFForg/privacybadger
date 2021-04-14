@@ -194,8 +194,8 @@ function init() {
     chrome.i18n.getMessage("version", chrome.runtime.getManifest().version)
   );
 
-  $('#expand-blocked-resources').on('click', showBlockedResourcesHandler);
-  $('#collapse-blocked-resources').on('click', hideBlockedResourcesHandler);
+  $('#expand-blocked-resources, #collapse-blocked-resources, #instructions-many-trackers').on('click', toggleBlockedResourcesHandler);
+  // $('#collapse-blocked-resources, #instructions-many-trackers').on('click', hideBlockedResourcesHandler);
 
   // set up visibility click handler for firstparty protections header section
   $('#expand-firstparty-popup, #collapse-firstparty-popup, #instructions-firstparty-protections').on('click', toggleFirstPartyInfoHandler);
@@ -225,14 +225,14 @@ function init() {
     // if current tab is in first parties list, show the popup message
     for (let firstPartyObj of blob.content_scripts) {
       firstPartyObj.matches.forEach((urlScheme) => {
-        if (urlScheme.includes(current_tab) && POPUP_DATA.enabled) {
+        if (urlScheme.includes(current_tab)) {
           $("#firstparty-protections-container").show();
         }
       });
     }
   }
 
-  fetchFirstPartiesManifest();
+  if (POPUP_DATA.enabled) { fetchFirstPartiesManifest(); }
 
   // improve on Firefox's built-in options opening logic
   if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function") {
@@ -478,28 +478,27 @@ function share() {
 /**
  * Click handlers for showing/hiding the blocked resources section
  */
-function showBlockedResourcesHandler() {
-  $("#collapse-blocked-resources").show();
-  $("#expand-blocked-resources").hide();
-  $("#blockedResources").show();
-  chrome.runtime.sendMessage({
-    type: "showTrackingDomainsSection"
-  });
+function toggleBlockedResourcesHandler() {
+  if ($("#expand-blocked-resources").is(":visible")) {
+    $("#collapse-blocked-resources, #blockedResources").show();
+    $("#expand-blocked-resources").hide();
+    chrome.runtime.sendMessage({
+      type: "showTrackingDomainsSection"
+    });
+  } else {
+    $("#collapse-blocked-resources, #blockedResources").hide();
+    $("#expand-blocked-resources").show();
+    chrome.runtime.sendMessage({
+      type: "hideTrackingDomainsSection"
+    });
+  }
 }
 
-function hideBlockedResourcesHandler() {
-  $("#collapse-blocked-resources").hide();
-  $("#expand-blocked-resources").show();
-  $("#blockedResources").hide();
-  chrome.runtime.sendMessage({
-    type: "hideTrackingDomainsSection"
-  });
-}
 /**
  * Click handler for showing/hiding the firstparty popup info text
  */
 function toggleFirstPartyInfoHandler() {
-  if($('#collapse-firstparty-popup').is(":visible")) {
+  if ($('#collapse-firstparty-popup').is(":visible")) {
     $("#collapse-firstparty-popup, #instructions-firstparty-description").hide();
     $("#expand-firstparty-popup").show();
   } else {
