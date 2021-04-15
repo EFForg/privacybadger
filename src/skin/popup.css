@@ -291,6 +291,9 @@ font-size: 16px;
     padding-top: 10px;
     cursor: pointer;
 }
+#toggle-blocked-resources-container {
+    cursor: pointer;
+}
 .pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a {
     text-decoration: underline;
     color: black;
@@ -474,9 +477,9 @@ div.overlay.active {
 }
 #firstparty-protections-container {
     display: none;
-    border-top: 1px solid #707070;
+    border-top: 1px solid #d3d3d3;
+    margin: auto;
     padding: 0;
-    margin: 0;
 }
 #instructions-firstparty-protections {
     margin: 45px 0;
