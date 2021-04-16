@@ -847,6 +847,7 @@ function dispatcher(request, sender, sendResponse) {
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
       "checkDNT",
+      "checkFLoC",
       "checkEnabled",
       "checkLocation",
       "checkWidgetReplacementEnabled",
@@ -1302,6 +1303,17 @@ function dispatcher(request, sender, sendResponse) {
     // called from contentscripts/dnt.js to check if we should enable it
     sendResponse(
       badger.isDNTSignalEnabled()
+      && badger.isPrivacyBadgerEnabled(
+        window.extractHostFromURL(sender.tab.url)
+      )
+    );
+    break;
+  }
+  
+  case "checkFLoC": {
+    // called from contentscripts/floc.js to check if we should disable document.interestCohort
+    sendResponse(
+      badger.isFlocOverwriteEnabled()
       && badger.isPrivacyBadgerEnabled(
         window.extractHostFromURL(sender.tab.url)
       )

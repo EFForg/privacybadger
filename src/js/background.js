@@ -804,6 +804,7 @@ Badger.prototype = {
   defaultSettings: {
     checkForDNTPolicy: true,
     disabledSites: [],
+	disableFLoC: true,
     disableGoogleNavErrorService: true,
     disableHyperlinkAuditing: true,
     disableNetworkPrediction: true,
@@ -1044,6 +1045,10 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
+  },
+  
+  isFlocOverwriteEnabled: function() {
+    return this.getSettings().getItem("disableFLoC");
   },
 
   /**
