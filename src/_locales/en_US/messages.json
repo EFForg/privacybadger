@@ -151,6 +151,10 @@
         "message": "Show domains that don't appear to be tracking you",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
+    "options_disable_floc": {
+        "message": "Disable Google's FLoC and stop sharing your FLoC ID on sites where Privacy Badger is enabled.",
+        "description": "Checkbox label on the general settings page."
+    },
     "report_button": {
         "message": "Submit Error",
         "description": ""
