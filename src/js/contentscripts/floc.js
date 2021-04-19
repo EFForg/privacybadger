@@ -15,7 +15,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function getPageScript() {
+function getFlocPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
@@ -45,7 +45,7 @@ chrome.runtime.sendMessage({
   type: "checkFLoC"
 }, function (enabled) {
   if (enabled) {
-    window.injectScript(getPageScript());
+    window.injectScript(getFlocPageScript());
   }
 });
 
