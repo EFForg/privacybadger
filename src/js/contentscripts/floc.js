@@ -20,7 +20,7 @@ function getPageScript() {
 
   // return a string
   return "(" + function (DOCUMENT) {
-	delete DOCUMENT.prototype.interestCohort;
+    delete DOCUMENT.prototype.interestCohort;
   // save locally to keep from getting overwritten by site code
   } + "(Document));";
 
