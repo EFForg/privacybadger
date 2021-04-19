@@ -132,7 +132,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "Widget İstisnaları",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -140,11 +140,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "Site İstisnaları",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "Bu sitelerde her zaman widgetlara izin ver:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -410,7 +410,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "Disable prefetching",
+        "message": "Prefetchingi devre dışı bırak",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
