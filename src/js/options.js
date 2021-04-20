@@ -175,7 +175,7 @@ function loadOptions() {
     $("#disable-floc").show();
     $("#disable-floc-checkbox")
       .prop("checked", OPTIONS_DATA.settings.disableFLoC)
-      .on("click", function () { updateDisableFloc() });
+      .on("click", function () { updateDisableFloc(); });
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {

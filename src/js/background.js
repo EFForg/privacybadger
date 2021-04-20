@@ -1046,7 +1046,7 @@ Badger.prototype = {
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
   },
-  
+
   isFlocOverwriteEnabled: function() {
     // only try to disable floc if it's enabled
     return (document.interestCohort && this.getSettings().getItem("disableFLoC"));

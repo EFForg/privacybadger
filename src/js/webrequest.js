@@ -1309,7 +1309,7 @@ function dispatcher(request, sender, sendResponse) {
     );
     break;
   }
-  
+
   case "checkFLoC": {
     // called from contentscripts/floc.js to check if we should disable document.interestCohort
     sendResponse(
