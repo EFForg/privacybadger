@@ -282,11 +282,11 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "개인정보",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
-        "message": "Advanced",
+        "message": "고급",
         "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
@@ -342,7 +342,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "자동으로 학습",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
@@ -448,7 +448,7 @@
         }
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page. Hooray for privacy!",
+        "message": "이 페이지에는 서드파티 리소스가 없습니다. 개인정보 보호를 위해 만세!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
@@ -671,7 +671,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger is disabled on this site",
+        "message": "이 사이트에서 Privacy Badger가 비활성화되었습니다",
         "description": "Shown in the popup on disabled sites."
     },
     "disabled_sites": {
