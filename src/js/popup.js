@@ -194,10 +194,10 @@ function init() {
     chrome.i18n.getMessage("version", chrome.runtime.getManifest().version)
   );
 
+  // add event listeners for click-to-expand blocked resources popup section
   $('#expand-blocked-resources, #collapse-blocked-resources, #instructions-many-trackers').on('click', toggleBlockedResourcesHandler);
-  // $('#collapse-blocked-resources, #instructions-many-trackers').on('click', hideBlockedResourcesHandler);
 
-  // set up visibility click handler for firstparty protections header section
+  // add event listeners for click-to-expand first party protections popup section
   $('#expand-firstparty-popup, #collapse-firstparty-popup, #instructions-firstparty-protections').on('click', toggleFirstPartyInfoHandler);
 
   if (POPUP_DATA.showExpandedTrackingSection) {
@@ -213,26 +213,10 @@ function init() {
   $('#instructions-firstparty-description').hide();
   $('#collapse-firstparty-popup').hide();
 
-  // check if any firstparty scripts are run on current tab & show message in popup
-  async function fetchFirstPartiesManifest() {
-    // fetch the manifest
-    const response = await fetch('../manifest.json');
-    const blob = await response.json();
-
-    // remove the 'www.' from current tab for string matching against first parties manifest url schemes
-    let current_tab = POPUP_DATA.tabHost.slice(4);
-
-    // if current tab is in first parties list, show the popup message
-    for (let firstPartyObj of blob.content_scripts) {
-      firstPartyObj.matches.forEach((urlScheme) => {
-        if (urlScheme.includes(current_tab)) {
-          $("#firstparty-protections-container").show();
-        }
-      });
-    }
+  // show firstparty protections message if current tab is in our content scripts
+  if (POPUP_DATA.enabled && POPUP_DATA.isOnFirstParty) {
+    $("#firstparty-protections-container").show();
   }
-
-  if (POPUP_DATA.enabled) { fetchFirstPartiesManifest(); }
 
   // improve on Firefox's built-in options opening logic
   if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function") {
@@ -581,7 +565,7 @@ function refreshPopup() {
     // hide the number of trackers and slider instructions message
     // if no sliders will be displayed
     $("#instructions-many-trackers").hide();
-    $("#toggleBlockedResourcesContainer").hide();
+    $("#toggle-blocked-resources-container").hide();
 
     // show "no trackers" message
     $("#instructions-no-trackers").show();
