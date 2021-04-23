@@ -657,6 +657,7 @@ swiftype.com
 public.tableau.com
 public.tableausoftware.com
 c.tadst.com
+cdn.tagcommander.com
 taleo.net
 uploads.tapatalk-cdn.com
 targetimg1.com
