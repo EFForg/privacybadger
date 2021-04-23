@@ -263,23 +263,28 @@ function onHeadersReceived(details) {
   let tab_host = getHostForTab(tab_id);
   let response_host = window.extractHostFromURL(url);
 
-  if (!utils.isThirdPartyDomain(response_host, tab_host)) {
-    return {};
-  }
-
-  let action = checkAction(tab_id, response_host, details.frameId);
-  if (!action) {
-    return {};
-  }
-
-  badger.logThirdPartyOriginOnTab(tab_id, response_host, action);
-
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
     return {};
   }
 
+  let newHeaders = details.responseHeaders;
+  if (badger.isFlocOverwriteEnabled() && (details.type === 'main_frame' || details.type === 'sub_frame')) {
+    newHeaders.push({name: 'permissions-policy', value: 'interest-cohort=()'})
+  }
+
+  if (!utils.isThirdPartyDomain(response_host, tab_host)) {
+    return {responseHeaders: newHeaders};
+  }
+
+  let action = checkAction(tab_id, response_host, details.frameId);
+  if (!action) {
+    return {responseHeaders: newHeaders};
+  }
+
+  badger.logThirdPartyOriginOnTab(tab_id, response_host, action);
+
   if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
-    let newHeaders = details.responseHeaders.filter(function(header) {
+    newHeaders = newHeaders.filter(function(header) {
       return (header.name.toLowerCase() != "set-cookie");
     });
     return {responseHeaders: newHeaders};
