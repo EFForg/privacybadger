@@ -132,7 +132,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "예외 위젯",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -140,11 +140,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "예외 사이트",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "다음 사이트에서는 항상 위젯을 허용합니다:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -174,7 +174,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "사용자의 검색에서 새 추적기를 차단하는 방법을 학습합니다",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
@@ -194,7 +194,7 @@
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "더 알아보려면 아래를 클릭하세요.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
@@ -282,7 +282,7 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "개인정보",
+        "message": "프라이버시",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
@@ -342,7 +342,7 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "자동으로 학습",
+        "message": "자동으로 학습합니다.",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
@@ -398,19 +398,19 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "웹 사이트에 \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" 와 \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" 신호를 보냅니다.",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
+        "message": "방문한 웹 주소를 Google에 전송하는 것을 비활성화합니다. 이것은 페이지를 찾을 수 없을 때 유사한 페이지를 제안하는 것을 비활성화시킵니다.",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disable hyperlink auditing",
+        "message": "하이퍼링크 감사 비활성화",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "Disable prefetching",
+        "message": "프리페칭 비활성화",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
@@ -418,7 +418,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_instructions": {
-        "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
+        "message": "$COUNT$개의 잠재적인 $LINK_START$추적기$LINK_END$ 차단됨",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -435,7 +435,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "message": "차단된 $LINK_START$추적기$LINK_END$ 없음",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -448,7 +448,7 @@
         }
     },
     "popup_blocked": {
-        "message": "이 페이지에는 서드파티 리소스가 없습니다. 개인정보 보호를 위해 만세!",
+        "message": "이 페이지에는 서드파티 리소스가 없습니다. 프라이버시를 위하여!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
@@ -567,7 +567,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger has replaced $START_ANCHOR_TAG$this $WIDGET$ widget$END_ANCHOR_TAG$",
+        "message": "Privacy Badger가 $START_ANCHOR_TAG$이 $WIDGET$ 위젯$END_ANCHOR_TAG$을 대체했습니다.",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
@@ -617,11 +617,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Data successfully uploaded to the cloud",
+        "message": "데이터를 클라우드에 성공적으로 업로드하였습니다",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Data could not be uploaded to the cloud",
+        "message": "데이터를 클라우드에 업로드할 수 없습니다",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
@@ -637,7 +637,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger blocked $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "Privacy Badger가 $DOMAIN$에서 잠재적인 추적기를 $COUNT$개 차단했습니다:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -671,7 +671,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "이 사이트에서 Privacy Badger가 비활성화되었습니다",
+        "message": "이 사이트에서 Privacy Badger를 사용하지 않도록 설정했습니다.",
         "description": "Shown in the popup on disabled sites."
     },
     "disabled_sites": {
