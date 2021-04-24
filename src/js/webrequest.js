@@ -263,13 +263,13 @@ function onHeadersReceived(details) {
   let tab_host = getHostForTab(tab_id);
   let response_host = window.extractHostFromURL(url);
 
-  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
-    return {};
-  }
-
   let newHeaders = details.responseHeaders;
   if (badger.isFlocOverwriteEnabled() && (details.type === 'main_frame' || details.type === 'sub_frame')) {
     newHeaders.push({name: 'permissions-policy', value: 'interest-cohort=()'})
+  }
+
+  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
+    return {responseHeaders: newHeaders};
   }
 
   if (!utils.isThirdPartyDomain(response_host, tab_host)) {
