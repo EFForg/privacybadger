@@ -174,7 +174,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "사용자의 검색에서 새 추적기를 차단하는 방법을 학습합니다",
+        "message": "사용자의 검색에서 새 추적기를 차단하는 방법을 학습합니다.",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
@@ -398,7 +398,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "웹 사이트에 \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" 와 \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" 신호를 보냅니다.",
+        "message": "웹 사이트에 \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" 와 \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>추적 금지</a>\" 신호를 보냅니다.",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
@@ -406,11 +406,11 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "하이퍼링크 감사 비활성화",
+        "message": "하이퍼링크 감사 비활성화.",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "프리페칭 비활성화",
+        "message": "프리페칭 비활성화.",
         "description": "Checkbox label found on the general settings page"
     },
     "options_domain_filter_user": {
