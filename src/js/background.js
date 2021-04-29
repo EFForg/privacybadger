@@ -93,13 +93,13 @@ function Badger() {
     await dntHashesPromise;
     await tabDataPromise;
 
-    // gather list of url schemes that firstparty content scripts run on
-    let manifestBlob = await chrome.runtime.getManifest();
+    // gather list of url match patterns that firstparty content scripts run on
+    let manifestJson = chrome.runtime.getManifest();
     let firstParties = [];
 
-    for (let contentScriptObj of manifestBlob.content_scripts) {
+    for (let contentScriptObj of manifestJson.content_scripts) {
       // only include parts from content scripts that have firstparties entries
-      if (contentScriptObj.js[0].includes("firstparties")) {
+      if (contentScriptObj.js[0].includes("/firstparties/")) {
         firstParties.push(contentScriptObj.matches);
       }
     }
