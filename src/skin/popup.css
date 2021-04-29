@@ -495,9 +495,13 @@ div.overlay.active {
 }
 .ui-icon.ui-icon-caret-d, .ui-icon.ui-icon-caret-u {
     font-size: 18px;
+    transition: 250ms;
 }
-.ui-icon.ui-icon-caret-d, .ui-icon.ui-icon-caret-u {
-    font-size: 18px;
+.ui-icon.ui-icon-caret-d:hover {
+    transform: translateY(5px);
+}
+.ui-icon.ui-icon-caret-u:hover {
+    transform: translateY(-5px);
 }
 @media screen and (max-width: 400px){
     .origin {
