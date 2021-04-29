@@ -819,23 +819,6 @@ function initializeAllowedWidgets(tab_id, tab_host) {
   }
 }
 
-// checks to see if a given tab host is in url schemes of our first parties content scripts list
-function checkHostIsFirstParty(tab_host) {
-  // trim www from tab_host if need be
-  if (tab_host.startsWith('www.')) {
-    tab_host = tab_host.slice(4);
-  }
-  // trim trailing wildcard
-
-  for (let url_scheme of badger.firstPartiesList) {
-    // if given tab_host is matched in our firstparties list, return true
-    if (url_scheme.includes(tab_host)) {
-      return true;
-    }
-  }
-  return false;
-}
-
 // NOTE: sender.tab is available for content script (not popup) messages only
 function dispatcher(request, sender, sendResponse) {
 
@@ -1038,7 +1021,7 @@ function dispatcher(request, sender, sendResponse) {
     let tab_host = window.extractHostFromURL(request.tabUrl),
       origins = badger.tabData[tab_id].origins,
       cookieblocked = {},
-      isOnFirstParty = checkHostIsFirstParty(tab_host);
+      isOnFirstParty = utils.firstPartyProtectionsEnabled(tab_host);
 
     for (let origin in origins) {
       // see if origin would be cookieblocked if not for user override
