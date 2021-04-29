@@ -571,4 +571,19 @@ QUnit.test("estimateMaxEntropy", assert => {
 
 });
 
+QUnit.test("firstPartyProtectionsEnabled", assert => {
+  assert.equal(
+    utils.firstPartyProtectionsEnabled("google.com"),
+    true,
+    "properly identifies a url pattern from our firstparties list"
+  );
+
+  assert.equal(
+    utils.firstPartyProtectionsEnabled("foobar.com"),
+    false,
+    "determines that a url not in the firstparties list is not protected by a firstparty script"
+  );
+
+});
+
 })();
