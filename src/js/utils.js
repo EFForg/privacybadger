@@ -445,17 +445,23 @@ function isThirdPartyDomain(domain1, domain2) {
   return false;
 }
 
-// checks to see if a given tab host is in url schemes of our first parties content scripts list
-function firstPartyProtectionsEnabled(tab_host) {
+/**
+ * checks to see if a given url has firstparty protections scripts run on it
+ * @param {String} domain
+ * @param {Object} firstPartiesList a second fqdn
+ *
+ * @return {Boolean} true if the domains are third party
+ */
+function firstPartyProtectionsEnabled(domain, firstPartiesList) {
   // trim www from tab_host if need be
-  if (tab_host.startsWith('www.')) {
-    tab_host = tab_host.slice(4);
+  if (domain.startsWith('www.')) {
+    domain = domain.slice(4);
   }
   // trim trailing wildcard
 
-  for (let url_pattern of badger.firstPartiesList) {
-    // if given tab_host is matched in our firstparties list, return true
-    if (url_pattern.includes(tab_host)) {
+  for (let url_pattern of firstPartiesList) {
+    // if given domain is matched in our firstparties list, return true
+    if (url_pattern.includes(domain)) {
       return true;
     }
   }

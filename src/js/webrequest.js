@@ -1021,7 +1021,7 @@ function dispatcher(request, sender, sendResponse) {
     let tab_host = window.extractHostFromURL(request.tabUrl),
       origins = badger.tabData[tab_id].origins,
       cookieblocked = {},
-      isOnFirstParty = utils.firstPartyProtectionsEnabled(tab_host);
+      isOnFirstParty = utils.firstPartyProtectionsEnabled(tab_host, badger.firstPartiesList);
 
     for (let origin in origins) {
       // see if origin would be cookieblocked if not for user override
