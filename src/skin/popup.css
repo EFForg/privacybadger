@@ -284,14 +284,13 @@ font-size: 16px;
 #options {
     margin-inline-end: 3px;
 }
-.pbInstructions, #special-browser-page, #disabled-site-message, #firstparty-protections-container {
+.pbInstructions, #special-browser-page, #disabled-site-message, #instructions-firstparty-protections {
     color: #505050;
     font-size: 16px;
     margin: 0;
     padding-top: 10px;
-    cursor: pointer;
 }
-#toggle-blocked-resources-container {
+#instructions-firstparty-protections, #toggle-blocked-resources-container, #instructions-many-trackers, #toggle-firstparty-info-section {
     cursor: pointer;
 }
 .pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a {
