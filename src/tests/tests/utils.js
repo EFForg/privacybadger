@@ -573,7 +573,7 @@ QUnit.test("estimateMaxEntropy", assert => {
 
 QUnit.test("firstPartyProtectionsEnabled", assert => {
   assert.equal(
-    utils.firstPartyProtectionsEnabled("google.com", badger.firstPartiesList),
+    utils.firstPartyProtectionsEnabled("www.google.com", badger.firstPartiesList),
     true,
     "properly identifies a url pattern from our firstparties list"
   );
