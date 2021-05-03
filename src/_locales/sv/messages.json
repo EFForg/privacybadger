@@ -637,7 +637,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger blockerade $COUNT$ potentiella spårare på $DOMAIN$:",
+        "message": "Potentiella spårare blockerade på $DOMAIN$ av Privacy Badger: $COUNT$",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
