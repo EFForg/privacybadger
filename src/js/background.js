@@ -100,7 +100,11 @@ function Badger() {
     for (let contentScriptObj of manifestJson.content_scripts) {
       // only include parts from content scripts that have firstparties entries
       if (contentScriptObj.js[0].includes("/firstparties/")) {
-        firstParties.push(contentScriptObj.matches);
+        let extractedUrls = [];
+        for (let match of contentScriptObj.matches) {
+          extractedUrls.push(window.extractHostFromURL(match));
+        }
+        firstParties.push(extractedUrls);
       }
     }
     // set list of firstparty url schemes onto badger object

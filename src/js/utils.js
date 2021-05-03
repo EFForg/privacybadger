@@ -453,15 +453,11 @@ function isThirdPartyDomain(domain1, domain2) {
  * @return {Boolean} true if the domains are third party
  */
 function firstPartyProtectionsEnabled(domain, firstPartiesList) {
-  // trim www from tab_host if need be
-  if (domain.startsWith('www.')) {
-    domain = domain.slice(4);
-  }
-  // trim trailing wildcard
-
   for (let url_pattern of firstPartiesList) {
-    // if given domain is matched in our firstparties list, return true
-    if (url_pattern.includes(domain)) {
+    // account for wildcards in entries on firstPartiesList & avoid false positives
+    if (url_pattern.startsWith("*") && url_pattern.endsWith(domain)) {
+      return true;
+    } else if (url_pattern == domain) {
       return true;
     }
   }
