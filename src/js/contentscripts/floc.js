@@ -15,18 +15,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function getFlocPageScript() {
-  // code below is not a content script: no chrome.* APIs /////////////////////
-
-  // return a string
-  return "(" + function (DOCUMENT) {
-    delete DOCUMENT.prototype.interestCohort;
-  // save locally to keep from getting overwritten by site code
-  } + "(Document));";
-
-  // code above is not a content script: no chrome.* APIs /////////////////////
-}
-
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
 (function () {
@@ -42,10 +30,13 @@ if (document instanceof HTMLDocument === false && (
 
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
-  type: "checkFLoC"
+  type: "checkFloc"
 }, function (enabled) {
   if (enabled) {
-    window.injectScript(getFlocPageScript());
+    window.injectScript("(" +
+      function () { delete Document.prototype.interestCohort; }
+      + "());"
+    );
   }
 });
 

@@ -263,28 +263,29 @@ function onHeadersReceived(details) {
   let tab_host = getHostForTab(tab_id);
   let response_host = window.extractHostFromURL(url);
 
-  let newHeaders = details.responseHeaders;
-  if (badger.isFlocOverwriteEnabled() && (details.type === 'main_frame' || details.type === 'sub_frame')) {
-    newHeaders.push({name: 'permissions-policy', value: 'interest-cohort=()'})
-  }
-
-  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
+  if (badger.isFlocOverwriteEnabled() && details.type === 'main_frame') {
+    let newHeaders = details.responseHeaders;
+    newHeaders.push({name: 'permissions-policy', value: 'interest-cohort=()'});
     return {responseHeaders: newHeaders};
   }
 
   if (!utils.isThirdPartyDomain(response_host, tab_host)) {
-    return {responseHeaders: newHeaders};
+    return {};
   }
 
   let action = checkAction(tab_id, response_host, details.frameId);
   if (!action) {
-    return {responseHeaders: newHeaders};
+    return {};
   }
 
   badger.logThirdPartyOriginOnTab(tab_id, response_host, action);
 
+  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
+    return {};
+  }
+
   if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
-    newHeaders = newHeaders.filter(function(header) {
+    let newHeaders = details.responseHeaders.filter(function(header) {
       return (header.name.toLowerCase() != "set-cookie");
     });
     return {responseHeaders: newHeaders};
@@ -852,7 +853,7 @@ function dispatcher(request, sender, sendResponse) {
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
       "checkDNT",
-      "checkFLoC",
+      "checkFloc",
       "checkEnabled",
       "checkLocation",
       "checkWidgetReplacementEnabled",
@@ -1315,14 +1316,9 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  case "checkFLoC": {
+  case "checkFloc": {
     // called from contentscripts/floc.js to check if we should disable document.interestCohort
-    sendResponse(
-      badger.isFlocOverwriteEnabled()
-      && badger.isPrivacyBadgerEnabled(
-        window.extractHostFromURL(sender.tab.url)
-      )
-    );
+    sendResponse(badger.isFlocOverwriteEnabled());
     break;
   }
 

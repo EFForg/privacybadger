@@ -152,7 +152,7 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_disable_floc": {
-        "message": "Disable Google's FLoC and stop sharing your FLoC ID on sites where Privacy Badger is enabled.",
+        "message": "Disable Google's Federated Learnnig of Cohorts (FLoC)",
         "description": "Checkbox label on the general settings page."
     },
     "report_button": {

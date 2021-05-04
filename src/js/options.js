@@ -174,7 +174,7 @@ function loadOptions() {
   if (document.interestCohort) {
     $("#disable-floc").show();
     $("#disable-floc-checkbox")
-      .prop("checked", OPTIONS_DATA.settings.disableFLoC)
+      .prop("checked", OPTIONS_DATA.settings.disableFloc)
       .on("click", function () { updateDisableFloc(); });
   }
 
@@ -554,7 +554,7 @@ function updateDisableFloc() {
   chrome.runtime.sendMessage({
     type: "updateSettings",
     data: {
-      disableFLoC: enabled
+      disableFloc: enabled
     }
   });
 }
