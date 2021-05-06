@@ -509,8 +509,14 @@ function difference(arr1, arr2) {
   return arr1.filter(x => !arr2.includes(x));
 }
 
-function union(arr1, arr2) {
-  return Array.from(new Set(arr1.concat(arr2)));
+/**
+ * @returns {Array} items from arr1
+ * followed by items from arr2 that were not already present in arr1
+ */
+function mergeUniq(arr1, arr2) {
+  arr1 = arr1 || [];
+  arr2 = arr2 || [];
+  return arr1.concat(arr2.filter(x => !arr1.includes(x)));
 }
 
 function invert(obj) {
@@ -534,6 +540,7 @@ let exports = {
   invert,
   isRestrictedUrl,
   isThirdPartyDomain,
+  mergeUniq,
   nDaysFromNow,
   oneDay,
   oneDayFromNow,
@@ -544,7 +551,6 @@ let exports = {
   random,
   rateLimit,
   sha1,
-  union,
   xhrRequest,
 };
 

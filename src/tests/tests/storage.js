@@ -50,21 +50,62 @@ QUnit.test("test user override of default action for domain", function (assert) 
 QUnit.test("settings map merging", (assert) => {
   let settings_map = storage.getStore('settings_map');
 
-  // overwrite settings with test values
+  function merge() {
+    settings_map.merge({
+      disabledSites: ['www.nytimes.com', 'example.com'],
+      widgetSiteAllowlist: {
+        "example.com": ["Disqus"],
+        "nytimes.com": ["Facebook Like", "YouTube"],
+      },
+      showCounter: false,
+    });
+  }
+
+  assert.ok(settings_map.getItem('showCounter'), "showCounter is enabled by default");
+
+  merge();
+
+  // verify
+  assert.deepEqual(
+    settings_map.getItem('disabledSites'),
+    ['www.nytimes.com', 'example.com'],
+    "disabled site lists are imported"
+  );
+  assert.deepEqual(
+    settings_map.getItem('widgetSiteAllowlist'),
+    {
+      "example.com": ["Disqus"],
+      "nytimes.com": ["Facebook Like", "YouTube"],
+    },
+    "widget site exceptions are imported"
+  );
+  assert.ok(!settings_map.getItem('showCounter'), "showCounter was disabled");
+
+  // overwrite settings with test values to test combining
   settings_map.setItem('disabledSites', ['example.com']);
+  settings_map.setItem('widgetSiteAllowlist', {
+    "nytimes.com": ["YouTube"],
+    "example.biz": ["Twitter"],
+  });
   settings_map.setItem('showCounter', true);
 
   // merge settings
-  settings_map.merge({
-    disabledSites: ['www.nytimes.com'],
-    showCounter: false,
-  });
+  merge();
 
   // verify
   assert.deepEqual(
     settings_map.getItem('disabledSites'),
     ['example.com', 'www.nytimes.com'],
     "disabled site lists are combined when merging settings"
+  );
+  assert.deepEqual(
+    settings_map.getItem('widgetSiteAllowlist'),
+    {
+      "example.com": ["Disqus"],
+      "nytimes.com": ["YouTube", "Facebook Like"],
+      "example.biz": ["Twitter"],
+    },
+    "widget site exceptions are combined, discarding duplicate widgets"
   );
   assert.ok(!settings_map.getItem('showCounter'), "other settings are overwritten");
 });

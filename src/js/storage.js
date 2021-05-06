@@ -568,14 +568,14 @@ BadgerStorage.prototype = {
       for (let prop in mapData) {
         // combine array settings via intersection/union
         if (prop == "disabledSites" || prop == "widgetReplacementExceptions") {
-          self._store[prop] = utils.union(self._store[prop], mapData[prop]);
+          self._store[prop] = utils.mergeUniq(self._store[prop], mapData[prop]);
 
         // string/array map
         } else if (prop == "widgetSiteAllowlist") {
           // for every site host in the import
           for (let site in mapData[prop]) {
             // combine exception arrays
-            self._store[prop][site] = utils.union(
+            self._store[prop][site] = utils.mergeUniq(
               self._store[prop][site],
               mapData[prop][site]
             );
