@@ -312,6 +312,11 @@ font-size: 16px;
 #instructions-firstparty-description {
     font-size: 14px;
     margin-top: -30px;
+    background-color: #E8E9EA;
+    color: #555555;
+    padding: 8px;
+    text-align: left;
+    font-size: 12px;
 }
 #instructions-no-trackers, #special-browser-page, #disabled-site-message, #instructions-many-trackers, #firstparty-protections-container {
     text-align: center;
