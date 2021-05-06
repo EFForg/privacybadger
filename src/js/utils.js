@@ -455,8 +455,11 @@ function isThirdPartyDomain(domain1, domain2) {
 function firstPartyProtectionsEnabled(domain, firstPartiesList) {
   for (let url_pattern of firstPartiesList) {
     // account for wildcards in entries on firstPartiesList & avoid false positives
-    if (url_pattern.startsWith("*") && url_pattern.endsWith(domain)) {
-      return true;
+    if (url_pattern.startsWith("*")) {
+      // compare against pattern without '*.' and the domain without 'www.'
+      if (url_pattern.slice(2) == domain.slice(4)) {
+        return true;
+      }
     } else if (url_pattern == domain) {
       return true;
     }

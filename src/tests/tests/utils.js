@@ -584,6 +584,12 @@ QUnit.test("firstPartyProtectionsEnabled", assert => {
     "determines that a url not in the firstparties list is not protected by a firstparty script"
   );
 
+  assert.equal(
+    utils.firstPartyProtectionsEnabled("www.messenger.com", badger.firstPartiesList),
+    true,
+    "accurately IDs a site with firstparty protections covered by a wildcard url match"
+  );
+
 });
 
 })();
