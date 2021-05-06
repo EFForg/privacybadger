@@ -20,7 +20,7 @@
 
 /* globals URI:false */
 
-require.scopes.utils = (function() {
+require.scopes.utils = (function () {
 
 let mdfp = require("multiDomainFP");
 
@@ -266,6 +266,49 @@ function oneDayFromNow() {
   return nDaysFromNow(1);
 }
 
+function random(min, max) {
+  if (max == null) {
+    max = min;
+    min = 0;
+  }
+  return min + Math.floor(Math.random() * (max - min + 1));
+}
+
+// from Underscore v1.6.0
+// also lives in js/contentscripts/fingerprinting.js
+function debounce(func, wait, immediate) {
+  var timeout, args, context, timestamp, result;
+
+  var later = function () {
+    var last = Date.now() - timestamp;
+    if (last < wait) {
+      timeout = setTimeout(later, wait - last);
+    } else {
+      timeout = null;
+      if (!immediate) {
+        result = func.apply(context, args);
+        context = args = null;
+      }
+    }
+  };
+
+  return function () {
+    context = this; // eslint-disable-line consistent-this
+    args = arguments;
+    timestamp = Date.now();
+    var callNow = immediate && !timeout;
+    if (!timeout) {
+      timeout = setTimeout(later, wait);
+    }
+    if (callNow) {
+      result = func.apply(context, args);
+      context = args = null;
+    }
+
+    return result;
+  };
+}
+
 /**
  * Creates a rate-limited function that delays invoking `fn` until after
  * `interval` milliseconds have elapsed since the last time the rate-limited
@@ -445,7 +488,6 @@ function isThirdPartyDomain(domain1, domain2) {
   return false;
 }
 
-
 /**
  * Checks whether a given URL is a special browser page.
  * TODO account for browser-specific pages:
@@ -463,13 +505,33 @@ function isRestrictedUrl(url) {
   );
 }
 
+function difference(arr1, arr2) {
+  return arr1.filter(x => !arr2.includes(x));
+}
+
+function union(arr1, arr2) {
+  return Array.from(new Set(arr1.concat(arr2)));
+}
+
+function invert(obj) {
+  let result = {};
+  let keys = Object.keys(obj);
+  for (let i = 0, length = keys.length; i < length; i++) {
+    result[obj[keys[i]]] = keys[i];
+  }
+  return result;
+}
+
 /************************************** exports */
 let exports = {
   arrayBufferToBase64,
+  debounce,
+  difference,
   estimateMaxEntropy,
   explodeSubdomains,
   findCommonSubstrings,
   getHostFromDomainInput,
+  invert,
   isRestrictedUrl,
   isThirdPartyDomain,
   nDaysFromNow,
@@ -479,10 +541,25 @@ let exports = {
   oneMinute,
   oneSecond,
   parseCookie,
+  random,
   rateLimit,
   sha1,
+  union,
   xhrRequest,
 };
+
+exports.isObject = function (obj) {
+  let type = typeof obj;
+  return type === 'function' || type === 'object' && !!obj;
+};
+
+// isFunction(), isString(), etc.
+for (let name of ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet']) {
+  exports['is' + name] = function (x) {
+    return toString.call(x) === '[object ' + name + ']';
+  };
+}
+
 return exports;
 /************************************** exports */
 })(); //require scopes

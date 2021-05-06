@@ -1148,7 +1148,7 @@ function dispatcher(request, sender, sendResponse) {
       if (chrome.runtime.lastError) {
         sendResponse({success: false, message: chrome.runtime.lastError.message});
       } else if (store.hasOwnProperty("disabledSites")) {
-        let disabledSites = _.union(
+        let disabledSites = utils.union(
           badger.getDisabledSites(),
           store.disabledSites
         );

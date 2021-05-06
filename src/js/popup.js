@@ -605,7 +605,7 @@ function refreshPopup() {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
       "popup_instructions", [
         POPUP_DATA.trackerCount,
-        "<a target='_blank' title='" + _.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+        "<a target='_blank' title='" + htmlUtils.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
       ]
     )).find(".tooltip").tooltipster();
   }

@@ -15,21 +15,15 @@ QUnit.test("getOriginsArray", (assert) => {
     "dntDomain.co.uk": "dnt",
     "another.allowed.domain.example": "allow",
   };
-  const originsSansAllowed = _.reduce(
-    origins, (memo, val, key) => {
-      if (val != "allow") {
-        memo[key] = val;
-      }
-      return memo;
-    }, {}
+  const originsSansAllowed = Object.fromEntries(
+    Object.entries(origins).filter(
+      ([, val]) => val != "allow"
+    )
   );
-  const originsSansAllowedSansDnt = _.reduce(
-    originsSansAllowed, (memo, val, key) => {
-      if (val != "dnt") {
-        memo[key] = val;
-      }
-      return memo;
-    }, {}
+  const originsSansAllowedSansDnt = Object.fromEntries(
+    Object.entries(originsSansAllowed).filter(
+      ([, val]) => val != "dnt"
+    )
   );
 
   const tests = [

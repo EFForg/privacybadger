@@ -750,7 +750,7 @@ Badger.prototype = {
 
     // update timestamp first;
     // avoids queuing the same domain multiple times
-    var recheckTime = _.random(
+    var recheckTime = utils.random(
       utils.oneDayFromNow(),
       utils.nDaysFromNow(7)
     );

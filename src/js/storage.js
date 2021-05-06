@@ -59,7 +59,7 @@ function BadgerPen(callback) {
         // ignore "Managed storage manifest not found" errors in Firefox
       }
 
-      if (_.isObject(managedStore)) {
+      if (utils.isObject(managedStore)) {
         let settings = {};
         for (let key in badger.defaultSettings) {
           if (managedStore.hasOwnProperty(key)) {
@@ -115,7 +115,7 @@ BadgerPen.prototype = {
       ignoreDNT = true;
     }
 
-    if (_.isString(domain)) {
+    if (utils.isString(domain)) {
       domain = this.getStore('action_map').getItem(domain) || {};
     }
     if (domain.userAction) { return domain.userAction; }
@@ -151,8 +151,8 @@ BadgerPen.prototype = {
       ylistStorage = self.getStore('cookieblock_list'),
       oldDomains = ylistStorage.keys();
 
-    let addedDomains = _.difference(newDomains, oldDomains),
-      removedDomains = _.difference(oldDomains, newDomains);
+    let addedDomains = utils.difference(newDomains, oldDomains),
+      removedDomains = utils.difference(oldDomains, newDomains);
 
     log('adding to cookie blocklist:', addedDomains);
     addedDomains.forEach(function (domain) {
@@ -190,7 +190,7 @@ BadgerPen.prototype = {
    */
   updateDntHashes: function (hashes) {
     var dnt_hashes = this.getStore('dnt_hashes');
-    dnt_hashes.updateObject(_.invert(hashes));
+    dnt_hashes.updateObject(utils.invert(hashes));
   },
 
   /**
@@ -568,14 +568,14 @@ BadgerStorage.prototype = {
       for (let prop in mapData) {
         // combine array settings via intersection/union
         if (prop == "disabledSites" || prop == "widgetReplacementExceptions") {
-          self._store[prop] = _.union(self._store[prop], mapData[prop]);
+          self._store[prop] = utils.union(self._store[prop], mapData[prop]);
 
         // string/array map
         } else if (prop == "widgetSiteAllowlist") {
           // for every site host in the import
           for (let site in mapData[prop]) {
             // combine exception arrays
-            self._store[prop][site] = _.union(
+            self._store[prop][site] = utils.union(
               self._store[prop][site],
               mapData[prop][site]
             );
@@ -664,7 +664,7 @@ var _syncStorage = (function () {
   return function (badgerStorage) {
     if (!debouncedFuncs.hasOwnProperty(badgerStorage.name)) {
       // call sync at most once every two seconds
-      debouncedFuncs[badgerStorage.name] = _.debounce(function () {
+      debouncedFuncs[badgerStorage.name] = utils.debounce(function () {
         sync(badgerStorage);
       }, 2000);
     }

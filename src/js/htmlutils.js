@@ -15,10 +15,19 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.htmlutils = (function() {
+require.scopes.htmlutils = (function () {
 
 const i18n = chrome.i18n;
 const constants = require("constants");
+
+function escape_html(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 let htmlUtils = {
 
@@ -152,8 +161,8 @@ let htmlUtils = {
       dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
 
     return function (origin, action, show_breakage_warning) {
-      action = _.escape(action);
-      origin = _.escape(origin);
+      action = escape_html(action);
+      origin = escape_html(origin);
 
       // Get classes for main div.
       let classes = ['clicker'];
@@ -274,6 +283,8 @@ let htmlUtils = {
   },
 
 };
+
+htmlUtils.escape = escape_html;
 
 let exports = {
   htmlUtils,

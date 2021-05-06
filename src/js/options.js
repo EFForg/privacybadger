@@ -331,10 +331,7 @@ function parseUserDataFile(storageMapsList) {
   }
 
   // validate by checking we have the same keys in the import as in the export
-  if (!_.isEqual(
-    Object.keys(lists).sort(),
-    USER_DATA_EXPORT_KEYS.sort()
-  )) {
+  if (JSON.stringify(Object.keys(lists).sort()) != JSON.stringify(USER_DATA_EXPORT_KEYS.sort())) {
     return alert(i18n.getMessage("invalid_json"));
   }
 
@@ -679,7 +676,7 @@ function updateSummary() {
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [
       baseDomains.size,
-      "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+      "<a target='_blank' title='" + htmlUtils.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
     ]
   )).show();
 }

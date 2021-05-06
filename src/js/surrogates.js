@@ -15,9 +15,10 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.surrogates = (function() {
+require.scopes.surrogates = (function () {
 
-const db = require('surrogatedb');
+const db = require('surrogatedb'),
+  utils = require('utils');
 
 /**
  * Blocking tracking scripts (trackers) can cause parts of webpages to break.
@@ -42,7 +43,7 @@ function getSurrogateURI(script_url, script_hostname) {
     const tokens = db.hostnames[script_hostname];
 
     // it's a wildcard token
-    if (_.isString(tokens)) {
+    if (utils.isString(tokens)) {
       if (db.surrogates.hasOwnProperty(tokens)) {
         // return the surrogate code
         return 'data:application/javascript;base64,' + btoa(db.surrogates[tokens]);
