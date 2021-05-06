@@ -467,13 +467,15 @@ function toggleBlockedResourcesHandler() {
     $("#collapse-blocked-resources, #blockedResources").show();
     $("#expand-blocked-resources").hide();
     chrome.runtime.sendMessage({
-      type: "showTrackingDomainsSection"
+      type: "updateSettings",
+      data: { showExpandedTrackingSection: true }
     });
   } else {
     $("#collapse-blocked-resources, #blockedResources").hide();
     $("#expand-blocked-resources").show();
     chrome.runtime.sendMessage({
-      type: "hideTrackingDomainsSection"
+      type: "updateSettings",
+      data: { showExpandedTrackingSection: false }
     });
   }
 }
