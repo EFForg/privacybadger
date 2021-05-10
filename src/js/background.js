@@ -93,23 +93,6 @@ function Badger() {
     await dntHashesPromise;
     await tabDataPromise;
 
-    // gather list of url match patterns that firstparty content scripts run on
-    let manifestJson = chrome.runtime.getManifest();
-    let firstParties = [];
-
-    for (let contentScriptObj of manifestJson.content_scripts) {
-      // only include parts from content scripts that have firstparties entries
-      if (contentScriptObj.js[0].includes("/firstparties/")) {
-        let extractedUrls = [];
-        for (let match of contentScriptObj.matches) {
-          extractedUrls.push(window.extractHostFromURL(match));
-        }
-        firstParties.push(extractedUrls);
-      }
-    }
-    // set list of firstparty url schemes onto badger object
-    self.firstPartiesList = [].concat.apply([], firstParties);
-
     if (badger.isFirstRun || badger.isUpdate) {
       // block all widget domains
       // only need to do this when the widget list could have gotten updated

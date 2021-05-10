@@ -452,8 +452,27 @@ function isThirdPartyDomain(domain1, domain2) {
  *
  * @return {Boolean} true if the domains are third party
  */
-function firstPartyProtectionsEnabled(domain, firstPartiesList) {
-  for (let url_pattern of firstPartiesList) {
+function firstPartyProtectionsEnabled(domain, badger) {
+  // if the firstparties list hasn't been set yet, fetch it and set it
+  if (!badger.firstPartiesList) {
+    let manifestJson = chrome.runtime.getManifest();
+    let firstParties = [];
+
+    for (let contentScriptObj of manifestJson.content_scripts) {
+      // only include parts from content scripts that have firstparties entries
+      if (contentScriptObj.js[0].includes("/firstparties/")) {
+        let extractedUrls = [];
+        for (let match of contentScriptObj.matches) {
+          extractedUrls.push(window.extractHostFromURL(match));
+        }
+        firstParties.push(extractedUrls);
+      }
+    }
+    // clean up the gathered sets of url matches into a single flat list
+    badger.firstPartiesList = [].concat.apply([], firstParties);
+  }
+  // check for presence of given domain in firstparties list
+  for (let url_pattern of badger.firstPartiesList) {
     // account for wildcards in entries on firstPartiesList & avoid false positives
     if (url_pattern.startsWith("*")) {
       // compare against pattern without '*.' and the domain without 'www.'
