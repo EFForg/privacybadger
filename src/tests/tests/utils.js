@@ -573,19 +573,19 @@ QUnit.test("estimateMaxEntropy", assert => {
 
 QUnit.test("firstPartyProtectionsEnabled", assert => {
   assert.equal(
-    utils.firstPartyProtectionsEnabled("www.google.com", badger.firstPartiesList),
+    utils.firstPartyProtectionsEnabled("www.google.com", badger),
     true,
     "properly identifies a url pattern from our firstparties list"
   );
 
   assert.equal(
-    utils.firstPartyProtectionsEnabled("foobar.com", badger.firstPartiesList),
+    utils.firstPartyProtectionsEnabled("foobar.com", badger),
     false,
     "determines that a url not in the firstparties list is not protected by a firstparty script"
   );
 
   assert.equal(
-    utils.firstPartyProtectionsEnabled("www.messenger.com", badger.firstPartiesList),
+    utils.firstPartyProtectionsEnabled("www.messenger.com", badger),
     true,
     "accurately IDs a site with firstparty protections covered by a wildcard url match"
   );

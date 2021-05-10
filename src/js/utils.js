@@ -486,7 +486,6 @@ function firstPartyProtectionsEnabled(domain, badger) {
   return false;
 }
 
-
 /**
  * Checks whether a given URL is a special browser page.
  * TODO account for browser-specific pages:
