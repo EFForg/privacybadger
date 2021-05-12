@@ -418,8 +418,16 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_info_firstparty_description": {
-        "message": "Some websites, such as the one you're on right now, <a href='https://privacybadger.org/#What-about-tracking-by-the-sites-I-actively-visit%2c-like-NYTimes.com-or-Facebook.com' target='_blank'>use hyperlinks to secretly track you.</a> Privacy Badger works behind the scenes to prevent them from doing that.",
-        "description": "message show under the firstparty protections collapsible container on popup"
+        "message": "Some websites, such as the one you're on right now, $LINK_START$use hyperlinks to secretly track you.$LINK_END$ Privacy Badger works behind the scenes to prevent them from doing that.",
+        "description": "message show under the firstparty protections collapsible container on popup",
+        "placeholders": {
+            "link_start": {
+                "content": "<a href='https://privacybadger.org/#What-about-tracking-by-the-sites-I-actively-visit%2c-like-NYTimes.com-or-Facebook.com' target='_blank'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "popup_info_firstparty_protections": {
         "message": "Link tracking protection is enforced on this site",
