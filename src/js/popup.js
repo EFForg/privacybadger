@@ -470,7 +470,11 @@ function share() {
 /**
  * Click handlers for showing/hiding the blocked resources section
  */
-function toggleBlockedResourcesHandler() {
+function toggleBlockedResourcesHandler(e) {
+  if (e.target.nodeName.toLowerCase() == 'a') {
+    // don't toggle contents when clicking links in the header
+    return;
+  }
   if ($("#expand-blocked-resources").is(":visible")) {
     $("#collapse-blocked-resources").show();
     $("#expand-blocked-resources").hide();
