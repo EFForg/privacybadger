@@ -294,18 +294,18 @@ body#main #blockedResourcesContainer {
 #options {
     margin-inline-end: 3px;
 }
-.pbInstructions, .toggle-header-title, #special-browser-page, #disabled-site-message {
+#pbInstructions, #special-browser-page, #disabled-site-message, .toggle-header-title {
     color: #505050;
     font-size: 16px;
     margin: 0;
 }
 /* body#main to avoid applying this to options page */
-body#main .pbInstructions a, #firstparty-protections-container a {
+body#main #pbInstructions a, #firstparty-protections-container a {
     text-decoration: underline;
     color: black;
     font-weight: bold;
 }
-body#main .pbInstructions a:hover, #firstparty-protections-container a:hover {
+body#main #pbInstructions a:hover, #firstparty-protections-container a:hover {
     color: #ec9329
 }
 #instructions-firstparty-description {
@@ -560,9 +560,9 @@ div.overlay.active {
 
     button,
     /* body#main to avoid applying this to options page */
-    body#main .pbInstructions a,
+    body#main #pbInstructions a,
     #firstparty-protections-container a,
-    .pbInstructions,
+    #pbInstructions,
     .toggle-header-title,
     #special-browser-page,
     #disabled-site-message {
