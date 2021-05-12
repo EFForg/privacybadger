@@ -417,6 +417,10 @@
         "message": "user-controlled",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
+    "popup_info_firstparty_protections": {
+        "message": "Link tracking protection is enforced on this site",
+        "description": "message shown on a site where first party outgoing link tracking protections are enabled"
+    },
     "popup_info_firstparty_description": {
         "message": "Some websites, such as the one you're on right now, $LINK_START$use hyperlinks to secretly track you.$LINK_END$ Privacy Badger works behind the scenes to prevent them from doing that.",
         "description": "message show under the firstparty protections collapsible container on popup",
@@ -428,10 +432,6 @@
                 "content": "</a>"
             }
         }
-    },
-    "popup_info_firstparty_protections": {
-        "message": "Link tracking protection is enforced on this site",
-        "description": "message shown on a site where first party outgoing link tracking protections are enabled"
     },
     "popup_instructions": {
         "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
