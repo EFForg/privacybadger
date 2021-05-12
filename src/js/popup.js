@@ -195,27 +195,34 @@ function init() {
   );
 
   // add event listeners for click-to-expand blocked resources popup section
-  $('#expand-blocked-resources, #collapse-blocked-resources, #instructions-many-trackers').on('click', toggleBlockedResourcesHandler);
+  $('#tracker-list-header').on('click', toggleBlockedResourcesHandler);
 
   // add event listeners for click-to-expand first party protections popup section
-  $('#expand-firstparty-popup, #collapse-firstparty-popup, #instructions-firstparty-protections').on('click', toggleFirstPartyInfoHandler);
+  $('#firstparty-protections-header').on('click', toggleFirstPartyInfoHandler);
 
   if (POPUP_DATA.showExpandedTrackingSection) {
     $('#expand-blocked-resources').hide();
     $('#collapse-blocked-resources').show();
     $('#blockedResources').show();
-  } else if (!POPUP_DATA.showExpandedTrackingSection) {
+  } else {
     $('#expand-blocked-resources').show();
     $('#collapse-blocked-resources').hide();
-    $('#blockedResources').hide();
+    // show sliders regardless when the button
+    // that lets you toggle slider visibility
+    // isn't shown for whatever reason
+    // (for ex.: "no trackers blocked" but we need to show
+    // one or more "don't appear to be tracking you" sliders)
+    if (!$('#tracker-list-header').is(':visible')) {
+      $('#blockedResources').show();
+    } else {
+      $('#blockedResources').hide();
+    }
   }
-
-  $('#instructions-firstparty-description').hide();
-  $('#collapse-firstparty-popup').hide();
 
   // show firstparty protections message if current tab is in our content scripts
   if (POPUP_DATA.enabled && POPUP_DATA.isOnFirstParty) {
     $("#firstparty-protections-container").show();
+    $('#expand-firstparty-popup').show();
   }
 
   // improve on Firefox's built-in options opening logic
@@ -459,20 +466,23 @@ function share() {
   }
   $("#share_output").val(share_msg);
 }
+
 /**
  * Click handlers for showing/hiding the blocked resources section
  */
 function toggleBlockedResourcesHandler() {
   if ($("#expand-blocked-resources").is(":visible")) {
-    $("#collapse-blocked-resources, #blockedResources").show();
+    $("#collapse-blocked-resources").show();
     $("#expand-blocked-resources").hide();
+    $("#blockedResources").slideDown();
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showExpandedTrackingSection: true }
     });
   } else {
-    $("#collapse-blocked-resources, #blockedResources").hide();
+    $("#collapse-blocked-resources").hide();
     $("#expand-blocked-resources").show();
+    $("#blockedResources").slideUp();
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showExpandedTrackingSection: false }
@@ -485,11 +495,13 @@ function toggleBlockedResourcesHandler() {
  */
 function toggleFirstPartyInfoHandler() {
   if ($('#collapse-firstparty-popup').is(":visible")) {
-    $("#collapse-firstparty-popup, #instructions-firstparty-description").hide();
+    $("#collapse-firstparty-popup").hide();
     $("#expand-firstparty-popup").show();
+    $("#instructions-firstparty-description").slideUp();
   } else {
-    $("#collapse-firstparty-popup, #instructions-firstparty-description").show();
+    $("#collapse-firstparty-popup").show();
     $("#expand-firstparty-popup").hide();
+    $("#instructions-firstparty-description").slideDown();
   }
 }
 
@@ -567,7 +579,6 @@ function refreshPopup() {
     // hide the number of trackers and slider instructions message
     // if no sliders will be displayed
     $("#instructions-many-trackers").hide();
-    $("#toggle-blocked-resources-container").hide();
 
     // show "no trackers" message
     $("#instructions-no-trackers").show();
@@ -621,9 +632,6 @@ function refreshPopup() {
         htmlUtils.getOriginHtml(domain, constants.ALLOW)
       );
     });
-
-    // reduce margin if we have hasn't-decided-yet-to-block domains to show
-    $("#instructions-no-trackers").css("margin", "10px 0");
   }
 
   if (POPUP_DATA.learnLocally && POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
@@ -639,9 +647,6 @@ function refreshPopup() {
         htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING)
       );
     }
-
-    // reduce margin if we have non-tracking domains to show
-    $("#instructions-no-trackers").css("margin", "10px 0");
   }
 
   if (printable.length) {
@@ -660,6 +665,7 @@ function refreshPopup() {
     $("#instructions-no-trackers").show();
 
   } else {
+    $('#tracker-list-header').show();
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
       "popup_instructions", [
         POPUP_DATA.trackerCount,

@@ -30,13 +30,19 @@ body {
 
   min-width: 430px; /* Chrome */
   max-width: 100%;  /* FF android */
-  min-height: 270px;
+  min-height: 300px;
 }
 @media screen and (min--moz-device-pixel-ratio:0) {
     body {
         min-width: 200px; /* FF android */
         width: 430px;     /* FF desktop */
     }
+}
+
+/* popup only (not options page) */
+body#main {
+    display: flex;
+    flex-direction: column;
 }
 
 @font-face {
@@ -139,9 +145,10 @@ a:hover { color: #ec9329 }
     display: inline-block;
 }
 
-#privacyBadgerHeader{
-color: #505050;
-font-size: 16px;
+#privacyBadgerHeader {
+    color: #505050;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
 #title {
@@ -169,9 +176,12 @@ font-size: 16px;
     float: left;
 }
 
-#blockedResourcesContainer {
-    min-height: 70px;
-    margin-top: 10px;
+/* body#main to avoid applying this to options page */
+body#main #blockedResourcesContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #intro-reminder-btn, #critical-error-link, #learning-prompt-btn {
@@ -196,7 +206,7 @@ font-size: 16px;
 .clickerContainer {
     max-height: 290px;
     overflow-y: auto;
-    background-color: #E8E9EA;
+    background-color: #e8e9ea;
     position: relative;
     margin-top: 25px;
 }
@@ -284,49 +294,33 @@ font-size: 16px;
 #options {
     margin-inline-end: 3px;
 }
-.pbInstructions, #special-browser-page, #disabled-site-message, #instructions-firstparty-protections {
+.pbInstructions, .toggle-header-title, #special-browser-page, #disabled-site-message {
     color: #505050;
     font-size: 16px;
     margin: 0;
-    padding-top: 10px;
 }
-#instructions-firstparty-protections, #toggle-blocked-resources-container, #instructions-many-trackers, #toggle-firstparty-info-section {
-    cursor: pointer;
-}
-.pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a {
+/* body#main to avoid applying this to options page */
+body#main .pbInstructions a, #firstparty-protections-container a {
     text-decoration: underline;
     color: black;
     font-weight: bold;
 }
-.pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a:hover {
-    color: #ec9329
-}
-#firstparty-protections-container a {
-    text-decoration: underline;
-    color: black;
-    font-weight: bold;
-}
-#firstparty-protections-container a:hover {
+body#main .pbInstructions a:hover, #firstparty-protections-container a:hover {
     color: #ec9329
 }
 #instructions-firstparty-description {
     font-size: 14px;
-    margin-top: -30px;
-    background-color: #E8E9EA;
-    color: #555555;
+    background-color: #e8e9ea;
+    color: #555;
     padding: 8px;
-    text-align: left;
     font-size: 12px;
 }
-#instructions-no-trackers, #special-browser-page, #disabled-site-message, #instructions-many-trackers, #firstparty-protections-container {
+#special-browser-page, #disabled-site-message {
     text-align: center;
-    margin: 45px 0;
+    margin: 40px 0;
     padding: 0;
 }
-#instructions-many-trackers {
-    margin: 10px 0;
-}
-#instructions-many-trackers, #instructions-no-trackers, #no-third-parties, #instructions-firstparty-description {
+#instructions-many-trackers, #no-third-parties {
     display: block;
 }
 #no-third-parties {
@@ -337,11 +331,7 @@ font-size: 16px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 5px;
     text-align: center;
-}
-button {
-    color: #333;
 }
 .pbButton {
     background-color: #fefefe;
@@ -480,32 +470,49 @@ div.overlay.active {
     border: none;
 }
 #firstparty-protections-container {
-    display: none;
-    border-top: 1px solid #d3d3d3;
-    margin: auto;
+    border-bottom: 1px solid #d3d3d3;
+    margin: 10px 0;
+    padding-bottom: 5px;
+}
+.basic-header {
+    text-align: center;
+    margin: 15px 0;
+}
+.toggle-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: border 0.25s ease-out;
+    background-color: #fff;
+    border: 2px solid #fff;
+    border-radius: 3px;
     padding: 0;
+    width: 100%;
 }
-#instructions-firstparty-protections {
-    margin: 45px 0;
-    padding: 0;
+.toggle-header:hover {
+    border: 2px solid #f06a0a;
 }
-#toggle-firstparty-info-section {
-    float: right;
-    margin-top: -65px;
+.toggle-header:hover .toggle-header-title {
+    color: #000;
 }
-#toggle-blocked-resources-container {
-    float: right;
-    margin-top: -30px;
+.toggle-header-title {
+    flex: 1;
+    transition: color 0.25s ease-out;
+    margin: 10px 0;
+}
+.toggle-header::before {
+    content: '';
+    font-size: 18px;
+    padding: 0 4px;
+    width: 1.2em;
+    visibility: hidden;
+}
+.toggle-header-icon {
+    margin-inline-end: auto;
+    padding: 0 4px;
 }
 .ui-icon.ui-icon-caret-d, .ui-icon.ui-icon-caret-u {
     font-size: 18px;
-    transition: 250ms;
-}
-.ui-icon.ui-icon-caret-d:hover {
-    transform: translateY(5px);
-}
-.ui-icon.ui-icon-caret-u:hover {
-    transform: translateY(-5px);
 }
 @media screen and (max-width: 400px){
     .origin {
@@ -552,11 +559,26 @@ div.overlay.active {
     }
 
     button,
-    .pbInstructions :not(#options_domain_list_trackers):not(#options_domain_list_no_trackers) a,
+    /* body#main to avoid applying this to options page */
+    body#main .pbInstructions a,
+    #firstparty-protections-container a,
     .pbInstructions,
+    .toggle-header-title,
     #special-browser-page,
     #disabled-site-message {
         color: #ddd;
+    }
+
+    .toggle-header {
+        background-color: #333;
+        border: 2px solid #333;
+    }
+    .toggle-header:hover .toggle-header-title {
+        color: #fff;
+    }
+
+    #firstparty-protections-container {
+        border-bottom: 1px solid #555;
     }
 
     /* TODO:
@@ -590,6 +612,11 @@ div.overlay.active {
     .clickerContainer {
         background-color: #3a3a3a;
      }
+
+    #instructions-firstparty-description {
+        background-color: #3a3a3a;
+        color: #ddd;
+    }
 
     .pbButton {
         background-color: #333;
