@@ -200,10 +200,13 @@ function init() {
   // add event listeners for click-to-expand first party protections popup section
   $('#firstparty-protections-header').on('click', toggleFirstPartyInfoHandler);
 
-  if (POPUP_DATA.showExpandedTrackingSection) {
+  // show sliders when sliders were shown last
+  // or when there is at least one breakage warning
+  if (POPUP_DATA.showExpandedTrackingSection || Object.keys(POPUP_DATA.cookieblocked).some(d => POPUP_DATA.origins[d] == constants.USER_BLOCK)) {
     $('#expand-blocked-resources').hide();
     $('#collapse-blocked-resources').show();
     $('#blockedResources').show();
+
   } else {
     $('#expand-blocked-resources').show();
     $('#collapse-blocked-resources').hide();
