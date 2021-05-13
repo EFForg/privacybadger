@@ -603,7 +603,8 @@ function refreshPopup() {
     return;
   }
 
-  let printable = [];
+  let printable = [],
+    printableWarningSliders = [];
   let unblockedTrackers = [];
   let nonTracking = [];
   originsArr = htmlUtils.sortDomains(originsArr);
@@ -620,11 +621,17 @@ function refreshPopup() {
         action == constants.USER_BLOCK &&
         POPUP_DATA.cookieblocked.hasOwnProperty(origin)
       );
-      printable.push(
-        htmlUtils.getOriginHtml(origin, action, show_breakage_warning)
-      );
+      let slider_html = htmlUtils.getOriginHtml(origin, action, show_breakage_warning);
+      if (show_breakage_warning) {
+        printableWarningSliders.push(slider_html);
+      } else {
+        printable.push(slider_html);
+      }
     }
   }
+
+  // show breakage warning sliders at the top of the list
+  printable = printableWarningSliders.concat(printable);
 
   if (POPUP_DATA.learnLocally && unblockedTrackers.length) {
     printable.push(
