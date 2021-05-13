@@ -652,9 +652,9 @@ function hasCookieTracking(details, origin) {
         continue;
       }
 
-      // ignore CloudFlare
+      // ignore Cloudflare
       // https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies
-      if (name == "__cfduid" || name == "__cf_bm") {
+      if (name == "__cf_bm") {
         continue;
       }
 
