@@ -446,11 +446,11 @@ function isThirdPartyDomain(domain1, domain2) {
 }
 
 /**
- * checks to see if a given url has firstparty protections scripts run on it
- * @param {String} domain
- * @param {Object} firstPartiesList a second fqdn
+ * Checks whether a given site hostname matches
+ * any first party protections content scripts.
  *
- * @return {Boolean} true if the domains are third party
+ * @param {String} tab_host
+ * @return {Boolean}
  */
 let firstPartyProtectionsEnabled = (function () {
   let firstPartiesList;
