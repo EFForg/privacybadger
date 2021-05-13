@@ -202,7 +202,10 @@ function init() {
 
   // show sliders when sliders were shown last
   // or when there is at least one breakage warning
-  if (POPUP_DATA.showExpandedTrackingSection || Object.keys(POPUP_DATA.cookieblocked).some(d => POPUP_DATA.origins[d] == constants.USER_BLOCK)) {
+  if (POPUP_DATA.showExpandedTrackingSection || (
+    POPUP_DATA.cookieblocked && Object.keys(POPUP_DATA.cookieblocked).some(
+      d => POPUP_DATA.origins[d] == constants.USER_BLOCK)
+  )) {
     $('#expand-blocked-resources').hide();
     $('#collapse-blocked-resources').show();
     $('#blockedResources').show();
