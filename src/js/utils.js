@@ -479,7 +479,7 @@ let firstPartyProtectionsEnabled = (function () {
 
     for (let url_pattern of firstPartiesList) {
       if (url_pattern.startsWith("*")) {
-        if ((url_pattern.slice(2) == tab_host.slice(4)) || url_pattern.slice(2) == tab_host.slice(2)) {
+        if (tab_host.endsWith(url_pattern.slice(1))) {
           return true;
         }
       } else if (url_pattern == tab_host) {
