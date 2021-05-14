@@ -320,10 +320,8 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover {
     margin: 40px 0;
     padding: 0;
 }
-#instructions-many-trackers, #no-third-parties {
-    display: block;
-}
 #no-third-parties {
+    display: block;
     font-size: 12px;
 }
 
@@ -469,6 +467,7 @@ div.overlay.active {
 .tooltipster-sidetip .tooltipster-arrow-border {
     border: none;
 }
+
 #firstparty-protections-container {
     border-bottom: 1px solid #d3d3d3;
     margin: 10px 0;
@@ -514,6 +513,7 @@ div.overlay.active {
 .ui-icon.ui-icon-caret-d, .ui-icon.ui-icon-caret-u {
     font-size: 18px;
 }
+
 @media screen and (max-width: 400px){
     .origin {
         max-width: 150px;

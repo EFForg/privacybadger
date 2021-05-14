@@ -586,10 +586,6 @@ function refreshPopup() {
   }
 
   if (!originsArr.length) {
-    // hide the number of trackers and slider instructions message
-    // if no sliders will be displayed
-    $("#instructions-many-trackers").hide();
-
     // show "no trackers" message
     $("#instructions-no-trackers").show();
 
@@ -675,9 +671,6 @@ function refreshPopup() {
   $('.tooltip').tooltipster();
 
   if (POPUP_DATA.trackerCount === 0) {
-    // hide multiple trackers message
-    $("#instructions-many-trackers").hide();
-
     // show "no trackers" message
     $("#instructions-no-trackers").show();
 
