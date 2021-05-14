@@ -1013,15 +1013,14 @@ function dispatcher(request, sender, sendResponse) {
       sendResponse({
         criticalError: badger.criticalError,
         noTabData: true,
-        seenComic: true,
+        settings: { seenComic: true },
       });
       break;
     }
 
     let tab_host = window.extractHostFromURL(request.tabUrl),
       origins = badger.tabData[tab_id].origins,
-      cookieblocked = {},
-      isOnFirstParty = utils.firstPartyProtectionsEnabled(tab_host);
+      cookieblocked = {};
 
     for (let origin in origins) {
       // see if origin would be cookieblocked if not for user override
@@ -1035,14 +1034,11 @@ function dispatcher(request, sender, sendResponse) {
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
       errorText: badger.tabData[tab_id].errorText,
-      isOnFirstParty: isOnFirstParty,
-      learnLocally: badger.getSettings().getItem("learnLocally"),
+      isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
       noTabData: false,
       origins,
-      seenComic: badger.getSettings().getItem("seenComic"),
-      showExpandedTrackingSection: badger.getSettings().getItem("showExpandedTrackingSection"),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
-      showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
+      settings: badger.getSettings().getItemClones(),
       tabHost: tab_host,
       tabId: tab_id,
       tabUrl: request.tabUrl,

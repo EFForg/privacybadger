@@ -62,7 +62,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             "    type: 'getPopupData',"
             "    tabId: tabs[0].id"
             "  }, (response) => {"
-            "    response.seenComic = !show_nag;"
+            "    response.settings.seenComic = !show_nag;"
             "    response.origins = origins;"
             "    setPopupData(response);"
             "    refreshPopup();"

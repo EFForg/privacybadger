@@ -127,7 +127,7 @@ function showNagMaybe() {
   if (POPUP_DATA.showLearningPrompt) {
     _showLearningPrompt();
 
-  } else if (!POPUP_DATA.seenComic) {
+  } else if (!POPUP_DATA.settings.seenComic) {
     chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
       // Show the popup instruction if the active tab is not firstRun.html page
       if (!focusedTab[0].url.startsWith(intro_page_url)) {
@@ -202,7 +202,7 @@ function init() {
 
   // show sliders when sliders were shown last
   // or when there is at least one breakage warning
-  if (POPUP_DATA.showExpandedTrackingSection || (
+  if (POPUP_DATA.settings.showExpandedTrackingSection || (
     POPUP_DATA.cookieblocked && Object.keys(POPUP_DATA.cookieblocked).some(
       d => POPUP_DATA.origins[d] == constants.USER_BLOCK)
   )) {
@@ -589,7 +589,7 @@ function refreshPopup() {
     // show "no trackers" message
     $("#instructions-no-trackers").show();
 
-    if (POPUP_DATA.learnLocally && POPUP_DATA.showNonTrackingDomains) {
+    if (POPUP_DATA.settings.learnLocally && POPUP_DATA.settings.showNonTrackingDomains) {
       // show the "no third party resources on this site" message
       $("#no-third-parties").show();
     }
@@ -632,7 +632,7 @@ function refreshPopup() {
   // show breakage warning sliders at the top of the list
   printable = printableWarningSliders.concat(printable);
 
-  if (POPUP_DATA.learnLocally && unblockedTrackers.length) {
+  if (POPUP_DATA.settings.learnLocally && unblockedTrackers.length) {
     printable.push(
       '<div class="clicker tooltip" id="not-yet-blocked-header" title="' +
       chrome.i18n.getMessage("intro_not_an_adblocker_paragraph") +
@@ -647,7 +647,7 @@ function refreshPopup() {
     });
   }
 
-  if (POPUP_DATA.learnLocally && POPUP_DATA.showNonTrackingDomains && nonTracking.length) {
+  if (POPUP_DATA.settings.learnLocally && POPUP_DATA.settings.showNonTrackingDomains && nonTracking.length) {
     printable.push(
       '<div class="clicker tooltip" id="non-trackers-header" title="' +
       chrome.i18n.getMessage("non_tracker_tip") +
