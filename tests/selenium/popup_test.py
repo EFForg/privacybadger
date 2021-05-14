@@ -62,7 +62,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             "    type: 'getPopupData',"
             "    tabId: tabs[0].id"
             "  }, (response) => {"
-            "    response.seenComic = !show_nag;"
+            "    response.settings.seenComic = !show_nag;"
             "    response.origins = origins;"
             "    setPopupData(response);"
             "    refreshPopup();"
@@ -137,7 +137,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.open_popup()
 
-        # Get all possible tracker links (none, one, multiple)
+        # Get all possible tracker links ("no" and "multiple" messages)
         trackers_links = self.driver.find_elements_by_css_selector("#pbInstructions a")
         if not trackers_links:
             self.fail("Unable to find trackers link on popup")

@@ -1031,7 +1031,7 @@ function dispatcher(request, sender, sendResponse) {
       sendResponse({
         criticalError: badger.criticalError,
         noTabData: true,
-        seenComic: true,
+        settings: { seenComic: true },
       });
       break;
     }
@@ -1052,12 +1052,11 @@ function dispatcher(request, sender, sendResponse) {
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
       errorText: badger.tabData[tab_id].errorText,
-      learnLocally: badger.getSettings().getItem("learnLocally"),
+      isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
       noTabData: false,
       origins,
-      seenComic: badger.getSettings().getItem("seenComic"),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
-      showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
+      settings: badger.getSettings().getItemClones(),
       tabHost: tab_host,
       tabId: tab_id,
       tabUrl: request.tabUrl,

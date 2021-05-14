@@ -120,15 +120,33 @@
   <div class='clear'></div>
 </div>
 
+<div id="firstparty-protections-container" style="display:none">
+  <button class="toggle-header" id="firstparty-protections-header">
+    <div class="toggle-header-title">
+      <span class="i18n_popup_info_firstparty_protections popup_info"></span>
+    </div>
+    <span class="toggle-header-icon">
+      <span id="expand-firstparty-popup" class="ui-icon ui-icon-caret-d" style="display:none"></span>
+      <span id="collapse-firstparty-popup" class="ui-icon ui-icon-caret-u" style="display:none"></span>
+    </span>
+  </button>
+  <div id="instructions-firstparty-description" class="i18n_popup_info_firstparty_description" style="display:none"></div>
+</div>
+
 <div id="blockedResourcesContainer">
-  <p id="pbInstructions">
-    <span id="instructions-many-trackers"></span>
-    <span id="instructions-no-trackers" style="display:none">
+  <div id="pbInstructions">
+    <button class="toggle-header" id="tracker-list-header" style="display:none">
+      <span class="toggle-header-title" id="instructions-many-trackers"></span>
+      <span class="toggle-header-icon">
+        <span id="expand-blocked-resources" class="ui-icon ui-icon-caret-d" style="display:none"></span>
+        <span id="collapse-blocked-resources" class="ui-icon ui-icon-caret-u" style="display:none"></span>
+      </span>
+    </button>
+    <div class="basic-header" id="instructions-no-trackers" style="display:none">
       <span class="i18n_popup_instructions_no_trackers" data-i18n_contents_placeholders="<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"></span>
       <span id="no-third-parties" class="i18n_popup_blocked" style="display:none"></span>
-    </span>
-  </p>
-  <div class="spacer"></div>
+    </div>
+  </div>
   <div id="blockedResources"></div>
 </div>
 

@@ -489,6 +489,51 @@ function isThirdPartyDomain(domain1, domain2) {
 }
 
 /**
+ * Checks whether a given site hostname matches
+ * any first party protections content scripts.
+ *
+ * @param {String} tab_host
+ * @return {Boolean}
+ */
+let firstPartyProtectionsEnabled = (function () {
+  let firstPartiesList;
+
+  function getFirstParties() {
+    let manifestJson = chrome.runtime.getManifest();
+    let firstParties = [];
+
+    for (let contentScriptObj of manifestJson.content_scripts) {
+      // only include parts from content scripts that have firstparties entries
+      if (contentScriptObj.js[0].includes("/firstparties/")) {
+        let extractedUrls = [];
+        for (let match of contentScriptObj.matches) {
+          extractedUrls.push(window.extractHostFromURL(match));
+        }
+        firstParties.push(extractedUrls);
+      }
+    }
+    return [].concat.apply([], firstParties);
+  }
+
+  return function (tab_host) {
+    if (!firstPartiesList) {
+      firstPartiesList = getFirstParties();
+    }
+
+    for (let url_pattern of firstPartiesList) {
+      if (url_pattern.startsWith("*")) {
+        if (tab_host.endsWith(url_pattern.slice(1))) {
+          return true;
+        }
+      } else if (url_pattern == tab_host) {
+        return true;
+      }
+    }
+    return false;
+  };
+})();
+
+/**
  * Checks whether a given URL is a special browser page.
  * TODO account for browser-specific pages:
  * https://github.com/hackademix/noscript/blob/a8b35486571933043bb62e90076436dff2a34cd2/src/lib/restricted.js
@@ -539,6 +584,7 @@ let exports = {
   estimateMaxEntropy,
   explodeSubdomains,
   findCommonSubstrings,
+  firstPartyProtectionsEnabled,
   getHostFromDomainInput,
   invert,
   isRestrictedUrl,
