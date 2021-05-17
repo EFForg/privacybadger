@@ -200,31 +200,6 @@ function init() {
   // add event listeners for click-to-expand first party protections popup section
   $('#firstparty-protections-header').on('click', toggleFirstPartyInfoHandler);
 
-  // show sliders when sliders were shown last
-  // or when there is at least one breakage warning
-  if (POPUP_DATA.settings.showExpandedTrackingSection || (
-    POPUP_DATA.cookieblocked && Object.keys(POPUP_DATA.cookieblocked).some(
-      d => POPUP_DATA.origins[d] == constants.USER_BLOCK)
-  )) {
-    $('#expand-blocked-resources').hide();
-    $('#collapse-blocked-resources').show();
-    $('#blockedResources').show();
-
-  } else {
-    $('#expand-blocked-resources').show();
-    $('#collapse-blocked-resources').hide();
-    // show sliders regardless when the button
-    // that lets you toggle slider visibility
-    // isn't shown for whatever reason
-    // (for ex.: "no trackers blocked" but we need to show
-    // one or more "don't appear to be tracking you" sliders)
-    if (!$('#tracker-list-header').is(':visible')) {
-      $('#blockedResources').show();
-    } else {
-      $('#blockedResources').hide();
-    }
-  }
-
   // show firstparty protections message if current tab is in our content scripts
   if (POPUP_DATA.enabled && POPUP_DATA.isOnFirstParty) {
     $("#firstparty-protections-container").show();
@@ -579,6 +554,22 @@ function refreshPopup() {
     $("#error_input").val(POPUP_DATA.errorText);
   }
 
+  // show sliders when sliders were shown last
+  // or when there is at least one breakage warning
+  if (POPUP_DATA.settings.showExpandedTrackingSection || (
+    POPUP_DATA.cookieblocked && Object.keys(POPUP_DATA.cookieblocked).some(
+      d => POPUP_DATA.origins[d] == constants.USER_BLOCK)
+  )) {
+    $('#expand-blocked-resources').hide();
+    $('#collapse-blocked-resources').show();
+    $('#blockedResources').show();
+
+  } else {
+    $('#expand-blocked-resources').show();
+    $('#collapse-blocked-resources').hide();
+    $('#blockedResources').hide();
+  }
+
   let origins = POPUP_DATA.origins;
   let originsArr = [];
   if (origins) {
@@ -673,6 +664,12 @@ function refreshPopup() {
   if (POPUP_DATA.trackerCount === 0) {
     // show "no trackers" message
     $("#instructions-no-trackers").show();
+
+    if (printable.length) {
+      // make sure to show domain list
+      // (there is no toggle button when nothing was blocked)
+      $('#blockedResources').show();
+    }
 
   } else {
     $('#tracker-list-header').show();
