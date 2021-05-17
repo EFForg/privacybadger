@@ -321,10 +321,6 @@
         "message": "partially-blocked",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "show_tracking_domains_acknowledgement": {
-        "message": "I understand; please show me the tracking domains list anyway",
-        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
-    },
     "firstRun_title": {
         "message": "Thank you for installing Privacy Badger!",
         "description": ""
@@ -380,10 +376,6 @@
     "intro_donate_heading": {
         "message": "Privacy is a team sport!",
         "description": "Part of the 'donate' section on the intro page."
-    },
-    "show_tracking_domains_message": {
-        "message": "You shouldn't need to modify anything here.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "all",

@@ -54,23 +54,6 @@ function loadOptions() {
   $('#removeAllData').on("click", removeAllData);
   $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteExceptions);
 
-  if (OPTIONS_DATA.settings.showTrackingDomains) {
-    $('#tracking-domains-overlay').hide();
-  } else {
-    $('#blockedResourcesContainer').hide();
-
-    $('#show-tracking-domains-checkbox').on("click", () => {
-      $('#tracking-domains-overlay').hide();
-      $('#blockedResourcesContainer').show();
-      chrome.runtime.sendMessage({
-        type: "updateSettings",
-        data: {
-          showTrackingDomains: true
-        }
-      });
-    });
-  }
-
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").on("input", filterTrackingDomains);
   $("#tracking-domains-type-filter").on("change", filterTrackingDomains);

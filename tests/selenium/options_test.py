@@ -7,8 +7,6 @@ import unittest
 import pbtest
 
 from selenium.common.exceptions import (
-    ElementNotInteractableException,
-    ElementNotVisibleException,
     NoSuchElementException,
     TimeoutException,
 )
@@ -49,11 +47,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def select_domain_list_tab(self):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
-        try:
-            self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
-        except (ElementNotInteractableException, ElementNotVisibleException):
-            # The list will be loaded directly if we're opening the tab for the second time in this test
-            pass
 
     def select_manage_data_tab(self):
         self.find_el_by_css('a[href="#tab-manage-data"]').click()

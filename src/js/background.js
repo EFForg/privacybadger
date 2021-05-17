@@ -818,7 +818,6 @@ Badger.prototype = {
     showExpandedTrackingSection: false,
     showIntroPage: true,
     showNonTrackingDomains: false,
-    showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
     widgetReplacementExceptions: [],
     widgetSiteAllowlist: {},
@@ -866,6 +865,13 @@ Badger.prototype = {
 
     if (!privateStore.hasItem("showLearningPrompt")) {
       privateStore.setItem("showLearningPrompt", false);
+    }
+
+    if (self.isUpdate) {
+      // remove obsolete settings
+      if (settings.hasItem("showTrackingDomains")) {
+        settings.deleteItem("showTrackingDomains");
+      }
     }
   },
 
