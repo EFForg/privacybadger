@@ -403,10 +403,10 @@
     },
     "options_disable_google_nav_error_service": {
         "message": "방문한 웹 주소를 Google에 전송하는 것을 비활성화합니다. 이것은 페이지를 찾을 수 없을 때 유사한 페이지를 제안하는 것을 비활성화시킵니다.",
-        "description": "Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "하이퍼링크 감사 비활성화.",
+        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {

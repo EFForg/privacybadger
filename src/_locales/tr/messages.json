@@ -403,10 +403,10 @@
     },
     "options_disable_google_nav_error_service": {
         "message": "Google'a ziyaret ettiğiniz web adreslerini göndermeyi devre dışı bırak. Bu, bir sayfa bulunamadığında benzer sayfa önermeyi devre dışı bırakır.",
-        "description": "Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Hyperlink denetimini devre dışı bırak",
+        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {

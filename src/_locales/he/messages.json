@@ -403,10 +403,10 @@
     },
     "options_disable_google_nav_error_service": {
         "message": "השבת שליחת כתובות אתר שאתה מבקר בהן אל Google. זה משבית הצעות אל דפים דומים כאשר דף אינו יכול להימצא.",
-        "description": "Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "השבת בדיקת היפר־קישורים",
+        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {

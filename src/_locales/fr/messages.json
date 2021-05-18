@@ -403,10 +403,10 @@
     },
     "options_disable_google_nav_error_service": {
         "message": "Désactiver l’envoi à Google des adresses Web que vous visitez. Cette option désactive les suggestions de pages semblables si une page est introuvable.",
-        "description": "Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Désactiver le contrôle des hyperliens",
+        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {

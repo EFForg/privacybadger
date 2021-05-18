@@ -403,10 +403,10 @@
     },
     "options_disable_google_nav_error_service": {
         "message": "Disattiva l'invio degli indirizzi web che visiti a Google. Ciò disattiva i suggerimenti per pagine simili quando una pagina non può essere trovata.",
-        "description": "Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disattiva controllo dei link ipertestuali",
+        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
