@@ -60,7 +60,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
-        "message": "Klaku por permesi al Privata Melo decidi kiel trakti tiun ĉi nomregnon",
+        "message": "Alklaku por permesi al Privata Melo decidi kiel trakti tiun ĉi nomregnon",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "next_section": {
@@ -80,7 +80,7 @@
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Klaku tie ĉi por bloki tiun ĉi nomregnon de agordi kuketojn",
+        "message": "Alklaku tie ĉi por bloki tiun ĉi nomregnon de agordi kuketojn",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
@@ -124,7 +124,7 @@
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "Privata Melo povas bloki butonojn de sociaj retejoj kaj aliajn virtuale uzeblajn aplikaĵetojn (filmetojn, aŭdaĵojn, komentojn), tiu ĉi eblaĵo anstataŭigas ilin per klakeblaj (ne aŭtomate montriĝantaj) butonoj.",
+        "message": "Privata Melo povas bloki butonojn de sociaj retejoj kaj aliajn virtuale uzeblajn aplikaĵetojn (filmetojn, aŭdaĵojn, komentojn), tiu ĉi eblaĵo anstataŭigas ilin per alklakeblaj (ne aŭtomate montriĝantaj) butonoj.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
@@ -194,7 +194,7 @@
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Klaku suben por pli da informo.",
+        "message": "Alklaku suben por pli da informo.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
@@ -210,7 +210,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Bonvolu ne forgesi klaki “Ĉu Privata Melo difektis tiun ĉi retejon?”. Ni estimas vian privatecon, do ni ne sendas aŭtomatajn raportojn.",
+        "message": "Bonvolu ne forgesi alklaki “Ĉu Privata Melo difektis tiun ĉi retejon?”. Ni estimas vian privatecon, do ni ne sendas aŭtomatajn raportojn.",
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -270,7 +270,7 @@
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
-        "message": "Por lerni kiel Privata Melo funkcias, klaku sube por koncizan gvidilon.",
+        "message": "Por lerni kiel Privata Melo funkcias, alklaku sube por koncizan gvidilon.",
         "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
@@ -294,7 +294,7 @@
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
-        "message": "Klaku tie ĉi por tute bloki tiun ĉi nomregnon",
+        "message": "Alklaku tie ĉi por tute bloki tiun ĉi nomregnon",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
@@ -480,7 +480,7 @@
         "description": "Button in the popup."
     },
     "domain_slider_allow_tooltip": {
-        "message": "Klaku tie ĉi por permesi tiun ĉi nomregnon",
+        "message": "Alklaku tie ĉi por permesi tiun ĉi nomregnon",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
@@ -533,7 +533,7 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "Se viaopinie Privata Melo difektas retpaĝon (ekzemple filmeto ne ludas), vi povas klaki la butonon “malaktivigi” por malaktivigi Privatan Melon por tiu retejo.",
+        "message": "Se viaopinie Privata Melo difektas retpaĝon (ekzemple filmeto ne ludas), vi povas alklaki la butonon “malaktivigi” por malaktivigi Privatan Melon por tiu retejo.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
@@ -695,7 +695,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn kaj ne sendos al ili la signalojn “Global Privacy Control” kaj “Ne Spuri Min” (DNT).</p><p>Se viaopinie Privata Melo difektas iun retpaĝon aŭ volas permesi al ĝi kunhavigi aŭ vendi viajn datumojn, vi povas enigu ĝian nomregnon en la kampon sube kaj klaku “aldoni nomregnon”.</p><p>Alimaniere, se langeto de difektita paĝo estas malfermita, klaku la emblemon de Privata Melo sur la folumila ilarstrio kaj sekve klaku la butonon “malaktivigi”.</p>",
+        "message": "<p>Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn kaj ne sendos al ili la signalojn “Global Privacy Control” kaj “Ne Spuri Min” (DNT).</p><p>Se viaopinie Privata Melo difektas iun retpaĝon aŭ volas permesi al ĝi kunhavigi aŭ vendi viajn datumojn, vi povas enigu ĝian nomregnon en la kampon sube kaj alklaku “aldoni nomregnon”.</p><p>Alimaniere, se langeto de difektita paĝo estas malfermita, alklaku la emblemon de Privata Melo sur la folumila ilarstrio kaj sekve alklaku la butonon “malaktivigi”.</p>",
         "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
     },
     "allowlist_domain_input_placeholder": {
