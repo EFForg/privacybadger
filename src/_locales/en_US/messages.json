@@ -151,10 +151,6 @@
         "message": "Show domains that don't appear to be tracking you",
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
-    "options_disable_floc": {
-        "message": "Disable Google's Federated Learnnig of Cohorts (FLoC)",
-        "description": "Checkbox label on the general settings page."
-    },
     "report_button": {
         "message": "Submit Error",
         "description": ""
@@ -416,6 +412,10 @@
     "options_disable_network_prediction": {
         "message": "Disable prefetching",
         "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
         "message": "user-controlled",

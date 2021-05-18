@@ -263,10 +263,13 @@ function onHeadersReceived(details) {
   let tab_host = getHostForTab(tab_id);
   let response_host = window.extractHostFromURL(url);
 
-  if (badger.isFlocOverwriteEnabled() && details.type === 'main_frame') {
-    let newHeaders = details.responseHeaders;
-    newHeaders.push({name: 'permissions-policy', value: 'interest-cohort=()'});
-    return {responseHeaders: newHeaders};
+  if (details.type == 'main_frame' && badger.isFlocOverwriteEnabled()) {
+    let responseHeaders = details.responseHeaders || [];
+    responseHeaders.push({
+      name: 'permissions-policy',
+      value: 'interest-cohort=()'
+    });
+    return { responseHeaders };
   }
 
   if (!utils.isThirdPartyDomain(response_host, tab_host)) {
@@ -1317,7 +1320,8 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkFloc": {
-    // called from contentscripts/floc.js to check if we should disable document.interestCohort
+    // called from contentscripts/floc.js
+    // to check if we should disable document.interestCohort
     sendResponse(badger.isFlocOverwriteEnabled());
     break;
   }

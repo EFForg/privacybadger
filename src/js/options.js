@@ -170,12 +170,19 @@ function loadOptions() {
       });
   }
 
-  // only show the floc override if browser supports it
+  // only show the FLoC override if browser supports it
   if (document.interestCohort) {
     $("#disable-floc").show();
     $("#disable-floc-checkbox")
       .prop("checked", OPTIONS_DATA.settings.disableFloc)
-      .on("click", function () { updateDisableFloc(); });
+      .on("click", function () {
+        const disableFloc = $("#disable-floc-checkbox").prop("checked");
+
+        chrome.runtime.sendMessage({
+          type: "updateSettings",
+          data: { disableFloc }
+        });
+      });
   }
 
   if (OPTIONS_DATA.webRTCAvailable) {
@@ -544,17 +551,6 @@ function updateCheckingDNTPolicy() {
     type: "updateSettings",
     data: {
       checkForDNTPolicy: enabled
-    }
-  });
-}
-
-function updateDisableFloc() {
-  const enabled = $("#disable-floc-checkbox").prop("checked");
-
-  chrome.runtime.sendMessage({
-    type: "updateSettings",
-    data: {
-      disableFloc: enabled
     }
   });
 }
