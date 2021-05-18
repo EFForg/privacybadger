@@ -263,6 +263,15 @@ function onHeadersReceived(details) {
   let tab_host = getHostForTab(tab_id);
   let response_host = window.extractHostFromURL(url);
 
+  if (details.type == 'main_frame' && badger.isFlocOverwriteEnabled()) {
+    let responseHeaders = details.responseHeaders || [];
+    responseHeaders.push({
+      name: 'permissions-policy',
+      value: 'interest-cohort=()'
+    });
+    return { responseHeaders };
+  }
+
   if (!utils.isThirdPartyDomain(response_host, tab_host)) {
     return {};
   }
@@ -847,6 +856,7 @@ function dispatcher(request, sender, sendResponse) {
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
       "checkDNT",
+      "checkFloc",
       "checkEnabled",
       "checkLocation",
       "checkWidgetReplacementEnabled",
@@ -1305,6 +1315,13 @@ function dispatcher(request, sender, sendResponse) {
         window.extractHostFromURL(sender.tab.url)
       )
     );
+    break;
+  }
+
+  case "checkFloc": {
+    // called from contentscripts/floc.js
+    // to check if we should disable document.interestCohort
+    sendResponse(badger.isFlocOverwriteEnabled());
     break;
   }
 

@@ -466,7 +466,8 @@
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
         "js/contentscripts/dnt.js",
-        "js/contentscripts/fingerprinting.js"
+        "js/contentscripts/fingerprinting.js",
+        "js/contentscripts/floc.js"
       ],
       "matches": [
         "<all_urls>"
