@@ -413,6 +413,10 @@
         "message": "Prefetching deaktivieren",
         "description": "Checkbox label found on the general settings page"
     },
+    "options_disable_floc": {
+        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "description": "(Chrome only) Checkbox label on the general settings page."
+    },
     "options_domain_filter_user": {
         "message": "benutzergesteuert",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
