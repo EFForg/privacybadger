@@ -422,11 +422,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_info_firstparty_protections": {
-        "message": "Link tracking protection active",
+        "message": "Bescherming tegen volgen op welke verwijzing je klikt is ingeschakeld",
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Some websites $LINK_START$use link tracking to follow you$LINK_END$ whenever you click a link to leave the website. Privacy Badger removes tracking from such links on this website.",
+        "message": "Sommige websites $LINK_START$volgen op welke verwijzing je klikt$LINK_END$ waarmee je hun website verlaat. Privacy Badger verwijdert die mogelijkheid waardoor de website niet kan zien naar welke andere website jij doorklikt.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
