@@ -141,7 +141,6 @@ let htmlUtils = {
     <img src="/icons/UI-icons-red.svg" class="tooltip" title="${i18n.getMessage("tooltip_block")}"><img src="/icons/UI-icons-yellow.svg" class="tooltip" title="${i18n.getMessage("tooltip_cookieblock")}"><img src="/icons/UI-icons-green.svg" class="tooltip" title="${i18n.getMessage("tooltip_allow")}">
   </div>
 </div>
-<div class="spacer"></div>
 <div id="blockedResourcesInner" class="clickerContainer"></div>
     `.trim();
   },

@@ -54,12 +54,6 @@ a { text-decoration: none }
 
 a:hover { color: #ec9329 }
 
-.spacer {
-  height: 7px;
-  width: 5px;
-  display: block;
-  clear: both;
-}
 .clear {
     clear: both;
 }
@@ -215,8 +209,8 @@ body#main #blockedResourcesContainer {
     position: relative;
 }
 .key {
-    position: absolute;
-    height: 25px;
+    position: relative;
+    height: 7px;
     left: 215px;
     right: 0;
     z-index: 30;
