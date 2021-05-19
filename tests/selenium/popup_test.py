@@ -265,7 +265,6 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # assert the undo arrow is not displayed
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
-        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
         self.assertFalse(
             self.driver.find_element_by_css_selector(
                 'div[data-origin="{}"] a.honeybadgerPowered'.format(DOMAIN)
