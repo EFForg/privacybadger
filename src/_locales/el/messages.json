@@ -406,7 +406,7 @@
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
+        "message": "Αποτροπή ιστοτόπων από το να παρακολουθούν τους συνδέσμους που πατάτε (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
@@ -414,7 +414,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
-        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "message": "Απενεργοποίηση του Federated Learning of Cohorts (FLoC) από τη Google",
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
@@ -422,11 +422,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_info_firstparty_protections": {
-        "message": "Link tracking protection active",
+        "message": "Η αποτροπή παρακολούθησης για συνδέσμους είναι ενεργή",
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Some websites $LINK_START$use link tracking to follow you$LINK_END$ whenever you click a link to leave the website. Privacy Badger removes tracking from such links on this website.",
+        "message": "Κάποιες ιστοσελίδες $LINK_START$χρησιμοποιούν μία μέθοδο παρακολούθησης$LINK_END$ και σας παρακολουθούν όταν κάνετε κλικ σε έναν. Το Privacy Badger αφαιρεί αυτήν τη δυνατότητα παρακολούθησης σε αυτήν την ιστοσελίδα.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
