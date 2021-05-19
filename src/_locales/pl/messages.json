@@ -414,7 +414,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
-        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "message": "Wyłącz FLoC (Federated Learning of Cohorts)",
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
