@@ -406,7 +406,7 @@
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
+        "message": "Preventi retejojn de spuri ligilojn, kiujn vi alklakas (kontrolado de ligiloj)",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
