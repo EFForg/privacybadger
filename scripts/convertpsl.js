@@ -24,6 +24,7 @@ function convert(data) {
       value = 0;
     }
 
+    // save host and type of entry, converting Unicode hostnames to Punycode
     psl[new URL("http://" + line).hostname] = value;
   }
 
