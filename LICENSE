@@ -101,6 +101,11 @@ Licensed CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/
 Stylesheet version 2.3.2
 Licensed GPL: http://www.gnu.org/licenses/gpl.html
 
+List of CNAME domains (basis for src/data/cname_domains.json)
+https://github.com/AdguardTeam/cname-trackers
+Copyright 2021 Adguard Software Ltd
+Licensed MIT
+
 
 TEXT OF GPLv3
 =============

@@ -68,6 +68,9 @@ function Badger() {
       dntHashesPromise = self.initializeDnt().catch(console.error),
       tabDataPromise = self.updateTabList().catch(console.error);
 
+    // async load known CNAME domain aliases (but don't wait on them)
+    self.initializeCnames().catch(console.error);
+
     // seed data depends on the yellowlist
     await ylistPromise;
     let seedDataPromise = self.updateTrackerData().catch(console.error);
@@ -231,6 +234,10 @@ Badger.prototype = {
    */
   tabData: {},
 
+  /**
+   * Mapping of known CNAME domain aliases
+   */
+  cnameDomains: {},
 
   // Methods
 
@@ -550,6 +557,14 @@ Badger.prototype = {
       }
     }
     return null;
+  },
+
+  initializeCnames: function () {
+    return fetch(constants.CNAME_DOMAINS_LOCAL_URL)
+      .then(response => response.json())
+      .then(data => {
+        badger.cnameDomains = data;
+      });
   },
 
   /**

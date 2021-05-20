@@ -30,6 +30,7 @@ var exports = {
   USER_COOKIEBLOCK: "user_cookieblock",
 
   // URLS
+  CNAME_DOMAINS_LOCAL_URL: chrome.runtime.getURL('data/cname_domains.json'),
   DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
   DNT_POLICIES_LOCAL_URL: chrome.runtime.getURL('data/dnt-policies.json'),
   YELLOWLIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",
