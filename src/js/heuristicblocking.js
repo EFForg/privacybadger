@@ -103,6 +103,7 @@ HeuristicBlocker.prototype = {
    * @param {Object} details request/response details
    * @param {Boolean} check_for_cookie_share whether to check for cookie sharing
    */
+  // TODO more like heuristicLearningFromCookies ... check DESIGN doc
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
     // ignore requests that are outside a tabbed window
     if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
@@ -126,6 +127,7 @@ HeuristicBlocker.prototype = {
 
     // CNAME uncloaking
     if (badger.cnameDomains.hasOwnProperty(request_host)) {
+      // TODO details.url is still wrong
       request_host = badger.cnameDomains[request_host];
     }
 
@@ -170,27 +172,31 @@ HeuristicBlocker.prototype = {
       chrome.cookies.getAll(config, function (cookies) {
         cookies = cookies.filter(cookie => !cookie.httpOnly);
         if (cookies.length >= 1) {
-          self.pixelCookieShareAccounting(tab_url, tab_base, details.url, request_host, request_base, cookies);
+          // TODO refactor with new URI() above?
+          let searchParams = (new URL(details.url)).searchParams;
+          self.pixelCookieShareAccounting(tab_url, tab_base, searchParams, request_host, request_base, cookies);
         }
       });
     }
   },
 
   /**
-   * Checks for cookie sharing: requests to third-party domains that include
-   * high entropy data from first-party cookies (associated with the top-level
-   * frame). Only catches plain-text verbatim sharing (b64 encoding + the like
-   * defeat it). Assumes any long string that doesn't contain URL fragments or
-   * stopwords is an identifier.  Doesn't catch cookie syncing (3rd party -> 3rd
-   * party), but most of those tracking cookies should be blocked anyway.
+   * Checks for cookie sharing: requests to third-party domains
+   * that include high entropy data from first-party cookies.
    *
+   * Only catches plain-text verbatim sharing (b64 encoding etc. defeat it).
+   *
+   * Assumes any long string that doesn't contain URL fragments
+   * or stopwords is an identifier.
+   *
+   * Doesn't catch cookie syncing (3rd party -> 3rd party),
+   * but most of those tracking cookies should be blocked anyway.
    */
-  pixelCookieShareAccounting: function (tab_url, tab_base, request_url, request_host, request_base, cookies) {
-    let params = (new URL(request_url)).searchParams,
-      TRACKER_ENTROPY_THRESHOLD = 33,
+  pixelCookieShareAccounting: function (tab_url, tab_base, searchParams, request_host, request_base, cookies) {
+    const TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
 
-    for (let p of params) {
+    for (let p of searchParams) {
       let key = p[0],
         value = p[1];
 
