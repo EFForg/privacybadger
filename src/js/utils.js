@@ -465,28 +465,20 @@ function isRestrictedUrl(url) {
 
 /**
 * checks if given domain is part of an oauth process
-* lifted and modified from here: https://github.com/cliqz-oss/browser-core/blob/d9ee171d7d59ec9fbcd3a899613017b87ec849e9/modules/antitracking/sources/steps/oauth-detector.es#L144-L170
+*
 */
 
-// TODO: is it URL or domain?
-// does there need to be /oauth2/
-// get rid of all the vars here we don't have or know
-function checkIsOAuth(url, type) {
-  const oAuthUrls = ['/oauth', '/authorize'];
-  // checking against -1 is super fugly
-  const mapper = oAuthUrl => state.urlParts.pathname.indexOf(oAuthUrl) > -1;
-  const reducer = (accumulator, currentValue) => accumulator || currentValue;
-  const isOAuthFlow = oAuthUrls.map(mapper).reduce(reducer);
+function isOAuthUrl(url) {
+  const oAuthUrls = ['oauth', 'authorize', 'oauth2'];
+  const urlParts = url.split('/');
+  let isOAuth;
 
-  if (isOAuthFlow
-    && this.clickActivity[state.tabId] && this.siteActivitiy[state.urlParts.hostname]) {
-    const clickedPage = parse(this.clickActivity[state.tabId]);
-    if (clickedPage !== null && clickedPage.hostname === state.tabUrlParts.hostname) {
-      state.incrementStat(`${type}_allow_oauth`);
-      return false;
+  for (let oauthType in oAuthUrls) {
+    if (urlParts.includes(oauthType)) {
+      isOAuth = true;
     }
   }
-  return true;
+  return isOAuth;
 }
 
 
@@ -497,6 +489,7 @@ let exports = {
   explodeSubdomains,
   findCommonSubstrings,
   getHostFromDomainInput,
+  isOAuthUrl,
   isRestrictedUrl,
   isThirdPartyDomain,
   nDaysFromNow,
