@@ -2642,7 +2642,6 @@ let multiDomainFirstPartiesArray = [
     "github.com",
     "githubapp.com",
     "githubassets.com",
-    "github.dev",
 
     "avatars0.githubusercontent.com",
     "avatars1.githubusercontent.com",
