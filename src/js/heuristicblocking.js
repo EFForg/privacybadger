@@ -127,6 +127,11 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
+    // ignore requests coming from oauth systems
+    if (!tab_origin || !utils.isOAuthUrl(details.url)) {
+      return {};
+    }
+
     // short-circuit if we already observed this origin tracking on this site
     let firstParties = self.storage.getStore('snitch_map').getItem(request_origin);
     if (firstParties && firstParties.indexOf(tab_origin) > -1) {
