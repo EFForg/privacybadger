@@ -406,7 +406,7 @@
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Nie pozwól witrynom na śledzenie Cię za pomocą kliknięć („sprawdzanie odnośników”)",
+        "message": "Nie pozwól witrynom na śledzenie Cię za pomocą kliknięć («hyperlink auditing»)",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
