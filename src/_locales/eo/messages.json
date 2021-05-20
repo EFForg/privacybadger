@@ -414,7 +414,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
-        "message": "Malaktivigi FLoC (Federated Learning of Cohorts)",
+        "message": "Malaktivigi la meĥanismon FLoC (Federated Learning of Cohorts) de Google",
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
