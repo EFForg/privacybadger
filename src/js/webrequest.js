@@ -726,7 +726,7 @@ let getWidgetList = (function () {
 }());
 
 /**
- * Checks if given request FQDN is temporarily unblocked on a tab.
+ * Checks if given request FQDN is temporarily unblocked on a tab or if we suspect it is used for an OAuth process.
  *
  * The request is allowed if any of the following is true:
  *
@@ -734,6 +734,7 @@ let getWidgetList = (function () {
  *   - 1b) Request FQDN ends with a wildcard entry from the exception list
  *   - 2a) Request is from a subframe whose FQDN matches an entry on the list
  *   - 2b) Same but subframe's FQDN ends with a wildcard entry
+ *   - 3)  The request FQDN is suspected to be used in an oauth process
  *
  * @param {Integer} tab_id the ID of the tab to check
  * @param {String} request_host the request FQDN to check
@@ -744,6 +745,10 @@ let getWidgetList = (function () {
 function allowedOnTab(tab_id, request_host, frame_id) {
   if (!tempAllowlist.hasOwnProperty(tab_id)) {
     return false;
+  }
+
+  if (utils.isOAuthUrl(request_host)) {
+    return true;
   }
 
   let exceptions = tempAllowlist[tab_id];
