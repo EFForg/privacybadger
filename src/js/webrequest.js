@@ -519,18 +519,18 @@ function recordFingerprinting(tab_id, msg) {
     badger.tabData[tab_id].fpData = {};
   }
 
-  let script_origin = window.getBaseDomain(script_host);
+  let script_base = window.getBaseDomain(script_host);
 
   // Initialize script TLD-level data
-  if (!badger.tabData[tab_id].fpData.hasOwnProperty(script_origin)) {
-    badger.tabData[tab_id].fpData[script_origin] = {
+  if (!badger.tabData[tab_id].fpData.hasOwnProperty(script_base)) {
+    badger.tabData[tab_id].fpData[script_base] = {
       canvas: {
         fingerprinting: false,
         write: false
       }
     };
   }
-  let scriptData = badger.tabData[tab_id].fpData[script_origin];
+  let scriptData = badger.tabData[tab_id].fpData[script_base];
 
   if (msg.extra.hasOwnProperty('canvas')) {
     if (scriptData.canvas.fingerprinting) {
@@ -549,7 +549,7 @@ function recordFingerprinting(tab_id, msg) {
 
           // mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, script_origin, window.getBaseDomain(document_host));
+            script_host, script_base, window.getBaseDomain(document_host));
 
           // log for popup
           let action = checkAction(tab_id, script_host);

@@ -618,14 +618,11 @@ BadgerStorage.prototype = {
       }
 
     } else if (self.name == "snitch_map") {
-      for (let tracker_origin in mapData) {
-        let firstPartyOrigins = mapData[tracker_origin];
-        for (let i = 0; i < firstPartyOrigins.length; i++) {
+      for (let tracker_base in mapData) {
+        let siteBases = mapData[tracker_base];
+        for (let siteBase of siteBases) {
           badger.heuristicBlocking.updateTrackerPrevalence(
-            tracker_origin,
-            tracker_origin,
-            firstPartyOrigins[i]
-          );
+            tracker_base, tracker_base, siteBase);
         }
       }
     }
