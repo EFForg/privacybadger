@@ -174,7 +174,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Lär dig att blockera nya spårare från din surfning",
+        "message": "Lär sig att blockera nya spårare från din surfning",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
