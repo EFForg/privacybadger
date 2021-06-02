@@ -424,6 +424,8 @@ let multiDomainFirstPartiesArray = [
     "amazon.in",
     "amazon.it",
     "amazon.nl",
+    "amazon.sa",
+    "amazon.sg",
 
     "audible.com",
     "audible.co.jp",
