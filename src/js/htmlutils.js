@@ -115,11 +115,11 @@ let htmlUtils = {
       return `
 <div class="switch-container ${action}">
   <div class="switch-toggle switch-3 switch-candy">
-    <input id="block-${origin_id}" name="${origin}" value="${constants.BLOCK}" type="radio" ${is_checked(constants.BLOCK, action)}>
+    <input id="block-${origin_id}" name="${origin}" value="${constants.BLOCK}" type="radio" aria-label="block ${origin}" ${is_checked(constants.BLOCK, action)}>
     <label title="${tooltips.block}" class="tooltip" for="block-${origin_id}"></label>
-    <input id="cookieblock-${origin_id}" name="${origin}" value="${constants.COOKIEBLOCK}" type="radio" ${is_checked(constants.COOKIEBLOCK, action)}>
+    <input id="cookieblock-${origin_id}" name="${origin}" value="${constants.COOKIEBLOCK}" type="radio" aria-label="cookie-block ${origin}" ${is_checked(constants.COOKIEBLOCK, action)}>
     <label title="${tooltips.cookieblock}" class="tooltip" for="cookieblock-${origin_id}"></label>
-    <input id="allow-${origin_id}" name="${origin}" value="${constants.ALLOW}" type="radio" ${is_checked(constants.ALLOW, action)}>
+    <input id="allow-${origin_id}" name="${origin}" value="${constants.ALLOW}" type="radio" aria-label="allow ${origin}" ${is_checked(constants.ALLOW, action)}>
     <label title="${tooltips.allow}" class="tooltip" for="allow-${origin_id}"></label>
     <a></a>
   </div>
