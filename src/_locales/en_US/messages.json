@@ -80,7 +80,7 @@
         "description": ""
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Click here to block this domain from setting cookies",
+        "message": "Block cookies",
         "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
@@ -294,7 +294,7 @@
         "description": "Intro page welcome button."
     },
     "domain_slider_block_tooltip": {
-        "message": "Click here to block this domain entirely",
+        "message": "Block entirely",
         "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
     },
     "version": {
@@ -476,7 +476,7 @@
         "description": "Button in the popup."
     },
     "domain_slider_allow_tooltip": {
-        "message": "Click here to allow this domain",
+        "message": "Allow",
         "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
