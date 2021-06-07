@@ -188,11 +188,11 @@ let htmlUtils = {
       // construct HTML for domain
       let origin_tooltip = htmlUtils.getActionDescription(action, origin);
       return `
-<div class="${classes.join(' ')}" data-origin="${origin}">
-  <h4 class="origin">
+<div class="${classes.join(' ')}" data-origin="${origin}" role="heading" aria-level="4">
+  <div class="origin">
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
     <span class="origin-inner tooltip" title="${origin_tooltip}">${dnt_html}${origin}</span>
-  </h4>
+  </div>
   <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(origin, action)}
   <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></a>

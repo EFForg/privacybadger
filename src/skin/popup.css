@@ -73,8 +73,6 @@ a:hover { color: #ec9329 }
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: normal;
-  margin-top: 0;
 }
 
 .switch-container {
