@@ -59,6 +59,18 @@
         "message": "Zablokowanie tej domeny może spowodować, że strony internetowe przestaną działać poprawnie",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
+    "domain_slider_block_tooltip": {
+        "message": "Block entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Block cookies",
+        "description": "Tooltip shown when you hover over the center part of a domain slider"
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Allow",
+        "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
+    },
     "feed_the_badger_title": {
         "message": "Kliknij, aby Privacy Badger zdecydował za Ciebie jak obchodzić się z tą domeną",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
@@ -78,10 +90,6 @@
     "report_title": {
         "message": "Zgłoś problem",
         "description": ""
-    },
-    "domain_slider_cookieblock_tooltip": {
-        "message": "Kliknij tutaj, aby uniemożliwić tej domenie ustawiać ciasteczka",
-        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
         "message": "zablokowane",
@@ -293,10 +301,6 @@
         "message": "Wprowadzenie",
         "description": "Intro page welcome button."
     },
-    "domain_slider_block_tooltip": {
-        "message": "Kliknij tutaj, aby całkowicie zablokować tę domenę",
-        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
-    },
     "version": {
         "message": "wersja $VERSION_STRING$",
         "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
@@ -320,10 +324,6 @@
     "options_domain_filter_cookieblock": {
         "message": "częściowo zablokowane",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
-    },
-    "show_tracking_domains_acknowledgement": {
-        "message": "Tak, rozumiem, ale proszę wyświetlić mi listę szpiegujących domen.",
-        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "firstRun_title": {
         "message": "Dziękujemy za zainstalowanie Privacy Badgera!",
@@ -380,10 +380,6 @@
     "intro_donate_heading": {
         "message": "Prywatność to sport zespołowy!",
         "description": "Part of the 'donate' section on the intro page."
-    },
-    "show_tracking_domains_message": {
-        "message": "Nie powinieneś mieć potrzeby zmieniać czegokolwiek tutaj.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "wszystkie",
@@ -482,10 +478,6 @@
     "popup_disable_for_site": {
         "message": "Wyłącz Privacy Badgera na tej witrynie",
         "description": "Button in the popup."
-    },
-    "domain_slider_allow_tooltip": {
-        "message": "Kliknij tutaj, aby odblokować tę domenę",
-        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
         "message": "Privacy Badger NIGDY prześle dane dotyczące Twojej aktywności w Sieci, o ile sam o tym nie zdecydujesz.",

@@ -59,6 +59,18 @@
         "message": "Blocking this domain is known to break websites",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
+    "domain_slider_block_tooltip": {
+        "message": "Block entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Block cookies",
+        "description": "Tooltip shown when you hover over the center part of a domain slider"
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Allow",
+        "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
+    },
     "feed_the_badger_title": {
         "message": "Click to return control of this domain to Privacy Badger",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
@@ -78,10 +90,6 @@
     "report_title": {
         "message": "Informeu d'un error",
         "description": ""
-    },
-    "domain_slider_cookieblock_tooltip": {
-        "message": "Cliqueu aquí per blocar les galetes d'aquest domini",
-        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
         "message": "blocat",
@@ -293,10 +301,6 @@
         "message": "Feu la visita guiada",
         "description": "Intro page welcome button."
     },
-    "domain_slider_block_tooltip": {
-        "message": "Cliqueu aquí per blocar completament aquest domini",
-        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
-    },
     "version": {
         "message": "versió $VERSION_STRING$",
         "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
@@ -320,10 +324,6 @@
     "options_domain_filter_cookieblock": {
         "message": "blocat parcialment",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
-    },
-    "show_tracking_domains_acknowledgement": {
-        "message": "Ho entenc; si us plau, mostra'm igualment el llistat de dominis de seguiment",
-        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "firstRun_title": {
         "message": "Gràcies per instal·lar el Privacy Badger!",
@@ -380,10 +380,6 @@
     "intro_donate_heading": {
         "message": "La privacitat és un esport d'equip!",
         "description": "Part of the 'donate' section on the intro page."
-    },
-    "show_tracking_domains_message": {
-        "message": "Aquí no hauria de ser necessari modificar res",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "tot",
@@ -482,10 +478,6 @@
     "popup_disable_for_site": {
         "message": "Deshabiliteu el Privacy Badger en aquest lloc",
         "description": "Button in the popup."
-    },
-    "domain_slider_allow_tooltip": {
-        "message": "Cliqueu aquí per permetre aquest domini",
-        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
         "message": "El Privacy Badger MAI compartirà dades sobre la vostra navegació, excepte si decidiu compartir-les.",

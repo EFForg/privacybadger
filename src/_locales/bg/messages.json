@@ -59,6 +59,18 @@
         "message": "Blocking this domain is known to break websites",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
+    "domain_slider_block_tooltip": {
+        "message": "Block entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Block cookies",
+        "description": "Tooltip shown when you hover over the center part of a domain slider"
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Allow",
+        "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
+    },
     "feed_the_badger_title": {
         "message": "Click to return control of this domain to Privacy Badger",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
@@ -78,10 +90,6 @@
     "report_title": {
         "message": "Докладвай за грешка",
         "description": ""
-    },
-    "domain_slider_cookieblock_tooltip": {
-        "message": "Щракни тук, за да забраниш на този домейн да оставя бисквитки",
-        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
         "message": "блокирани",
@@ -293,10 +301,6 @@
         "message": "Обясни ми набързо",
         "description": "Intro page welcome button."
     },
-    "domain_slider_block_tooltip": {
-        "message": "Щракни тук, за да блокираш този домейн напълно",
-        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
-    },
     "version": {
         "message": "версия $VERSION_STRING$",
         "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
@@ -320,10 +324,6 @@
     "options_domain_filter_cookieblock": {
         "message": "частично блокирани",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
-    },
-    "show_tracking_domains_acknowledgement": {
-        "message": "Разбирам; покажи ми все пак домейните-преследвачи",
-        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
     },
     "firstRun_title": {
         "message": "Благодаря, че инсталира Privacy Badger!",
@@ -380,10 +380,6 @@
     "intro_donate_heading": {
         "message": "Личното пространство е отборна игра!",
         "description": "Part of the 'donate' section on the intro page."
-    },
-    "show_tracking_domains_message": {
-        "message": "Не би трябвало да се налага да променяш каквото и да е тук.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "всички",
@@ -482,10 +478,6 @@
     "popup_disable_for_site": {
         "message": "Изключи Privacy Badger за този сайт",
         "description": "Button in the popup."
-    },
-    "domain_slider_allow_tooltip": {
-        "message": "Щракни тук, за да разрешиш този домейн",
-        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
         "message": "Privacy Badger НИКОГА няма да споделя данни за сърфирането ти, освен ако ти не решиш да ги споделиш.",
