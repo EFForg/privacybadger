@@ -115,11 +115,11 @@ let htmlUtils = {
       return `
 <div class="switch-container ${action}">
   <div class="switch-toggle switch-3 switch-candy">
-    <input id="block-${origin_id}" name="${origin}" value="${constants.BLOCK}" type="radio" aria-label="${tooltips.block}: ${origin}" ${is_checked(constants.BLOCK, action)}>
+    <input id="block-${origin_id}" name="${origin}" value="${constants.BLOCK}" type="radio" aria-label="${tooltips.block}" ${is_checked(constants.BLOCK, action)}>
     <label title="${tooltips.block}" class="tooltip" for="block-${origin_id}"></label>
-    <input id="cookieblock-${origin_id}" name="${origin}" value="${constants.COOKIEBLOCK}" type="radio" aria-label="${tooltips.cookieblock}: ${origin}" ${is_checked(constants.COOKIEBLOCK, action)}>
+    <input id="cookieblock-${origin_id}" name="${origin}" value="${constants.COOKIEBLOCK}" type="radio" aria-label="${tooltips.cookieblock}" ${is_checked(constants.COOKIEBLOCK, action)}>
     <label title="${tooltips.cookieblock}" class="tooltip" for="cookieblock-${origin_id}"></label>
-    <input id="allow-${origin_id}" name="${origin}" value="${constants.ALLOW}" type="radio" aria-label="${tooltips.allow}: ${origin}" ${is_checked(constants.ALLOW, action)}>
+    <input id="allow-${origin_id}" name="${origin}" value="${constants.ALLOW}" type="radio" aria-label="${tooltips.allow}" ${is_checked(constants.ALLOW, action)}>
     <label title="${tooltips.allow}" class="tooltip" for="allow-${origin_id}"></label>
     <a></a>
   </div>
@@ -189,10 +189,10 @@ let htmlUtils = {
       let origin_tooltip = htmlUtils.getActionDescription(action, origin);
       return `
 <div class="${classes.join(' ')}" data-origin="${origin}">
-  <div class="origin">
+  <h4 class="origin">
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
     <span class="origin-inner tooltip" title="${origin_tooltip}">${dnt_html}${origin}</span>
-  </div>
+  </h4>
   <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(origin, action)}
   <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></a>
