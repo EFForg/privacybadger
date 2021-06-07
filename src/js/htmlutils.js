@@ -188,8 +188,8 @@ let htmlUtils = {
       // construct HTML for domain
       let origin_tooltip = htmlUtils.getActionDescription(action, origin);
       return `
-<div class="${classes.join(' ')}" data-origin="${origin}" role="heading" aria-level="4">
-  <div class="origin">
+<div class="${classes.join(' ')}" data-origin="${origin}">
+  <div class="origin" role="heading" aria-level="4">
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
     <span class="origin-inner tooltip" title="${origin_tooltip}">${dnt_html}${origin}</span>
   </div>
