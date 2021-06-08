@@ -1,6 +1,19 @@
 Privacy Badger Release Notes
 ============================
 
+2021.6.8
+* Disabled Google's Federated Learning of Cohorts (FLoC). To learn more, visit
+https://www.eff.org/deeplinks/2021/03/googles-floc-terrible-idea
+* Improved tracker detection and blocking by looking up known CNAME tracker
+aliases. Thanks to AdGuard for providing the CNAME DNS data behind this
+feature.
+* You can now see in the popup when first-party protections
+such as link unwrapping are active on the site you are on
+* Fixed various site breakages
+* Added Greek and Hungarian translations
+* Improved translations (Simplified Chinese, Esperanto, Hebrew, Korean,
+European Portuguese, Turkish, Swedish)
+
 2021.2.2
 * Added a dark theme. To see it, enable dark mode in operating system
 or device preferences.
@@ -15,7 +28,7 @@ the list of widgets that were set to be always allowed on certain sites
 * Added a direct link to widget content to replacements for widgets like
 YouTube, Vimeo, SoundCloud and Spotify. You can click this link to watch
 a video (for example) without sharing the page you are on with the video
-provider. You can also right-click the link to copy the link URL.
+provider.
 * Fixed "fbclid" tracking parameter removal on Facebook
 * Enabled Google Search link unwrapping on Firefox for Android
 * Fixed various site breakages
