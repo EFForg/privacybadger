@@ -3239,6 +3239,11 @@
     "forumcomm.com": {
       "heuristicAction": "allow"
     },
+    "forums.envato.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1623333990704
+    },
     "fotomoto.com": {
       "heuristicAction": "allow"
     },
