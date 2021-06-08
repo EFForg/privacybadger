@@ -149,9 +149,12 @@ a:hover { color: #ec9329 }
 
 #header-image-stack {
     display: table;
-    float: left;
     margin: 2px 10px 0 10px;
     line-height: 1.0;
+}
+
+#badger-header-logo, #header-image-stack, #header-image-stack a, #header-image-stack img {
+    float: left;
 }
 
 #privacyBadgerHeader h2{
@@ -162,10 +165,6 @@ a:hover { color: #ec9329 }
   clear: initial;
   font-family: "Chunk-Five", serif;
   margin-top: 5px;
-}
-
-#privacyBadgerHeader img {
-    float: left;
 }
 
 /* body#main to avoid applying this to options page */
