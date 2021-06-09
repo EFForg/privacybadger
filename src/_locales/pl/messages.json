@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger jest wyłączony dla następujących domen. Oznacza to, że nic będzie blokowane podczas wizyty na stronach wpisanych poniżej i nie zostaną wysłane żądania „Nie Śledź Mnie” (DNT) i „Global Privacy Control”.</p><p>Jeżeli uważasz, że Privacy Badger psuje jakąś stronę lub chciał(a)byś tej stronie umożliwić udostępnianie lub sprzedaż Twoich danych, wpisz domenę tej strony w pole poniżej i kliknij w przycisk „dodaj domenę”.</p><p>Inny sposób: mając otwartą kartę ze stroną, kliknij w ikonę Privacy Badgera na pasku narzędzi przeglądarki, a następnie kliknij „wyłącz.”</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger jest wyłączony dla następujących domen. Oznacza to, że nic będzie blokowane podczas wizyty na stronach wpisanych poniżej i nie zostaną wysłane żądania „Nie Śledź Mnie” (DNT) i „Global Privacy Control”.</p><p>Jeżeli uważasz, że Privacy Badger psuje jakąś stronę lub chciał(a)byś tej stronie umożliwić udostępnianie lub sprzedaż Twoich danych, wpisz domenę tej strony w pole poniżej i kliknij w przycisk „dodaj domenę”.</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "np. www.example.com, *.example.net, example.org",

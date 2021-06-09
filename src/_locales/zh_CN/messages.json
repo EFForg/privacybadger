@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>隐私獾已在以下网站上禁用。您浏览这些网站时，隐私獾不会屏蔽任何东西，也不会发送请勿追踪或全局隐私控制信号。</p><p>如果您认为隐私獾破坏了某个页面，或者您希望允许一个特定的网站分享和贩卖您的数据，请在下面的文本框中输入那个页面的域名，然后点击“添加域名”按钮。</p><p>您也可以在浏览页面时点击浏览器工具栏上的隐私獾按钮，然后点击“禁用”按钮。</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>隐私獾已在以下网站上禁用。您浏览这些网站时，隐私獾不会屏蔽任何东西，也不会发送请勿追踪或全局隐私控制信号。</p><p>如果您认为隐私獾破坏了某个页面，或者您希望允许一个特定的网站分享和贩卖您的数据，请在下面的文本框中输入那个页面的域名，然后点击“添加域名”按钮。</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "例如 www.example.com, *.example.net, example.org",

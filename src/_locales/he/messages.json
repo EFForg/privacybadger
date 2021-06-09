@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger מושבת באתרים הבאים. זה אומר כי Privacy Badger לא יחסום שום דבר כאשר תבקר באתרים הכתובים למטה, והוא לא ישלח את האות אל תעקוב או את האות בקרה גלובלית של פרטיות.</p><p>אם אתה חושב כי Privacy Badger שובר עמוד, או אם אתה רוצה להתיר לאתר מסוים לשתף או למכור את הנתונים שלך, אתה יכול להקליד את תחום האתר בתיבה למטה וללחוץ על הכפתור \"הוסף תחום\".</p><p>לחלופין, כאשר לשונית העמוד כבר נבחרה, אתה יכול פשוט ללחוץ על הכפתור של Privacy Badger בסרגל הכלים של הדפדפן ואז ללחוץ על הכפתור \"השבת\".</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger מושבת באתרים הבאים. זה אומר כי Privacy Badger לא יחסום שום דבר כאשר תבקר באתרים הכתובים למטה, והוא לא ישלח את האות אל תעקוב או את האות בקרה גלובלית של פרטיות.</p><p>אם אתה חושב כי Privacy Badger שובר עמוד, או אם אתה רוצה להתיר לאתר מסוים לשתף או למכור את הנתונים שלך, אתה יכול להקליד את תחום האתר בתיבה למטה וללחוץ על הכפתור \"הוסף תחום\".</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "לדוגמה www.example.com, *.example.net, example.org",

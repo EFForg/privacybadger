@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西，其也將不會傳送「Do Not Track」或全域隱私控制訊號。</p><p>若您覺得 Privacy Badger 把頁面弄壞了，或您希望與特定的網站分享或販售您的資料，那麼您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。</p><p>或者是當您已經選取了網頁的分頁，您也可以點選在瀏覽器工具列中的 Privacy Badger 按鈕並點選「停用」按鈕。</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西，其也將不會傳送「Do Not Track」或全域隱私控制訊號。</p><p>若您覺得 Privacy Badger 把頁面弄壞了，或您希望與特定的網站分享或販售您的資料，那麼您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "範例：www.example.com, *.example.net, example.org",

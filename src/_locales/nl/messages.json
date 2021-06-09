@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is op de volgende websitess uitgeschakeld. Dit betekent dat Privacy Badger niets zal blokkeren op één van de websites in deze lijst, en dat het ook niet het “Volg me niet”- of “Global Privacy Control”-signaal zal verzenden.</p><p>Als je vermoedt dat Privacy Badger het laden van een bepaalde webpagina verstoort, of als je een bepaalde website wil toestaan om je data door te geven of verkopen, dan kun je de domeinnaam van die webpagina invullen in het invoerveld hieronder en op de knop \"Domein toevoegen\" klikken.</p><p>Als je het tabblad met die webpagina al open en geselecteerd hebt kun jet als alternatief op de Privacy Badger-knop klikken de de werkbalk van je webbrowser en vervolgens op de knop ‘Uitschakelen’ klikken.</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger is op de volgende websitess uitgeschakeld. Dit betekent dat Privacy Badger niets zal blokkeren op één van de websites in deze lijst, en dat het ook niet het “Volg me niet”- of “Global Privacy Control”-signaal zal verzenden.</p><p>Als je vermoedt dat Privacy Badger het laden van een bepaalde webpagina verstoort, of als je een bepaalde website wil toestaan om je data door te geven of verkopen, dan kun je de domeinnaam van die webpagina invullen in het invoerveld hieronder en op de knop \"Domein toevoegen\" klikken.</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "bv. www.example.com, *.example.net, example.org",

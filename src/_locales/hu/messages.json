@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>A Privacy Badger le van tiltva a következő oldalakon. Ez azt jelenti, hogy a Privacy Badger semmit sem fog tiltani, ha meglátogatja az itt felsorolt oldalakat, és nem fog „ne kövessen” vagy „globális adatvédelmi szabályozás” jelzéseket küldeni.</p><p>Ha úgy gondolja, hogy a Privacy Badger elront egy oldalt, vagy engedélyezni szeretne egy bizonyos oldalt, hogy megossza vagy eladja az Ön adatait, akkor írja be annak az oldalnak a tartományát a lenti szövegdobozba, majd kattintson a „Tartomány hozzáadása” gombra.</p><p>Alternatívaként, ha már kiválasztotta az oldal böngészőlapját, akkor egyszerűen kattintson a böngésző eszköztárán lévő Privacy Badger gombra, majd kattintson a „Letiltás” gombra.</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>A Privacy Badger le van tiltva a következő oldalakon. Ez azt jelenti, hogy a Privacy Badger semmit sem fog tiltani, ha meglátogatja az itt felsorolt oldalakat, és nem fog „ne kövessen” vagy „globális adatvédelmi szabályozás” jelzéseket küldeni.</p><p>Ha úgy gondolja, hogy a Privacy Badger elront egy oldalt, vagy engedélyezni szeretne egy bizonyos oldalt, hogy megossza vagy eladja az Ön adatait, akkor írja be annak az oldalnak a tartományát a lenti szövegdobozba, majd kattintson a „Tartomány hozzáadása” gombra.</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "például www.example.com, *.example.net, example.org",

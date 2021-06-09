@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger отключен для данных сайтов. Это означает, что Privacy Badger не будет ничего блокировать на сайтах, находящихся в данном списке. Privacy Badger также не будет отправлять этим сайтам сигналы Do Not Track и Global Privacy Control.</p><p>Если вы считаете, что Privacy Badger вызывает неполадки на странице, или вы хотите позволить какой-то сайте разпростровлять или продавать ваши данные, вы можете напечатать домен данной страницы в поле ниже и нажать кнопку «Добавить домен».</p><p>Или же, если у вас открыта вкладка со страницей, вы можете выбрать Privacy Badger на панели инструментов и затем нажать кнопку «Отключить». ",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger отключен для данных сайтов. Это означает, что Privacy Badger не будет ничего блокировать на сайтах, находящихся в данном списке. Privacy Badger также не будет отправлять этим сайтам сигналы Do Not Track и Global Privacy Control.</p><p>Если вы считаете, что Privacy Badger вызывает неполадки на странице, или вы хотите позволить какой-то сайте разпростровлять или продавать ваши данные, вы можете напечатать домен данной страницы в поле ниже и нажать кнопку «Добавить домен».</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "например: www.example.com, *.example.net, example.org",

@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Το Privacy Badger είναι απενεργοποιημένο στις ακόλουθες ιστοσελίδες. Αυτό σημαίνει ότι το Privacy Badger δε θα αποκλείσει τίποτα όταν επισκέπτεστε μία από αυτές και δε θα στείλει κανένα από τα σήματα Do Not Track ή Global Privacy Control.</p><p>Εάν νομίζετε ότι το Privacy Badger κάνει μία σελίδα να υπολειτουργεί ή θέλετε να επιτρέψετε σε μία συγκεκριμένη ιστοσελίδα να μοιράζεται ή να πουλάει τα δεδομένα σας, μπορείτε να πληκτρολογήσετε το domain στη φόρμα πιο κάτω και να πατήσετε το κουμπί \"Προσθήκη domain\".</p><p>Εναλλακτικά, ενώ έχετε επιλέξει την καρτέλα μια σελίδας, μπορείτε απλώς να πατήσετε πάνω στο εικονίδιο του Privacy Badger και στο μενού που θα εμφανισθεί επιλέξτε \"Απενεργοποίηση\".</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Το Privacy Badger είναι απενεργοποιημένο στις ακόλουθες ιστοσελίδες. Αυτό σημαίνει ότι το Privacy Badger δε θα αποκλείσει τίποτα όταν επισκέπτεστε μία από αυτές και δε θα στείλει κανένα από τα σήματα Do Not Track ή Global Privacy Control.</p><p>Εάν νομίζετε ότι το Privacy Badger κάνει μία σελίδα να υπολειτουργεί ή θέλετε να επιτρέψετε σε μία συγκεκριμένη ιστοσελίδα να μοιράζεται ή να πουλάει τα δεδομένα σας, μπορείτε να πληκτρολογήσετε το domain στη φόρμα πιο κάτω και να πατήσετε το κουμπί \"Προσθήκη domain\".</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "π.χ. www.example.com, *.example.net, example.org",

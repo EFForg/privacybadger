@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger müteakip sitelerde devre dışı bırakıldı. Bu, Privacy Badger'ın bu listedeki sitelerde hiçbir şeyi engellemeyeceği anlamına gelir; aynı zamanda Do Not Track veya Global Gizlilik Kontrolü sinyallerini göndermez.</p><p>Eğer Privacy Badger'ın bir sayfayı bozduğunu düşünüyorsanız, veya belli bir sitenin verilerinizi paylaşmasına veya satmasına izin vermek istiyorsanız, sayfanın adresini aşağıdaki kutucuğa yazıp \"Adres Ekle\" butonuna tıklayın.</p><p>Alternatif olarak, sayfanın sekmesi seçili iken tarayıcı araç çubuğundan Privacy Badger butonuna tıklayın ve \"Devre Dışı Bırak\" tuşuna basın.</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger müteakip sitelerde devre dışı bırakıldı. Bu, Privacy Badger'ın bu listedeki sitelerde hiçbir şeyi engellemeyeceği anlamına gelir; aynı zamanda Do Not Track veya Global Gizlilik Kontrolü sinyallerini göndermez.</p><p>Eğer Privacy Badger'ın bir sayfayı bozduğunu düşünüyorsanız, veya belli bir sitenin verilerinizi paylaşmasına veya satmasına izin vermek istiyorsanız, sayfanın adresini aşağıdaki kutucuğa yazıp \"Adres Ekle\" butonuna tıklayın.</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "örn. www.example.com, *.example.net, example.org",

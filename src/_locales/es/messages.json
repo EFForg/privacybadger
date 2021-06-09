@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger está deshabilitado en los siguientes sitios. Esto significa que Privacy Badger no bloqueará nada cuando visites los sitios listados aquí, y no enviará las señales No rastrear o Control de privacidad global.</p><p>Si crees que Privacy Badger está rompiendo una página o deseas permitir que un sitio en particular comparta o venda tus datos, puedes escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón «Añadir dominio».</p><p>Alternativamente, cuando ya tengas seleccionada la pestaña de la página, simplemente haz clic en el botón de Privacy Badger en la barra de herramientas del navegador y luego haz clic en el botón «Deshabilitar».</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger está deshabilitado en los siguientes sitios. Esto significa que Privacy Badger no bloqueará nada cuando visites los sitios listados aquí, y no enviará las señales No rastrear o Control de privacidad global.</p><p>Si crees que Privacy Badger está rompiendo una página o deseas permitir que un sitio en particular comparta o venda tus datos, puedes escribir el dominio de dicha página en el cuadro de abajo y hacer clic en el botón «Añadir dominio».</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "p. ej., www.example.com, *.example.net, example.org",

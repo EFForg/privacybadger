@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger вимкнений для зазначених нижче сайтів. Це означає, що при відвідуванні перелічених тут сайтів Privacy Badger нічого не блокуватиме, а також не відправлятиме сигнали \"Не стежити\" (Do Not Track) чи \"Глобальний контроль приватності\" (Global Privacy Control).</p><p>Якщо ви вважаєте, що Privacy Badger пошкоджує сторінку, або бажаєте дозволити певному сайту ділитися та продавати ваші дані, ви можете ввести домени таких сторінок в полі внизу та натиснути кнопку \"Додати домен\".</p><p>Або якщо у вас вже відкрита вкладка цієї сторінки, ви можете просто клацнути на кнопку Privacy Badger в панелі інструментів браузера, а потім кнопку \"Вимкнути\".</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger вимкнений для зазначених нижче сайтів. Це означає, що при відвідуванні перелічених тут сайтів Privacy Badger нічого не блокуватиме, а також не відправлятиме сигнали \"Не стежити\" (Do Not Track) чи \"Глобальний контроль приватності\" (Global Privacy Control).</p><p>Якщо ви вважаєте, що Privacy Badger пошкоджує сторінку, або бажаєте дозволити певному сайту ділитися та продавати ваші дані, ви можете ввести домени таких сторінок в полі внизу та натиснути кнопку \"Додати домен\".</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "наприклад, www.example.com, *.example.net, example.org",

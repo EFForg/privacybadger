@@ -691,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger är inaktiverat på följande webbplatser. Detta innebär att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här, och det kommer inte att skicka signalerna Spåra inte eller Global sekretesstyrning.</p><p>Om du tror att Privacy Badger bryter en sida, eller om du vill tillåta att en viss webbplats delar eller säljer dina data, kan du skriva sidans domän i rutan nedan och klicka på knappen \"Lägg till domän\".</p><p>Alternativt, när du redan har valt sidans flik, kan du bara klicka på knappen Privacy Badger i webbläsarens verktygsfält och sedan klicka på knappen \"Inaktivera\".</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger är inaktiverat på följande webbplatser. Detta innebär att Privacy Badger inte blockerar någonting när du besöker de webbplatser som listas här, och det kommer inte att skicka signalerna Spåra inte eller Global sekretesstyrning.</p><p>Om du tror att Privacy Badger bryter en sida, eller om du vill tillåta att en viss webbplats delar eller säljer dina data, kan du skriva sidans domän i rutan nedan och klicka på knappen \"Lägg till domän\".</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "t.ex. www.example.com, *.example.net, example.org",
