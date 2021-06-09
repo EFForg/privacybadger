@@ -152,6 +152,7 @@ delicious.com
 delvenetworks.com
 deviantart.com
 deviantart.net
+digitaloceanspaces.com
 digitalriver.com
 digitalrivercontent.net
 cdn.discourse.org
