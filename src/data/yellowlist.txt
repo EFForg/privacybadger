@@ -97,6 +97,7 @@ players.brightcove.net
 bungie.net
 buzzfed.com
 buzzfeed.com
+byteoversea.com
 cachefly.net
 calendly.com
 cardinalcommerce.com
@@ -669,6 +670,7 @@ tegna-media.com
 textalk.se
 theplatform.com
 tile.thunderforest.com
+tiktokcdn.com
 timeinc.net
 tinypass.com
 tinypic.com
