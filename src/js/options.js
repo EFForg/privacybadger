@@ -242,16 +242,16 @@ function loadOptions() {
       });
     });
 
-  const widgetSelector = $("#hide-widgets-select");
+  const $widgetExceptions = $("#hide-widgets-select");
 
   // disable Widget Replacement form elements when widget replacement is off
   function _disable_widget_forms(enable) {
     if (enable) {
-      widgetSelector.prop("disabled", false);
+      $widgetExceptions.prop("disabled", false);
       $("#widget-site-exceptions-select").prop("disabled", false);
       $('#widget-site-exceptions-remove-button').button("option", "disabled", false);
     } else {
-      widgetSelector.prop("disabled", "disabled");
+      $widgetExceptions.prop("disabled", "disabled");
       $("#widget-site-exceptions-select").prop("disabled", "disabled");
       $('#widget-site-exceptions-remove-button').button("option", "disabled", true);
     }
@@ -262,16 +262,18 @@ function loadOptions() {
   });
 
   // Initialize Select2 and populate options
-  widgetSelector.select2();
+  $widgetExceptions.select2({
+    width: '100%'
+  });
   OPTIONS_DATA.widgets.forEach(function (key) {
     const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
     const option = new Option(key, key, false, isSelected);
-    widgetSelector.append(option).trigger("change");
+    $widgetExceptions.append(option).trigger("change");
   });
 
-  widgetSelector.on('select2:select', updateWidgetReplacementExceptions);
-  widgetSelector.on('select2:unselect', updateWidgetReplacementExceptions);
-  widgetSelector.on('select2:clear', updateWidgetReplacementExceptions);
+  $widgetExceptions.on('select2:select', updateWidgetReplacementExceptions);
+  $widgetExceptions.on('select2:unselect', updateWidgetReplacementExceptions);
+  $widgetExceptions.on('select2:clear', updateWidgetReplacementExceptions);
 
   reloadDisabledSites();
   reloadTrackingDomainsTab();
@@ -953,8 +955,7 @@ function removeOrigin(event) {
 }
 
 /**
- * Update which widgets should be blocked instead of replaced
- * @param {Event} event The DOM event triggered by selecting an option
+ * Update which widgets should not get replaced
  */
 function updateWidgetReplacementExceptions() {
   const widgetReplacementExceptions = $('#hide-widgets-select').select2('data').map(({ id }) => id);

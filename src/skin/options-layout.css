@@ -51,10 +51,6 @@ div.checkbox + div.checkbox, div#learning-setting-divs div:first-child, div#lear
     margin-top: 5px;
 }
 
-input[type=text]:not(#trackingDomainSearch) {
-    padding: 8px;
-}
-
 input[type=checkbox] {
     flex: none;
     margin-inline-end: 0.8em;
@@ -210,9 +206,6 @@ p, #settingsForm {
 label[for=hide-widgets-select] {
     display: block;
 }
-#hide-widgets-select {
-    width: 420px;
-}
 
 #widget-site-exceptions-select-div {
     float: left;
@@ -227,8 +220,12 @@ label[for=hide-widgets-select] {
     margin-bottom: 10px;
 }
 
-#widget-site-exceptions-select {
+#new-disabled-site-input, #allowlist-select, #widget-site-exceptions-select {
+    box-sizing: border-box;
     width: 100%;
+}
+#new-disabled-site-input {
+    padding: 8px;
 }
 
 #tabs, header {
