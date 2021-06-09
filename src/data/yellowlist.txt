@@ -257,6 +257,7 @@ giphy.com
 gitbook.com
 github.com
 githubusercontent.com
+gleam.io
 gmodules.com
 godatafeed.com
 gogousenet.com
