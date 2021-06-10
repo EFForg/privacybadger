@@ -663,7 +663,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) est une extension pour navigateurs qui apprend automatiquement à bloquer les traceurs invisibles. Privacy Badger est conçu par la Fondation Frontière Électronique, un organisme sans but lucratif qui se bat pour vos droits sur Internet.",
+        "message": "Privacy Badger (privacybadger.org) est une extension pour navigateurs qui apprend automatiquement à bloquer les traceurs invisibles. Privacy Badger est conçue par la Fondation Frontière Électronique, un organisme sans but lucratif qui se bat pour vos droits sur Internet.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -691,7 +691,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger est désactivé pour les sites suivants. Cela signifie que Privacy Badger ne bloquera rien lors d’une visite des sites indiqués ici, et n’enverra pas les signaux « Ne pas me pister » ni « Contrôle global de la protection des données ».</p><p>Si vous pensez que Privacy Badger perturbe une page ou si vous souhaitez autoriser un site particulier à partager ou à vendre vos données, vous pouvez saisir le domaine de cette page dans le champ ci-dessous et cliquer sur le bouton « Ajouter le domaine ».</p>",
+        "message": "<p>Privacy Badger est désactivée pour les sites suivants. Cela signifie que Privacy Badger ne bloquera rien lors d’une visite des sites indiqués ici, et n’enverra ni les signaux « Ne pas me pister » ni « Contrôle global de la protection des données ».</p><p>Si vous pensez que Privacy Badger perturbe une page ou si vous souhaitez autoriser un site particulier à partager ou à vendre vos données, vous pouvez saisir le domaine de cette page dans le champ ci-dessous et cliquer sur le bouton « Ajouter le domaine ».</p>",
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
