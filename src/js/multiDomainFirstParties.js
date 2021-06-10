@@ -2082,6 +2082,7 @@ let multiDomainFirstPartiesArray = [
     "indeed.pt",
   ],
   ["independent.co.uk", "indy100.com"],
+  ["intercom.com", "intercom.io", "intercomassets.com", "intercomcdn.com"],
   [
     "iu.edu",
 
