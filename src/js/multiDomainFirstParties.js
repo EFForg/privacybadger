@@ -3104,6 +3104,24 @@ let multiDomainFirstPartiesArray = [
     "ovh.net",
   ],
   ["paypal.com", "paypal-search.com", "paypalobjects.com"],
+  [
+    "pconline.cn",
+
+    "geeknev.com",
+    "imofan.com",
+    "pcautoactivity.com.cn",
+    "pcautoclub.com.cn",
+    "pcauto.com.cn",
+    "pcbaby.com.cn",
+    "pc.com.cn",
+    "pchouse.com.cn",
+    "pclady.com.cn",
+    "pconline.com.cn",
+    "pcprices.com.cn",
+    "pcvideo.com.cn",
+
+    "3conline.com",
+  ],
   ["pcworld.com", "staticworld.net", "idg.com", "idg.net", "infoworld.com", "macworld.com", "techhive.com", "idg.tv"],
   [
     "pearson.com",
