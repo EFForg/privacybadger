@@ -401,6 +401,7 @@ cdnsecakmi.kaltura.com
 cfvod.kaltura.com
 www.kaltura.com
 kampyle.com
+ssl.kaptcha.com
 kataweb.it
 kickapps.com
 kickstarter.com
