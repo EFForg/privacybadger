@@ -17,6 +17,7 @@ akamaihd.net
 akamaized.net
 alexa.com
 alicdn.com
+aliyuncs.com
 ally.com
 amazon.com
 s3.amazonaws.com
