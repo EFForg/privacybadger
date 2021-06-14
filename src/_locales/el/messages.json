@@ -60,15 +60,15 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "domain_slider_block_tooltip": {
-        "message": "Block entirely",
+        "message": "Να αποκλειστεί τελείως",
         "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Block cookies",
+        "message": "Να αποκλειστούν τα cookies",
         "description": "Tooltip shown when you hover over the center part of a domain slider"
     },
     "domain_slider_allow_tooltip": {
-        "message": "Allow",
+        "message": "Να επιτρέπεται",
         "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
     },
     "feed_the_badger_title": {
@@ -92,11 +92,11 @@
         "description": ""
     },
     "options_domain_filter_block": {
-        "message": "αποκλεισμένο",
+        "message": "αποκλεισμένα",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
-        "message": "Αποτροπή WebRTC από το να διαρρεύσει την τοπική διεύθυνση IP σας",
+        "message": "Να αποτρέπεται η διάρρευση της τοπικής διεύθυνσης IP σας από το WebRTC",
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
@@ -108,7 +108,7 @@
         "description": ""
     },
     "options_domain_list_tab": {
-        "message": "Domains που σας ιχνηλατούν",
+        "message": "Ιχνηλάτες",
         "description": "This is an options page tab heading."
     },
     "share_button_title_twitter": {
@@ -136,7 +136,7 @@
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
-        "message": "Ενεργοποίηση αντικατάστασης widget",
+        "message": "Να αντικαθίστανται τα widget",
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
@@ -144,7 +144,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Να μην αντικαταστήσεις τα ακόλουθα widgets:",
+        "message": "Να μην αντικατασταθούν τα ακόλουθα widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
@@ -152,7 +152,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Πάντα να επιτρέπεις widgets σε αυτές τις ιστοσελίδες:",
+        "message": "Πάντα να επιτρέπονται τα widgets σε αυτές τις ιστοσελίδες:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -190,7 +190,7 @@
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
-        "message": "Να μαθαίνω και στην Ανώνυμη περιήγηση",
+        "message": "Να μαθαίνω και στην ανώνυμη περιήγηση",
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
@@ -210,7 +210,7 @@
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
-        "message": "Εμφάνιση αριθμού ιχνηλατών",
+        "message": "Να εμφανίζεται ο αριθμός των ιχνηλατών",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
@@ -222,7 +222,7 @@
         "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
     },
     "options_title": {
-        "message": "Επιλογές Privacy Badger",
+        "message": "Ρυθμίσεις Privacy Badger",
         "description": ""
     },
     "report_terms": {
@@ -246,7 +246,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Εισάγοντας τα δεδομένα σας<ul><li>Αντικαθιστά τις γενικές ρυθμίσεις</li><li>Συνδυάζει τις λίστες των απενεργοποιημένων ιστοσελίδων</li><li>Συνδυάζει τις νέες πληροφορίες για ιχνηλάτες με αυτές που το Privacy Badger ήδη ξέρει</li><li>Αντικαθιστά τις ρυθμίσεις slider</li></ul>",
+        "message": "Η εισαγωγή των δεδομένων σας:<ul><li>αντικαθιστά τις γενικές ρυθμίσεις</li><li>συνδυάζει τις λίστες των απενεργοποιημένων ιστοσελίδων</li><li>συνδυάζει τις νέες πληροφορίες για ιχνηλάτες με αυτές που το Privacy Badger ήδη ξέρει</li><li>αντικαθιστά τις ρυθμίσεις slider</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -254,7 +254,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Επαναφορά των domain που σας ιχνηλατούν",
+        "message": "Επαναφορά των domains που σας ιχνηλατούν",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
@@ -286,7 +286,7 @@
         "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
-        "message": "Γενικές ρυθμίσεις",
+        "message": "Γενικά",
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
@@ -322,7 +322,7 @@
         }
     },
     "options_domain_filter_cookieblock": {
-        "message": "εν μέρει αποκλεισμένη",
+        "message": "εν μέρει αποκλεισμένα",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "firstRun_title": {
@@ -366,7 +366,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "Συμβαδίζει με το DNT",
+        "message": "που συμβαδίζουν με το DNT",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -374,7 +374,7 @@
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "options_domain_filter_allow": {
-        "message": "επιτρέπεται",
+        "message": "επιτρεπόμενα",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "intro_donate_heading": {
@@ -394,23 +394,23 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Στείλτε σε ιστοσελίδες τα \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" και \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" σήματα",
+        "message": "Να στέλνονται τα σήματα \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" και \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" στις ιστοσελίδες που επισκέπτομαι",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Απενεργοποίηση αποστολής των διευθύνσεων URL που επισκέπτεστε στη Google. Αυτή η επιλογή απενεργοποιεί προτάσεις για παρόμοιες σελίδες όταν μία δεν μπορεί να βρεθεί.",
+        "message": "Να απενεργοποιηθεί η αποστολή διευθύνσεων URL που επισκέπτομαι στη Google. Αυτή η επιλογή απενεργοποιεί προτάσεις για παρόμοιες σελίδες όταν κάποια δεν μπορεί να βρεθεί.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Αποτροπή ιστοτόπων από το να παρακολουθούν τους συνδέσμους που πατάτε (\"hyperlink auditing\")",
+        "message": "Να μην επιτρέπεται στους ιστοτόπους να παρακολουθούν τους συνδέσμους που πατάω (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "Απενεργοποίηση προφόρτωσης",
+        "message": "Να απενεργοποιηθεί η προφόρτωση",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
-        "message": "Απενεργοποίηση του Federated Learning of Cohorts (FLoC) από τη Google",
+        "message": "Να απενεργοποιηθεί το χαρακτηριστικό Federated Learning of Cohorts (FLoC) της Google",
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
@@ -476,7 +476,7 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Απενεργοποίηση του Privacy Badger για την ιστοσελίδα",
+        "message": "Απενεργοποίηση του Privacy Badger για αυτήν την ιστοσελίδα",
         "description": "Button in the popup."
     },
     "intro_privacy_note": {
@@ -484,7 +484,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Το Privacy Badger αποφάσισε να αποκλείσει $COUNT$ πιθανά $TRACKER_LINK_START$domains που σας ιχνηλατούν$TRACKER_LINK_END$ έως τώρα",
+        "message": "Το Privacy Badger έχει αποκλείσει $COUNT$ $TRACKER_LINK_START$domains που πιθανά σας ιχνηλατούν$TRACKER_LINK_END$ έως τώρα",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -545,7 +545,7 @@
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Δείξε τα domains που το Privacy Badger δεν έχει αποφασίσει ακόμα να αποκλείσει:",
+        "message": "Να δω και τα domains που το Privacy Badger δεν έχει αποφασίσει ακόμα να αποκλείσει:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
@@ -605,7 +605,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
-        "message": "Ο συγχρονισμός με το cloud:<ul><li>Απαιτεί συγχρονισμό Firefox/Chrome</li><li>Αντικαθιστά, μετά τη μεταφόρτωση, ό,τι δεδομένα υπήρχαν από το Privacy Badger</li><li>Συνδυάζει, μετά τη λήψη, τις λίστες ιστοσελίδων όπου το Privacy Badger είναι απενεργοποιημένο</li></ul>",
+        "message": "Ο συγχρονισμός με το cloud:<ul><li>απαιτεί συγχρονισμό Firefox/Chrome</li><li>αντικαθιστά, μετά τη μεταφόρτωση, ό,τι δεδομένα υπήρχαν από το Privacy Badger</li><li>συνδυάζει, μετά τη λήψη, τις λίστες ιστοσελίδων όπου το Privacy Badger είναι απενεργοποιημένο</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
@@ -663,7 +663,7 @@
         }
     },
     "share_base_message": {
-        "message": "Το Privacy Badger (privacybadger.org) είναι ένα πρόσθετο που αυτόματα μαθαίνει να αποκλείει \"αόρατους\" ιχνηλάτες. Το Privacy Badger έχει δημιουργηθεί από την Electronic Frontier Foundation, μία μη κερδοσκοπική εταιρία που παλεύει για τα δικαιώματά σας στο διαδίκτυο.",
+        "message": "Το Privacy Badger (privacybadger.org) είναι μία επέκταση που μαθαίνει αυτόματα να αποκλείει \"αόρατους\" ιχνηλάτες. Έχε δημιουργηθεί από την Electronic Frontier Foundation, μία μη κερδοσκοπική εταιρία που παλεύει για τα δικαιώματά σας στο διαδίκτυο.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -691,7 +691,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Το Privacy Badger είναι απενεργοποιημένο στις ακόλουθες ιστοσελίδες. Αυτό σημαίνει ότι το Privacy Badger δε θα αποκλείσει τίποτα όταν επισκέπτεστε μία από αυτές και δε θα στείλει κανένα από τα σήματα Do Not Track ή Global Privacy Control.</p><p>Εάν νομίζετε ότι το Privacy Badger κάνει μία σελίδα να υπολειτουργεί ή θέλετε να επιτρέψετε σε μία συγκεκριμένη ιστοσελίδα να μοιράζεται ή να πουλάει τα δεδομένα σας, μπορείτε να πληκτρολογήσετε το domain στη φόρμα πιο κάτω και να πατήσετε το κουμπί \"Προσθήκη domain\".</p>",
+        "message": "<p>Το Privacy Badger είναι απενεργοποιημένο στις ακόλουθες ιστοσελίδες. Αυτό σημαίνει ότι δε θα αποκλείσει τίποτα όταν επισκέπτεστε μία από αυτές και δε θα στείλει κανένα από τα σήματα Do Not Track ή Global Privacy Control.</p><p>Εάν νομίζετε ότι το Privacy Badger κάνει μία σελίδα να υπολειτουργεί ή θέλετε να επιτρέψετε σε μία συγκεκριμένη ιστοσελίδα να μοιράζεται ή να πουλάει τα δεδομένα σας, μπορείτε να πληκτρολογήσετε το domain στη παρακάτω φόρμα και να πατήσετε το κουμπί \"Προσθήκη domain\".</p>",
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
