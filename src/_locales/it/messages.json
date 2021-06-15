@@ -60,15 +60,15 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "domain_slider_block_tooltip": {
-        "message": "Block entirely",
+        "message": "Blocca completamente",
         "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Block cookies",
+        "message": "Blocca i cookie",
         "description": "Tooltip shown when you hover over the center part of a domain slider"
     },
     "domain_slider_allow_tooltip": {
-        "message": "Allow",
+        "message": "Permetti",
         "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
     },
     "feed_the_badger_title": {
@@ -402,7 +402,7 @@
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
+        "message": "Impedisci ai siti di tracciare quali link clicchi (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
@@ -410,7 +410,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
-        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "message": "Disattiva il Federated Learning of Cohorts di Google (FLoC)",
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
@@ -418,11 +418,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_info_firstparty_protections": {
-        "message": "Link tracking protection active",
+        "message": "Protezione tracciamento link attiva",
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Some websites $LINK_START$use link tracking to follow you$LINK_END$ whenever you click a link to leave the website. Privacy Badger removes tracking from such links on this website.",
+        "message": "Alcuni siti $LINK_START$usano il tracciamento dei link per seguirti$LINK_END$ quando clicchi un collegamento per lasciare il sito. Privacy Badger rimuove il tracciamento dai suddetti link in questo sito.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
