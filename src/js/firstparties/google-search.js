@@ -1,6 +1,11 @@
 /* globals findInAllFrames:false */
-// Outbound Google links are different across browsers. In order here: Firefox, Chrome, Firefox Android
-let trap_link = "a[onmousedown^='return rwt(this,'], a[ping], a[href^='/url?q=']";
+
+// Outbound Google links are different across browsers.
+// In order here: Firefox, Chrome, Firefox Android
+//
+// Ignore internal links in Chrome and desktop Firefox
+// to avoid unwrapping (and breaking the dropdown on) the settings link
+let trap_link = "a[onmousedown^='return rwt(this,']:not([href^='/']), a[ping]:not([href^='/']), a[href^='/url?q=']";
 
 // Remove excessive attributes and event listeners from link a
 function cleanLink(a) {
