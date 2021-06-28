@@ -230,6 +230,18 @@
             "type": 3
         }
     },
+    "Norton Shopping Guarantee": {
+        "domain": "nsg.symantec.com",
+        "buttonSelectors": [
+            "span#BuySafeSealSpan"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "nsg.symantec.com"
+            ],
+            "type": 3
+        }
+    },
     "Twitch Player": {
         "domain": "player.twitch.tv",
         "buttonSelectors": [
