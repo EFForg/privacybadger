@@ -15,6 +15,20 @@
             "type": 2
         }
     },
+    "Apple Music": {
+        "domains": [
+            "embed.music.apple.com"
+        ],
+        "buttonSelectors": [
+            "iframe[src^='https://embed.music.apple.com/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "embed.music.apple.com"
+            ],
+            "type": 3
+        }
+    },
     "Coub Player": {
         "domain": "coub.com",
         "buttonSelectors": [
