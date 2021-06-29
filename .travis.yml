@@ -7,7 +7,7 @@ jobs:
   fast_finish: true
   include:
     - env: INFO="lint"
-      node_js: 14
+      node_js: node
     - env: INFO="chrome beta" BROWSER=google-chrome-beta
       addons:
         chrome: beta
