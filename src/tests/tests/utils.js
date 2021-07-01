@@ -571,4 +571,19 @@ QUnit.test("estimateMaxEntropy", assert => {
 
 });
 
+// Tests method to find commonly known oauth parts in a url
+QUnit.test("isOAuthUrl", assert => {
+
+  assert.ok(
+    utils.isOAuthUrl("g00gl3.com/oauth/authorize/buzz/bar"),
+    "correctly identifies a url with commonly known oauth substrings in it"
+  );
+
+  assert.notOk(
+    utils.isOAuthUrl("g00gl3.com/o4uth/authy/buzz/bar"),
+    "doesn't flag a url with no known oauth substrings"
+  );
+
+});
+
 })();

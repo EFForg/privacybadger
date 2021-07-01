@@ -474,7 +474,7 @@ function isOAuthUrl(url) {
   const urlParts = url.split(/\/|\./);
   let isOAuth;
 
-  for (let oauthType in oAuthUrlParts) {
+  for (let oauthType of oAuthUrlParts) {
     if (urlParts.includes(oauthType)) {
       isOAuth = true;
     }
