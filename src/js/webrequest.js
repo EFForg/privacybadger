@@ -139,7 +139,7 @@ function onBeforeSendHeaders(details) {
     type = details.type,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
+  if (_isTabChromeInternal(tab_id) && !utils.isOAuthUrl(url)) {
     // DNT policy requests: strip cookies
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
@@ -234,7 +234,7 @@ function onHeadersReceived(details) {
   let tab_id = details.tabId,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
+  if (_isTabChromeInternal(tab_id) && !utils.isOAuthUrl(url)) {
     // DNT policy responses: strip cookies, reject redirects
     if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // if it's a redirect, cancel it

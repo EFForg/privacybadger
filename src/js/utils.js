@@ -469,12 +469,12 @@ function isRestrictedUrl(url) {
 */
 
 function isOAuthUrl(url) {
-  const oAuthUrls = ['oauth', 'authorize', 'oauth2'];
+  const oAuthUrlParts = ['oauth', 'authorize', 'oauth2'];
   // split on both '/' and '.' in a url
   const urlParts = url.split(/\/|\./);
   let isOAuth;
 
-  for (let oauthType in oAuthUrls) {
+  for (let oauthType in oAuthUrlParts) {
     if (urlParts.includes(oauthType)) {
       isOAuth = true;
     }
