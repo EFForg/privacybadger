@@ -583,8 +583,10 @@ BadgerStorage.prototype = {
 
         // default: overwrite existing setting with setting from import
         } else {
-          if (prop != "isFirstRun") {
+          if (badger.defaultSettings.hasOwnProperty(prop)) {
             self._store[prop] = mapData[prop];
+          } else {
+            console.error("Unknown Badger setting:", prop);
           }
         }
       }
