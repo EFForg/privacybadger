@@ -1115,6 +1115,7 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse({
       cookieblocked,
+      legacyWebRtcProtectionUser: badger.getPrivateSettings().getItem("legacyWebRtcProtectionUser"),
       origins,
       settings: badger.getSettings().getItemClones(),
       webRTCAvailable: badger.webRTCAvailable,

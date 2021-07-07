@@ -879,8 +879,20 @@ Badger.prototype = {
       privateStore.setItem("badgerVersion", version);
     }
 
+    // initialize any other private store (not-for-export) settings
     if (!privateStore.hasItem("showLearningPrompt")) {
       privateStore.setItem("showLearningPrompt", false);
+    }
+    if (!privateStore.hasItem("legacyWebRtcProtectionUser")) {
+      // initialize "legacy WebRTC IP leak protection user" flag
+      privateStore.setItem("legacyWebRtcProtectionUser",
+        self.getSettings().getItem("preventWebRTCIPLeak"));
+    } else if (!privateStore.getItem("legacyWebRtcProtectionUser")) {
+      // set legacy flag to true if the IP protection gets enabled
+      // for whatever reason (testing, user data import)
+      if (self.getSettings().getItem("preventWebRTCIPLeak")) {
+        privateStore.setItem("legacyWebRtcProtectionUser", true);
+      }
     }
 
     if (self.isUpdate) {

@@ -168,7 +168,7 @@ function loadOptions() {
       });
   }
 
-  if (OPTIONS_DATA.webRTCAvailable) {
+  if (OPTIONS_DATA.webRTCAvailable && OPTIONS_DATA.legacyWebRtcProtectionUser) {
     $("#webRTCToggle").show();
     $("#toggle_webrtc_mode")
       .prop("checked", OPTIONS_DATA.settings.preventWebRTCIPLeak)
