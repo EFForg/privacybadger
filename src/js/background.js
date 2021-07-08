@@ -883,10 +883,30 @@ Badger.prototype = {
     if (!privateStore.hasItem("showLearningPrompt")) {
       privateStore.setItem("showLearningPrompt", false);
     }
+    badger.initDeprecations();
+
+    if (self.isUpdate) {
+      // remove obsolete settings
+      if (settings.hasItem("showTrackingDomains")) {
+        settings.deleteItem("showTrackingDomains");
+      }
+    }
+  },
+
+  /**
+   * Initializes private flags that keep track of deprecated features.
+   *
+   * Called on Badger startup and user data import.
+   */
+  initDeprecations: function () {
+    let self = this,
+      privateStore = self.getPrivateSettings();
+
     if (!privateStore.hasItem("legacyWebRtcProtectionUser")) {
       // initialize "legacy WebRTC IP leak protection user" flag
       privateStore.setItem("legacyWebRtcProtectionUser",
         self.getSettings().getItem("preventWebRTCIPLeak"));
+
     } else if (!privateStore.getItem("legacyWebRtcProtectionUser")) {
       // set legacy flag to true if the IP protection gets enabled
       // for whatever reason (testing, user data import)
@@ -894,18 +914,12 @@ Badger.prototype = {
         privateStore.setItem("legacyWebRtcProtectionUser", true);
       }
     }
+
     if (!privateStore.hasItem("showWebRtcDeprecation")) {
       // will show WebRTC protection deprecation message
       // iff showWebRtcDeprecation exists and is set to true
       if (privateStore.getItem("legacyWebRtcProtectionUser")) {
         privateStore.setItem("showWebRtcDeprecation", true);
-      }
-    }
-
-    if (self.isUpdate) {
-      // remove obsolete settings
-      if (settings.hasItem("showTrackingDomains")) {
-        settings.deleteItem("showTrackingDomains");
       }
     }
   },

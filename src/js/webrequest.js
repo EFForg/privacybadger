@@ -1252,6 +1252,7 @@ function dispatcher(request, sender, sendResponse) {
     badger.mergeUserData(request.data);
     badger.blockWidgetDomains();
     badger.setPrivacyOverrides();
+    badger.initDeprecations();
     sendResponse({
       origins: badger.storage.getTrackingDomains(),
       settings: badger.getSettings().getItemClones(),
