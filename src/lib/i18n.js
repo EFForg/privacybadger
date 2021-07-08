@@ -103,11 +103,12 @@ function loadI18nStrings() {
     el[prop] = chrome.i18n.getMessage(key, placeholders);
   }
 
-  // also replace alt, placeholder and title attributes
+  // also replace alt, placeholder, title and aria-label attributes
   const ATTRS = [
     'alt',
     'placeholder',
     'title',
+    'aria-label',
   ];
 
   // get all the elements that contain one or more of these attributes
