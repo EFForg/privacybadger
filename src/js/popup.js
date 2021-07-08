@@ -45,6 +45,12 @@ function showNagMaybe() {
     }, cb);
   }
 
+  function _setSeenWebRtcDeprecation(cb) {
+    chrome.runtime.sendMessage({
+      type: "seenWebRtcDeprecation"
+    }, cb);
+  }
+
   function _hideNag() {
     $nag.fadeOut();
     $outer.fadeOut();
@@ -83,8 +89,9 @@ function showNagMaybe() {
   function _showError(error_text) {
     $('#instruction-text').hide();
     $('#error-text').show().find('a')
-      .attr('id', 'critical-error-link')
+      .addClass('cta-button')
       .css({
+        borderRadius: '3px',
         padding: '5px',
         display: 'inline-block',
         width: 'auto',
@@ -124,7 +131,29 @@ function showNagMaybe() {
     $outer.show();
   }
 
-  if (POPUP_DATA.showLearningPrompt) {
+  function _showWebRtcDeprecationPrompt() {
+    $('#instruction-text').hide();
+
+    $("#webrtc-deprecation-ack-btn").on("click", function () {
+      _setSeenWebRtcDeprecation(function () {
+        _hideNag();
+      });
+    });
+
+    $('#fittslaw').on("click", function (e) {
+      e.preventDefault();
+      _hideNag();
+    });
+
+    $('#webrtc-deprecation-div').show();
+    $nag.show();
+    $outer.show();
+  }
+
+  if (POPUP_DATA.showWebRtcDeprecation) {
+    _showWebRtcDeprecationPrompt();
+
+  } else if (POPUP_DATA.showLearningPrompt) {
     _showLearningPrompt();
 
   } else if (!POPUP_DATA.settings.seenComic) {

@@ -894,6 +894,13 @@ Badger.prototype = {
         privateStore.setItem("legacyWebRtcProtectionUser", true);
       }
     }
+    if (!privateStore.hasItem("showWebRtcDeprecation")) {
+      // will show WebRTC protection deprecation message
+      // iff showWebRtcDeprecation exists and is set to true
+      if (privateStore.getItem("legacyWebRtcProtectionUser")) {
+        privateStore.setItem("showWebRtcDeprecation", true);
+      }
+    }
 
     if (self.isUpdate) {
       // remove obsolete settings

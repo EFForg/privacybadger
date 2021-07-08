@@ -175,7 +175,7 @@ body#main #blockedResourcesContainer {
     justify-content: center;
 }
 
-#intro-reminder-btn, #critical-error-link, #learning-prompt-btn {
+button.cta-button, a.cta-button {
     background-color: #ff641c;
     border: 2px solid #ff641c;
     color: #fff;
@@ -186,14 +186,10 @@ body#main #blockedResourcesContainer {
     transition: background-color 0.3s ease;
     width: 100%;
 }
-
-#critical-error-link {
-    border-radius: 3px;
-}
-
-#intro-reminder-btn:hover, #critical-error-link:hover, #learning-prompt-btn:hover {
+button.cta-button:hover, a.cta-button:hover {
     background-color: #f58728;
 }
+
 .clickerContainer {
     max-height: 290px;
     overflow-y: auto;
@@ -222,6 +218,7 @@ body#main #blockedResourcesContainer {
 .flex-wrapper {
     display: flex;
     align-items: center;
+    overflow-wrap: anywhere;
 }
 
 #instruction-outer {
@@ -265,7 +262,7 @@ body#main #blockedResourcesContainer {
 #instruction .flex-wrapper > div {
     padding-inline-end: 5px;
 }
-#intro-reminder-btn, #error-message, #learning-prompt-btn {
+#intro-reminder-btn, #error-message, #learning-prompt-btn, #webrtc-deprecation-ack-btn {
     margin-top: 1em;
 }
 #error-message {
@@ -291,13 +288,13 @@ body#main #blockedResourcesContainer {
     margin: 0;
 }
 /* body#main to avoid applying this to options page */
-body#main #pbInstructions a, #firstparty-protections-container a {
+body#main #pbInstructions a, #firstparty-protections-container a, #webrtc-deprecation-div a {
     text-decoration: underline;
     color: black;
     font-weight: bold;
 }
-body#main #pbInstructions a:hover, #firstparty-protections-container a:hover {
-    color: #ec9329
+body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #webrtc-deprecation-div a:hover {
+    color: #ec9329;
 }
 #instructions-firstparty-description {
     font-size: 14px;
@@ -553,6 +550,7 @@ div.overlay.active {
     /* body#main to avoid applying this to options page */
     body#main #pbInstructions a,
     #firstparty-protections-container a,
+    #webrtc-deprecation-div a,
     #pbInstructions,
     .toggle-header-title,
     #special-browser-page,
