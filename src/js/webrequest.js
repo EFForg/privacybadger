@@ -1253,10 +1253,7 @@ function dispatcher(request, sender, sendResponse) {
     badger.blockWidgetDomains();
     badger.setPrivacyOverrides();
     badger.initDeprecations();
-    sendResponse({
-      origins: badger.storage.getTrackingDomains(),
-      settings: badger.getSettings().getItemClones(),
-    });
+    sendResponse();
     break;
   }
 
