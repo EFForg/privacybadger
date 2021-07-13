@@ -338,7 +338,7 @@
         "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
-        "message": "Встановіть перемикач посередині, щоб дозволити куки",
+        "message": "Встановіть перемикач посередині, щоб заблокувати куки",
         "description": ""
     },
     "intro_learns": {
