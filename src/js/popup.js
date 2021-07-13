@@ -140,12 +140,8 @@ function showNagMaybe() {
       });
     });
 
-    $('#fittslaw').on("click", function (e) {
-      e.preventDefault();
-      _hideNag();
-    });
-
     $('#webrtc-deprecation-div').show();
+    $('#fittslaw').hide();
     $nag.show();
     $outer.show();
   }

@@ -265,6 +265,9 @@ button.cta-button:hover, a.cta-button:hover {
 #intro-reminder-btn, #error-message, #learning-prompt-btn, #webrtc-deprecation-ack-btn {
     margin-top: 1em;
 }
+#webrtc-deprecation-ack-btn {
+    padding: 10px;
+}
 #error-message {
     text-align: center;
 }
