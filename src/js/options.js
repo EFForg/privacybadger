@@ -168,7 +168,7 @@ function loadOptions() {
       });
   }
 
-  if (OPTIONS_DATA.webRTCAvailable) {
+  if (OPTIONS_DATA.webRTCAvailable && OPTIONS_DATA.legacyWebRtcProtectionUser) {
     $("#webRTCToggle").show();
     $("#toggle_webrtc_mode")
       .prop("checked", OPTIONS_DATA.settings.preventWebRTCIPLeak)
@@ -338,18 +338,9 @@ function parseUserDataFile(storageMapsList) {
   chrome.runtime.sendMessage({
     type: "mergeUserData",
     data: lists
-  }, (response) => {
-    OPTIONS_DATA.origins = response.origins;
-    OPTIONS_DATA.settings = response.settings;
-
-    // TODO general settings are not updated
-    reloadDisabledSites();
-    reloadTrackingDomainsTab();
-    // TODO widget replacement toggle not updated
-    // TODO widget replacement exceptions not updated
-    reloadWidgetSiteExceptions();
-
+  }, () => {
     alert(i18n.getMessage("import_successful"));
+    location.reload();
   });
 }
 

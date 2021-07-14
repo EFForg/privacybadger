@@ -1091,8 +1091,9 @@ function dispatcher(request, sender, sendResponse) {
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
       noTabData: false,
       origins,
-      showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
       settings: badger.getSettings().getItemClones(),
+      showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
+      showWebRtcDeprecation: !!badger.getPrivateSettings().getItem("showWebRtcDeprecation"),
       tabHost: tab_host,
       tabId: tab_id,
       tabUrl: request.tabUrl,
@@ -1115,6 +1116,7 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse({
       cookieblocked,
+      legacyWebRtcProtectionUser: badger.getPrivateSettings().getItem("legacyWebRtcProtectionUser"),
       origins,
       settings: badger.getSettings().getItemClones(),
       webRTCAvailable: badger.webRTCAvailable,
@@ -1152,6 +1154,12 @@ function dispatcher(request, sender, sendResponse) {
 
   case "seenLearningPrompt": {
     badger.getPrivateSettings().setItem("showLearningPrompt", false);
+    sendResponse();
+    break;
+  }
+
+  case "seenWebRtcDeprecation": {
+    badger.getPrivateSettings().setItem("showWebRtcDeprecation", false);
     sendResponse();
     break;
   }
@@ -1244,10 +1252,8 @@ function dispatcher(request, sender, sendResponse) {
     badger.mergeUserData(request.data);
     badger.blockWidgetDomains();
     badger.setPrivacyOverrides();
-    sendResponse({
-      origins: badger.storage.getTrackingDomains(),
-      settings: badger.getSettings().getItemClones(),
-    });
+    badger.initDeprecations();
+    sendResponse();
     break;
   }
 
