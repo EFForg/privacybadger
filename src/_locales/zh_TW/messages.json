@@ -715,7 +715,7 @@
         "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
     },
     "learn_more_link": {
-        "message": "Visit $LINK$ to learn more.",
+        "message": "請見 $LINK$ 以取得更多資訊。",
         "description": "Reusable 'learn more link' message",
         "placeholders": {
             "link": {
@@ -725,7 +725,7 @@
         }
     },
     "acknowledgement_action": {
-        "message": "I understand",
+        "message": "我了解",
         "description": "Acknowledgement button text"
     }
 }

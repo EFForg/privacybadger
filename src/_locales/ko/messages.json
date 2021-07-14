@@ -715,7 +715,7 @@
         "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
     },
     "learn_more_link": {
-        "message": "Visit $LINK$ to learn more.",
+        "message": "자세한 내용은 $LINK$ 참조.",
         "description": "Reusable 'learn more link' message",
         "placeholders": {
             "link": {
