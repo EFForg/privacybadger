@@ -575,6 +575,25 @@ function invert(obj) {
   return result;
 }
 
+/**
+* checks if domain is part of a known login (oauth or otherwise) process
+* expand on list of known login domains by adding to knownLoginParts array
+*/
+
+function isLoginUrl(url) {
+  const knownLoginParts = ['twitch'];
+  // split on both '/' and '.' in a url
+  const urlParts = url.split(/\/|\./);
+  let isLogin;
+
+  for (let loginType of knownLoginParts) {
+    if (urlParts.includes(loginType)) {
+      isLogin = true;
+    }
+  }
+  return isLogin;
+}
+
 /************************************** exports */
 let exports = {
   arrayBufferToBase64,
@@ -587,6 +606,7 @@ let exports = {
   firstPartyProtectionsEnabled,
   getHostFromDomainInput,
   invert,
+  isLoginUrl,
   isRestrictedUrl,
   isThirdPartyDomain,
   nDaysFromNow,
