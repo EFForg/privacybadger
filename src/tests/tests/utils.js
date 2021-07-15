@@ -586,6 +586,21 @@ QUnit.test("estimateMaxEntropy", assert => {
 
 });
 
+// Tests method to find commonly known login parts in a url
+QUnit.test("isLoginUrl", assert => {
+
+  assert.ok(
+    utils.isLoginUrl("g00gl3.com/twitch/authorize/buzz/bar"),
+    "correctly identifies a url with commonly known oauth substrings in it"
+  );
+
+  assert.notOk(
+    utils.isLoginUrl("g00gl3.com/o4uth/authy/buzz/bar"),
+    "doesn't flag a url with no known oauth substrings"
+  );
+
+});
+
 QUnit.test("firstPartyProtectionsEnabled", assert => {
   assert.ok(
     utils.firstPartyProtectionsEnabled("www.google.com"),
