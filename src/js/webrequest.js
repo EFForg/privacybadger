@@ -144,7 +144,7 @@ function onBeforeSendHeaders(details) {
     type = details.type,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
+  if (_isTabChromeInternal(tab_id) && !utils.isLoginUrl(url)) {
     // DNT policy requests: strip cookies
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
@@ -244,7 +244,7 @@ function onHeadersReceived(details) {
   let tab_id = details.tabId,
     url = details.url;
 
-  if (_isTabChromeInternal(tab_id)) {
+  if (_isTabChromeInternal(tab_id) && !utils.isLoginUrl(url)) {
     // DNT policy responses: strip cookies, reject redirects
     if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // if it's a redirect, cancel it
@@ -751,7 +751,7 @@ let getWidgetList = (function () {
 }());
 
 /**
- * Checks if given request FQDN is temporarily unblocked on a tab.
+ * Checks if given request FQDN is temporarily unblocked on a tab or if we suspect it's part of a login process.
  *
  * The request is allowed if any of the following is true:
  *
@@ -759,6 +759,7 @@ let getWidgetList = (function () {
  *   - 1b) Request FQDN ends with a wildcard entry from the exception list
  *   - 2a) Request is from a subframe whose FQDN matches an entry on the list
  *   - 2b) Same but subframe's FQDN ends with a wildcard entry
+ *   - 3)  The request FQDN is suspected to be used in an oauth process
  *
  * @param {Integer} tab_id the ID of the tab to check
  * @param {String} request_host the request FQDN to check
@@ -769,6 +770,10 @@ let getWidgetList = (function () {
 function allowedOnTab(tab_id, request_host, frame_id) {
   if (!tempAllowlist.hasOwnProperty(tab_id)) {
     return false;
+  }
+
+  if (utils.isLoginUrl(request_host)) {
+    return true;
   }
 
   let exceptions = tempAllowlist[tab_id];
