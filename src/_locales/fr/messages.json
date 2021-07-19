@@ -711,11 +711,11 @@
         "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     },
     "deprecated_setting": {
-        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
+        "message": "Le paramètre suivant est déconseillé et sera supprimé dans une mise à jour future de Privacy Badger :",
         "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
     },
     "learn_more_link": {
-        "message": "Consulter $LINK$ pour en apprendre davantage.",
+        "message": "Consultez $LINK$ pour en apprendre davantage.",
         "description": "Reusable 'learn more link' message",
         "placeholders": {
             "link": {
