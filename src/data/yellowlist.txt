@@ -79,6 +79,7 @@ betterttv.net
 static.beyondmenu.com
 www.beyondmenu.com
 bigcommerce.com
+r.bing.com
 www.bing.com
 bit.ly
 bizrate.com
