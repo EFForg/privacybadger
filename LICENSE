@@ -72,6 +72,12 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 Alternatively, this code may be distributed or
 otherwise used under the terms of GPL v3
 
+Incorporating "surrogate"/"dummy"/"neutered" scripts from uBlock Origin
+https://github.com/gorhill/ublock
+https://github.com/uBlockOrigin/uAssets/
+Copyright (C) 2014-present Raymond Hill
+Licensed GPLv3
+
 Tooltipster
 http://iamceege.github.io/tooltipster/
 Copyright (c) 2012,2016 Caleb Jacob and Louis Ameline

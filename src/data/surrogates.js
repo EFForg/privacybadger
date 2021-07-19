@@ -356,46 +356,54 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-unused-expressions */
 
-  // https://github.com/uBlockOrigin/uAssets/blob/0e225402b40db0983faf8b4ce13c73d57fb257d7/filters/resources.txt#L354-L403
+  // https://github.com/gorhill/uBlock/blob/b7d41ec85ac1789da5e9f41c2b0c8a11e9913998/src/web_accessible_resources/google-analytics_analytics.js
   /* eslint-disable no-empty */
   '/analytics.js': '(' +
     function() {
+      'use strict';
       // https://developers.google.com/analytics/devguides/collection/analyticsjs/
-      var noopfn = function() {
-        ;
-      };
-      var noopnullfn = function() {
-        return null;
+      const noopfn = function() {
       };
       //
-      var Tracker = function() {
-        ;
+      const Tracker = function() {
       };
-      var p = Tracker.prototype;
+      const p = Tracker.prototype;
       p.get = noopfn;
       p.set = noopfn;
       p.send = noopfn;
       //
-      var w = window,
-        gaName = w.GoogleAnalyticsObject || 'ga';
-      var ga = function() {
-        var len = arguments.length;
-        if ( len === 0 ) {
-          return;
+      const w = window;
+      const gaName = w.GoogleAnalyticsObject || 'ga';
+      const gaQueue = w[gaName];
+      // https://github.com/uBlockOrigin/uAssets/pull/4115
+      const ga = function() {
+        const len = arguments.length;
+        if ( len === 0 ) { return; }
+        const args = Array.from(arguments);
+        let fn;
+        let a = args[len-1];
+        if ( a instanceof Object && a.hitCallback instanceof Function ) {
+          fn = a.hitCallback;
+        } else if ( a instanceof Function ) {
+          fn = ( ) => { a(ga.create()); };
+        } else {
+          const pos = args.indexOf('hitCallback');
+          if ( pos !== -1 && args[pos+1] instanceof Function ) {
+            fn = args[pos+1];
+          }
         }
-        var f = arguments[len-1];
-        if ( typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function' ) {
-          return;
-        }
+        if ( fn instanceof Function === false ) { return; }
         try {
-          f.hitCallback();
+          fn();
         } catch (ex) {
         }
       };
       ga.create = function() {
         return new Tracker();
       };
-      ga.getByName = noopnullfn;
+      ga.getByName = function() {
+        return new Tracker();
+      };
       ga.getAll = function() {
         return [];
       };
@@ -404,9 +412,34 @@ const surrogates = {
       ga.loaded = true;
       w[gaName] = ga;
       // https://github.com/gorhill/uBlock/issues/3075
-      var dl = w.dataLayer;
-      if ( dl instanceof Object && dl.hide instanceof Object && typeof dl.hide.end === 'function' ) {
-        dl.hide.end();
+      const dl = w.dataLayer;
+      if ( dl instanceof Object ) {
+        if ( dl.hide instanceof Object && typeof dl.hide.end === 'function' ) {
+          dl.hide.end();
+        }
+        if ( typeof dl.push === 'function' ) {
+          const doCallback = function(item) {
+            if ( item instanceof Object === false ) { return; }
+            if ( typeof item.eventCallback !== 'function' ) { return; }
+            setTimeout(item.eventCallback, 1);
+          };
+          if ( Array.isArray(dl) ) {
+            dl.push = item => doCallback(item);
+            const q = dl.slice();
+            dl.length = 0;
+            for ( const item of q ) {
+              doCallback(item);
+            }
+          }
+        }
+      }
+      // empty ga queue
+      if ( gaQueue instanceof Function && Array.isArray(gaQueue.q) ) {
+        const q = gaQueue.q.slice();
+        gaQueue.q.length = 0;
+        for ( const entry of q ) {
+          ga(...entry);
+        }
       }
     } + ')();',
   /* eslint-enable no-empty */
