@@ -550,6 +550,9 @@ function refreshPopup() {
     $('#deactivate_site_btn').hide();
     $('#error').hide();
 
+    // expand donate button to full row width when by itself
+    $("#donate").css("width", "100%")
+
     // activate tooltips
     $('.tooltip').tooltipster();
 
