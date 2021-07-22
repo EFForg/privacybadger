@@ -348,7 +348,7 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     color: #666;
     cursor: auto;
 }
-#donate {
+#deactivate_site_btn, #activate_site_btn {
     width: 100%;
 }
 
