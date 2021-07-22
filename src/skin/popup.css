@@ -345,6 +345,9 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     text-align: center;
     width: 49%;
 }
+.pbButton:active {
+    transform: translateY(1px);
+}
 .pbButton:hover:enabled {
     border: 2px solid #F06A0A;
 }
