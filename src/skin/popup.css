@@ -330,7 +330,7 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
 .pbButton {
     background-color: #fefefe;
     border: 2px solid;
-    border-radius: 3px;
+    border-radius: 6px;
     cursor: pointer;
     /* systemfontstack.com */
     font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
