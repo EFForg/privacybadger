@@ -357,7 +357,13 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     cursor: auto;
 }
 #deactivate_site_btn, #activate_site_btn {
+    box-shadow: 0 3px #ddd;
+    font-size: 16px;
+    line-height: 20px;
     width: 100%;
+}
+#deactivate_site_btn:active, #activate_site_btn:active {
+    box-shadow: 0 2px #ddd;
 }
 
 #not-yet-blocked-header, #non-trackers-header {
