@@ -52,6 +52,11 @@ a { text-decoration: none }
 
 a:hover { color: #ec9329 }
 
+button {
+    /* needed for Firefox */
+    color: #333;
+}
+
 .clear {
     clear: both;
 }
