@@ -20,20 +20,26 @@ function getPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (NAVIGATOR, OBJECT) {
+  return "(" + function () {
 
     if (NAVIGATOR.doNotTrack != "1") {
       OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
         get: function doNotTrack() {
           return "1";
-        }
+        },
+        configurable: true,
+        enumerable: true
       });
     }
 
-    if (!NAVIGATOR.globalPrivacyControl) {
+    if (!'globalPrivacyControl' in NAVIGATOR.prototype) {
       try {
-        OBJECT.defineProperty(NAVIGATOR, "globalPrivacyControl", {
-          value: true
+        OBJECT.defineProperty(NAVIGATOR.prototype, "globalPrivacyControl", {
+          get: function () {
+            return true;
+          },
+          configurable: true,
+          enumerable: true
         });
       } catch (e) {
         console.error("Privacy Badger failed to set navigator.globalPrivacyControl, probably because another extension set it in an incompatible way first.");
@@ -41,7 +47,7 @@ function getPageScript() {
     }
 
   // save locally to keep from getting overwritten by site code
-  } + "(window.navigator, Object));";
+  } + "(globalThis.Navigator, Object));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
