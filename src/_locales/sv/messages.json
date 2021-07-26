@@ -679,7 +679,7 @@
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger fungerar inte på särskilda sidor som den här. Prova att surfa någon annanstans.",
+        "message": "Privacy Badger fungerar inte på särskilda sidor som denna. Prova att surfa någon annanstans.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {

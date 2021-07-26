@@ -100,7 +100,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger apprend automatiquement à bloquer les traceurs invisibles. Prenez une minute pour comprendre comment.",
+        "message": "Privacy Badger apprend automatiquement à bloquer les traqueurs invisibles. Prenez une minute pour comprendre comment.",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -108,7 +108,7 @@
         "description": ""
     },
     "options_domain_list_tab": {
-        "message": "Domaines traceurs",
+        "message": "Domaines traqueurs",
         "description": "This is an options page tab heading."
     },
     "share_button_title_twitter": {
@@ -182,7 +182,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Apprendre à bloquer les nouveaux traceurs lors de la navigation",
+        "message": "Apprendre à bloquer les nouveaux traqueurs lors de la navigation",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
@@ -194,7 +194,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "L’activation de l’apprentissage dans les fenêtres de navigation privée pourrait laisser sur votre ordinateur des traces de votre historique de navigation privée. Dans les fenêtres de navigation privée, Privacy Badger bloquera par défaut les traceurs qu’elle connaît déjà, mais elle n’identifiera pas les nouveaux traceurs. Si une grande partie de votre navigation a lieu en mode privé, vous pourriez envisager d’activer cette option.",
+        "message": "L’activation de l’apprentissage dans les fenêtres de navigation privée pourrait laisser sur votre ordinateur des traces de votre historique de navigation privée. Dans les fenêtres de navigation privée, Privacy Badger bloquera par défaut les traqueurs qu’elle connaît déjà, mais elle n’identifiera pas les nouveaux traqueurs. Si une grande partie de votre navigation a lieu en mode privé, vous pourriez envisager d’activer cette option.",
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
@@ -210,11 +210,11 @@
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
-        "message": "Afficher le nombre de traceurs",
+        "message": "Afficher le nombre de traqueurs",
         "description": "Checkbox label on the general settings page"
     },
     "what_is_a_tracker": {
-        "message": "Qu’est-ce qu’un traceur ?",
+        "message": "Qu’est-ce qu’un traqueur ?",
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
@@ -238,7 +238,7 @@
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
-        "message": "La liste des traceurs et les paramètres ont été mis à jour avec succès",
+        "message": "La liste des traqueurs et les paramètres ont été mis à jour avec succès",
         "description": ""
     },
     "export_user_data": {
@@ -246,7 +246,7 @@
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Importation des données utilisateur :<ul><li>Remplace les paramètres généraux</li><li>Fusionne les listes de sites désactivés</li><li>Regroupe des renseignements sur les traceurs que Privacy Badger a vus</li><li>Remplace les personnalisations des curseurs</li></ul>",
+        "message": "Importation des données utilisateur :<ul><li>Remplace les paramètres généraux</li><li>Fusionne les listes de sites désactivés</li><li>Regroupe des renseignements sur les traqueurs que Privacy Badger a vus</li><li>Remplace les personnalisations des curseurs</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -254,11 +254,11 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "Réinitialiser les domaines traceurs",
+        "message": "Réinitialiser les domaines traqueurs",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "La réinitialisation des domaines traceurs aura pour effet de :\n\n  • Supprimer toutes les données sur les traceurs apprises de votre navigation par Privacy Badger\n  • Restaurer la liste des domaines traceurs à la dernière liste préapprise (consulter www.eff.org/badger-pretraining pour en apprendre davantage)",
+        "message": "La réinitialisation des domaines traqueurs aura pour effet de :\n\n  • Supprimer toutes les données sur les traqueurs apprises de votre navigation par Privacy Badger\n  • Restaurer la liste des domaines traqueurs à la dernière liste préapprise (consulter www.eff.org/badger-pretraining pour en apprendre davantage)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -266,11 +266,11 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Supprimer tous les domaines traceurs",
+        "message": "Supprimer tous les domaines traqueurs",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Supprimer tous les domaines traceurs aura pour effet de :\n\n  • Supprimera tout ce que Privacy Badger sait des traceurs\n  • Suspendre les blocages de Privacy Badger tant qu’elle n’aura pas pu réapprendre de votre navigation",
+        "message": "Supprimer tous les domaines traqueurs aura pour effet de :\n\n  • Supprimera tout ce que Privacy Badger sait des traqueurs\n  • Suspendre les blocages de Privacy Badger tant qu’elle n’aura pas pu réapprendre de votre navigation",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
@@ -346,15 +346,15 @@
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Au lieu de tenir des listes de ce qu’il faut bloquer, Privacy Badger découvre automatiquement les traceurs d’après leur comportement.",
+        "message": "Au lieu de tenir des listes de ce qu’il faut bloquer, Privacy Badger découvre automatiquement les traqueurs d’après leur comportement.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
-        "message": "Intercepte les traceurs sournois",
+        "message": "Intercepte les traqueurs sournois",
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Le traçage invisible a lieu de bien des façons ; les publicités ne sont que la pointe de l’iceberg. Privacy Badger envoie le <a href='https://globalprivacycontrol.org/' target='_blank'>signal Contrôle global de la protection des données</a> pour indiquer votre refus de partager ou de vendre vos données, ainsi que le <a href='https://www.eff.org/issues/do-not-track' target='_blank'>signal Ne pas me pister</a> pour indiquer aux sociétés de ne pas vous suivre à la trace. Si elles ignorent votre volonté, Privacy Badger apprendra à les bloquer, qu’il s’agisse d’annonceurs ou d’autres sortes de traceurs.",
+        "message": "Le traçage invisible a lieu de bien des façons ; les publicités ne sont que la pointe de l’iceberg. Privacy Badger envoie le <a href='https://globalprivacycontrol.org/' target='_blank'>signal Contrôle global de la protection des données</a> pour indiquer votre refus de partager ou de vendre vos données, ainsi que le <a href='https://www.eff.org/issues/do-not-track' target='_blank'>signal Ne pas me pister</a> pour indiquer aux sociétés de ne pas vous suivre à la trace. Si elles ignorent votre volonté, Privacy Badger apprendra à les bloquer, qu’il s’agisse d’annonceurs ou d’autres sortes de traqueurs.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -434,7 +434,7 @@
         }
     },
     "popup_instructions": {
-        "message": "$COUNT$ $LINK_START$traceurs$LINK_END$ potentiels ont été bloqués",
+        "message": "$COUNT$ $LINK_START$traqueurs$LINK_END$ potentiels ont été bloqués",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -451,7 +451,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "Aucun $LINK_START$traceur$LINK_END$ n’a été bloqué",
+        "message": "Aucun $LINK_START$traqueur$LINK_END$ n’a été bloqué",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -484,7 +484,7 @@
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Jusqu’à présent, Privacy Badger a décidé de bloquer $COUNT$ $TRACKER_LINK_START$domaines traceurs$TRACKER_LINK_END$ potentiels",
+        "message": "Jusqu’à présent, Privacy Badger a décidé de bloquer $COUNT$ $TRACKER_LINK_START$domaines traqueurs$TRACKER_LINK_END$ potentiels",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -501,7 +501,7 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger n’a pas encore détecté de <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domaine traceur</a>. Poursuivez votre navigation.",
+        "message": "Privacy Badger n’a pas encore détecté de <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domaine traqueur</a>. Poursuivez votre navigation.",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "name": {
@@ -509,7 +509,7 @@
         "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger commence le blocage si elle détecte le même traceur sur trois sites Web différents. Trois fautes et c’est fini.",
+        "message": "Privacy Badger commence le blocage si elle détecte le même traqueur sur trois sites Web différents. Trois fautes et c’est fini.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -561,7 +561,7 @@
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "description": {
-        "message": "Privacy Badger apprend automatiquement à bloquer les traceurs invisibles.",
+        "message": "Privacy Badger apprend automatiquement à bloquer les traqueurs invisibles.",
         "description": ""
     },
     "report_fail": {
@@ -649,7 +649,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger a bloqué $COUNT$ traceurs potentiels sur $DOMAIN$ :",
+        "message": "Privacy Badger a bloqué $COUNT$ traqueurs potentiels sur $DOMAIN$ :",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -663,7 +663,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) est une extension pour navigateurs qui apprend automatiquement à bloquer les traceurs invisibles. Privacy Badger est conçue par la Fondation Frontière Électronique, un organisme sans but lucratif qui se bat pour vos droits sur Internet.",
+        "message": "Privacy Badger (privacybadger.org) est une extension pour navigateurs qui apprend automatiquement à bloquer les traqueurs invisibles. Privacy Badger est conçue par la Fondation Frontière Électronique, un organisme sans but lucratif qui se bat pour vos droits sur Internet.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
