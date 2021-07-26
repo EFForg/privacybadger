@@ -296,12 +296,12 @@ button.cta-button:hover, a.cta-button:hover {
     margin: 0;
 }
 /* body#main to avoid applying this to options page */
-body#main #pbInstructions a, #firstparty-protections-container a, #webrtc-deprecation-div a {
+body#main #pbInstructions a, #firstparty-protections-container a, #webrtc-deprecation-div a, #donate a {
     text-decoration: underline;
     color: black;
     font-weight: bold;
 }
-body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #webrtc-deprecation-div a:hover {
+body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #webrtc-deprecation-div a:hover, #donate a:hover {
     color: #ec9329;
 }
 #instructions-firstparty-description {
@@ -360,7 +360,6 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     box-shadow: 0 3px #ddd;
     font-size: 16px;
     line-height: 20px;
-    width: 100%;
 }
 #deactivate_site_btn:active, #activate_site_btn:active {
     box-shadow: 0 2px #ddd;
@@ -453,11 +452,20 @@ div.overlay.active {
   font-size: 13px;
 }
 
-#version{
-  color: #707070;
-  font-size: 10px;
-  float: left;
+#version {
+    color: #707070;
+    font-size: 10px;
+    position: absolute;
+    bottom: 5px;
 }
+#donate {
+    font-size: 14px;
+    line-height: 16px;
+    margin: 5px 0;
+    padding: 10px;
+    text-align: center;
+}
+
 .faded-bw-color-scheme {
     filter: grayscale(1) opacity(0.6);
 }
@@ -568,6 +576,7 @@ div.overlay.active {
     body#main #pbInstructions a,
     #firstparty-protections-container a,
     #webrtc-deprecation-div a,
+    #donate a,
     #pbInstructions,
     .toggle-header-title,
     #special-browser-page,

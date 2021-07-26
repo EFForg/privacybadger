@@ -173,11 +173,6 @@ function init() {
 
   $("#activate_site_btn").on("click", activateOnSite);
   $("#deactivate_site_btn").on("click", deactivateOnSite);
-  $("#donate").on("click", function() {
-    chrome.tabs.create({
-      url: "https://supporters.eff.org/donate/support-privacy-badger"
-    });
-  });
 
   $('#error_input').on('input propertychange', function() {
     // No easy way of sending message on popup close, send message for every change
@@ -549,9 +544,6 @@ function refreshPopup() {
     // hide inapplicable buttons
     $('#deactivate_site_btn').hide();
     $('#error').hide();
-
-    // expand donate button to full row width when by itself
-    $("#donate").css("width", "100%")
 
     // activate tooltips
     $('.tooltip').tooltipster();

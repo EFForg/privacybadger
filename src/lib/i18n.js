@@ -56,7 +56,7 @@ function setTextDirection() {
   // popup page
   if (ON_POPUP) {
     // fix floats
-    ['#badger-header-logo', '#header-image-stack', '#header-image-stack a', '#header-image-stack img', '#version'].forEach((selector) => {
+    ['#badger-header-logo', '#header-image-stack', '#header-image-stack a', '#header-image-stack img'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
     ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
