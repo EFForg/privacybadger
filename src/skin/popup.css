@@ -57,10 +57,6 @@ button {
     color: #333;
 }
 
-.clear {
-    clear: both;
-}
-
 .clicker {
     border-top: 1px solid #aaaaaa;
     padding: 5px;
@@ -339,7 +335,6 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     /* fix overly bold text on macOS */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    line-height: 16px;
     margin-top: 8px;
     padding: 10px;
     text-align: center;
@@ -455,7 +450,6 @@ div.overlay.active {
 }
 #donate {
     font-size: 14px;
-    line-height: 16px;
     margin: 5px 0;
     padding: 10px;
     text-align: center;
