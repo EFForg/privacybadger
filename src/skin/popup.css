@@ -356,6 +356,9 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     color: #666;
     cursor: auto;
 }
+#deactivate_site_btn, #activate_site_btn, #error {
+    font-size: 16px;
+}
 
 #not-yet-blocked-header, #non-trackers-header {
   text-align: center;
