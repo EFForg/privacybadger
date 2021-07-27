@@ -340,7 +340,7 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     text-align: center;
     width: 49%;
 }
-.pbButton:active {
+.pbButton:not(:disabled):active {
     transform: translateY(1px);
 }
 .pbButton:hover:enabled {

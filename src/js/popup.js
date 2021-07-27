@@ -388,9 +388,7 @@ function send_error(message) {
  * activate PB for site event handler
  */
 function activateOnSite() {
-  $("#activate_site_btn").toggle();
-  $("#deactivate_site_btn").toggle();
-  $("#blockedResourcesContainer").show();
+  $("#activate_site_btn").prop("disabled", true);
 
   chrome.runtime.sendMessage({
     type: "activateOnSite",
@@ -398,6 +396,7 @@ function activateOnSite() {
     tabId: POPUP_DATA.tabId,
     tabUrl: POPUP_DATA.tabUrl
   }, () => {
+    // reload tab and close popup
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
   });
@@ -407,9 +406,7 @@ function activateOnSite() {
  * de-activate PB for site event handler
  */
 function deactivateOnSite() {
-  $("#activate_site_btn").toggle();
-  $("#deactivate_site_btn").toggle();
-  $("#blockedResourcesContainer").hide();
+  $("#deactivate_site_btn").prop("disabled", true);
 
   chrome.runtime.sendMessage({
     type: "deactivateOnSite",
@@ -417,6 +414,7 @@ function deactivateOnSite() {
     tabId: POPUP_DATA.tabId,
     tabUrl: POPUP_DATA.tabUrl
   }, () => {
+    // reload tab and close popup
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
   });
