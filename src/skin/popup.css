@@ -169,11 +169,14 @@ button {
 }
 
 /* body#main to avoid applying this to options page */
-body#main #blockedResourcesContainer {
+body#main #blockedResourcesContainer, #special-browser-page, #disabled-site-message {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+#special-browser-page, #disabled-site-message {
+    text-align: center;
 }
 
 button.cta-button, a.cta-button {
@@ -306,11 +309,6 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     color: #555;
     padding: 8px;
     font-size: 12px;
-}
-#special-browser-page, #disabled-site-message {
-    text-align: center;
-    margin: 40px 0;
-    padding: 0;
 }
 #no-third-parties {
     display: block;
