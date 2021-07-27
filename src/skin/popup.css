@@ -52,8 +52,9 @@ a { text-decoration: none }
 
 a:hover { color: #ec9329 }
 
-.clear {
-    clear: both;
+button {
+    /* needed for Firefox */
+    color: #333;
 }
 
 .clicker {
@@ -168,11 +169,14 @@ a:hover { color: #ec9329 }
 }
 
 /* body#main to avoid applying this to options page */
-body#main #blockedResourcesContainer {
+body#main #blockedResourcesContainer, #special-browser-page, #disabled-site-message {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+#special-browser-page, #disabled-site-message {
+    text-align: center;
 }
 
 button.cta-button, a.cta-button {
@@ -291,12 +295,12 @@ button.cta-button:hover, a.cta-button:hover {
     margin: 0;
 }
 /* body#main to avoid applying this to options page */
-body#main #pbInstructions a, #firstparty-protections-container a, #webrtc-deprecation-div a {
+body#main #pbInstructions a, #firstparty-protections-container a, #webrtc-deprecation-div a, #donate a {
     text-decoration: underline;
     color: black;
     font-weight: bold;
 }
-body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #webrtc-deprecation-div a:hover {
+body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #webrtc-deprecation-div a:hover, #donate a:hover {
     color: #ec9329;
 }
 #instructions-firstparty-description {
@@ -305,11 +309,6 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     color: #555;
     padding: 8px;
     font-size: 12px;
-}
-#special-browser-page, #disabled-site-message {
-    text-align: center;
-    margin: 40px 0;
-    padding: 0;
 }
 #no-third-parties {
     display: block;
@@ -334,11 +333,13 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     /* fix overly bold text on macOS */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    line-height: 16px;
     margin-top: 8px;
     padding: 10px;
     text-align: center;
     width: 49%;
+}
+.pbButton:not(:disabled):active {
+    transform: translateY(1px);
 }
 .pbButton:hover:enabled {
     border: 2px solid #F06A0A;
@@ -348,8 +349,11 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #w
     color: #666;
     cursor: auto;
 }
-#donate {
-    width: 100%;
+#deactivate_site_btn, #activate_site_btn, #error {
+    font-size: 16px;
+}
+#error .ui-icon {
+    font-size: 12px;
 }
 
 #not-yet-blocked-header, #non-trackers-header {
@@ -439,11 +443,19 @@ div.overlay.active {
   font-size: 13px;
 }
 
-#version{
-  color: #707070;
-  font-size: 10px;
-  float: left;
+#version {
+    color: #707070;
+    font-size: 10px;
+    position: absolute;
+    bottom: 5px;
 }
+#donate {
+    font-size: 14px;
+    margin: 5px 0;
+    padding: 10px;
+    text-align: center;
+}
+
 .faded-bw-color-scheme {
     filter: grayscale(1) opacity(0.6);
 }
@@ -554,6 +566,7 @@ div.overlay.active {
     body#main #pbInstructions a,
     #firstparty-protections-container a,
     #webrtc-deprecation-div a,
+    #donate a,
     #pbInstructions,
     .toggle-header-title,
     #special-browser-page,

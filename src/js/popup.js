@@ -173,11 +173,6 @@ function init() {
 
   $("#activate_site_btn").on("click", activateOnSite);
   $("#deactivate_site_btn").on("click", deactivateOnSite);
-  $("#donate").on("click", function() {
-    chrome.tabs.create({
-      url: "https://supporters.eff.org/donate/support-privacy-badger"
-    });
-  });
 
   $('#error_input').on('input propertychange', function() {
     // No easy way of sending message on popup close, send message for every change
@@ -393,9 +388,7 @@ function send_error(message) {
  * activate PB for site event handler
  */
 function activateOnSite() {
-  $("#activate_site_btn").toggle();
-  $("#deactivate_site_btn").toggle();
-  $("#blockedResourcesContainer").show();
+  $("#activate_site_btn").prop("disabled", true);
 
   chrome.runtime.sendMessage({
     type: "activateOnSite",
@@ -403,6 +396,7 @@ function activateOnSite() {
     tabId: POPUP_DATA.tabId,
     tabUrl: POPUP_DATA.tabUrl
   }, () => {
+    // reload tab and close popup
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
   });
@@ -412,9 +406,7 @@ function activateOnSite() {
  * de-activate PB for site event handler
  */
 function deactivateOnSite() {
-  $("#activate_site_btn").toggle();
-  $("#deactivate_site_btn").toggle();
-  $("#blockedResourcesContainer").hide();
+  $("#deactivate_site_btn").prop("disabled", true);
 
   chrome.runtime.sendMessage({
     type: "deactivateOnSite",
@@ -422,6 +414,7 @@ function deactivateOnSite() {
     tabId: POPUP_DATA.tabId,
     tabUrl: POPUP_DATA.tabUrl
   }, () => {
+    // reload tab and close popup
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
   });
