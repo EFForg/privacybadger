@@ -1,4 +1,34 @@
 {
+    "name": {
+        "message": "Privacy Badger",
+        "description": ""
+    },
+    "description": {
+        "message": "Το Privacy Badger μαθαίνει αυτόματα να αποκλείει \"αόρατους\" ιχνηλάτες.",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Disable for this site",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "Enable for this site",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
+    },
+    "report_broken_site": {
+        "message": "Report broken site",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "έκδοση $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
     "badger_status_block": {
         "message": "$DOMAIN$ αποκλείστηκε",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -37,7 +67,7 @@
     },
     "donate_to_eff": {
         "message": "Κάντε μια δωρεά στο EFF",
-        "description": "Button shown in the popup and on the intro page."
+        "description": "Link shown in the popup; also a button on the intro page"
     },
     "intro_donate_subheading": {
         "message": "Βοηθήστε μας κάνοντας μια δωρεά και μοιράζοντας την υποστήριξή σας για τα εργαλεία μας",
@@ -218,8 +248,8 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Μην ξεχάσετε να μας ενημερώσετε για το πρόβλημα που αντιμετωπίζετε κάνοντας κλικ στο κουμπί 'Η ιστοσελίδα υπολειτουργεί'. Σεβόμαστε την ιδιωτικότητά σας και γι' αυτό δε στέλνουμε αυτόματες αναφορές.",
-        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
+        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Ρυθμίσεις Privacy Badger",
@@ -227,10 +257,6 @@
     },
     "report_terms": {
         "message": "Αυτή η ενέργεια θα στείλει αυτόματα τις ακόλουθες πληροφορίες στον EFF: την ιστοσελίδα που τώρα επισκέπτεστε, την έκδοση του φυλλομετρητή και του Privacy Badger και την κατάσταση των sliders σε αυτήν τη σελίδα.",
-        "description": ""
-    },
-    "popup_enable_for_site": {
-        "message": "Ενεργοποίηση Privacy Badger για αυτήν την ιστοσελίδα",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -301,16 +327,6 @@
         "message": "Περιηγηθείτε",
         "description": "Intro page welcome button."
     },
-    "version": {
-        "message": "έκδοση $VERSION_STRING$",
-        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
-        "placeholders": {
-            "version_string": {
-                "content": "$1",
-                "example": "2018.8.1"
-            }
-        }
-    },
     "badger_status_cookieblock": {
         "message": "Αποκλείστηκαν τα cookies από $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -332,10 +348,6 @@
     "import_select_file": {
         "message": "Παρακαλώ επιλέξτε ένα αρχείο για την εισαγωγή.",
         "description": ""
-    },
-    "report_broken_site": {
-        "message": "Η ιστοσελίδα υπολειτουργεί; Ενημερώστε μας!",
-        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Τοποθετήστε το σλάιντερ στο κέντρο για να αποκλείσετε τα cookies",
@@ -475,10 +487,6 @@
         "message": "Μετακινήστε το σλάιντερ στα δεξιά για να επιτρέψετε πλήρως την πρόσβαση σε ένα domain",
         "description": ""
     },
-    "popup_disable_for_site": {
-        "message": "Απενεργοποίηση του Privacy Badger για αυτήν την ιστοσελίδα",
-        "description": "Button in the popup."
-    },
     "intro_privacy_note": {
         "message": "Το Privacy Badger ΠΟΤΕ δε θα διαμοιραστεί το ιστορικό σας χωρίς την άδειά σας.",
         "description": "Intro page paragraph."
@@ -503,10 +511,6 @@
     "options_domain_list_no_trackers": {
         "message": "Το Privacy Badger δεν έχει εντοπίσει κανένα <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domain που σας ιχνηλατεί</a> ακόμα. Συνεχίστε να σερφάρετε!",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
-    },
-    "name": {
-        "message": "Privacy Badger",
-        "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
         "message": "Το Privacy Badger αρχίζει να αποκλείει όταν δει τον ίδιο ιχνηλάτη σε τρεις διαφορετικές ιστοσελίδες. Τρεις παραβάσεις κι έξω!",
@@ -559,10 +563,6 @@
     "share_button_title_facebook": {
         "message": "Μοιραστείτε στο Facebook",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
-    "description": {
-        "message": "Το Privacy Badger μαθαίνει αυτόματα να αποκλείει \"αόρατους\" ιχνηλάτες.",
-        "description": ""
     },
     "report_fail": {
         "message": "Ουπς! Κάτι πήγε στραβά.",

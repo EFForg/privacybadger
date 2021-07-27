@@ -1,4 +1,34 @@
 {
+    "name": {
+        "message": "Privacy Badger",
+        "description": ""
+    },
+    "description": {
+        "message": "O Privacy Badger aprende automaticamente a bloquear rastreadores invisíveis.",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Disable for this site",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "Enable for this site",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
+    },
+    "report_broken_site": {
+        "message": "Report broken site",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "versão $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
     "badger_status_block": {
         "message": "$DOMAIN$ bloqueado",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -37,7 +67,7 @@
     },
     "donate_to_eff": {
         "message": "Doar para EFF",
-        "description": "Button shown in the popup and on the intro page."
+        "description": "Link shown in the popup; also a button on the intro page"
     },
     "intro_donate_subheading": {
         "message": "Ajude-nos doando e compartilhando seu apoio para nossas ferramentas",
@@ -218,8 +248,8 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Por favor, não esqueça de clicar em \"O Privacy Badger quebrou este site\". Nós respeitamos sua privacidade já que não enviamos relatórios automáticos.",
-        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
+        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Opções do Privacy Badger",
@@ -227,10 +257,6 @@
     },
     "report_terms": {
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
-        "description": ""
-    },
-    "popup_enable_for_site": {
-        "message": "Ativar o Privacy Badger para este site",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -301,16 +327,6 @@
         "message": "Saber como funciona",
         "description": "Intro page welcome button."
     },
-    "version": {
-        "message": "versão $VERSION_STRING$",
-        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
-        "placeholders": {
-            "version_string": {
-                "content": "$1",
-                "example": "2018.8.1"
-            }
-        }
-    },
     "badger_status_cookieblock": {
         "message": "Cookies bloqueados de $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -332,10 +348,6 @@
     "import_select_file": {
         "message": "Por favor, selecione um arquivo para importar.",
         "description": ""
-    },
-    "report_broken_site": {
-        "message": "O Privacy Badger quebrou este site? Deixe-nos saber!",
-        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "Centralize o controle deslizante para bloquear cookies",
@@ -475,10 +487,6 @@
         "message": "Mova o controle deslizante para a direita para permitir um domínio",
         "description": ""
     },
-    "popup_disable_for_site": {
-        "message": "Desabilitar o Privacy Badger para este site",
-        "description": "Button in the popup."
-    },
     "intro_privacy_note": {
         "message": "O Privacy Badger NUNCA compartilhará dados sobre sua navegação, a menos que você escolha compartilhá-los.",
         "description": "Intro page paragraph."
@@ -503,10 +511,6 @@
     "options_domain_list_no_trackers": {
         "message": "O Privacy Badger ainda não detectou nenhum <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>domínio de rastreamento</a>. Continue navegando.",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
-    },
-    "name": {
-        "message": "Privacy Badger",
-        "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
         "message": "O Privacy Badger começa a bloquear uma vez que vê o mesmo rastreador em três sites diferentes. Três strikes e está fora!",
@@ -559,10 +563,6 @@
     "share_button_title_facebook": {
         "message": "Compartilhar no Facebook",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
-    "description": {
-        "message": "O Privacy Badger aprende automaticamente a bloquear rastreadores invisíveis.",
-        "description": ""
     },
     "report_fail": {
         "message": "Oops. Algo deu errado.",

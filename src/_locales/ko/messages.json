@@ -1,4 +1,34 @@
 {
+    "name": {
+        "message": "Privacy Badger",
+        "description": ""
+    },
+    "description": {
+        "message": "Privacy Badger는 자동으로 보이지 않는 추적기를 차단하는 법을 학습합니다.",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Disable for this site",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "Enable for this site",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
+    },
+    "report_broken_site": {
+        "message": "Report broken site",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "버전 $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
     "badger_status_block": {
         "message": "차단된 $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -37,7 +67,7 @@
     },
     "donate_to_eff": {
         "message": "EFF에게 기부",
-        "description": "Button shown in the popup and on the intro page."
+        "description": "Link shown in the popup; also a button on the intro page"
     },
     "intro_donate_subheading": {
         "message": "기부 또는 툴에 대한 지원을 공유함으로써 저희를 도와주세요.",
@@ -218,8 +248,8 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "'Privacy Badger가 이 사이트를 파손했습니까?'를 클릭하는 것을 잊지 마세요. 우리는 당신의 프라이버시를 존중합니다. 그래서 우리는 자동으로 보고서를 보내지 않습니다.",
-        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
+        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Privacy Badger 옵션",
@@ -227,10 +257,6 @@
     },
     "report_terms": {
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
-        "description": ""
-    },
-    "popup_enable_for_site": {
-        "message": "이 사이트에 대해 Privacy Badger를 사용하도록 설정합니다.",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -301,16 +327,6 @@
         "message": "알아보기",
         "description": "Intro page welcome button."
     },
-    "version": {
-        "message": "버전 $VERSION_STRING$",
-        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
-        "placeholders": {
-            "version_string": {
-                "content": "$1",
-                "example": "2018.8.1"
-            }
-        }
-    },
     "badger_status_cookieblock": {
         "message": "$DOMAIN$로부터 차단된 쿠키",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -332,10 +348,6 @@
     "import_select_file": {
         "message": "가져올 파일을 선택하세요.",
         "description": ""
-    },
-    "report_broken_site": {
-        "message": "Privacy Badger가 이 사이트를 파손했습니까? 우리에게 알려주세요!",
-        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "슬라이더를 중앙에 배치하여 쿠키를 차단합니다.",
@@ -475,10 +487,6 @@
         "message": "슬라이더를 오른쪽으로 이동하여 도메인을 허용합니다.",
         "description": ""
     },
-    "popup_disable_for_site": {
-        "message": "이 사이트에 대해 Privacy Badger를 사용하지 않도록 설정합니다.",
-        "description": "Button in the popup."
-    },
     "intro_privacy_note": {
         "message": "Privacy Badger는 사용자가 검색을 공유하도록 선택하지 않는 한 검색에 대한 데이터를 절대 공유하지 않습니다.",
         "description": "Intro page paragraph."
@@ -503,10 +511,6 @@
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger가 아직 <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적 도메인</a>을 감지하지 못했습니다. 계속 탐색하세요!",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
-    },
-    "name": {
-        "message": "Privacy Badger",
-        "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
         "message": "Privacy Badger는 세 개의 다른 웹 사이트에서 동일한 추적기를 보면 차단하기 시작합니다. 삼진 아웃이에요!",
@@ -559,10 +563,6 @@
     "share_button_title_facebook": {
         "message": "페이스북에 공유",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
-    "description": {
-        "message": "Privacy Badger는 자동으로 보이지 않는 추적기를 차단하는 법을 학습합니다.",
-        "description": ""
     },
     "report_fail": {
         "message": "앗, 뭔가 잘못됐어요.",

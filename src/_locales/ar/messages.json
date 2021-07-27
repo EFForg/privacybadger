@@ -1,4 +1,34 @@
 {
+    "name": {
+        "message": "«غرير الخصوصية»",
+        "description": ""
+    },
+    "description": {
+        "message": "يتعلم «غرير الخصوصية» تلقائيا أن يحجب المتعقبات الخفية.",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Disable for this site",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "Enable for this site",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
+    },
+    "report_broken_site": {
+        "message": "Report broken site",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "إصدارة $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
     "badger_status_block": {
         "message": "$DOMAIN$ محجوب",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -37,7 +67,7 @@
     },
     "donate_to_eff": {
         "message": "تبرع إلى EFF",
-        "description": "Button shown in the popup and on the intro page."
+        "description": "Link shown in the popup; also a button on the intro page"
     },
     "intro_donate_subheading": {
         "message": "ساعدنا بالتبرع ونشر دعمك لأدواتنا",
@@ -218,8 +248,8 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "رجاء لا تنس النقر على ”هل أفسد «غرير الخصوصية» هذا الموقع“. لأننا نحترم خصوصيتك لا نرسل أي بلاغات تلقائية.",
-        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
+        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "خيارات «غرير الخصوصية»",
@@ -227,10 +257,6 @@
     },
     "report_terms": {
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
-        "description": ""
-    },
-    "popup_enable_for_site": {
-        "message": "فعّل «غرير الخصوصية» على هذا الموقع",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -301,16 +327,6 @@
         "message": "خذ جولة",
         "description": "Intro page welcome button."
     },
-    "version": {
-        "message": "إصدارة $VERSION_STRING$",
-        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
-        "placeholders": {
-            "version_string": {
-                "content": "$1",
-                "example": "2018.8.1"
-            }
-        }
-    },
     "badger_status_cookieblock": {
         "message": "الكعكات محجوبة من النطاق $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -332,10 +348,6 @@
     "import_select_file": {
         "message": "رجاء اختر ملفا لاستيراده",
         "description": ""
-    },
-    "report_broken_site": {
-        "message": "هل أفسد «غرير الخصوصية» هذا الموقع؟ أعلمنا بهذا.",
-        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "وسط المؤشر لحجب الكعكات",
@@ -475,10 +487,6 @@
         "message": "حرك المؤشر يمينا للسماح بالنطاق",
         "description": ""
     },
-    "popup_disable_for_site": {
-        "message": "عطّل «غرير الخصوصية» على هذا الموقع",
-        "description": "Button in the popup."
-    },
     "intro_privacy_note": {
         "message": "لن يشارك «غرير الخصوصية» أبدا أي معلومات عن تصفحك إلا إن اخترت أن تشاركها.",
         "description": "Intro page paragraph."
@@ -503,10 +511,6 @@
     "options_domain_list_no_trackers": {
         "message": "لم يكتشف «غرير الخصوصية» أي <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>نطاقات متعقِّبة</a> حتى الآن. واصل تصفحك.",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
-    },
-    "name": {
-        "message": "«غرير الخصوصية»",
-        "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
         "message": "يبدأ «غرير الخصوصية» في الحجب ما إن يرى نفس المتعقب على ثلاثة مواقع مختلفة. ثلاث فرص ثم يخرج!",
@@ -559,10 +563,6 @@
     "share_button_title_facebook": {
         "message": "شارك على فيسبوك",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
-    "description": {
-        "message": "يتعلم «غرير الخصوصية» تلقائيا أن يحجب المتعقبات الخفية.",
-        "description": ""
     },
     "report_fail": {
         "message": "حدث عطل ما.",

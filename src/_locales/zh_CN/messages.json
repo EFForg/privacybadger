@@ -1,4 +1,34 @@
 {
+    "name": {
+        "message": "隐私獾",
+        "description": ""
+    },
+    "description": {
+        "message": "隐私獾会自动学习去阻止不可见的追踪器。",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Disable for this site",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "Enable for this site",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
+    },
+    "report_broken_site": {
+        "message": "Report broken site",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "版本 $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
     "badger_status_block": {
         "message": "已屏蔽 $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -37,7 +67,7 @@
     },
     "donate_to_eff": {
         "message": "向电子前哨基金会捐款",
-        "description": "Button shown in the popup and on the intro page."
+        "description": "Link shown in the popup; also a button on the intro page"
     },
     "intro_donate_subheading": {
         "message": "捐款并分享对我们工具的支持来帮助我们",
@@ -218,8 +248,8 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "请不要忘记点击“报告隐私獾导致的显示异常的网站”。我们尊重您的隐私，因此我们不自动发送报告。",
-        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
+        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "隐私獾设置",
@@ -227,10 +257,6 @@
     },
     "report_terms": {
         "message": "这将会向电子前哨基金会发送这些信息：你当前正在访问的页面、浏览器版本、隐私獾版本以及本页面所有滑块的状态。",
-        "description": ""
-    },
-    "popup_enable_for_site": {
-        "message": "在当前的网站上启用隐私獾",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -301,16 +327,6 @@
         "message": "了解一下",
         "description": "Intro page welcome button."
     },
-    "version": {
-        "message": "版本 $VERSION_STRING$",
-        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
-        "placeholders": {
-            "version_string": {
-                "content": "$1",
-                "example": "2018.8.1"
-            }
-        }
-    },
     "badger_status_cookieblock": {
         "message": "屏蔽此网站的 cookies $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -332,10 +348,6 @@
     "import_select_file": {
         "message": "请选择一个你要导入的文件。",
         "description": ""
-    },
-    "report_broken_site": {
-        "message": "报告隐私獾导致的显示异常的网站",
-        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "将滑块移至中间来屏蔽 cookies",
@@ -475,10 +487,6 @@
         "message": "将滑块移至右边来允许一个域名",
         "description": ""
     },
-    "popup_disable_for_site": {
-        "message": "在当前的网站上禁用隐私獾",
-        "description": "Button in the popup."
-    },
     "intro_privacy_note": {
         "message": "除非你主动分享，否则隐私獾永远都不会上传你的浏览记录。",
         "description": "Intro page paragraph."
@@ -503,10 +511,6 @@
     "options_domain_list_no_trackers": {
         "message": "隐私獾还没有检测到任何<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪域名</a>。继续浏览吧！",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
-    },
-    "name": {
-        "message": "隐私獾",
-        "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
         "message": "隐私獾会在三个网站发现同一个追踪器后开始屏蔽。三振出局！",
@@ -559,10 +563,6 @@
     "share_button_title_facebook": {
         "message": "分享到 Facebook",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
-    "description": {
-        "message": "隐私獾会自动学习去阻止不可见的追踪器。",
-        "description": ""
     },
     "report_fail": {
         "message": "哎呀。出错了。",
