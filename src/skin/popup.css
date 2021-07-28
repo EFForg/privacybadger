@@ -303,7 +303,7 @@ body#main #pbInstructions a, #firstparty-protections-container a, #webrtc-deprec
 body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #webrtc-deprecation-div a:hover, #donate a:hover {
     color: #ec9329;
 }
-#instructions-firstparty-description {
+#instructions-firstparty-description, #instructions-widgets-description {
     font-size: 14px;
     background-color: #e8e9ea;
     color: #555;
@@ -476,6 +476,10 @@ div.overlay.active {
     margin: 10px 0;
     padding-bottom: 5px;
 }
+#replaced-widgets-container {
+    border-bottom: 1px solid #d3d3d3;
+    padding-bottom: 5px;
+}
 .basic-header {
     text-align: center;
     margin: 15px 0;
@@ -582,7 +586,7 @@ div.overlay.active {
         color: #fff;
     }
 
-    #firstparty-protections-container {
+    #firstparty-protections-container, #replaced-widgets-container {
         border-bottom: 1px solid #555;
     }
 
@@ -618,7 +622,7 @@ div.overlay.active {
         background-color: #3a3a3a;
      }
 
-    #instructions-firstparty-description {
+    #instructions-firstparty-description, #instructions-widgets-description {
         background-color: #3a3a3a;
         color: #ddd;
     }
