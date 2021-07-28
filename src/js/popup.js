@@ -220,6 +220,9 @@ function init() {
   // add event listeners for click-to-expand first party protections popup section
   $('#firstparty-protections-header').on('click', toggleFirstPartyInfoHandler);
 
+  // add event listeners for click-to-expand widgets section
+  $('#replaced-widgets-header').on('click', toggleWidgetsSectionHandler);
+
   // show firstparty protections message if current tab is in our content scripts
   if (POPUP_DATA.enabled && POPUP_DATA.isOnFirstParty) {
     $("#firstparty-protections-container").show();
@@ -505,6 +508,21 @@ function toggleFirstPartyInfoHandler() {
     $("#collapse-firstparty-popup").show();
     $("#expand-firstparty-popup").hide();
     $("#instructions-firstparty-description").slideDown();
+  }
+}
+
+/**
+ * Click handler for showing/hiding the replaced widgets section
+ */
+function toggleWidgetsSectionHandler() {
+  if ($('#collapse-widgets-popup').is(":visible")) {
+    $("#collapse-widgets-popup").hide();
+    $("#expand-widgets-popup").show();
+    $("#instructions-widgets-description").slideUp();
+  } else {
+    $("#collapse-widgets-popup").show();
+    $("#expand-widgets-popup").hide();
+    $("#instructions-widgets-description").slideDown();
   }
 }
 
