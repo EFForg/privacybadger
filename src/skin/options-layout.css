@@ -280,6 +280,10 @@ header {
 }
 
 @media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+    
     h1 {
         color: #f9f9f9;
     }

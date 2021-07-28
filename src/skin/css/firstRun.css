@@ -799,6 +799,10 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+
   body, #pb-privacy-policy {
     background-color: #222;
     color: #ddd;
