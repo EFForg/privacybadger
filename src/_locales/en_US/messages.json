@@ -445,6 +445,14 @@
             }
         }
     },
+    "popup_info_replaced_widgets": {
+        "message": "Some widgets have been temporarily replaced",
+        "description": "Clickable status header text in the popup. Shown when a media widget like Spotify embed or Disqus comment section has been temporarily replaced by Privacy Badger with a click-to-activate placeholder."
+    },
+    "popup_info_widgets_description": {
+        "message": "Some embedded content on this page might be used to track you, so Privacy Badger has temporarily replaced them. You can click to activate them here or on the page itself.",
+        "description": "Clickable status header text in the popup. Shown when a media widget like Spotify embed or Disqus comment section has been temporarily replaced by Privacy Badger with a click-to-activate placeholder."
+    },
     "popup_instructions": {
         "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
         "description": "Popup message shown when at least one tracker was blocked.",
