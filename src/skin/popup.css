@@ -549,6 +549,10 @@ div.overlay.active {
 }
 
 @media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+    
     body, #instruction, .key {
         background-color: #333;
         color: #ddd;
