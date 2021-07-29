@@ -90,15 +90,15 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "domain_slider_block_tooltip": {
-        "message": "Block entirely",
+        "message": "Vollständig blocken",
         "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Block cookies",
+        "message": "Cookies blocken",
         "description": "Tooltip shown when you hover over the center part of a domain slider"
     },
     "domain_slider_allow_tooltip": {
-        "message": "Allow",
+        "message": "Erlauben",
         "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
     },
     "feed_the_badger_title": {
@@ -414,7 +414,7 @@
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
+        "message": "Sites daran hindern, angeklickte Links nachzuverfolgen (»Hyperlink Auditing«)",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
@@ -422,7 +422,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
-        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "message": "Googles »Föderiertes Lernen von Kohorten« (FLoC) deaktivieren",
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
