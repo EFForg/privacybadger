@@ -34,7 +34,8 @@ let constants = require("constants"),
 
 /************ Local Variables *****************/
 let tempAllowlist = {},
-  tempAllowedWidgets = {};
+  tempAllowedWidgets = {},
+  replacedWidgets = [];
 
 /***************** Blocking Listener Functions **************/
 
@@ -1060,6 +1061,12 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  case "sendReplacedWidgetsToPopup": {
+    // this new set of replaced widgets on a given page should completely replace what might already be on badger object
+    replacedWidgets = request.replacedWidgets;
+    break;
+  }
+
   case "getPopupData": {
     let tab_id = request.tabId;
 
@@ -1091,6 +1098,7 @@ function dispatcher(request, sender, sendResponse) {
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
       noTabData: false,
       origins,
+      replacedWidgets: replacedWidgets,
       settings: badger.getSettings().getItemClones(),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
       showWebRtcDeprecation: !!badger.getPrivateSettings().getItem("showWebRtcDeprecation"),

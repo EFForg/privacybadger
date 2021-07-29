@@ -652,12 +652,20 @@ a:hover {
  */
 function replaceIndividualButton(widget) {
   let selector = widget.buttonSelectors.join(','),
-    elsToReplace = document.querySelectorAll(selector);
+    elsToReplace = document.querySelectorAll(selector),
+    replacedWidgetsForPopup = [];
 
   elsToReplace.forEach(function (el) {
     createReplacementElement(widget, el, function (replacementEl) {
       el.parentNode.replaceChild(replacementEl, el);
+      // populate the replacedWidgetsForPopup array with each replaced el info, then ship off to popup
+      replacedWidgetsForPopup.push(replacementEl);
     });
+  });
+
+  chrome.runtime.sendMessage({
+    type: "sendReplacedWidgetsToPopup",
+    replacementElements: replacedWidgetsForPopup
   });
 }
 
