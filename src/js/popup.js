@@ -229,6 +229,12 @@ function init() {
     $('#expand-firstparty-popup').show();
   }
 
+  // show replaced widgets section if there's more than zero replaced widgets on page
+  if (POPUP_DATA.enabled && POPUP_DATA.replacedWidgets.length) {
+    $('#replaced-widgets-container').show();
+    $('#expand-widgets-popup').show();
+  }
+
   // improve on Firefox's built-in options opening logic
   if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function") {
     browser.runtime.getBrowserInfo().then(function (info) {
