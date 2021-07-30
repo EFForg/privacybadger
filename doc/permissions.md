@@ -11,9 +11,6 @@ The Privacy API lets extensions modify browser-wide privacy settings. Privacy Ba
 
 In addition, Privacy Badger allows users to set a stricter WebRTC IP handling policy in order to prevent leaking local network address information.
 
-## Cookies
-Privacy Badger needs access to the cookies API in order to detect and correct a common error where Cloudflare domains are identified as trackers and blocked.
-
 ## Storage
 The storage API lets extensions store information that persists after the browser is closed. Privacy Badger uses it to save user settings and information it has learned about trackers.
 

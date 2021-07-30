@@ -266,52 +266,7 @@ exports.Migrations= {
     badger.mergeUserData(data, true);
   },
 
-  forgetCloudflare: function (badger) {
-    let config = {
-      name: '__cfduid'
-    };
-    if (badger.firstPartyDomainPotentiallyRequired) {
-      config.firstPartyDomain = null;
-    }
-
-    chrome.cookies.getAll(config, function (cookies) {
-      console.log("Forgetting Cloudflare domains ...");
-
-      let actionMap = badger.storage.getStore("action_map"),
-        actionClones = actionMap.getItemClones(),
-        snitchMap = badger.storage.getStore("snitch_map"),
-        snitchClones = snitchMap.getItemClones(),
-        correctedSites = {},
-        // assume the tracking domains seen on these sites are all Cloudflare
-        cfduidFirstParties = new Set();
-
-      cookies.forEach(function (cookie) {
-        // get the base domain (also removes the leading dot)
-        cfduidFirstParties.add(window.getBaseDomain(cookie.domain));
-      });
-
-      for (let domain in snitchClones) {
-        let newSnitches = snitchClones[domain].filter(
-          item => !cfduidFirstParties.has(item));
-
-        if (newSnitches.length) {
-          correctedSites[domain] = newSnitches;
-        }
-      }
-
-      // clear existing maps and then use mergeUserData to rebuild them
-      actionMap.updateObject({});
-      snitchMap.updateObject({});
-
-      const data = {
-        snitch_map: correctedSites,
-        action_map: actionClones
-      };
-
-      // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
-      badger.mergeUserData(data, true);
-    });
-  },
+  forgetCloudflare: noop,
 
   // https://github.com/EFForg/privacybadger/pull/2245#issuecomment-545545717
   forgetConsensu: (badger) => {

@@ -146,19 +146,19 @@ QUnit.test("Cookie attributes shouldn't add to entropy", (assert) => {
   }
 });
 
-QUnit.test("CloudFlare cookies should get ignored", (assert) => {
+QUnit.test("Cloudflare cookies should get ignored", (assert) => {
   let CLOUDFLARE_COOKIES = [
-    '__cfduid=d3c728f97e01b1ab6969828f24b42ab111493693758',
-    '__cfduid=d9758e8613dd4acbba3248dde15e74f8d1493774432; expires=Thu, 03-May-18 01:20:32 GMT; path=/; domain=.medium.com; HttpOnly',
-    '__cfduid=de8a1734f91060dba20e2833705018b911493771353; expires=Thu, 03-May-18 02:25:53 GMT; path=/; domain=.fightforthefuture.org; HttpOnly',
-    '__cfduid=d712bcfe8e20469cc4b9129a4ab89b7501576598707; expires=Thu, 16-Jan-20 16:05:07 GMT; path=/; domain=.githack.com; HttpOnly; SameSite=Lax',
+    '__cf_bm=41291dab3ea0acac77440ce5179210efc952648e-1620759670-1800-Aai2i10uB7h69qQam38pgAnnI3AZjZaDKW6gctNbD54bmvINWrAa5PlZJP08vfwnznDXKj89Dv+KAACkN2jj/kG/U5wE7cuCdPt+aFsQpRS2',
+    '__cf_bm=aaf43ab6670e26b12c22d578ece2f2fb13f8f16a-1620759670-1800-ARWywN+AW1wPUXy0o5WE0I11Wr84t0AwEiiI3A4/6DAaLj89DPXyLTfqr8Tu0Yof93032kduEoWnqLyRO8bATfFHAh7ze/hn/HbNyaTU+fvF; expires=Thu, 11-May-21 20:41:10 GMT; path=/; domain=.medium.com; HttpOnly',
+    '__cf_bm=7b3426417a79710cae6510def4e67bababf351db-1631527211-1800-Ae1jafJ7L1dzUj+vT3WIvmxqU+bb9mUyAYGy2L5p8gXVFV2s7I5nPrk+Ja7N6OZEoDdrmax+szcLUsFy01jc758eGVUvVSqzTSvYhanpHFfI; expires=Thu, 13-Sep-21 11:30:11 GMT; path=/; domain=.fightforthefuture.org; HttpOnly; Secure',
+    '__cf_bm=0614c3dee2253c9d32da8b43147adec4834b250e-1648770070-1800-AcXvXDfb4xwdDwz/mOdGKjAC0b3A+TnGWgY2ladNaW+TGrAdgp6s0XIXeLorlA4DcRTf5PLFprDYkcQ1BCv8u3dYCWAf3l3C6ELOHu9pKVQi; expires=Thu, 01-Apr-22 01:11:10 GMT; path=/; domain=.githack.com; HttpOnly; Secure; SameSite=None',
   ];
 
   let details = JSON.parse(JSON.stringify(chromeDetails));
   for (let i = 0; i < CLOUDFLARE_COOKIES.length; i++) {
     details.requestHeaders[CHROME_COOKIE_INDEX].value = CLOUDFLARE_COOKIES[i];
     assert.notOk(hb.hasCookieTracking(details),
-      "CloudFlare cookie test #" + i);
+      "Cloudflare cookie test #" + i);
   }
 });
 
