@@ -29,6 +29,7 @@ buildtools/jshydra/mozilla/js
 
 # Mac DS_Store
 *.DS_Store
+.git
 
 node_modules
 
