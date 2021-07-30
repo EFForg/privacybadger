@@ -163,7 +163,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
-        self.assertEqual(self.driver.current_url, EFF_URL,
+        self.assertEqual(EFF_URL, self.driver.current_url,
             "EFF website should open after clicking trackers link on popup")
 
         # Verify EFF website contains the linked anchor element.
@@ -198,7 +198,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = self.get_domain_slider_state(DOMAIN)
 
-        self.assertEqual(new_action, "block",
+        self.assertEqual("block", new_action,
             "The domain should be blocked on options page.")
 
         # test toggling some more
@@ -220,7 +220,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = self.get_domain_slider_state(DOMAIN)
 
-        self.assertEqual(new_action, "block",
+        self.assertEqual("block", new_action,
             "The domain should still be blocked on options page.")
 
     def test_reverting_control(self):
@@ -260,7 +260,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # assert the action is not what we manually clicked
         action = self.get_domain_slider_state(DOMAIN)
-        self.assertEqual(action, "cookieblock",
+        self.assertEqual("cookieblock", action,
             "Domain's action should have been restored.")
 
         # assert the undo arrow is not displayed
@@ -356,7 +356,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
-        self.assertEqual(self.driver.current_url, EFF_URL,
+        self.assertEqual(EFF_URL, self.driver.current_url,
             "EFF website should open after clicking donate button on popup")
 
     def test_breakage_warnings(self):
@@ -411,7 +411,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         sliders = self.driver.find_elements_by_css_selector('div.clicker')
 
         # verify we have the expected number of sliders
-        self.assertEqual(len(sliders), len(TEST_DOMAINS))
+        self.assertEqual(len(TEST_DOMAINS), len(sliders))
 
         # verify sliders are hidden
         assert_hidden(sliders)
@@ -432,7 +432,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         assert_visible(sliders)
 
         # verify domain is shown second in the list
-        self.assertEqual(sliders[1].get_attribute('data-origin'), YLIST_DOMAIN)
+        self.assertEqual(YLIST_DOMAIN, sliders[1].get_attribute('data-origin'))
 
         # manually block the yellowlisted domain
         self.js("$('#block-{}').click()".format(YLIST_DOMAIN.replace(".", "-")))
@@ -454,7 +454,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         assert_visible(sliders)
 
         # verify breakage warning slider is at the top
-        self.assertEqual(sliders[0].get_attribute('data-origin'), YLIST_DOMAIN)
+        self.assertEqual(YLIST_DOMAIN, sliders[0].get_attribute('data-origin'))
 
         # restore the user-set slider to default action
         self.driver.find_element_by_css_selector(

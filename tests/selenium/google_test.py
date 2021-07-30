@@ -68,7 +68,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
                 self.assertFalse(link.get_attribute('onmousedown'),
                     "Tracking attribute should be missing")
 
-                self.assertEqual(link.get_attribute('rel'), "noreferrer noopener")
+                self.assertEqual("noreferrer noopener", link.get_attribute('rel'))
 
             return True
 

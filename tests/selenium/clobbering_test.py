@@ -39,7 +39,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
                 )
             )
             self.assertEqual(
-                self.txt_by_css("#" + selector), expected,
+                expected, self.txt_by_css("#" + selector),
                 "localStorage (%s) was not read successfully"
                 "for some reason" % selector
             )
@@ -63,7 +63,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
                 )
             )
             self.assertEqual(
-                self.txt_by_css("#" + selector), expected,
+                expected, self.txt_by_css("#" + selector),
                 "localStorage (%s) was read despite cookieblocking" % selector
             )
 
@@ -79,8 +79,8 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             self.wait_for_script(
                 "return document.getElementById('referrer').textContent != '';")
             referrer = self.txt_by_css("#referrer")
-            self.assertEqual(referrer[0:8], "Referer=", "Unexpected page output")
-            self.assertEqual(referrer[8:], expected, failure_message)
+            self.assertEqual("Referer=", referrer[0:8], "Unexpected page output")
+            self.assertEqual(expected, referrer[8:], failure_message)
 
         # verify base case
         verify_referrer_header(

@@ -48,7 +48,7 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         domains = self.get_tab_data_domains()
         self.assertIn("efforg.github.io", domains,
             "SW page URL was not correctly attributed")
-        self.assertEqual(len(domains), 1,
+        self.assertEqual(1, len(domains),
             "tabData contains an unexpected number of entries")
 
 

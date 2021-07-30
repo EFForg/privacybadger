@@ -23,15 +23,15 @@ class OptionsTest(pbtest.PBSeleniumTest):
         clicker = self.driver.find_element_by_css_selector(
             'div[data-origin="{}"]'.format(origin))
         self.assertEqual(
-            clicker.get_attribute("class"),
             "clicker userset",
+            clicker.get_attribute("class"),
             failure_msg
         )
 
         switches_div = clicker.find_element_by_css_selector(".switch-container")
         self.assertEqual(
-            switches_div.get_attribute("class"),
             "switch-container " + action,
+            switches_div.get_attribute("class"),
             failure_msg
         )
 
@@ -136,8 +136,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         # check tracker count
         self.assertEqual(
-            self.driver.find_element_by_id("options_domain_list_trackers").text,
             "Privacy Badger has decided to block 2 potential tracking domains so far",
+            self.driver.find_element_by_id("options_domain_list_trackers").text,
             "Origin tracker count should be 2 after adding origin"
         )
 
@@ -219,8 +219,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         # make sure only two trackers are displayed now
         self.assertEqual(
-            self.driver.find_element_by_id("options_domain_list_trackers").text,
             "Privacy Badger has decided to block 2 potential tracking domains so far",
+            self.driver.find_element_by_id("options_domain_list_trackers").text,
             "Origin tracker count should be 2 after clearing and adding origins"
         )
 
@@ -234,8 +234,11 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # make sure the same number of trackers are displayed as by default
         self.select_domain_list_tab()
         error_message = "After resetting data, tracker count should return to default"
-        self.assertEqual(self.driver.find_element_by_id("options_domain_list_trackers").text,
-                         default_summary_text, error_message)
+        self.assertEqual(
+            default_summary_text,
+            self.driver.find_element_by_id("options_domain_list_trackers").text,
+            error_message
+        )
 
     def tracking_user_overwrite(self, original_action, overwrite_action):
         """Ensure preferences are persisted when a user overwrites pb's default behaviour for an origin."""
@@ -311,7 +314,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         if num_newly_opened_windows:
             self.driver.switch_to.window(new_handles.pop())
 
-        self.assertEqual(num_newly_opened_windows, 0,
+        self.assertEqual(0, num_newly_opened_windows,
             "Expected to switch to existing options page, "
             "opened a new page ({}) instead: {}".format(
                 self.driver.title, self.driver.current_url))
