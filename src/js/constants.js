@@ -41,6 +41,17 @@ var exports = {
   TRACKING_THRESHOLD: 3,
   MAX_COOKIE_ENTROPY: 12,
 
+  // The max amount of time (in milliseconds) that PB will wait before sharing a
+  // tracking action with EFF for community learning
+  MAX_CL_WAIT_TIME: 5 * 60 * 1000, // five minutes
+
+  // The probability that any given tracking action will be logged to the
+  // community server, as a float from 0.0 to 1.0
+  CL_PROBABILITY: 1.0,
+
+  // size of the in-memory community learning cache
+  CL_CACHE_SIZE: 5000,
+
   DNT_POLICY_CHECK_INTERVAL: 1000, // one second
 };
 
@@ -50,6 +61,13 @@ exports.BLOCKED_ACTIONS = new Set([
   exports.COOKIEBLOCK,
   exports.USER_COOKIEBLOCK,
 ]);
+
+exports.TRACKER_TYPES = Object.freeze({
+  COOKIE: "cookie",
+  COOKIE_SHARE: "cookie_share",
+  SUPERCOOKIE: "supercookie",
+  FINGERPRINT: "fingerprint",
+})
 
 return exports;
 })();

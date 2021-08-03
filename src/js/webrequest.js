@@ -465,9 +465,9 @@ function recordSupercookie(tab_id, frame_url) {
     page_host = badger.getFrameData(tab_id).host;
 
   badger.heuristicBlocking.updateTrackerPrevalence(
-    frame_host,
-    window.getBaseDomain(frame_host),
-    window.getBaseDomain(page_host)
+    frame_host, window.getBaseDomain(frame_host),
+    window.getBaseDomain(page_host),
+    tab_id, constants.TRACKER_TYPES.SUPERCOOKIE
   );
 
   // log for popup
@@ -549,7 +549,10 @@ function recordFingerprinting(tab_id, msg) {
 
           // mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, script_base, window.getBaseDomain(document_host));
+            script_host, script_base,
+            window.getBaseDomain(document_host),
+            tab_id, constants.TRACKER_TYPES.FINGERPRINT
+          );
 
           // log for popup
           let action = checkAction(tab_id, script_host);

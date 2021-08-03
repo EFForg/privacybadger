@@ -830,6 +830,7 @@ Badger.prototype = {
     preventWebRTCIPLeak: false,
     seenComic: false,
     sendDNTSignal: true,
+    shareLearning: false,
     showCounter: true,
     showExpandedTrackingSection: false,
     showIntroPage: true,
@@ -1087,10 +1088,33 @@ Badger.prototype = {
    * and if tab_id is for an incognito window,
    * is learning in incognito windows enabled?
    */
-  isLearningEnabled(tab_id) {
+  isLocalLearningEnabled(tab_id) {
     return (
       this.getSettings().getItem("learnLocally") &&
       incognito.learningEnabled(tab_id)
+    );
+  },
+
+  /**
+   * Is community learning generally enabled,
+   * and is tab_id in a regular (not incognito) window?
+   */
+  isCommunityLearningEnabled(tab_id) {
+    return (
+      this.getSettings().getItem("shareLearning") &&
+      !incognito.isIncognito(tab_id)
+    );
+  },
+
+  /**
+   * Is any kind of learning (local or community) enabled on this tab?
+   *
+   * TODO: should community learning happen in incognito tabs?
+   */
+  isLearningEnabled(tab_id) {
+    return (
+      this.isLocalLearningEnabled(tab_id) ||
+      this.isCommunityLearningEnabled(tab_id)
     );
   },
 
@@ -1148,7 +1172,7 @@ Badger.prototype = {
   },
 
   /**
-   * Checks if local storage ( in dict) has any high-entropy keys
+   * Checks if local storage (in dict) has any high-entropy keys
    *
    * @param {Object} lsItems Local storage dict
    * @returns {boolean} true if it seems there are supercookies
