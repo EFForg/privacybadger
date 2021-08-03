@@ -224,6 +224,18 @@ function loadOptions() {
       });
     });
 
+  $('#community-learning-checkbox')
+    .prop("checked", OPTIONS_DATA.settings.shareLearning)
+    .on("click", (event) => {
+      const enabled = $(event.currentTarget).prop("checked");
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: {
+          shareLearning: enabled
+        }
+      }, function () {});
+    });
+
   $('#show-nontracking-domains-checkbox')
     .prop("disabled", OPTIONS_DATA.settings.learnLocally ? false : "disabled")
     .prop("checked", (

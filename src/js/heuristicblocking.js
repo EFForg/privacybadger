@@ -37,6 +37,9 @@ function HeuristicBlocker(pbStorage) {
   // impossible to attribute to a tab.
   this.tabOrigins = {};
   this.tabUrls = {};
+
+  // in-memory cache for community learning
+  this.previouslySharedTrackers = new Set();
 }
 
 HeuristicBlocker.prototype = {
@@ -105,8 +108,10 @@ HeuristicBlocker.prototype = {
    */
   // TODO more like heuristicLearningFromCookies ... check DESIGN doc
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
+    let tab_id = details.tabId;
+
     // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
+    if (tab_id < 0 || !badger.isLearningEnabled(tab_id)) {
       return {};
     }
 
@@ -115,12 +120,12 @@ HeuristicBlocker.prototype = {
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
-      self.tabOrigins[details.tabId] = window.getBaseDomain(request_host);
-      self.tabUrls[details.tabId] = details.url;
+      self.tabOrigins[tab_id] = window.getBaseDomain(request_host);
+      self.tabUrls[tab_id] = details.url;
       return {};
     }
 
-    let tab_base = self.tabOrigins[details.tabId];
+    let tab_base = self.tabOrigins[tab_id];
     if (!tab_base) {
       return {};
     }
@@ -152,7 +157,7 @@ HeuristicBlocker.prototype = {
 
     // check if there are tracking cookies
     if (hasCookieTracking(details)) {
-      self._recordPrevalence(request_host, request_base, tab_base);
+      self._recordPrevalence(request_host, request_base, tab_base, tab_id, constants.TRACKER_TYPES.COOKIE);
       return {};
     }
 
@@ -160,7 +165,7 @@ HeuristicBlocker.prototype = {
     if (check_for_cookie_share && details.type == 'image' && details.frameId === 0 && details.url.indexOf('?') > -1) {
       // get all non-HttpOnly cookies for the top-level frame
       // and pass those to the cookie-share accounting function
-      let tab_url = self.tabUrls[details.tabId];
+      let tab_url = self.tabUrls[tab_id];
 
       let config = {
         url: tab_url
@@ -174,7 +179,7 @@ HeuristicBlocker.prototype = {
         if (cookies.length >= 1) {
           // TODO refactor with new URI() above?
           let searchParams = (new URL(details.url)).searchParams;
-          self.pixelCookieShareAccounting(tab_url, tab_base, searchParams, request_host, request_base, cookies);
+          self.pixelCookieShareAccounting(tab_id, tab_url, tab_base, searchParams, request_host, request_base, cookies);
         }
       });
     }
@@ -192,7 +197,7 @@ HeuristicBlocker.prototype = {
    * Doesn't catch cookie syncing (3rd party -> 3rd party),
    * but most of those tracking cookies should be blocked anyway.
    */
-  pixelCookieShareAccounting: function (tab_url, tab_base, searchParams, request_host, request_base, cookies) {
+  pixelCookieShareAccounting: function (tab_id, tab_url, tab_base, searchParams, request_host, request_base, cookies) {
     const TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
 
@@ -263,7 +268,7 @@ HeuristicBlocker.prototype = {
             log("Found high-entropy cookie share from", tab_base, "to", request_host,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
               "\n  arg:", key, "=", value, "\n  substring:", s);
-            this._recordPrevalence(request_host, request_base, tab_base);
+            this._recordPrevalence(request_host, request_base, tab_base, tab_id, constants.TRACKER_TYPES.COOKIE_SHARE);
             return;
           }
         }
@@ -277,8 +282,10 @@ HeuristicBlocker.prototype = {
    * @param {String} tracker_fqdn The fully qualified domain name of the tracker
    * @param {String} tracker_base Base domain of the third party tracker
    * @param {String} site_base Base domain of page where tracking occurred
+   * @param {Integer} tab_id the ID of the tab the user is in
+   * @param {String} tracker_type the kind of tracking action that was observed
    */
-  updateTrackerPrevalence: function (tracker_fqdn, tracker_base, site_base) {
+  updateTrackerPrevalence: function (tracker_fqdn, tracker_base, site_base, tab_id, tracker_type) {
     // abort if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
@@ -288,7 +295,9 @@ HeuristicBlocker.prototype = {
     this._recordPrevalence(
       tracker_fqdn,
       tracker_base,
-      site_base
+      site_base,
+      tab_id,
+      tracker_type
     );
   },
 
@@ -304,8 +313,10 @@ HeuristicBlocker.prototype = {
    * @param {String} tracker_fqdn The FQDN of the third party tracker
    * @param {String} tracker_base Base domain of the third party tracker
    * @param {String} site_base Base domain of page where tracking occurred
+   * @param {Integer} tab_id the ID of the tab the user is in
+   * @param {String} tracker_type the kind of tracking action that was observed
    */
-  _recordPrevalence: function (tracker_fqdn, tracker_base, site_base) {
+  _recordPrevalence: function (tracker_fqdn, tracker_base, site_base, tab_id, tracker_type) {
     // GDPR Consent Management Provider
     // https://github.com/EFForg/privacybadger/pull/2245#issuecomment-545545717
     if (tracker_base == "consensu.org") {
@@ -330,22 +341,81 @@ HeuristicBlocker.prototype = {
       return;
     }
 
+    // If community learning is enabled, queue up a request to the EFF server
+    if (badger.isCommunityLearningEnabled(tab_id)) {
+      let page_fqdn = (new URI(this.tabUrls[tab_id])).host;
+      self.shareTrackerInfo(page_fqdn, tracker_fqdn, tracker_type);
+    }
+
+    // If local learning is enabled,
     // record that we've seen this tracker on this domain
-    firstParties.push(site_base);
-    snitchMap.setItem(tracker_base, firstParties);
+    if (badger.isLocalLearningEnabled(tab_id)) {
+      firstParties.push(site_base);
+      snitchMap.setItem(tracker_base, firstParties);
 
-    // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
-    // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
-    // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
-    self.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
-    self.storage.setupHeuristicAction(tracker_base, constants.ALLOW);
+      // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
+      // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
+      // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
+      self.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
+      self.storage.setupHeuristicAction(tracker_base, constants.ALLOW);
 
-    // (cookie)block the tracker if it has been seen on multiple first party domains
-    if (firstParties.length >= constants.TRACKING_THRESHOLD) {
-      log("blocklisting", tracker_fqdn);
-      self.blocklistOrigin(tracker_base, tracker_fqdn);
+      // (cookie)block the tracker if it has been seen on multiple first party domains
+      if (firstParties.length >= constants.TRACKING_THRESHOLD) {
+        log("blocklisting", tracker_fqdn);
+        self.blocklistOrigin(tracker_base, tracker_fqdn);
+      }
+    }
+  },
+
+  /**
+   * Share information about a tracker for community learning
+   */
+  shareTrackerInfo: function(page_host, tracker_host, tracker_type) {
+    // Share a random sample of trackers we observe
+    if (Math.random() < constants.CL_PROBABILITY) {
+      // check if we've shared this tracker recently
+      // note that this check comes after checking against the snitch map
+      let tr_str = page_host + '+' + tracker_host + '+' + tracker_type;
+      if (this.previouslySharedTrackers.has(tr_str)) {
+        return;
+      }
+
+      // add this entry to the cache
+      this.previouslySharedTrackers.add(tr_str);
+
+      // if the cache gets too big, cut it in half
+      if (this.previouslySharedTrackers.size > constants.CL_CACHE_SIZE) {
+        this.previouslySharedTrackers = new Set(
+          // An array created from the set will have all of its entries ordered
+          // by when they were added
+          Array.from(this.previouslySharedTrackers).slice(
+            // keep the most recent half of the cache entries
+            Math.floor(constants.CL_CACHE_SIZE / 2)
+          )
+        );
+      }
+
+      // now make the request to the database server
+      setTimeout(function () {
+        fetch("http://localhost:8080", {
+          method: "POST",
+          body: JSON.stringify({
+            tracker_data: {
+              page_host: page_host,
+              tracker_host: tracker_host,
+              tracker_type: tracker_type,
+            }
+          })
+        }).then(res => {
+          if (!res.ok) {
+            console.log("tracking action logging failed:", res);
+          }
+        });
+      // share info after a random delay, to reduce network load on browser
+      }, Math.floor(Math.random() * constants.MAX_CL_WAIT_TIME));
     }
   }
+
 };
 
 
