@@ -350,7 +350,7 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-unused-expressions */
 
-  // https://github.com/gorhill/uBlock/blob/b7d41ec85ac1789da5e9f41c2b0c8a11e9913998/src/web_accessible_resources/google-analytics_analytics.js
+  // https://github.com/gorhill/uBlock/blob/e86a4cee8787400d8ad445dd4a6e4515405f25d1/src/web_accessible_resources/google-analytics_analytics.js
   /* eslint-disable no-empty */
   '/analytics.js': '(' +
     function() {
@@ -420,7 +420,6 @@ const surrogates = {
           if ( Array.isArray(dl) ) {
             dl.push = item => doCallback(item);
             const q = dl.slice();
-            dl.length = 0;
             for ( const item of q ) {
               doCallback(item);
             }
