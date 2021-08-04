@@ -53,6 +53,9 @@ const hostnames = {
   'www.googletagservices.com': [
     '/gpt.js',
   ],
+  'securepubads.g.doubleclick.net': [
+    '/tag/js/gpt.js',
+  ],
   'api.youneeq.ca': [
     '/app/yqmin',
   ],
@@ -476,8 +479,7 @@ const surrogates = {
 };
 
 // aliases
-// for example:
-// surrogates['/JS/socialize.js'] = surrogates['/JS/gigya.js'] = surrogates['/js/gigya.js'];
+surrogates['/tag/js/gpt.js'] = surrogates['/gpt.js'];
 
 // reformat surrogate strings to exactly match formatting in uAssets
 Object.keys(surrogates).forEach(key => {
