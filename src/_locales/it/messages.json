@@ -8,15 +8,15 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Disable for this site",
+        "message": "Disattiva per questo sito",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "Enable for this site",
+        "message": "Attiva per questo sito",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
     },
     "report_broken_site": {
-        "message": "Report broken site",
+        "message": "Segnala sito malfunzionante",
         "description": "Button in the popup."
     },
     "version": {
@@ -248,7 +248,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "message": "Non dimenticare di cliccare 'Segnala sito malfunzionante'. Rispettiamo la tua privacy, quindi non inviamo segnalazioni automatiche.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
