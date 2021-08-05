@@ -197,6 +197,7 @@ cdn.embed.ly
 cdn.embedly.com
 i-cdn.embed.ly
 i.embed.ly
+envato.com
 pp.ephapay.net
 epoch.com
 epoq.de
