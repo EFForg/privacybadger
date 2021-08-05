@@ -1200,6 +1200,22 @@ let multiDomainFirstPartiesArray = [
     "alamo-np.fr",
     "alamo-np.ie",
   ],
+  [
+    "envato.com",
+
+    "3docean.net",
+    "audiojungle.net",
+    "codecanyon.net",
+    "envato.market",
+    "graphicriver.net",
+    "photodune.net",
+    "placeit.net",
+    "themeforest.net",
+    "tutsplus.com",
+    "videohive.net",
+
+    "envato-static.com",
+  ],
   ["epicgames.com", "unrealengine.com"],
   [
     "eventbrite.com",
