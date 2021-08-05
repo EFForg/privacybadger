@@ -624,6 +624,9 @@ let multiDomainFirstPartiesArray = [
     "hao123.com",
     "tieba.com",
 
+    "iq.com",
+    "iqiyi.com",
+
     "baidustatic.com",
     "bdimg.com",
     "bdstatic.com",
