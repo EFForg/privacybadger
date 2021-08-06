@@ -3369,7 +3369,7 @@ let multiDomainFirstPartiesArray = [
     "raiway.it",
   ],
   ["railnation.ru", "railnation.de", "rail-nation.com", "railnation.gr", "railnation.us", "trucknation.de", "traviangames.com"],
-  ["rakuten.com", "buy.com"],
+  ["rakuten.com", "rakuten.co.jp", "rakuten-card.co.jp", "rakuten-bank.co.jp", "buy.com", "buyservices.com"],
   [
     "realestate.com.au",
 
