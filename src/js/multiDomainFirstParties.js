@@ -1439,7 +1439,16 @@ let multiDomainFirstPartiesArray = [
   ],
   ["fastmail.com", "fastmailusercontent.com"],
   ["firefox.com", "firefoxusercontent.com", "mozilla.org"],
-  ["foxnews.com", "foxbusiness.com", "fncstatic.com"],
+  [
+    "foxcorporation.com",
+
+    "foxbusiness.com",
+    "fox.com",
+    "foxnews.com",
+    "foxsports.com",
+
+    "fncstatic.com",
+  ],
   [
     "futureplc.com",
 
