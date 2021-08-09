@@ -90,15 +90,15 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "domain_slider_block_tooltip": {
-        "message": "Block entirely",
+        "message": "完全屏蔽",
         "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Block cookies",
+        "message": "屏蔽 Cookies",
         "description": "Tooltip shown when you hover over the center part of a domain slider"
     },
     "domain_slider_allow_tooltip": {
-        "message": "Allow",
+        "message": "允许",
         "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
     },
     "feed_the_badger_title": {
@@ -414,7 +414,7 @@
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
+        "message": "禁止网站追踪您点击了哪些链接（“超链接审计”）",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
@@ -422,7 +422,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
-        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "message": "禁用谷歌的同类群组联合学习（FLoC）",
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
@@ -430,11 +430,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_info_firstparty_protections": {
-        "message": "Link tracking protection active",
+        "message": "已启用链接追踪保护",
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Some websites $LINK_START$use link tracking to follow you$LINK_END$ whenever you click a link to leave the website. Privacy Badger removes tracking from such links on this website.",
+        "message": "一些网站在您点击链接离开网站时$LINK_START$使用链接追踪$LINK_END$来跟踪您。隐私獾移除这个网站上这种链接的追踪功能。",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
