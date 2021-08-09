@@ -1871,6 +1871,14 @@ let multiDomainFirstPartiesArray = [
     "habrastorage.org",
     "hsto.org",
   ],
+  [
+    "hatena.ne.jp",
+
+    "hatenablog.com",
+    "hatena.com",
+
+    "st-hatena.com",
+  ],
   ["healthfusion.com", "healthfusionclaims.com"],
   [
     "hearst.com",
