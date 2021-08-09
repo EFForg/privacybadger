@@ -4246,6 +4246,7 @@ let multiDomainFirstPartiesArray = [
     "vinted.nl",
     "vinted.pl",
   ],
+  ["vnexpress.net", "ngoisao.net", "vnecdn.net"],
   ["volvooceanrace.com", "virtualregatta.com"],
   ["vonage.com", "vonagebusiness.com"],
   [
