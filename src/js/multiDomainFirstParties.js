@@ -616,6 +616,7 @@ let multiDomainFirstPartiesArray = [
     "autodesk.ru",
     "autodesk.se",
   ],
+  ["automattic.com", "wordpress.com", "wordpress.org", "wp.com"],
   ["avito.ru", "avito.st"],
   ["avon.com", "youravon.com"],
   [
@@ -4590,7 +4591,6 @@ let multiDomainFirstPartiesArray = [
     "wmfusercontent.org", "tools.wmflabs.org"],
   ["wisconsin.gov", "wi.gov"],
   ["wix.com", "wixapps.net", "wixstatic.com", "parastorage.com"],
-  ["automattic.com", "wordpress.com", "wordpress.org", "wp.com"],
   [
     "wp.pl",
 
