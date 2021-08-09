@@ -2984,7 +2984,6 @@ let multiDomainFirstPartiesArray = [
     "zappelin.nl",
     "zapp.nl",
   ],
-  ["nymag.com", "vulture.com", "grubstreet.com", "thecut.com"],
   [
     "nypublicradio.org",
 
@@ -4249,6 +4248,24 @@ let multiDomainFirstPartiesArray = [
   ],
   ["volvooceanrace.com", "virtualregatta.com"],
   ["vonage.com", "vonagebusiness.com"],
+  [
+    "voxmedia.com",
+
+    "curbed.com",
+    "eater.com",
+    "grubstreet.com",
+    "nymag.com",
+    "polygon.com",
+    "racked.com",
+    "recode.net",
+    "sbnation.com",
+    "thecut.com",
+    "theverge.com",
+    "vox.com",
+    "vulture.com",
+
+    "vox-cdn.com",
+  ],
   [
     "vrt.be",
 
