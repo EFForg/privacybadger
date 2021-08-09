@@ -244,6 +244,21 @@
             "type": 3
         }
     },
+    "TikTok": {
+        "domains": [
+            "www.tiktok.com"
+        ],
+        "buttonSelectors": [
+            "iframe[src^='https://www.tiktok.com/embed/']",
+            "iframe[src^='//www.tiktok.com/embed/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.tiktok.com"
+            ],
+            "type": 3
+        }
+    },
     "Twitch Player": {
         "domain": "player.twitch.tv",
         "buttonSelectors": [
