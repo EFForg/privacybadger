@@ -544,7 +544,7 @@ let multiDomainFirstPartiesArray = [
     "tt.com",
     "diepresse.com",
   ],
-  ["apple.com", "icloud.com", "icloud.com.cn", "cdn-apple.com"],
+  ["apple.com", "apple.news", "icloud.com", "icloud.com.cn", "cdn-apple.com"],
   ["applefcu.org", "applefcuonline.org"],
   ["archive.org", "openlibrary.org"],
   ["asos.com", "asosservices.com"],
@@ -2082,10 +2082,7 @@ let multiDomainFirstPartiesArray = [
     "tribunaexpresso.pt",
     "volantesic.pt",
   ],
-  [
-    "immobilienscout24.de",
-    "static-immobilienscout24.de",
-  ],
+  ["immobilienscout24.de", "static-immobilienscout24.de"],
   [
     "indeed.com",
 
@@ -2119,6 +2116,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["independent.co.uk", "indy100.com"],
   ["intercom.com", "intercom.io", "intercomassets.com", "intercomcdn.com"],
+  ["itmedia.co.jp", "itmedia.jp"],
   [
     "iu.edu",
 
@@ -2625,6 +2623,7 @@ let multiDomainFirstPartiesArray = [
     "msftidentity.com",
     "msft.net",
     "msidentity.com",
+    "msn.cn",
     "msn.com",
     "msndirect.com",
     "msocdn.com",
@@ -3057,6 +3056,7 @@ let multiDomainFirstPartiesArray = [
     "geforce.com.tw",
     "geforce.co.uk",
   ],
+  ["okcupid.com", "okccdn.com"],
   [
     "olxgroup.com",
 
@@ -3608,6 +3608,11 @@ let multiDomainFirstPartiesArray = [
   ],
   [
     "shopify.com",
+
+    "shopify.ca",
+    "shopify.in",
+    "shopify.nl",
+
     "shopifycdn.com",
     "shopifyapps.com",
     "shopifycloud.com",
@@ -3629,7 +3634,7 @@ let multiDomainFirstPartiesArray = [
   ["siriusxm.com", "sirius.com"],
   ["skygo.co.nz", "skytv.co.nz"],
   ["skysports.com", "skybet.com", "skyvegas.com"],
-  ["slashdot.org", "sourceforge.net", "fsdn.com"],
+  ["slashdot.org", "sourceforge.net", "fsdn.com", "slashdotmedia.com"],
   ["slickdeals.net", "slickdealscdn.com"],
   ["snapfish.com", "snapfish.ca"],
   [
@@ -4585,7 +4590,7 @@ let multiDomainFirstPartiesArray = [
     "wmfusercontent.org", "tools.wmflabs.org"],
   ["wisconsin.gov", "wi.gov"],
   ["wix.com", "wixapps.net", "wixstatic.com", "parastorage.com"],
-  ["wordpress.com", "wp.com"],
+  ["automattic.com", "wordpress.com", "wordpress.org", "wp.com"],
   [
     "wp.pl",
 
@@ -4682,6 +4687,7 @@ let multiDomainFirstPartiesArray = [
 
     "zoho.com.au",
     "zoho.eu",
+    "zoho.in",
 
     "zohositescontent.com",
     "zohositescontent.com.au",
