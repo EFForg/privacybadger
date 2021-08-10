@@ -8,11 +8,11 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Deshabiliteu en aquest lloc",
+        "message": "Deshabiliteu en aquest lloc",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "Habilita per aquest lloc",
+        "message": "Habilita per aquest lloc",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
     },
     "report_broken_site": {
