@@ -8,11 +8,11 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Disable for this site",
+        "message": "Bu site için devre dışı bırak",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "Enable for this site",
+        "message": "Bu site için etkinleştir",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
     },
     "report_broken_site": {
