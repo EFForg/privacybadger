@@ -1,6 +1,18 @@
 Privacy Badger Release Notes
 ============================
 
+2021.8.11
+* Improved buttons in the popup: Disable and Report are larger and use less
+text, Donate is now a link
+* Removed "Prevent WebRTC from leaking local IP address" from the options
+page. If you previously enabled this setting, it remains available for now.
+However, the setting is now deprecated and will be removed in a future update.
+To learn more, visit https://github.com/EFForg/privacybadger/issues/2782
+* Improved dark theme in Chrome
+* Fixed various site breakages
+* Improved translations (Simplified Chinese, Esperanto, French, German, Greek,
+Hebrew, Italian, Polish, Spanish, Swedish, Ukrainian)
+
 2021.6.8
 * Disabled Google's Federated Learning of Cohorts (FLoC). To learn more, visit
 https://www.eff.org/deeplinks/2021/03/googles-floc-terrible-idea
