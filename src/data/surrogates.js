@@ -440,7 +440,10 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-empty */
 
-  // https://github.com/gorhill/uBlock/blob/dcc72ba51c30abd4a1216049cc34f6c429ab2090/src/web_accessible_resources/outbrain-widget.js
+  // https://github.com/gorhill/uBlock/blob/dcc72ba51c30abd4a1216049cc34f6c429ab2090/src/web_accessible_resources/outbrain-widget.js + modified to unbreak vice.com
+  // related uBO issues:
+  // https://github.com/uBlockOrigin/uAssets/issues/7140
+  // https://github.com/uBlockOrigin/uAssets/issues/8078
   '/outbrain.js': '(' +
     function() {
       'use strict';
@@ -453,9 +456,10 @@ const surrogates = {
         'closeModal', 'closeTbx', 'errorInjectionHandler', 'getCountOfRecs',
         'getStat', 'imageError', 'manualVideoClicked', 'onOdbReturn',
         'onVideoClick', 'pagerLoad', 'recClicked', 'refreshSpecificWidget',
-        'refreshWidget', 'reloadWidget', 'researchWidget', 'returnedError',
-        'returnedHtmlData', 'returnedIrdData', 'returnedJsonData', 'scrollLoad',
-        'showDescription', 'showRecInIframe', 'userZappingMessage', 'zappingFormAction'
+        'refreshWidget', 'reloadWidget', 'renderSpaWidgets', 'researchWidget',
+        'returnedError', 'returnedHtmlData', 'returnedIrdData', 'returnedJsonData',
+        'scrollLoad', 'showDescription', 'showRecInIframe', 'userZappingMessage',
+        'zappingFormAction'
       ];
       obr.extern = {
         video: {
