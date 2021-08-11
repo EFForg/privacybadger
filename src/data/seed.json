@@ -1710,6 +1710,11 @@
     "cdn-payscale.com": {
       "heuristicAction": "allow"
     },
+    "cdn-static-1.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1628945964451
+    },
     "cdn.anvato.net": {
       "heuristicAction": "cookieblock"
     },
@@ -4334,7 +4339,9 @@
       "heuristicAction": "allow"
     },
     "ipp-meredith.com": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1629230176057
     },
     "ipredictive.com": {
       "heuristicAction": "block"
