@@ -2328,6 +2328,17 @@ let multiDomainFirstPartiesArray = [
     "tandy.com.au",
     "zazz.com.au",
   ],
+  [
+    "kompasgramedia.com",
+
+    "grid.id",
+    "gridoto.com",
+    "kgmedia.id",
+    "kompas.com",
+    "kompasiana.com",
+    "kompas.tv",
+    "tribunnews.com",
+  ],
   ["lbry.com", "odysee.com", "lbry.tv"],
   ["linkedin.com", "licdn.com"],
   ["livejournal.com", "livejournal.net", "lj-toys.com"],
