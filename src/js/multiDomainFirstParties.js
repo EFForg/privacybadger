@@ -2039,6 +2039,23 @@ let multiDomainFirstPartiesArray = [
     "idealo.com",
   ],
   [
+    "idg.com",
+
+    "cio.com",
+    "computerworld.com",
+    "csoonline.com",
+    "greenbot.com",
+    "idg.net",
+    "idg.tv",
+    "infoworld.com",
+    "macworld.com",
+    "networkworld.com",
+    "pcworld.com",
+    "techhive.com",
+
+    "staticworld.net",
+  ],
+  [
     "ign.fr",
 
     "cartoradio.fr",
@@ -3161,7 +3178,6 @@ let multiDomainFirstPartiesArray = [
 
     "3conline.com",
   ],
-  ["pcworld.com", "staticworld.net", "idg.com", "idg.net", "infoworld.com", "macworld.com", "techhive.com", "idg.tv"],
   [
     "pearson.com",
 
