@@ -646,6 +646,8 @@ api.soundcloud.com
 feeds.soundcloud.com
 sp-prod.net
 spot.im
+api.spreaker.com
+widget.spreaker.com
 springboardplatform.com
 squarespace.com
 squareup.com
