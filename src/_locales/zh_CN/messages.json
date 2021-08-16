@@ -16,7 +16,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
     },
     "report_broken_site": {
-        "message": "报告隐私獾导致的显示异常的网站",
+        "message": "报告显示异常的网站",
         "description": "Button in the popup."
     },
     "version": {
