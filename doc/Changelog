@@ -1,6 +1,10 @@
 Privacy Badger Release Notes
 ============================
 
+2021.8.17
+Bug fix release to fix link clicking on various websites:
+https://github.com/EFForg/privacybadger/commit/e1f32a343ec8b9647e361cfff1ea0b82e169fa19)
+
 2021.8.11
 * Improved buttons in the popup: Disable and Report are larger and use less
 text, Donate is now a link
