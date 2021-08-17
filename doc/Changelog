@@ -3,7 +3,7 @@ Privacy Badger Release Notes
 
 2021.8.17
 Bug fix release to fix link clicking on various websites:
-https://github.com/EFForg/privacybadger/commit/e1f32a343ec8b9647e361cfff1ea0b82e169fa19)
+https://github.com/EFForg/privacybadger/commit/e1f32a343ec8b9647e361cfff1ea0b82e169fa19
 
 2021.8.11
 * Improved buttons in the popup: Disable and Report are larger and use less
@@ -533,9 +533,9 @@ store". This is a known side effect of a workaround for a different bug.
 * Fix waiting for privacy badger bug
 * Fix high CPU usage bug
 * Uses separate data store for incognito mode
-* Ads selenium test to run pbtest.org sweet
-* Fixes weird subdomain handling edge case
-* Fixes bug where pages stop loading sometimes
+* Add selenium test to run pbtest.org suite
+* Fix weird subdomain handling edge case
+* Fix bug where pages stop loading sometimes
 
 2015.4.6 (1.8)
 * Fix "waiting for privacy badger bug"
