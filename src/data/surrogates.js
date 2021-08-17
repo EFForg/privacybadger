@@ -353,7 +353,7 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-unused-expressions */
 
-  // https://github.com/gorhill/uBlock/blob/e86a4cee8787400d8ad445dd4a6e4515405f25d1/src/web_accessible_resources/google-analytics_analytics.js
+  // https://github.com/gorhill/uBlock/blob/e86a4cee8787400d8ad445dd4a6e4515405f25d1/src/web_accessible_resources/google-analytics_analytics.js + GTM workaround
   /* eslint-disable no-empty */
   '/analytics.js': '(' +
     function() {
@@ -414,6 +414,7 @@ const surrogates = {
         if ( dl.hide instanceof Object && typeof dl.hide.end === 'function' ) {
           dl.hide.end();
         }
+        /*
         if ( typeof dl.push === 'function' ) {
           const doCallback = function(item) {
             if ( item instanceof Object === false ) { return; }
@@ -428,6 +429,7 @@ const surrogates = {
             }
           }
         }
+        */
       }
       // empty ga queue
       if ( gaQueue instanceof Function && Array.isArray(gaQueue.q) ) {
