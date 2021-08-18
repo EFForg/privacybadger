@@ -3123,8 +3123,13 @@ let multiDomainFirstPartiesArray = [
     "oracle.com",
 
     "ateam-oracle.com",
+    "bronto.com",
+    "covid19-rx.org",
+    "covid19rx.org",
+    "go.java",
     "java.com",
     "mysql.com",
+    "oraclefoundation.org",
 
     "oraclecloud.com",
     "oracleimg.com",
