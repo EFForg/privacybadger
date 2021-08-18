@@ -464,7 +464,7 @@ that reintroduced a Firefox bug for AMO users
 * Several fixes for broken websites
 * Translations fixes
 * New translation: Nordic
-* New translation: Traditional Chineese (Taiwan)
+* New translation: Traditional Chinese (Taiwan)
 * New translation: Serbian
 * Fix crash on browsers without WebRTC
 * Fix narrow popup if icon is in the menu (Firefox)
