@@ -43,7 +43,7 @@ function browser_setup {
 
 function setup_lint {
   # "--production" to skip installing devDependencies modules
-  npm install --production || exit 1
+  npm ci --production || exit 1
 }
 
 # check that the desired browser is present as it might fail to install
