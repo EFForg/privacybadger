@@ -271,7 +271,7 @@ discovering and reporting this vulnerability.
 * Improved handling of disabled sites with wildcards
 * Added t.co link replacement to user profiles on Twitter
 * Linked to EFF software privacy policy from the new user welcome page
-* Updated to latest dummy Google Tag Manager script from uBlock Origin
+* Updated to latest dummy Google Publisher Tag script from uBlock Origin
 to avoid "failed to redirect a network request" warnings in Chrome
 * Fixed various site breakages
 * Improved translations (Simplified Chinese, Dutch, Esperanto, German,
@@ -319,8 +319,8 @@ checking navigator.doNotTrack with JavaScript
 * Fixed popup in Private Browsing windows in Firefox
 * Fixed certain kinds of site breakages (such as visual issues with charts)
 not going away even after disabling Privacy Badger on the site
-* Updated to latest dummy Google Tag Manager script from uBlock Origin to
-avoid "failed to redirect a network request" warnings in Chrome
+* Updated to latest dummy Google Publisher Tag script from uBlock Origin
+to avoid "failed to redirect a network request" warnings in Chrome
 * Fixed various site breakages
 * Improved translations (Bulgarian, Traditional Chinese, German, Italian,
 Swedish)
@@ -415,7 +415,7 @@ unobfuscated URLs on twitter.com
 * Added option to disable Do Not Track policy checking
 * Restricted DNT policy checking from sending cookies
 * Fixed tooltips for DNT-compliant domains in popup
-* Fixed localStorage tracking sometimes being attributed to unrelated domains
+* Fixed local storage tracking sometimes being attributed to unrelated domains
 * Improved translations (Swedish, Ukrainian)
 
 2017.5.9
@@ -437,8 +437,6 @@ mitigate CPU issues.
 * Fix broken site (sharepoint.com)
 
 2017.3.28
-* New Translations (Czech)
-* Translation Updates
 * Fix bug in DNT policy re-checking code
 * Rate limit DNT checking to one request per second
 * Fix issue with multiple DNT checks at once for a single domain
@@ -446,75 +444,75 @@ mitigate CPU issues.
 * Fix popup width issue
 * Fix DNT hash updating issue
 * Fix toggle switch issue
-* Automated tests now also run on Firefox
+* New translation: Czech
+* Translation updates
 * Other minor bugfixes and broken site fixes
+* Automated tests now also run on Firefox
 
 2017.3.22
-* AMO (Firefox) only release.
-* Fix cookie tracking detection in Firefox.
+Firefox only release
+* Fix cookie tracking detection in Firefox
 
 2017.1.26.1
-* AMO only release
-* Fixes an error in the build scripts which reintroduced a firefox bug for AMO users
+Firefox only release
+* Fix an error in the build scripts
+that reintroduced a Firefox bug for AMO users
 
 2017.1.26
 * Huge speed improvements for settings import and on startup
-* Fixes no content blocking bug (firefox) 
+* Fix no content blocking bug (Firefox)
 * Several fixes for broken websites
 * Translations fixes
-* New Translation: Nordic
-* New Translation: Traditional Chineese (Taiwan)
-* New Translation: Serbian
-* Bugfix: Crash on browsers without WebRTC
-* Bugfix: narrow poup if icon is in the menu (firefox) 
-* Bugfix: Import/Export now uses utf-8 and can handle non english character
-sets
+* New translation: Nordic
+* New translation: Traditional Chineese (Taiwan)
+* New translation: Serbian
+* Fix crash on browsers without WebRTC
+* Fix narrow popup if icon is in the menu (Firefox)
+* Import/Export now uses utf-8 and can handle non English character sets
 * Enhancement: Convert icons to SVG
-* Enhancement: Script surrogate for google analytics, gigya, and more...
-* KNOWN ISSUE: Chrome will now display a message "Not downloaded from chrome
+* Enhancement: Script surrogate for Google Analytics, Gigya, and more...
 
 2016.12.15.1 (2.0.2)
-* BUGFIX: Chrome browsers no longer display privacy badger as (corrupted)
-* BUGFIX: Fixes lockup issue on some versions of firefox
-* BUGFIX: Fixes issue where privacy badger panel gets cut off 
-* BUGFIX: Fixes a non implmeneted API in firefox which was causing numerous
-sites to break. 
-* KNOWN ISSUE: Chrome will now display a message "Not downloaded from chrome
-store". This is a known side effect of a workaround for a different bug. 
+* Chrome browsers no longer display Privacy Badger as corrupted
+* Fix lockup issue on some versions of Firefox
+* Fix issue where Privacy Badger panel gets cut off
+* Fix a non implemented API in Firefox which caused numerous sites to break
+* KNOWN ISSUE: Chrome will now display a message "Not downloaded from Chrome
+store". This is a known side effect of a workaround for a different bug.
 
 2016.12.8.1 (2.0.1)
 * BUGFIX: Sanitize origin and action in popup
 
 2016.12.8 (2.0)
-* BUGFIX: Fix ublock origin warnings 
+* BUGFIX: Fix uBlock Origin warnings
 * BUGFIX: Remove need for download permission
 
 2016.12.7.2 (2.0RC1)
 * Huge speed improvements
-* Multiprocess Compatible (E10S) for firefox
-* Breaks many fewer websites
+* Multiprocess Compatible (E10S) for Firefox
+* Breaks far fewer websites
 * Many small bugfixes
 * Import and Export your data
 * Block WebRTC from leaking your IP address
 * Forget data in incognito mode
-* block html5 "ping" tracking
-* Translation fixes 
+* Block HTML5 "ping" tracking
+* Translation fixes
 * (Developers) Firefox and Chrome versions now share one code base!
 
 2016.9.7 (1.13)
 * Add exceptions for multi domain first parties
-* Fix google drive download issue
-* Fix wikipedia login issue
-* Fix youtube comments and notifications issues
+* Fix Google Drive download issue
+* Fix Wikipedia login issue
+* Fix YouTube comments and notifications issues
 * Several other broken site fixes
 * Hopefully a fix for the "corrupted extension" issue
 
 2016.8.29 (1.12)
 * UI Tweaks
-* Remove last adblock plus code
+* Remove last Adblock Plus code
 * Feature: remove domains from list
 * Refactor incognito mode handling
-* Compatibile with firefox web extensions
+* Compatible with Firefox WebExtensions
 
 2016.5.24 (1.11)
 * Fix build error
@@ -525,77 +523,77 @@ store". This is a known side effect of a workaround for a different bug.
 
 2016.5.16 (1.9)
 * Remove Adblock Plus Engine
-* Switch to using storage.js and chrome storage API
+* Switch to using storage.js and extensions storage API
 * Massive refactoring of code
 * Huge speed improvements
-* Fixes bug where privacy badger "forgets" settings
-* Fixes first run tab opening on every startup
-* Fix waiting for privacy badger bug
+* Fix bug where Privacy Badger "forgets" settings
+* Fix first run tab opening on every startup
+* Fix waiting for Privacy Badger bug
 * Fix high CPU usage bug
-* Uses separate data store for incognito mode
-* Add selenium test to run pbtest.org suite
+* Use separate data store for incognito mode
+* Add Selenium test to run pbtest.org suite
 * Fix weird subdomain handling edge case
 * Fix bug where pages stop loading sometimes
 
 2015.4.6 (1.8)
-* Fix "waiting for privacy badger bug"
+* Fix "waiting for Privacy Badger bug"
 * Huge speed improvement
 
 2015.4.6 (1.7)
 * Fix crash when closing options page
-* Add EFF Donate Button
+* Add EFF Donate button
 * New popup to nag user to go through tutorial
 
 2015.3.2 (1.0.6)
-* New feature: Search within blocked domain list
-* Replace soundcloud widget with a click to play button
+* Add searching to list of tracking domains on the options page
+* Replace SoundCloud widget with a click to play button
 * Misc. bug fixes and translation improvements
 
 2015.12.3 (1.0.4)
 * Lots of site bug fixes
-* Chinese Translation
-* Spanish Translation
-* italian translation
+* Chinese translation
+* Spanish translation
+* Italian translation
 * UI Overhaul
 * Update Swedish locale
 * Typo fixes
 * Numerous bug fixes
-* Added support for disabled sites with wildcards
+* Add support for disabled sites with wildcards
 * Red badge now reflects the number of domains blocked or cookieblocked
 instead of all third parties.
 * Tooltips show full domain name
 
 2015.8.14 (1.0.1)
-* Fixes a bug where slider settings for a base domain wouldn't take effect
-* Fixes 'this extension is slowing down chrome' errors
+* Fix a bug where slider settings for a base domain wouldn't take effect
+* Fix "This extension is slowing down Chrome" errors
 
 2015.8.5 (1.0)
 * 1.0 release
 * Bugfixes from 2015.7.24 (0.99)
-* Detects Canvas Fingerprinting
-* Detect Local Storage Supercookies
+* Detect canvas fingerprinting
+* Detect HTML5 local storage supercookies
 * Improved UI
-* Options page for overriding privacy badger settings
-* Report Broken Site button 
-* Many Bugfixes (see github)
-* Translations into swedish, french and german
+* Options page for overriding Privacy Badger settings
+* Report Broken Site button
+* Many other misc. bugfixes
+* Translations into Swedish, French and German
 
 2015.7.24 (0.99)
 * Release candidate for version 1.0!
 
 2015.4.1
-* Miscellanious bugfixes 
+* Miscellanious bugfixes
 * Improvements to heuristic
 
 2014.9.16
-* Adds lots of tests including selenium tests.
-* Adds lots of domains to the cookie block list.
-* Fixes bug with downloading cookie block list.
-* Fixes other minor stylistic bugs.
+* Add lots of tests including Selenium tests
+* Add lots of domains to the cookie block list
+* Fix bug with downloading cookie block list
+* Fix other minor stylistic bugs
 
 2014.7.17
 * Created dialog to allow users to unblock certain third parties on certain
-* sites for addedd functionality.  E.g. disqus comments, facebook comments, etc.
+sites for added functionality. E.g. Disqus comments, Facebook comments, etc.
 * Added lots of domains to cookie block list.
-* do not show domains that do not appear to be trackers in the popup
-* added missing google+ button override
+* Do not show domains that do not appear to be trackers in the popup
+* Added missing Google+ button override
