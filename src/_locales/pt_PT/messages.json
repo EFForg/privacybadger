@@ -83,7 +83,7 @@
     },
     "dnt_tooltip": {
         "message": "Este domínio prometeu não rastreá-lo",
-        "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
+        "description": "Tooltip shown when you hover over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
         "message": "Bloquear este domínio normalmente dá problemas ao ver as páginas da Internet",
@@ -378,7 +378,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "Compatível com DNT",
+        "message": "compliant with EFF's DNT policy",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
