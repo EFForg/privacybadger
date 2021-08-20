@@ -624,6 +624,7 @@ securitymetrics.com
 seeclickfix.com
 sgizmo.com
 shopify.com
+shopifycdn.com
 shopping.com
 shop-pro.jp
 shoprunner.com
