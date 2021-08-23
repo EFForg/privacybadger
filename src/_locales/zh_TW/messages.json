@@ -378,7 +378,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "compliant with EFF's DNT policy",
+        "message": "符合 EFF 的 DNT 政策",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
