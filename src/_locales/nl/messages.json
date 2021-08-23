@@ -248,7 +248,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Vergeet alstublieft niet om op 'Defect voor deze site' te klikken. Om je privacy te respecteren versturen we dat niet automatisch.",
+        "message": "Vergeet alstublieft niet om op 'Defect voor deze site' te klikken. Om uw privacy te respecteren versturen we dat niet automatisch.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -711,7 +711,7 @@
         "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     },
     "deprecated_setting": {
-        "message": "De volgende instelling wordt uit toekomstige versies van Privacy Badger verwijderd:",
+        "message": "De volgende instelling zal uit een toekomstige versie van Privacy Badger worden verwijderd:",
         "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
     },
     "learn_more_link": {
