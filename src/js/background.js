@@ -1230,7 +1230,10 @@ Badger.prototype = {
   },
 
   /**
-   * Merge data exported from a different badger into this badger's storage.
+   * Merges Privacy Badger user data.
+   *
+   * Used to load pre-trained/"seed" data on installation and updates.
+   * Also used to import user data from other Privacy Badger instances.
    *
    * @param {Object} data the user data to merge in
    */
@@ -1260,10 +1263,6 @@ Badger.prototype = {
         self.storage.getStore(key).merge(data[key]);
       }
     });
-
-    // for exports from older Privacy Badger versions:
-    // fix yellowlist getting out of sync, remove non-tracking domains, etc.
-    self.runMigrations();
   }
 
 };

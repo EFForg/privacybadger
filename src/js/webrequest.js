@@ -1238,8 +1238,8 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // called when the user manually sets a slider on the options page
   case "saveOptionsToggle": {
-    // called when the user manually sets a slider on the options page
     badger.saveAction(request.action, request.origin);
     sendResponse({
       origins: badger.storage.getTrackingDomains()
@@ -1247,12 +1247,17 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // called when a user imports data exported from another Badger instance
   case "mergeUserData": {
-    // called when a user imports data exported from another Badger instance
     badger.mergeUserData(request.data);
     badger.blockWidgetDomains();
     badger.setPrivacyOverrides();
     badger.initDeprecations();
+
+    // for exports from older Privacy Badger versions:
+    // fix yellowlist getting out of sync, remove non-tracking domains, etc.
+    badger.runMigrations();
+
     sendResponse();
     break;
   }
