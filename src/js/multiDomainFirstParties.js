@@ -4276,6 +4276,7 @@ let multiDomainFirstPartiesArray = [
     "overture.com",
     "techcrunch.com",
     "yahoo.com",
+    "yahoo-leisure.hk",
 
     "huffpost.com",
     "huffingtonpost.ca",
@@ -4295,6 +4296,8 @@ let multiDomainFirstPartiesArray = [
     "huffpostarabi.com",
     "huffpostbrasil.com",
     "huffpostmaghreb.com",
+
+    "yahoo.com.tw",
 
     "yahooapis.com",
     "yimg.com",
