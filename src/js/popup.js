@@ -47,7 +47,8 @@ function showNagMaybe() {
 
   function _setSeenWebRtcDeprecation(cb) {
     chrome.runtime.sendMessage({
-      type: "seenWebRtcDeprecation"
+      type: "seenWebRtcDeprecation",
+      tabId: POPUP_DATA.tabId
     }, cb);
   }
 
