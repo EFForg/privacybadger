@@ -742,6 +742,18 @@ let multiDomainFirstPartiesArray = [
     "thezoereport.com",
   ],
   [
+    "buzzfeed.com",
+
+    "buzzfeed.bio",
+    "buzzfeed.io",
+    "buzzfeednews.com",
+    "bzfd.bio",
+    "contagiousmedia.com",
+    "hasbritainlefttheeu.com",
+    "tasty.co",
+    "worthitweek.com",
+  ],
+  [
     "canada.ca",
 
     "ceaa-acee.gc.ca",
