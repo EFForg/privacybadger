@@ -1160,6 +1160,7 @@ function dispatcher(request, sender, sendResponse) {
 
   case "seenWebRtcDeprecation": {
     badger.getPrivateSettings().setItem("showWebRtcDeprecation", false);
+    badger.updateBadge(request.tabId);
     sendResponse();
     break;
   }
