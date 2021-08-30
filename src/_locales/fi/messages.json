@@ -16,7 +16,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
     },
     "report_broken_site": {
-        "message": "Report broken site",
+        "message": "Ilmoita hajonneesta sivustosta",
         "description": "Button in the popup."
     },
     "version": {
@@ -90,15 +90,15 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "domain_slider_block_tooltip": {
-        "message": "Block entirely",
+        "message": "Estä kokonaan",
         "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Block cookies",
+        "message": "Estä evästeet",
         "description": "Tooltip shown when you hover over the center part of a domain slider"
     },
     "domain_slider_allow_tooltip": {
-        "message": "Allow",
+        "message": "Salli",
         "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
     },
     "feed_the_badger_title": {
@@ -170,7 +170,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "Sovelmapoikkeukset",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -178,11 +178,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "Sivustopoikkeukset",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "Salli aina sovelmat seuraavilla sivustoilla:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -212,11 +212,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "Opi estämään uusia jäljittimiä selaamisen perusteella",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Enabling learning may make you more identifiable to websites",
+        "message": "Oppimisen käyttöönotto voi tehdä sinusta tunnistettavamman sivustoille",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
@@ -236,7 +236,7 @@
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "Lue miten Privacy Badger muuttuu",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
@@ -354,11 +354,11 @@
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "Oppii automaattisesti",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "Luetteloihin perustuvan estämisen sijasta Privacy Badger löytää jäljittimet automaattisesti niiden toiminnan perusteella.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
@@ -406,7 +406,7 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "Lähetä sivustoille \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" ja \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" -signaalit",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
@@ -422,7 +422,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
-        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "message": "Poista Googlen Federated Learning of Cohorts (FLoC) käytöstä",
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
