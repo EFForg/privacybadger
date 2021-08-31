@@ -18,12 +18,12 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function getFpPageScript() {
+function getFpPageScript(event_id) {
 
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout, OBJECT) {
+  return "(" + function (EVENT_ID, DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout, OBJECT) {
 
     const V8_STACK_TRACE_API = !!(ERROR && ERROR.captureStackTrace);
 
@@ -33,8 +33,6 @@ function getFpPageScript() {
       // from https://github.com/csnover/TraceKit/blob/b76ad786f84ed0c94701c83d8963458a8da54d57/tracekit.js#L641
       var geckoCallSiteRe = /^\s*(.*?)(?:\((.*?)\))?@?((?:file|https?|chrome):.*?):(\d+)(?::(\d+))?\s*$/i;
     }
-
-    var event_id = DOCUMENT.currentScript.getAttribute('data-event-id');
 
     // from Underscore v1.6.0
     function debounce(func, wait, immediate) {
@@ -76,7 +74,7 @@ function getFpPageScript() {
 
       // debounce sending queued messages
       var _send = debounce(function () {
-        dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(event_id, {
+        dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(EVENT_ID, {
           detail: messages
         }));
 
@@ -319,7 +317,7 @@ function getFpPageScript() {
     methods.forEach(trapInstanceMethod);
 
   // save locally to keep from getting overwritten by site code
-  } + "(document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout, Object));";
+  } + "(" + event_id + ", document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout, Object));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
@@ -345,23 +343,19 @@ chrome.runtime.sendMessage({
   if (!enabled) {
     return;
   }
-  /**
-   * Communicating to webrequest.js
-   */
-  var event_id = Math.random();
+
+  const event_id = Math.random();
 
   // listen for messages from the script we are about to insert
   document.addEventListener(event_id, function (e) {
-    // pass these on to the background page
+    // pass these on to the background page (handled by webrequest.js)
     chrome.runtime.sendMessage({
       type: "fpReport",
       data: e.detail
     });
   });
 
-  window.injectScript(getFpPageScript(), {
-    event_id: event_id
-  });
+  window.injectScript(getFpPageScript(event_id));
 });
 
 }());

@@ -23,11 +23,11 @@
  *
  * @returns {string}
  */
-function getScPageScript() {
+function getScPageScript(event_id) {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function () {
+  return "(" + function (EVENT_ID) {
 
     /*
      * If localStorage is inaccessible, such as when "Block third-party cookies"
@@ -46,44 +46,34 @@ function getScPageScript() {
 
     (function (DOCUMENT, dispatchEvent, CUSTOM_EVENT, LOCAL_STORAGE, OBJECT, keys) {
 
-      var event_id = DOCUMENT.currentScript.getAttribute('data-event-id-super-cookie');
-
-      /**
-       * send message to the content script
-       *
-       * @param {*} message
-       */
-      var send = function (message) {
-        dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(event_id, {
+      function send(message) {
+        dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(EVENT_ID, {
           detail: message
         }));
-      };
+      }
 
       /**
        * Read HTML5 local storage and return contents
        * @returns {Object}
        */
-      let getLocalStorageItems = function () {
+      function getLocalStorageItems() {
         let lsItems = {};
         for (let i = 0; i < LOCAL_STORAGE.length; i++) {
           let key = LOCAL_STORAGE.key(i);
           lsItems[key] = LOCAL_STORAGE.getItem(key);
         }
         return lsItems;
-      };
+      }
 
-      if (event_id) { // inserted script may run before the event_id is available
-        let localStorageItems = getLocalStorageItems();
-        if (keys.call(OBJECT, localStorageItems).length) {
-          // send to content script
-          send({ localStorageItems });
-        }
+      let localStorageItems = getLocalStorageItems();
+      if (keys.call(OBJECT, localStorageItems).length) {
+        send({ localStorageItems });
       }
 
     // save locally to keep from getting overwritten by site code
     } (document, document.dispatchEvent, CustomEvent, localStorage, Object, Object.keys));
 
-  } + "());";
+  } + "(" + event_id + "));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
@@ -130,10 +120,10 @@ chrome.runtime.sendMessage({
     return;
   }
 
-  var event_id_super_cookie = Math.random();
+  const event_id = Math.random();
 
   // listen for messages from the script we are about to insert
-  document.addEventListener(event_id_super_cookie, function (e) {
+  document.addEventListener(event_id, function (e) {
     // pass these on to the background page (handled by webrequest.js)
     chrome.runtime.sendMessage({
       type: "supercookieReport",
@@ -142,9 +132,7 @@ chrome.runtime.sendMessage({
     });
   });
 
-  window.injectScript(getScPageScript(), {
-    event_id_super_cookie: event_id_super_cookie
-  });
+  window.injectScript(getScPageScript(event_id));
 
 });
 
