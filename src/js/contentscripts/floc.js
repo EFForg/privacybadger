@@ -15,8 +15,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
-
 (function () {
 
 // don't inject into non-HTML documents (such as XML documents)
@@ -33,10 +31,9 @@ chrome.runtime.sendMessage({
   type: "checkFloc"
 }, function (enabled) {
   if (enabled) {
-    window.injectScript("(" +
-      function () { delete Document.prototype.interestCohort; }
-      + "());"
-    );
+    window.injectScript("(" + function () {
+      delete Document.prototype.interestCohort;
+    } + "());");
   }
 });
 

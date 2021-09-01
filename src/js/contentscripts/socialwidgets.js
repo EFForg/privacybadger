@@ -44,6 +44,17 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+(function () {
+
+// don't inject into non-HTML documents (such as XML documents)
+// but do inject into XHTML documents
+if (document instanceof HTMLDocument === false && (
+  document instanceof XMLDocument === false ||
+  document.createElement('div') instanceof HTMLDivElement === false
+)) {
+  return;
+}
+
 // widget data
 let widgetList;
 
@@ -52,7 +63,6 @@ const TRANSLATIONS = {};
 
 // references to widget page elements
 const WIDGET_ELS = {};
-
 
 /**
  * @param {Object} response response to checkWidgetReplacementEnabled
@@ -678,17 +688,6 @@ function unblockTracker(name, callback) {
 }
 
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
-
-(function () {
-
-// don't inject into non-HTML documents (such as XML documents)
-// but do inject into XHTML documents
-if (document instanceof HTMLDocument === false && (
-  document instanceof XMLDocument === false ||
-  document.createElement('div') instanceof HTMLDivElement === false
-)) {
-  return;
-}
 
 chrome.runtime.sendMessage({
   type: "checkWidgetReplacementEnabled"

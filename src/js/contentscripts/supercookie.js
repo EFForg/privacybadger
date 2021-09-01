@@ -18,12 +18,28 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+(function () {
+
+// don't inject into non-HTML documents (such as XML documents)
+// but do inject into XHTML documents
+if (document instanceof HTMLDocument === false && (
+  document instanceof XMLDocument === false ||
+  document.createElement('div') instanceof HTMLDivElement === false
+)) {
+  return;
+}
+
+// don't bother asking to run when trivially in first-party context
+if (window.top == window) {
+  return;
+}
+
 /**
  * Generate script to inject into the page
  *
  * @returns {string}
  */
-function getScPageScript(event_id) {
+function getPageScript(event_id) {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
@@ -81,22 +97,6 @@ function getScPageScript(event_id) {
 
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
-(function () {
-
-// don't inject into non-HTML documents (such as XML documents)
-// but do inject into XHTML documents
-if (document instanceof HTMLDocument === false && (
-  document instanceof XMLDocument === false ||
-  document.createElement('div') instanceof HTMLDivElement === false
-)) {
-  return;
-}
-
-// don't bother asking to run when trivially in first-party context
-if (window.top == window) {
-  return;
-}
-
 // TODO race condition; fix waiting on https://crbug.com/478183
 
 // TODO here we could also be injected too quickly
@@ -132,7 +132,7 @@ chrome.runtime.sendMessage({
     });
   });
 
-  window.injectScript(getScPageScript(event_id));
+  window.injectScript(getPageScript(event_id));
 
 });
 
