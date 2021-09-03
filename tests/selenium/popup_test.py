@@ -39,45 +39,50 @@ class PopupTest(pbtest.PBSeleniumTest):
     def open_popup(self, show_nag=False, origins=None):
         """Open popup and optionally close overlay."""
 
-        DUMMY_PAGE_URL = "https://efforg.github.io/privacybadger-test-fixtures/"
-
-        # hack to get tabData populated for the popup's tab
-        # to get the popup shown for regular pages
-        # as opposed to special (no-tabData) browser pages
-        self.open_window()
-        self.load_url(DUMMY_PAGE_URL)
-
         self.open_window()
         self.load_url(self.popup_url)
         self.wait_for_script("return window.POPUP_INITIALIZED")
 
-        # override tab ID (to get regular page popup instead of
-        # special browser page popup),
-        # optionally set the domains the popup should report,
-        # optionally ask for the new user welcome page reminder
+        # populate tabData for the popup's tab
+        # to get a regular page popup
+        # instead of a special browser page popup
+        #
+        # optionally set the domains the popup should report
+        #
+        # optionally show the new user welcome page reminder
         popup_js = (
-            "(function (origins, show_nag, DUMMY_PAGE_URL) {"
-            "chrome.tabs.query({ url: DUMMY_PAGE_URL }, (tabs) => {"
+            "(function (origins, show_nag) {"
+            ""
+            "let bg = chrome.extension.getBackgroundPage();"
+            ""
+            "chrome.tabs.getCurrent(tab => {"
+            "  bg.badger.recordFrame(tab.id, 0, tab.url);"
+            ""
+            "  for (let domain of Object.keys(origins)) {"
+            "    bg.badger.logThirdPartyOriginOnTab(tab.id, domain, origins[domain]);"
+            "  }"
+            ""
             "  chrome.runtime.sendMessage({"
             "    type: 'getPopupData',"
-            "    tabId: tabs[0].id"
+            "    tabId: tab.id"
             "  }, (response) => {"
-            "    response.seenComic = !show_nag;"
-            "    response.origins = origins;"
+            "    response.settings.seenComic = !show_nag;"
             "    setPopupData(response);"
             "    refreshPopup();"
             "    showNagMaybe();"
             "    window.DONE_REFRESHING = true;"
             "  });"
             "});"
-            "}(arguments[0], arguments[1], arguments[2]));"
+            ""
+            "}(arguments[0], arguments[1]));"
         )
-        self.js(popup_js, origins if origins else {}, show_nag, DUMMY_PAGE_URL)
-        # wait until the async getTab function is done
+        self.js(popup_js, origins if origins else {}, show_nag)
+
+        # wait until the async functions above are done
         self.wait_for_script(
             "return typeof window.DONE_REFRESHING != 'undefined'",
             timeout=5,
-            message="Timed out waiting for getTab() to complete."
+            message="Timed out waiting for popup to finish initializing"
         )
 
         # wait for any sliders to finish rendering
@@ -137,7 +142,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.open_popup()
 
-        # Get all possible tracker links (none, one, multiple)
+        # Get all possible tracker links ("no" and "multiple" messages)
         trackers_links = self.driver.find_elements_by_css_selector("#pbInstructions a")
         if not trackers_links:
             self.fail("Unable to find trackers link on popup")
@@ -158,7 +163,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
-        self.assertEqual(self.driver.current_url, EFF_URL,
+        self.assertEqual(EFF_URL, self.driver.current_url,
             "EFF website should open after clicking trackers link on popup")
 
         # Verify EFF website contains the linked anchor element.
@@ -193,7 +198,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = self.get_domain_slider_state(DOMAIN)
 
-        self.assertEqual(new_action, "block",
+        self.assertEqual("block", new_action,
             "The domain should be blocked on options page.")
 
         # test toggling some more
@@ -215,7 +220,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = self.get_domain_slider_state(DOMAIN)
 
-        self.assertEqual(new_action, "block",
+        self.assertEqual("block", new_action,
             "The domain should still be blocked on options page.")
 
     def test_reverting_control(self):
@@ -229,6 +234,11 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.cookieblock_domain(DOMAIN)
 
         self.open_popup(origins={DOMAIN:"cookieblock"})
+
+        # reveal sliders
+        self.driver.find_element_by_id('expand-blocked-resources').click()
+        # TODO retry instead
+        time.sleep(1)
 
         # set the domain to user control
         # click input with JavaScript to avoid "Element ... is not clickable" /
@@ -250,12 +260,11 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # assert the action is not what we manually clicked
         action = self.get_domain_slider_state(DOMAIN)
-        self.assertEqual(action, "cookieblock",
+        self.assertEqual("cookieblock", action,
             "Domain's action should have been restored.")
 
         # assert the undo arrow is not displayed
         self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
-        self.driver.find_element_by_id('show-tracking-domains-checkbox').click()
         self.assertFalse(
             self.driver.find_element_by_css_selector(
                 'div[data-origin="{}"] a.honeybadgerPowered'.format(DOMAIN)
@@ -347,8 +356,139 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
-        self.assertEqual(self.driver.current_url, EFF_URL,
+        self.assertEqual(EFF_URL, self.driver.current_url,
             "EFF website should open after clicking donate button on popup")
+
+    def test_breakage_warnings(self):
+        YLIST_DOMAIN = "jquery.com"
+        self.open_popup(origins={YLIST_DOMAIN: "cookieblock"})
+
+        def get_breakage_icon():
+            return self.driver.find_element_by_css_selector(
+                'div.clicker[data-origin="{}"] span.breakage-warning'.format(YLIST_DOMAIN))
+
+        # reveal sliders
+        self.driver.find_element_by_id('expand-blocked-resources').click()
+        # TODO retry instead
+        time.sleep(1)
+
+        # verify there is no breakage warning
+        breakage_icon = get_breakage_icon()
+        self.assertFalse(breakage_icon.is_displayed())
+
+        # manually block the yellowlisted domain
+        self.js("$('#block-{}').click()".format(YLIST_DOMAIN.replace(".", "-")))
+
+        # verify breakage warning is shown
+        breakage_icon = get_breakage_icon()
+        self.assertTrue(breakage_icon.is_displayed())
+
+        # verify breakage warning is there when reopened
+        self.open_popup(origins={YLIST_DOMAIN: "user_block"}) # TODO hack
+        breakage_icon = get_breakage_icon()
+        self.assertTrue(breakage_icon.is_displayed())
+
+    def test_slider_hiding(self):
+        YLIST_DOMAIN = "jquery.com"
+        TEST_DOMAINS = {
+            "example.com": "block",
+            YLIST_DOMAIN: "cookieblock"
+        }
+
+        def assert_hidden(sliders):
+            for slider in sliders:
+                self.assertFalse(slider.is_displayed(),
+                    "{} is visible but should be hidden".format(
+                        slider.get_attribute('data-origin')))
+
+        def assert_visible(sliders):
+            for slider in sliders:
+                self.assertTrue(slider.is_displayed(),
+                    "{} is hidden but should be visible".format(
+                        slider.get_attribute('data-origin')))
+
+        self.open_popup(origins=TEST_DOMAINS)
+        sliders = self.driver.find_elements_by_css_selector('div.clicker')
+
+        # verify we have the expected number of sliders
+        self.assertEqual(len(TEST_DOMAINS), len(sliders))
+
+        # verify sliders are hidden
+        assert_hidden(sliders)
+
+        # reveal sliders
+        self.driver.find_element_by_id('expand-blocked-resources').click()
+        # TODO retry instead
+        time.sleep(1)
+
+        # verify sliders are visible
+        assert_visible(sliders)
+
+        # reopen popup
+        self.open_popup(origins=TEST_DOMAINS)
+        sliders = self.driver.find_elements_by_css_selector('div.clicker')
+
+        # verify sliders are visible
+        assert_visible(sliders)
+
+        # verify domain is shown second in the list
+        self.assertEqual(YLIST_DOMAIN, sliders[1].get_attribute('data-origin'))
+
+        # manually block the yellowlisted domain
+        self.js("$('#block-{}').click()".format(YLIST_DOMAIN.replace(".", "-")))
+
+        # hide sliders
+        self.driver.find_element_by_id('collapse-blocked-resources').click()
+        # TODO retry instead
+        time.sleep(1)
+
+        # verify sliders are hidden
+        assert_hidden(sliders)
+
+        # reopen popup
+        TEST_DOMAINS[YLIST_DOMAIN] = "user_block" # TODO hack
+        self.open_popup(origins=TEST_DOMAINS)
+        sliders = self.driver.find_elements_by_css_selector('div.clicker')
+
+        # verify sliders are visible
+        assert_visible(sliders)
+
+        # verify breakage warning slider is at the top
+        self.assertEqual(YLIST_DOMAIN, sliders[0].get_attribute('data-origin'))
+
+        # restore the user-set slider to default action
+        self.driver.find_element_by_css_selector(
+            'div[data-origin="{}"] a.honeybadgerPowered'.format(YLIST_DOMAIN)
+        ).click()
+
+        # get back to a valid window handle as the window just got closed
+        self.driver.switch_to.window(self.driver.window_handles[0])
+
+        # reopen popup
+        TEST_DOMAINS[YLIST_DOMAIN] = "cookieblock" # TODO hack
+        self.open_popup(origins=TEST_DOMAINS)
+        sliders = self.driver.find_elements_by_css_selector('div.clicker')
+
+        # verify sliders are hidden again
+        assert_hidden(sliders)
+
+    def test_nothing_blocked_slider_list(self):
+        # enable local learning and showing non-tracking domains
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#local-learning-checkbox').click()
+        self.find_el_by_css('#show-nontracking-domains-checkbox').click()
+
+        # base case: verify blocked slider is hidden (list is collapsed)
+        self.open_popup(origins={'example.com': 'block'})
+        slider = self.driver.find_element_by_css_selector('div.clicker[data-origin="example.com"]')
+        self.assertFalse(slider.is_displayed())
+
+        # reopen popup
+        self.open_popup(origins={'example.com': 'noaction'})
+        # verify a non-tracking slider gets shown (no collapsing, just show the list)
+        slider = self.driver.find_element_by_css_selector('div.clicker[data-origin="example.com"]')
+        self.assertTrue(slider.is_displayed())
 
 
 if __name__ == "__main__":

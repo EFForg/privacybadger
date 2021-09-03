@@ -20,7 +20,7 @@
 
 /* globals URI:false */
 
-require.scopes.utils = (function() {
+require.scopes.utils = (function () {
 
 let mdfp = require("multiDomainFP");
 
@@ -266,6 +266,49 @@ function oneDayFromNow() {
   return nDaysFromNow(1);
 }
 
+function random(min, max) {
+  if (max == null) {
+    max = min;
+    min = 0;
+  }
+  return min + Math.floor(Math.random() * (max - min + 1));
+}
+
+// from Underscore v1.6.0
+// also lives in js/contentscripts/fingerprinting.js
+function debounce(func, wait, immediate) {
+  var timeout, args, context, timestamp, result;
+
+  var later = function () {
+    var last = Date.now() - timestamp;
+    if (last < wait) {
+      timeout = setTimeout(later, wait - last);
+    } else {
+      timeout = null;
+      if (!immediate) {
+        result = func.apply(context, args);
+        context = args = null;
+      }
+    }
+  };
+
+  return function () {
+    context = this; // eslint-disable-line consistent-this
+    args = arguments;
+    timestamp = Date.now();
+    var callNow = immediate && !timeout;
+    if (!timeout) {
+      timeout = setTimeout(later, wait);
+    }
+    if (callNow) {
+      result = func.apply(context, args);
+      context = args = null;
+    }
+
+    return result;
+  };
+}
+
 /**
  * Creates a rate-limited function that delays invoking `fn` until after
  * `interval` milliseconds have elapsed since the last time the rate-limited
@@ -445,6 +488,50 @@ function isThirdPartyDomain(domain1, domain2) {
   return false;
 }
 
+/**
+ * Checks whether a given site hostname matches
+ * any first party protections content scripts.
+ *
+ * @param {String} tab_host
+ * @return {Boolean}
+ */
+let firstPartyProtectionsEnabled = (function () {
+  let firstPartiesList;
+
+  function getFirstParties() {
+    let manifestJson = chrome.runtime.getManifest();
+    let firstParties = [];
+
+    for (let contentScriptObj of manifestJson.content_scripts) {
+      // only include parts from content scripts that have firstparties entries
+      if (contentScriptObj.js[0].includes("/firstparties/")) {
+        let extractedUrls = [];
+        for (let match of contentScriptObj.matches) {
+          extractedUrls.push(window.extractHostFromURL(match));
+        }
+        firstParties.push(extractedUrls);
+      }
+    }
+    return [].concat.apply([], firstParties);
+  }
+
+  return function (tab_host) {
+    if (!firstPartiesList) {
+      firstPartiesList = getFirstParties();
+    }
+
+    for (let url_pattern of firstPartiesList) {
+      if (url_pattern.startsWith("*")) {
+        if (tab_host.endsWith(url_pattern.slice(1))) {
+          return true;
+        }
+      } else if (url_pattern == tab_host) {
+        return true;
+      }
+    }
+    return false;
+  };
+})();
 
 /**
  * Checks whether a given URL is a special browser page.
@@ -463,13 +550,43 @@ function isRestrictedUrl(url) {
   );
 }
 
+function difference(arr1, arr2) {
+  arr1 = arr1 || [];
+  arr2 = arr2 || [];
+  return arr1.filter(x => !arr2.includes(x));
+}
+
+/**
+ * @returns {Array} items from arr1
+ * followed by items from arr2 that were not already present in arr1
+ */
+function concatUniq(arr1, arr2) {
+  arr1 = arr1 || [];
+  arr2 = arr2 || [];
+  return arr1.concat(arr2.filter(x => !arr1.includes(x)));
+}
+
+function invert(obj) {
+  let result = {};
+  let keys = Object.keys(obj);
+  for (let i = 0, length = keys.length; i < length; i++) {
+    result[obj[keys[i]]] = keys[i];
+  }
+  return result;
+}
+
 /************************************** exports */
 let exports = {
   arrayBufferToBase64,
+  concatUniq,
+  debounce,
+  difference,
   estimateMaxEntropy,
   explodeSubdomains,
   findCommonSubstrings,
+  firstPartyProtectionsEnabled,
   getHostFromDomainInput,
+  invert,
   isRestrictedUrl,
   isThirdPartyDomain,
   nDaysFromNow,
@@ -479,10 +596,24 @@ let exports = {
   oneMinute,
   oneSecond,
   parseCookie,
+  random,
   rateLimit,
   sha1,
   xhrRequest,
 };
+
+exports.isObject = function (obj) {
+  let type = typeof obj;
+  return type === 'function' || type === 'object' && !!obj;
+};
+
+// isFunction(), isString(), etc.
+for (let name of ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet']) {
+  exports['is' + name] = function (x) {
+    return toString.call(x) === '[object ' + name + ']';
+  };
+}
+
 return exports;
 /************************************** exports */
 })(); //require scopes

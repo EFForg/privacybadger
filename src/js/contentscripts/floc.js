@@ -1,6 +1,6 @@
 /*
  * This file is part of Privacy Badger <https://privacybadger.org/>
- * Copyright (C) 2018 Electronic Frontier Foundation
+ * Copyright (C) 2021 Electronic Frontier Foundation
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -26,46 +26,14 @@ if (document instanceof HTMLDocument === false && (
   return;
 }
 
-function getPageScript() {
-
-  // code below is not a content script: no chrome.* APIs /////////////////////
-
-  // return a string
-  return "(" + function (NAVIGATOR, OBJECT) {
-
-    if (NAVIGATOR.doNotTrack != "1") {
-      OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
-        get: function doNotTrack() {
-          return "1";
-        }
-      });
-    }
-
-    if (!NAVIGATOR.globalPrivacyControl) {
-      try {
-        OBJECT.defineProperty(NAVIGATOR, "globalPrivacyControl", {
-          value: true
-        });
-      } catch (e) {
-        console.error("Privacy Badger failed to set navigator.globalPrivacyControl, probably because another extension set it in an incompatible way first.");
-      }
-    }
-
-  // save locally to keep from getting overwritten by site code
-  } + "(window.navigator, Object));";
-
-  // code above is not a content script: no chrome.* APIs /////////////////////
-
-}
-
-// END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
-
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
-  type: "checkDNT"
+  type: "checkFloc"
 }, function (enabled) {
   if (enabled) {
-    window.injectScript(getPageScript());
+    window.injectScript("(" + function () {
+      delete Document.prototype.interestCohort;
+    } + "());");
   }
 });
 

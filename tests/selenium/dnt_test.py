@@ -129,23 +129,23 @@ class DntTest(pbtest.PBSeleniumTest):
 
         # verify that the domain itself doesn't set cookies
         self.load_url(TEST_URL)
-        self.assertEqual(len(self.driver.get_cookies()), 0,
+        self.assertEqual(0, len(self.driver.get_cookies()),
             "No cookies initially")
 
         # directly visit a DNT policy URL known to set cookies
         self.load_url(TEST_URL + ".well-known/dnt-policy.txt")
-        self.assertEqual(len(self.driver.get_cookies()), 1,
+        self.assertEqual(1, len(self.driver.get_cookies()),
             "DNT policy URL set a cookie")
 
         # verify we got a cookie
         self.load_url(TEST_URL)
-        self.assertEqual(len(self.driver.get_cookies()), 1,
+        self.assertEqual(1, len(self.driver.get_cookies()),
             "We still have just one cookie")
 
         # clear cookies and verify
         self.driver.delete_all_cookies()
         self.load_url(TEST_URL)
-        self.assertEqual(len(self.driver.get_cookies()), 0,
+        self.assertEqual(0, len(self.driver.get_cookies()),
             "No cookies again")
 
         self.load_url(self.options_url)
@@ -156,7 +156,7 @@ class DntTest(pbtest.PBSeleniumTest):
 
         # check that we didn't get cookied by the DNT URL
         self.load_url(TEST_URL)
-        self.assertEqual(len(self.driver.get_cookies()), 0,
+        self.assertEqual(0, len(self.driver.get_cookies()),
             "Shouldn't have any cookies after the DNT check")
 
     def test_dnt_policy_check_should_not_send_cookies(self):
@@ -165,7 +165,7 @@ class DntTest(pbtest.PBSeleniumTest):
 
         # directly visit a DNT policy URL known to set cookies
         self.load_url(TEST_URL + ".well-known/dnt-policy.txt")
-        self.assertEqual(len(self.driver.get_cookies()), 1,
+        self.assertEqual(1, len(self.driver.get_cookies()),
             "DNT policy URL set a cookie")
 
         # how to check we didn't send a cookie along with request?
@@ -242,9 +242,9 @@ class DntTest(pbtest.PBSeleniumTest):
         self.assertTrue(headers is not None, "It seems we failed to get headers")
         self.assertIn('Dnt', headers, "DNT header should have been present")
         self.assertIn('Sec-Gpc', headers, "GPC header should have been present")
-        self.assertEqual(headers['Dnt'], "1",
+        self.assertEqual("1", headers['Dnt'],
             'DNT header should have been set to "1"')
-        self.assertEqual(headers['Sec-Gpc'], "1",
+        self.assertEqual("1", headers['Sec-Gpc'],
             'Sec-Gpc header should have been set to "1"')
 
     def test_no_dnt_header_when_disabled_on_site(self):
@@ -273,13 +273,13 @@ class DntTest(pbtest.PBSeleniumTest):
         self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
 
         self.assertEqual(
-            self.driver.find_element_by_tag_name('body').text,
             'no tracking (navigator.doNotTrack="1")',
+            self.driver.find_element_by_tag_name('body').text,
             "navigator.DoNotTrack should have been set to \"1\""
         )
         self.assertEqual(
-            self.js("return navigator.globalPrivacyControl"),
             True,
+            self.js("return navigator.globalPrivacyControl"),
             "navigator.globalPrivacyControl should have been set to true"
         )
 
@@ -290,13 +290,13 @@ class DntTest(pbtest.PBSeleniumTest):
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         self.assertEqual(
-            self.driver.find_element_by_tag_name('body').text[0:5],
             'unset',
+            self.driver.find_element_by_tag_name('body').text[0:5],
             "navigator.DoNotTrack should have been left unset"
         )
         self.assertEqual(
-            self.js("return navigator.globalPrivacyControl"),
             None,
+            self.js("return navigator.globalPrivacyControl"),
             "navigator.globalPrivacyControl should have been left unset"
         )
 
@@ -309,13 +309,13 @@ class DntTest(pbtest.PBSeleniumTest):
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         self.assertEqual(
-            self.driver.find_element_by_tag_name('body').text[0:5],
             'unset',
+            self.driver.find_element_by_tag_name('body').text[0:5],
             "navigator.DoNotTrack should have been left unset"
         )
         self.assertEqual(
-            self.js("return navigator.globalPrivacyControl"),
             None,
+            self.js("return navigator.globalPrivacyControl"),
             "navigator.globalPrivacyControl should have been left unset"
         )
 

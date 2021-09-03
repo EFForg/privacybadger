@@ -34,11 +34,6 @@ Copyright JS Foundation and other contributors
 Released under the MIT license
 https://jquery.org/license
 
-Underscore.js
-http://underscorejs.org
-(c) 2009-2018 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-Underscore may be freely distributed under the MIT license.
-
 jQuery UI
 Copyright jQuery Foundation and other contributors
 Licensed MIT
@@ -77,10 +72,11 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 Alternatively, this code may be distributed or
 otherwise used under the terms of GPL v3
 
-Incorporating code from Punycode.js
-http://mths.be/punycode
-Copyright 2011 Mathias Bynens <http://mathiasbynens.be/>
-Licensed MIT
+Incorporating "surrogate"/"dummy"/"neutered" scripts from uBlock Origin
+https://github.com/gorhill/ublock
+https://github.com/uBlockOrigin/uAssets/
+Copyright (C) 2014-present Raymond Hill
+Licensed GPLv3
 
 Tooltipster
 http://iamceege.github.io/tooltipster/
@@ -110,6 +106,11 @@ Font version 2.1
 Licensed CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/
 Stylesheet version 2.3.2
 Licensed GPL: http://www.gnu.org/licenses/gpl.html
+
+List of CNAME domains (basis for src/data/cname_domains.json)
+https://github.com/AdguardTeam/cname-trackers
+Copyright 2021 Adguard Software Ltd
+Licensed MIT
 
 
 TEXT OF GPLv3

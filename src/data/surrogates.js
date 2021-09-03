@@ -53,6 +53,9 @@ const hostnames = {
   'www.googletagservices.com': [
     '/gpt.js',
   ],
+  'securepubads.g.doubleclick.net': [
+    '/tag/js/gpt.js',
+  ],
   'api.youneeq.ca': [
     '/app/yqmin',
   ],
@@ -68,8 +71,7 @@ const surrogates = {
 
   // Google Analytics (legacy ga.js)
   //
-  // sourced from https://github.com/uBlockOrigin/uAssets/ under GPLv3
-  // https://github.com/uBlockOrigin/uAssets/blob/2dfeece7cfe671e93573db6d176901cf2df37623/filters/resources.txt#L162-L260
+  // https://github.com/gorhill/uBlock/blob/dcc72ba51c30abd4a1216049cc34f6c429ab2090/src/web_accessible_resources/google-analytics_ga.js
   //
   // test cases:
   // http://checkin.avianca.com/
@@ -79,12 +81,11 @@ const surrogates = {
   // https://developers.google.com/analytics/devguides/collection/gajs/methods/
   '/ga.js': '(' +
     function() {
-      var noopfn = function() {
-        ;
+      'use strict';
+      const noopfn = function() {
       };
       //
-      var Gaq = function() {
-        ;
+      const Gaq = function() {
       };
       Gaq.prototype.Na = noopfn;
       Gaq.prototype.O = noopfn;
@@ -112,9 +113,9 @@ const surrogates = {
         }
       };
       //
-      var tracker = (function() {
-        var out = {};
-        var api = [
+      const tracker = (function() {
+        const out = {};
+        const api = [
           '_addIgnoredOrganic _addIgnoredRef _addItem _addOrganic',
           '_addTrans _clearIgnoredOrganic _clearIgnoredRef _clearOrganic',
           '_cookiePathCopy _deleteCustomVar _getName _setAccount',
@@ -132,7 +133,7 @@ const surrogates = {
           '_trackPageview _trackSocial _trackTiming _trackTrans',
           '_visitCode'
         ].join(' ').split(/\s+/);
-        var i = api.length;
+        let i = api.length;
         while ( i-- ) {
           out[api[i]] = noopfn;
         }
@@ -142,8 +143,7 @@ const surrogates = {
         return out;
       })();
       //
-      var Gat = function() {
-        ;
+      const Gat = function() {
       };
       Gat.prototype._anonymizeIP = noopfn;
       Gat.prototype._createTracker = noopfn;
@@ -163,12 +163,12 @@ const surrogates = {
       Gat.prototype.oa = noopfn;
       Gat.prototype.pa = noopfn;
       Gat.prototype.u = noopfn;
-      var gat = new Gat();
+      const gat = new Gat();
       window._gat = gat;
       //
-      var gaq = new Gaq();
+      const gaq = new Gaq();
       (function() {
-        var aa = window._gaq || [];
+        const aa = window._gaq || [];
         if ( Array.isArray(aa) ) {
           while ( aa[0] ) {
             gaq.push(aa.shift());
@@ -179,16 +179,16 @@ const surrogates = {
     } + ')();',
 
   // https://github.com/gorhill/uBlock/issues/1265
-  // https://github.com/uBlockOrigin/uAssets/blob/581f2c93eeca0e55991aa331721b6942f3162615/filters/resources.txt#L736-L746
+  // https://github.com/gorhill/uBlock/blob/dcc72ba51c30abd4a1216049cc34f6c429ab2090/src/web_accessible_resources/scorecardresearch_beacon.js
   /* eslint-disable no-undef */
   '/beacon.js': '(' +
     function() {
+      'use strict';
       window.COMSCORE = {
         purge: function() {
-          _comscore = [];
+          window._comscore = [];
         },
         beacon: function() {
-          ;
         }
       };
     } + ')();',
@@ -200,41 +200,39 @@ const surrogates = {
     } + ')();',
 
   // https://github.com/EFForg/privacybadger/issues/993
-  // https://github.com/uBlockOrigin/uAssets/blob/2bc97541b3b9a9380b3ce8bd2242375925df293c/filters/resources.txt#L436-L567
+  // https://github.com/gorhill/uBlock/blob/dcc72ba51c30abd4a1216049cc34f6c429ab2090/src/web_accessible_resources/googletagservices_gpt.js
   /* eslint-disable no-empty */
   '/gpt.js': '(' +
     function() {
-      var p;
+      'use strict';
       // https://developers.google.com/doubleclick-gpt/reference
-      var noopfn = function() {
-        ;
+      const noopfn = function() {
       }.bind();
-      var noopthisfn = function() {
+      const noopthisfn = function() {
         return this;
       };
-      var noopnullfn = function() {
+      const noopnullfn = function() {
         return null;
       };
-      var nooparrayfn = function() {
+      const nooparrayfn = function() {
         return [];
       };
-      var noopstrfn = function() {
+      const noopstrfn = function() {
         return '';
       };
       //
-      var companionAdsService = {
+      const companionAdsService = {
         addEventListener: noopthisfn,
         enableSyncLoading: noopfn,
         setRefreshUnfilledSlots: noopfn
       };
-      var contentService = {
+      const contentService = {
         addEventListener: noopthisfn,
         setContent: noopfn
       };
-      var PassbackSlot = function() {
-        ;
+      const PassbackSlot = function() {
       };
-      p = PassbackSlot.prototype;
+      let p = PassbackSlot.prototype;
       p.display = noopfn;
       p.get = noopnullfn;
       p.set = noopthisfn;
@@ -242,7 +240,7 @@ const surrogates = {
       p.setTagForChildDirectedTreatment = noopthisfn;
       p.setTargeting = noopthisfn;
       p.updateTargetingFromMap = noopthisfn;
-      var pubAdsService = {
+      const pubAdsService = {
         addEventListener: noopthisfn,
         clear: noopfn,
         clearCategoryExclusions: noopthisfn,
@@ -277,14 +275,12 @@ const surrogates = {
         setVideoContent: noopthisfn,
         updateCorrelator: noopfn
       };
-      var SizeMappingBuilder = function() {
-        ;
+      const SizeMappingBuilder = function() {
       };
       p = SizeMappingBuilder.prototype;
       p.addSize = noopthisfn;
       p.build = noopnullfn;
-      var Slot = function() {
-        ;
+      const Slot = function() {
       };
       p = Slot.prototype;
       p.addService = noopthisfn;
@@ -296,6 +292,7 @@ const surrogates = {
       p.getAttributeKeys = nooparrayfn;
       p.getCategoryExclusions = nooparrayfn;
       p.getDomId = noopstrfn;
+      p.getResponseInformation = noopnullfn;
       p.getSlotElementId = noopstrfn;
       p.getSlotId = noopthisfn;
       p.getTargeting = nooparrayfn;
@@ -306,8 +303,8 @@ const surrogates = {
       p.setCollapseEmptyDiv = noopthisfn;
       p.setTargeting = noopthisfn;
       //
-      var gpt = window.googletag || {};
-      var cmd = gpt.cmd || [];
+      const gpt = window.googletag || {};
+      const cmd = gpt.cmd || [];
       gpt.apiReady = true;
       gpt.cmd = [];
       gpt.cmd.push = function(a) {
@@ -356,46 +353,54 @@ const surrogates = {
     } + ')();',
   /* eslint-enable no-unused-expressions */
 
-  // https://github.com/uBlockOrigin/uAssets/blob/0e225402b40db0983faf8b4ce13c73d57fb257d7/filters/resources.txt#L354-L403
+  // https://github.com/gorhill/uBlock/blob/e86a4cee8787400d8ad445dd4a6e4515405f25d1/src/web_accessible_resources/google-analytics_analytics.js + GTM workaround
   /* eslint-disable no-empty */
   '/analytics.js': '(' +
     function() {
+      'use strict';
       // https://developers.google.com/analytics/devguides/collection/analyticsjs/
-      var noopfn = function() {
-        ;
-      };
-      var noopnullfn = function() {
-        return null;
+      const noopfn = function() {
       };
       //
-      var Tracker = function() {
-        ;
+      const Tracker = function() {
       };
-      var p = Tracker.prototype;
+      const p = Tracker.prototype;
       p.get = noopfn;
       p.set = noopfn;
       p.send = noopfn;
       //
-      var w = window,
-        gaName = w.GoogleAnalyticsObject || 'ga';
-      var ga = function() {
-        var len = arguments.length;
-        if ( len === 0 ) {
-          return;
+      const w = window;
+      const gaName = w.GoogleAnalyticsObject || 'ga';
+      const gaQueue = w[gaName];
+      // https://github.com/uBlockOrigin/uAssets/pull/4115
+      const ga = function() {
+        const len = arguments.length;
+        if ( len === 0 ) { return; }
+        const args = Array.from(arguments);
+        let fn;
+        let a = args[len-1];
+        if ( a instanceof Object && a.hitCallback instanceof Function ) {
+          fn = a.hitCallback;
+        } else if ( a instanceof Function ) {
+          fn = ( ) => { a(ga.create()); };
+        } else {
+          const pos = args.indexOf('hitCallback');
+          if ( pos !== -1 && args[pos+1] instanceof Function ) {
+            fn = args[pos+1];
+          }
         }
-        var f = arguments[len-1];
-        if ( typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function' ) {
-          return;
-        }
+        if ( fn instanceof Function === false ) { return; }
         try {
-          f.hitCallback();
+          fn();
         } catch (ex) {
         }
       };
       ga.create = function() {
         return new Tracker();
       };
-      ga.getByName = noopnullfn;
+      ga.getByName = function() {
+        return new Tracker();
+      };
       ga.getAll = function() {
         return [];
       };
@@ -404,29 +409,59 @@ const surrogates = {
       ga.loaded = true;
       w[gaName] = ga;
       // https://github.com/gorhill/uBlock/issues/3075
-      var dl = w.dataLayer;
-      if ( dl instanceof Object && dl.hide instanceof Object && typeof dl.hide.end === 'function' ) {
-        dl.hide.end();
+      const dl = w.dataLayer;
+      if ( dl instanceof Object ) {
+        if ( dl.hide instanceof Object && typeof dl.hide.end === 'function' ) {
+          dl.hide.end();
+        }
+        /*
+        if ( typeof dl.push === 'function' ) {
+          const doCallback = function(item) {
+            if ( item instanceof Object === false ) { return; }
+            if ( typeof item.eventCallback !== 'function' ) { return; }
+            setTimeout(item.eventCallback, 1);
+          };
+          if ( Array.isArray(dl) ) {
+            dl.push = item => doCallback(item);
+            const q = dl.slice();
+            for ( const item of q ) {
+              doCallback(item);
+            }
+          }
+        }
+        */
+      }
+      // empty ga queue
+      if ( gaQueue instanceof Function && Array.isArray(gaQueue.q) ) {
+        const q = gaQueue.q.slice();
+        gaQueue.q.length = 0;
+        for ( const entry of q ) {
+          ga(...entry);
+        }
       }
     } + ')();',
   /* eslint-enable no-empty */
 
-  // https://github.com/uBlockOrigin/uAssets/blob/d7d4836638dcf227938b4cead66ad9d01b6166ba/filters/resources.txt#L843-L868
+  // https://github.com/gorhill/uBlock/blob/dcc72ba51c30abd4a1216049cc34f6c429ab2090/src/web_accessible_resources/outbrain-widget.js + modified to unbreak vice.com
+  // related uBO issues:
+  // https://github.com/uBlockOrigin/uAssets/issues/7140
+  // https://github.com/uBlockOrigin/uAssets/issues/8078
   '/outbrain.js': '(' +
     function() {
-      var noopfn = function() {
-        ;
+      'use strict';
+      const noopfn = function() {
       };
-      var obr = {};
-      var methods = [
+      const obr = {};
+      const methods = [
         'callClick', 'callLoadMore', 'callRecs', 'callUserZapping',
         'callWhatIs', 'cancelRecommendation', 'cancelRecs', 'closeCard',
         'closeModal', 'closeTbx', 'errorInjectionHandler', 'getCountOfRecs',
         'getStat', 'imageError', 'manualVideoClicked', 'onOdbReturn',
         'onVideoClick', 'pagerLoad', 'recClicked', 'refreshSpecificWidget',
-        'refreshWidget', 'reloadWidget', 'researchWidget', 'returnedError',
-        'returnedHtmlData', 'returnedIrdData', 'returnedJsonData', 'scrollLoad',
-        'showDescription', 'showRecInIframe', 'userZappingMessage', 'zappingFormAction'
+        'refreshWidget', 'reloadWidget', 'renderSpaWidgets', 'researchWidget',
+        'returnedError', 'returnedHtmlData', 'returnedIrdData', 'returnedJsonData',
+        'scrollLoad', 'showDescription', 'showRecInIframe', 'userZappingMessage',
+        'zappingFormAction'
       ];
       obr.extern = {
         video: {
@@ -450,8 +485,7 @@ const surrogates = {
 };
 
 // aliases
-// for example:
-// surrogates['/JS/socialize.js'] = surrogates['/JS/gigya.js'] = surrogates['/js/gigya.js'];
+surrogates['/tag/js/gpt.js'] = surrogates['/gpt.js'];
 
 // reformat surrogate strings to exactly match formatting in uAssets
 Object.keys(surrogates).forEach(key => {

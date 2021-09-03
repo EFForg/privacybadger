@@ -54,23 +54,6 @@ function loadOptions() {
   $('#removeAllData').on("click", removeAllData);
   $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteExceptions);
 
-  if (OPTIONS_DATA.settings.showTrackingDomains) {
-    $('#tracking-domains-overlay').hide();
-  } else {
-    $('#blockedResourcesContainer').hide();
-
-    $('#show-tracking-domains-checkbox').on("click", () => {
-      $('#tracking-domains-overlay').hide();
-      $('#blockedResourcesContainer').show();
-      chrome.runtime.sendMessage({
-        type: "updateSettings",
-        data: {
-          showTrackingDomains: true
-        }
-      });
-    });
-  }
-
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").on("input", filterTrackingDomains);
   $("#tracking-domains-type-filter").on("change", filterTrackingDomains);
@@ -170,7 +153,22 @@ function loadOptions() {
       });
   }
 
-  if (OPTIONS_DATA.webRTCAvailable) {
+  // only show the FLoC override if browser supports it
+  if (document.interestCohort) {
+    $("#disable-floc").show();
+    $("#disable-floc-checkbox")
+      .prop("checked", OPTIONS_DATA.settings.disableFloc)
+      .on("click", function () {
+        const disableFloc = $("#disable-floc-checkbox").prop("checked");
+
+        chrome.runtime.sendMessage({
+          type: "updateSettings",
+          data: { disableFloc }
+        });
+      });
+  }
+
+  if (OPTIONS_DATA.webRTCAvailable && OPTIONS_DATA.legacyWebRtcProtectionUser) {
     $("#webRTCToggle").show();
     $("#toggle_webrtc_mode")
       .prop("checked", OPTIONS_DATA.settings.preventWebRTCIPLeak)
@@ -244,16 +242,16 @@ function loadOptions() {
       });
     });
 
-  const widgetSelector = $("#hide-widgets-select");
+  const $widgetExceptions = $("#hide-widgets-select");
 
   // disable Widget Replacement form elements when widget replacement is off
   function _disable_widget_forms(enable) {
     if (enable) {
-      widgetSelector.prop("disabled", false);
+      $widgetExceptions.prop("disabled", false);
       $("#widget-site-exceptions-select").prop("disabled", false);
       $('#widget-site-exceptions-remove-button').button("option", "disabled", false);
     } else {
-      widgetSelector.prop("disabled", "disabled");
+      $widgetExceptions.prop("disabled", "disabled");
       $("#widget-site-exceptions-select").prop("disabled", "disabled");
       $('#widget-site-exceptions-remove-button').button("option", "disabled", true);
     }
@@ -264,16 +262,18 @@ function loadOptions() {
   });
 
   // Initialize Select2 and populate options
-  widgetSelector.select2();
+  $widgetExceptions.select2({
+    width: '100%'
+  });
   OPTIONS_DATA.widgets.forEach(function (key) {
     const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
     const option = new Option(key, key, false, isSelected);
-    widgetSelector.append(option).trigger("change");
+    $widgetExceptions.append(option).trigger("change");
   });
 
-  widgetSelector.on('select2:select', updateWidgetReplacementExceptions);
-  widgetSelector.on('select2:unselect', updateWidgetReplacementExceptions);
-  widgetSelector.on('select2:clear', updateWidgetReplacementExceptions);
+  $widgetExceptions.on('select2:select', updateWidgetReplacementExceptions);
+  $widgetExceptions.on('select2:unselect', updateWidgetReplacementExceptions);
+  $widgetExceptions.on('select2:clear', updateWidgetReplacementExceptions);
 
   reloadDisabledSites();
   reloadTrackingDomainsTab();
@@ -331,28 +331,16 @@ function parseUserDataFile(storageMapsList) {
   }
 
   // validate by checking we have the same keys in the import as in the export
-  if (!_.isEqual(
-    Object.keys(lists).sort(),
-    USER_DATA_EXPORT_KEYS.sort()
-  )) {
+  if (JSON.stringify(Object.keys(lists).sort()) != JSON.stringify(USER_DATA_EXPORT_KEYS.sort())) {
     return alert(i18n.getMessage("invalid_json"));
   }
 
   chrome.runtime.sendMessage({
     type: "mergeUserData",
     data: lists
-  }, (response) => {
-    OPTIONS_DATA.origins = response.origins;
-    OPTIONS_DATA.settings = response.settings;
-
-    // TODO general settings are not updated
-    reloadDisabledSites();
-    reloadTrackingDomainsTab();
-    // TODO widget replacement toggle not updated
-    // TODO widget replacement exceptions not updated
-    reloadWidgetSiteExceptions();
-
+  }, () => {
     alert(i18n.getMessage("import_successful"));
+    location.reload();
   });
 }
 
@@ -679,7 +667,7 @@ function updateSummary() {
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [
       baseDomains.size,
-      "<a target='_blank' title='" + _.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+      "<a target='_blank' title='" + htmlUtils.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
     ]
   )).show();
 }
@@ -958,8 +946,7 @@ function removeOrigin(event) {
 }
 
 /**
- * Update which widgets should be blocked instead of replaced
- * @param {Event} event The DOM event triggered by selecting an option
+ * Update which widgets should not get replaced
  */
 function updateWidgetReplacementExceptions() {
   const widgetReplacementExceptions = $('#hide-widgets-select').select2('data').map(({ id }) => id);

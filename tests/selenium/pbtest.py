@@ -200,6 +200,10 @@ class Shim:
         ffp.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' %
                            (self.info['extension_id'], self.info['uuid']))
 
+        # needed for test_referrer_header()
+        # https://bugzilla.mozilla.org/show_bug.cgi?id=1720294
+        ffp.set_preference('network.http.referer.disallowCrossSiteRelaxingDefault', False)
+
         for i in range(5):
             try:
                 opts = FirefoxOptions()
@@ -483,7 +487,7 @@ class PBSeleniumTest(unittest.TestCase):
             "(function (domain) {"
             "  let bg = chrome.extension.getBackgroundPage();"
             "  let base_domain = window.getBaseDomain(domain);"
-            "  bg.badger.heuristicBlocking.blocklistOrigin(domain, base_domain);"
+            "  bg.badger.heuristicBlocking.blocklistOrigin(base_domain, domain);"
             "}(arguments[0]));"
         ), domain)
 

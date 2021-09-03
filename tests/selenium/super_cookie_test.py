@@ -49,8 +49,8 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
         # an iframe from THIRD_PARTY_BASE that writes to localStorage
         self.assertEqual(
-            pbtest.retry_until(partial(self.get_snitch_map_for, THIRD_PARTY_BASE)),
             [FIRST_PARTY_BASE],
+            pbtest.retry_until(partial(self.get_snitch_map_for, THIRD_PARTY_BASE)),
             msg="Frame sets localStorage but was not flagged as a tracker.")
 
         # and an image from raw.githubusercontent.com that doesn't do any tracking
@@ -76,8 +76,8 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         self.driver.refresh()
 
         self.assertEqual(
-            pbtest.retry_until(partial(self.get_snitch_map_for, THIRD_PARTY_BASE), times=3),
-            [FIRST_PARTY_BASE]
+            [FIRST_PARTY_BASE],
+            pbtest.retry_until(partial(self.get_snitch_map_for, THIRD_PARTY_BASE), times=3)
         )
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):

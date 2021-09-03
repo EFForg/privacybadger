@@ -68,6 +68,9 @@ function Badger() {
       dntHashesPromise = self.initializeDnt().catch(console.error),
       tabDataPromise = self.updateTabList().catch(console.error);
 
+    // async load known CNAME domain aliases (but don't wait on them)
+    self.initializeCnames().catch(console.error);
+
     // seed data depends on the yellowlist
     await ylistPromise;
     let seedDataPromise = self.updateTrackerData().catch(console.error);
@@ -231,6 +234,10 @@ Badger.prototype = {
    */
   tabData: {},
 
+  /**
+   * Mapping of known CNAME domain aliases
+   */
+  cnameDomains: {},
 
   // Methods
 
@@ -552,6 +559,14 @@ Badger.prototype = {
     return null;
   },
 
+  initializeCnames: function () {
+    return fetch(constants.CNAME_DOMAINS_LOCAL_URL)
+      .then(response => response.json())
+      .then(data => {
+        badger.cnameDomains = data;
+      });
+  },
+
   /**
    * Initializes the yellowlist from disk.
    *
@@ -750,7 +765,7 @@ Badger.prototype = {
 
     // update timestamp first;
     // avoids queuing the same domain multiple times
-    var recheckTime = _.random(
+    var recheckTime = utils.random(
       utils.oneDayFromNow(),
       utils.nDaysFromNow(7)
     );
@@ -804,6 +819,7 @@ Badger.prototype = {
   defaultSettings: {
     checkForDNTPolicy: true,
     disabledSites: [],
+    disableFloc: true,
     disableGoogleNavErrorService: true,
     disableHyperlinkAuditing: true,
     disableNetworkPrediction: true,
@@ -815,9 +831,9 @@ Badger.prototype = {
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
+    showExpandedTrackingSection: false,
     showIntroPage: true,
     showNonTrackingDomains: false,
-    showTrackingDomains: false,
     socialWidgetReplacementEnabled: true,
     widgetReplacementExceptions: [],
     widgetSiteAllowlist: {},
@@ -863,8 +879,48 @@ Badger.prototype = {
       privateStore.setItem("badgerVersion", version);
     }
 
+    // initialize any other private store (not-for-export) settings
     if (!privateStore.hasItem("showLearningPrompt")) {
       privateStore.setItem("showLearningPrompt", false);
+    }
+    badger.initDeprecations();
+
+    if (self.isUpdate) {
+      // remove obsolete settings
+      if (settings.hasItem("showTrackingDomains")) {
+        settings.deleteItem("showTrackingDomains");
+      }
+    }
+  },
+
+  /**
+   * Initializes private flags that keep track of deprecated features.
+   *
+   * Called on Badger startup and user data import.
+   */
+  initDeprecations: function () {
+    let self = this,
+      privateStore = self.getPrivateSettings();
+
+    if (!privateStore.hasItem("legacyWebRtcProtectionUser")) {
+      // initialize "legacy WebRTC IP leak protection user" flag
+      privateStore.setItem("legacyWebRtcProtectionUser",
+        self.getSettings().getItem("preventWebRTCIPLeak"));
+
+    } else if (!privateStore.getItem("legacyWebRtcProtectionUser")) {
+      // set legacy flag to true if the IP protection gets enabled
+      // for whatever reason (testing, user data import)
+      if (self.getSettings().getItem("preventWebRTCIPLeak")) {
+        privateStore.setItem("legacyWebRtcProtectionUser", true);
+      }
+    }
+
+    if (!privateStore.hasItem("showWebRtcDeprecation")) {
+      // will show WebRTC protection deprecation message
+      // iff showWebRtcDeprecation exists and is set to true
+      if (privateStore.getItem("legacyWebRtcProtectionUser")) {
+        privateStore.setItem("showWebRtcDeprecation", true);
+      }
     }
   },
 
@@ -951,7 +1007,9 @@ Badger.prototype = {
         return;
       }
 
-      if (self.criticalError) {
+      let special_page = !self.tabData.hasOwnProperty(tab_id);
+
+      if (self.criticalError || (!special_page && badger.getPrivateSettings().getItem("showWebRtcDeprecation"))) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
         chrome.browserAction.setBadgeText({tabId: tab_id, text: "!"});
         return;
@@ -961,9 +1019,8 @@ Badger.prototype = {
       // - the counter is disabled
       // - we don't have tabData for whatever reason (special browser pages)
       // - Privacy Badger is disabled on the page
-      if (
+      if (special_page ||
         !self.getSettings().getItem("showCounter") ||
-        !self.tabData.hasOwnProperty(tab_id) ||
         !self.isPrivacyBadgerEnabled(self.getFrameData(tab_id).host)
       ) {
         chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
@@ -1044,6 +1101,13 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
+  },
+
+  isFlocOverwriteEnabled: function() {
+    if (document.interestCohort) {
+      return this.getSettings().getItem("disableFloc");
+    }
+    return false;
   },
 
   /**

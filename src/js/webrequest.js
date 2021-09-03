@@ -33,7 +33,8 @@ require.scopes.webrequest = (function () {
     utils = require("utils");
   
   /************ Local Variables *****************/
-  let tempAllowlist = {};
+  let tempAllowlist = {},
+    tempAllowedWidgets = {};
   
   /***************** Blocking Listener Functions **************/
   
@@ -54,7 +55,7 @@ require.scopes.webrequest = (function () {
         is_reload = oldTabData && oldTabData.url == url;
       forgetTab(tab_id, is_reload);
       badger.recordFrame(tab_id, frame_id, url);
-      initializeAllowedWidgets(tab_id, badger.getFrameData(tab_id).host);
+      initAllowedWidgets(tab_id, badger.getFrameData(tab_id).host);
       return {};
     }
   
@@ -75,6 +76,11 @@ require.scopes.webrequest = (function () {
   
     let tab_host = getHostForTab(tab_id);
     let request_host = window.extractHostFromURL(url);
+  
+    // CNAME uncloaking
+    if (badger.cnameDomains.hasOwnProperty(request_host)) {
+      request_host = badger.cnameDomains[request_host];
+    }
   
     if (!utils.isThirdPartyDomain(request_host, tab_host)) {
       return {};
@@ -159,6 +165,11 @@ require.scopes.webrequest = (function () {
   
     let tab_host = getHostForTab(tab_id);
     let request_host = window.extractHostFromURL(url);
+  
+    // CNAME uncloaking
+    if (badger.cnameDomains.hasOwnProperty(request_host)) {
+      request_host = badger.cnameDomains[request_host];
+    }
   
     if (!utils.isThirdPartyDomain(request_host, tab_host)) {
       if (badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -259,8 +270,22 @@ require.scopes.webrequest = (function () {
       return {};
     }
   
+    if (details.type == 'main_frame' && badger.isFlocOverwriteEnabled()) {
+      let responseHeaders = details.responseHeaders || [];
+      responseHeaders.push({
+        name: 'permissions-policy',
+        value: 'interest-cohort=()'
+      });
+      return { responseHeaders };
+    }
+  
     let tab_host = getHostForTab(tab_id);
     let response_host = window.extractHostFromURL(url);
+  
+    // CNAME uncloaking
+    if (badger.cnameDomains.hasOwnProperty(response_host)) {
+      response_host = badger.cnameDomains[response_host];
+    }
   
     if (!utils.isThirdPartyDomain(response_host, tab_host)) {
       return {};
@@ -336,7 +361,7 @@ require.scopes.webrequest = (function () {
   
     let tab_host = badger.getFrameData(tab_id).host;
   
-    initializeAllowedWidgets(tab_id, tab_host);
+    initAllowedWidgets(tab_id, tab_host);
   
     // initialize tab data bookkeeping used by heuristicBlockingAccounting()
     // to avoid missing or misattributing learning
@@ -439,11 +464,6 @@ require.scopes.webrequest = (function () {
     const frame_host = window.extractHostFromURL(frame_url),
       page_host = badger.getFrameData(tab_id).host;
   
-    if (!utils.isThirdPartyDomain(frame_host, page_host)) {
-      // Only happens on the start page for google.com
-      return;
-    }
-  
     badger.heuristicBlocking.updateTrackerPrevalence(
       frame_host,
       window.getBaseDomain(frame_host),
@@ -473,9 +493,15 @@ require.scopes.webrequest = (function () {
       return;
     }
   
+    let document_host = badger.getFrameData(tab_id).host,
+      script_host = window.extractHostFromURL(msg.scriptUrl);
+  
+    // CNAME uncloaking
+    if (badger.cnameDomains.hasOwnProperty(script_host)) {
+      script_host = badger.cnameDomains[script_host];
+    }
+  
     // ignore first-party scripts
-    let script_host = window.extractHostFromURL(msg.scriptUrl),
-      document_host = badger.getFrameData(tab_id).host;
     if (!utils.isThirdPartyDomain(script_host, document_host)) {
       return;
     }
@@ -493,18 +519,18 @@ require.scopes.webrequest = (function () {
       badger.tabData[tab_id].fpData = {};
     }
   
-    let script_origin = window.getBaseDomain(script_host);
+    let script_base = window.getBaseDomain(script_host);
   
     // Initialize script TLD-level data
-    if (!badger.tabData[tab_id].fpData.hasOwnProperty(script_origin)) {
-      badger.tabData[tab_id].fpData[script_origin] = {
+    if (!badger.tabData[tab_id].fpData.hasOwnProperty(script_base)) {
+      badger.tabData[tab_id].fpData[script_base] = {
         canvas: {
           fingerprinting: false,
           write: false
         }
       };
     }
-    let scriptData = badger.tabData[tab_id].fpData[script_origin];
+    let scriptData = badger.tabData[tab_id].fpData[script_base];
   
     if (msg.extra.hasOwnProperty('canvas')) {
       if (scriptData.canvas.fingerprinting) {
@@ -523,7 +549,7 @@ require.scopes.webrequest = (function () {
   
             // mark this as a strike
             badger.heuristicBlocking.updateTrackerPrevalence(
-              script_host, script_origin, window.getBaseDomain(document_host));
+              script_host, script_base, window.getBaseDomain(document_host));
   
             // log for popup
             let action = checkAction(tab_id, script_host);
@@ -549,6 +575,7 @@ require.scopes.webrequest = (function () {
     delete badger.tabData[tab_id];
     if (!is_reload) {
       delete tempAllowlist[tab_id];
+      delete tempAllowedWidgets[tab_id];
     }
   }
   
@@ -666,6 +693,16 @@ require.scopes.webrequest = (function () {
         }
   
         widgetList.push(widget);
+  
+        // replace only if we haven't already allowed this widget for the tab/site
+        // so that sites that dynamically insert nested frames with widgets
+        // like Tumblr do the right thing after a widget is allowed
+        // (but the page hasn't yet been reloaded)
+        // and don't keep replacing an already allowed widget type in those frames
+        if (tempAllowedWidgets.hasOwnProperty(tab_id) &&
+            tempAllowedWidgets[tab_id].includes(widget.name)) {
+          continue;
+        }
   
         // replace only if at least one of the associated domains was blocked
         if (!tabOrigins || !tabOrigins.length) {
@@ -791,8 +828,9 @@ require.scopes.webrequest = (function () {
    *
    * @param {Integer} tab_id the ID of the tab
    * @param {Array} domains the domains
+   * @param {String} widget_name the name (ID) of the widget
    */
-  function allowOnTab(tab_id, domains) {
+  function allowOnTab(tab_id, domains, widget_name) {
     if (!tempAllowlist.hasOwnProperty(tab_id)) {
       tempAllowlist[tab_id] = [];
     }
@@ -801,19 +839,24 @@ require.scopes.webrequest = (function () {
         tempAllowlist[tab_id].push(domain);
       }
     }
+  
+    if (!tempAllowedWidgets.hasOwnProperty(tab_id)) {
+      tempAllowedWidgets[tab_id] = [];
+    }
+    tempAllowedWidgets[tab_id].push(widget_name);
   }
   
   /**
    * Called upon navigation to prepopulate the temporary allowlist
    * with domains for widgets marked as always allowed on a given site.
    */
-  function initializeAllowedWidgets(tab_id, tab_host) {
+  function initAllowedWidgets(tab_id, tab_host) {
     let allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist');
     if (allowedWidgets.hasOwnProperty(tab_host)) {
       for (let widget_name of allowedWidgets[tab_host]) {
         let widgetDomains = getWidgetDomains(widget_name);
         if (widgetDomains) {
-          allowOnTab(tab_id, widgetDomains);
+          allowOnTab(tab_id, widgetDomains, widget_name);
         }
       }
     }
@@ -829,6 +872,7 @@ require.scopes.webrequest = (function () {
       const KNOWN_CONTENT_SCRIPT_MESSAGES = [
         "allowWidgetOnSite",
         "checkDNT",
+        "checkFloc",
         "checkEnabled",
         "checkLocation",
         "checkWidgetReplacementEnabled",
@@ -869,6 +913,11 @@ require.scopes.webrequest = (function () {
       let frame_host = window.extractHostFromURL(request.frameUrl),
         tab_host = window.extractHostFromURL(sender.tab.url);
   
+      // CNAME uncloaking
+      if (badger.cnameDomains.hasOwnProperty(frame_host)) {
+        frame_host = badger.cnameDomains[frame_host];
+      }
+  
       // Ignore requests that aren't from a third party.
       if (!frame_host || !utils.isThirdPartyDomain(frame_host, tab_host)) {
         return sendResponse();
@@ -899,7 +948,7 @@ require.scopes.webrequest = (function () {
       if (!widgetDomains) {
         return sendResponse();
       }
-      allowOnTab(sender.tab.id, widgetDomains);
+      allowOnTab(sender.tab.id, widgetDomains, request.widgetName);
       sendResponse();
       break;
     }
@@ -974,6 +1023,11 @@ require.scopes.webrequest = (function () {
       let tab_host = window.extractHostFromURL(sender.tab.url),
         frame_host = window.extractHostFromURL(request.frameUrl);
   
+      // CNAME uncloaking
+      if (badger.cnameDomains.hasOwnProperty(frame_host)) {
+        frame_host = badger.cnameDomains[frame_host];
+      }
+  
       sendResponse(frame_host &&
         badger.isLearningEnabled(sender.tab.id) &&
         badger.isPrivacyBadgerEnabled(tab_host) &&
@@ -1013,7 +1067,7 @@ require.scopes.webrequest = (function () {
         sendResponse({
           criticalError: badger.criticalError,
           noTabData: true,
-          seenComic: true,
+          settings: { seenComic: true },
         });
         break;
       }
@@ -1034,12 +1088,12 @@ require.scopes.webrequest = (function () {
         criticalError: badger.criticalError,
         enabled: badger.isPrivacyBadgerEnabled(tab_host),
         errorText: badger.tabData[tab_id].errorText,
-        learnLocally: badger.getSettings().getItem("learnLocally"),
+        isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
         noTabData: false,
         origins,
-        seenComic: badger.getSettings().getItem("seenComic"),
+        settings: badger.getSettings().getItemClones(),
         showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
-        showNonTrackingDomains: badger.getSettings().getItem("showNonTrackingDomains"),
+        showWebRtcDeprecation: !!badger.getPrivateSettings().getItem("showWebRtcDeprecation"),
         tabHost: tab_host,
         tabId: tab_id,
         tabUrl: request.tabUrl,
@@ -1062,6 +1116,7 @@ require.scopes.webrequest = (function () {
   
       sendResponse({
         cookieblocked,
+        legacyWebRtcProtectionUser: badger.getPrivateSettings().getItem("legacyWebRtcProtectionUser"),
         origins,
         settings: badger.getSettings().getItemClones(),
         webRTCAvailable: badger.webRTCAvailable,
@@ -1103,6 +1158,13 @@ require.scopes.webrequest = (function () {
       break;
     }
   
+    case "seenWebRtcDeprecation": {
+      badger.getPrivateSettings().setItem("showWebRtcDeprecation", false);
+      badger.updateBadge(request.tabId);
+      sendResponse();
+      break;
+    }
+  
     case "activateOnSite": {
       badger.enablePrivacyBadgerForOrigin(request.tabHost);
       badger.updateIcon(request.tabId, request.tabUrl);
@@ -1130,7 +1192,7 @@ require.scopes.webrequest = (function () {
         if (chrome.runtime.lastError) {
           sendResponse({success: false, message: chrome.runtime.lastError.message});
         } else if (store.hasOwnProperty("disabledSites")) {
-          let disabledSites = _.union(
+          let disabledSites = utils.concatUniq(
             badger.getDisabledSites(),
             store.disabledSites
           );
@@ -1191,10 +1253,8 @@ require.scopes.webrequest = (function () {
       badger.mergeUserData(request.data);
       badger.blockWidgetDomains();
       badger.setPrivacyOverrides();
-      sendResponse({
-        origins: badger.storage.getTrackingDomains(),
-        settings: badger.getSettings().getItemClones(),
-      });
+      badger.initDeprecations();
+      sendResponse();
       break;
     }
   
@@ -1288,6 +1348,13 @@ require.scopes.webrequest = (function () {
           window.extractHostFromURL(sender.tab.url)
         )
       );
+      break;
+    }
+  
+    case "checkFloc": {
+      // called from contentscripts/floc.js
+      // to check if we should disable document.interestCohort
+      sendResponse(badger.isFlocOverwriteEnabled());
       break;
     }
   

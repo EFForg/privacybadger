@@ -1,4 +1,34 @@
 {
+    "name": {
+        "message": "Privacy Badger",
+        "description": ""
+    },
+    "description": {
+        "message": "Privacy Badger oppii automaattisesti estämään näkymättömät jäljittimet.",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Poista käytöstä tällä sivustolla",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "Ota käyttöön tällä sivustolla",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
+    },
+    "report_broken_site": {
+        "message": "Ilmoita hajonneesta sivustosta",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "versio $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
     "badger_status_block": {
         "message": "$DOMAIN$ estetty",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -37,7 +67,7 @@
     },
     "donate_to_eff": {
         "message": "Lahjoita EFF:lle",
-        "description": "Button shown in the popup and on the intro page."
+        "description": "Link shown in the popup; also a button on the intro page"
     },
     "intro_donate_subheading": {
         "message": "Auta meitä lahjoittamalla ja antamalla tukesi työkaluillemme",
@@ -53,11 +83,23 @@
     },
     "dnt_tooltip": {
         "message": "Tämä verkkotunnus lupaa, ettei se jäljitä sinua",
-        "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
+        "description": "Tooltip shown when you hover over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
         "message": "Tämän verkkotunnuksen estämisen tiedetään rikkovan sivustoja",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "domain_slider_block_tooltip": {
+        "message": "Estä kokonaan",
+        "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Estä evästeet",
+        "description": "Tooltip shown when you hover over the center part of a domain slider"
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Salli",
+        "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
     },
     "feed_the_badger_title": {
         "message": "Klikkaa palauttaaksesi tämän verkkotunnuksen hallinnan Privacy Badgerille",
@@ -78,10 +120,6 @@
     "report_title": {
         "message": "Ilmoita virheestä",
         "description": ""
-    },
-    "domain_slider_cookieblock_tooltip": {
-        "message": "Klikkaa tästä estääksesi tätä verkkotunnusta asettamasta evästeitä",
-        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
         "message": "estetty",
@@ -132,7 +170,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "Sovelmapoikkeukset",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -140,11 +178,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "Sivustopoikkeukset",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "Salli aina sovelmat seuraavilla sivustoilla:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -174,11 +212,11 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "Opi estämään uusia jäljittimiä selaamisen perusteella",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Enabling learning may make you more identifiable to websites",
+        "message": "Oppimisen käyttöönotto voi tehdä sinusta tunnistettavamman sivustoille",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
@@ -198,7 +236,7 @@
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "Lue miten Privacy Badger muuttuu",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
@@ -210,8 +248,8 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Muista klikata 'Rikkoiko Privacy Badger tämän sivuston?' -painiketta. Kunnioitamme yksityisyyttäsi, emmekä siksi lähetä automaattisesti virheilmoituksia.",
-        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
+        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Privacy Badgerin asetukset",
@@ -219,10 +257,6 @@
     },
     "report_terms": {
         "message": "Seuraavat tiedot lähetetään automaattisesti EFF:lle: sivu, jolla olet nyt, selaimesi versio, Privacy Badgerin versio sekä kaikkien liukuvalitsimien tila tämän sivun osalta.",
-        "description": ""
-    },
-    "popup_enable_for_site": {
-        "message": "Ota Privacy Badger käyttöön tällä sivustolla",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -293,20 +327,6 @@
         "message": "Esittelykierros",
         "description": "Intro page welcome button."
     },
-    "domain_slider_block_tooltip": {
-        "message": "Klikkaa tästä estääksesi tämän verkkotunnuksen kokonaan",
-        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
-    },
-    "version": {
-        "message": "versio $VERSION_STRING$",
-        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
-        "placeholders": {
-            "version_string": {
-                "content": "$1",
-                "example": "2018.8.1"
-            }
-        }
-    },
     "badger_status_cookieblock": {
         "message": "Evästeet estetty verkkotunnuksesta $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -321,10 +341,6 @@
         "message": "osittain estetty",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "show_tracking_domains_acknowledgement": {
-        "message": "Ymmärrän; näytä silti lista jäljittävistä verkkotunnuksista",
-        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
-    },
     "firstRun_title": {
         "message": "Kiitos, että asensit Privacy Badgerin!",
         "description": ""
@@ -333,20 +349,16 @@
         "message": "Valitse tuotava tiedosto.",
         "description": ""
     },
-    "report_broken_site": {
-        "message": "Rikkoiko Privacy Badger tämän sivuston? Kerro siitä meille!",
-        "description": "Button in the popup."
-    },
     "tooltip_cookieblock": {
         "message": "Evästeet estetään, kun liukuvalitsin on keskellä",
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "Oppii automaattisesti",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "Luetteloihin perustuvan estämisen sijasta Privacy Badger löytää jäljittimet automaattisesti niiden toiminnan perusteella.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
@@ -366,7 +378,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "DNT:tä noudattava",
+        "message": "compliant with EFF's DNT policy",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -381,10 +393,6 @@
         "message": "Yksityisyys on tiimipeliä!",
         "description": "Part of the 'donate' section on the intro page."
     },
-    "show_tracking_domains_message": {
-        "message": "Näitä ei pitäisi olla tarpeen muuttaa.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
-    },
     "options_domain_filter_all": {
         "message": "kaikki",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -398,24 +406,44 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "Lähetä sivustoille \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" ja \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" -signaalit",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
         "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
-        "description": "Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disable hyperlink auditing",
+        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
         "message": "Disable prefetching",
         "description": "Checkbox label found on the general settings page"
     },
+    "options_disable_floc": {
+        "message": "Poista Googlen Federated Learning of Cohorts (FLoC) käytöstä",
+        "description": "(Chrome only) Checkbox label on the general settings page."
+    },
     "options_domain_filter_user": {
         "message": "käyttäjän hallitsema",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "popup_info_firstparty_protections": {
+        "message": "Link tracking protection active",
+        "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
+    },
+    "popup_info_firstparty_description": {
+        "message": "Some websites $LINK_START$use link tracking to follow you$LINK_END$ whenever you click a link to leave the website. Privacy Badger removes tracking from such links on this website.",
+        "description": "Text revealed by clicking on the link tracking protection header in the popup",
+        "placeholders": {
+            "link_start": {
+                "content": "<a href='https://privacybadger.org/#What-about-tracking-by-the-sites-I-actively-visit%2c-like-NYTimes.com-or-Facebook.com' target='_blank'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "popup_instructions": {
         "message": "$COUNT$ mahdollista $LINK_START$jäljitintä$LINK_END$ estetty",
@@ -459,14 +487,6 @@
         "message": "Verkkotunnus sallitaan, kun liukuvalitsin on oikealla",
         "description": ""
     },
-    "popup_disable_for_site": {
-        "message": "Poista Privacy Badger käytöstä tällä sivustolla",
-        "description": "Button in the popup."
-    },
-    "domain_slider_allow_tooltip": {
-        "message": "Klikkaa tästä salliaksesi tämän verkkotunnuksen",
-        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
-    },
     "intro_privacy_note": {
         "message": "Privacy Badger ei koskaan jaa tietoa nettiselaamisestasi, ellet itse halua.",
         "description": "Intro page paragraph."
@@ -491,10 +511,6 @@
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger ei ole vielä havainnut yhtään <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>jäljittävää verkkotunnusta</a>. Jatka selaamista!",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
-    },
-    "name": {
-        "message": "Privacy Badger",
-        "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
         "message": "Privacy Badger aloittaa estämisen, kun se näkee saman jäljittimen kolmella eri sivustolla. Kolmesta poikki!",
@@ -547,10 +563,6 @@
     "share_button_title_facebook": {
         "message": "Jaa Facebookissa",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
-    "description": {
-        "message": "Privacy Badger oppii automaattisesti estämään näkymättömät jäljittimet.",
-        "description": ""
     },
     "report_fail": {
         "message": "Hups. Jotakin meni pieleen.",
@@ -679,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "esim. www.example.com, *.example.net, example.org",
@@ -697,5 +709,23 @@
     "invalid_domain": {
         "message": "Lisää kelvollinen verkkotunnus tai URL",
         "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+    },
+    "deprecated_setting": {
+        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
+        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+    },
+    "learn_more_link": {
+        "message": "Katso lisätietoja osoitteesta $LINK$.",
+        "description": "Reusable 'learn more link' message",
+        "placeholders": {
+            "link": {
+                "content": "$1",
+                "example": "<a href='https://example.com'>example.com</a>"
+            }
+        }
+    },
+    "acknowledgement_action": {
+        "message": "Ymmärrän",
+        "description": "Acknowledgement button text"
     }
 }

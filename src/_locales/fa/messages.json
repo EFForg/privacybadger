@@ -1,4 +1,34 @@
 {
+    "name": {
+        "message": "پرایوسی بجر",
+        "description": ""
+    },
+    "description": {
+        "message": "پرایوسی بجر به صورت اتوماتیک یاد می گیرد تا ردیاب های مخفی را بلاک کند.",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "غیرفعال سازی برای این سایت",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "فعال سازی برای این سایت",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
+    },
+    "report_broken_site": {
+        "message": "Report broken site",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "نسخه $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
     "badger_status_block": {
         "message": "$DOMAIN$ بلاک شد",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -37,7 +67,7 @@
     },
     "donate_to_eff": {
         "message": "کمک مالی به EFF",
-        "description": "Button shown in the popup and on the intro page."
+        "description": "Link shown in the popup; also a button on the intro page"
     },
     "intro_donate_subheading": {
         "message": "با کمک مالی و حمایت از ابزار هایمان میتوانید به ما کمک کنید",
@@ -53,11 +83,23 @@
     },
     "dnt_tooltip": {
         "message": "این دامنه اطمینان می دهد که شما را ردیابی نخواهد کرد",
-        "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
+        "description": "Tooltip shown when you hover over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
         "message": "Blocking this domain is known to break websites",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "domain_slider_block_tooltip": {
+        "message": "Block entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Block cookies",
+        "description": "Tooltip shown when you hover over the center part of a domain slider"
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Allow",
+        "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
     },
     "feed_the_badger_title": {
         "message": "Click to return control of this domain to Privacy Badger",
@@ -78,10 +120,6 @@
     "report_title": {
         "message": "گزارش خطا",
         "description": ""
-    },
-    "domain_slider_cookieblock_tooltip": {
-        "message": "برای منع این دامنه از تنظیم کردن کوکی ها اینجا کلیک کنید",
-        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
         "message": "بلاک شده",
@@ -210,8 +248,8 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "فراموش نکنید تا روی 'آیا پرایوسی بجر باعث شده است تا این سایت به درستی کار نکند' کلیک کنید. ما به حریم خصوصی شما احترام میگذاریم برای همین به صورت خودکار گزارش نمی فرستیم.",
-        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
+        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "گزینه های پرایوسی بجر",
@@ -219,10 +257,6 @@
     },
     "report_terms": {
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
-        "description": ""
-    },
-    "popup_enable_for_site": {
-        "message": "فعال سازی پرایوسی بجر برای این سایت",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -293,20 +327,6 @@
         "message": "انجام تور",
         "description": "Intro page welcome button."
     },
-    "domain_slider_block_tooltip": {
-        "message": "برای بلاک کردن این دامنه به صورت کامل روی اینجا کلیک کنید",
-        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
-    },
-    "version": {
-        "message": "نسخه $VERSION_STRING$",
-        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
-        "placeholders": {
-            "version_string": {
-                "content": "$1",
-                "example": "2018.8.1"
-            }
-        }
-    },
     "badger_status_cookieblock": {
         "message": "کوکی های متعلق به$DOMAIN$ بلاک شد",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -321,10 +341,6 @@
         "message": "بلاک شده به صورت جزئی",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "show_tracking_domains_acknowledgement": {
-        "message": "متوجه هستم; لطفا لیست دامنه هایی که ردیابی میکنند را به من نشان بده",
-        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
-    },
     "firstRun_title": {
         "message": "بابت نصب پرایوسی از شما ممنونیم!",
         "description": ""
@@ -332,10 +348,6 @@
     "import_select_file": {
         "message": "لطفا یک فایل را برای ایمپورت کردن انتخاب کنید.",
         "description": ""
-    },
-    "report_broken_site": {
-        "message": "آیا پرایوسی بجر باعث شده است تا این سایت به درستی کار نکند؟ ما را در جریان بگذارید!",
-        "description": "Button in the popup."
     },
     "tooltip_cookieblock": {
         "message": "برای بلاک کردن کوکی ها اسلایدر را در وسط قرار بدهید",
@@ -366,7 +378,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "سازگار با DNT (ردیابی نکن)",
+        "message": "compliant with EFF's DNT policy",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -380,10 +392,6 @@
     "intro_donate_heading": {
         "message": "حریم خصوصی یک ورزش تیمی می باشد.",
         "description": "Part of the 'donate' section on the intro page."
-    },
-    "show_tracking_domains_message": {
-        "message": "در اینجا نیاز نیست چیزی را تغییر دهید.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
     },
     "options_domain_filter_all": {
         "message": "همه",
@@ -403,19 +411,39 @@
     },
     "options_disable_google_nav_error_service": {
         "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
-        "description": "Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disable hyperlink auditing",
+        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
         "message": "Disable prefetching",
         "description": "Checkbox label found on the general settings page"
     },
+    "options_disable_floc": {
+        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "description": "(Chrome only) Checkbox label on the general settings page."
+    },
     "options_domain_filter_user": {
         "message": "کنترل شده توسط کاربر",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "popup_info_firstparty_protections": {
+        "message": "Link tracking protection active",
+        "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
+    },
+    "popup_info_firstparty_description": {
+        "message": "Some websites $LINK_START$use link tracking to follow you$LINK_END$ whenever you click a link to leave the website. Privacy Badger removes tracking from such links on this website.",
+        "description": "Text revealed by clicking on the link tracking protection header in the popup",
+        "placeholders": {
+            "link_start": {
+                "content": "<a href='https://privacybadger.org/#What-about-tracking-by-the-sites-I-actively-visit%2c-like-NYTimes.com-or-Facebook.com' target='_blank'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "popup_instructions": {
         "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
@@ -459,14 +487,6 @@
         "message": "برای اجازه دادن به یک دامنه، اسلایدر را به سمت راست حرکت دهید",
         "description": ""
     },
-    "popup_disable_for_site": {
-        "message": "غیرفعال سازی پرایوسی بجر برای این سایت",
-        "description": "Button in the popup."
-    },
-    "domain_slider_allow_tooltip": {
-        "message": "برای اجازه دادن به این دامنه روی اینجا کلیک کنید",
-        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
-    },
     "intro_privacy_note": {
         "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
         "description": "Intro page paragraph."
@@ -491,10 +511,6 @@
     "options_domain_list_no_trackers": {
         "message": "پرایوسی بجر هنوز نتوانسته هیچ <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'> دامنه ی ردیابی </a> پیدا کنید. به گردش خود در وب ادامه دهید!",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
-    },
-    "name": {
-        "message": "پرایوسی بجر",
-        "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
         "message": "زمانی که یک ردیاب را در سه سایت مختلف ببیند، پرایوسی بجر شروع به بلاک کردن آن می کند.",
@@ -547,10 +563,6 @@
     "share_button_title_facebook": {
         "message": "اشتراک گذاری بر روی فیسبوک",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
-    },
-    "description": {
-        "message": "پرایوسی بجر به صورت اتوماتیک یاد می گیرد تا ردیاب های مخفی را بلاک کند.",
-        "description": ""
     },
     "report_fail": {
         "message": "اوه. خطایی رخ داد.",
@@ -679,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "برای مثال www.example.com, *.example.net, example.org",
@@ -697,5 +709,23 @@
     "invalid_domain": {
         "message": "لطفا یک دامنه یا URL معتبر اضافه کنید",
         "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+    },
+    "deprecated_setting": {
+        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
+        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+    },
+    "learn_more_link": {
+        "message": "برای اطلاعات بیشتر به $LINK$ بروید.",
+        "description": "Reusable 'learn more link' message",
+        "placeholders": {
+            "link": {
+                "content": "$1",
+                "example": "<a href='https://example.com'>example.com</a>"
+            }
+        }
+    },
+    "acknowledgement_action": {
+        "message": "متوجه هستم",
+        "description": "Acknowledgement button text"
     }
 }

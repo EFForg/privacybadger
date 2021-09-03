@@ -13,6 +13,9 @@ apply_effdntlist:
 updategoogle:
 	scripts/updategoogle.sh
 
+updatecnames:
+	scripts/updatecnames.sh
+
 todo:
 	grep -rn 'TODO' src
 
@@ -35,4 +38,4 @@ runff:
 runfn:
 	./node_modules/.bin/web-ext run --start-url "about:debugging#/runtime/this-firefox" -s src/ -f nightly
 
-.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle todo tx runch runff runfn
+.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle updatecnames todo tx runch runff runfn

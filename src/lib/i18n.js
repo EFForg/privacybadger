@@ -56,7 +56,7 @@ function setTextDirection() {
   // popup page
   if (ON_POPUP) {
     // fix floats
-    ['#privacyBadgerHeader img', '#header-image-stack', '#version'].forEach((selector) => {
+    ['#badger-header-logo', '#header-image-stack', '#header-image-stack a', '#header-image-stack img'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
     ['#fittslaw', '#options', '#help', '#share', '.overlay_close'].forEach((selector) => {
@@ -103,11 +103,12 @@ function loadI18nStrings() {
     el[prop] = chrome.i18n.getMessage(key, placeholders);
   }
 
-  // also replace alt, placeholder and title attributes
+  // also replace alt, placeholder, title and aria-label attributes
   const ATTRS = [
     'alt',
     'placeholder',
     'title',
+    'aria-label',
   ];
 
   // get all the elements that contain one or more of these attributes

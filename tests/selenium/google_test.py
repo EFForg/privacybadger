@@ -68,7 +68,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
                 self.assertFalse(link.get_attribute('onmousedown'),
                     "Tracking attribute should be missing")
 
-                self.assertEqual(link.get_attribute('rel'), "noreferrer noopener")
+                self.assertEqual("noreferrer noopener", link.get_attribute('rel'))
 
             return True
 
@@ -76,7 +76,8 @@ class GoogleTest(pbtest.PBSeleniumTest):
 
         self.assertTrue(
             pbtest.retry_until(
-                pbtest.convert_exceptions_to_false(_check_results)),
+                pbtest.convert_exceptions_to_false(_check_results),
+                times=6),
             "Search results still fail our checks after several attempts")
 
     # TODO fake UA to test Firefox on Android?
@@ -116,7 +117,8 @@ class GoogleTest(pbtest.PBSeleniumTest):
 
         self.assertTrue(
             pbtest.retry_until(
-                pbtest.convert_exceptions_to_false(_perform_search_and_check_results)),
+                pbtest.convert_exceptions_to_false(_perform_search_and_check_results),
+                times=6),
             "Search results still fail our checks after several attempts")
 
 

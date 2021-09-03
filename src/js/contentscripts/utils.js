@@ -21,16 +21,12 @@
  * @param {String} text The content of the script to insert.
  * @param {Object} data Data attributes to set on the inserted script tag.
  */
-window.injectScript = function (text, data) {
-  var parent = document.documentElement,
+window.injectScript = function (text) {
+  let parent = document.documentElement,
     script = document.createElement('script');
 
   script.text = text;
   script.async = false;
-
-  for (var key in data) {
-    script.setAttribute('data-' + key.replace(/_/g, '-'), data[key]);
-  }
 
   parent.insertBefore(script, parent.firstChild);
   parent.removeChild(script);

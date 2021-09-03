@@ -7,6 +7,7 @@ accuweather.com
 actionnetwork.org
 imagesrv.adition.com
 auth.adobe.com
+documentcloud.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
 assets.adobedtm.com
@@ -17,6 +18,7 @@ akamaihd.net
 akamaized.net
 alexa.com
 alicdn.com
+aliyuncs.com
 ally.com
 amazon.com
 s3.amazonaws.com
@@ -78,6 +80,7 @@ betterttv.net
 static.beyondmenu.com
 www.beyondmenu.com
 bigcommerce.com
+r.bing.com
 www.bing.com
 bit.ly
 bizrate.com
@@ -97,6 +100,7 @@ players.brightcove.net
 bungie.net
 buzzfed.com
 buzzfeed.com
+byteoversea.com
 cachefly.net
 calendly.com
 cardinalcommerce.com
@@ -151,6 +155,7 @@ delicious.com
 delvenetworks.com
 deviantart.com
 deviantart.net
+digitaloceanspaces.com
 digitalriver.com
 digitalrivercontent.net
 cdn.discourse.org
@@ -166,6 +171,7 @@ dotsub.com
 dl.dropboxusercontent.com
 dumpert.nl
 duosecurity.com
+dynamics.com
 cdn.dynamicyield.com
 cdn-eu.dynamicyield.com
 rcom.dynamicyield.com
@@ -192,6 +198,7 @@ cdn.embed.ly
 cdn.embedly.com
 i-cdn.embed.ly
 i.embed.ly
+envato.com
 pp.ephapay.net
 epoch.com
 epoq.de
@@ -235,6 +242,7 @@ fonts.com
 fonts.net
 force.com
 formstack.com
+fundraiseup.com
 fuseservice.com
 fwmrm.net
 fyre.co
@@ -255,6 +263,7 @@ giphy.com
 gitbook.com
 github.com
 githubusercontent.com
+gleam.io
 gmodules.com
 godatafeed.com
 gogousenet.com
@@ -371,6 +380,7 @@ instructure.com
 intellicast.com
 intensedebate.com
 intercom.io
+intercomcdn.com
 members.internetdefenseleague.org
 investingchannel.com
 script.ioam.de
@@ -396,6 +406,7 @@ cdnsecakmi.kaltura.com
 cfvod.kaltura.com
 www.kaltura.com
 kampyle.com
+ssl.kaptcha.com
 kataweb.it
 kickapps.com
 kickstarter.com
@@ -429,6 +440,7 @@ llnwd.net
 loggly.com
 logos.com
 lphbs.com
+lpsnmedia.net
 mail.ru
 mailchimp.com
 mapbox.com
@@ -572,6 +584,7 @@ rackcdn.com
 rackspacecloud.com
 radikal.ru
 radiofrance.fr
+image.rakuten.co.jp
 rambler.ru
 images.rapgenius.com
 readability.com
@@ -586,6 +599,7 @@ redefine.pl
 cdngeneral.rentcafe.com
 resultspage.com
 rewardstyle.com
+rfksrv.com
 rpxnow.com
 rssinclude.com
 sagepay.com
@@ -610,10 +624,12 @@ securitymetrics.com
 seeclickfix.com
 sgizmo.com
 shopify.com
+shopifycdn.com
 shopping.com
 shop-pro.jp
 shoprunner.com
 sidearmsports.com
+simplecast.com
 siteimprove.com
 shield.sitelock.com
 sketchfab.com
@@ -631,6 +647,8 @@ api.soundcloud.com
 feeds.soundcloud.com
 sp-prod.net
 spot.im
+api.spreaker.com
+widget.spreaker.com
 springboardplatform.com
 squarespace.com
 squareup.com
@@ -657,16 +675,21 @@ swiftype.com
 public.tableau.com
 public.tableausoftware.com
 c.tadst.com
+cdn.tagcommander.com
 taleo.net
 uploads.tapatalk-cdn.com
 targetimg1.com
 targetimg2.com
+tarteaucitron.io
 tawk.to
 technorati.com
 tegna-media.com
 textalk.se
+tfaforms.com
+tfaforms.net
 theplatform.com
 tile.thunderforest.com
+tiktokcdn.com
 timeinc.net
 tinypass.com
 tinypic.com
@@ -679,6 +702,7 @@ tradingview.com
 trb.com
 trbimg.com
 trumba.com
+trustarc.com
 privacy-policy.truste.com
 trustkeeper.net
 trustpilot.com
@@ -710,6 +734,7 @@ unicornmedia.com
 unsplash.com
 uplynk.com
 usa.gov
+usercentrics.eu
 viafoura.net
 viddler.com
 videobash.com

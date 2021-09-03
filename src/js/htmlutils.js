@@ -15,10 +15,19 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.htmlutils = (function() {
+require.scopes.htmlutils = (function () {
 
 const i18n = chrome.i18n;
 const constants = require("constants");
+
+function escape_html(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 let htmlUtils = {
 
@@ -106,11 +115,11 @@ let htmlUtils = {
       return `
 <div class="switch-container ${action}">
   <div class="switch-toggle switch-3 switch-candy">
-    <input id="block-${origin_id}" name="${origin}" value="${constants.BLOCK}" type="radio" ${is_checked(constants.BLOCK, action)}>
+    <input id="block-${origin_id}" name="${origin}" value="${constants.BLOCK}" type="radio" aria-label="${tooltips.block}" ${is_checked(constants.BLOCK, action)}>
     <label title="${tooltips.block}" class="tooltip" for="block-${origin_id}"></label>
-    <input id="cookieblock-${origin_id}" name="${origin}" value="${constants.COOKIEBLOCK}" type="radio" ${is_checked(constants.COOKIEBLOCK, action)}>
+    <input id="cookieblock-${origin_id}" name="${origin}" value="${constants.COOKIEBLOCK}" type="radio" aria-label="${tooltips.cookieblock}" ${is_checked(constants.COOKIEBLOCK, action)}>
     <label title="${tooltips.cookieblock}" class="tooltip" for="cookieblock-${origin_id}"></label>
-    <input id="allow-${origin_id}" name="${origin}" value="${constants.ALLOW}" type="radio" ${is_checked(constants.ALLOW, action)}>
+    <input id="allow-${origin_id}" name="${origin}" value="${constants.ALLOW}" type="radio" aria-label="${tooltips.allow}" ${is_checked(constants.ALLOW, action)}>
     <label title="${tooltips.allow}" class="tooltip" for="allow-${origin_id}"></label>
     <a></a>
   </div>
@@ -132,7 +141,6 @@ let htmlUtils = {
     <img src="/icons/UI-icons-red.svg" class="tooltip" title="${i18n.getMessage("tooltip_block")}"><img src="/icons/UI-icons-yellow.svg" class="tooltip" title="${i18n.getMessage("tooltip_cookieblock")}"><img src="/icons/UI-icons-green.svg" class="tooltip" title="${i18n.getMessage("tooltip_allow")}">
   </div>
 </div>
-<div class="spacer"></div>
 <div id="blockedResourcesInner" class="clickerContainer"></div>
     `.trim();
   },
@@ -152,8 +160,8 @@ let htmlUtils = {
       dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
 
     return function (origin, action, show_breakage_warning) {
-      action = _.escape(action);
-      origin = _.escape(origin);
+      action = escape_html(action);
+      origin = escape_html(origin);
 
       // Get classes for main div.
       let classes = ['clicker'];
@@ -181,7 +189,7 @@ let htmlUtils = {
       let origin_tooltip = htmlUtils.getActionDescription(action, origin);
       return `
 <div class="${classes.join(' ')}" data-origin="${origin}">
-  <div class="origin">
+  <div class="origin" role="heading" aria-level="4">
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
     <span class="origin-inner tooltip" title="${origin_tooltip}">${dnt_html}${origin}</span>
   </div>
@@ -274,6 +282,8 @@ let htmlUtils = {
   },
 
 };
+
+htmlUtils.escape = escape_html;
 
 let exports = {
   htmlUtils,

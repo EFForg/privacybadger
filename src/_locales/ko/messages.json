@@ -1,4 +1,34 @@
 {
+    "name": {
+        "message": "Privacy Badger",
+        "description": ""
+    },
+    "description": {
+        "message": "Privacy Badger는 자동으로 보이지 않는 추적기를 차단하는 법을 학습합니다.",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "Disable for this site",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "Enable for this site",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
+    },
+    "report_broken_site": {
+        "message": "Report broken site",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "버전 $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
     "badger_status_block": {
         "message": "차단된 $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -37,7 +67,7 @@
     },
     "donate_to_eff": {
         "message": "EFF에게 기부",
-        "description": "Button shown in the popup and on the intro page."
+        "description": "Link shown in the popup; also a button on the intro page"
     },
     "intro_donate_subheading": {
         "message": "기부 또는 툴에 대한 지원을 공유함으로써 저희를 도와주세요.",
@@ -53,11 +83,23 @@
     },
     "dnt_tooltip": {
         "message": "이 도메인은 당신을 추적하지 않습니다.",
-        "description": "Tooltip shown when you hover over a DNT-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
+        "description": "Tooltip shown when you hover over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "breakage_warning_tooltip": {
         "message": "Blocking this domain is known to break websites",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "domain_slider_block_tooltip": {
+        "message": "Block entirely",
+        "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Block cookies",
+        "description": "Tooltip shown when you hover over the center part of a domain slider"
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Allow",
+        "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
     },
     "feed_the_badger_title": {
         "message": "Click to return control of this domain to Privacy Badger",
@@ -78,10 +120,6 @@
     "report_title": {
         "message": "오류 보고",
         "description": ""
-    },
-    "domain_slider_cookieblock_tooltip": {
-        "message": "이 도메인의 쿠키 설정을 차단하려면 여기를 클릭하세요.",
-        "description": "Tooltip shown when you hover over the center part of a slider shown for each domain in the domain list."
     },
     "options_domain_filter_block": {
         "message": "차단",
@@ -132,7 +170,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "예외 위젯",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -140,11 +178,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "예외 사이트",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "다음 사이트에서는 항상 위젯을 허용합니다:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -174,7 +212,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "사용자의 검색에서 새 추적기를 차단하는 방법을 학습합니다.",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
@@ -194,7 +232,7 @@
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "더 알아보려면 아래를 클릭하세요.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
@@ -210,8 +248,8 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "'Privacy Badger가 이 사이트를 파손했습니까?'를 클릭하는 것을 잊지 마세요. 우리는 당신의 프라이버시를 존중합니다. 그래서 우리는 자동으로 보고서를 보내지 않습니다.",
-        "description": "Intro page paragraph. The quoted message ('Did Privacy Badger break this site') should match the first part of the translation for the 'report_broken_site' message."
+        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
         "message": "Privacy Badger 옵션",
@@ -219,10 +257,6 @@
     },
     "report_terms": {
         "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
-        "description": ""
-    },
-    "popup_enable_for_site": {
-        "message": "이 사이트에 대해 Privacy Badger를 사용하도록 설정합니다.",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -282,30 +316,16 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "프라이버시",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
-        "message": "Advanced",
+        "message": "고급",
         "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
         "message": "알아보기",
         "description": "Intro page welcome button."
-    },
-    "domain_slider_block_tooltip": {
-        "message": "이 도메인을 완전히 차단하려면 여기를 클릭하세요.",
-        "description": "Tooltip shown when you hover over the leftmost part of a slider shown for each domain in the domain list."
-    },
-    "version": {
-        "message": "버전 $VERSION_STRING$",
-        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
-        "placeholders": {
-            "version_string": {
-                "content": "$1",
-                "example": "2018.8.1"
-            }
-        }
     },
     "badger_status_cookieblock": {
         "message": "$DOMAIN$로부터 차단된 쿠키",
@@ -321,10 +341,6 @@
         "message": "부분적으로 차단",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "show_tracking_domains_acknowledgement": {
-        "message": "그래도 추적 도메인 목록을 확인하나요?",
-        "description": "Acknowledgement shown next to the checkbox required to reveal the tracking domains list on the options page."
-    },
     "firstRun_title": {
         "message": "Privacy Badger를 설치해 주셔서 감사합니다!",
         "description": ""
@@ -333,16 +349,12 @@
         "message": "가져올 파일을 선택하세요.",
         "description": ""
     },
-    "report_broken_site": {
-        "message": "Privacy Badger가 이 사이트를 파손했습니까? 우리에게 알려주세요!",
-        "description": "Button in the popup."
-    },
     "tooltip_cookieblock": {
         "message": "슬라이더를 중앙에 배치하여 쿠키를 차단합니다.",
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "자동으로 학습합니다.",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
@@ -366,7 +378,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "추적 금지에 순응",
+        "message": "compliant with EFF's DNT policy",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -381,10 +393,6 @@
         "message": "프라이버시는 팀 활동입니다!",
         "description": "Part of the 'donate' section on the intro page."
     },
-    "show_tracking_domains_message": {
-        "message": "여기서 어떤 것도 수정할 필요가 없습니다.",
-        "description": "Shown above the acknowledgement checkbox required to reveal the tracking domains list on the options page. This is the second paragraph; the first paragraph is the message under the \"intro_not_an_adblocker_paragraph\" key."
-    },
     "options_domain_filter_all": {
         "message": "전체",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
@@ -398,27 +406,47 @@
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "웹 사이트에 \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" 와 \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>추적 금지</a>\" 신호를 보냅니다.",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
-        "description": "Checkbox label found on the general settings page"
+        "message": "방문한 웹 주소를 Google에 전송하는 것을 비활성화합니다. 이것은 페이지를 찾을 수 없을 때 유사한 페이지를 제안하는 것을 비활성화시킵니다.",
+        "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Disable hyperlink auditing",
+        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "Disable prefetching",
+        "message": "프리페칭 비활성화.",
         "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
         "message": "사용자 정의",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
+    "popup_info_firstparty_protections": {
+        "message": "Link tracking protection active",
+        "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
+    },
+    "popup_info_firstparty_description": {
+        "message": "Some websites $LINK_START$use link tracking to follow you$LINK_END$ whenever you click a link to leave the website. Privacy Badger removes tracking from such links on this website.",
+        "description": "Text revealed by clicking on the link tracking protection header in the popup",
+        "placeholders": {
+            "link_start": {
+                "content": "<a href='https://privacybadger.org/#What-about-tracking-by-the-sites-I-actively-visit%2c-like-NYTimes.com-or-Facebook.com' target='_blank'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
+    },
     "popup_instructions": {
-        "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
+        "message": "$COUNT$개의 잠재적인 $LINK_START$추적기$LINK_END$ 차단됨",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -435,7 +463,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "message": "차단된 $LINK_START$추적기$LINK_END$ 없음",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -448,7 +476,7 @@
         }
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page. Hooray for privacy!",
+        "message": "이 페이지에는 서드파티 리소스가 없습니다. 프라이버시를 위하여!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
@@ -458,14 +486,6 @@
     "tooltip_allow": {
         "message": "슬라이더를 오른쪽으로 이동하여 도메인을 허용합니다.",
         "description": ""
-    },
-    "popup_disable_for_site": {
-        "message": "이 사이트에 대해 Privacy Badger를 사용하지 않도록 설정합니다.",
-        "description": "Button in the popup."
-    },
-    "domain_slider_allow_tooltip": {
-        "message": "이 도메인을 허용하려면 여기를 클릭하세요.",
-        "description": "Tooltip shown when you hover over the rightmost part of a slider shown for each domain in the domain list."
     },
     "intro_privacy_note": {
         "message": "Privacy Badger는 사용자가 검색을 공유하도록 선택하지 않는 한 검색에 대한 데이터를 절대 공유하지 않습니다.",
@@ -491,10 +511,6 @@
     "options_domain_list_no_trackers": {
         "message": "Privacy Badger가 아직 <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>추적 도메인</a>을 감지하지 못했습니다. 계속 탐색하세요!",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
-    },
-    "name": {
-        "message": "Privacy Badger",
-        "description": ""
     },
     "intro_not_an_adblocker_paragraph": {
         "message": "Privacy Badger는 세 개의 다른 웹 사이트에서 동일한 추적기를 보면 차단하기 시작합니다. 삼진 아웃이에요!",
@@ -548,10 +564,6 @@
         "message": "페이스북에 공유",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
-    "description": {
-        "message": "Privacy Badger는 자동으로 보이지 않는 추적기를 차단하는 법을 학습합니다.",
-        "description": ""
-    },
     "report_fail": {
         "message": "앗, 뭔가 잘못됐어요.",
         "description": ""
@@ -567,7 +579,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger has replaced $START_ANCHOR_TAG$this $WIDGET$ widget$END_ANCHOR_TAG$",
+        "message": "Privacy Badger가 $START_ANCHOR_TAG$이 $WIDGET$ 위젯$END_ANCHOR_TAG$을 대체했습니다.",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
@@ -617,11 +629,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Data successfully uploaded to the cloud",
+        "message": "데이터를 클라우드에 성공적으로 업로드하였습니다",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Data could not be uploaded to the cloud",
+        "message": "데이터를 클라우드에 업로드할 수 없습니다",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
@@ -637,7 +649,7 @@
         "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger blocked $COUNT$ potential trackers on $DOMAIN$:",
+        "message": "Privacy Badger가 $DOMAIN$에서 잠재적인 추적기를 $COUNT$개 차단했습니다:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -671,7 +683,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger is disabled on this site",
+        "message": "이 사이트에서 Privacy Badger를 사용하지 않도록 설정했습니다.",
         "description": "Shown in the popup on disabled sites."
     },
     "disabled_sites": {
@@ -679,8 +691,8 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p><p>Alternatively, when you already have the page's tab selected, you can just click on Privacy Badger's button in the browser toolbar and then click the \"Disable\" button.</p>",
-        "description": "'Add domain' should match the 'add_domain_button' message. 'Disable' should match the start of the 'popup_disable_for_site' message."
+        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
         "message": "예시, www.example.com, *.example.net, example.org",
@@ -697,5 +709,23 @@
     "invalid_domain": {
         "message": "유효한 도메인 또는 URL을 추가하세요.",
         "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+    },
+    "deprecated_setting": {
+        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
+        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+    },
+    "learn_more_link": {
+        "message": "자세한 내용은 $LINK$ 참조.",
+        "description": "Reusable 'learn more link' message",
+        "placeholders": {
+            "link": {
+                "content": "$1",
+                "example": "<a href='https://example.com'>example.com</a>"
+            }
+        }
+    },
+    "acknowledgement_action": {
+        "message": "I understand",
+        "description": "Acknowledgement button text"
     }
 }

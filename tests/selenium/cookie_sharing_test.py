@@ -45,8 +45,8 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         # check to make sure this domain is caught and correctly recorded in snitch map
         self.load_url(self.options_url)
         self.assertEqual(
-            self.get_snitch_map(),
             ["efforg.github.io"],
+            self.get_snitch_map(),
             "Pixel cookie sharing tracking failed to be detected"
         )
 

@@ -4,8 +4,6 @@
  * Available under MIT license <http://mths.be/mit>
  */
 
-/* globals punycode:false */
-
 const RE_V4 = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|0x[0-9a-f][0-9a-f]?|0[0-7]{3})\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|0x[0-9a-f][0-9a-f]?|0[0-7]{3})$/i;
 const RE_V4_HEX = /^0x([0-9a-f]{8})$/i;
 const RE_V4_NUMERIC = /^[0-9]+$/;
@@ -71,50 +69,47 @@ function isIPv6(address) {
 /**
  * Returns base domain for specified host based on Public Suffix List.
  * @param {String} hostname The name of the host to get the base domain for
+ * @returns {String} The base domain
  */
-function getBaseDomain(/**String*/ hostname) /**String*/ {
-  // remove trailing dot(s)
-  hostname = hostname.replace(/\.+$/, '');
+function getBaseDomain(hostname) {
+  // remove trailing dot
+  if (hostname.charAt(hostname.length - 1) == ".") {
+    hostname = hostname.slice(0, -1);
+  }
 
   // return IP address untouched
   if (isIPv6(hostname) || isIPv4(hostname)) {
     return hostname;
   }
 
-  // decode punycode if exists
-  if (hostname.indexOf('xn--') >= 0) {
-    hostname = punycode.toUnicode(hostname);
-  }
-
   // search through PSL
-  var prevDomains = [];
-  var curDomain = hostname;
-  var nextDot = curDomain.indexOf('.');
-  var tld = 0;
+  let tld = 0,
+    prevDomains = [],
+    cur_domain = hostname,
+    next_dot = cur_domain.indexOf('.');
 
   for (;;) {
-    var suffix = window.publicSuffixes[curDomain];
-    if (typeof suffix != 'undefined') {
-      tld = suffix;
+    if (window.publicSuffixes.hasOwnProperty(cur_domain)) {
+      tld = window.publicSuffixes[cur_domain];
       break;
     }
 
-    if (nextDot < 0) {
+    if (next_dot < 0) {
       tld = 1;
       break;
     }
 
-    prevDomains.push(curDomain.substring(0,nextDot));
-    curDomain = curDomain.substring(nextDot+1);
-    nextDot = curDomain.indexOf('.');
+    prevDomains.push(cur_domain.slice(0, next_dot));
+    cur_domain = cur_domain.slice(next_dot + 1);
+    next_dot = cur_domain.indexOf('.');
   }
 
   while (tld > 0 && prevDomains.length > 0) {
-    curDomain = prevDomains.pop() + '.' + curDomain;
+    cur_domain = prevDomains.pop() + '.' + cur_domain;
     tld--;
   }
 
-  return curDomain;
+  return cur_domain;
 }
 
 /**
@@ -193,27 +188,42 @@ function isPrivateDomain(domain) { // eslint-disable-line no-unused-vars
  * Checks whether a request is third party for the given document, uses
  * information from the public suffix list to determine the effective domain
  * name for the document.
- * @param {String} requestHost The host of the 3rd party request
- * @param {String} documentHost The host of the document
+ *
+ * @param {String} request_host The request host
+ * @param {String} site_host The document (first-party) host
+ *
+ * @returns {Boolean}
  */
-function isThirdParty(/**String*/ requestHost, /**String*/ documentHost) { // eslint-disable-line no-unused-vars
-  // Remove trailing dots
-  requestHost = requestHost.replace(/\.+$/, "");
-  documentHost = documentHost.replace(/\.+$/, "");
+function isThirdParty(request_host, site_host) { // eslint-disable-line no-unused-vars
+  if (!request_host || !site_host) {
+    return true;
+  }
+
+  // remove trailing dot
+  if (request_host.charAt(request_host.length - 1) == ".") {
+    request_host = request_host.slice(0, -1);
+  }
+  if (site_host.charAt(site_host.length - 1) == ".") {
+    site_host = site_host.slice(0, -1);
+  }
+
+  if (request_host == site_host) {
+    return false;
+  }
 
   // Extract domain name - leave IP addresses unchanged, otherwise leave only base domain
-  var documentDomain = getBaseDomain(documentHost);
-  if (requestHost.length > documentDomain.length) {
-    return (requestHost.substr(requestHost.length - documentDomain.length - 1) != "." + documentDomain);
+  let site_base = getBaseDomain(site_host);
+  if (request_host.length > site_base.length) {
+    return !request_host.endsWith("." + site_base);
   } else {
-    return (requestHost != documentDomain);
+    return (request_host != site_base);
   }
 }
 
 /**
  * Extracts host name from a URL.
  */
-function extractHostFromURL(/**String*/ url) { // eslint-disable-line no-unused-vars
+function extractHostFromURL(url) { // eslint-disable-line no-unused-vars
   if (url && extractHostFromURL._lastURL == url) {
     return extractHostFromURL._lastDomain;
   }
@@ -237,7 +247,7 @@ function extractHostFromURL(/**String*/ url) { // eslint-disable-line no-unused-
  * TODO: Make sure the parsing actually works the same as nsStandardURL.
  * @constructor
  */
-function URI(/**String*/ spec) {
+function URI(spec) {
   this.spec = spec;
   this._schemeEnd = spec.indexOf(":");
   if (this._schemeEnd < 0) {
@@ -292,14 +302,6 @@ URI.prototype = {
   },
   get host() {
     return this.spec.substring(this._hostStart, this._hostEnd);
-  },
-  get asciiHost() {
-    var host = this.host;
-    if (/^[\x00-\x7F]+$/.test(host)) { // eslint-disable-line no-control-regex
-      return host;
-    } else {
-      return punycode.toASCII(host);
-    }
   },
   get hostPort() {
     return this.spec.substring(this._hostPortStart, this._hostPortEnd);

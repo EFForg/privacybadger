@@ -45,11 +45,11 @@ class StorageTest(pbtest.PBSeleniumTest):
 
         self.check_policy_download()
         self.assertEqual(
+            "https://www.eff.org/files/cookieblocklist_new.txt",
             self.js(
                 "return chrome.extension.getBackgroundPage()."
                 "constants.YELLOWLIST_URL"
-            ),
-            "https://www.eff.org/files/cookieblocklist_new.txt"
+            ) 
         )
 
         disabled_sites = self.js(

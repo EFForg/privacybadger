@@ -155,11 +155,26 @@ QUnit.test("surrogate script URL lookups", function (assert) {
   surrogatedb.hostnames['cdn.example.com'] = 'noop';
   surrogatedb.surrogates.noop = NOOP;
 
+  // https://stackoverflow.com/a/11935263
+  function get_random_subarray(arr, size) {
+    let shuffled = arr.slice(0),
+      i = arr.length,
+      min = i - size,
+      temp, index;
+    while (i-- > min) {
+      index = Math.floor((i + 1) * Math.random());
+      temp = shuffled[index];
+      shuffled[index] = shuffled[i];
+      shuffled[i] = temp;
+    }
+    return shuffled.slice(min);
+  }
+
   // test wildcard tokens
   for (let i = 0; i < 25; i++) {
-    let url = 'http://cdn.example.com/' + _.sample(
+    let url = 'http://cdn.example.com/' + get_random_subarray(
       'abcdefghijklmnopqrstuvwxyz0123456789'.split(''),
-      _.random(5, 15)
+      utils.random(5, 15)
     ).join('');
 
     assert.equal(
@@ -569,6 +584,43 @@ QUnit.test("estimateMaxEntropy", assert => {
     "resolution strings with 'x' char from SEPS class are correctly estimated as low entropy"
   );
 
+});
+
+QUnit.test("firstPartyProtectionsEnabled", assert => {
+  assert.ok(
+    utils.firstPartyProtectionsEnabled("www.google.com"),
+    "properly identifies a url pattern from our firstparties list"
+  );
+
+  assert.ok(
+    utils.firstPartyProtectionsEnabled("www.google.co.uk"),
+    "properly identifies a url pattern from our firstparties list"
+  );
+
+  assert.notOk(
+    utils.firstPartyProtectionsEnabled("foobar.com"),
+    "determines that a url not in the firstparties list is not protected by a firstparty script"
+  );
+
+  assert.ok(
+    utils.firstPartyProtectionsEnabled("www.messenger.com"),
+    "accurately IDs a site with firstparty protections covered by a wildcard url match"
+  );
+
+  assert.ok(
+    utils.firstPartyProtectionsEnabled("www.facebook.com"),
+    "wildcard pattern matching"
+  );
+
+  assert.ok(
+    utils.firstPartyProtectionsEnabled("m.facebook.com"),
+    "wildcard pattern matching"
+  );
+
+  assert.notOk(
+    utils.firstPartyProtectionsEnabled("acebook.com"),
+    "wildcard pattern matching"
+  );
 });
 
 })();
