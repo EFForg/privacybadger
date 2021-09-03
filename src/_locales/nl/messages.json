@@ -216,7 +216,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Door leren in te schakelen wordt je mogelijk meer identificeerbaar voor websites",
+        "message": "Door leren in te schakelen wordt u mogelijk meer identificeerbaar voor websites",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
@@ -228,7 +228,7 @@
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger zal niet langer als standaard gedrag leren van jouw surfgedrag.",
+        "message": "Privacy Badger zal niet langer als standaard gedrag leren van uw surfgedrag.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
@@ -256,7 +256,7 @@
         "description": ""
     },
     "report_terms": {
-        "message": "Dit zal automatisch de volgende gegevens naar het EFF verzenden: de webpagina die je momenteel bezoekt, de versie van je webbrowser, de versie van Privacy Badger en de instelling van alle schuifknoppen voor deze webpagina.",
+        "message": "Dit zal automatisch de volgende gegevens naar het EFF verzenden: de webpagina die u momenteel bezoekt, de versie van uw webbrowser, de versie van Privacy Badger en de instelling van alle schuifknoppen voor deze webpagina.",
         "description": ""
     },
     "options_domain_type_filter": {
@@ -358,7 +358,7 @@
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "In plaats van lijsten bij te houden over wat je wilt blokkeren, zal Privacy Badger automatisch volgers ontdekken op basis van hun gedrag.",
+        "message": "In plaats van lijsten bij te houden over wat u wilt blokkeren, zal Privacy Badger automatisch volgers ontdekken op basis van hun gedrag.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
@@ -366,7 +366,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Onzichtbaar volgen gebeurd op allerlei manieren; advertenties zijn slechts het zichtbare topje van de ijsberg. Privacy Badger verzendt het <a href='https://globalprivacycontrol.org/' target='_blank'>“Global Privacy Control”-signaal</a>, om niet mee te doen aan het doorgeven en verkopen van je data, en het <a href='https://www.eff.org/issues/do-not-track' target='_blank'>“Volg me niet”-signaal</a> om aan bedrijven aan te geven dat je niet gevolgd wil worden. Als ze je keuze niet respecteren, dan zal Privacy Badger leren om ze te blokkeren, ongeacht of ze adverteerders, volgers of iets anders zijn.",
+        "message": "Onzichtbaar volgen gebeurd op allerlei manieren; advertenties zijn slechts het zichtbare topje van de ijsberg. Privacy Badger verzendt het <a href='https://globalprivacycontrol.org/' target='_blank'>“Global Privacy Control”-signaal</a>, om niet mee te doen aan het doorgeven en verkopen van uw data, en het <a href='https://www.eff.org/issues/do-not-track' target='_blank'>“Volg me niet”-signaal</a> om aan bedrijven aan te geven dat u niet gevolgd wilt worden. Als ze uw keuze niet respecteren, dan zal Privacy Badger leren om ze te blokkeren, ongeacht of ze adverteerders, volgers of iets anders zijn.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -410,11 +410,11 @@
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Schakel het naar Google verzenden van webadressen die je bezoekt uit. Hierdoor worden ook suggesties voor vergelijkbare pagina's als een pagina niet kan worden gevonden uitgeschakeld.",
+        "message": "Schakel het naar Google verzenden van webadressen die u bezoekt uit. Hierdoor worden ook suggesties voor vergelijkbare pagina's als een pagina niet kan worden gevonden uitgeschakeld.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Voorkom dat websites volgen op welke verwijzingen je klikt (\"hyperlink auditing\")",
+        "message": "Voorkom dat websites volgen op welke verwijzingen u klikt (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
@@ -430,11 +430,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_info_firstparty_protections": {
-        "message": "Bescherming tegen volgen op welke verwijzing je klikt is ingeschakeld",
+        "message": "Bescherming tegen volgen op welke verwijzing u klikt is ingeschakeld",
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Sommige websites $LINK_START$volgen op welke verwijzing je klikt$LINK_END$ waarmee je hun website verlaat. Privacy Badger verwijdert die mogelijkheid waardoor de website niet kan zien naar welke andere website jij doorklikt.",
+        "message": "Sommige websites $LINK_START$volgen op welke verwijzing u klikt$LINK_END$ waarmee u hun website verlaat. Privacy Badger verwijdert die mogelijkheid waardoor de website niet kan zien naar welke andere website u doorklikt.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
@@ -691,7 +691,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is op de volgende websitess uitgeschakeld. Dit betekent dat Privacy Badger niets zal blokkeren op één van de websites in deze lijst, en dat het ook niet het “Volg me niet”- of “Global Privacy Control”-signaal zal verzenden.</p><p>Als je vermoedt dat Privacy Badger het laden van een bepaalde webpagina verstoort, of als je een bepaalde website wil toestaan om je data door te geven of verkopen, dan kun je de domeinnaam van die webpagina invullen in het invoerveld hieronder en op de knop \"Domein toevoegen\" klikken.</p>",
+        "message": "<p>Privacy Badger is op de volgende websitess uitgeschakeld. Dit betekent dat Privacy Badger niets zal blokkeren op één van de websites in deze lijst, en dat het ook niet het “Volg me niet”- of “Global Privacy Control”-signaal zal verzenden.</p><p>Als u vermoedt dat Privacy Badger het laden van een bepaalde webpagina verstoort, of als u een bepaalde website wil toestaan om uw data door te geven of verkopen, dan kunt u de domeinnaam van die webpagina invullen in het invoerveld hieronder en op de knop \"Domein toevoegen\" klikken.</p>",
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
