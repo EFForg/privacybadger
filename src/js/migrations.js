@@ -235,36 +235,7 @@ exports.Migrations= {
     }
   },
 
-  forgetFirstPartySnitches: function (badger) {
-    console.log("Removing first parties from snitch map...");
-    let snitchMap = badger.storage.getStore("snitch_map"),
-      actionMap = badger.storage.getStore("action_map"),
-      snitchClones = snitchMap.getItemClones(),
-      actionClones = actionMap.getItemClones(),
-      correctedSites = {};
-
-    for (let domain in snitchClones) {
-      // creates new array of domains checking against the isThirdParty utility
-      let newSnitches = snitchClones[domain].filter(
-        item => utils.isThirdPartyDomain(item, domain));
-
-      if (newSnitches.length) {
-        correctedSites[domain] = newSnitches;
-      }
-    }
-
-    // clear existing maps and then use mergeUserData to rebuild them
-    actionMap.updateObject({});
-    snitchMap.updateObject({});
-
-    const data = {
-      snitch_map: correctedSites,
-      action_map: actionClones
-    };
-
-    // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
-    badger.mergeUserData(data, true);
-  },
+  forgetFirstPartySnitches: noop,
 
   forgetCloudflare: noop,
 

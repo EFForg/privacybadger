@@ -361,7 +361,7 @@ Badger.prototype = {
         return cb(new Error("Failed to parse seed data JSON"));
       }
 
-      self.mergeUserData(data, true);
+      self.mergeUserData(data);
       log("Loaded seed data successfully");
       return cb(null);
     });
@@ -1257,13 +1257,32 @@ Badger.prototype = {
   },
 
   /**
-   * Merge data exported from a different badger into this badger's storage.
+   * Merges Privacy Badger user data.
+   *
+   * Used to load pre-trained/"seed" data on installation and updates.
+   * Also used to import user data from other Privacy Badger instances.
    *
    * @param {Object} data the user data to merge in
-   * @param {Boolean} [skip_migrations=false] set when running from a migration to avoid infinite loop
    */
-  mergeUserData: function (data, skip_migrations) {
+  mergeUserData: function (data) {
     let self = this;
+
+    // fix incoming snitch map entries with current MDFP data
+    if (data.hasOwnProperty("snitch_map")) {
+      let correctedSites = {};
+
+      for (let domain in data.snitch_map) {
+        let newSnitches = data.snitch_map[domain].filter(
+          site => utils.isThirdPartyDomain(site, domain));
+
+        if (newSnitches.length) {
+          correctedSites[domain] = newSnitches;
+        }
+      }
+
+      data.snitch_map = correctedSites;
+    }
+
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
     ["snitch_map", "action_map", "settings_map"].forEach(function (key) {
@@ -1271,12 +1290,6 @@ Badger.prototype = {
         self.storage.getStore(key).merge(data[key]);
       }
     });
-
-    // for exports from older Privacy Badger versions:
-    // fix yellowlist getting out of sync, remove non-tracking domains, etc.
-    if (!skip_migrations) {
-      self.runMigrations();
-    }
   }
 
 };
