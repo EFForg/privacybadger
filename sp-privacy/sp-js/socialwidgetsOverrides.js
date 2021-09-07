@@ -545,8 +545,8 @@
       site_button.id = site_button_id;
       site_button.style = styleAttrs.join(" !important;") + " !important";
     
-      button.appendChild(document.createTextNode(TRANSLATIONS.allow_once));
-      site_button.appendChild(document.createTextNode(TRANSLATIONS.allow_on_site));
+      button.appendChild(document.createTextNode('Allow_once'));
+      site_button.appendChild(document.createTextNode('Allow always on this site'));
     
       buttonDiv.appendChild(button);
       buttonDiv.appendChild(site_button);
@@ -612,7 +612,7 @@
     #${site_button_id} {
       border: 1px solid #6573ff !important;
       border-radius: 4px;
-      background-color: #6573ff !important;
+      background-color: #fefefe !important;
       color: #6573ff !important;
     }
     #${button_id}:hover {
