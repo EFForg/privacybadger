@@ -8,15 +8,15 @@
         "description": ""
     },
     "popup_disable_for_site": {
-        "message": "Disable for this site",
+        "message": "Απενεργοποίηση σε αυτήν την ιστοσελίδα",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "Enable for this site",
+        "message": "Ενεργοποίηση σε αυτήν την ιστοσελίδα",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
     },
     "report_broken_site": {
-        "message": "Report broken site",
+        "message": "Αναφορά ιστοσελίδας που υπολειτουργεί",
         "description": "Button in the popup."
     },
     "version": {
@@ -248,7 +248,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "message": "Μην ξεχάσετε να κάνετε κλικ στο κουμπί «Αναφορά ιστοσελίδας που υπολειτουργεί». Σεβόμαστε την ιδιωτικότητά σας, οπότε δε στέλνουμε αναφορές αυτόματα.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -378,7 +378,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "compliant with EFF's DNT policy",
+        "message": "συνάδει με την πολιτική DNT της EFF",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -711,7 +711,7 @@
         "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     },
     "deprecated_setting": {
-        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
+        "message": "Η παρακάτω ρύθμιση θα διαγραφεί σε μια μελλοντική έκδοση του Privacy Badger:",
         "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
     },
     "learn_more_link": {
