@@ -17,8 +17,7 @@
 
 require.scopes.surrogates = (function () {
 
-const db = require('surrogatedb'),
-  utils = require('utils');
+const db = require('surrogatedb');
 
 /**
  * Blocking tracking scripts (trackers) can cause parts of webpages to break.
@@ -39,24 +38,31 @@ const db = require('surrogatedb'),
  */
 function getSurrogateURI(script_url, script_hostname) {
   // do we have an entry for the script hostname?
-  if (db.hostnames.hasOwnProperty(script_hostname)) {
-    const tokens = db.hostnames[script_hostname];
+  if (!db.hostnames.hasOwnProperty(script_hostname)) {
+    return false;
+  }
 
-    // it's a wildcard token
-    if (utils.isString(tokens)) {
-      if (db.surrogates.hasOwnProperty(tokens)) {
-        // return the surrogate code
-        return 'data:application/javascript;base64,' + btoa(db.surrogates[tokens]);
-      }
+  const conf = db.hostnames[script_hostname];
+
+  switch (conf.match) {
+
+  // wildcard token:
+  // matches any script URL for the hostname
+  case db.MATCH_ANY: {
+    if (db.surrogates.hasOwnProperty(conf.token)) {
+      // return the surrogate code
+      return 'data:application/javascript;base64,' + btoa(db.surrogates[conf.token]);
     }
+    break;
+  }
 
-    // must be an array of suffix tokens
+  // one or more suffix tokens:
+  // does the script URL (querystring excluded) end with one of these tokens?
+  case db.MATCH_SUFFIX: {
     const qs_start = script_url.indexOf('?');
 
-    for (let i = 0; i < tokens.length; i++) {
+    for (const token of conf.tokens) {
       // do any of the suffix tokens match the script URL?
-      const token = tokens[i];
-
       let match = false;
 
       if (qs_start == -1) {
@@ -74,6 +80,10 @@ function getSurrogateURI(script_url, script_hostname) {
         return 'data:application/javascript;base64,' + btoa(db.surrogates[token]);
       }
     }
+
+    return false;
+  }
+
   }
 
   return false;

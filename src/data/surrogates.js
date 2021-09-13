@@ -15,52 +15,72 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.surrogatedb = (function() {
+require.scopes.surrogatedb = (function () {
+
+const MATCH_SUFFIX = 'suffix',
+  MATCH_ANY = 'any';
 
 /**
- * A hostname can have one or more surrogate scripts.
- *
- * "hostnames" maps hostnames to surrogate pattern tokens.
+ * `hostnames` maps hostnames to surrogate pattern tokens.
  *
  * Surrogate pattern tokens are used to look up the actual
  * surrogate script code (stored in "surrogates" object below).
- *
- * There are currently two types of surrogate pattern tokens:
- *
- * - {Array} one or more suffix tokens:
- *   Does the script URL (querystring excluded) end with the token?
- *
- * - {String} wildcard token:
- *   Matches any script URL for the hostname.
  */
 const hostnames = {
-  'b.scorecardresearch.com': [
-    '/beacon.js',
-    '/c2/plugins/streamsense_plugin_html5.js',
-  ],
-  'sb.scorecardresearch.com': [
-    '/beacon.js',
-    '/c2/plugins/streamsense_plugin_html5.js',
-  ],
-  'ssl.google-analytics.com': [
-    '/ga.js',
-    '/analytics.js',
-  ],
-  'www.google-analytics.com': [
-    '/analytics.js',
-    '/ga.js',
-  ],
-  'www.googletagservices.com': [
-    '/gpt.js',
-  ],
-  'securepubads.g.doubleclick.net': [
-    '/tag/js/gpt.js',
-  ],
-  'api.youneeq.ca': [
-    '/app/yqmin',
-  ],
-  'cdn.krxd.net': 'noopjs',
-  'widgets.outbrain.com': '/outbrain.js',
+  'b.scorecardresearch.com': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/beacon.js',
+      '/c2/plugins/streamsense_plugin_html5.js',
+    ]
+  },
+  'sb.scorecardresearch.com': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/beacon.js',
+      '/c2/plugins/streamsense_plugin_html5.js',
+    ]
+  },
+  'ssl.google-analytics.com': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/ga.js',
+      '/analytics.js',
+    ]
+  },
+  'www.google-analytics.com': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/analytics.js',
+      '/ga.js',
+    ]
+  },
+  'www.googletagservices.com': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/gpt.js',
+    ]
+  },
+  'securepubads.g.doubleclick.net': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/tag/js/gpt.js',
+    ]
+  },
+  'api.youneeq.ca': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/app/yqmin',
+    ]
+  },
+  'cdn.krxd.net': {
+    match: MATCH_ANY,
+    token: 'noopjs'
+  },
+  'widgets.outbrain.com': {
+    match: MATCH_ANY,
+    token: '/outbrain.js',
+  },
 };
 
 /**
@@ -499,8 +519,10 @@ Object.keys(surrogates).forEach(key => {
 });
 
 const exports = {
-  hostnames: hostnames,
-  surrogates: surrogates,
+  MATCH_ANY,
+  MATCH_SUFFIX,
+  hostnames,
+  surrogates,
 };
 
 return exports;

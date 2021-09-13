@@ -98,10 +98,12 @@ QUnit.test("disable/enable privacy badger for origin", function (assert) {
   assert.ok(parsed().length == origLength, "one less disabled site");
 });
 
-QUnit.test("surrogate script URL lookups", function (assert) {
-  const NOOP = function () {};
+QUnit.test("getSurrogateURI() suffix tokens", function (assert) {
   const surrogatedb = require('surrogatedb');
-  const SURROGATE_PREFIX = 'data:application/javascript;base64,';
+
+  const BASE64JS = 'data:application/javascript;base64,',
+    NOOP = function () {};
+
   const GA_JS_TESTS = [
     {
       url: 'http://www.google-analytics.com/ga.js',
@@ -116,8 +118,8 @@ QUnit.test("surrogate script URL lookups", function (assert) {
       msg: "Google Analytics ga.js querystring URL should match"
     },
   ];
-  const NYT_SCRIPT_PATH = '/assets/homepage/20160920-111441/js/foundation/lib/framework.js';
-  const NYT_URL = 'https://a1.nyt.com' + NYT_SCRIPT_PATH;
+  const NYT_SCRIPT_PATH = '/assets/homepage/20160920-111441/js/foundation/lib/framework.js',
+    NYT_URL = 'https://a1.nyt.com' + NYT_SCRIPT_PATH;
 
   let ga_js_surrogate;
 
@@ -130,7 +132,7 @@ QUnit.test("surrogate script URL lookups", function (assert) {
   }
 
   assert.ok(
-    ga_js_surrogate.startsWith(SURROGATE_PREFIX),
+    ga_js_surrogate.startsWith(BASE64JS),
     "The returned ga.js surrogate is a base64-encoded JavaScript data URI"
   );
 
@@ -141,18 +143,31 @@ QUnit.test("surrogate script URL lookups", function (assert) {
   );
 
   // test surrogate suffix token response contents
-  surrogatedb.hostnames[window.extractHostFromURL(NYT_URL)] = [
-    NYT_SCRIPT_PATH
-  ];
+  surrogatedb.hostnames[window.extractHostFromURL(NYT_URL)] = {
+    match: surrogatedb.MATCH_SUFFIX,
+    tokens: [
+      NYT_SCRIPT_PATH
+    ]
+  };
   surrogatedb.surrogates[NYT_SCRIPT_PATH] = NOOP;
   assert.equal(
     getSurrogateURI(NYT_URL, window.extractHostFromURL(NYT_URL)),
-    SURROGATE_PREFIX + btoa(NOOP),
+    BASE64JS + btoa(NOOP),
     "New York Times script URL should now match the noop surrogate"
   );
+});
+
+QUnit.test("getSurrogateURI() wildcard tokens", function (assert) {
+  const surrogatedb = require('surrogatedb');
+
+  const BASE64JS = 'data:application/javascript;base64,',
+    NOOP = function () {};
 
   // set up test data for wildcard token tests
-  surrogatedb.hostnames['cdn.example.com'] = 'noop';
+  surrogatedb.hostnames['cdn.example.com'] = {
+    match: surrogatedb.MATCH_ANY,
+    token: 'noop'
+  };
   surrogatedb.surrogates.noop = NOOP;
 
   // https://stackoverflow.com/a/11935263
@@ -179,7 +194,7 @@ QUnit.test("surrogate script URL lookups", function (assert) {
 
     assert.equal(
       getSurrogateURI(url, window.extractHostFromURL(url)),
-      SURROGATE_PREFIX + btoa(NOOP),
+      BASE64JS + btoa(NOOP),
       "A wildcard token should match all URLs for the hostname: " + url
     );
   }
