@@ -78,8 +78,10 @@ const hostnames = {
     token: 'noopjs'
   },
   'widgets.outbrain.com': {
-    match: MATCH_ANY,
-    token: '/outbrain.js',
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/outbrain.js'
+    ],
   },
 };
 
