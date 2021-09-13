@@ -1,11 +1,11 @@
 /* globals badger:false */
 
-(function() {
+(function () {
 
 QUnit.module("Utils");
 
-var utils = require('utils');
-var getSurrogateURI = require('surrogates').getSurrogateURI;
+let utils = require('utils'),
+  getSurrogateUri = require('surrogates').getSurrogateUri;
 
 QUnit.test("explodeSubdomains", function (assert) {
   var fqdn = "test.what.yea.eff.org";
@@ -98,7 +98,7 @@ QUnit.test("disable/enable privacy badger for origin", function (assert) {
   assert.ok(parsed().length == origLength, "one less disabled site");
 });
 
-QUnit.test("getSurrogateURI() suffix tokens", function (assert) {
+QUnit.test("getSurrogateUri() suffix tokens", function (assert) {
   const surrogatedb = require('surrogatedb');
 
   const BASE64JS = 'data:application/javascript;base64,',
@@ -124,7 +124,7 @@ QUnit.test("getSurrogateURI() suffix tokens", function (assert) {
   let ga_js_surrogate;
 
   for (let i = 0; i < GA_JS_TESTS.length; i++) {
-    ga_js_surrogate = getSurrogateURI(
+    ga_js_surrogate = getSurrogateUri(
       GA_JS_TESTS[i].url,
       'www.google-analytics.com'
     );
@@ -138,7 +138,7 @@ QUnit.test("getSurrogateURI() suffix tokens", function (assert) {
 
   // test negative match
   assert.notOk(
-    getSurrogateURI(NYT_URL, window.extractHostFromURL(NYT_URL)),
+    getSurrogateUri(NYT_URL, window.extractHostFromURL(NYT_URL)),
     "New York Times script URL should not match any surrogates"
   );
 
@@ -151,13 +151,13 @@ QUnit.test("getSurrogateURI() suffix tokens", function (assert) {
   };
   surrogatedb.surrogates[NYT_SCRIPT_PATH] = NOOP;
   assert.equal(
-    getSurrogateURI(NYT_URL, window.extractHostFromURL(NYT_URL)),
+    getSurrogateUri(NYT_URL, window.extractHostFromURL(NYT_URL)),
     BASE64JS + btoa(NOOP),
     "New York Times script URL should now match the noop surrogate"
   );
 });
 
-QUnit.test("getSurrogateURI() wildcard tokens", function (assert) {
+QUnit.test("getSurrogateUri() wildcard tokens", function (assert) {
   const surrogatedb = require('surrogatedb');
 
   const BASE64JS = 'data:application/javascript;base64,',
@@ -193,7 +193,7 @@ QUnit.test("getSurrogateURI() wildcard tokens", function (assert) {
     ).join('');
 
     assert.equal(
-      getSurrogateURI(url, window.extractHostFromURL(url)),
+      getSurrogateUri(url, window.extractHostFromURL(url)),
       BASE64JS + btoa(NOOP),
       "A wildcard token should match all URLs for the hostname: " + url
     );

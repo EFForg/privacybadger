@@ -28,7 +28,7 @@ require.scopes.webrequest = (function () {
 /*********************** webrequest scope **/
 
 let constants = require("constants"),
-  getSurrogateURI = require("surrogates").getSurrogateURI,
+  getSurrogateUri = require("surrogates").getSurrogateUri,
   incognito = require("incognito"),
   utils = require("utils");
 
@@ -102,7 +102,7 @@ function onBeforeRequest(details) {
   }
 
   if (type == 'script') {
-    let surrogate = getSurrogateURI(url, request_host);
+    let surrogate = getSurrogateUri(url, request_host);
     if (surrogate) {
       return {redirectUrl: surrogate};
     }

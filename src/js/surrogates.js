@@ -36,7 +36,7 @@ const db = require('surrogatedb');
  * @return {(String|Boolean)} The surrogate script as a data URI when there is a
  * match, or boolean false when there is no match.
  */
-function getSurrogateURI(script_url, script_hostname) {
+function getSurrogateUri(script_url, script_hostname) {
   // do we have an entry for the script hostname?
   if (!db.hostnames.hasOwnProperty(script_hostname)) {
     return false;
@@ -90,7 +90,7 @@ function getSurrogateURI(script_url, script_hostname) {
 }
 
 const exports = {
-  getSurrogateURI: getSurrogateURI,
+  getSurrogateUri,
 };
 
 return exports;
