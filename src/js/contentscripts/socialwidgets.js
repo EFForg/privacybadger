@@ -365,7 +365,7 @@ function replaceScriptsRecurse(node) {
  * Replaces all tracker buttons on the current web page with the internal
  * replacement buttons, respecting the user's blocking settings.
  *
- * @param {Array} widgetsToReplace a list of widget names to replace
+ * @param {Object} widgetsToReplace an object with keys set to widget names
  */
 function replaceInitialTrackerButtonsHelper(widgetsToReplace) {
   widgetList.forEach(function (widget) {
