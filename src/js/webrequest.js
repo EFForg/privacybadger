@@ -110,8 +110,9 @@ function onBeforeRequest(details) {
 
   // notify the widget replacement content script
   chrome.tabs.sendMessage(tab_id, {
-    replaceWidget: true,
-    trackerDomain: request_host
+    type: "replaceWidget",
+    trackerDomain: request_host,
+    frameId: (type == 'sub_frame' ? details.parentFrameId : frame_id)
   });
 
   // if this is a heuristically- (not user-) blocked domain
@@ -1053,6 +1054,7 @@ function dispatcher(request, sender, sendResponse) {
     if (badger.isPrivacyBadgerEnabled(tab_host) &&
         badger.getSettings().getItem("socialWidgetReplacementEnabled")) {
       response = getWidgetList(sender.tab.id);
+      response.frameId = sender.frameId;
     }
 
     sendResponse(response);

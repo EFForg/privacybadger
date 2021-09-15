@@ -67,7 +67,9 @@ const WIDGET_ELS = {};
 /**
  * @param {Object} response response to checkWidgetReplacementEnabled
  */
-function initialize(response) {
+function init(response) {
+  const FRAME_ID = response.frameId;
+
   for (const key in response.translations) {
     TRANSLATIONS[key] = response.translations[key];
   }
@@ -79,8 +81,10 @@ function initialize(response) {
 
   // set up listener for dynamically created widgets
   chrome.runtime.onMessage.addListener(function (request) {
-    if (request.replaceWidget) {
-      replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
+    if (request.type == "replaceWidget") {
+      if (request.frameId === FRAME_ID) {
+        replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
+      }
     }
   });
 }
@@ -695,7 +699,7 @@ chrome.runtime.sendMessage({
   if (!response) {
     return;
   }
-  initialize(response);
+  init(response);
 });
 
 }());
