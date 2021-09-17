@@ -102,7 +102,7 @@ QUnit.test("getSurrogateUri() suffix tokens", function (assert) {
   const surrogatedb = require('surrogatedb');
 
   const BASE64JS = 'data:application/javascript;base64,',
-    NOOP = function () {};
+    NOOP = '(' + function () {} + '())';
 
   const GA_JS_TESTS = [
     {
@@ -161,7 +161,7 @@ QUnit.test("getSurrogateUri() wildcard tokens", function (assert) {
   const surrogatedb = require('surrogatedb');
 
   const BASE64JS = 'data:application/javascript;base64,',
-    NOOP = function () {};
+    NOOP = '(' + function () {} + '())';
 
   // set up test data for wildcard token tests
   surrogatedb.hostnames['cdn.example.com'] = {

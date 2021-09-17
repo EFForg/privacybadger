@@ -517,5 +517,8 @@
   "storage": {
     "managed_schema": "data/schema.json"
   },
+  "web_accessible_resources": [
+    "data/web_accessible_resources/*"
+  ],
   "update_url": "https://clients2.google.com/service/update2/crx"
 }

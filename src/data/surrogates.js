@@ -80,13 +80,20 @@ const hostnames = {
   'widgets.outbrain.com': {
     match: MATCH_SUFFIX,
     tokens: [
-      '/outbrain.js'
-    ],
+      '/outbrain.js',
+    ]
+  },
+  'c.amazon-adsystem.com': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/apstag.js',
+    ]
   },
 };
 
 /**
- * "surrogates" maps surrogate pattern tokens to surrogate script code.
+ * `surrogates` maps pattern tokens either to surrogate code strings,
+ * or to extension URLs that point to a JavaScript file.
  */
 const surrogates = {
   /* eslint-disable no-extra-semi, space-in-parens */
@@ -496,6 +503,8 @@ const surrogates = {
       });
       window.OBR = window.OBR || obr;
     } + ')();',
+
+  '/apstag.js': chrome.runtime.getURL('/data/web_accessible_resources/amazon_apstag.js'),
 
   // https://github.com/uBlockOrigin/uAssets/blob/0efcadb2ecc2a9f0daa5a1df79841d794b83860f/filters/resources.txt#L38-L41
   'noopjs': '(' +

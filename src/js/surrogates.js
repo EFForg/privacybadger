@@ -20,23 +20,10 @@ require.scopes.surrogates = (function () {
 const db = require('surrogatedb');
 
 /**
- * Blocking tracking scripts (trackers) can cause parts of webpages to break.
- * Surrogate scripts are dummy pieces of JavaScript meant to supply just enough
- * of the original tracker's functionality to allow pages to continue working.
- *
- * This method gets called within request-blocking listeners:
- * It needs to be fast!
- *
- * @param {String} script_url The full URL of the script resource being requested.
- *
- * @param {String} script_hostname The hostname component of the script_url
- * parameter. This is an optimization: the calling context should already have
- * this information.
- *
- * @return {(String|Boolean)} The surrogate script as a data URI when there is a
- * match, or boolean false when there is no match.
+ * @return {(String|Boolean)} The surrogate script pattern token
+ * when there is a match; false otherwise.
  */
-function getSurrogateUri(script_url, script_hostname) {
+function lookup(script_url, script_hostname) {
   // do we have an entry for the script hostname?
   if (!db.hostnames.hasOwnProperty(script_hostname)) {
     return false;
@@ -49,11 +36,7 @@ function getSurrogateUri(script_url, script_hostname) {
   // wildcard token:
   // matches any script URL for the hostname
   case db.MATCH_ANY: {
-    if (db.surrogates.hasOwnProperty(conf.token)) {
-      // return the surrogate code
-      return 'data:application/javascript;base64,' + btoa(db.surrogates[conf.token]);
-    }
-    break;
+    return db.surrogates[conf.token];
   }
 
   // one or more suffix tokens:
@@ -75,9 +58,9 @@ function getSurrogateUri(script_url, script_hostname) {
         }
       }
 
+      // there is a match, return the surrogate code
       if (match) {
-        // there is a match, return the surrogate code
-        return 'data:application/javascript;base64,' + btoa(db.surrogates[token]);
+        return db.surrogates[token];
       }
     }
 
@@ -87,6 +70,39 @@ function getSurrogateUri(script_url, script_hostname) {
   }
 
   return false;
+}
+
+/**
+ * Blocking tracking scripts (trackers) can cause parts of webpages to break.
+ * Surrogate scripts are dummy pieces of JavaScript meant to supply just enough
+ * of the original tracker's functionality to allow pages to continue working.
+ *
+ * This method gets called within request-blocking listeners:
+ * It needs to be fast!
+ *
+ * @param {String} script_url The full URL of the script resource being requested.
+ *
+ * @param {String} script_hostname The hostname component of the script_url
+ * parameter. This is an optimization: the calling context should already have
+ * this information.
+ *
+ * @return {(String|Boolean)} The surrogate script as a data URI
+ * or an extension URL when there is a match; boolean false otherwise.
+ */
+function getSurrogateUri(script_url, script_hostname) {
+  let code = lookup(script_url, script_hostname);
+
+  if (!code) {
+    return false;
+  }
+
+  // extension URL
+  if (code.startsWith(chrome.runtime.getURL(''))) {
+    return code;
+  }
+
+  // base64-encoded data URI
+  return 'data:application/javascript;base64,' + btoa(code);
 }
 
 const exports = {
