@@ -20,7 +20,7 @@ function getPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function () {
+  return "(" + function (NAVIGATOR, OBJECT) {
 
     if (NAVIGATOR.doNotTrack != "1") {
       OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
@@ -47,7 +47,7 @@ function getPageScript() {
     }
 
   // save locally to keep from getting overwritten by site code
-  } + "(globalThis.Navigator, Object));";
+  } + "(self.Navigator, Object));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
