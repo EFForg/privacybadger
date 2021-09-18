@@ -32,7 +32,7 @@ function getPageScript() {
       });
     }
 
-    if (!'globalPrivacyControl' in NAVIGATOR.prototype) {
+    if (!globalThis.navigator.globalPrivacyControl) {
       try {
         OBJECT.defineProperty(NAVIGATOR.prototype, "globalPrivacyControl", {
           get: function () {
