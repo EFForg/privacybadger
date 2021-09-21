@@ -17,7 +17,8 @@
 
 require.scopes.surrogates = (function () {
 
-const db = require('surrogatedb');
+const constants = require('constants'),
+  db = require('surrogatedb');
 
 /**
  * @return {(String|Boolean)} The surrogate script pattern token
@@ -97,7 +98,7 @@ function getSurrogateUri(script_url, script_hostname) {
   }
 
   // extension URL
-  if (code.startsWith(chrome.runtime.getURL(''))) {
+  if (code.startsWith(constants.WEBEXT_SCHEME)) {
     return code;
   }
 

@@ -15,9 +15,9 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.constants = (function() {
+require.scopes.constants = (function () {
 
-var exports = {
+let exports = {
 
   // Tracking status constants
   NO_TRACKING: "noaction",
@@ -30,6 +30,7 @@ var exports = {
   USER_COOKIEBLOCK: "user_cookieblock",
 
   // URLS
+  WEBEXT_SCHEME: chrome.runtime.getURL(''),
   CNAME_DOMAINS_LOCAL_URL: chrome.runtime.getURL('data/cname_domains.json'),
   DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
   DNT_POLICIES_LOCAL_URL: chrome.runtime.getURL('data/dnt-policies.json'),
@@ -52,4 +53,5 @@ exports.BLOCKED_ACTIONS = new Set([
 ]);
 
 return exports;
-})();
+
+}());
