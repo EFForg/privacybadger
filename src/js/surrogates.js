@@ -17,14 +17,26 @@
 
 require.scopes.surrogates = (function () {
 
-const constants = require('constants'),
-  db = require('surrogatedb');
+const db = require('surrogatedb');
 
 /**
- * @return {(String|Boolean)} The surrogate script pattern token
- * when there is a match; false otherwise.
+ * Blocking tracking scripts (trackers) can cause parts of webpages to break.
+ * Surrogate scripts are dummy pieces of JavaScript meant to supply just enough
+ * of the original tracker's functionality to allow pages to continue working.
+ *
+ * This method gets called within request-blocking listeners:
+ * It needs to be fast!
+ *
+ * @param {String} script_url The full URL of the script resource being requested.
+ *
+ * @param {String} script_hostname The hostname component of the script_url
+ * parameter. This is an optimization: the calling context should already have
+ * this information.
+ *
+ * @return {(String|Boolean)} Extension URL to the surrogate script
+ * when there is a match; boolean false otherwise.
  */
-function lookup(script_url, script_hostname) {
+function getSurrogateUri(script_url, script_hostname) {
   // do we have an entry for the script hostname?
   if (!db.hostnames.hasOwnProperty(script_hostname)) {
     return false;
@@ -71,39 +83,6 @@ function lookup(script_url, script_hostname) {
   }
 
   return false;
-}
-
-/**
- * Blocking tracking scripts (trackers) can cause parts of webpages to break.
- * Surrogate scripts are dummy pieces of JavaScript meant to supply just enough
- * of the original tracker's functionality to allow pages to continue working.
- *
- * This method gets called within request-blocking listeners:
- * It needs to be fast!
- *
- * @param {String} script_url The full URL of the script resource being requested.
- *
- * @param {String} script_hostname The hostname component of the script_url
- * parameter. This is an optimization: the calling context should already have
- * this information.
- *
- * @return {(String|Boolean)} The surrogate script as a data URI
- * or an extension URL when there is a match; boolean false otherwise.
- */
-function getSurrogateUri(script_url, script_hostname) {
-  let code = lookup(script_url, script_hostname);
-
-  if (!code) {
-    return false;
-  }
-
-  // extension URL
-  if (code.startsWith(constants.WEBEXT_SCHEME)) {
-    return code;
-  }
-
-  // base64-encoded data URI
-  return 'data:application/javascript;base64,' + btoa(code);
 }
 
 const exports = {

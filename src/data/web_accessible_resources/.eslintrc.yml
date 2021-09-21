@@ -1,0 +1,8 @@
+rules:
+  indent:
+    - error
+    - 4
+    - outerIIFEBody: 1
+  no-empty: off
+  no-extra-semi: off
+  space-in-parens: off

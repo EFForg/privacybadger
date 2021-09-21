@@ -104,10 +104,10 @@ function onBeforeRequest(details) {
   if (type == 'script') {
     let surrogate = getSurrogateUri(url, request_host);
     if (surrogate) {
-      if (surrogate.startsWith(constants.WEBEXT_SCHEME)) {
-        surrogate = surrogate + '?key=' + getWarSecret(tab_id, frame_id, surrogate);
-      }
-      return {redirectUrl: surrogate};
+      let secret = getWarSecret(tab_id, frame_id, surrogate);
+      return {
+        redirectUrl: surrogate + '?key=' + secret
+      };
     }
   }
 
