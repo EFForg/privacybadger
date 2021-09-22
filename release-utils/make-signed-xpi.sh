@@ -33,15 +33,6 @@ sed -i -e '/eff.software.projects@gmail.com/,+1d' -e 's/"author": {/"author": "p
 echo "removing Chrome's update_url"
 # remove update_url
 sed -i -e '/"update_url": "https:\/\/clients2.google.com\/service\/update2\/crx"/,+0d' ../checkout/src/manifest.json
-# fix the trailing comma
-# TODO fragile! at least we validate the JSON below
-# https://unix.stackexchange.com/a/26288
-# https://unix.stackexchange.com/a/26290
-sed -i -e '/"storage": {/{
-  n
-  n
-  s/},/}/
-}' ../checkout/src/manifest.json
 
 # lint the checkout folder
 $WEB_EXT lint -s ../checkout/src
