@@ -132,7 +132,19 @@ function Badger() {
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
 
+    let privateStore = self.getPrivateSettings();
     if (self.isFirstRun) {
+      // work around the welcome page getting closed by an extension restart
+      // such as in response to being granted Private Browsing permission
+      // from the post-install doorhanger on Firefox
+      setTimeout(function () {
+        privateStore.setItem("firstRunTimerFinished", true);
+      }, utils.oneMinute());
+
+      self.showFirstRunPage();
+
+    } else if (!privateStore.getItem("firstRunTimerFinished")) {
+      privateStore.setItem("firstRunTimerFinished", true);
       self.showFirstRunPage();
     }
   });
@@ -880,8 +892,14 @@ Badger.prototype = {
     }
 
     // initialize any other private store (not-for-export) settings
-    if (!privateStore.hasItem("showLearningPrompt")) {
-      privateStore.setItem("showLearningPrompt", false);
+    let privateDefaultSettings = {
+      firstRunTimerFinished: false,
+      showLearningPrompt: false,
+    };
+    for (let key of Object.keys(privateDefaultSettings)) {
+      if (!privateStore.hasItem(key)) {
+        privateStore.setItem(key, privateDefaultSettings[key]);
+      }
     }
     badger.initDeprecations();
 
