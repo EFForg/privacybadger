@@ -893,8 +893,8 @@ Badger.prototype = {
 
     // initialize any other private store (not-for-export) settings
     let privateDefaultSettings = {
-      "firstRunTimerFinished": false,
-      "showLearningPrompt": false,
+      firstRunTimerFinished: false,
+      showLearningPrompt: false,
     };
     for (let key of Object.keys(privateDefaultSettings)) {
       if (!privateStore.hasItem(key)) {
