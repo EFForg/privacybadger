@@ -47,7 +47,7 @@ function getPageScript() {
     }
 
   // save locally to keep from getting overwritten by site code
-  } + "(self.Navigator, self.navigator, Object));";
+  } + "(window.Navigator, window.navigator, Object));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
