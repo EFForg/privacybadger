@@ -24,6 +24,7 @@
   "background": {
     "scripts": [
       "js/bootstrap.js",
+      "js/constants.js",
       "lib/publicSuffixList.js",
       "lib/basedomain.js",
       "data/surrogates.js",
@@ -31,7 +32,6 @@
       "js/utils.js",
       "js/surrogates.js",
       "js/incognito.js",
-      "js/constants.js",
       "js/storage.js",
       "js/heuristicblocking.js",
       "js/socialwidgetloader.js",
@@ -517,5 +517,8 @@
   "storage": {
     "managed_schema": "data/schema.json"
   },
-  "update_url": "https://clients2.google.com/service/update2/crx"
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "web_accessible_resources": [
+    "data/web_accessible_resources/*"
+  ]
 }

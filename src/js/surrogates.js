@@ -33,8 +33,8 @@ const db = require('surrogatedb');
  * parameter. This is an optimization: the calling context should already have
  * this information.
  *
- * @return {(String|Boolean)} The surrogate script as a data URI when there is a
- * match, or boolean false when there is no match.
+ * @return {(String|Boolean)} Extension URL to the surrogate script
+ * when there is a match; boolean false otherwise.
  */
 function getSurrogateUri(script_url, script_hostname) {
   // do we have an entry for the script hostname?
@@ -49,11 +49,7 @@ function getSurrogateUri(script_url, script_hostname) {
   // wildcard token:
   // matches any script URL for the hostname
   case db.MATCH_ANY: {
-    if (db.surrogates.hasOwnProperty(conf.token)) {
-      // return the surrogate code
-      return 'data:application/javascript;base64,' + btoa(db.surrogates[conf.token]);
-    }
-    break;
+    return db.surrogates[conf.token];
   }
 
   // one or more suffix tokens:
@@ -75,9 +71,9 @@ function getSurrogateUri(script_url, script_hostname) {
         }
       }
 
+      // there is a match, return the surrogate code
       if (match) {
-        // there is a match, return the surrogate code
-        return 'data:application/javascript;base64,' + btoa(db.surrogates[token]);
+        return db.surrogates[token];
       }
     }
 

@@ -104,7 +104,10 @@ function onBeforeRequest(details) {
   if (type == 'script') {
     let surrogate = getSurrogateUri(url, request_host);
     if (surrogate) {
-      return {redirectUrl: surrogate};
+      let secret = getWarSecret(tab_id, frame_id, surrogate);
+      return {
+        redirectUrl: surrogate + '?key=' + secret
+      };
     }
   }
 
@@ -130,6 +133,61 @@ function onBeforeRequest(details) {
   }
 
   return {cancel: true};
+}
+
+/**
+ * Generates a token for a given tab ID/frame ID/resource URL combination.
+ *
+ * @param {Integer} tab_id
+ * @param {Integer} frame_id
+ * @param {String} url
+ *
+ * @returns {String}
+ */
+function getWarSecret(tab_id, frame_id, url) {
+  let secret = (+(("" + Math.random()).slice(2))).toString(16),
+    frameData = badger.getFrameData(tab_id, frame_id),
+    tokens = frameData.warAccessTokens;
+
+  if (!tokens) {
+    tokens = {};
+    frameData.warAccessTokens = tokens;
+  }
+
+  tokens[url] = secret;
+
+  return secret;
+}
+
+/**
+ * Guards against web_accessible_resources abuse.
+ *
+ * Checks whether there is a previously saved token
+ * for a given tab ID/frame ID/resource URL combination,
+ * and whether the full request URL contains this token.
+ *
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {Object|undefined} Can cancel requests
+ */
+function filterWarRequests(details) {
+  let url = details.url,
+    frameData = badger.getFrameData(details.tabId, details.frameId),
+    tokens = frameData && frameData.warAccessTokens;
+
+  if (!tokens) {
+    return { cancel: true };
+  }
+
+  let qs_start = url.indexOf('?'),
+    url_no_qs = qs_start && url.slice(0, qs_start),
+    secret = url_no_qs && tokens[url_no_qs];
+
+  if (!secret || url != `${url_no_qs}?key=${secret}`) {
+    return { cancel: true };
+  }
+
+  delete tokens[url_no_qs];
 }
 
 /**
@@ -1373,6 +1431,11 @@ function startListeners() {
   chrome.webNavigation.onBeforeNavigate.addListener(onNavigate);
 
   chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
+
+  chrome.webRequest.onBeforeRequest.addListener(filterWarRequests, {
+    urls: chrome.runtime.getManifest().web_accessible_resources.map(
+      path => chrome.runtime.getURL(path))
+  }, ["blocking"]);
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
   if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {

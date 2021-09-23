@@ -231,13 +231,17 @@ Badger.prototype = {
           },
           frames: {
             <frame_id>: {
-              url: {String},
+              url: {String}
               host: {String}
+              warAccessTokens: {
+                <extension_resource_URL>: {String} access token
+                ...
+              }
             },
             ...
           },
           origins: {
-            domain.tld: {String} action taken for this domain
+            <third_party_fqdn>: {String} action taken for this domain
             ...
           }
         },
