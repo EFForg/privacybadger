@@ -22,8 +22,8 @@ function getPageScript() {
   // return a string
   return "(" + function (NAVIGATOR, NAVIGATOR_INSTANCE, OBJECT) {
 
-    if (NAVIGATOR.doNotTrack != "1") {
-      OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
+    if (NAVIGATOR_INSTANCE.doNotTrack != "1") {
+      OBJECT.defineProperty(NAVIGATOR.prototype, "doNotTrack", {
         get: function doNotTrack() {
           return "1";
         },
