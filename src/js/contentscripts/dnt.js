@@ -20,7 +20,7 @@ function getPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (NAVIGATOR, OBJECT) {
+  return "(" + function (NAVIGATOR, NAVIGATOR_INSTANCE, OBJECT) {
 
     if (NAVIGATOR.doNotTrack != "1") {
       OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
@@ -32,7 +32,7 @@ function getPageScript() {
       });
     }
 
-    if (!globalThis.navigator.globalPrivacyControl) {
+    if (!NAVIGATOR_INSTANCE.globalPrivacyControl) {
       try {
         OBJECT.defineProperty(NAVIGATOR.prototype, "globalPrivacyControl", {
           get: function () {
@@ -47,7 +47,7 @@ function getPageScript() {
     }
 
   // save locally to keep from getting overwritten by site code
-  } + "(self.Navigator, Object));";
+  } + "(self.Navigator, self.navigator, Object));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
