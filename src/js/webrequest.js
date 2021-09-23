@@ -1433,9 +1433,8 @@ function startListeners() {
   chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
 
   chrome.webRequest.onBeforeRequest.addListener(filterWarRequests, {
-    urls: [
-      chrome.runtime.getURL('/data/web_accessible_resources/') + '*',
-    ]
+    urls: chrome.runtime.getManifest().web_accessible_resources.map(
+      path => chrome.runtime.getURL(path))
   }, ["blocking"]);
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
