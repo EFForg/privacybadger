@@ -34,7 +34,8 @@ let constants = require("constants"),
 
 /************ Local Variables *****************/
 let tempAllowlist = {},
-  tempAllowedWidgets = {};
+  tempAllowedWidgets = {},
+  replacedWidgets = {};
 
 /***************** Blocking Listener Functions **************/
 
@@ -882,6 +883,7 @@ function dispatcher(request, sender, sendResponse) {
       "getBlockedFrameUrls",
       "getReplacementButton",
       "inspectLocalStorage",
+      "sendReplacedWidgetsToPopup",
       "supercookieReport",
       "unblockWidget",
     ];
@@ -1062,6 +1064,25 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  case "sendReplacedWidgetsToPopup": {
+    let tab_host;
+    // iframes send unreliable host responses, sender url and falsey frameId is to get top-level host
+    if (sender.frameId == 0 && sender.url) {
+      tab_host = sender.url;
+    }
+
+    // avoid setting undefined properties on local replaced widgets array, but establish a property for known host
+    if (!replacedWidgets[tab_host] && tab_host) {
+      replacedWidgets[tab_host] = [];
+    }
+
+    // only save widget name if it's not already present in local widgets array
+    if (!replacedWidgets[tab_host].includes(request.widgetName)) {
+      replacedWidgets[tab_host].push(request.widgetName);
+    }
+    break;
+  }
+
   case "getPopupData": {
     let tab_id = request.tabId;
 
@@ -1085,6 +1106,13 @@ function dispatcher(request, sender, sendResponse) {
       }
     }
 
+    // before sending response, remove old replaced widgets information from previous tabs
+    for (let host in replacedWidgets) {
+      if (!host.includes(tab_host)) {
+        delete replacedWidgets[host];
+      }
+    }
+
     sendResponse({
       cookieblocked,
       criticalError: badger.criticalError,
@@ -1093,6 +1121,7 @@ function dispatcher(request, sender, sendResponse) {
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
       noTabData: false,
       origins,
+      replacedWidgets: replacedWidgets,
       settings: badger.getSettings().getItemClones(),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
       showWebRtcDeprecation: !!badger.getPrivateSettings().getItem("showWebRtcDeprecation"),

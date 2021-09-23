@@ -738,10 +738,13 @@ function refreshPopup() {
 
     // if there are replaced widgets, get their names and append to that popup section
     if (Object.keys(POPUP_DATA.replacedWidgets).length) {
-      let name = POPUP_DATA.replacedWidgets.name;
-      // prevent duplicate names from appearing, only append if it doesn't already exist
-      if (!$('#instructions-widgets-description li:contains("' + name + '")').length) {
-        $("#instructions-widgets-description").append("<li>" + name + "</li>");
+      for (let widget in POPUP_DATA.replacedWidgets) {
+        POPUP_DATA.replacedWidgets[widget].forEach((widgetType) => {
+          // prevent duplicate names from appearing, only append if it doesn't already exist
+          if (!$('#instructions-widgets-description li:contains("' + widgetType + '")').length) {
+            $("#instructions-widgets-description").append("<li>" + widgetType + "</li>");
+          }
+        });
       }
     }
 
