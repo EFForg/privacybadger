@@ -35,7 +35,7 @@ function getPageScript() {
     if (!NAVIGATOR_INSTANCE.globalPrivacyControl) {
       try {
         OBJECT.defineProperty(NAVIGATOR.prototype, "globalPrivacyControl", {
-          get: function () {
+          get: function globalPrivacyControl() {
             return true;
           },
           configurable: true,
