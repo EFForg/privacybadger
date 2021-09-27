@@ -203,6 +203,18 @@
             "type": 0
         }
     },
+    "Rumble Video Player": {
+        "domain": "rumble.com",
+        "buttonSelectors": [
+            "iframe[src^='https://rumble.com/embed/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "rumble.com"
+            ],
+            "type": 3
+        }
+    },
     "SoundCloud": {
         "domain": "w.soundcloud.com",
         "buttonSelectors": [

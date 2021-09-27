@@ -28,8 +28,8 @@ require.scopes.webrequest = (function () {
 /*********************** webrequest scope **/
 
 let constants = require("constants"),
-  getSurrogateUri = require("surrogates").getSurrogateUri,
   incognito = require("incognito"),
+  surrogates = require("surrogates"),
   utils = require("utils");
 
 /************ Local Variables *****************/
@@ -102,7 +102,18 @@ function onBeforeRequest(details) {
   }
 
   if (type == 'script') {
-    let surrogate = getSurrogateUri(url, request_host);
+    let surrogate;
+
+    if (surrogates.WIDGET_SURROGATES.hasOwnProperty(request_host)) {
+      let settings = badger.getSettings();
+      if (settings.getItem("socialWidgetReplacementEnabled") && !settings.getItem('widgetReplacementExceptions').includes(surrogates.WIDGET_SURROGATES[request_host])) {
+        surrogate = surrogates.getSurrogateUri(url, request_host);
+      }
+
+    } else {
+      surrogate = surrogates.getSurrogateUri(url, request_host);
+    }
+
     if (surrogate) {
       let secret = getWarSecret(tab_id, frame_id, surrogate);
       return {
@@ -931,8 +942,8 @@ function dispatcher(request, sender, sendResponse) {
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
       "checkDNT",
-      "checkFloc",
       "checkEnabled",
+      "checkFloc",
       "checkLocation",
       "checkWidgetReplacementEnabled",
       "detectFingerprinting",
@@ -942,6 +953,8 @@ function dispatcher(request, sender, sendResponse) {
       "inspectLocalStorage",
       "supercookieReport",
       "unblockWidget",
+      "widgetFromSurrogate",
+      "widgetReplacementReady",
     ];
     if (!KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
       console.error("Rejected unknown message %o from %s", request, sender.url);
@@ -1405,8 +1418,9 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // called from contentscripts/dnt.js
+  // to check if it should set DNT on Navigator
   case "checkDNT": {
-    // called from contentscripts/dnt.js to check if we should enable it
     sendResponse(
       badger.isDNTSignalEnabled()
       && badger.isPrivacyBadgerEnabled(
@@ -1416,10 +1430,56 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // called from contentscripts/floc.js
+  // to check if we should disable document.interestCohort
   case "checkFloc": {
-    // called from contentscripts/floc.js
-    // to check if we should disable document.interestCohort
     sendResponse(badger.isFlocOverwriteEnabled());
+    break;
+  }
+
+  // proxies surrogate script-initiated widget replacement messages
+  // from one content script to another
+  case "widgetFromSurrogate": {
+    let frameData = badger.getFrameData(sender.tab.id, sender.frameId);
+
+    if (frameData.widgetReplacementReady) {
+      // message the content script if it's ready for messages
+      chrome.tabs.sendMessage(sender.tab.id, {
+        type: "replaceWidgetFromSurrogate",
+        frameId: sender.frameId,
+        widget: request.widget
+      });
+    } else {
+      // save the message for later otherwise
+      if (!frameData.hasOwnProperty("widgetQueue")) {
+        frameData.widgetQueue = [];
+      }
+      frameData.widgetQueue.push(request.widget);
+    }
+
+    break;
+  }
+
+  // marks the widget replacement script in a certain tab/frame
+  // ready for messages; sends any previously saved messages
+  case "widgetReplacementReady": {
+    let frameData = badger.getFrameData(sender.tab.id, sender.frameId);
+    if (!frameData) {
+      break;
+    }
+
+    frameData.widgetReplacementReady = true;
+    if (frameData.widgetQueue) {
+      for (let widget of frameData.widgetQueue) {
+        chrome.tabs.sendMessage(sender.tab.id, {
+          type: "replaceWidgetFromSurrogate",
+          frameId: sender.frameId,
+          widget: widget
+        });
+      }
+      delete frameData.widgetQueue;
+    }
+
     break;
   }
 

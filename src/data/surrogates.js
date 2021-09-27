@@ -18,6 +18,7 @@
 require.scopes.surrogatedb = (function () {
 
 const MATCH_SUFFIX = 'suffix',
+  MATCH_PREFIX = 'prefix',
   MATCH_ANY = 'any';
 
 /**
@@ -86,6 +87,13 @@ const hostnames = {
       '/apstag.js',
     ]
   },
+  'rumble.com': {
+    match: MATCH_PREFIX,
+    tokens: [
+      '/embedJS/',
+    ],
+    widget: "Rumble Video Player"
+  },
 };
 
 /**
@@ -121,6 +129,8 @@ const surrogates = {
 
   '/apstag.js': 'amazon_apstag.js',
 
+  '/embedJS/': 'rumble_embedjs.js',
+
   'noopjs': 'noop.js'
 };
 
@@ -132,6 +142,7 @@ Object.keys(surrogates).forEach(key => {
 
 const exports = {
   MATCH_ANY,
+  MATCH_PREFIX,
   MATCH_SUFFIX,
   hostnames,
   surrogates,

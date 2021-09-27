@@ -81,9 +81,16 @@ function init(response) {
 
   // set up listener for dynamically created widgets
   chrome.runtime.onMessage.addListener(function (request) {
+    // blocked something, see if this is a widget domain that should be replaced
     if (request.type == "replaceWidget") {
       if (request.frameId === FRAME_ID) {
         replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
+      }
+
+    // widget replacement initiated by a surrogate script
+    } else if (request.type == "replaceWidgetFromSurrogate") {
+      if (request.frameId === FRAME_ID) {
+        replaceIndividualButton(request.widget);
       }
     }
   });
@@ -210,7 +217,7 @@ function _createWidgetReplacement(widget, trackerElem, callback) {
     let activationFn = replaceWidgetAndReloadScripts;
 
     // if there are no matching script elements
-    if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
+    if (!widget.scriptSelectors || !document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
       // and we don't have a fallback script URL
       if (!widget.fallbackScriptUrl) {
         // we can't do "in-place" activation; reload the page instead
@@ -315,7 +322,12 @@ function replaceWidgetAndReloadScripts(name) {
  * Find and replace script elements with their copies to trigger re-running.
  */
 function reloadScripts(selectors, fallback_script_url) {
-  let scripts = document.querySelectorAll(selectors.join(','));
+  let scripts;
+  if (selectors) {
+    scripts = document.querySelectorAll(selectors.join(','));
+  } else {
+    scripts = [];
+  }
 
   // if there are no matches, try a known script URL
   if (!scripts.length && fallback_script_url) {
@@ -568,9 +580,9 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   };
   if (widget.scriptSelectors) {
     data.scriptSelectors = widget.scriptSelectors;
-    if (widget.fallbackScriptUrl) {
-      data.fallbackScriptUrl = widget.fallbackScriptUrl;
-    }
+  }
+  if (widget.fallbackScriptUrl) {
+    data.fallbackScriptUrl = widget.fallbackScriptUrl;
   }
   WIDGET_ELS[name].push(data);
 
@@ -699,7 +711,12 @@ chrome.runtime.sendMessage({
   if (!response) {
     return;
   }
+
   init(response);
+
+  chrome.runtime.sendMessage({
+    type: "widgetReplacementReady"
+  });
 });
 
 }());

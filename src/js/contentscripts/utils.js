@@ -15,6 +15,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+(function () {
+
 /**
  * Executes a script in the page's JavaScript context.
  *
@@ -47,3 +49,54 @@ function getFrameUrl() {
   return url;
 }
 window.FRAME_URL = getFrameUrl();
+
+// don't inject into non-HTML documents (such as XML documents)
+// but do inject into XHTML documents
+if (document instanceof HTMLDocument === false && (
+  document instanceof XMLDocument === false ||
+  document.createElement('div') instanceof HTMLDivElement === false
+)) {
+  return;
+}
+
+// END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
+
+// register listener in top frames only for now
+if (window.top != window) {
+  return;
+}
+
+document.addEventListener("pbSurrogateMessage", function (e) {
+  switch (e.detail.type) {
+
+  case "widgetFromSurrogate": {
+    let data = e.detail.widgetData;
+
+    if (data.name == "Rumble Video Player") {
+      let script_url = `https://rumble.com/embedJS/${encodeURIComponent(data.pubCode)}.${encodeURIComponent(data.args[1].video)}/?url=${encodeURIComponent(document.location.href)}&args=${encodeURIComponent(JSON.stringify(data.args))}`;
+      chrome.runtime.sendMessage({
+        type: "widgetFromSurrogate",
+        widget: {
+          name: data.name,
+          buttonSelectors: ["div#" + data.args[1].div],
+          fallbackScriptUrl: script_url,
+          replacementButton: {
+            "unblockDomains": ["rumble.com"],
+            "type": 4
+          }
+        }
+      });
+
+    }
+
+    break;
+  }
+
+  default: {
+    break;
+  }
+
+  }
+});
+
+}());

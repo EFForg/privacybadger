@@ -177,6 +177,60 @@ QUnit.test("getSurrogateUri() suffix tokens", function (assert) {
   );
 });
 
+QUnit.test("getSurrogateUri() prefix tokens", function (assert) {
+  const TEST_FQDN = "www.example.com",
+    TEST_TOKEN = "/foo";
+
+  const TESTS = [
+    {
+      url: `https://${TEST_FQDN}${TEST_TOKEN}?bar`,
+      expected: true,
+      msg: "token at start of path should match"
+    },
+    {
+      url: `https://${window.getBaseDomain(TEST_FQDN)}${TEST_TOKEN}`,
+      expected: false,
+      msg: "should not match (same base domain, but different FQDN)"
+    },
+    {
+      url: `https://${TEST_FQDN}/bar${TEST_TOKEN}/bar`,
+      expected: false,
+      msg: "should not match (token in path but not at start)"
+    },
+    {
+      url: `https://${TEST_FQDN}/bar${TEST_TOKEN}`,
+      expected: false,
+      msg: "should not match (token in path but at end)"
+    },
+    {
+      url: `https://${TEST_FQDN}/?${TEST_TOKEN}`,
+      expected: false,
+      msg: "should not match (token in querystring)"
+    },
+  ];
+
+  // set up test data for prefix token tests
+  surrogatedb.hostnames[TEST_FQDN] = {
+    match: surrogatedb.MATCH_PREFIX,
+    tokens: [TEST_TOKEN]
+  };
+  surrogatedb.surrogates[TEST_TOKEN] = surrogatedb.surrogates.noopjs;
+
+  for (let test of TESTS) {
+    let surrogate = getSurrogateUri(test.url,
+      window.extractHostFromURL(test.url));
+    if (test.expected) {
+      assert.ok(surrogate, test.msg);
+      if (surrogate) {
+        assert.equal(surrogate, surrogatedb.surrogates.noopjs,
+          "got the noop surrogate extension URL");
+      }
+    } else {
+      assert.notOk(surrogate, test.msg);
+    }
+  }
+});
+
 QUnit.test("getSurrogateUri() wildcard tokens", function (assert) {
   // set up test data for wildcard token tests
   surrogatedb.hostnames['cdn.example.com'] = {
