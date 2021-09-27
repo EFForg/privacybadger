@@ -3681,6 +3681,24 @@ let multiDomainFirstPartiesArray = [
     "szn.cz",
   ],
   [
+    "shopee.com",
+
+    "shopee.cl",
+    "shopee.cn",
+    "shopee.co.id",
+    "shopee.com.br",
+    "shopee.com.co",
+    "shopee.com.mx",
+    "shopee.com.my",
+    "shopee.co.th",
+    "shopee.ph",
+    "shopee.sg",
+    "shopee.tw",
+    "shopee.vn",
+
+    "shp.ee",
+  ],
+  [
     "shopify.com",
 
     "shopify.ca",
