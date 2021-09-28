@@ -217,7 +217,7 @@ function _createWidgetReplacement(widget, trackerElem, callback) {
     let activationFn = replaceWidgetAndReloadScripts;
 
     // if there are no matching script elements
-    if (!widget.scriptSelectors || !document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
+    if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
       // and we don't have a fallback script URL
       if (!widget.fallbackScriptUrl) {
         // we can't do "in-place" activation; reload the page instead
@@ -322,12 +322,7 @@ function replaceWidgetAndReloadScripts(name) {
  * Find and replace script elements with their copies to trigger re-running.
  */
 function reloadScripts(selectors, fallback_script_url) {
-  let scripts;
-  if (selectors) {
-    scripts = document.querySelectorAll(selectors.join(','));
-  } else {
-    scripts = [];
-  }
+  let scripts = document.querySelectorAll(selectors.join(','));
 
   // if there are no matches, try a known script URL
   if (!scripts.length && fallback_script_url) {
@@ -580,9 +575,9 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   };
   if (widget.scriptSelectors) {
     data.scriptSelectors = widget.scriptSelectors;
-  }
-  if (widget.fallbackScriptUrl) {
-    data.fallbackScriptUrl = widget.fallbackScriptUrl;
+    if (widget.fallbackScriptUrl) {
+      data.fallbackScriptUrl = widget.fallbackScriptUrl;
+    }
   }
   WIDGET_ELS[name].push(data);
 

@@ -79,7 +79,7 @@ document.addEventListener("pbSurrogateMessage", function (e) {
         widget: {
           name: data.name,
           buttonSelectors: ["div#" + data.args[1].div],
-          fallbackScriptUrl: script_url,
+          scriptSelectors: [`script[src='${script_url}']`],
           replacementButton: {
             "unblockDomains": ["rumble.com"],
             "type": 4
