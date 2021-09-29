@@ -472,8 +472,10 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
 
   // get a direct link to widget content when available
   let widget_url;
-  // use the frame URL for framed widgets
-  if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
+  if (widget.directLinkUrl) {
+    widget_url = widget.directLinkUrl;
+  } else if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
+    // use the frame URL for framed widgets
     widget_url = elToReplace.src;
   }
 

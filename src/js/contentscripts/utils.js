@@ -83,7 +83,8 @@ document.addEventListener("pbSurrogateMessage", function (e) {
           replacementButton: {
             "unblockDomains": ["rumble.com"],
             "type": 4
-          }
+          },
+          directLinkUrl: `https://rumble.com/embed/${encodeURIComponent(data.pubCode)}.${encodeURIComponent(data.args[1].video)}/`
         }
       });
 
