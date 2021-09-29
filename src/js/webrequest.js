@@ -1440,6 +1440,28 @@ function dispatcher(request, sender, sendResponse) {
   // proxies surrogate script-initiated widget replacement messages
   // from one content script to another
   case "widgetFromSurrogate": {
+    let data = request.data,
+      widget;
+
+    if (data.name == "Rumble Video Player") {
+      let script_url = `https://rumble.com/embedJS/${encodeURIComponent(data.pubCode)}.${encodeURIComponent(data.args[1].video)}/?url=${encodeURIComponent(request.frameUrl)}&args=${encodeURIComponent(JSON.stringify(data.args))}`;
+
+      widget = {
+        name: data.name,
+        buttonSelectors: ["div#" + data.args[1].div],
+        scriptSelectors: [`script[src='${script_url}']`],
+        replacementButton: {
+          "unblockDomains": ["rumble.com"],
+          "type": 4
+        },
+        directLinkUrl: `https://rumble.com/embed/${encodeURIComponent(data.pubCode)}.${encodeURIComponent(data.args[1].video)}/`
+      };
+    }
+
+    if (!widget) {
+      return;
+    }
+
     let frameData = badger.getFrameData(sender.tab.id, sender.frameId);
 
     if (frameData.widgetReplacementReady) {
@@ -1447,14 +1469,14 @@ function dispatcher(request, sender, sendResponse) {
       chrome.tabs.sendMessage(sender.tab.id, {
         type: "replaceWidgetFromSurrogate",
         frameId: sender.frameId,
-        widget: request.widget
+        widget
       });
     } else {
       // save the message for later otherwise
       if (!frameData.hasOwnProperty("widgetQueue")) {
         frameData.widgetQueue = [];
       }
-      frameData.widgetQueue.push(request.widget);
+      frameData.widgetQueue.push(widget);
     }
 
     break;
@@ -1474,7 +1496,7 @@ function dispatcher(request, sender, sendResponse) {
         chrome.tabs.sendMessage(sender.tab.id, {
           type: "replaceWidgetFromSurrogate",
           frameId: sender.frameId,
-          widget: widget
+          widget
         });
       }
       delete frameData.widgetQueue;

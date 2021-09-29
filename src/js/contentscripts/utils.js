@@ -67,36 +67,12 @@ if (window.top != window) {
 }
 
 document.addEventListener("pbSurrogateMessage", function (e) {
-  switch (e.detail.type) {
-
-  case "widgetFromSurrogate": {
-    let data = e.detail.widgetData;
-
-    if (data.name == "Rumble Video Player") {
-      let script_url = `https://rumble.com/embedJS/${encodeURIComponent(data.pubCode)}.${encodeURIComponent(data.args[1].video)}/?url=${encodeURIComponent(document.location.href)}&args=${encodeURIComponent(JSON.stringify(data.args))}`;
-      chrome.runtime.sendMessage({
-        type: "widgetFromSurrogate",
-        widget: {
-          name: data.name,
-          buttonSelectors: ["div#" + data.args[1].div],
-          scriptSelectors: [`script[src='${script_url}']`],
-          replacementButton: {
-            "unblockDomains": ["rumble.com"],
-            "type": 4
-          },
-          directLinkUrl: `https://rumble.com/embed/${encodeURIComponent(data.pubCode)}.${encodeURIComponent(data.args[1].video)}/`
-        }
-      });
-
-    }
-
-    break;
-  }
-
-  default: {
-    break;
-  }
-
+  if (e.detail.type == "widgetFromSurrogate") {
+    chrome.runtime.sendMessage({
+      type: "widgetFromSurrogate",
+      data: e.detail.widgetData,
+      frameUrl: window.FRAME_URL
+    });
   }
 });
 
