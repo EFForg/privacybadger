@@ -214,22 +214,8 @@ function _createWidgetReplacement(widget, trackerElem, callback) {
   // reinitialize the widget by reinserting its element's HTML
   // and activating associated scripts
   } else if (widget.replacementButton.type == 4) {
-    let activationFn = replaceWidgetAndReloadScripts;
-
-    // if there are no matching script elements
-    if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
-      // and we don't have a fallback script URL
-      if (!widget.fallbackScriptUrl) {
-        // we can't do "in-place" activation; reload the page instead
-        activationFn = function () {
-          unblockTracker(widget.name, function () {
-            location.reload();
-          });
-        };
-      }
-    }
-
-    replacementEl = createReplacementWidget(widget, trackerElem, activationFn);
+    replacementEl = createReplacementWidget(
+      widget, trackerElem, replaceWidgetAndReloadScripts);
   }
 
   callback(replacementEl);
@@ -288,10 +274,9 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, widget_name, html) {
  * with the original third-party widget element.
  *
  * The teardown to the initialization defined in createReplacementWidget().
- *
- * @param {String} name the name/type of this widget (SoundCloud, Vimeo etc.)
  */
-function reinitializeWidgetAndUnblockTracker(name) {
+function reinitializeWidgetAndUnblockTracker(widget) {
+  let name = widget.name;
   unblockTracker(name, function () {
     // restore all widgets of this type
     WIDGET_ELS[name].forEach(data => {
@@ -304,10 +289,22 @@ function reinitializeWidgetAndUnblockTracker(name) {
 /**
  * Similar to reinitializeWidgetAndUnblockTracker() above,
  * but also reruns scripts defined in scriptSelectors.
- *
- * @param {String} name the name/type of this widget (Disqus, Google reCAPTCHA)
  */
-function replaceWidgetAndReloadScripts(name) {
+function replaceWidgetAndReloadScripts(widget) {
+  let name = widget.name;
+
+  // if there are no matching script elements
+  if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
+    // and we don't have a fallback script URL
+    if (!widget.fallbackScriptUrl) {
+      // we can't do "in-place" activation; reload the page instead
+      unblockTracker(name, function () {
+        location.reload();
+      });
+      return;
+    }
+  }
+
   unblockTracker(name, function () {
     // restore all widgets of this type
     WIDGET_ELS[name].forEach(data => {
@@ -589,7 +586,7 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     onceButton.addEventListener("click", function (e) {
       if (!e.isTrusted) { return; }
       e.preventDefault();
-      activationFn(name);
+      activationFn(widget);
     }, { once: true });
 
     siteButton.addEventListener("click", function (e) {
@@ -603,7 +600,7 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
         type: "allowWidgetOnSite",
         widgetName: name
       }, function () {
-        activationFn(name);
+        activationFn(widget);
       });
     }, { once: true });
 
