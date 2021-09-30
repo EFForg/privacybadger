@@ -70,6 +70,7 @@ document.addEventListener("pbSurrogateMessage", function (e) {
   if (e.detail.type == "widgetFromSurrogate") {
     chrome.runtime.sendMessage({
       type: "widgetFromSurrogate",
+      name: e.detail.name,
       data: e.detail.widgetData,
       frameUrl: window.FRAME_URL
     });

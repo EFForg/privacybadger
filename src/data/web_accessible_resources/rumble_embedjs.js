@@ -25,8 +25,8 @@
                 document.dispatchEvent(new CustomEvent("pbSurrogateMessage", {
                     detail: {
                         type: "widgetFromSurrogate",
+                        name: "Rumble Video Player",
                         widgetData: {
-                            name: "Rumble Video Player",
                             pubCode: pub_code,
                             args
                         }
