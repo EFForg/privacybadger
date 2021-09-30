@@ -934,21 +934,43 @@ function initAllowedWidgets(tab_id, tab_host) {
 
 /**
  * Generates widget objects for surrogate-initiated widgets.
+ *
+ * @param {String} name widget name
+ * @param {String} frame_url containing frame URL, used by some widgets
+ * @param {Object} data widget-specific data, UNTRUSTED, validate!
+ *
  * @returns {Object|false}
  */
 function getSurrogateWidget(name, frame_url, data) {
   if (name == "Rumble Video Player") {
-    let script_url = `https://rumble.com/embedJS/${encodeURIComponent(data.pubCode)}.${encodeURIComponent(data.args[1].video)}/?url=${encodeURIComponent(frame_url)}&args=${encodeURIComponent(JSON.stringify(data.args))}`;
+    if (!data.args || data.args[0] != "play") {
+      return false;
+    }
+
+    let OK = /[a-z0-9_]/,
+      pub_code = data.pubCode,
+      { video, div } = data.args[1];
+
+    if (!OK.test(pub_code) || !OK.test(video) || !OK.test(div)) {
+      return false;
+    }
+
+    let argsParam = [
+      "play",
+      { video, div }
+    ];
+
+    let script_url = `https://rumble.com/embedJS/${encodeURIComponent(pub_code)}.${encodeURIComponent(video)}/?url=${encodeURIComponent(frame_url)}&args=${encodeURIComponent(JSON.stringify(argsParam))}`;
 
     return {
       name,
-      buttonSelectors: ["div#" + data.args[1].div],
+      buttonSelectors: ["div#" + div],
       scriptSelectors: [`script[src='${script_url}']`],
       replacementButton: {
         "unblockDomains": ["rumble.com"],
         "type": 4
       },
-      directLinkUrl: `https://rumble.com/embed/${encodeURIComponent(data.pubCode)}.${encodeURIComponent(data.args[1].video)}/`
+      directLinkUrl: `https://rumble.com/embed/${encodeURIComponent(pub_code)}.${encodeURIComponent(video)}/`
     };
   }
 
