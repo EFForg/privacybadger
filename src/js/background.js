@@ -844,6 +844,7 @@ Badger.prototype = {
     learnLocally: false,
     migrationLevel: 0,
     preventWebRTCIPLeak: false,
+    removeXClientDataHeaders: false,
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
@@ -1123,6 +1124,12 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
+  },
+
+  isRemoveXClientDataHeaderEnabled: function() {
+    if (!chrome.runtime.getBrowserInfo) {
+      return this.getSettings().getItem("removeXClientDataHeaders");
+    }
   },
 
   isFlocOverwriteEnabled: function() {

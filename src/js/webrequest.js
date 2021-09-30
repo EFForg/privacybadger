@@ -203,14 +203,18 @@ function onBeforeSendHeaders(details) {
     type = details.type,
     url = details.url;
 
+  // option to remove x-client-data headers as well
+  const removeXClientData = badger.isRemoveXClientDataHeaderEnabled();
+
   if (_isTabChromeInternal(tab_id)) {
     // DNT policy requests: strip cookies
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
-      // remove Cookie headers and X-Client-Data headers
+      // remove Cookie headers
       let newHeaders = [];
+
       for (let i = 0, count = details.requestHeaders.length; i < count; i++) {
         let header = details.requestHeaders[i];
-        if (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "x-client-data") {
+        if (header.name.toLowerCase() != "cookie" || (removeXClientData && header.name.toLowerCase() != 'x-client-data')) {
           newHeaders.push(header);
         }
       }
@@ -256,10 +260,10 @@ function onBeforeSendHeaders(details) {
   if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
     let newHeaders;
 
-    // GET requests: remove cookie headers and X-client-data headers, reduce referrer header to origin
+    // GET requests: remove cookie (and x-client-data if option is set) headers, reduce referrer header to origin
     if (details.method == "GET") {
       newHeaders = details.requestHeaders.filter(header => {
-        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "x-client-data");
+        return (header.name.toLowerCase() != "cookie" || (removeXClientData && header.name.toLowerCase() != 'x-client-data'));
       }).map(header => {
         if (header.name.toLowerCase() == "referer") {
           header.value = header.value.slice(
@@ -270,10 +274,10 @@ function onBeforeSendHeaders(details) {
         return header;
       });
 
-    // remove cookie, referrer, and X-Client-Data headers otherwise
+    // remove cookie, referrer (and x-client-data if option is set) otherwise
     } else {
       newHeaders = details.requestHeaders.filter(header => {
-        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer" && header.name.toLowerCase() != "x-client-data");
+        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer" && (removeXClientData && header.name.toLowerCase() != 'x-client-data'));
       });
     }
 
