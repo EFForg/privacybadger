@@ -168,18 +168,18 @@ function loadOptions() {
       });
   }
 
-  // only show the x-client-data header setting if in Chrome & Chromium browsers
+  // only show the x-client-data header setting if in Chrome
   // TODO: more accurate way to determine this is a Chrome or Chromium browser
   if (!chrome.runtime.getBrowserInfo) {
     $("#remove-x-client-data-toggle").show();
     $("#toggle-x-client-data-header-mode")
-      .prop("checked", OPTIONS_DATA.settings.removeXClientDataHeaders)
+      .prop("checked", OPTIONS_DATA.settings.removeXClientDataHeader)
       .on("click", function () {
-        const removeXClientDataHeaders = $("#toggle-x-client-data-header-mode").prop("checked");
+        const removeXClientDataHeader = $("#toggle-x-client-data-header-mode").prop("checked");
 
         chrome.runtime.sendMessage({
           type: "updateSettings",
-          data: { removeXClientDataHeaders }
+          data: { removeXClientDataHeader }
         });
       });
   }

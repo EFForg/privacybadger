@@ -844,7 +844,7 @@ Badger.prototype = {
     learnLocally: false,
     migrationLevel: 0,
     preventWebRTCIPLeak: false,
-    removeXClientDataHeaders: false,
+    removeXClientDataHeader: false,
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
@@ -1128,7 +1128,7 @@ Badger.prototype = {
 
   isRemoveXClientDataHeaderEnabled: function() {
     if (!chrome.runtime.getBrowserInfo) {
-      return this.getSettings().getItem("removeXClientDataHeaders");
+      return this.getSettings().getItem("removeXClientDataHeader");
     }
   },
 
