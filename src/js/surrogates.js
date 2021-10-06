@@ -17,18 +17,10 @@
 
 require.scopes.surrogates = (function () {
 
-const db = require('surrogatedb');
+const db = require('surrogatedb'),
+  utils = require('utils');
 
-const WIDGET_SURROGATES = (function () {
-  let memo = {};
-  for (let host of Object.keys(db.hostnames)) {
-    let widget_name = db.hostnames[host].widget;
-    if (widget_name) {
-      memo[host] = widget_name;
-    }
-  }
-  return memo;
-}());
+const WIDGET_SURROGATES = utils.filter(db.hostnames, item => !!item.widgetName);
 
 /**
  * Blocking tracking scripts (trackers) can cause parts of webpages to break.

@@ -106,7 +106,7 @@ function onBeforeRequest(details) {
 
     if (surrogates.WIDGET_SURROGATES.hasOwnProperty(request_host)) {
       let settings = badger.getSettings();
-      if (settings.getItem("socialWidgetReplacementEnabled") && !settings.getItem('widgetReplacementExceptions').includes(surrogates.WIDGET_SURROGATES[request_host])) {
+      if (settings.getItem("socialWidgetReplacementEnabled") && !settings.getItem('widgetReplacementExceptions').includes(surrogates.WIDGET_SURROGATES[request_host].widgetName)) {
         surrogate = surrogates.getSurrogateUri(url, request_host);
       }
 

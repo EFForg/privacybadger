@@ -92,7 +92,7 @@ const hostnames = {
     tokens: [
       '/embedJS/',
     ],
-    widget: "Rumble Video Player"
+    widgetName: "Rumble Video Player"
   },
 };
 
