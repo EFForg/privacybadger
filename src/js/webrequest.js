@@ -935,30 +935,29 @@ function initAllowedWidgets(tab_id, tab_host) {
 /**
  * Generates widget objects for surrogate-initiated widgets.
  *
- * @param {String} name widget name
+ * @param {String} name UNTRUSTED widget name
+ * @param {Object} data UNTRUSTED widget-specific data
  * @param {String} frame_url containing frame URL, used by some widgets
- * @param {Object} data widget-specific data, UNTRUSTED, validate!
  *
  * @returns {Object|false}
  */
-function getSurrogateWidget(name, frame_url, data) {
+function getSurrogateWidget(name, data, frame_url) {
   if (name == "Rumble Video Player") {
-    if (!data.args || data.args[0] != "play") {
+    const OK = /^[a-z0-9_]+$/;
+
+    // validate
+    if (!data || !data.args || data.args[0] != "play") {
       return false;
     }
 
-    let OK = /[a-z0-9_]/,
-      pub_code = data.pubCode,
+    let pub_code = data.pubCode,
       { video, div } = data.args[1];
 
     if (!OK.test(pub_code) || !OK.test(video) || !OK.test(div)) {
       return false;
     }
 
-    let argsParam = [
-      "play",
-      { video, div }
-    ];
+    let argsParam = [ "play", { video, div } ];
 
     let script_url = `https://rumble.com/embedJS/${encodeURIComponent(pub_code)}.${encodeURIComponent(video)}/?url=${encodeURIComponent(frame_url)}&args=${encodeURIComponent(JSON.stringify(argsParam))}`;
 
@@ -1485,7 +1484,8 @@ function dispatcher(request, sender, sendResponse) {
   // proxies surrogate script-initiated widget replacement messages
   // from one content script to another
   case "widgetFromSurrogate": {
-    let widget = getSurrogateWidget(request.name, request.frameUrl, request.data);
+    // NOTE: request.name and request.data are not to be trusted
+    let widget = getSurrogateWidget(request.name, request.data, request.frameUrl);
 
     if (!widget) {
       break;
