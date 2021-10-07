@@ -1484,6 +1484,11 @@ function dispatcher(request, sender, sendResponse) {
   // proxies surrogate script-initiated widget replacement messages
   // from one content script to another
   case "widgetFromSurrogate": {
+    let tab_host = window.extractHostFromURL(sender.tab.url);
+    if (!badger.isPrivacyBadgerEnabled(tab_host)) {
+      break;
+    }
+
     // NOTE: request.name and request.data are not to be trusted
     let widget = getSurrogateWidget(request.name, request.data, request.frameUrl);
 
