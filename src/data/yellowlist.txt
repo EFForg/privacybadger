@@ -141,6 +141,7 @@ cdn.cohesionapps.com
 make.cohesionapps.com
 cloudplatform.coveo.com
 platform.cloud.coveo.com
+platform-eu.cloud.coveo.com
 static.cloud.coveo.com
 creativecommons.org
 cstv.com
