@@ -1490,6 +1490,8 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     // NOTE: request.name and request.data are not to be trusted
+    // https://github.com/w3c/webextensions/issues/57#issuecomment-914491167
+    // https://github.com/w3c/webextensions/issues/78#issuecomment-921058071
     let widget = getSurrogateWidget(request.name, request.data, request.frameUrl);
 
     if (!widget) {

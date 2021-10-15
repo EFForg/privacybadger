@@ -61,7 +61,10 @@ if (document instanceof HTMLDocument === false && (
 
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
-// register listener in top frames only for now
+// register listener in top-level frames only for now
+// NOTE: before removing this restriction,
+// investigate implications of third-party scripts in nested frames
+// generating pbSurrogateMessage events
 if (window.top != window) {
   return;
 }
