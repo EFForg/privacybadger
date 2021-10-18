@@ -70,7 +70,7 @@ if (window.top != window) {
 }
 
 document.addEventListener("pbSurrogateMessage", function (e) {
-  if (e.detail.type == "widgetFromSurrogate") {
+  if (e.detail && e.detail.type == "widgetFromSurrogate") {
     chrome.runtime.sendMessage({
       type: "widgetFromSurrogate",
       name: e.detail.name,
