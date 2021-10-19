@@ -293,6 +293,14 @@ function reinitializeWidgetAndUnblockTracker(widget) {
 function replaceWidgetAndReloadScripts(widget) {
   let name = widget.name;
 
+  if (widget.scriptSelectors.some(i => i.includes("onload\\=vueRecaptchaApiLoaded"))) {
+    // we can't do "in-place" activation; reload the page instead
+    unblockTracker(name, function () {
+      location.reload();
+    });
+    return;
+  }
+
   unblockTracker(name, function () {
     // restore all widgets of this type
     WIDGET_ELS[name].forEach(data => {
