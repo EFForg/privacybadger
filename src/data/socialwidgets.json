@@ -158,7 +158,6 @@
             "script[src^='https://google.com/recaptcha/api.js']",
             "script[src^='https://www.google.com/recaptcha/api.js']"
         ],
-        "fallbackScriptUrl": "//google.com/recaptcha/api.js",
         "replacementButton": {
             "unblockDomains": [
                 "google.com",

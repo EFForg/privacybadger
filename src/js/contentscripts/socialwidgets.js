@@ -295,21 +295,18 @@ function replaceWidgetAndReloadScripts(widget) {
 
   // if there are no matching script elements
   if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
-    // and we don't have a fallback script URL
-    if (!widget.fallbackScriptUrl) {
-      // we can't do "in-place" activation; reload the page instead
-      unblockTracker(name, function () {
-        location.reload();
-      });
-      return;
-    }
+    // we can't do "in-place" activation; reload the page instead
+    unblockTracker(name, function () {
+      location.reload();
+    });
+    return;
   }
 
   unblockTracker(name, function () {
     // restore all widgets of this type
     WIDGET_ELS[name].forEach(data => {
       data.parent.replaceChild(data.widget, data.replacement);
-      reloadScripts(data.scriptSelectors, data.fallbackScriptUrl);
+      reloadScripts(data.scriptSelectors);
     });
     WIDGET_ELS[name] = [];
   });
@@ -318,17 +315,8 @@ function replaceWidgetAndReloadScripts(widget) {
 /**
  * Find and replace script elements with their copies to trigger re-running.
  */
-function reloadScripts(selectors, fallback_script_url) {
+function reloadScripts(selectors) {
   let scripts = document.querySelectorAll(selectors.join(','));
-
-  // if there are no matches, try a known script URL
-  if (!scripts.length && fallback_script_url) {
-    let parent = document.documentElement,
-      replacement = document.createElement("script");
-    replacement.src = fallback_script_url;
-    parent.insertBefore(replacement, parent.firstChild);
-    return;
-  }
 
   for (let scriptEl of scripts) {
     // reinsert script elements only
@@ -574,9 +562,6 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   };
   if (widget.scriptSelectors) {
     data.scriptSelectors = widget.scriptSelectors;
-    if (widget.fallbackScriptUrl) {
-      data.fallbackScriptUrl = widget.fallbackScriptUrl;
-    }
   }
   WIDGET_ELS[name].push(data);
 
