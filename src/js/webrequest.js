@@ -942,9 +942,9 @@ function initAllowedWidgets(tab_id, tab_host) {
  * @returns {Object|false}
  */
 function getSurrogateWidget(name, data, frame_url) {
-  if (name == "Rumble Video Player") {
-    const OK = /^[a-z0-9_]+$/;
+  const OK = /^[A-Za-z0-9_-]+$/;
 
+  if (name == "Rumble Video Player") {
     // validate
     if (!data || !data.args || data.args[0] != "play") {
       return false;
@@ -964,12 +964,36 @@ function getSurrogateWidget(name, data, frame_url) {
     return {
       name,
       buttonSelectors: ["div#" + div],
-      scriptSelectors: [`script[src='${script_url}']`],
+      scriptSelectors: [`script[src='${CSS.escape(script_url)}']`],
       replacementButton: {
         "unblockDomains": ["rumble.com"],
         "type": 4
       },
       directLinkUrl: `https://rumble.com/embed/${encodeURIComponent(pub_code)}.${encodeURIComponent(video)}/`
+    };
+  }
+
+  if (name == "Google reCAPTCHA") {
+    // validate
+    if (!data || !data.domId || !data.scriptUrl) {
+      return false;
+    }
+
+    let dom_id = data.domId,
+      script_url = data.scriptUrl;
+
+    if (!OK.test(dom_id) || !script_url.startsWith("https://www.google.com/recaptcha/")) {
+      return false;
+    }
+
+    return {
+      name,
+      buttonSelectors: ["#" + dom_id],
+      scriptSelectors: [`script[src='${CSS.escape(script_url)}']`],
+      replacementButton: {
+        "unblockDomains": ["www.google.com"],
+        "type": 4
+      }
     };
   }
 
