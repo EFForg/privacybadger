@@ -105,10 +105,6 @@
         "message": "Click to return control of this domain to Privacy Badger",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
-    "next_section": {
-        "message": "next section",
-        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
-    },
     "extension_error_text": {
         "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
@@ -322,10 +318,6 @@
     "options_advanced_settings": {
         "message": "Advanced",
         "description": "Subheading on the general settings options page."
-    },
-    "intro_next_button": {
-        "message": "Take the tour",
-        "description": "Intro page welcome button."
     },
     "badger_status_cookieblock": {
         "message": "Blocked cookies from $DOMAIN$",
