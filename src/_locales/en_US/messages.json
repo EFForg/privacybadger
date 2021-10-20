@@ -353,14 +353,6 @@
         "message": "Center the slider to block cookies",
         "description": ""
     },
-    "intro_learns": {
-        "message": "Learns automatically",
-        "description": "Intro page paragraph heading"
-    },
-    "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
-        "description": "Intro page paragraph"
-    },
     "intro_beyond_ads": {
         "message": "Catches sneaky trackers",
         "description": "Intro page paragraph heading."
