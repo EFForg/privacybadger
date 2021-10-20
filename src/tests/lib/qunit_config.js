@@ -20,6 +20,7 @@ chrome.storage.local.get = (keys, callback) => {
       // don't open the new user intro page or load seed data
       private_storage: {
         badgerVersion: chrome.runtime.getManifest().version,
+        firstRunTimerFinished: true,
       }
     });
   }, 0);
