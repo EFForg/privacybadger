@@ -98,7 +98,7 @@
         "description": "Tooltip shown when you hover over the center part of a domain slider"
     },
     "domain_slider_allow_tooltip": {
-        "message": "مجاز",
+        "message": "مجاز کردن",
         "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
     },
     "feed_the_badger_title": {
@@ -158,31 +158,31 @@
         "description": ""
     },
     "options_widget_replacement_tab": {
-        "message": "Widget Replacement",
+        "message": "جایگزینی ویجت",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "When blocking social buttons and other potentially useful (video, audio, comments) widgets, Privacy Badger can replace them with click-to-activate placeholders.",
+        "message": "هنگامی که دکمه‌های اجتماعی و دیگر ویجت‌های بالقوه کاربردی (ویدیو،‌ صدا، نظرات) مسدود می‌شوند، پرایوسی بجر می‌تواند آن‌ها را با متغیرهای برای-فعال‌سازی-کلیک-کن جایگزین کند.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
-        "message": "Enable widget replacement",
+        "message": "فعال‌سازی جایگزینی ویجت",
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Widget Exceptions",
+        "message": "استثنائات ویجت",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Don't replace the following widgets:",
+        "message": "ویجت‌های زیر را جایگزین نکن:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "استثنائات وبگاه",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Always allow widgets on these sites:",
+        "message": "ویجت‌ها در این وبگاه را همیشه مجاز کن:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -190,11 +190,11 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "report_button": {
-        "message": "ارسال خطا",
+        "message": "ثبت خطا",
         "description": ""
     },
     "badger_status_allow": {
-        "message": "به $DOMAIN$ اجازه داده شده است",
+        "message": "$DOMAIN$ مجاز است",
         "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -208,35 +208,35 @@
         "description": ""
     },
     "options_domain_search": {
-        "message": "جستجوی دامنه ها:",
+        "message": "جست‌وجوی دامنه‌ها:",
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "یادگیری مسدود کردن ردیاب‌های جدید از گردش شما",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
-        "message": "Enabling learning may make you more identifiable to websites",
+        "message": "فعال‌سازی یادگیری ممکن است شما را برای وبگاه‌ها قابل تشخیص‌تر کند",
         "description": "Tooltip on the general settings page"
     },
     "options_incognito_setting": {
-        "message": "یادگیری در پنجره های خصوصی/ناشناس",
+        "message": "یادگیری در پنجره‌های خصوصی/ناشناس",
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "اجازه یادگیری در پنجره های خصوصی/ناشناس ممکن است ردی از تاریخچه گشت خصوصی شما در وب روی کامپیوترتان به جا بگذارد. به صورت پیش فرض، پرایوسی بجر ردیاب هایی که در پنجره های خصوصی/ناشناس می شناسد را بلاک خواهد کرد، اما درباره ردیاب های جدید اطلاعی کسب نخواهد کرد. اگر بیشتر وقت خود را در پنجره های خصوصی/ناشناس می گذرانید شاید بهتر باشد که این گزینه را فعال کنید.",
+        "message": "فعال‌سازی یادگیری در پنجره‌های خصوصی/ناشناس ممکن است ردی از تاریخچهٔ گشت خصوصی شما در وب روی رایانه‌تان به جا بگذارد. به‌صورت پیش‌فرض، پرایوسی بجر ردیاب‌هایی که در پنجره‌های خصوصی/ناشناس می شناسد را مسدود خواهد کرد، اما دربارهٔ ردیاب‌های جدید اطلاعی کسب نخواهد کرد. اگر بیش‌تر وقت خود را در پنجره‌های خصوصی/ناشناس می‌گذرانید شاید بهتر باشد که این گزینه را فعال کنید.",
         "description": "Tooltip on the general settings page"
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "message": "پرایوسی بجر دیگر به‌صورت پیش‌فرض از گردش شما در وب یاد نمی‌گیرد.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "این زیر کلیک کنید تا بیش‌تر بیاموزید.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "بیاموزید پرایوسی بجر چگونه تغییر می‌کند",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "show_counter_checkbox": {
@@ -248,11 +248,11 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "فراموش نکنید تا روی 'گزارش وبگاه خراب شده' کلیک کنید. ما به حریم خصوصی شما احترام میگذاریم برای همین به صورت خودکار گزارش نمی فرستیم.",
+        "message": "فراموش نکنید تا روی 'گزارش وبگاه خراب شده' کلیک کنید. ما به حریم خصوصی شما احترام می‌گذاریم برای همین به‌صورت خودکار گزارش نمی‌فرستیم.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
-        "message": "گزینه های پرایوسی بجر",
+        "message": "گزینه‌های پرایوسی بجر",
         "description": ""
     },
     "report_terms": {
@@ -561,7 +561,7 @@
         "description": ""
     },
     "share_button_title_facebook": {
-        "message": "اشتراک گذاری بر روی فیسبوک",
+        "message": "اشتراک‌گذاری بر روی فیسبوک",
         "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
     },
     "report_fail": {
