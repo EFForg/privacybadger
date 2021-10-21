@@ -974,6 +974,11 @@ function getSurrogateWidget(name, data, frame_url) {
   }
 
   if (name == "Google reCAPTCHA") {
+    const KNOWN_GRECAPTCHA_SCRIPTS = [
+      "https://www.google.com/recaptcha/",
+      "https://www.recaptcha.net/recaptcha/",
+    ];
+
     // validate
     if (!data || !data.domId || !data.scriptUrl) {
       return false;
@@ -982,7 +987,7 @@ function getSurrogateWidget(name, data, frame_url) {
     let dom_id = data.domId,
       script_url = data.scriptUrl;
 
-    if (!OK.test(dom_id) || !script_url.startsWith("https://www.google.com/recaptcha/")) {
+    if (!OK.test(dom_id) || !KNOWN_GRECAPTCHA_SCRIPTS.some(s => script_url.startsWith(s))) {
       return false;
     }
 

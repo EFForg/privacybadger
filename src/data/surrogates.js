@@ -108,6 +108,18 @@ const hostnames = {
     ],
     widgetName: "Google reCAPTCHA"
   },
+  'www.recaptcha.net': {
+    match: MATCH_PREFIX_WITH_PARAMS,
+    params: {
+      onload: true,
+      render: true,
+    },
+    tokens: [
+      '/recaptcha/api.js',
+      '/recaptcha/enterprise.js',
+    ],
+    widgetName: "Google reCAPTCHA"
+  },
 };
 
 /**
