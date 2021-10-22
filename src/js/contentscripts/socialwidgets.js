@@ -204,18 +204,16 @@ function _createButtonReplacement(widget, callback) {
 function _createWidgetReplacement(widget, trackerElem, callback) {
   let replacementEl;
 
-  // in-place widget type:
+  // in-place widget types:
+  //
+  // type 3:
   // reinitialize the widget by reinserting its element's HTML
-  if (widget.replacementButton.type == 3) {
-    replacementEl = createReplacementWidget(
-      widget, trackerElem, reinitializeWidgetAndUnblockTracker);
-
-  // in-place widget type:
+  //
+  // type 4:
   // reinitialize the widget by reinserting its element's HTML
   // and activating associated scripts
-  } else if (widget.replacementButton.type == 4) {
-    replacementEl = createReplacementWidget(
-      widget, trackerElem, replaceWidgetAndReloadScripts);
+  if ([3, 4].includes(widget.replacementButton.type)) {
+    replacementEl = createReplacementWidget(widget, trackerElem);
   }
 
   callback(replacementEl);
@@ -273,39 +271,30 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, widget_name, html) {
  * Unblocks the given widget and replaces our replacement placeholder
  * with the original third-party widget element.
  *
+ * Reruns scripts defined in scriptSelectors, if any.
+ *
  * The teardown to the initialization defined in createReplacementWidget().
  */
-function reinitializeWidgetAndUnblockTracker(widget) {
-  let name = widget.name;
-  unblockTracker(name, function () {
-    // restore all widgets of this type
-    WIDGET_ELS[name].forEach(data => {
-      data.parent.replaceChild(data.widget, data.replacement);
-    });
-    WIDGET_ELS[name] = [];
-  });
-}
-
-/**
- * Similar to reinitializeWidgetAndUnblockTracker() above,
- * but also reruns scripts defined in scriptSelectors.
- */
-function replaceWidgetAndReloadScripts(widget) {
+function restoreWidget(widget) {
   let name = widget.name;
 
-  if (widget.scriptSelectors.some(i => i.includes("onload\\=vueRecaptchaApiLoaded"))) {
-    // we can't do "in-place" activation; reload the page instead
-    unblockTracker(name, function () {
-      location.reload();
-    });
-    return;
+  if (widget.scriptSelectors) {
+    if (widget.scriptSelectors.some(i => i.includes("onload\\=vueRecaptchaApiLoaded"))) {
+      // we can't do "in-place" activation; reload the page instead
+      unblockTracker(name, function () {
+        location.reload();
+      });
+      return;
+    }
   }
 
   unblockTracker(name, function () {
     // restore all widgets of this type
     WIDGET_ELS[name].forEach(data => {
       data.parent.replaceChild(data.widget, data.replacement);
-      reloadScripts(data.scriptSelectors);
+      if (data.scriptSelectors) {
+        reloadScripts(data.scriptSelectors);
+      }
     });
     WIDGET_ELS[name] = [];
   });
@@ -399,7 +388,7 @@ function _make_id(prefix) {
   return prefix + "-" + Math.random().toString().replace(".", "");
 }
 
-function createReplacementWidget(widget, elToReplace, activationFn) {
+function createReplacementWidget(widget, elToReplace) {
   let name = widget.name;
 
   let widgetFrame = document.createElement('iframe');
@@ -572,11 +561,13 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     onceButton.addEventListener("click", function (e) {
       if (!e.isTrusted) { return; }
       e.preventDefault();
-      activationFn(widget);
+      restoreWidget(widget);
     }, { once: true });
 
     siteButton.addEventListener("click", function (e) {
-      if (!e.isTrusted) { return; }
+      if (!e.isTrusted) {
+        return;
+      }
 
       e.preventDefault();
 
@@ -586,7 +577,7 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
         type: "allowWidgetOnSite",
         widgetName: name
       }, function () {
-        activationFn(widget);
+        restoreWidget(widget);
       });
     }, { once: true });
 
