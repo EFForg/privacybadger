@@ -256,11 +256,11 @@
         "description": ""
     },
     "report_terms": {
-        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
+        "message": "این به‌طور خودکار اطلاعات زیر را به EFF می‌فرستد: صفحه‌ای که هم‌اکنون از آن بازدید می‌کنید،‌ نگارش مرورگرتان، نگارش پرایوسی بجر، و وضعیت تمام لغزنده‌ها در این صفحه.",
         "description": ""
     },
     "options_domain_type_filter": {
-        "message": "فیلتر کردن بر اساس نوع:",
+        "message": "فیلتر بر اساس نوع:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "import_successful": {
@@ -268,23 +268,23 @@
         "description": ""
     },
     "export_user_data": {
-        "message": "انتقال داده کاربری",
+        "message": "برون‌بری دادهٔ کاربری",
         "description": ""
     },
     "manage_data_intro": {
-        "message": "ایمپورت داده کاربری:<ul><li> اوورایت تنظیمات کلی</li><li>ترکیب لیست سایت های غیرفعال شده</li><li>ترکیب اطلاعات درباره ردیاب هایی که پرایوسی بجر با آن ها برخورد داشته است</li><li>اوورایت کاستومایزیشن اسلایدر</li></ul>",
+        "message": "درون‌ریزی دادهٔ کاربری:<ul><li>بازنویسی تنظیمات کلی</li><li>ترکیب فهرست وبگاه‌های غیرفعال شده</li><li>ترکیب اطلاعات دربارهٔ ردیاب‌هایی که پرایوسی بجر با آن‌ها برخورد داشته است</li><li>بازنویسی شخصی‌سازی‌های لغزنده</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
-        "message": "ریست",
+        "message": "بازنشانی",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data": {
-        "message": "ریست دامنه های ردیاب",
+        "message": "بازنشانی دامنه‌های ردیاب",
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "ریست کردن دامنه های ردیاب باعث می شود:\n\n• تمام داده های مربوط به ردیاب هایی که پرایوسی بجر از گردش شما در وب آموخته از بین برود\n• بازیابی لیست دامنه ردیاب به آخرین لیست از پیش پرورش شده ( برای اطلاعات بیشتر به www.eff.org/badger-pretraining بروید)",
+        "message": "بازنشانی دامنه‌های ردیاب باعث می شود:\n\n• حذف تمام داده‌های مربوط به ردیاب‌هایی که پرایوسی بجر از گردش شما در وب آموخته است\n• بازیابی فهرست دامنهٔ ردیاب به آخرین فهرست از پیش‌پرورش شده (برای اطلاعات بیش‌تر به www.eff.org/badger-pretraining بروید)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -292,23 +292,23 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "حذف همه دامنه های ردیاب",
+        "message": "حذف همهٔ دامنه‌های ردیاب",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "حذف تمام دامنه های ردیاب باعث می شود:\n\n• تمام چیزهایی که پرایوسی بجر درباره ردیاب ها می داند از بین برود\n• پرایوسی بجر تا دفعه بعدی که مشغول گردش در وب هستید و فرصت یادگیری دوباره دارد چیزی را بلاک نکند",
+        "message": "حذف تمام دامنه‌های ردیاب باعث می‌شود:\n\n• حذف تمام چیزهایی که پرایوسی بجر دربارهٔ ردیاب‌ها می‌داند\n• باعث می‌شود پرایوسی بجر تا زمانی که شانس یادگیری دوباره از گرش شما را پیدا کند، هیچ‌چیزی را مسدود نکند",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
-        "message": "شما هم اکنون توسط پرایوسی بجر محافظت می شوید.",
+        "message": "شما هم‌اکنون توسط پرایوسی بجر محافظت می شوید.",
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
-        "message": "برای یادگیری بیشتر درباره عملکرد پرایوسی بجر، روی قسمت پایین کلیک کنید.",
+        "message": "برای یادگیری بیش‌تر دربارهٔ عملکرد پرایوسی بجر، روی قسمت پایین کلیک کنید.",
         "description": "Second part of a reminder to visit the intro page"
     },
     "options_webrtc_warning": {
-        "message": "WebRTC میتواند منجر به لو رفتن آدرس IP شما شود. توجه داشته باشید که این گزینه میتواند باعث کندی عملکرد در برنامه های کنفرانسی وب مثل Google Hangouts شود.",
+        "message": "WebRTC می‌تواند منجر به لو رفتن نشانی IP شما شود. توجه داشته باشید که این گزینه می‌تواند باعث کندی عملکرد در کاره‌های گفت‌وگویی وب مثل Google Hangouts شود.",
         "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
@@ -316,19 +316,19 @@
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "حریم خصوصی",
         "description": "Subheading on the general settings options page."
     },
     "options_advanced_settings": {
-        "message": "Advanced",
+        "message": "پیش‌رفته",
         "description": "Subheading on the general settings options page."
     },
     "intro_next_button": {
-        "message": "انجام تور",
+        "message": "انجام سفر",
         "description": "Intro page welcome button."
     },
     "badger_status_cookieblock": {
-        "message": "کوکی های متعلق به$DOMAIN$ بلاک شد",
+        "message": "کوکی‌های متعلق به$DOMAIN$ مسدود شد",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
         "placeholders": {
             "domain": {
@@ -338,35 +338,35 @@
         }
     },
     "options_domain_filter_cookieblock": {
-        "message": "بلاک شده به صورت جزئی",
+        "message": "تاحدودی مسدود شده",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "firstRun_title": {
-        "message": "بابت نصب پرایوسی از شما ممنونیم!",
+        "message": "بابت نصب پرایوسی بجر از شما ممنونیم!",
         "description": ""
     },
     "import_select_file": {
-        "message": "لطفا یک فایل را برای ایمپورت کردن انتخاب کنید.",
+        "message": "لطفا یک پرونده را برای درون‌ریزی انتخاب کنید.",
         "description": ""
     },
     "tooltip_cookieblock": {
-        "message": "برای بلاک کردن کوکی ها اسلایدر را در وسط قرار بدهید",
+        "message": "برای مسدود کردن کوکی‌ها لغزنده را در وسط قرار بدهید",
         "description": ""
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "به‌طور خودکار می‌آموزد",
         "description": "Intro page paragraph heading"
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "پرایوسی بجر به‌جای نگه داشتن فهرستی از چیزهایی که باید مسدود کند، به‌طور خودکار ردیاب‌ها را بر پایهٔ رفتارشان کشف می‌کند.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
-        "message": "ردیاب های موذی را میگیرد",
+        "message": "ردیاب‌های موذی را می‌گیرد",
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "ردیابی نامرئی تمام حالات ممکن را شامل می‌شود؛ تبلیغات فقط قلهٔ قابل مشاهدهٔ این کوه یخی هستند. پرایوسی بجر <a href='https://globalprivacycontrol.org/' target='_blank'>اخطار مهار حریم خصوصی جهانی</a> را برای کنار گذاشتن شما از اشتراک و فروش داده، و <a href='https://www.eff.org/issues/do-not-track' target='_blank'>اخطار ردیابی نکن</a> را برای گفتن این‌که شرکت‌ها شما را ردیابی نکنند. اگر آن‌ها خواسته‌های شما را رد کنند، پرایوسی بجر یاد می‌گیرد که آن‌ها را مسدود کند—چه آن‌ها تبلیغ‌کننده باشند و چه هر نوعی از ردیاب‌ها.",
         "description": "Intro page paragraph."
     },
     "report_close": {
@@ -374,11 +374,11 @@
         "description": ""
     },
     "import_user_data": {
-        "message": "ایمپورت داده کاربری",
+        "message": "درون‌ریزی دادهٔ کاربری",
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "compliant with EFF's DNT policy",
+        "message": "سازگار با خط مشی دی‌ان‌تی EFF",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -386,11 +386,11 @@
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "options_domain_filter_allow": {
-        "message": "اجازه داده شده",
+        "message": "مجاز",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "intro_donate_heading": {
-        "message": "حریم خصوصی یک ورزش تیمی می باشد.",
+        "message": "حریم خصوصی یک ورزش گروهی است!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_filter_all": {
@@ -402,31 +402,31 @@
         "description": ""
     },
     "tooltip_block": {
-        "message": "برای بلاک کردن یک دامنه اسلایدر را به سمت چپ حرکت دهید",
+        "message": "برای مسدود کردن یک دامنه، لغزنده را به سمت چپ حرکت دهید",
         "description": ""
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "فرستادن اخطارهای «<a href='https://globalprivacycontrol.org/' target='_blank'>مهار حریم خصوصی جهانی</a>» و «<a href='https://www.eff.org/issues/do-not-track' target='_blank'>ردیابی نکن</a>» به وبگاه‌ها",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
+        "message": "غیرفعال‌سازی ارسال نشانی‌های وبی که بازدید می‌کنید به گوگل. این پیشنهادهای صفحات مشابه را وقتی که صفحه یافت نشد،‌ غیرفعال می‌کند.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
+        "message": "جلوگیری از ردیابی پیوندهایی که شما روی‌شان کلیک می‌کنید توسط وبگاه‌ها (\"hyperlink auditing\")",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
-        "message": "Disable prefetching",
+        "message": "غیرفعال‌سازی پیش‌واکشی",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
-        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
+        "message": "غیرفعال‌سازی یادگیری فدرال شدهٔ گوگل (FLoC)",
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
-        "message": "کنترل شده توسط کاربر",
+        "message": "مهار شده توسط کاربر",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_info_firstparty_protections": {
