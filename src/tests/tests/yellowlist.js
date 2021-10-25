@@ -7,6 +7,7 @@ function get_ylist() {
 }
 
 let constants = require('constants');
+let utils = require('utils');
 
 // fake server to simulate XMLHttpRequests
 let server;
@@ -396,10 +397,10 @@ QUnit.module("Yellowlist", (hooks) => {
         // and add one for the yellowlist update assertion
         assert.expect(1 + Object.keys(test.domains).reduce((memo, domain) => {
           let data = test.domains[domain];
-          if (data.hasOwnProperty('expected')) {
+          if (utils.hasOwn(data, 'expected')) {
             memo++;
           }
-          if (data.hasOwnProperty('expectedBest')) {
+          if (utils.hasOwn(data, 'expectedBest')) {
             memo++;
           }
           return memo;
@@ -413,7 +414,7 @@ QUnit.module("Yellowlist", (hooks) => {
           if (conf.yellowlist) {
             ylistStorage.setItem(domain, true);
           }
-          if (conf.hasOwnProperty("initial")) {
+          if (utils.hasOwn(conf, "initial")) {
             badger.storage.setupHeuristicAction(domain, conf.initial);
           }
         }
@@ -436,7 +437,7 @@ QUnit.module("Yellowlist", (hooks) => {
           for (let domain in test.domains) {
             let expected, data = test.domains[domain];
 
-            if (data.hasOwnProperty('expected')) {
+            if (utils.hasOwn(data, 'expected')) {
               expected = data.expected;
               assert.equal(
                 badger.storage.getAction(domain),
@@ -445,7 +446,7 @@ QUnit.module("Yellowlist", (hooks) => {
               );
             }
 
-            if (data.hasOwnProperty('expectedBest')) {
+            if (utils.hasOwn(data, 'expectedBest')) {
               expected = data.expectedBest;
               assert.equal(
                 badger.storage.getBestAction(domain),

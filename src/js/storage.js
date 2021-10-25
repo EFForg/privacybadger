@@ -17,10 +17,10 @@
 
 /* globals badger:false, log:false */
 
-var constants = require("constants");
-var utils = require("utils");
-
 require.scopes.storage = (function () {
+
+let constants = require("constants");
+let utils = require("utils");
 
 /**
  * See the following link for documentation of
@@ -39,7 +39,7 @@ function BadgerPen(callback) {
   // initialize from extension local storage
   chrome.storage.local.get(self.KEYS, function (store) {
     self.KEYS.forEach(key => {
-      if (store.hasOwnProperty(key)) {
+      if (utils.hasOwn(store, key)) {
         self[key] = new BadgerStorage(key, store[key]);
       } else {
         let storageObj = new BadgerStorage(key, {});
@@ -62,7 +62,7 @@ function BadgerPen(callback) {
       if (utils.isObject(managedStore)) {
         let settings = {};
         for (let key in badger.defaultSettings) {
-          if (managedStore.hasOwnProperty(key)) {
+          if (utils.hasOwn(managedStore, key)) {
             settings[key] = managedStore[key];
           }
         }
@@ -85,7 +85,7 @@ BadgerPen.prototype = {
   ],
 
   getStore: function (key) {
-    if (this.hasOwnProperty(key)) {
+    if (utils.hasOwn(this, key)) {
       return this[key];
     }
     console.error("Can't initialize cache from getStore. You are using this API improperly");
@@ -475,7 +475,7 @@ BadgerStorage.prototype = {
    */
   hasItem: function(key) {
     var self = this;
-    return self._store.hasOwnProperty(key);
+    return utils.hasOwn(self._store, key);
   },
 
   /**
@@ -583,7 +583,7 @@ BadgerStorage.prototype = {
 
         // default: overwrite existing setting with setting from import
         } else {
-          if (badger.defaultSettings.hasOwnProperty(prop)) {
+          if (utils.hasOwn(badger.defaultSettings, prop)) {
             self._store[prop] = mapData[prop];
           } else {
             console.error("Unknown Badger setting:", prop);
@@ -597,7 +597,7 @@ BadgerStorage.prototype = {
 
         // Copy over any user settings from the merged-in data
         if (action.userAction) {
-          if (self._store.hasOwnProperty(domain)) {
+          if (utils.hasOwn(self._store, domain)) {
             self._store[domain].userAction = action.userAction;
           } else {
             self._store[domain] = Object.assign(_newActionMapObject(), action);
@@ -605,7 +605,7 @@ BadgerStorage.prototype = {
         }
 
         // handle Do Not Track
-        if (self._store.hasOwnProperty(domain)) {
+        if (utils.hasOwn(self._store, domain)) {
           // Merge DNT settings if the imported data has a more recent update
           if (action.nextUpdateTime > self._store[domain].nextUpdateTime) {
             self._store[domain].nextUpdateTime = action.nextUpdateTime;
@@ -661,7 +661,7 @@ var _syncStorage = (function () {
   // Creates debounced versions of "sync" function,
   // one for each distinct badgerStorage value.
   return function (badgerStorage) {
-    if (!debouncedFuncs.hasOwnProperty(badgerStorage.name)) {
+    if (!utils.hasOwn(debouncedFuncs, badgerStorage.name)) {
       // call sync at most once every two seconds
       debouncedFuncs[badgerStorage.name] = utils.debounce(function () {
         sync(badgerStorage);
@@ -672,10 +672,10 @@ var _syncStorage = (function () {
 }());
 
 /************************************** exports */
-var exports = {};
-
-exports.BadgerPen = BadgerPen;
-
+let exports = {
+  BadgerPen,
+};
 return exports;
 /************************************** exports */
+
 }());

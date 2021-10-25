@@ -36,7 +36,6 @@ rules:
   no-array-constructor: error
   no-bitwise: error
   no-caller: error
-  no-console: off
   no-eval: error
   no-implied-eval: error
   no-iterator: error

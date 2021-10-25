@@ -21,9 +21,10 @@
 window.POPUP_INITIALIZED = false;
 window.SLIDERS_DONE = false;
 
-var constants = require("constants");
-var FirefoxAndroid = require("firefoxandroid");
-var htmlUtils = require("htmlutils").htmlUtils;
+let constants = require("constants");
+let FirefoxAndroid = require("firefoxandroid");
+let htmlUtils = require("htmlutils").htmlUtils;
+let utils = require("utils");
 
 let POPUP_DATA = {};
 
@@ -187,7 +188,7 @@ function init() {
   let $overlay = $('#overlay');
 
   // show error layout if the user was writing an error report
-  if (POPUP_DATA.hasOwnProperty('errorText') && POPUP_DATA.errorText) {
+  if (utils.hasOwn(POPUP_DATA, 'errorText') && POPUP_DATA.errorText) {
     $overlay.toggleClass('active');
   }
 
@@ -569,7 +570,7 @@ function refreshPopup() {
   }
 
   // if there is any saved error text, fill the error input with it
-  if (POPUP_DATA.hasOwnProperty('errorText')) {
+  if (utils.hasOwn(POPUP_DATA, 'errorText')) {
     $("#error_input").val(POPUP_DATA.errorText);
   }
 
@@ -628,7 +629,7 @@ function refreshPopup() {
     } else {
       let show_breakage_warning = (
         action == constants.USER_BLOCK &&
-        POPUP_DATA.cookieblocked.hasOwnProperty(origin)
+        utils.hasOwn(POPUP_DATA.cookieblocked, origin)
       );
       let slider_html = htmlUtils.getOriginHtml(origin, action, show_breakage_warning);
       if (show_breakage_warning) {
@@ -753,7 +754,7 @@ function updateOrigin() {
     origin = $clicker.data('origin'),
     show_breakage_warning = (
       action == constants.BLOCK &&
-      POPUP_DATA.cookieblocked.hasOwnProperty(origin)
+      utils.hasOwn(POPUP_DATA.cookieblocked, origin)
     );
 
   htmlUtils.toggleBlockedStatus($clicker, true, show_breakage_warning);

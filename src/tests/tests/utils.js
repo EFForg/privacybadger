@@ -409,14 +409,14 @@ QUnit.test("cookie parsing (legacy Firefox add-on)", function (assert) {
 
   // compare actual to expected
   let test_number = 0;
-  for (let cookieString in COOKIES) {
-    if (COOKIES.hasOwnProperty(cookieString)) {
+  for (let cookie_str in COOKIES) {
+    if (utils.hasOwn(COOKIES, cookie_str)) {
       test_number++;
 
-      let expected = COOKIES[cookieString];
+      let expected = COOKIES[cookie_str];
 
       let actual = utils.parseCookie(
-        cookieString, {
+        cookie_str, {
           noDecode: true,
           skipAttributes: true,
           skipNonValues: true
@@ -434,20 +434,20 @@ QUnit.test("cookie parsing (YUI3)", function (assert) {
 
   let cookieString = "a=b";
   let cookies = utils.parseCookie(cookieString);
-  assert.ok(cookies.hasOwnProperty("a"), "Cookie 'a' is present.");
+  assert.ok(utils.hasOwn(cookies, "a"), "Cookie 'a' is present.");
   assert.equal(cookies.a, "b", "Cookie 'a' should have value 'b'.");
 
   cookieString = "12345=b";
   cookies = utils.parseCookie(cookieString);
-  assert.ok(cookies.hasOwnProperty("12345"), "Cookie '12345' is present.");
+  assert.ok(utils.hasOwn(cookies, "12345"), "Cookie '12345' is present.");
   assert.equal(cookies["12345"], "b", "Cookie '12345' should have value 'b'.");
 
   cookieString = "a=b; c=d; e=f; g=h";
   cookies = utils.parseCookie(cookieString);
-  assert.ok(cookies.hasOwnProperty("a"), "Cookie 'a' is present.");
-  assert.ok(cookies.hasOwnProperty("c"), "Cookie 'c' is present.");
-  assert.ok(cookies.hasOwnProperty("e"), "Cookie 'e' is present.");
-  assert.ok(cookies.hasOwnProperty("g"), "Cookie 'g' is present.");
+  assert.ok(utils.hasOwn(cookies, "a"), "Cookie 'a' is present.");
+  assert.ok(utils.hasOwn(cookies, "c"), "Cookie 'c' is present.");
+  assert.ok(utils.hasOwn(cookies, "e"), "Cookie 'e' is present.");
+  assert.ok(utils.hasOwn(cookies, "g"), "Cookie 'g' is present.");
   assert.equal(cookies.a, "b", "Cookie 'a' should have value 'b'.");
   assert.equal(cookies.c, "d", "Cookie 'c' should have value 'd'.");
   assert.equal(cookies.e, "f", "Cookie 'e' should have value 'f'.");
@@ -455,31 +455,31 @@ QUnit.test("cookie parsing (YUI3)", function (assert) {
 
   cookieString = "name=Nicholas%20Zakas; title=front%20end%20engineer";
   cookies = utils.parseCookie(cookieString);
-  assert.ok(cookies.hasOwnProperty("name"), "Cookie 'name' is present.");
-  assert.ok(cookies.hasOwnProperty("title"), "Cookie 'title' is present.");
+  assert.ok(utils.hasOwn(cookies, "name"), "Cookie 'name' is present.");
+  assert.ok(utils.hasOwn(cookies, "title"), "Cookie 'title' is present.");
   assert.equal(cookies.name, "Nicholas Zakas", "Cookie 'name' should have value 'Nicholas Zakas'.");
   assert.equal(cookies.title, "front end engineer", "Cookie 'title' should have value 'front end engineer'.");
 
   cookieString = "B=2nk0a3t3lj7cr&b=3&s=13; LYC=l_v=2&l_lv=10&l_l=94ddoa70d&l_s=qz54t4qwrsqquyv51w0z4xxwtx31x1t0&l_lid=146p1u6&l_r=4q&l_lc=0_0_0_0_0&l_mpr=50_0_0&l_um=0_0_1_0_0;YMRAD=1215072198*0_0_7318647_1_0_40123839_1; l%5FPD3=840";
   cookies = utils.parseCookie(cookieString);
-  assert.ok(cookies.hasOwnProperty("B"), "Cookie 'B' is present.");
-  assert.ok(cookies.hasOwnProperty("LYC"), "Cookie 'LYC' is present.");
-  assert.ok(cookies.hasOwnProperty("l_PD3"), "Cookie 'l_PD3' is present.");
+  assert.ok(utils.hasOwn(cookies, "B"), "Cookie 'B' is present.");
+  assert.ok(utils.hasOwn(cookies, "LYC"), "Cookie 'LYC' is present.");
+  assert.ok(utils.hasOwn(cookies, "l_PD3"), "Cookie 'l_PD3' is present.");
 
   let cookieName = "something[1]";
   let cookieValue = "123";
   cookieString = encodeURIComponent(cookieName) + "=" + encodeURIComponent(cookieValue);
   cookies = utils.parseCookie(cookieString);
-  assert.ok(cookies.hasOwnProperty(cookieName), "Cookie '" + cookieName + "' is present.");
+  assert.ok(utils.hasOwn(cookies, cookieName), "Cookie '" + cookieName + "' is present.");
   assert.equal(cookies[cookieName], cookieValue, "Cookie value for '" + cookieName + "' is " + cookieValue + ".");
 
   cookieString = "SESSION=27bedbdf3d35252d0db07f34d81dcca6; STATS=OK; SCREEN=1280x1024; undefined; ys-bottom-preview=o%3Aheight%3Dn%253A389";
   cookies = utils.parseCookie(cookieString);
-  assert.ok(cookies.hasOwnProperty("SCREEN"), "Cookie 'SCREEN' is present.");
-  assert.ok(cookies.hasOwnProperty("STATS"), "Cookie 'STATS' is present.");
-  assert.ok(cookies.hasOwnProperty("SESSION"), "Cookie 'SESSION' is present.");
-  assert.ok(cookies.hasOwnProperty("ys-bottom-preview"), "Cookie 'ys-bottom-preview' is present.");
-  assert.ok(cookies.hasOwnProperty("undefined"), "Cookie 'undefined' is present.");
+  assert.ok(utils.hasOwn(cookies, "SCREEN"), "Cookie 'SCREEN' is present.");
+  assert.ok(utils.hasOwn(cookies, "STATS"), "Cookie 'STATS' is present.");
+  assert.ok(utils.hasOwn(cookies, "SESSION"), "Cookie 'SESSION' is present.");
+  assert.ok(utils.hasOwn(cookies, "ys-bottom-preview"), "Cookie 'ys-bottom-preview' is present.");
+  assert.ok(utils.hasOwn(cookies, "undefined"), "Cookie 'undefined' is present.");
 
   // Tests that cookie parsing deals with cookies that contain an invalid
   // encoding. It shouldn't error, but should treat the cookie as if it
@@ -496,9 +496,9 @@ QUnit.test("cookie parsing (YUI3)", function (assert) {
 
   cookieString = "name=Nicholas%20Zakas; hash=a=b&c=d&e=f&g=h; title=front%20end%20engineer";
   cookies = utils.parseCookie(cookieString);
-  assert.ok(cookies.hasOwnProperty("name"), "Cookie 'name' is present.");
-  assert.ok(cookies.hasOwnProperty("hash"), "Cookie 'hash' is present.");
-  assert.ok(cookies.hasOwnProperty("title"), "Cookie 'title' is present.");
+  assert.ok(utils.hasOwn(cookies, "name"), "Cookie 'name' is present.");
+  assert.ok(utils.hasOwn(cookies, "hash"), "Cookie 'hash' is present.");
+  assert.ok(utils.hasOwn(cookies, "title"), "Cookie 'title' is present.");
   assert.equal(cookies.name, "Nicholas Zakas", "Cookie 'name' should have value 'Nicholas Zakas'.");
   assert.equal(cookies.hash, "a=b&c=d&e=f&g=h", "Cookie 'hash' should have value 'a=b&c=d&e=f&g=h'.");
   assert.equal(cookies.title, "front end engineer", "Cookie 'title' should have value 'front end engineer'.");

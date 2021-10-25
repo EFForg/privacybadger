@@ -768,7 +768,7 @@ function showTrackingDomains(domains, cb) {
     if (action) {
       let show_breakage_warning = (
         action == constants.USER_BLOCK &&
-        OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
+        utils.hasOwn(OPTIONS_DATA.cookieblocked, domain)
       );
       out.push(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
     }
@@ -843,7 +843,7 @@ function updateOrigin(origin, action, userset) {
 
   let show_breakage_warning = (
     action == constants.BLOCK &&
-    OPTIONS_DATA.cookieblocked.hasOwnProperty(origin)
+    utils.hasOwn(OPTIONS_DATA.cookieblocked, origin)
   );
 
   htmlUtils.toggleBlockedStatus($clicker, userset, show_breakage_warning);

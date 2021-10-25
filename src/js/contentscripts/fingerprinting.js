@@ -34,7 +34,7 @@ function getPageScript(event_id) {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (EVENT_ID, DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout, OBJECT) {
+  return "(" + function (EVENT_ID, DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout, OBJECT, FUNCTION, UNDEFINED) {
 
     const V8_STACK_TRACE_API = !!(ERROR && ERROR.captureStackTrace);
 
@@ -45,7 +45,14 @@ function getPageScript(event_id) {
       var geckoCallSiteRe = /^\s*(.*?)(?:\((.*?)\))?@?((?:file|https?|chrome):.*?):(\d+)(?::(\d+))?\s*$/i;
     }
 
-    // from Underscore v1.6.0
+    function hasOwn(obj, prop) {
+      return OBJECT.prototype.hasOwnProperty.call(obj, prop);
+    }
+    function apply(obj, context, args) {
+      return FUNCTION.prototype.apply.call(obj, context, args);
+    }
+
+    // adapted from Underscore v1.6.0
     function debounce(func, wait, immediate) {
       var timeout, args, context, timestamp, result;
 
@@ -56,7 +63,7 @@ function getPageScript(event_id) {
         } else {
           timeout = null;
           if (!immediate) {
-            result = func.apply(context, args);
+            result = apply(func, context, args);
             context = args = null;
           }
         }
@@ -71,7 +78,7 @@ function getPageScript(event_id) {
           timeout = setTimeout(later, wait);
         }
         if (callNow) {
-          result = func.apply(context, args);
+          result = apply(func, context, args);
           context = args = null;
         }
 
@@ -226,7 +233,7 @@ function getPageScript(event_id) {
             // bail if the text being written is too short,
             // of if we've already sent a monitoring payload
             if (skip_monitoring || !args[0] || args[0].length < 5) {
-              return orig.apply(this, args);
+              return apply(orig, this, args);
             }
           }
 
@@ -241,8 +248,8 @@ function getPageScript(event_id) {
               scriptUrl: script_url
             };
 
-          if (item.hasOwnProperty('extra')) {
-            msg.extra = item.extra.apply(this, args);
+          if (hasOwn(item, 'extra')) {
+            msg.extra = apply(item.extra, this, args);
           }
 
           send(msg);
@@ -260,7 +267,7 @@ function getPageScript(event_id) {
             }
           }
 
-          return orig.apply(this, args);
+          return apply(orig, this, args);
         }
 
         OBJECT.defineProperty(wrapped, "name", { value: orig.name });
@@ -293,10 +300,10 @@ function getPageScript(event_id) {
             height = args[3];
 
           // "this" is a CanvasRenderingContext2D object
-          if (width === undefined) {
+          if (width === UNDEFINED) {
             width = this.canvas.width;
           }
-          if (height === undefined) {
+          if (height === UNDEFINED) {
             height = this.canvas.height;
           }
 
@@ -328,7 +335,7 @@ function getPageScript(event_id) {
     methods.forEach(trapInstanceMethod);
 
   // save locally to keep from getting overwritten by site code
-  } + "(" + event_id + ", document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout, Object));";
+  } + "(" + event_id + ", document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout, Object, Function));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 

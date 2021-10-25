@@ -18,6 +18,7 @@
 require.scopes.surrogates = (function () {
 
 const db = require('surrogatedb');
+const utils = require('utils');
 
 /**
  * Blocking tracking scripts (trackers) can cause parts of webpages to break.
@@ -38,7 +39,7 @@ const db = require('surrogatedb');
  */
 function getSurrogateUri(script_url, script_hostname) {
   // do we have an entry for the script hostname?
-  if (!db.hostnames.hasOwnProperty(script_hostname)) {
+  if (!utils.hasOwn(db.hostnames, script_hostname)) {
     return false;
   }
 

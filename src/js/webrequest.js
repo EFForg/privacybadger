@@ -78,7 +78,7 @@ function onBeforeRequest(details) {
   let request_host = window.extractHostFromURL(url);
 
   // CNAME uncloaking
-  if (badger.cnameDomains.hasOwnProperty(request_host)) {
+  if (utils.hasOwn(badger.cnameDomains, request_host)) {
     request_host = badger.cnameDomains[request_host];
   }
 
@@ -226,7 +226,7 @@ function onBeforeSendHeaders(details) {
   let request_host = window.extractHostFromURL(url);
 
   // CNAME uncloaking
-  if (badger.cnameDomains.hasOwnProperty(request_host)) {
+  if (utils.hasOwn(badger.cnameDomains, request_host)) {
     request_host = badger.cnameDomains[request_host];
   }
 
@@ -342,7 +342,7 @@ function onHeadersReceived(details) {
   let response_host = window.extractHostFromURL(url);
 
   // CNAME uncloaking
-  if (badger.cnameDomains.hasOwnProperty(response_host)) {
+  if (utils.hasOwn(badger.cnameDomains, response_host)) {
     response_host = badger.cnameDomains[response_host];
   }
 
@@ -482,7 +482,7 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
     // record frame_url and parent_frame_id
     // for when content script becomes ready
     let tabData = badger.tabData[tab_id];
-    if (!tabData.blockedFrameUrls.hasOwnProperty(parent_frame_id)) {
+    if (!utils.hasOwn(tabData.blockedFrameUrls, parent_frame_id)) {
       tabData.blockedFrameUrls[parent_frame_id] = [];
     }
     tabData.blockedFrameUrls[parent_frame_id].push(frame_url);
@@ -556,7 +556,7 @@ function recordFingerprinting(tab_id, msg) {
     script_host = window.extractHostFromURL(msg.scriptUrl);
 
   // CNAME uncloaking
-  if (badger.cnameDomains.hasOwnProperty(script_host)) {
+  if (utils.hasOwn(badger.cnameDomains, script_host)) {
     script_host = badger.cnameDomains[script_host];
   }
 
@@ -574,14 +574,14 @@ function recordFingerprinting(tab_id, msg) {
     toDataURL: true
   };
 
-  if (!badger.tabData[tab_id].hasOwnProperty('fpData')) {
+  if (!utils.hasOwn(badger.tabData[tab_id], 'fpData')) {
     badger.tabData[tab_id].fpData = {};
   }
 
   let script_base = window.getBaseDomain(script_host);
 
   // Initialize script TLD-level data
-  if (!badger.tabData[tab_id].fpData.hasOwnProperty(script_base)) {
+  if (!utils.hasOwn(badger.tabData[tab_id].fpData, script_base)) {
     badger.tabData[tab_id].fpData[script_base] = {
       canvas: {
         fingerprinting: false,
@@ -591,7 +591,7 @@ function recordFingerprinting(tab_id, msg) {
   }
   let scriptData = badger.tabData[tab_id].fpData[script_base];
 
-  if (msg.extra.hasOwnProperty('canvas')) {
+  if (utils.hasOwn(msg.extra, 'canvas')) {
     if (scriptData.canvas.fingerprinting) {
       return;
     }
@@ -599,7 +599,7 @@ function recordFingerprinting(tab_id, msg) {
     // If this script already had a canvas write...
     if (scriptData.canvas.write) {
       // ...and if this is a canvas read...
-      if (CANVAS_READ.hasOwnProperty(msg.prop)) {
+      if (utils.hasOwn(CANVAS_READ, msg.prop)) {
         // ...and it got enough data...
         if (msg.extra.width > 16 && msg.extra.height > 16) {
           // ...we will classify it as fingerprinting
@@ -618,7 +618,7 @@ function recordFingerprinting(tab_id, msg) {
         }
       }
       // This is a canvas write
-    } else if (CANVAS_WRITE.hasOwnProperty(msg.prop)) {
+    } else if (utils.hasOwn(CANVAS_WRITE, msg.prop)) {
       scriptData.canvas.write = true;
     }
   }
@@ -758,7 +758,7 @@ let getWidgetList = (function () {
       // like Tumblr do the right thing after a widget is allowed
       // (but the page hasn't yet been reloaded)
       // and don't keep replacing an already allowed widget type in those frames
-      if (tempAllowedWidgets.hasOwnProperty(tab_id) &&
+      if (utils.hasOwn(tempAllowedWidgets, tab_id) &&
           tempAllowedWidgets[tab_id].includes(widget.name)) {
         continue;
       }
@@ -786,7 +786,7 @@ let getWidgetList = (function () {
         }
 
         // regular, non-leading wildcard domain
-        if (!tabData.origins.hasOwnProperty(domain)) {
+        if (!utils.hasOwn(tabData.origins, domain)) {
           return false;
         }
         const action = tabData.origins[domain];
@@ -826,7 +826,7 @@ let getWidgetList = (function () {
  * @returns {Boolean} true if FQDN is on the temporary allow list
  */
 function allowedOnTab(tab_id, request_host, frame_id) {
-  if (!tempAllowlist.hasOwnProperty(tab_id)) {
+  if (!utils.hasOwn(tempAllowlist, tab_id)) {
     return false;
   }
 
@@ -874,7 +874,7 @@ function getWidgetDomains(widget_name) {
     widget => widget.name == widget_name);
 
   if (!widgetData ||
-      !widgetData.hasOwnProperty("replacementButton") ||
+      !utils.hasOwn(widgetData, "replacementButton") ||
       !widgetData.replacementButton.unblockDomains) {
     return false;
   }
@@ -890,7 +890,7 @@ function getWidgetDomains(widget_name) {
  * @param {String} widget_name the name (ID) of the widget
  */
 function allowOnTab(tab_id, domains, widget_name) {
-  if (!tempAllowlist.hasOwnProperty(tab_id)) {
+  if (!utils.hasOwn(tempAllowlist, tab_id)) {
     tempAllowlist[tab_id] = [];
   }
   for (let domain of domains) {
@@ -899,7 +899,7 @@ function allowOnTab(tab_id, domains, widget_name) {
     }
   }
 
-  if (!tempAllowedWidgets.hasOwnProperty(tab_id)) {
+  if (!utils.hasOwn(tempAllowedWidgets, tab_id)) {
     tempAllowedWidgets[tab_id] = [];
   }
   tempAllowedWidgets[tab_id].push(widget_name);
@@ -911,7 +911,7 @@ function allowOnTab(tab_id, domains, widget_name) {
  */
 function initAllowedWidgets(tab_id, tab_host) {
   let allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist');
-  if (allowedWidgets.hasOwnProperty(tab_host)) {
+  if (utils.hasOwn(allowedWidgets, tab_host)) {
     for (let widget_name of allowedWidgets[tab_host]) {
       let widgetDomains = getWidgetDomains(widget_name);
       if (widgetDomains) {
@@ -973,7 +973,7 @@ function dispatcher(request, sender, sendResponse) {
       tab_host = window.extractHostFromURL(sender.tab.url);
 
     // CNAME uncloaking
-    if (badger.cnameDomains.hasOwnProperty(frame_host)) {
+    if (utils.hasOwn(badger.cnameDomains, frame_host)) {
       frame_host = badger.cnameDomains[frame_host];
     }
 
@@ -994,9 +994,9 @@ function dispatcher(request, sender, sendResponse) {
     }
     let tab_id = sender.tab.id,
       frame_id = sender.frameId,
-      tabData = badger.tabData.hasOwnProperty(tab_id) && badger.tabData[tab_id],
+      tabData = utils.hasOwn(badger.tabData, tab_id) && badger.tabData[tab_id],
       blockedFrameUrls = tabData &&
-        tabData.blockedFrameUrls.hasOwnProperty(frame_id) &&
+        utils.hasOwn(tabData.blockedFrameUrls, frame_id) &&
         tabData.blockedFrameUrls[frame_id];
     sendResponse(blockedFrameUrls);
     break;
@@ -1016,7 +1016,7 @@ function dispatcher(request, sender, sendResponse) {
     // record that we always want to activate this widget on this site
     let tab_host = window.extractHostFromURL(sender.tab.url),
       allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist');
-    if (!allowedWidgets.hasOwnProperty(tab_host)) {
+    if (!utils.hasOwn(allowedWidgets, tab_host)) {
       allowedWidgets[tab_host] = [];
     }
     if (!allowedWidgets[tab_host].includes(request.widgetName)) {
@@ -1031,7 +1031,7 @@ function dispatcher(request, sender, sendResponse) {
     let widgetData = badger.widgetList.find(
       widget => widget.name == request.widgetName);
     if (!widgetData ||
-        !widgetData.hasOwnProperty("replacementButton") ||
+        !utils.hasOwn(widgetData, "replacementButton") ||
         !widgetData.replacementButton.imagePath) {
       return sendResponse();
     }
@@ -1083,7 +1083,7 @@ function dispatcher(request, sender, sendResponse) {
       frame_host = window.extractHostFromURL(request.frameUrl);
 
     // CNAME uncloaking
-    if (badger.cnameDomains.hasOwnProperty(frame_host)) {
+    if (utils.hasOwn(badger.cnameDomains, frame_host)) {
       frame_host = badger.cnameDomains[frame_host];
     }
 
@@ -1123,7 +1123,7 @@ function dispatcher(request, sender, sendResponse) {
   case "getPopupData": {
     let tab_id = request.tabId;
 
-    if (!badger.tabData.hasOwnProperty(tab_id)) {
+    if (!utils.hasOwn(badger.tabData, tab_id)) {
       sendResponse({
         criticalError: badger.criticalError,
         noTabData: true,
@@ -1251,7 +1251,7 @@ function dispatcher(request, sender, sendResponse) {
     chrome.storage.sync.get("disabledSites", function (store) {
       if (chrome.runtime.lastError) {
         sendResponse({success: false, message: chrome.runtime.lastError.message});
-      } else if (store.hasOwnProperty("disabledSites")) {
+      } else if (utils.hasOwn(store, "disabledSites")) {
         let disabledSites = utils.concatUniq(
           badger.getDisabledSites(),
           store.disabledSites
@@ -1326,7 +1326,7 @@ function dispatcher(request, sender, sendResponse) {
   case "updateSettings": {
     const settings = badger.getSettings();
     for (let key in request.data) {
-      if (badger.defaultSettings.hasOwnProperty(key)) {
+      if (utils.hasOwn(badger.defaultSettings, key)) {
         settings.setItem(key, request.data[key]);
       } else {
         console.error("Unknown Badger setting:", key);
@@ -1438,13 +1438,13 @@ function startListeners() {
   }, ["blocking"]);
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
-  if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
+  if (utils.hasOwn(chrome.webRequest.OnBeforeSendHeadersOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
 
   extraInfoSpec = ['responseHeaders', 'blocking'];
-  if (chrome.webRequest.OnHeadersReceivedOptions.hasOwnProperty('EXTRA_HEADERS')) {
+  if (utils.hasOwn(chrome.webRequest.OnHeadersReceivedOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, extraInfoSpec);

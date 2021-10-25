@@ -2,6 +2,8 @@
 
 (function () {
 
+let utils = require('utils');
+
 const DOMAIN = "example.com",
   SUBDOMAIN = "widgets." + DOMAIN,
   SUBSUBDOMAIN = "cdn." + SUBDOMAIN;
@@ -208,7 +210,7 @@ QUnit.test("action map merge handles missing nextUpdateTime", (assert) => {
     userAction: ''
   };
 
-  assert.notOk(newValue.hasOwnProperty('nextUpdateTime'),
+  assert.notOk(utils.hasOwn(newValue, 'nextUpdateTime'),
     "nextUpdateTime is indeed missing from the import");
 
   // new DNT domain should be imported

@@ -55,6 +55,10 @@ if (document instanceof HTMLDocument === false && (
   return;
 }
 
+function hasOwn(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
 // widget data
 let widgetList;
 
@@ -100,7 +104,7 @@ function createReplacementElement(widget, trackerElem, callback) {
   let buttonData = widget.replacementButton;
 
   // no image data to fetch
-  if (!buttonData.hasOwnProperty('imagePath')) {
+  if (!hasOwn(buttonData, 'imagePath')) {
     return setTimeout(function () {
       _createReplacementElementCallback(widget, trackerElem, callback);
     }, 0);
@@ -373,7 +377,7 @@ function replaceScriptsRecurse(node) {
  */
 function replaceInitialTrackerButtonsHelper(widgetsToReplace) {
   widgetList.forEach(function (widget) {
-    if (widgetsToReplace.hasOwnProperty(widget.name)) {
+    if (hasOwn(widgetsToReplace, widget.name)) {
       replaceIndividualButton(widget);
     }
   });
@@ -558,7 +562,7 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   widgetDiv.appendChild(buttonDiv);
 
   // save refs. to elements for use in teardown
-  if (!WIDGET_ELS.hasOwnProperty(name)) {
+  if (!hasOwn(WIDGET_ELS, name)) {
     WIDGET_ELS[name] = [];
   }
   let data = {

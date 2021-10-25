@@ -78,7 +78,7 @@ function Badger() {
     // set badge text color to white in Firefox 63+
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1424620
-    if (chrome.browserAction.hasOwnProperty('setBadgeTextColor')) {
+    if (utils.hasOwn(chrome.browserAction, 'setBadgeTextColor')) {
       chrome.browserAction.setBadgeTextColor({ color: "#fff" });
     }
 
@@ -539,7 +539,7 @@ Badger.prototype = {
   recordFrame: function(tabId, frameId, frameUrl) {
     let self = this;
 
-    if (!self.tabData.hasOwnProperty(tabId)) {
+    if (!utils.hasOwn(self.tabData, tabId)) {
       self.tabData[tabId] = {
         blockedFrameUrls: {},
         frames: {},
@@ -567,8 +567,8 @@ Badger.prototype = {
 
     frame_id = frame_id || 0;
 
-    if (self.tabData.hasOwnProperty(tab_id)) {
-      if (self.tabData[tab_id].frames.hasOwnProperty(frame_id)) {
+    if (utils.hasOwn(self.tabData, tab_id)) {
+      if (utils.hasOwn(self.tabData[tab_id].frames, frame_id)) {
         return self.tabData[tab_id].frames[frame_id];
       }
     }
@@ -1029,7 +1029,7 @@ Badger.prototype = {
         return;
       }
 
-      let special_page = !self.tabData.hasOwnProperty(tab_id);
+      let special_page = !utils.hasOwn(self.tabData, tab_id);
 
       if (self.criticalError || (!special_page && badger.getPrivateSettings().getItem("showWebRtcDeprecation"))) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
@@ -1228,7 +1228,7 @@ Badger.prototype = {
         action == constants.USER_COOKIEBLOCK
       ),
       origins = self.tabData[tab_id].origins,
-      previously_blocked = origins.hasOwnProperty(fqdn) && (
+      previously_blocked = utils.hasOwn(origins, fqdn) && (
         origins[fqdn] == constants.BLOCK ||
         origins[fqdn] == constants.COOKIEBLOCK ||
         origins[fqdn] == constants.USER_BLOCK ||
@@ -1290,7 +1290,7 @@ Badger.prototype = {
     let self = this;
 
     // fix incoming snitch map entries with current MDFP data
-    if (data.hasOwnProperty("snitch_map")) {
+    if (utils.hasOwn(data, "snitch_map")) {
       let correctedSites = {};
 
       for (let domain in data.snitch_map) {
@@ -1308,7 +1308,7 @@ Badger.prototype = {
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
     ["snitch_map", "action_map", "settings_map"].forEach(function (key) {
-      if (data.hasOwnProperty(key)) {
+      if (utils.hasOwn(data, key)) {
         self.storage.getStore(key).merge(data[key]);
       }
     });

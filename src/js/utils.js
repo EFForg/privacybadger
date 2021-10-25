@@ -24,6 +24,12 @@ require.scopes.utils = (function () {
 
 let mdfp = require("multiDomainFP");
 
+// TODO replace with Object.hasOwn() eventually
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn
+function hasOwn(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
 /**
  * Generic interface to make an XHR request
  *
@@ -43,7 +49,7 @@ function xhrRequest(url, callback, method, opts) {
   let xhr = new XMLHttpRequest();
 
   for (let key in opts) {
-    if (opts.hasOwnProperty(key)) {
+    if (hasOwn(opts, key)) {
       xhr[key] = opts[key];
     }
   }
@@ -445,7 +451,7 @@ function parseCookie(str, opts) {
       }
     }
 
-    if (!opts.noOverwrite || !parsed.hasOwnProperty(name)) {
+    if (!opts.noOverwrite || !hasOwn(parsed, name)) {
       parsed[name] = value;
     }
   }
@@ -586,6 +592,7 @@ let exports = {
   findCommonSubstrings,
   firstPartyProtectionsEnabled,
   getHostFromDomainInput,
+  hasOwn,
   invert,
   isRestrictedUrl,
   isThirdPartyDomain,

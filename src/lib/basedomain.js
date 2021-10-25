@@ -12,6 +12,10 @@ const RE_V4inV6 = /(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2
 const RE_BAD_CHARACTERS = /([^0-9a-f:])/i;
 const RE_BAD_ADDRESS = /([0-9a-f]{5,}|:{3,}|[^:]:$|^:[^:]$)/i;
 
+function hasOwn(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
 function isIPv4(address) {
   if (RE_V4.test(address)) {
     return true;
@@ -89,7 +93,7 @@ function getBaseDomain(hostname) {
     next_dot = cur_domain.indexOf('.');
 
   for (;;) {
-    if (window.publicSuffixes.hasOwnProperty(cur_domain)) {
+    if (hasOwn(window.publicSuffixes, cur_domain)) {
       tld = window.publicSuffixes[cur_domain];
       break;
     }
@@ -166,7 +170,7 @@ function isPrivateDomain(domain) { // eslint-disable-line no-unused-vars
   };
   for (var ip in privateIpMasks) {
     // Ignore object properties.
-    if (!privateIpMasks.hasOwnProperty(ip)) {
+    if (!hasOwn(privateIpMasks, ip)) {
       continue;
     }
 
