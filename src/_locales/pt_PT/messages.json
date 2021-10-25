@@ -378,7 +378,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "conforme a política DNT da EFF",
+        "message": "conforme a política de Não Rastrear da EFF",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
