@@ -134,7 +134,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.find_element_by_id("options").click()
         self.switch_to_window_with_url(self.options_url)
 
-    @pbtest.repeat_if_failed(5)
     def test_trackers_link(self):
         """Ensure trackers link opens EFF website."""
 
@@ -335,7 +334,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
                 'error reporting should be closed again')
 
-    @pbtest.repeat_if_failed(5)
     def test_donate_button(self):
         """Ensure donate button opens EFF website."""
 

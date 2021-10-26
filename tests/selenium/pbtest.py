@@ -288,23 +288,6 @@ def convert_exceptions_to_false(fun, silent=False):
     return partial(converter, fun, silent)
 
 
-attempts = {} # used to count test retries
-def repeat_if_failed(ntimes): # noqa
-    '''
-    A decorator that retries the test if it fails `ntimes`. The TestCase must
-    be used on a subclass of unittest.TestCase. NB: this just registers function
-    to be retried. The try/except logic is in PBSeleniumTest.run.
-    '''
-    def test_catcher(test):
-        attempts[test.__name__] = ntimes
-
-        @wraps(test)
-        def caught(*args, **kwargs):
-            return test(*args, **kwargs)
-        return caught
-    return test_catcher
-
-
 class PBSeleniumTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -335,40 +318,21 @@ class PBSeleniumTest(unittest.TestCase):
         self.test_url = self.base_url + "tests/index.html"
 
     def run(self, result=None):
-        nretries = attempts.get(result.name, 1)
-        for i in range(nretries):
-            try:
-                with self.manager() as driver:
-                    self.init(driver)
+        with self.manager() as driver:
+            self.init(driver)
 
-                    # wait for Badger's storage, listeners, ...
-                    self.load_url(self.options_url)
-                    self.wait_for_script(
-                        "return chrome.extension.getBackgroundPage()."
-                        "badger.INITIALIZED"
-                    )
+            # wait for Badger's storage, listeners, ...
+            self.load_url(self.options_url)
+            self.wait_for_script(
+                "return chrome.extension.getBackgroundPage()."
+                "badger.INITIALIZED"
+            )
 
-                    driver.close()
-                    if driver.window_handles:
-                        driver.switch_to.window(driver.window_handles[0])
+            driver.close()
+            if driver.window_handles:
+                driver.switch_to.window(driver.window_handles[0])
 
-                    super(PBSeleniumTest, self).run(result)
-
-                    # retry test magic
-                    if result.name in attempts and result._excinfo: # pylint:disable=protected-access
-                        raise Exception(result._excinfo.pop()) # pylint:disable=protected-access
-
-                    break
-
-            except Exception:
-                if i == nretries - 1:
-                    raise
-
-                wait_secs = 2 ** i
-                print('\nRetrying {} after {} seconds ...'.format(
-                    result, wait_secs))
-                time.sleep(wait_secs)
-                continue
+            super(PBSeleniumTest, self).run(result)
 
     def open_window(self):
         if self.driver.current_url.startswith("moz-extension://"):

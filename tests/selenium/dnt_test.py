@@ -75,7 +75,6 @@ class DntTest(pbtest.PBSeleniumTest):
             domain
         )
 
-    @pbtest.repeat_if_failed(3)
     def test_dnt_policy_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"

@@ -12,7 +12,7 @@ function run_lint {
 
 function run_selenium {
   # autodiscover and run the tests
-  pytest --capture=no --verbose --durations=10 "$testdir"
+  pytest --reruns 5 --reruns-delay 1 --only-rerun NoSuchWindowException --capture=no --verbose --durations=10 "$testdir"
 }
 
 if [ "$INFO" == "lint" ]; then

@@ -30,8 +30,6 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('#local-learning-checkbox').click()
 
     # test for https://github.com/EFForg/privacybadger/pull/1403
-    # TODO remove retrying entire test after we revert 879a74f807999a2135e4d48bb5efbd8a1beff4f8
-    @pbtest.repeat_if_failed(5)
     def test_async_tracking_attribution_bug(self):
         FIRST_PARTY_BASE = "eff.org"
         THIRD_PARTY_BASE = "efforg.github.io"
