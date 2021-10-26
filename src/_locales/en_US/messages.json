@@ -74,7 +74,7 @@
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
+        "message": "Privacy Badger is not an ad blocker, it's different!",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -472,7 +472,7 @@
         "description": ""
     },
     "intro_privacy_note": {
-        "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Privacy Badger is ready to help protect your privacy! Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -497,7 +497,7 @@
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out!",
+        "message": "Instead of keeping lists of what to block, Privacy Badger learns automatically -- and discovers trackers based on their behavior.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
