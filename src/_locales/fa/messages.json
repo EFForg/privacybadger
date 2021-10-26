@@ -378,7 +378,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "سازگار با خط مشی دی‌ان‌تی EFF",
+        "message": "سازگار با خط مشی ردیابی نکن EFF",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
@@ -430,11 +430,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_info_firstparty_protections": {
-        "message": "Link tracking protection active",
+        "message": "حفاظت از ردیابی پیوند فعال است",
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Some websites $LINK_START$use link tracking to follow you$LINK_END$ whenever you click a link to leave the website. Privacy Badger removes tracking from such links on this website.",
+        "message": "بعضی وبگاه‌ها $LINK_START$از ردیابی برای دنبال کردن شما$LINK_END$ در هر جایی که روی پیوندی برای خروج از یک وبگاه کلیک می‌کنید، استفاده می‌کنند. پرایوسی بجر بعضی از ردیابی‌ها از چنین پیوندهایی را روی این وبگاه حذف می‌کند.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
@@ -446,7 +446,7 @@
         }
     },
     "popup_instructions": {
-        "message": "$COUNT$ potential $LINK_START$trackers$LINK_END$ blocked",
+        "message": "$COUNT$ $LINK_START$ردیاب$LINK_END$ بالقوه مسدود شده است",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -463,7 +463,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "No $LINK_START$trackers$LINK_END$ blocked",
+        "message": "هیچ $LINK_START$ردیابی$LINK_END$ مسدود نشده است",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -476,23 +476,23 @@
         }
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page. Hooray for privacy!",
+        "message": "هیچ منبع شخص ثالثی در این صفحه وجود ندارد. ایول برای حریم خصوصی!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "intro_by_eff": {
-        "message": "پروژه ای از EFF",
+        "message": "پروژه‌ای از EFF",
         "description": ""
     },
     "tooltip_allow": {
-        "message": "برای اجازه دادن به یک دامنه، اسلایدر را به سمت راست حرکت دهید",
+        "message": "برای مجاز کردن یک دامنه، لغزنده را به سمت راست حرکت دهید",
         "description": ""
     },
     "intro_privacy_note": {
-        "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "پرایوسی بجر هرگز داده‌ای دربارهٔ وبگردی شما به اشتراک نمی‌گذارد، مگر این‌که بخواهید آن را به اشتراک بگذارید.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger has decided to block $COUNT$ potential $TRACKER_LINK_START$tracking domains$TRACKER_LINK_END$ so far",
+        "message": "پرایوسی بجر تاکنون تصمیم گرفته است $COUNT$ $TRACKER_LINK_START$دامنهٔ ردیاب$TRACKER_LINK_END$ بالقوه را مسدود کند",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -509,7 +509,7 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "پرایوسی بجر هنوز نتوانسته هیچ <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'> دامنه ی ردیابی </a> پیدا کنید. به گردش خود در وب ادامه دهید!",
+        "message": "پرایوسی بجر هنوز نتوانسته هیچ <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>دامنهٔ ردیابی</a> را پیدا کنید. به وبگردی خود ادامه دهید!",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "intro_not_an_adblocker_paragraph": {
@@ -517,27 +517,27 @@
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
-        "message": "فیلتر کردن بر اساس وضعیت:",
+        "message": "فیلتر بر اساس وضعیت:",
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "report_text": {
-        "message": "به طور مختصر خطای زیر را شرح دهید.",
+        "message": "به‌طور مختصر خطای زیر را شرح دهید.",
         "description": ""
     },
     "intro_donate1": {
-        "message": "هنگام استفاده از پرایوسی بجر شما به <a href='https://www.eff.org/' target='_blank'> بنیاد مرزی الکترونیکی </a> و میلیون ها کاربر دیگر در مبارزه برای حریم خصوصی می پیوندید. ما یک بنیاد غیر انتفاعی هستیم که برای حقوق آنلاین شما می جنگیم. ممنون از اینکه به ما پیوستید!",
+        "message": "هنگام استفاده از پرایوسی بجر شما به <a href='https://www.eff.org/' target='_blank'>EFF</a> و میلیون‌ها کاربر دیگر در مبارزه برای حریم خصوصی می‌پیوندید. ما یک بنیاد غیرانتفاعی هستیم که برای حقوق برخط شما می‌جنگیم. ممنون از این‌که به ما پیوستید!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "options_domain_search_tooltip": {
-        "message": "برای استثناء قائل شدن دامنه ها، به اول عبارت \"-\" اضافه کنید. برای مثال، \".co -.com\" دامنه های co. و co.uk. را نمایش داده می شود اما دامنه های com. نمایش داده نخواهند شد.",
+        "message": "برای استثنا کردن دامنه‌ها، به ابتدای شرط جست‌وجوی خود «-» اضافه کنید. مثلاً، «.co -.com» دامنه های co. و co.uk. را نمایش می‌دهد اما دامنه‌های com. را نمایش نمی‌دهد.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "اگر فکر میکنید که پرایوسی بجر باعث از کار افتادن سایتی شده است ( برای مثال، یک ویدیو پخش نمی شود)، میتوانید روی دکمه 'غیرفعال سازی' کلیک کنید تا پرایوسی بجر برای آن سایت غیرفعال شود.",
+        "message": "اگر فکر می‌کنید پرایوسی بجر باعث از کار افتادن وبگاهی شده است (مثلاً، یک ویدیو پخش نمی‌شود)، می‌توانید روی دکمهٔ 'غیرفعال‌سازی' کلیک کنید تا پرایوسی بجر برای آن وبگاه غیرفعال شود.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_link_policy": {
-        "message": "سیاست حفظ حریم خصوصی",
+        "message": "خط مشی حریم خصوصی",
         "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
     },
     "report_input_label": {
@@ -545,19 +545,19 @@
         "description": ""
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't decided yet if these domains should get blocked",
+        "message": "بجر شما تاکنون تصمیمی برای مسدود کردن این دامنه‌ها نگرفته است",
         "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't decided yet to block:",
+        "message": "نمایش دامنه‌هایی که بجر شما تاکنون تصمیمی برای مسدود کردن‌شان نگرفته است:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "non_tracker": {
-        "message": "دامنه های زیر به نظر شما را ردیابی نمی کنند",
+        "message": "دامنه‌های زیر به‌نظر شما را ردیابی نمی‌کنند",
         "description": "Header text; separates tracking from non-tracking domains in the popup."
     },
     "popup_options_button": {
-        "message": "گزینه ها",
+        "message": "گزینه‌ها",
         "description": ""
     },
     "share_button_title_facebook": {
@@ -569,7 +569,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "پرایوسی بجر دکمه $BUTTON$ را جایگزین کرده است",
+        "message": "پرایوسی بجر این را با دکمهٔ $BUTTON$ را جایگزین کرده است",
         "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
@@ -579,7 +579,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger has replaced $START_ANCHOR_TAG$this $WIDGET$ widget$END_ANCHOR_TAG$",
+        "message": "پرایوسی بجر $START_ANCHOR_TAG$ویجت $WIDGET$ $END_ANCHOR_TAG$ را جایگزین کرده است",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
@@ -597,51 +597,51 @@
         }
     },
     "allow_once": {
-        "message": "یکبار اجازه دادن",
+        "message": "یک‌بار مجاز کن",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "allow_on_site": {
-        "message": "Always allow on this site",
+        "message": "همیشه روی این وبگاه مجاز کن",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
-        "message": "همگام سازی ابری: <ul><li>به همگام سازی فایرفاکس/کروم نیاز دارد</li><li>آپلود باعث دوباره نویسی داده پرایوسی بجر در کلود می شود</li><li>دانلود، لیست سایت هایی که پرایوسی بجر برای آن ها غیرفعال است را ترکیب میکند</li></ul>",
+        "message": "همگام‌سازی ابری: <ul><li>به همگام‌سازی فایرفاکس/کروم نیاز دارد</li><li>بارگذاری باعث دوباره‌نویسی دادهٔ پرایوسی بجر در فضای ابری می‌شود</li><li>بارگیری، فهرست وبگاه‌هایی که پرایوسی بجر برای آن‌ها غیرفعال است را ترکیب می‌کند</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
-        "message": "آپلود",
+        "message": "بارگذاری",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "انتقال سایت های غیرفعال شده به کلود",
+        "message": "برون‌بری وبگاه‌های غیرفعال شده به فضای ابری",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "ایمپورت سایت های غیرفعال شده از کلود",
+        "message": "درون‌ریزی وبگاه‌های غیرفعال شده از فضای ابری",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
-        "message": "داده ابری با موفقیت ایمپورت شد.",
+        "message": "دادهٔ ابری با موفقیت درون‌ریزی شد.",
         "description": "Message displayed to the user after successfully merging cloud data."
     },
     "download_cloud_failure": {
-        "message": "داده ابری دانلود نشد.",
+        "message": "دادهٔ ابری بارگیری نشد.",
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Data successfully uploaded to the cloud",
+        "message": "داده با موفقیت روی فضای ابری بارگذاری شد",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "Data could not be uploaded to the cloud",
+        "message": "بارگذاری داده روی فضای ابری موفقیت‌آمیز نبود",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
-        "message": "هیچ داده ابری برای دانلود وجود ندارد.",
+        "message": "هیچ دادهٔ ابری برای بارگیری وجود ندارد.",
         "description": "'Error' message when there is on cloud data to download."
     },
     "share_title": {
-        "message": "به دوستانتان اطلاع دهید",
+        "message": "به دوستان‌تان اطلاع دهید",
         "description": "Title of the share overlay."
     },
     "popup_share_button": {
