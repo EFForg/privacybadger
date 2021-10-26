@@ -35,6 +35,9 @@ Released under the MIT license
 https://jquery.org/license
 
 jQuery UI
+https://jqueryui.com/download/
+Includes: widget.js, form-reset-mixin.js, jquery-patch.js, keycode.js, labels.js, unique-id.js, widgets/button.js, widgets/checkboxradio.js, widgets/controlgroup.js, widgets/tabs.js
+Theme: Smoothness
 Copyright jQuery Foundation and other contributors
 Licensed MIT
 
