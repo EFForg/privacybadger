@@ -146,7 +146,9 @@
     "Google reCAPTCHA": {
         "domains": [
             "google.com",
-            "www.google.com"
+            "www.google.com",
+            "recaptcha.net",
+            "www.recaptcha.net"
         ],
         "buttonSelectors": [
             "div.g-recaptcha",
@@ -156,13 +158,17 @@
         "scriptSelectors": [
             "script[src^='//google.com/recaptcha/api.js']",
             "script[src^='https://google.com/recaptcha/api.js']",
-            "script[src^='https://www.google.com/recaptcha/api.js']"
+            "script[src^='https://www.google.com/recaptcha/api.js']",
+            "script[src^='//recaptcha.net/recaptcha/api.js']",
+            "script[src^='https://recaptcha.net/recaptcha/api.js']",
+            "script[src^='https://www.recaptcha.net/recaptcha/api.js']"
         ],
-        "fallbackScriptUrl": "//google.com/recaptcha/api.js",
         "replacementButton": {
             "unblockDomains": [
                 "google.com",
-                "www.google.com"
+                "www.google.com",
+                "recaptcha.net",
+                "www.recaptcha.net"
             ],
             "type": 4
         }
@@ -201,6 +207,18 @@
             "details": "http://pinterest.com/pin/create/button/?url=",
             "imagePath": "Pinterest.svg",
             "type": 0
+        }
+    },
+    "Rumble Video Player": {
+        "domain": "rumble.com",
+        "buttonSelectors": [
+            "iframe[src^='https://rumble.com/embed/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "rumble.com"
+            ],
+            "type": 3
         }
     },
     "SoundCloud": {

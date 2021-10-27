@@ -28,8 +28,8 @@ require.scopes.webrequest = (function () {
 /*********************** webrequest scope **/
 
 let constants = require("constants"),
-  getSurrogateUri = require("surrogates").getSurrogateUri,
   incognito = require("incognito"),
+  surrogates = require("surrogates"),
   utils = require("utils");
 
 /************ Local Variables *****************/
@@ -102,7 +102,18 @@ function onBeforeRequest(details) {
   }
 
   if (type == 'script') {
-    let surrogate = getSurrogateUri(url, request_host);
+    let surrogate;
+
+    if (utils.hasOwn(surrogates.WIDGET_SURROGATES, request_host)) {
+      let settings = badger.getSettings();
+      if (settings.getItem("socialWidgetReplacementEnabled") && !settings.getItem('widgetReplacementExceptions').includes(surrogates.WIDGET_SURROGATES[request_host].widgetName)) {
+        surrogate = surrogates.getSurrogateUri(url, request_host);
+      }
+
+    } else {
+      surrogate = surrogates.getSurrogateUri(url, request_host);
+    }
+
     if (surrogate) {
       let secret = getWarSecret(tab_id, frame_id, surrogate);
       return {
@@ -921,6 +932,79 @@ function initAllowedWidgets(tab_id, tab_host) {
   }
 }
 
+/**
+ * Generates widget objects for surrogate-initiated widgets.
+ *
+ * @param {String} name UNTRUSTED widget name
+ * @param {Object} data UNTRUSTED widget-specific data
+ * @param {String} frame_url containing frame URL, used by some widgets
+ *
+ * @returns {Object|false}
+ */
+function getSurrogateWidget(name, data, frame_url) {
+  const OK = /^[A-Za-z0-9_-]+$/;
+
+  if (name == "Rumble Video Player") {
+    // validate
+    if (!data || !data.args || data.args[0] != "play") {
+      return false;
+    }
+
+    let pub_code = data.pubCode,
+      { video, div } = data.args[1];
+
+    if (!OK.test(pub_code) || !OK.test(video) || !OK.test(div)) {
+      return false;
+    }
+
+    let argsParam = [ "play", { video, div } ];
+
+    let script_url = `https://rumble.com/embedJS/${encodeURIComponent(pub_code)}.${encodeURIComponent(video)}/?url=${encodeURIComponent(frame_url)}&args=${encodeURIComponent(JSON.stringify(argsParam))}`;
+
+    return {
+      name,
+      buttonSelectors: ["div#" + div],
+      scriptSelectors: [`script[src='${CSS.escape(script_url)}']`],
+      replacementButton: {
+        "unblockDomains": ["rumble.com"],
+        "type": 4
+      },
+      directLinkUrl: `https://rumble.com/embed/${encodeURIComponent(pub_code)}.${encodeURIComponent(video)}/`
+    };
+  }
+
+  if (name == "Google reCAPTCHA") {
+    const KNOWN_GRECAPTCHA_SCRIPTS = [
+      "https://www.google.com/recaptcha/",
+      "https://www.recaptcha.net/recaptcha/",
+    ];
+
+    // validate
+    if (!data || !data.domId || !data.scriptUrl) {
+      return false;
+    }
+
+    let dom_id = data.domId,
+      script_url = data.scriptUrl;
+
+    if (!OK.test(dom_id) || !KNOWN_GRECAPTCHA_SCRIPTS.some(s => script_url.startsWith(s))) {
+      return false;
+    }
+
+    return {
+      name,
+      buttonSelectors: ["#" + dom_id],
+      scriptSelectors: [`script[src='${CSS.escape(script_url)}']`],
+      replacementButton: {
+        "unblockDomains": ["www.google.com"],
+        "type": 4
+      }
+    };
+  }
+
+  return false;
+}
+
 // NOTE: sender.tab is available for content script (not popup) messages only
 function dispatcher(request, sender, sendResponse) {
 
@@ -931,8 +1015,8 @@ function dispatcher(request, sender, sendResponse) {
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
       "checkDNT",
-      "checkFloc",
       "checkEnabled",
+      "checkFloc",
       "checkLocation",
       "checkWidgetReplacementEnabled",
       "detectFingerprinting",
@@ -942,6 +1026,8 @@ function dispatcher(request, sender, sendResponse) {
       "inspectLocalStorage",
       "supercookieReport",
       "unblockWidget",
+      "widgetFromSurrogate",
+      "widgetReplacementReady",
     ];
     if (!KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
       console.error("Rejected unknown message %o from %s", request, sender.url);
@@ -1405,8 +1491,9 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // called from contentscripts/dnt.js
+  // to check if it should set DNT on Navigator
   case "checkDNT": {
-    // called from contentscripts/dnt.js to check if we should enable it
     sendResponse(
       badger.isDNTSignalEnabled()
       && badger.isPrivacyBadgerEnabled(
@@ -1416,10 +1503,70 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // called from contentscripts/floc.js
+  // to check if we should disable document.interestCohort
   case "checkFloc": {
-    // called from contentscripts/floc.js
-    // to check if we should disable document.interestCohort
     sendResponse(badger.isFlocOverwriteEnabled());
+    break;
+  }
+
+  // proxies surrogate script-initiated widget replacement messages
+  // from one content script to another
+  case "widgetFromSurrogate": {
+    let tab_host = window.extractHostFromURL(sender.tab.url);
+    if (!badger.isPrivacyBadgerEnabled(tab_host)) {
+      break;
+    }
+
+    // NOTE: request.name and request.data are not to be trusted
+    // https://github.com/w3c/webextensions/issues/57#issuecomment-914491167
+    // https://github.com/w3c/webextensions/issues/78#issuecomment-921058071
+    let widget = getSurrogateWidget(request.name, request.data, request.frameUrl);
+
+    if (!widget) {
+      break;
+    }
+
+    let frameData = badger.getFrameData(sender.tab.id, sender.frameId);
+
+    if (frameData.widgetReplacementReady) {
+      // message the content script if it's ready for messages
+      chrome.tabs.sendMessage(sender.tab.id, {
+        type: "replaceWidgetFromSurrogate",
+        frameId: sender.frameId,
+        widget
+      });
+    } else {
+      // save the message for later otherwise
+      if (!utils.hasOwn(frameData, "widgetQueue")) {
+        frameData.widgetQueue = [];
+      }
+      frameData.widgetQueue.push(widget);
+    }
+
+    break;
+  }
+
+  // marks the widget replacement script in a certain tab/frame
+  // ready for messages; sends any previously saved messages
+  case "widgetReplacementReady": {
+    let frameData = badger.getFrameData(sender.tab.id, sender.frameId);
+    if (!frameData) {
+      break;
+    }
+
+    frameData.widgetReplacementReady = true;
+    if (frameData.widgetQueue) {
+      for (let widget of frameData.widgetQueue) {
+        chrome.tabs.sendMessage(sender.tab.id, {
+          type: "replaceWidgetFromSurrogate",
+          frameId: sender.frameId,
+          widget
+        });
+      }
+      delete frameData.widgetQueue;
+    }
+
     break;
   }
 

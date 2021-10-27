@@ -18,6 +18,8 @@
 require.scopes.surrogatedb = (function () {
 
 const MATCH_SUFFIX = 'suffix',
+  MATCH_PREFIX = 'prefix',
+  MATCH_PREFIX_WITH_PARAMS = 'prefix_params',
   MATCH_ANY = 'any';
 
 /**
@@ -86,6 +88,38 @@ const hostnames = {
       '/apstag.js',
     ]
   },
+  'rumble.com': {
+    match: MATCH_PREFIX,
+    tokens: [
+      '/embedJS/',
+    ],
+    widgetName: "Rumble Video Player"
+  },
+  'www.google.com': {
+    match: MATCH_PREFIX_WITH_PARAMS,
+    params: {
+      onload: true,
+      //render: "explicit",
+      render: true,
+    },
+    tokens: [
+      '/recaptcha/api.js',
+      '/recaptcha/enterprise.js',
+    ],
+    widgetName: "Google reCAPTCHA"
+  },
+  'www.recaptcha.net': {
+    match: MATCH_PREFIX_WITH_PARAMS,
+    params: {
+      onload: true,
+      render: true,
+    },
+    tokens: [
+      '/recaptcha/api.js',
+      '/recaptcha/enterprise.js',
+    ],
+    widgetName: "Google reCAPTCHA"
+  },
 };
 
 /**
@@ -121,6 +155,11 @@ const surrogates = {
 
   '/apstag.js': 'amazon_apstag.js',
 
+  '/embedJS/': 'rumble_embedjs.js',
+
+  '/recaptcha/api.js': 'grecaptcha.js',
+  '/recaptcha/enterprise.js': 'grecaptcha_enterprise.js',
+
   'noopjs': 'noop.js'
 };
 
@@ -132,6 +171,8 @@ Object.keys(surrogates).forEach(key => {
 
 const exports = {
   MATCH_ANY,
+  MATCH_PREFIX,
+  MATCH_PREFIX_WITH_PARAMS,
   MATCH_SUFFIX,
   hostnames,
   surrogates,

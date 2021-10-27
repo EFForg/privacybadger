@@ -17,8 +17,21 @@
 
 require.scopes.surrogates = (function () {
 
-const db = require('surrogatedb');
-const utils = require('utils');
+const db = require('surrogatedb'),
+  utils = require('utils');
+
+const WIDGET_SURROGATES = utils.filter(db.hostnames, item => !!item.widgetName);
+
+function _match_prefix(url, hostname, tokens) {
+  let path_onwards = url.slice(url.indexOf(hostname) + hostname.length);
+  for (const token of tokens) {
+    if (path_onwards.startsWith(token)) {
+      return db.surrogates[token];
+    }
+  }
+
+  return false;
+}
 
 /**
  * Blocking tracking scripts (trackers) can cause parts of webpages to break.
@@ -81,6 +94,39 @@ function getSurrogateUri(script_url, script_hostname) {
     return false;
   }
 
+  // one or more prefix tokens:
+  // does the script URL's path component begin with one of these tokens?
+  case db.MATCH_PREFIX: {
+    return _match_prefix(script_url, script_hostname, conf.tokens);
+  }
+
+  // MATCH_PREFIX with querystring parameter matching
+  case db.MATCH_PREFIX_WITH_PARAMS: {
+    let surl = _match_prefix(script_url, script_hostname, conf.tokens);
+
+    if (!surl) {
+      return false;
+    }
+
+    // check every key/value pair in conf.params against the querystring
+    let qs = (new URL(script_url)).searchParams;
+    for (let [key, value] of Object.entries(conf.params)) {
+      // is the key present?
+      if (value === true) {
+        if (!qs.get(key)) {
+          return false;
+        }
+      // is the key present and do the values match?
+      } else if (utils.isString(value)) {
+        if (qs.get(key) !== value) {
+          return false;
+        }
+      }
+    }
+
+    return surl;
+  }
+
   }
 
   return false;
@@ -88,7 +134,9 @@ function getSurrogateUri(script_url, script_hostname) {
 
 const exports = {
   getSurrogateUri,
+  WIDGET_SURROGATES
 };
 
 return exports;
-})();
+
+}());

@@ -581,6 +581,22 @@ function invert(obj) {
   return result;
 }
 
+/**
+ * Array.prototype.filter() for objects.
+ *
+ * @param {Object} obj
+ * @param {Function} cb receives two arguments: current value, current key
+ */
+function filter(obj, cb) {
+  let memo = {};
+  for (let [key, value] of Object.entries(obj)) {
+    if (cb(value, key)) {
+      memo[key] = value;
+    }
+  }
+  return memo;
+}
+
 /************************************** exports */
 let exports = {
   arrayBufferToBase64,
@@ -589,6 +605,7 @@ let exports = {
   difference,
   estimateMaxEntropy,
   explodeSubdomains,
+  filter,
   findCommonSubstrings,
   firstPartyProtectionsEnabled,
   getHostFromDomainInput,
