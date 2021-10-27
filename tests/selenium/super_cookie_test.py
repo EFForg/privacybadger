@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import pytest
 import unittest
 
 import pbtest
@@ -56,6 +57,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             msg="Image is not a tracker but was flagged as one.")
 
 
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_should_detect_ls_of_third_party_frame(self):
         FIRST_PARTY_BASE = "eff.org"
         THIRD_PARTY_BASE = "efforg.github.io"
@@ -78,6 +80,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             pbtest.retry_until(partial(self.get_snitch_map_for, THIRD_PARTY_BASE), times=3)
         )
 
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
         FIRST_PARTY_BASE = "eff.org"
         THIRD_PARTY_BASE = "efforg.github.io"
@@ -89,6 +92,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         self.driver.refresh()
         self.assertFalse(self.get_snitch_map_for(THIRD_PARTY_BASE))
 
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_should_not_detect_first_party_ls(self):
         BASE_DOMAIN = "efforg.github.io"
         self.load_url((
@@ -98,6 +102,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         self.driver.refresh()
         self.assertFalse(self.get_snitch_map_for(BASE_DOMAIN))
 
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_should_not_detect_ls_of_third_party_script(self):
         FIRST_PARTY_BASE = "eff.org"
         THIRD_PARTY_BASE = "efforg.github.io"
