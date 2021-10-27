@@ -729,6 +729,9 @@ body {
 #pb-settings {
   background-image:linear-gradient(#EC9329, #EC9329 30%, #fff 30%);
 }
+#pb-settings img {
+        margin-bottom: 1rem;
+}
 [id*="pb-donate"] {
   display:-ms-flexbox;
   display:flex;
