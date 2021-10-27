@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+import functools
 import json
 import os
 import subprocess
@@ -8,7 +9,6 @@ import time
 import unittest
 
 from contextlib import contextmanager
-from functools import partial, wraps
 from shutil import copytree
 
 from selenium import webdriver
@@ -234,23 +234,6 @@ class Shim:
 shim = Shim() # create the browser shim
 
 
-def if_firefox(wrapper):
-    '''
-    A test decorator that applies the function `wrapper` to the test if the
-    browser is firefox. Ex:
-
-    @if_firefox(unittest.skip("broken on ff"))
-    def test_stuff(self):
-        ...
-    '''
-    def test_catcher(test):
-        if shim.browser_type == 'firefox':
-            return wraps(test)(wrapper)(test)
-        return test
-
-    return test_catcher
-
-
 def retry_until(fun, tester=None, times=3, msg=None):
     """
     Execute function `fun` until either its return is truthy
@@ -285,7 +268,7 @@ def convert_exceptions_to_false(fun, silent=False):
                 print("\nCaught exception:", str(e))
             return False
         return result
-    return partial(converter, fun, silent)
+    return functools.partial(converter, fun, silent)
 
 
 class PBSeleniumTest(unittest.TestCase):
