@@ -3257,6 +3257,7 @@ let multiDomainFirstPartiesArray = [
 
     "pearsoncmg.com",
   ],
+  ["people.com.cn", "people.cn", "peopledaily.com.cn"],
   ["pepco.com", "pepcoholdings.com"],
   [
     "philips.com",
