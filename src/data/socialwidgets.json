@@ -143,6 +143,24 @@
             "type": 3
         }
     },
+    "Google Maps": {
+        "domains": [
+            "maps.google.com",
+            "www.google.com"
+        ],
+        "buttonSelectors": [
+            "iframe[src^='https://maps.google.com/maps/']",
+            "iframe[src^='https://www.google.com/maps/']"
+        ],
+        "noDirectLink": true,
+        "replacementButton": {
+            "unblockDomains": [
+                "maps.google.com",
+                "www.google.com"
+            ],
+            "type": 3
+        }
+    },
     "Google reCAPTCHA": {
         "domains": [
             "google.com",

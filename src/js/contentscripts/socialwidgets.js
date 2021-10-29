@@ -454,7 +454,7 @@ function createReplacementWidget(widget, elToReplace) {
   let widget_url;
   if (widget.directLinkUrl) {
     widget_url = widget.directLinkUrl;
-  } else if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
+  } else if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src && !widget.noDirectLink) {
     // use the frame URL for framed widgets
     widget_url = elToReplace.src;
   }
