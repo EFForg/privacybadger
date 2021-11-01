@@ -3,6 +3,7 @@
 import functools
 import json
 import os
+import re
 import subprocess
 import tempfile
 import time
@@ -316,6 +317,13 @@ class PBSeleniumTest(unittest.TestCase):
                 driver.switch_to.window(driver.window_handles[0])
 
             super(PBSeleniumTest, self).run(result)
+
+    def is_firefox_nightly(self):
+        caps = self.driver.capabilities
+        if caps['browserName'] == "firefox":
+            version = self.driver.capabilities['browserVersion']
+            return re.search('a[0-9]+$', version) is not None
+        return False
 
     def open_window(self):
         if self.driver.current_url.startswith("moz-extension://"):
