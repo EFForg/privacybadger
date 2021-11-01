@@ -691,11 +691,11 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p>",
+        "message": "<p>پرایوسی بجر بر روی وبگاه‌های زیر غیرفعال شده است. این به این معناست که پرایوسی بجر، هنگامی که وبگاه‌هایی که این‌جا فهرست شده‌اند را بازدید می‌کنید، هیچ‌چیزی را مسدود نخواهد کرد، و سیگنال‌های ردیابی نکن یا مهار حریم خصوصی جهانی را هم نخواهد فرستاد.</p><p>اگر فکر می‌کنید پرایوسی بجر این صفحه را خراب می‌کند، یا می‌خواهید وبگاهی خاص را مجاز به اشتراک‌گذاری و فروش داده‌هایتان کنید، می‌توانید دامنهٔ آن صفحه را در جعبهٔ زیر بنویسید و روی دکمهٔ «افزودن دامنه» کلیک کنید.</p>",
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
-        "message": "برای مثال www.example.com, *.example.net, example.org",
+        "message": "مثلاً www.example.com، *.example.net،‌ example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
@@ -711,7 +711,7 @@
         "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
     },
     "deprecated_setting": {
-        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
+        "message": "تنظیم زیر منسوخ شده‌اند و در به‌روزرسانی آتی پرایوسی بجر حذف خواهد شد:",
         "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
     },
     "learn_more_link": {
