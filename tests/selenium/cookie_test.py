@@ -31,13 +31,6 @@ class CookieTest(pbtest.PBSeleniumTest):
         PB after each of the site loads, but no action will be taken. Then the first
         site will be reloaded, and the UI will show the third party domain as blocked."""
 
-        if self.is_firefox_nightly():
-            # https://developer.mozilla.org/en-US/docs/Web/Privacy/State_Partitioning#disable_dynamic_state_partitioning
-            # relevant network.cookie.cookieBehavior values:
-            # 5: Reject (known) trackers and partition third-party storage.
-            # 4: Only reject trackers (Storage partitioning disabled).
-            pytest.xfail("network.cookie.cookieBehavior is set to 5 in Firefox Nightly")
-
         SITE1_URL = "https://ddrybktjfxh4.cloudfront.net/"
         SITE2_URL = "https://d3syxqe9po5ji0.cloudfront.net/"
         SITE3_URL = "https://d3b37ucnz1m2l2.cloudfront.net/"
@@ -68,7 +61,19 @@ class CookieTest(pbtest.PBSeleniumTest):
         self.load_url(SITE2_URL)
         self.load_pb_ui(SITE2_URL)
         sliders = self.get_tracker_state()
-        self.assertIn(THIRD_PARTY_DOMAIN, sliders['notYetBlocked'])
+        try:
+            self.assertIn(THIRD_PARTY_DOMAIN, sliders['notYetBlocked'])
+        # work around expected failure on Firefox Nightly
+        except AssertionError:
+            if not self.is_firefox_nightly():
+                raise
+
+            # https://developer.mozilla.org/en-US/docs/Web/Privacy/State_Partitioning#disable_dynamic_state_partitioning
+            # relevant network.cookie.cookieBehavior values:
+            # 5: Reject (known) trackers and partition third-party storage.
+            # 4: Only reject trackers (Storage partitioning disabled).
+            pytest.xfail("network.cookie.cookieBehavior is set to 5 in Firefox Nightly")
+
         self.close_window_with_url(SITE2_URL)
 
         # go to third site
