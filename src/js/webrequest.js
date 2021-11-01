@@ -505,17 +505,14 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
 }
 
 /**
- * Gets the host name for a given tab id
- * @param {Integer} tabId chrome tab id
- * @return {String} the host name for the tab
+ * Gets the hostname for a given tab ID.
+ * @param {Integer} tab_id
+ * @returns {?String} the hostname for the tab or null if no data
  */
-function getHostForTab(tabId) {
-  if (!badger.tabData[tabId]) {
-    return '';
-  }
-  let frameData = badger.getFrameData(tabId, 0);
+function getHostForTab(tab_id) {
+  let frameData = badger.getFrameData(tab_id, 0);
   if (!frameData) {
-    return '';
+    return null;
   }
   return frameData.host;
 }
