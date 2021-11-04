@@ -269,6 +269,22 @@ Badger.prototype = {
   recentTabUrls: {},
 
   /**
+   * Mapping of tab hostnames to tab IDs.
+   *
+   * Arrays of tab IDs are ordered by recency,
+   * with the most recently visited tab ID in the back.
+   *
+   * tabIdsByHostname = {
+   *   <hostname>: [
+   *     <tab_id>,
+   *     ...
+   *   ],
+   *   ...
+   * }
+   */
+  tabIdsByHostname: {},
+
+  /**
    * Mapping of known CNAME domain aliases
    */
   cnameDomains: {},
@@ -550,25 +566,43 @@ Badger.prototype = {
   /**
    * Generate representation in internal data structure for frame
    *
-   * @param {Integer} tabId ID of the tab
-   * @param {Integer} frameId ID of the frame
-   * @param {String} frameUrl The url of the frame
+   * @param {Integer} tab_id ID of the tab
+   * @param {Integer} frame_id ID of the frame
+   * @param {String} url The url of the frame
    */
-  recordFrame: function(tabId, frameId, frameUrl) {
+  recordFrame: function(tab_id, frame_id, url) {
     let self = this;
 
-    if (!utils.hasOwn(self.tabData, tabId)) {
-      self.tabData[tabId] = {
+    if (!utils.hasOwn(self.tabData, tab_id)) {
+      self.tabData[tab_id] = {
         blockedFrameUrls: {},
         frames: {},
         origins: {}
       };
     }
 
-    self.tabData[tabId].frames[frameId] = {
-      url: frameUrl,
-      host: window.extractHostFromURL(frameUrl)
+    let host = window.extractHostFromURL(url);
+
+    self.tabData[tab_id].frames[frame_id] = {
+      url,
+      host
     };
+
+    // update mapping of top-level document hostnames to tab IDs
+    if (frame_id === 0) {
+      if (!utils.hasOwn(self.tabIdsByHostname, host)) {
+        self.tabIdsByHostname[host] = [];
+      }
+
+      let tids = self.tabIdsByHostname[host],
+        idx = tids.indexOf(tab_id);
+
+      if (idx > -1) {
+        tids.splice(idx, 1);
+      }
+
+      tids.push(tab_id);
+    }
   },
 
   /**

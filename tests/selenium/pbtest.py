@@ -401,6 +401,14 @@ class PBSeleniumTest(unittest.TestCase):
             EC.text_to_be_present_in_element(
                 (By.CSS_SELECTOR, selector), text))
 
+    def wait_for_nonempty_text(self, selector):
+        # pylint: disable-next=unnecessary-lambda
+        cond = lambda: self.driver.find_element_by_css_selector(selector).text.strip()
+        if retry_until(cond):
+            return True
+        raise TimeoutException(
+            f"Timed out waiting for text of {selector} to become non-empty")
+
     def wait_for_and_switch_to_frame(self, selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
             EC.frame_to_be_available_and_switch_to_it(

@@ -36,6 +36,46 @@ let constants = require("constants"),
 let tempAllowlist = {},
   tempAllowedWidgets = {};
 
+/**
+ * Tries to work around tab ID of -1 for requests
+ * originated by a Service Worker in Chrome.
+ *
+ * https://bugs.chromium.org/p/chromium/issues/detail?id=766433#c13
+ *
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {Integer} the tab ID or -1
+ */
+function guessTabIdFromInitiator(details) {
+  if (details.tabId != -1 || details.frameId != -1 || details.parentFrameId != -1 || details.type != "xmlhttprequest" || !details.initiator || details.initiator == "null") {
+    return -1;
+  }
+
+  let initiator = details.initiator;
+
+  // ignore trivially first party requests
+  if (details.url.startsWith(initiator)) {
+    return -1;
+  }
+
+  let initiator_host = initiator.slice(initiator.indexOf("://") + 3),
+    port_idx = initiator_host.indexOf(":");
+  // remove the port if any
+  if (port_idx > -1) {
+    initiator_host = initiator_host.slice(0, port_idx);
+  }
+
+  if (!utils.hasOwn(badger.tabIdsByHostname, initiator_host)) {
+    // originated by a recently closed tab, work around with recentTabUrls?
+    return -1;
+  }
+
+  let tids = badger.tabIdsByHostname[initiator_host],
+    tid = tids[tids.length - 1];
+
+  return +tid;
+}
+
 /***************** Blocking Listener Functions **************/
 
 /**
@@ -49,6 +89,10 @@ function onBeforeRequest(details) {
     tab_id = details.tabId,
     type = details.type,
     url = details.url;
+
+  if (utils.isRestrictedUrl(url)) {
+    return {};
+  }
 
   if (type == "main_frame") {
     let oldTabData = badger.getFrameData(tab_id),
@@ -70,8 +114,16 @@ function onBeforeRequest(details) {
     return {cancel: true};
   }
 
-  if (tab_id < 0 || utils.isRestrictedUrl(url)) {
-    return {};
+  if (tab_id < 0) {
+    // try to attribute tabless SW-initiated requests to a tab in Chrome
+    // TODO type is always xmlhttprequest for these
+    // TODO this means we don't know the actual url we're on when the sw initiates some redirects and they all look like xmlhttprequest instead of main_frame
+    // TODO for example, load the www.vice.com SW, visit video.vice.com, click on upper-right link to go back to vice.com; we fail to see the redirect(s) and our tabData is wrong
+    // TODO this also means surrogates and frame hiding and whatever else checks type won't work right
+    tab_id = guessTabIdFromInitiator(details);
+    if (tab_id < 0) {
+      return {};
+    }
   }
 
   let tab_host,
@@ -235,7 +287,11 @@ function onBeforeSendHeaders(details) {
     type = details.type,
     url = details.url;
 
-  if (tab_id < 0 || utils.isRestrictedUrl(url)) {
+  if (utils.isRestrictedUrl(url)) {
+    return {};
+  }
+
+  if (tab_id < 0) {
     // strip cookies from DNT policy requests
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
@@ -249,10 +305,16 @@ function onBeforeSendHeaders(details) {
       return {
         requestHeaders: newHeaders
       };
+
+    // try to attribute tabless SW-initiated requests to a tab in Chrome
+    } else {
+      // TODO type is always xmlhttprequest for these
+      tab_id = guessTabIdFromInitiator(details);
     }
 
-    // ignore otherwise
-    return {};
+    if (tab_id < 0) {
+      return {};
+    }
   }
 
   let tab_host,
@@ -357,7 +419,11 @@ function onHeadersReceived(details) {
   let tab_id = details.tabId,
     url = details.url;
 
-  if (tab_id < 0 || utils.isRestrictedUrl(url)) {
+  if (utils.isRestrictedUrl(url)) {
+    return {};
+  }
+
+  if (tab_id < 0) {
     // strip cookies, reject redirects from DNT policy responses
     if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // if it's a redirect, cancel it
@@ -378,10 +444,16 @@ function onHeadersReceived(details) {
       return {
         responseHeaders: newHeaders
       };
+
+    // try to attribute tabless SW-initiated requests to a tab in Chrome
+    } else {
+      // TODO type is always xmlhttprequest for these
+      tab_id = guessTabIdFromInitiator(details);
     }
 
-    // ignore otherwise
-    return {};
+    if (tab_id < 0) {
+      return {};
+    }
   }
 
   if (details.type == 'main_frame' && badger.isFlocOverwriteEnabled()) {
@@ -682,13 +754,30 @@ function recordFingerprinting(tab_id, msg) {
  */
 function forgetTab(tab_id, is_reload) {
   if (utils.hasOwn(badger.tabData, tab_id)) {
-    let pageData = badger.tabData[tab_id].frames[0];
+    let pageData = badger.tabData[tab_id].frames[0],
+      host = pageData.host;
+
+    // note the hostname as the previous hostname for the tab
     badger.recentTabUrls[tab_id] = {
       url: pageData.url,
-      host: pageData.host
+      host
     };
+
+    // clean up tabIdsByHostname
+    if (utils.hasOwn(badger.tabIdsByHostname, host)) {
+      let tids = badger.tabIdsByHostname[host],
+        idx = tids.indexOf(tab_id);
+      if (idx > -1) {
+        tids.splice(idx, 1);
+      }
+      if (tids.length === 0) {
+        delete badger.tabIdsByHostname[host];
+      }
+    }
   }
+
   delete badger.tabData[tab_id];
+
   if (!is_reload) {
     delete tempAllowlist[tab_id];
     delete tempAllowedWidgets[tab_id];

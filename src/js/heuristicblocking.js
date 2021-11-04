@@ -103,8 +103,12 @@ HeuristicBlocker.prototype = {
    */
   // TODO more like heuristicLearningFromCookies ... check DESIGN doc
   heuristicBlockingAccounting: function (details, check_for_cookie_share) {
-    // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
+    if (details.tabId < 0) {
+      // TODO work around "tabless" SW-initiated requests in Chrome
+      return {};
+    }
+
+    if (!badger.isLearningEnabled(details.tabId)) {
       return {};
     }
 
