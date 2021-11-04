@@ -126,8 +126,12 @@
         "description": "Checkbox label on the general settings page"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "message": "Check out what Privacy Badger can do.",
         "description": "Intro page welcome paragraph."
+    },
+    "intro_instructions_open_popup": {
+        "message": "Give it a try, click on the Privacy Badger icon!",
+        "description": "instructions to open up the extensionn popup by clicking on the badger icon in the browser window, shown on first download page"
     },
     "error_input": {
         "message": "What's Wrong?",
@@ -339,8 +343,12 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "firstRun_title": {
-        "message": "Thank you for installing Privacy Badger!",
+        "message": "Thanks for installing Privacy Badger!",
         "description": ""
+    },
+    "firstRun_open_popup_title": {
+        "message": "Just one more thing: here's how to open Privacy Badger.",
+        "description": "title header that shows how to open the extension popup on the page the user first sees after downloading Privacy Badger"
     },
     "import_select_file": {
         "message": "Please select a file to import.",

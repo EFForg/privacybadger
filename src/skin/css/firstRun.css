@@ -413,7 +413,7 @@ header img {
     width:15rem;
   }
 }
-header .title-bar h1 {
+header .title-bar h1, .title-bar h3{
   color:white;
   font-family:"ChunkFive",serif;
 }
