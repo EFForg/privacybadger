@@ -301,6 +301,8 @@ maps.google.com
 mapsengine.google.com
 mt0.google.com
 mt1.google.com
+mt2.google.com
+mt3.google.com
 mts0.google.com
 mts1.google.com
 mw1.google.com
