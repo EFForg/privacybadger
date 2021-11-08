@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import pytest
 import unittest
+
 import pbtest
 
 from selenium.common.exceptions import TimeoutException
@@ -17,7 +19,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         "ga_surrogate.html"
     )
 
-    def load_ga_js_test_page(self, timeout=12):
+    def load_ga_js_fixture(self, timeout=12):
         self.load_url(SurrogatesTest.FIXTURE_URL)
         try:
             self.wait_for_and_switch_to_frame('iframe', timeout=timeout)
@@ -26,78 +28,58 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         except TimeoutException:
             return False
 
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_ga_js_surrogate(self):
+        SURROGATE_HOST = "www.google-analytics.com"
+
         # clear pre-trained/seed tracker data
         self.load_url(self.options_url)
         self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
 
         # verify the surrogate is present
         self.load_url(self.options_url)
-        self.assertTrue(self.js(
+        assert self.js(
             "let bg = chrome.extension.getBackgroundPage();"
             "const sdb = bg.require('surrogatedb');"
-            "return sdb.hostnames.hasOwnProperty('www.google-analytics.com');"
-        ), "Surrogate is missing but should be present.")
+            f"return sdb.hostnames.hasOwnProperty('{SURROGATE_HOST}');"
+        ), "surrogate is missing but should be present"
 
         # verify site loads
-        self.assertTrue(
-            self.load_ga_js_test_page(),
-            "Page failed to load even before we did anything."
-        )
+        assert self.load_ga_js_fixture(), (
+            "page failed to load even before we did anything")
 
         # block ga.js (known to break the site)
-        self.block_domain("www.google-analytics.com")
+        self.block_domain(SURROGATE_HOST)
         # back up the surrogate definition before removing it
         ga_backup = self.js(
             "let bg = chrome.extension.getBackgroundPage();"
             "const sdb = bg.require('surrogatedb');"
-            "return JSON.stringify(sdb.hostnames['www.google-analytics.com']);"
+            f"return JSON.stringify(sdb.hostnames['{SURROGATE_HOST}']);"
         )
         # now remove the surrogate
         self.js(
             "let bg = chrome.extension.getBackgroundPage();"
             "const sdb = bg.require('surrogatedb');"
-            "delete sdb.hostnames['www.google-analytics.com'];"
-        )
-
-        # wait until this happens
-        self.wait_for_script(
-            "let bg = chrome.extension.getBackgroundPage();"
-            "const sdb = bg.require('surrogatedb');"
-            "return !sdb.hostnames.hasOwnProperty('www.google-analytics.com');",
-            timeout=5,
-            message="Timed out waiting for surrogate to get removed."
+            f"delete sdb.hostnames['{SURROGATE_HOST}'];"
         )
 
         # verify site breaks
-        self.assertFalse(
-            self.load_ga_js_test_page(),
-            "Page loaded successfully when it should have failed."
-        )
+        assert not self.load_ga_js_fixture(), (
+            "page loaded successfully when it should have failed")
 
         # re-enable surrogate
         self.open_window()
         self.load_url(self.options_url)
-        self.js(
+        self.js("(function () {"
             "let bg = chrome.extension.getBackgroundPage();"
             "const sdb = bg.require('surrogatedb');"
-            "sdb.hostnames['www.google-analytics.com'] = JSON.parse('%s');" % ga_backup
-        )
-
-        # wait until this happens
-        self.wait_for_script(
-            "let bg = chrome.extension.getBackgroundPage();"
-            "const sdb = bg.require('surrogatedb');"
-            "return sdb.hostnames.hasOwnProperty('www.google-analytics.com');",
-            timeout=5,
-            message="Timed out waiting for surrogate to get readded."
-        )
+            f"let gaSurrogate = JSON.parse('{ga_backup}');"
+            f"sdb.hostnames['{SURROGATE_HOST}'] = gaSurrogate;"
+            "}());")
 
         # verify site loads again
-        self.assertTrue(
-            retry_until(self.load_ga_js_test_page),
-            "Page failed to load after surrogation."
-        )
+        assert retry_until(self.load_ga_js_fixture), (
+            "page failed to load after surrogation")
 
 
 if __name__ == "__main__":
