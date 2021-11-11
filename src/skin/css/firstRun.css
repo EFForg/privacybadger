@@ -681,9 +681,16 @@ body {
 #intro {
   padding:2rem 0rem 4rem;
 }
+#intro h3 {
+  margin-top: 2rem;
+}
+.how-to-open-popup-image {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 @media print, screen and (min-width: 40em) {
   #intro {
-    padding:4rem 0rem 14rem;
+    padding:4rem 0rem 4rem;
   }
 }
 [id*="pb-features-"],#pb-settings {
