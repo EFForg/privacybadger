@@ -284,7 +284,6 @@ function filterWarRequests(details) {
 function onBeforeSendHeaders(details) {
   let frame_id = details.frameId,
     tab_id = details.tabId,
-    type = details.type,
     url = details.url;
 
   if (utils.isRestrictedUrl(url)) {
@@ -293,7 +292,7 @@ function onBeforeSendHeaders(details) {
 
   if (tab_id < 0) {
     // strip cookies from DNT policy requests
-    if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
+    if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
       let newHeaders = [];
       for (let i = 0, count = details.requestHeaders.length; i < count; i++) {
@@ -315,6 +314,19 @@ function onBeforeSendHeaders(details) {
     if (tab_id < 0) {
       return {};
     }
+  }
+
+  if (details.type == 'main_frame') {
+    if (badger.isDNTSignalEnabled()) {
+      if (badger.isPrivacyBadgerEnabled(badger.getFrameData(tab_id).host)) {
+        details.requestHeaders.push(
+          {name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"}
+        );
+        return { requestHeaders: details.requestHeaders };
+      }
+    }
+
+    return {};
   }
 
   let tab_host,
@@ -340,19 +352,19 @@ function onBeforeSendHeaders(details) {
   }
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
-    if (badger.isPrivacyBadgerEnabled(tab_host)) {
-      // Still sending Do Not Track even if HTTP and cookie blocking are disabled
-      if (badger.isDNTSignalEnabled()) {
-        if (tab_host == 'www.costco.com') {
-          details.requestHeaders.push({name: "Sec-GPC", value: "1"});
-        } else {
-          details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
-        }
+    if (badger.isDNTSignalEnabled() && badger.isPrivacyBadgerEnabled(tab_host)) {
+      // send Do Not Track header even when HTTP and cookie blocking are disabled
+      if (tab_host == 'www.costco.com') {
+        details.requestHeaders.push({name: "Sec-GPC", value: "1"});
+      } else {
+        details.requestHeaders.push(
+          {name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"}
+        );
       }
-      return {requestHeaders: details.requestHeaders};
-    } else {
-      return {};
+      return { requestHeaders: details.requestHeaders };
     }
+
+    return {};
   }
 
   let action = checkAction(tab_id, request_host, frame_id);
@@ -456,13 +468,17 @@ function onHeadersReceived(details) {
     }
   }
 
-  if (details.type == 'main_frame' && badger.isFlocOverwriteEnabled()) {
-    let responseHeaders = details.responseHeaders || [];
-    responseHeaders.push({
-      name: 'permissions-policy',
-      value: 'interest-cohort=()'
-    });
-    return { responseHeaders };
+  if (details.type == 'main_frame') {
+    if (badger.isFlocOverwriteEnabled()) {
+      let responseHeaders = details.responseHeaders || [];
+      responseHeaders.push({
+        name: 'permissions-policy',
+        value: 'interest-cohort=()'
+      });
+      return { responseHeaders };
+    }
+
+    return {};
   }
 
   let tab_host,
