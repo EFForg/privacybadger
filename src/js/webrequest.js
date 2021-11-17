@@ -36,46 +36,6 @@ let constants = require("constants"),
 let tempAllowlist = {},
   tempAllowedWidgets = {};
 
-/**
- * Tries to work around tab ID of -1 for requests
- * originated by a Service Worker in Chrome.
- *
- * https://bugs.chromium.org/p/chromium/issues/detail?id=766433#c13
- *
- * @param {Object} details webRequest request details object
- *
- * @returns {Integer} the tab ID or -1
- */
-function guessTabIdFromInitiator(details) {
-  if (details.tabId != -1 || details.frameId != -1 || details.parentFrameId != -1 || details.type != "xmlhttprequest" || !details.initiator || details.initiator == "null") {
-    return -1;
-  }
-
-  let initiator = details.initiator;
-
-  // ignore trivially first party requests
-  if (details.url.startsWith(initiator)) {
-    return -1;
-  }
-
-  let initiator_host = initiator.slice(initiator.indexOf("://") + 3),
-    port_idx = initiator_host.indexOf(":");
-  // remove the port if any
-  if (port_idx > -1) {
-    initiator_host = initiator_host.slice(0, port_idx);
-  }
-
-  if (!utils.hasOwn(badger.tabIdsByHostname, initiator_host)) {
-    // originated by a recently closed tab, work around with recentTabUrls?
-    return -1;
-  }
-
-  let tids = badger.tabIdsByHostname[initiator_host],
-    tid = tids[tids.length - 1];
-
-  return +tid;
-}
-
 /***************** Blocking Listener Functions **************/
 
 /**
@@ -126,20 +86,11 @@ function onBeforeRequest(details) {
     }
   }
 
-  let tab_host,
-    frameData = badger.getFrameData(tab_id),
-    from_current_tab = true;
-
-  if (frameData) {
-    tab_host = frameData.host;
-  } else {
-    if (utils.hasOwn(badger.recentTabUrls, tab_id)) {
-      tab_host = badger.recentTabUrls[tab_id].host;
-      from_current_tab = false;
-    } else {
-      return {};
-    }
+  let tabHost = getTabHost(tab_id, details);
+  if (!tabHost) {
+    return {};
   }
+  let {tab_host, from_current_tab} = tabHost;
 
   let request_host = window.extractHostFromURL(url);
 
@@ -329,20 +280,11 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  let tab_host,
-    frameData = badger.getFrameData(tab_id),
-    from_current_tab = true;
-
-  if (frameData) {
-    tab_host = frameData.host;
-  } else {
-    if (utils.hasOwn(badger.recentTabUrls, tab_id)) {
-      tab_host = badger.recentTabUrls[tab_id].host;
-      from_current_tab = false;
-    } else {
-      return {};
-    }
+  let tabHost = getTabHost(tab_id, details);
+  if (!tabHost) {
+    return {};
   }
+  let {tab_host, from_current_tab} = tabHost;
 
   let request_host = window.extractHostFromURL(url);
 
@@ -481,20 +423,11 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  let tab_host,
-    frameData = badger.getFrameData(tab_id),
-    from_current_tab = true;
-
-  if (frameData) {
-    tab_host = frameData.host;
-  } else {
-    if (utils.hasOwn(badger.recentTabUrls, tab_id)) {
-      tab_host = badger.recentTabUrls[tab_id].host;
-      from_current_tab = false;
-    } else {
-      return {};
-    }
+  let tabHost = getTabHost(tab_id, details);
+  if (!tabHost) {
+    return {};
   }
+  let {tab_host, from_current_tab} = tabHost;
 
   let response_host = window.extractHostFromURL(url);
 
@@ -652,6 +585,128 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
 }
 
 /**
+ * Tries to work around tab ID of -1 for requests
+ * originated by a Service Worker in Chrome.
+ *
+ * https://bugs.chromium.org/p/chromium/issues/detail?id=766433#c13
+ *
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {Integer} the tab ID or -1
+ */
+function guessTabIdFromInitiator(details) {
+  if (details.tabId != -1 || details.frameId != -1 || details.parentFrameId != -1 || details.type != "xmlhttprequest" || !details.initiator || details.initiator == "null") {
+    return -1;
+  }
+
+  let initiator = details.initiator;
+
+  // ignore trivially first party requests
+  if (details.url.startsWith(initiator)) {
+    return -1;
+  }
+
+  let initiator_host = initiator.slice(initiator.indexOf("://") + 3),
+    port_idx = initiator_host.indexOf(":");
+  // remove the port if any
+  if (port_idx > -1) {
+    initiator_host = initiator_host.slice(0, port_idx);
+  }
+
+  if (!utils.hasOwn(badger.tabIdsByHostname, initiator_host)) {
+    // originated by a recently closed tab, work around with recentTabUrls?
+    return -1;
+  }
+
+  let tids = badger.tabIdsByHostname[initiator_host],
+    tid = tids[tids.length - 1];
+
+  return +tid;
+}
+
+/**
+ * Returns the hostname of the top-level document the request came from
+ * according to browser-specific properties on the request details object.
+ *
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {?String} the hostname or null
+ */
+function getInitiatorHostForRequest(details) {
+  let host = null,
+    url;
+
+  // Firefox 58+
+  if (utils.hasOwn(details, "documentUrl") && utils.hasOwn(details, "frameAncestors")) {
+    if (details.frameAncestors.length) {
+      // inside a frame
+      url = details.frameAncestors[details.frameAncestors.length - 1].url;
+    } else {
+      // inside the top-level document
+      url = details.documentUrl;
+    }
+
+  // Chrome 63+
+  } else if (utils.hasOwn(details, "initiator")) {
+    if (details.initiator && details.initiator != "null") {
+      // note that "initiator" does not give us the complete document URL
+      url = details.initiator + '/';
+    }
+  }
+
+  if (url) {
+    host = window.extractHostFromURL(url);
+  }
+
+  return host;
+}
+
+/**
+ * TODO note why we pass in tab_id separately (tab_id not always == details.tabId)
+ * @param {Integer} tab_id ID of the current tab
+ * @param {Object} details webRequest request details object
+ * @returns {?Object} tab_host: {String}, from_current_tab: {Boolean}
+ */
+function getTabHost(tab_id, details) {
+  let tab_host,
+    from_current_tab = true,
+    frameData = badger.getFrameData(tab_id);
+
+  if (frameData) {
+    tab_host = frameData.host;
+  } else {
+    // we could be getting requests initiated by a recently closed tab
+    if (utils.hasOwn(badger.recentTabUrls, tab_id)) {
+      tab_host = badger.recentTabUrls[tab_id].host;
+      from_current_tab = false;
+    } else {
+      return null;
+    }
+  }
+
+  // request tab URL misattribution
+  // https://github.com/EFForg/privacybadger/pull/2198/files
+  // our tab URL doesn't match initiator/documentUrl
+  // scenarios:
+  // - rapid navigation (page still loading, you navigate elsewhere): requests belong to previous tab URL
+  // - (tracking) requests fired off in response to you navigating away: requests belong to previous tab URL
+  // - SW-initiated document redirection in Chrome: requests belong to current tab URL but our tab URL is stale
+  // we can work around the first two cases with recentTabUrls (will want to set from_current_tab to false)
+  let initiator_host = getInitiatorHostForRequest(details);
+  if (initiator_host && tab_host != initiator_host) {
+    if (badger.recentTabUrls[tab_id] && initiator_host == badger.recentTabUrls[tab_id].host) {
+      tab_host = initiator_host;
+      from_current_tab = false;
+    }
+  }
+
+  return {
+    tab_host,
+    from_current_tab
+  };
+}
+
+/**
  * Record "supercookie" tracking
  *
  * @param {Integer} tab_id browser tab ID
@@ -766,10 +821,10 @@ function recordFingerprinting(tab_id, msg) {
  * Cleans up tab-specific data.
  *
  * @param {Integer} tab_id the ID of the tab
- * @param {Boolean} is_reload whether the page is simply being reloaded
+ * @param {Boolean} is_reload whether the page is being reloaded
  */
 function forgetTab(tab_id, is_reload) {
-  if (utils.hasOwn(badger.tabData, tab_id)) {
+  if (!is_reload && utils.hasOwn(badger.tabData, tab_id)) {
     let pageData = badger.tabData[tab_id].frames[0],
       host = pageData.host;
 
