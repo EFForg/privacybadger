@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 
 import time
-import pytest
 import unittest
 
 import pbtest
@@ -22,7 +21,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
 
     def perform_google_search(self):
         # perform a search
-        self.load_url("https://{}/".format(self.GOOGLE_SEARCH_DOMAIN))
+        self.load_url(f"https://{self.GOOGLE_SEARCH_DOMAIN}/")
         qry_el = self.driver.find_element_by_name("q")
         qry_el.send_keys(self.SEARCH_TERM)
         qry_el.submit()
@@ -30,9 +29,8 @@ class GoogleTest(pbtest.PBSeleniumTest):
         # wait for search results
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_any_elements_located(
-                (By.CSS_SELECTOR, "a[href*='{}']".format(self.SEARCH_RESULT_URL))))
+                (By.CSS_SELECTOR, f"a[href*='{self.SEARCH_RESULT_URL}']")))
 
-    @pytest.mark.skipif(pbtest.shim.browser_type == "firefox", reason="Google Search link unwrapping is broken on desktop Firefox")
     def test_unwrapping(self):
         self.perform_google_search()
 
@@ -52,7 +50,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
 
             # verify these appear to be actual search results
             hrefs = [link.get_attribute('href') for link in search_results]
-            self.assertIn(self.SEARCH_RESULT_URL, hrefs,
+            assert self.SEARCH_RESULT_URL in hrefs, (
                 "At least one search result points to our homepage")
 
             # verify that tracking attributes are missing
@@ -65,33 +63,32 @@ class GoogleTest(pbtest.PBSeleniumTest):
                 if self.SEARCH_RESULT_URL not in href:
                     continue
 
-                self.assertFalse(link.get_attribute('ping'),
+                assert not link.get_attribute('ping'), (
                     "Tracking attribute should be missing")
-                self.assertFalse(link.get_attribute('onmousedown'),
+                assert not link.get_attribute('onmousedown'), (
+                    "Tracking attribute should be missing")
+                assert not link.get_attribute('data-jsarwt'), (
                     "Tracking attribute should be missing")
 
-                self.assertEqual("noreferrer noopener", link.get_attribute('rel'))
+                assert link.get_attribute('rel') == "noreferrer noopener"
 
             return True
 
         time.sleep(1)
 
-        self.assertTrue(
-            pbtest.retry_until(
-                pbtest.convert_exceptions_to_false(_check_results),
-                times=6),
+        results_checker = pbtest.convert_exceptions_to_false(_check_results)
+        assert pbtest.retry_until(results_checker, times=6), (
             "Search results still fail our checks after several attempts")
 
     # TODO fake UA to test Firefox on Android?
     # TODO SELECTOR = "a[href^='/url?q=']"
-    @pytest.mark.skipif(pbtest.shim.browser_type == "firefox", reason="Google Search link unwrapping is broken on desktop Firefox")
     def test_no_unwrapping_when_disabled(self):
         """Tests that Google search result links still match our selectors."""
 
         # use the browser-appropriate selector
         SELECTOR = "a[ping]"
         if pbtest.shim.browser_type == "firefox":
-            SELECTOR = "a[onmousedown^='return rwt(this,']"
+            SELECTOR = "a[data-jsarwt='1']"
 
         # turn off link unwrapping on Google
         # so that we can test our selectors
@@ -113,15 +110,13 @@ class GoogleTest(pbtest.PBSeleniumTest):
 
             # check the results
             hrefs = [link.get_attribute('href') for link in search_results]
-            self.assertIn(self.SEARCH_RESULT_URL, hrefs,
+            assert self.SEARCH_RESULT_URL in hrefs, (
                 "At least one search result points to our homepage")
 
             return True
 
-        self.assertTrue(
-            pbtest.retry_until(
-                pbtest.convert_exceptions_to_false(_perform_search_and_check_results),
-                times=6),
+        results_checker = pbtest.convert_exceptions_to_false(_perform_search_and_check_results)
+        assert pbtest.retry_until(results_checker, times=6), (
             "Search results still fail our checks after several attempts")
 
 
