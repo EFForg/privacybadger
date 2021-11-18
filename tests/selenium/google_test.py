@@ -32,7 +32,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
             EC.visibility_of_any_elements_located(
                 (By.CSS_SELECTOR, "a[href*='{}']".format(self.SEARCH_RESULT_URL))))
 
-    @pytest.mark.flaky(reruns=3, reruns_delay=10, condition=pbtest.shim.browser_type == "firefox")
+    @pytest.mark.skipif(pbtest.shim.browser_type == "firefox", reason="Google Search link unwrapping is broken on desktop Firefox")
     def test_unwrapping(self):
         self.perform_google_search()
 
@@ -84,7 +84,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
 
     # TODO fake UA to test Firefox on Android?
     # TODO SELECTOR = "a[href^='/url?q=']"
-    @pytest.mark.flaky(reruns=3, reruns_delay=10, condition=pbtest.shim.browser_type == "firefox")
+    @pytest.mark.skipif(pbtest.shim.browser_type == "firefox", reason="Google Search link unwrapping is broken on desktop Firefox")
     def test_no_unwrapping_when_disabled(self):
         """Tests that Google search result links still match our selectors."""
 
