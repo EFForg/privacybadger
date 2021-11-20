@@ -106,7 +106,6 @@ function Badger() {
     // start the listeners
     incognito.startListeners();
     webrequest.startListeners();
-    HeuristicBlocking.startListeners();
     FirefoxAndroid.startListeners();
     startBackgroundListeners();
 

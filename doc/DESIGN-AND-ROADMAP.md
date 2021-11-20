@@ -73,6 +73,7 @@ Privacy Badger:
 #### Further Details
 
 Learning from cookies happens in [`heuristicblocking.js`](../src/js/heuristicblocking.js) [*sic*].
+The cookie learning function (`heuristicLearningFromCookies()`) is called asynchronously from [`webrequest.js`](../src/js/webrequest.js).
 
 Privacy Badger also learns from [fingerprinting](../src/js/contentscripts/fingerprinting.js) and [HTML5 local storage "supercookies"](../src/js/contentscripts/supercookie.js).
 

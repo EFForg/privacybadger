@@ -86,17 +86,18 @@ function onBeforeRequest(details) {
     }
   }
 
-  let tabHost = getTabHost(tab_id, details);
-  if (!tabHost) {
+  let tabInfo = getTabUrlInfo(tab_id, details);
+  if (!tabInfo) {
     return {};
   }
-  let {tab_host, from_current_tab} = tabHost;
+  let { host: tab_host, from_current_tab } = tabInfo;
 
   let request_host = window.extractHostFromURL(url);
 
   // CNAME uncloaking
   if (utils.hasOwn(badger.cnameDomains, request_host)) {
     request_host = badger.cnameDomains[request_host];
+    // TODO url is still wrong
   }
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
@@ -280,17 +281,18 @@ function onBeforeSendHeaders(details) {
     return {};
   }
 
-  let tabHost = getTabHost(tab_id, details);
-  if (!tabHost) {
+  let tabInfo = getTabUrlInfo(tab_id, details);
+  if (!tabInfo) {
     return {};
   }
-  let {tab_host, from_current_tab} = tabHost;
+  let { host: tab_host, url: tab_url, from_current_tab } = tabInfo;
 
   let request_host = window.extractHostFromURL(url);
 
   // CNAME uncloaking
   if (utils.hasOwn(badger.cnameDomains, request_host)) {
     request_host = badger.cnameDomains[request_host];
+    // TODO url is still wrong
   }
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
@@ -308,6 +310,23 @@ function onBeforeSendHeaders(details) {
 
     return {};
   }
+
+  // cookie learning
+  setTimeout(function () {
+    let has_cookies = false;
+    for (let header of details.requestHeaders) {
+      if (header.name.toLowerCase() == "cookie") {
+        has_cookies = true;
+        break;
+      }
+    }
+    let check_for_cookie_share = (
+      details.type == 'image' && frame_id === 0 && url.indexOf('?') > -1
+    );
+    if (has_cookies || check_for_cookie_share) {
+      badger.heuristicBlocking.heuristicLearningFromCookies(tab_id, tab_url, tab_host, url, request_host, details.requestHeaders, check_for_cookie_share);
+    }
+  }, 0);
 
   let action = checkAction(tab_id, request_host, frame_id);
 
@@ -423,22 +442,37 @@ function onHeadersReceived(details) {
     return {};
   }
 
-  let tabHost = getTabHost(tab_id, details);
-  if (!tabHost) {
+  let tabInfo = getTabUrlInfo(tab_id, details);
+  if (!tabInfo) {
     return {};
   }
-  let {tab_host, from_current_tab} = tabHost;
+  let { host: tab_host, url: tab_url, from_current_tab } = tabInfo;
 
   let response_host = window.extractHostFromURL(url);
 
   // CNAME uncloaking
   if (utils.hasOwn(badger.cnameDomains, response_host)) {
     response_host = badger.cnameDomains[response_host];
+    // TODO url is still wrong
   }
 
   if (!utils.isThirdPartyDomain(response_host, tab_host)) {
     return {};
   }
+
+  // cookie learning
+  setTimeout(function () {
+    let has_cookies = false;
+    for (let header of details.responseHeaders) {
+      if (header.name.toLowerCase() == "set-cookie") {
+        has_cookies = true;
+        break;
+      }
+    }
+    if (has_cookies) {
+      badger.heuristicBlocking.heuristicLearningFromCookies(tab_id, tab_url, tab_host, url, response_host, details.responseHeaders, false);
+    }
+  }, 0);
 
   let action = checkAction(tab_id, response_host, details.frameId);
   if (!action) {
@@ -516,17 +550,6 @@ function onNavigate(details) {
   let tab_host = badger.getFrameData(tab_id).host;
 
   initAllowedWidgets(tab_id, tab_host);
-
-  // initialize tab data bookkeeping used by heuristicBlockingAccounting()
-  // to avoid missing or misattributing learning
-  // when there is no "main_frame" webRequest callback
-  // (such as on Service Worker pages)
-  //
-  // see the tabOrigins TODO in heuristicblocking.js
-  // as to why we don't just use tabData
-  let base = window.getBaseDomain(tab_host);
-  badger.heuristicBlocking.tabOrigins[tab_id] = base;
-  badger.heuristicBlocking.tabUrls[tab_id] = url;
 }
 
 /******** Utility Functions **********/
@@ -665,19 +688,20 @@ function getInitiatorHostForRequest(details) {
  * TODO note why we pass in tab_id separately (tab_id not always == details.tabId)
  * @param {Integer} tab_id ID of the current tab
  * @param {Object} details webRequest request details object
- * @returns {?Object} tab_host: {String}, from_current_tab: {Boolean}
+ * @returns {?Object} host:{String}, url:{String}, from_current_tab:{Boolean}
  */
-function getTabHost(tab_id, details) {
-  let tab_host,
+function getTabUrlInfo(tab_id, details) {
+  let host,
+    url,
     from_current_tab = true,
     frameData = badger.getFrameData(tab_id);
 
   if (frameData) {
-    tab_host = frameData.host;
+    ({ host, url } = frameData);
   } else {
     // we could be getting requests initiated by a recently closed tab
     if (utils.hasOwn(badger.recentTabUrls, tab_id)) {
-      tab_host = badger.recentTabUrls[tab_id].host;
+      ({ host, url } = badger.recentTabUrls[tab_id]);
       from_current_tab = false;
     } else {
       return null;
@@ -693,15 +717,16 @@ function getTabHost(tab_id, details) {
   // - SW-initiated document redirection in Chrome: requests belong to current tab URL but our tab URL is stale
   // we can work around the first two cases with recentTabUrls (will want to set from_current_tab to false)
   let initiator_host = getInitiatorHostForRequest(details);
-  if (initiator_host && tab_host != initiator_host) {
+  if (initiator_host && host != initiator_host) {
     if (badger.recentTabUrls[tab_id] && initiator_host == badger.recentTabUrls[tab_id].host) {
-      tab_host = initiator_host;
+      ({ host, url } = badger.recentTabUrls[tab_id]);
       from_current_tab = false;
     }
   }
 
   return {
-    tab_host,
+    host,
+    url,
     from_current_tab
   };
 }
@@ -1754,7 +1779,7 @@ function startListeners() {
   if (utils.hasOwn(chrome.webRequest.OnBeforeSendHeadersOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
-  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
+  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   extraInfoSpec = ['responseHeaders', 'blocking'];
   if (utils.hasOwn(chrome.webRequest.OnHeadersReceivedOptions, 'EXTRA_HEADERS')) {

@@ -93,18 +93,24 @@ QUnit.test("HTTP cookie tracking detection", (assert) => {
 
   // remove cookie header
   let cookieHeader = details.requestHeaders.splice(CHROME_COOKIE_INDEX, 1);
-  assert.notOk(hb.hasCookieTracking(details), "No cookie header");
+  assert.notOk(
+    hb.hasCookieTracking(details.requestHeaders, details.url),
+    "No cookie header");
 
   // restore it
   details.requestHeaders.push(cookieHeader[0]);
-  assert.ok(hb.hasCookieTracking(details), "High-entropy cookie header");
+  assert.ok(
+    hb.hasCookieTracking(details.requestHeaders, details.url),
+    "High-entropy cookie header");
 
   // set it to a low-entropy value
   details.requestHeaders[CHROME_COOKIE_INDEX] = {
     name: "Cookie",
     value: "key=ab"
   };
-  assert.notOk(hb.hasCookieTracking(details), "Low-entropy cookie header");
+  assert.notOk(
+    hb.hasCookieTracking(details.requestHeaders, details.url),
+    "Low-entropy cookie header");
 
   // check when individual entropy is low but overall entropy is over threshold
   // add another low entropy cookie
@@ -112,17 +118,18 @@ QUnit.test("HTTP cookie tracking detection", (assert) => {
     name: "Cookie",
     value: "key=ab"
   });
-  assert.ok(hb.hasCookieTracking(details),
+  assert.ok(
+    hb.hasCookieTracking(details.requestHeaders, details.url),
     "Two low-entropy cookies combine to cross tracking threshold");
 });
 
 QUnit.test("HTTP header names are case-insensitive", (assert) => {
   assert.ok(
-    hb.hasCookieTracking(chromeDetails),
+    hb.hasCookieTracking(chromeDetails.requestHeaders, chromeDetails.url),
     "Cookie tracking detected with capitalized (Chrome) headers"
   );
   assert.ok(
-    hb.hasCookieTracking(firefoxDetails),
+    hb.hasCookieTracking(firefoxDetails.requestHeaders, firefoxDetails.url),
     "Cookie tracking detected with lowercase (Firefox) headers"
   );
 });
@@ -141,7 +148,7 @@ QUnit.test("Cookie attributes shouldn't add to entropy", (assert) => {
   let details = JSON.parse(JSON.stringify(chromeDetails));
   for (let i = 0; i < ATTR_COOKIES.length; i++) {
     details.requestHeaders[CHROME_COOKIE_INDEX].value = ATTR_COOKIES[i];
-    assert.notOk(hb.hasCookieTracking(details),
+    assert.notOk(hb.hasCookieTracking(details.requestHeaders, details.url),
       "cookie attributes test #" + i);
   }
 });
@@ -157,7 +164,7 @@ QUnit.test("Cloudflare cookies should get ignored", (assert) => {
   let details = JSON.parse(JSON.stringify(chromeDetails));
   for (let i = 0; i < CLOUDFLARE_COOKIES.length; i++) {
     details.requestHeaders[CHROME_COOKIE_INDEX].value = CLOUDFLARE_COOKIES[i];
-    assert.notOk(hb.hasCookieTracking(details),
+    assert.notOk(hb.hasCookieTracking(details.requestHeaders, details.url),
       "Cloudflare cookie test #" + i);
   }
 });
