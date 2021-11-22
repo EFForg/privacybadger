@@ -229,9 +229,10 @@ BadgerPen.prototype = {
    * @returns {String} the best action for the FQDN
    */
   getBestAction: function (fqdn) {
-    let best_action = constants.NO_TRACKING;
-    let subdomains = utils.explodeSubdomains(fqdn);
-    let action_map = this.getStore('action_map');
+    let self = this,
+      action_map = self.getStore('action_map'),
+      best_action = constants.NO_TRACKING,
+      subdomains = utils.explodeSubdomains(fqdn);
 
     function getScore(action) {
       switch (action) {
@@ -255,10 +256,10 @@ BadgerPen.prototype = {
     // Loop through each subdomain we have a rule for
     // from least (base domain) to most (FQDN) specific
     // and keep the one which has the best score.
-    for (let i = subdomains.length; i >= 0; i--) {
+    for (let i = subdomains.length - 1; i >= 0; i--) {
       let domain = subdomains[i];
       if (action_map.hasItem(domain)) {
-        let action = this.getAction(
+        let action = self.getAction(
           action_map.getItem(domain),
           // ignore DNT unless it's directly on the FQDN being checked
           domain != fqdn
@@ -432,27 +433,8 @@ var _newActionMapObject = function() {
 };
 
 /**
- * Privacy Badger Storage Object. Has methods for getting, setting and deleting
- * should be used for all storage needs, transparently handles data presistence
- * syncing and private browsing.
- * Usage:
- * example_map = getStore('example_map');
- * # instance of BadgerStorage
- * example_map.setItem('foo', 'bar')
- * # null
- * example_map
- * # { foo: "bar" }
- * example_map.hasItem('foo')
- * # true
- * example_map.getItem('foo');
- * # 'bar'
- * example_map.getItem('not_real');
- * # undefined
- * example_map.deleteItem('foo');
- * # null
- * example_map.hasItem('foo');
- * # false
- *
+ * Privacy Badger Storage Object.
+ * Should be used for all storage needs.
  */
 
 /**
