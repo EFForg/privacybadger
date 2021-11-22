@@ -4720,7 +4720,9 @@
       "heuristicAction": "allow"
     },
     "ipp-meredith.com": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1637877753341
     },
     "ipredictive.com": {
       "heuristicAction": "block"
