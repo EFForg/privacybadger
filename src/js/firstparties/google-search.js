@@ -5,7 +5,7 @@
 //
 // Ignore internal links in Chrome and desktop Firefox
 // to avoid unwrapping (and breaking the dropdown on) the settings link
-let trap_link = "a[onmousedown^='return rwt(this,']:not([href^='/']), a[ping]:not([href^='/']), a[href^='/url?q=']";
+let trap_link = "a[onmousedown^='return rwt(this,']:not([href^='/']), a[ping]:not([href^='/']), a[href^='/url?q='], a[data-jsarwt='1']";
 
 // Remove excessive attributes and event listeners from link a
 function cleanLink(a) {
