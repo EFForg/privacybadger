@@ -133,6 +133,8 @@ function Badger() {
 
     let privateStore = self.getPrivateSettings();
     if (self.isFirstRun) {
+      privateStore.setItem("firstRunTimerFinished", false);
+
       // work around the welcome page getting closed by an extension restart
       // such as in response to being granted Private Browsing permission
       // from the post-install doorhanger on Firefox
@@ -873,7 +875,7 @@ Badger.prototype = {
 
     // initialize any other private store (not-for-export) settings
     let privateDefaultSettings = {
-      firstRunTimerFinished: false,
+      firstRunTimerFinished: true,
       showLearningPrompt: false,
     };
     for (let key of Object.keys(privateDefaultSettings)) {
