@@ -364,6 +364,7 @@ let multiDomainFirstPartiesArray = [
     "tmail.com",
     "tmall.com",
     "tmall.hk",
+    "tmall.ru",
     "ttpod.com",
     "tudou.com",
     "uc.cn",
