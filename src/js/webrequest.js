@@ -245,7 +245,11 @@ function onBeforeSendHeaders(details) {
     if (badger.isPrivacyBadgerEnabled(tab_host)) {
       // Still sending Do Not Track even if HTTP and cookie blocking are disabled
       if (badger.isDNTSignalEnabled()) {
-        details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
+        if (tab_host == 'www.costco.com') {
+          details.requestHeaders.push({name: "Sec-GPC", value: "1"});
+        } else {
+          details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
+        }
       }
       return {requestHeaders: details.requestHeaders};
     } else {
