@@ -2886,9 +2886,18 @@ let multiDomainFirstPartiesArray = [
     "naver.jp",
   ],
   [
-    "nbcnews.com",
+    "nbcuniversal.com",
 
+    "cnbc.com",
+    "golfchannel.com",
     "msnbc.com",
+    "nbc.com",
+    "nbcnews.com",
+    "nbcolympics.com",
+    "nbcsports.com",
+    "nbcsportsedge.com",
+    "telemundo.com",
+    "telemundodeportes.com",
     "today.com",
 
     "newsvine.com",
