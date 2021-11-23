@@ -1,6 +1,18 @@
 Privacy Badger Release Notes
 ============================
 
+2021.11.23
+* Improved widget replacement system to better handle Google reCAPTCHA.
+Privacy Badger replaces potentially useful widgets with placeholders.
+These replacements protect privacy while letting you restore the original
+widget whenever you want it or need it for the page to function.
+* Improved tracking script surrogation system to work across more websites.
+Script surrogates protect privacy while avoiding site breakages.
+* Fixed display of non-tracking domains
+* Added more widget replacement placeholders and fixed various site breakages
+* Improved translations (Dutch, Finnish, Greek, Persian, Brazilian Portuguese,
+European Portuguese, Swedish)
+
 2021.8.17
 Bug fix release to fix link clicking on various websites:
 https://github.com/EFForg/privacybadger/commit/e1f32a343ec8b9647e361cfff1ea0b82e169fa19
