@@ -1,6 +1,10 @@
 Privacy Badger Release Notes
 ============================
 
+2021.11.23.1
+Bug fix release to avoid showing the welcome page to everybody on update:
+https://github.com/EFForg/privacybadger/commit/12fa27ffb906cc7f98b42af925aabda44863614b
+
 2021.11.23
 * Improved widget replacement system to better handle Google reCAPTCHA.
 Privacy Badger replaces potentially useful widgets with placeholders.
