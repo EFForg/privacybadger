@@ -59,6 +59,7 @@ assetfiles.com
 assets-cdk.com
 auth0.com
 authorize.net
+azure-api.net
 azureedge.net
 bac-assets.com
 hiphotos.baidu.com
@@ -537,6 +538,7 @@ openload.co
 tile.openstreetmap.fr
 openstreetmap.org
 optimizely.com
+oraclecloud.com
 oregonlive.com
 outlook.com
 paddle.com
