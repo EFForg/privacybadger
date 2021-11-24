@@ -37,9 +37,9 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         THIRD_PARTY_BASE = "efforg.github.io"
 
         self.load_url((
-            "https://privacybadger-tests.{}/html/"
+            f"https://privacybadger-tests.{FIRST_PARTY_BASE}/html/"
             "async_localstorage_attribution_bug.html"
-        ).format(FIRST_PARTY_BASE))
+        ))
 
         # the above HTML page reloads itself furiously to trigger our bug
         # we need to wait for it to finish reloading
@@ -63,12 +63,12 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         FIRST_PARTY_BASE = "eff.org"
         THIRD_PARTY_BASE = "efforg.github.io"
 
-        self.assertFalse(self.get_snitch_map_for(THIRD_PARTY_BASE))
+        assert not self.get_snitch_map_for(THIRD_PARTY_BASE)
 
         self.load_url((
-            "https://privacybadger-tests.{}/html/"
+            f"https://privacybadger-tests.{FIRST_PARTY_BASE}/html/"
             "localstorage.html"
-        ).format(FIRST_PARTY_BASE))
+        ))
 
         # TODO We get some intermittent failures for this test.
         # It seems we sometimes miss the setting of localStorage items
@@ -85,23 +85,23 @@ class SupercookieTest(pbtest.PBSeleniumTest):
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
         FIRST_PARTY_BASE = "eff.org"
         THIRD_PARTY_BASE = "efforg.github.io"
-        self.assertFalse(self.get_snitch_map_for(THIRD_PARTY_BASE))
+        assert not self.get_snitch_map_for(THIRD_PARTY_BASE)
         self.load_url((
-            "https://privacybadger-tests.{}/html/"
+            f"https://privacybadger-tests.{FIRST_PARTY_BASE}/html/"
             "localstorage_low_entropy.html"
-        ).format(FIRST_PARTY_BASE))
+        ))
         self.driver.refresh()
-        self.assertFalse(self.get_snitch_map_for(THIRD_PARTY_BASE))
+        assert not self.get_snitch_map_for(THIRD_PARTY_BASE)
 
     @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_should_not_detect_first_party_ls(self):
         BASE_DOMAIN = "efforg.github.io"
         self.load_url((
-            "https://{}/privacybadger-test-fixtures/html/"
+            f"https://{BASE_DOMAIN}/privacybadger-test-fixtures/html/"
             "localstorage/set_ls.html"
-        ).format(BASE_DOMAIN))
+        ))
         self.driver.refresh()
-        self.assertFalse(self.get_snitch_map_for(BASE_DOMAIN))
+        assert not self.get_snitch_map_for(BASE_DOMAIN)
 
     @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_should_not_detect_ls_of_third_party_script(self):
@@ -110,14 +110,49 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
         # a third-party script included by the top page (not a 3rd party frame)
         self.load_url((
-            "https://privacybadger-tests.{}/html/"
+            f"https://privacybadger-tests.{FIRST_PARTY_BASE}/html/"
             "localstorage_from_third_party_script.html"
-        ).format(FIRST_PARTY_BASE))
+        ))
 
         self.driver.refresh()
 
-        self.assertFalse(self.get_snitch_map_for(FIRST_PARTY_BASE))
-        self.assertFalse(self.get_snitch_map_for(THIRD_PARTY_BASE))
+        assert not self.get_snitch_map_for(FIRST_PARTY_BASE)
+        assert not self.get_snitch_map_for(THIRD_PARTY_BASE)
+
+    def test_localstorage_learning(self):
+        """Verifies that we learn to block a third-party domain if we see
+        non-trivial localstorage data from that third-party on three sites."""
+
+        SITE1_URL = "https://ddrybktjfxh4.cloudfront.net/localstorage.html"
+        SITE2_URL = "https://d3syxqe9po5ji0.cloudfront.net/localstorage.html"
+        SITE3_URL = "https://d3b37ucnz1m2l2.cloudfront.net/localstorage.html"
+
+        THIRD_PARTY = "efforg.github.io"
+
+        # remove pre-trained domains
+        self.js("chrome.extension.getBackgroundPage()."
+            "badger.storage.clearTrackerData();")
+
+        # load the first site
+        self.load_url(SITE1_URL)
+        self.load_pb_ui(SITE1_URL)
+        sliders = self.get_tracker_state()
+        assert THIRD_PARTY in sliders['notYetBlocked']
+        self.close_window_with_url(SITE1_URL)
+
+        # go to second site
+        self.load_url(SITE2_URL)
+        self.load_pb_ui(SITE2_URL)
+        sliders = self.get_tracker_state()
+        assert THIRD_PARTY in sliders['notYetBlocked']
+        self.close_window_with_url(SITE2_URL)
+
+        # go to third site
+        self.load_url(SITE3_URL)
+        self.load_pb_ui(SITE3_URL)
+        sliders = self.get_tracker_state()
+        assert THIRD_PARTY in sliders['blocked']
+        self.close_window_with_url(SITE3_URL)
 
 
 if __name__ == "__main__":
