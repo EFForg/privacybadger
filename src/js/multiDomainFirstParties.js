@@ -3604,6 +3604,31 @@ let multiDomainFirstPartiesArray = [
     "thomsonreuters.ru",
   ],
   [
+    "ringieraxelspringer.com",
+
+    "aktuality.sk",
+    "auto-swiat.pl",
+    "blic.rs",
+    "businessinsider.com.pl",
+    "cash.ch",
+    "fakt.pl",
+    "komputerswiat.pl",
+    "medonet.pl",
+    "newsweek.pl",
+    "nk.pl",
+    "noizz.hu",
+    "noizz.pl",
+    "noizz.rs",
+    "ofeminin.pl",
+    "onet.pl",
+    "plejada.pl",
+    "ringpublishing.com",
+    "skapiec.pl",
+    "vod.pl",
+
+    "grupaonet.pl",
+  ],
+  [
     "riotgames.com",
 
     "leagueoflegends.com",
