@@ -119,6 +119,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         assert not self.get_snitch_map_for(FIRST_PARTY_BASE)
         assert not self.get_snitch_map_for(THIRD_PARTY_BASE)
 
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_localstorage_learning(self):
         """Verifies that we learn to block a third-party domain if we see
         non-trivial localstorage data from that third-party on three sites."""
