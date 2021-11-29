@@ -1845,6 +1845,7 @@ let multiDomainFirstPartiesArray = [
 
     "graytvinc.com",
   ],
+  ["grubhub.com", "seamless.com"],
   ["guardian.co.uk", "guim.co.uk", "guardianapps.co.uk", "theguardian.com", "gu-web.net"],
   [
     "habr.com",
