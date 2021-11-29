@@ -195,6 +195,7 @@ function _createButtonReplacement(widget, callback) {
 
   // in place button type; replace the existing button with code
   // specified in the widgets JSON
+  // TODO only AddThis uses this code path, replace with a type 4 probably
   } else if (button_type == 2) {
     button.addEventListener("click", function (e) {
       if (!e.isTrusted) { return; }
@@ -297,6 +298,19 @@ function restoreWidget(widget) {
     WIDGET_ELS[name].forEach(data => {
       data.parent.replaceChild(data.widget, data.replacement);
       if (data.scriptSelectors) {
+        // This is part of "click-to-play" for third-party page widgets:
+        // https://privacybadger.org/#How-does-Privacy-Badger-handle-social-media-widgets
+        //
+        // This is the part where the user chooses to activate the widget.
+        // Some widgets are driven by JavaScript; their JavaScript needs
+        // to be reloaded in order for the widget to function.
+        //
+        // Privacy Badger empowers the user to load certain widgets on demand,
+        // instead of continuing to let them load by default, without a choice.
+        //
+        // Any script reinserted here is a script that would have
+        // run on the page anyway, had Privacy Badger not blocked it.
+        // This should not fall under remote code review considerations.
         reloadScripts(data.scriptSelectors);
       }
     });
@@ -306,6 +320,23 @@ function restoreWidget(widget) {
 
 /**
  * Find and replace script elements with their copies to trigger re-running.
+ *
+ * This is code for re-activating a previously blocked third-party widget
+ * (such as Google reCAPTCHA or Disqus comments).
+ *
+ * The scripts being run are third-party widget scripts that Privacy Badger
+ * previously blocked and the user chose to activate.
+ *
+ * For example:
+ *
+ * 1. The user visits a page with comments powered by Disqus.
+ * 2. Privacy Badger blocks the Disqus script and inserts a placeholder
+ * where the Disqus widget would have appeared.
+ * 3. If the user chooses to click "Allow" in the placeholder, Privacy Badger
+ * removes the placeholder and reinserts the Disqus script.
+ *
+ * Any script reinserted here is a script that would have
+ * run on the page anyway, had Privacy Badger not blocked it.
  */
 function reloadScripts(selectors) {
   let scripts = document.querySelectorAll(selectors.join(','));
@@ -329,6 +360,11 @@ function reloadScripts(selectors) {
 /**
  * Dumping scripts into innerHTML won't execute them, so replace them
  * with executable scripts.
+ *
+ * This is code for re-activating a previously blocked third-party widget.
+ *
+ * Any script reinserted here is a script that would have
+ * run on the page anyway, had Privacy Badger not blocked it.
  */
 function replaceScriptsRecurse(node) {
   if (node.nodeName && node.nodeName.toLowerCase() == 'script' &&
