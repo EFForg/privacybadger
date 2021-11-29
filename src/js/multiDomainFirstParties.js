@@ -2684,6 +2684,7 @@ let multiDomainFirstPartiesArray = [
     "visualstudio.com",
     "vsallin.net",
     "vsassets.io",
+    "vscode.dev",
     "windowsazure.com",
     "windows.com",
     "windows.net",
