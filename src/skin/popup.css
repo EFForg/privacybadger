@@ -266,11 +266,8 @@ button.cta-button:hover, a.cta-button:hover {
 #instruction .flex-wrapper > div {
     padding-inline-end: 5px;
 }
-#intro-reminder-btn, #error-message, #learning-prompt-btn, #webrtc-deprecation-ack-btn {
+#intro-reminder-btn, #error-message, #learning-prompt-btn {
     margin-top: 1em;
-}
-#webrtc-deprecation-ack-btn {
-    padding: 10px;
 }
 #error-message {
     text-align: center;
@@ -295,12 +292,12 @@ button.cta-button:hover, a.cta-button:hover {
     margin: 0;
 }
 /* body#main to avoid applying this to options page */
-body#main #pbInstructions a, #firstparty-protections-container a, #webrtc-deprecation-div a, #donate a {
+body#main #pbInstructions a, #firstparty-protections-container a, #donate a {
     text-decoration: underline;
     color: black;
     font-weight: bold;
 }
-body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #webrtc-deprecation-div a:hover, #donate a:hover {
+body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #donate a:hover {
     color: #ec9329;
 }
 #instructions-firstparty-description {
@@ -566,7 +563,6 @@ div.overlay.active {
     /* body#main to avoid applying this to options page */
     body#main #pbInstructions a,
     #firstparty-protections-container a,
-    #webrtc-deprecation-div a,
     #donate a,
     #pbInstructions,
     .toggle-header-title,

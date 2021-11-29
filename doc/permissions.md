@@ -9,8 +9,6 @@ The Privacy API lets extensions modify browser-wide privacy settings. Privacy Ba
 - [prefetching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) (network predictions), as it presents a poor tradeoff between privacy and perceived browsing performance
 - suggestions for similar pages when a page can't be found, as this Chrome feature sends visited web addresses to Google
 
-In addition, Privacy Badger allows users to set a stricter WebRTC IP handling policy in order to prevent leaking local network address information.
-
 ## Storage
 The storage API lets extensions store information that persists after the browser is closed. Privacy Badger uses it to save user settings and information it has learned about trackers.
 

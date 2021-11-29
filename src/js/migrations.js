@@ -247,30 +247,26 @@ exports.Migrations= {
 
   resetWebRTCIPHandlingPolicy2: noop,
 
-  resetWebRtcIpHandlingPolicy3: function (badger) {
-    if (!badger.webRTCAvailable) {
-      return;
-    }
-
-    console.log("Migrating WebRTC IP protection ...");
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (res) {
-      if (res.levelOfControl != 'controlled_by_this_extension') {
-        return;
-      }
-
-      // since we previously enabled this privacy override,
-      // update corresponding Badger setting
-      badger.getSettings().setItem("preventWebRTCIPLeak", true);
-
-      // update the browser setting
-      // in case it needs to be migrated from Mode 4 to Mode 3
-      badger.setPrivacyOverrides();
-    });
-  },
+  resetWebRtcIpHandlingPolicy3: noop,
 
   forgetOpenDNS: (badger) => {
     console.log("Forgetting Cisco OpenDNS domains ...");
     badger.storage.forget("opendns.com");
+  },
+
+  unsetWebRTCIPHandlingPolicy: function (/*badger*/) {
+    if (!chrome.privacy || !chrome.privacy.network || !chrome.privacy.network.webRTCIPHandlingPolicy) {
+      return;
+    }
+
+    console.log("Unsetting webRTCIPHandlingPolicy ...");
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (res) {
+      if (res.levelOfControl == 'controlled_by_this_extension') {
+        chrome.privacy.network.webRTCIPHandlingPolicy.clear({
+          scope: 'regular'
+        });
+      }
+    });
   },
 
 };
