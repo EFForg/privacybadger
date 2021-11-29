@@ -1,4 +1,4 @@
-// https://github.com/gorhill/uBlock/blob/4b95420e5912cb2759da77dbb3d0d64095021c13/src/web_accessible_resources/amazon_apstag.js
+// https://github.com/gorhill/uBlock/blob/395a4e36a939907982d3768c2d9eabb8aca8cbd1/src/web_accessible_resources/amazon_apstag.js
 (function() {
     'use strict';
     const w = window;
@@ -7,7 +7,7 @@
     }.bind();
     const apstag = {
         fetchBids: function(a, b) {
-            if ( b instanceof Function ) {
+            if ( typeof b === 'function' ) {
                 b([]);
             }
         },

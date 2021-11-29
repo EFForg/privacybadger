@@ -1,5 +1,4 @@
-// https://github.com/gorhill/uBlock/blob/e86a4cee8787400d8ad445dd4a6e4515405f25d1/src/web_accessible_resources/google-analytics_analytics.js + GTM workaround
-
+// https://github.com/gorhill/uBlock/blob/e86a4cee8787400d8ad445dd4a6e4515405f25d1/src/web_accessible_resources/google-analytics_analytics.js + GTM workaround (e1f32a3)
 (function() {
     'use strict';
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/

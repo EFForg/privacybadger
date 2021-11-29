@@ -3,6 +3,7 @@ rules:
     - error
     - 4
     - outerIIFEBody: 1
+  keyword-spacing: off
   no-empty: off
   no-extra-semi: off
   space-in-parens: off
