@@ -556,6 +556,7 @@ phncdn.com
 photobucket.com
 phplist.com
 piclens.com
+pico.tools
 pinimg.com
 piratebay.org
 pistachio-cdn.graze.com
