@@ -754,6 +754,8 @@ vimeo.com
 vimeocdn.com
 virtualearth.net
 visa.com
+marketplace.visualstudio.com
+update.code.visualstudio.com
 vmixcore.com
 voxmedia.com
 vox-cdn.com
