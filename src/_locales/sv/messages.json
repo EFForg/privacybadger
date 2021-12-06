@@ -122,7 +122,7 @@
         "description": ""
     },
     "options_domain_filter_block": {
-        "message": "blockerad",
+        "message": "blockerade",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_webrtc_setting": {
@@ -338,7 +338,7 @@
         }
     },
     "options_domain_filter_cookieblock": {
-        "message": "delvis blockerad",
+        "message": "delvis blockerade",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "firstRun_title": {
@@ -386,7 +386,7 @@
         "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
     },
     "options_domain_filter_allow": {
-        "message": "tillåten",
+        "message": "tillåtna",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "intro_donate_heading": {
@@ -426,7 +426,7 @@
         "description": "(Chrome only) Checkbox label on the general settings page."
     },
     "options_domain_filter_user": {
-        "message": "användarstyrd",
+        "message": "användarstyrda",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_info_firstparty_protections": {
