@@ -3970,6 +3970,7 @@ let multiDomainFirstPartiesArray = [
   ["telekom.com", "t-online.de"],
   ["tesla.com", "teslamotors.com"],
   ["tiktok.com", "byteoversea.com", "ibytedtos.com", "tiktokcdn.com", "tiktokv.com"],
+  ["tilda.cc", "tildacdn.com"],
   [
     "timesinternet.in",
 
