@@ -248,7 +248,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "message": "Veuillez ne pas oublier de cliquer sur « Signaler un site cassé ». Nous respectons votre vie privée, et nous n’envoyons donc aucun rapport automatiquement.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
