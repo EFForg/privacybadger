@@ -16,7 +16,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
     },
     "report_broken_site": {
-        "message": "Report broken site",
+        "message": "Signaler un site cassé",
         "description": "Button in the popup."
     },
     "version": {
