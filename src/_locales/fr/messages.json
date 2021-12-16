@@ -9,19 +9,19 @@
     },
     "popup_disable_for_site": {
         "message": "Désactiver pour ce site",
-        "description": "Le boutton est dans la fenêtre."
+        "description": "Button in the popup."
     },
     "popup_enable_for_site": {
         "message": "Activer pour ce site",
-        "description": "Le boutton est dans la fenêtre, visible si Privacy Badger est désactivé dans la page actuelle."
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
     },
     "report_broken_site": {
         "message": "Signaler un site cassé",
-        "description": "Le boutton est dans la fenêtre."
+        "description": "Button in the popup."
     },
     "version": {
         "message": "version $VERSION_STRING$",
-        "description": "Montre la version de Privacy Badger's dans la fenêtre. Par exemple, \"version 2018.8.1\".",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
         "placeholders": {
             "version_string": {
                 "content": "$1",
