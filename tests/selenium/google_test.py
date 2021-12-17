@@ -88,7 +88,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
         # use the browser-appropriate selector
         SELECTOR = "a[ping]"
         if pbtest.shim.browser_type == "firefox":
-            SELECTOR = "a[onmousedown^='return rwt(this,']"
+            SELECTOR = "a[onmousedown^='return rwt(this,'], a[data-jsarwt='1']"
 
         # turn off link unwrapping on Google
         # so that we can test our selectors
