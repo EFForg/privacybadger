@@ -540,6 +540,7 @@ openstreetmap.org
 optimizely.com
 oraclecloud.com
 oregonlive.com
+cmp.osano.com
 outlook.com
 paddle.com
 pandacommerce.net
