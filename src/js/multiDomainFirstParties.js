@@ -3767,6 +3767,7 @@ let multiDomainFirstPartiesArray = [
     "shopee.tw",
     "shopee.vn",
 
+    "shopeemobile.com",
     "shp.ee",
   ],
   [
