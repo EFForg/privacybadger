@@ -194,6 +194,7 @@ editmysite.com
 files.edx.org
 ehc.com
 elasticbeanstalk.com
+elfsight.com
 eltrafiko.com
 api-cdn.embed.ly
 api.embed.ly
