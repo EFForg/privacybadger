@@ -405,6 +405,9 @@ cdn.jwplayer.com
 entitlements.jwplayer.com
 jwpltx.com
 jwpsrv.com
+dapi.kakao.com
+developers.kakao.com
+kapi.kakao.com
 cdnapi.kaltura.com
 cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
