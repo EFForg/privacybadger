@@ -2183,6 +2183,16 @@ let multiDomainFirstPartiesArray = [
   ["jobware.de", "jobware.com", "jobware.net"],
   ["jotform.com", "jotfor.ms"],
   [
+    "kakaocorp.com",
+
+    "brunch.co.kr",
+    "daum.net",
+    "kakao.com",
+
+    "daumcdn.net",
+    "kakaocdn.net",
+  ],
+  [
     "kaspersky.com",
 
     "kaspersky.ca",
