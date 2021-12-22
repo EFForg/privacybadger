@@ -683,6 +683,7 @@ streamtheworld.com
 stripe.com
 m.stripe.network
 stripecdn.com
+cdn.substack.com
 surveygizmo.com
 surveymonkey.com
 swiftype.com
