@@ -487,6 +487,8 @@ mzstatic.com
 nanorep.co
 nationbuilder.com
 nationalgeographic.com
+map.naver.com
+pay.naver.com
 nbcuni.com
 neighborsink.com
 netdna-cdn.com
