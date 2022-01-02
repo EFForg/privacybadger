@@ -227,6 +227,20 @@
             "type": 0
         }
     },
+    "Quora": {
+        "domains": [
+            "www.quora.com"
+        ],
+        "buttonSelectors": [
+            "iframe[src^='https://www.quora.com/widgets/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.quora.com"
+            ],
+            "type": 3
+        }
+    },
     "Rumble Video Player": {
         "domain": "rumble.com",
         "buttonSelectors": [
