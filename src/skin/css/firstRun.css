@@ -687,6 +687,8 @@ body {
 .how-to-open-popup-image {
   margin-left: 1rem;
   margin-right: 1rem;
+  margin-bottom: 20px;
+  display: inline-block;
 }
 @media print, screen and (min-width: 40em) {
   #intro {

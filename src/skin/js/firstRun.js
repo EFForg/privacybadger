@@ -78,6 +78,15 @@ $(window).on("load", function () {
       break;
     case 'firefox-on-android':
       setSrcs(browserImageSrcMap.firefoxAndroid1, browserImageSrcMap.firefoxAndroid2, browserImageSrcMap.firefoxAndroid3);
+      // unlike all other cases, flip the report and disable buttons image
+      $("#report-and-disable-in-popup").attr("src", "images/firefox-android-report-disable-buttons.png");
+      // change images and how they stack based on size of screen
+      if (window.innerWidth > 600) {
+        popupWalkthruImg1.attr("src", "images/firefox-android-window.png");
+      } else {
+        popupWalkthruImg1.css({"max-width":"80%", "min-width":"380px", "margin-bottom":"60px"});
+        popupWalkthruImg2.css("margin-bottom", "60px");
+      }
       break;
     case 'opera':
       setSrcs(browserImageSrcMap.opera1, browserImageSrcMap.opera2, browserImageSrcMap.opera3);
