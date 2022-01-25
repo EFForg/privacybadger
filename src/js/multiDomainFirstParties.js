@@ -4082,6 +4082,7 @@ let multiDomainFirstPartiesArray = [
 
     "smassets.net",
   ],
+  ["t-mobile.com", "tmobile.com", "metrobyt-mobile.com", "t-mobilemoney.com"],
   ["target.com", "targetimg1.com"],
   ["techdata.com", "techdata.ch"],
   ["telegraaf.nl", "tcdn.nl", "tmgonlinemedia.nl", "tnet.nl"],
