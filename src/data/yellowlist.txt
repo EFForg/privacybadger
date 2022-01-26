@@ -21,7 +21,6 @@ alicdn.com
 aliyuncs.com
 ally.com
 amazon.com
-c.amazon-adsystem.com
 s3.amazonaws.com
 amazonaws.com
 coin.amazonpay.com
