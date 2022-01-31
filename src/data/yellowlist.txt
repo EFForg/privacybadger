@@ -564,6 +564,7 @@ pgcdn.com
 phncdn.com
 photobucket.com
 phplist.com
+piano.io
 piclens.com
 pico.tools
 pinimg.com
