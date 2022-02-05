@@ -129,6 +129,14 @@
         "message": "Prevent WebRTC from leaking local IP address",
         "description": "Checkbox label on the general settings page"
     },
+    "options_x_client_data_setting": {
+        "message": "Remove Chrome-only identifier from being sent on Google sites",
+        "description": "Checkbox label on the general settings page for removing the x-client-data header on Chrome"
+    },
+    "x_client_data_warning": {
+        "message": "Chrome HTTP header \"x-client-data\" purportedly used to test new features on Google sites, may cause breakage",
+        "description": "warning tooltip that appears next to the x-client-data option on the settings page"
+    },
     "intro_welcome": {
         "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
         "description": "Intro page welcome paragraph."
