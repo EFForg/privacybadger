@@ -222,10 +222,19 @@ function init() {
   // add event listeners for click-to-expand first party protections popup section
   $('#firstparty-protections-header').on('click', toggleFirstPartyInfoHandler);
 
+  // add event listeners for click-to-expand widgets section
+  $('#replaced-widgets-header').on('click', toggleWidgetsSectionHandler);
+
   // show firstparty protections message if current tab is in our content scripts
   if (POPUP_DATA.enabled && POPUP_DATA.isOnFirstParty) {
     $("#firstparty-protections-container").show();
     $('#expand-firstparty-popup').show();
+  }
+
+  // show replaced widgets section if there are replaced widgets on page
+  if (POPUP_DATA.enabled && Object.keys(POPUP_DATA.replacedWidgets).length) {
+    $('#replaced-widgets-container').show();
+    $('#expand-widgets-popup').show();
   }
 
   // improve on Firefox's built-in options opening logic
@@ -511,6 +520,21 @@ function toggleFirstPartyInfoHandler() {
 }
 
 /**
+ * Click handler for showing/hiding the replaced widgets section
+ */
+function toggleWidgetsSectionHandler() {
+  if ($('#collapse-widgets-popup').is(":visible")) {
+    $("#collapse-widgets-popup").hide();
+    $("#expand-widgets-popup").show();
+    $("#instructions-widgets-description").slideUp();
+  } else {
+    $("#collapse-widgets-popup").show();
+    $("#expand-widgets-popup").hide();
+    $("#instructions-widgets-description").slideDown();
+  }
+}
+
+/**
  * Handler to undo user selection for a tracker
  */
 function revertDomainControl(event) {
@@ -712,6 +736,18 @@ function refreshPopup() {
     $printable.find('.removeOrigin').hide();
 
     $printable.appendTo('#blockedResourcesInner');
+
+    // if there are replaced widgets, get their names and append to that popup section
+    if (Object.keys(POPUP_DATA.replacedWidgets).length) {
+      for (let widget in POPUP_DATA.replacedWidgets) {
+        POPUP_DATA.replacedWidgets[widget].forEach((widgetType) => {
+          // prevent duplicate names from appearing, only append if it doesn't already exist
+          if (!$('#instructions-widgets-description li:contains("' + widgetType + '")').length) {
+            $("#instructions-widgets-description").append("<li>" + widgetType + "</li>");
+          }
+        });
+      }
+    }
 
     // activate tooltips
     $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(

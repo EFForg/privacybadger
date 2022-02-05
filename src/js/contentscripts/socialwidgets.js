@@ -705,6 +705,12 @@ function replaceIndividualButton(widget) {
       el.parentNode.replaceChild(replacementEl, el);
     });
   });
+
+  // send the replaced widgets information to the popup
+  chrome.runtime.sendMessage({
+    type: "sendReplacedWidgetsToPopup",
+    widgetName: widget.name
+  });
 }
 
 /**
