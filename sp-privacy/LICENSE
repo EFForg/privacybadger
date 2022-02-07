@@ -35,96 +35,21 @@ Copyright (c) 2014-2018 Calvin Metcalf
 Released under the MIT License
 https://github.com/calvinmetcalf/copyfiles/blob/master/license.md
 
+prettier
+Prettier is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
+Copyright © James Long and contributors
+Released under the MIT license
+https://github.com/prettier/prettier/blob/main/LICENSE
+
+typescript
+TypeScript is a language for application-scale JavaScript. TypeScript adds optional types to JavaScript that support tools for large-scale JavaScript applications for any browser, for any host, on any OS.
+Released under the Apache License 2.0
+https://github.com/microsoft/TypeScript/blob/main/LICENSE.txt
+
 webextension-polyfill
 This library allows extensions that use the Promise-based WebExtension/BrowserExt API being standardized by the W3 Browser Extensions group to run on Google Chrome with minimal or no changes.
 Released under the Mozilla Public License 2.0
 https://github.com/mozilla/webextension-polyfill/blob/master/LICENSE
-
-
-
-jQuery JavaScript Library
-Copyright JS Foundation and other contributors
-Released under the MIT license
-https://jquery.org/license
-
-jQuery UI
-Copyright jQuery Foundation and other contributors
-Licensed MIT
-
-Incorporating code from CSS Toggle Switch,
-https://github.com/ghinda/css-toggle-switch
-By Ionuț Colceriu - ghinda.net
-Licensed Unlicense
-
-Incorporating code from AdBlockPlus,
-https://adblockplus.org/en/firefox
-Copyright © 2006-2014 Eyeo GmbH
-Licensed GPL v3
-
-basedomain.js incorporates code from ipv6.js
-https://github.com/beaugunderson/javascript-ipv6
-Copyright 2011 Beau Gunderson
-Licensed MIT
-
-src/js/firstparties/facebook.js incorporates code from Facebook™ Tracking & Ad Removal
-https://github.com/mgziminsky/FacebookTrackingRemoval
-Copyright 2018 Michael Ziminsky
-Licensed GPL v3
-
-Incorporating code from ShareMeNot,
-https://sharemenot.cs.washington.edu
-Copyright © 2006-2014 University of Washington
-Licensed MIT
-
-Incorporating code from Chameleon,
-https://github.com/ghostwords/chameleon
-Copyright © 2015 ghostwords
-This Source Code Form is subject to the terms of the Mozilla Public
-License, v. 2.0. If a copy of the MPL was not distributed with this
-file, You can obtain one at http://mozilla.org/MPL/2.0/.
-Alternatively, this code may be distributed or
-otherwise used under the terms of GPL v3
-
-Incorporating "surrogate"/"dummy"/"neutered" scripts from uBlock Origin
-https://github.com/gorhill/ublock
-https://github.com/uBlockOrigin/uAssets/
-Copyright (C) 2014-present Raymond Hill
-Licensed GPLv3
-
-Tooltipster
-http://iamceege.github.io/tooltipster/
-Copyright (c) 2012,2016 Caleb Jacob and Louis Ameline
-Licensed MIT
-
-ChunkFive
-https://www.theleagueofmoveabletype.com/
-All fonts from The League of Moveable Type are subject to the Open Font License and are free and open-source.
-
-OpenSans
-https://www.apache.org/licenses/LICENSE-2.0
-
-jQuery Smooth Scroll - v2.2.0 - 2017-05-05
-https://github.com/kswedberg/jquery-smooth-scroll
-Copyright (c) 2017 Karl Swedberg
-Licensed MIT
-
-Select2
-https://select2.org/
-Copyright (c) 2012-2017 Kevin Brown, Igor Vaynberg, and Select2 contributors
-Licensed MIT
-
-Icon Font for jQuery UI
-Copyright (c) 2015-2017 Michael Keck
-Font version 2.1
-Licensed CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/
-Stylesheet version 2.3.2
-Licensed GPL: http://www.gnu.org/licenses/gpl.html
-
-List of CNAME domains (basis for src/data/cname_domains.json)
-https://github.com/AdguardTeam/cname-trackers
-Copyright 2021 Adguard Software Ltd
-Licensed MIT
-
 
 TEXT OF GPLv3
 =============
