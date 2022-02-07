@@ -13,7 +13,6 @@
   },
   "devDependencies": {
     "copyfiles": "2.4.1",
-    "fs": "0.0.1-security",
     "prettier": "2.2.1",
     "typescript": "^4.1.5",
     "webextension-polyfill": "0.7.0"
