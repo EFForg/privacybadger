@@ -1,5 +1,5 @@
 sp-privacy
-Copyright © 2021 System1 and other contributors
+Copyright © 2022 Surfboard Holdings BV and other contributors
 
 sp-privacy as a whole is presently Licensed GPL v3+, though many portions
 of the code are dual-licensed under other free/open source licenses.
@@ -8,19 +8,19 @@ CONTRIBUTORS AGREE TO FREE/OPEN SOURCE DUAL-LICENSING
 =====================================================
 
 By contributing code or other works of authorship to this project ("Your
-Contributions"), you grant to the System1 a
+Contributions"), you grant to the Surfboard Holdings BV a
 perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable
 license to reproduce, prepare derivative works of, publicly display, publicly
 perform, sublicense, and distribute Your Contributions and such derivative
 works under the terms of any free software or open source license or licenses,
-such license(s) to be selected by System1 at its sole discretion (such licenses
-will always be consistent with System1's mission).
+such license(s) to be selected by Surfboard Holdings BV at its sole discretion (such licenses
+will always be consistent with Surfboard Holdings BV's mission).
 
 By contributing code or other works of authorship to this project, you
 represent that you have the legal right and ability to grant this license.
 
-Except for the license granted herein to System1 and recipients of software
-distributed by System1, You reserve all right, title, and interest in and to Your
+Except for the license granted herein to Surfboard Holdings BV and recipients of software
+distributed by Surfboard Holdings BV, You reserve all right, title, and interest in and to Your
 Contributions.
 
 If you do not agree to these terms, please do not send patches or pull
@@ -28,6 +28,19 @@ requests, or commit any material to this repository.
 
 LICENSES FOR INCORPORATED CODEBASES
 ===================================
+
+copyfiles
+a nodejs utility to help "copy files easily"
+Copyright (c) 2014-2018 Calvin Metcalf
+Released under the MIT License
+https://github.com/calvinmetcalf/copyfiles/blob/master/license.md
+
+webextension-polyfill
+This library allows extensions that use the Promise-based WebExtension/BrowserExt API being standardized by the W3 Browser Extensions group to run on Google Chrome with minimal or no changes.
+Released under the Mozilla Public License 2.0
+https://github.com/mozilla/webextension-polyfill/blob/master/LICENSE
+
+
 
 jQuery JavaScript Library
 Copyright JS Foundation and other contributors
