@@ -1,5 +1,5 @@
 /*
- * This file has been modified by modified by Surfboard Holdings BV.
+ * This file has modified by Surfboard Holdings BV.
  *
  * This file is part of Privacy Badger <https://privacybadger.org/>
  * Copyright (C) 2014 Electronic Frontier Foundation
