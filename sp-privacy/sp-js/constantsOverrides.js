@@ -16,7 +16,7 @@
  */
 
 /*
-This file privdes overides to https://github.com/Openmail/privacybadger/blob/master/src/js/constants.js
+This provides overrides to https://github.com/Openmail/privacybadger/blob/master/src/js/constants.js
 */
 
 var constants = require('constants');

@@ -16,7 +16,7 @@
  */
 
 /*
-This file privdes overides to https://github.com/Openmail/privacybadger/blob/master/src/js/background.js
+This file provides overrides to https://github.com/Openmail/privacybadger/blob/master/src/js/background.js
 */
 
 // Disable privacy badger icon updates

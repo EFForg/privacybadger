@@ -1,4 +1,6 @@
 /*
+ * This file has been modified by modified by Surfboard Holdings BV.
+ *
  * This file is part of Privacy Badger <https://privacybadger.org/>
  * Copyright (C) 2014 Electronic Frontier Foundation
  *
@@ -54,16 +56,16 @@
     )) {
       return;
     }
-    
+
     // widget data
     let widgetList;
-    
+
     // cached chrome.i18n.getMessage() results
     const TRANSLATIONS = {};
-    
+
     // references to widget page elements
     const WIDGET_ELS = {};
-    
+
     /**
      * @param {Object} response response to checkWidgetReplacementEnabled
      */
@@ -71,12 +73,12 @@
       for (const key in response.translations) {
         TRANSLATIONS[key] = response.translations[key];
       }
-    
+
       widgetList = response.widgetList;
-    
+
       // check for widgets blocked before we got here
       replaceInitialTrackerButtonsHelper(response.widgetsToReplace);
-    
+
       // set up listener for dynamically created widgets
       chrome.runtime.onMessage.addListener(function (request) {
         if (request.replaceWidget) {
@@ -84,7 +86,7 @@
         }
       });
     }
-    
+
     /**
      * Creates a replacement placeholder element for the given widget.
      *
@@ -94,21 +96,21 @@
      */
     function createReplacementElement(widget, trackerElem, callback) {
       let buttonData = widget.replacementButton;
-    
+
       // no image data to fetch
       if (!buttonData.hasOwnProperty('imagePath')) {
         return setTimeout(function () {
           _createReplacementElementCallback(widget, trackerElem, callback);
         }, 0);
       }
-    
+
       // already have replacement button image URI cached
       if (buttonData.buttonUrl) {
         return setTimeout(function () {
           _createReplacementElementCallback(widget, trackerElem, callback);
         }, 0);
       }
-    
+
       // already messaged for but haven't yet received the image data
       if (buttonData.loading) {
         // check back in 10 ms
@@ -116,7 +118,7 @@
           createReplacementElement(widget, trackerElem, callback);
         }, 10);
       }
-    
+
       // don't have image data cached yet, get it from the background page
       buttonData.loading = true;
       chrome.runtime.sendMessage({
@@ -129,7 +131,7 @@
         }
       });
     }
-    
+
     function _createReplacementElementCallback(widget, trackerElem, callback) {
       if (widget.replacementButton.buttonUrl) {
         _createButtonReplacement(widget, callback);
@@ -137,20 +139,20 @@
         _createWidgetReplacement(widget, trackerElem, callback);
       }
     }
-    
+
     function _createButtonReplacement(widget, callback) {
       let buttonData = widget.replacementButton,
         button_type = buttonData.type;
-    
+
       let button = document.createElement("img");
       button.setAttribute("src", buttonData.buttonUrl);
-    
+
       // TODO use custom tooltip to support RTL locales?
       button.setAttribute(
         "title",
         'Startpage has replaced this XXX button'.replace("XXX", widget.name)
       );
-    
+
       let styleAttrs = [
         "border: none",
         "cursor: pointer",
@@ -158,26 +160,26 @@
         "width: auto",
       ];
       button.setAttribute("style", styleAttrs.join(" !important;") + " !important");
-    
+
       // normal button type; just open a new window when clicked
       if (button_type === 0) {
         let popup_url = buttonData.details + encodeURIComponent(window.location.href);
-    
+
         button.addEventListener("click", function (e) {
           if (!e.isTrusted) { return; }
           window.open(popup_url);
         });
-    
+
       // in place button type; replace the existing button
       // with an iframe when clicked
       } else if (button_type == 1) {
         let iframe_url = buttonData.details + encodeURIComponent(window.location.href);
-    
+
         button.addEventListener("click", function (e) {
           if (!e.isTrusted) { return; }
           replaceButtonWithIframeAndUnblockTracker(button, widget.name, iframe_url);
         }, { once: true });
-    
+
       // in place button type; replace the existing button with code
       // specified in the widgets JSON
       } else if (button_type == 2) {
@@ -186,25 +188,25 @@
           replaceButtonWithHtmlCodeAndUnblockTracker(button, widget.name, buttonData.details);
         }, { once: true });
       }
-    
+
       callback(button);
     }
-    
+
     function _createWidgetReplacement(widget, trackerElem, callback) {
       let replacementEl;
-    
+
       // in-place widget type:
       // reinitialize the widget by reinserting its element's HTML
       if (widget.replacementButton.type == 3) {
         replacementEl = createReplacementWidget(
           widget, trackerElem, reinitializeWidgetAndUnblockTracker);
-    
+
       // in-place widget type:
       // reinitialize the widget by reinserting its element's HTML
       // and activating associated scripts
       } else if (widget.replacementButton.type == 4) {
         let activationFn = replaceWidgetAndReloadScripts;
-    
+
         // if there are no matching script elements
         if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
           // and we don't have a fallback script URL
@@ -217,13 +219,13 @@
             };
           }
         }
-    
+
         replacementEl = createReplacementWidget(widget, trackerElem, activationFn);
       }
-    
+
       callback(replacementEl);
     }
-    
+
     /**
      * Unblocks the given widget and replaces the given button with an iframe
      * pointing to the given URL.
@@ -239,15 +241,15 @@
         // to prevent replacing an already removed button
         if (button.parentNode !== null) {
           let iframe = document.createElement("iframe");
-    
+
           iframe.setAttribute("src", iframeUrl);
           iframe.setAttribute("style", "border: none !important; height: 1.5em !important;");
-    
+
           button.parentNode.replaceChild(iframe, button);
         }
       });
     }
-    
+
     /**
      * Unblocks the given widget and replaces the given button with the
      * HTML code defined in the provided SocialWidget object.
@@ -264,14 +266,14 @@
         if (button.parentNode !== null) {
           let codeContainer = document.createElement("div");
           codeContainer.innerHTML = html;
-    
+
           button.parentNode.replaceChild(codeContainer, button);
-    
+
           replaceScriptsRecurse(codeContainer);
         }
       });
     }
-    
+
     /**
      * Unblocks the given widget and replaces our replacement placeholder
      * with the original third-party widget element.
@@ -289,7 +291,7 @@
         WIDGET_ELS[name] = [];
       });
     }
-    
+
     /**
      * Similar to reinitializeWidgetAndUnblockTracker() above,
      * but also reruns scripts defined in scriptSelectors.
@@ -306,13 +308,13 @@
         WIDGET_ELS[name] = [];
       });
     }
-    
+
     /**
      * Find and replace script elements with their copies to trigger re-running.
      */
     function reloadScripts(selectors, fallback_script_url) {
       let scripts = document.querySelectorAll(selectors.join(','));
-    
+
       // if there are no matches, try a known script URL
       if (!scripts.length && fallback_script_url) {
         let parent = document.documentElement,
@@ -321,13 +323,13 @@
         parent.insertBefore(replacement, parent.firstChild);
         return;
       }
-    
+
       for (let scriptEl of scripts) {
         // reinsert script elements only
         if (!scriptEl.nodeName || scriptEl.nodeName.toLowerCase() != 'script') {
           continue;
         }
-    
+
         let replacement = document.createElement("script");
         for (let attr of scriptEl.attributes) {
           replacement.setAttribute(attr.nodeName, attr.value);
@@ -337,7 +339,7 @@
         break;
       }
     }
-    
+
     /**
      * Dumping scripts into innerHTML won't execute them, so replace them
      * with executable scripts.
@@ -359,8 +361,8 @@
       }
       return node;
     }
-    
-    
+
+
     /**
      * Replaces all tracker buttons on the current web page with the internal
      * replacement buttons, respecting the user's blocking settings.
@@ -374,7 +376,7 @@
         }
       });
     }
-    
+
     /**
      * Individually replaces tracker buttons blocked after initial check.
      */
@@ -399,16 +401,16 @@
         }
       });
     }
-    
+
     function _make_id(prefix) {
       return prefix + "-" + Math.random().toString().replace(".", "");
     }
-    
+
     function createReplacementWidget(widget, elToReplace, activationFn) {
       let name = widget.name;
-    
+
       let widgetFrame = document.createElement('iframe');
-    
+
       // widget replacement frame styles
       let border_width = 1;
       let styleAttrs = [
@@ -426,9 +428,9 @@
         styleAttrs.push(`height: ${elToReplace.offsetHeight - 2*border_width}px`);
       }
       widgetFrame.style = styleAttrs.join(" !important;") + " !important";
-    
+
       let widgetDiv = document.createElement('div');
-    
+
       // parent div styles
       styleAttrs = [
         "display: flex",
@@ -442,7 +444,7 @@
         styleAttrs.push("direction: rtl");
       }
       widgetDiv.style = styleAttrs.join(" !important;") + " !important";
-    
+
       // child div styles
       styleAttrs = [
         "color: #303030",
@@ -454,54 +456,54 @@
         "text-align: center",
         "margin: 10px",
       ];
-    
+
       let textDiv = document.createElement('div');
       textDiv.style = styleAttrs.join(" !important;") + " !important";
-    
+
       let summary = 'Startpage has replaced YYYthis XXX widgetZZZ'.replace("XXX", name),
         link_start = "YYY",
         link_end = "ZZZ";
-    
+
       // get a direct link to widget content when available
       let widget_url;
       // use the frame URL for framed widgets
       if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
         widget_url = elToReplace.src;
       }
-    
+
       if (widget_url) {
         // construct link to original widget frame
         let text_before = summary.slice(0, summary.indexOf(link_start)),
           text_after = summary.slice(summary.indexOf(link_end) + link_end.length),
           link_text = summary.slice(
             summary.indexOf(link_start) + link_start.length, summary.indexOf(link_end));
-    
+
         // nest in a wrapper to preserve whitespace (flexbox)
         let wrapperDiv = document.createElement("div");
-    
+
         if (text_before) {
           wrapperDiv.appendChild(document.createTextNode(text_before));
         }
-    
+
         let widgetLink = document.createElement("a");
         widgetLink.href = widget_url;
         widgetLink.rel = "noreferrer";
         widgetLink.target = "_blank";
         widgetLink.appendChild(document.createTextNode(link_text));
         wrapperDiv.appendChild(widgetLink);
-    
+
         if (text_after) {
           wrapperDiv.appendChild(document.createTextNode(text_after));
         }
-    
+
         textDiv.appendChild(wrapperDiv);
-    
+
       } else {
         // no link to construct, remove the link markers
         summary = summary.replace(link_start, "").replace(link_end, "");
         textDiv.appendChild(document.createTextNode(summary));
       }
-    
+
       let infoIcon = document.createElement('a'),
         info_icon_id = _make_id("ico-help");
       infoIcon.id = info_icon_id;
@@ -510,11 +512,11 @@
       infoIcon.target = "_blank";
       textDiv.appendChild(infoIcon);
       widgetDiv.appendChild(textDiv);
-    
+
       let buttonDiv = document.createElement('div');
       styleAttrs.push("width: 100%");
       buttonDiv.style = styleAttrs.join(" !important;") + " !important";
-    
+
       // allow once button
       let button = document.createElement('button'),
         button_id = _make_id("btn-once");
@@ -538,21 +540,21 @@
         "max-width: 280px",
       ];
       button.style = styleAttrs.join(" !important;") + " !important";
-    
+
       // allow on this site button
       let site_button = document.createElement('button'),
         site_button_id = _make_id("btn-site");
       site_button.id = site_button_id;
       site_button.style = styleAttrs.join(" !important;") + " !important";
-    
+
       button.appendChild(document.createTextNode('Allow_once'));
       site_button.appendChild(document.createTextNode('Allow always on this site'));
-    
+
       buttonDiv.appendChild(button);
       buttonDiv.appendChild(site_button);
-    
+
       widgetDiv.appendChild(buttonDiv);
-    
+
       // save refs. to elements for use in teardown
       if (!WIDGET_ELS.hasOwnProperty(name)) {
         WIDGET_ELS[name] = [];
@@ -569,23 +571,23 @@
         }
       }
       WIDGET_ELS[name].push(data);
-    
+
       // set up click handler
       widgetFrame.addEventListener('load', function () {
         let onceButton = widgetFrame.contentDocument.getElementById(button_id),
           siteButton = widgetFrame.contentDocument.getElementById(site_button_id);
-    
+
         onceButton.addEventListener("click", function (e) {
           if (!e.isTrusted) { return; }
           e.preventDefault();
           activationFn(name);
         }, { once: true });
-    
+
         siteButton.addEventListener("click", function (e) {
           if (!e.isTrusted) { return; }
-    
+
           e.preventDefault();
-    
+
           // first message the background page to record that
           // this widget should always be allowed on this site
           chrome.runtime.sendMessage({
@@ -595,9 +597,9 @@
             activationFn(name);
           });
         }, { once: true });
-    
+
       }, false); // end of click handler
-    
+
       let head_styles = `
     html, body {
       height: 100% !important;
@@ -654,26 +656,26 @@
       color: #6573ff;
     }
       `.trim();
-    
+
       widgetFrame.srcdoc = '<html><head><style>' + head_styles + '</style></head><body style="margin:0">' + widgetDiv.outerHTML + '</body></html>';
-    
+
       return widgetFrame;
     }
-    
+
     /**
      * Replaces buttons/widgets in the DOM.
      */
     function replaceIndividualButton(widget) {
       let selector = widget.buttonSelectors.join(','),
         elsToReplace = document.querySelectorAll(selector);
-    
+
       elsToReplace.forEach(function (el) {
         createReplacementElement(widget, el, function (replacementEl) {
           el.parentNode.replaceChild(replacementEl, el);
         });
       });
     }
-    
+
     /**
      * Messages the background page to temporarily allow domains associated with a
      * given replacement widget.
@@ -689,9 +691,9 @@
       };
       chrome.runtime.sendMessage(request, callback);
     }
-    
+
     // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
-    
+
     chrome.runtime.sendMessage({
       type: "checkWidgetReplacementEnabled"
     }, function (response) {
@@ -700,5 +702,5 @@
       }
       initialize(response);
     });
-    
+
     }());
