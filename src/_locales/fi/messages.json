@@ -114,7 +114,7 @@
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
     "data_settings": {
-        "message": "Hallitse dataa",
+        "message": "Tietojen hallinta",
         "description": "This is an options page tab heading."
     },
     "report_title": {
@@ -138,7 +138,7 @@
         "description": ""
     },
     "options_domain_list_tab": {
-        "message": "Seurantaverkkotunnukset",
+        "message": "Seurantaosoitteet",
         "description": "This is an options page tab heading."
     },
     "share_button_title_twitter": {
@@ -158,7 +158,7 @@
         "description": ""
     },
     "options_widget_replacement_tab": {
-        "message": "Widgettien korvaaminen",
+        "message": "Widgettien korvaus",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
@@ -268,11 +268,11 @@
         "description": ""
     },
     "export_user_data": {
-        "message": "Vie käyttäjädata",
+        "message": "Vie käyttäjätiedot",
         "description": ""
     },
     "manage_data_intro": {
-        "message": "Käyttäjätietojen tuonti:<ul><li>Korvaa yleiset asetukset</li><li>Yhdistää käytöstä poistettujen sivustojen listat</li><li>Yhdistää tiedot Privacy Badgerin havaitsemista seurannoista</li><li>Korvaa liukuvalitsinten muutokset</li></ul>",
+        "message": "Käyttäjätietojen tuonti:<ul><li>Korvaa yleiset asetukset</li><li>Yhdistää ohitettavien sivustojen listat</li><li>Yhdistää tiedot Privacy Badgerin havaitsemista seurannoista</li><li>Korvaa liukuvalitsinten muutokset</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "reset": {
@@ -312,7 +312,7 @@
         "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
-        "message": "Yleiset asetukset",
+        "message": "Yleiset",
         "description": "This is an options page tab heading."
     },
     "options_privacy_settings": {
@@ -374,7 +374,7 @@
         "description": ""
     },
     "import_user_data": {
-        "message": "Tuo käyttäjädata",
+        "message": "Tuo käyttäjätiedot",
         "description": ""
     },
     "options_domain_filter_dnt": {
@@ -605,7 +605,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "sync_intro": {
-        "message": "Pilvisynkronointi:<ul><li>Vaatii Firefoxin tai Chromen synkronoinnin käyttöä</li><li>Pilvitallennus korvaa aiemmin tallennetut Privacy Badgerin tiedot</li><li>Tiedonlataus pilvestä yhdistää käytöstä poistettujen sivustojen listat</li></ul>",
+        "message": "Pilvisynkronointi:<ul><li>Vaatii Firefoxin tai Chromen synkronoinnin käyttöä</li><li>Pilvitallennus korvaa aiemmin tallennetut Privacy Badgerin tiedot</li><li>Tiedonlataus pilvestä yhdistää ohitettavien sivustojen listat</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload": {
@@ -613,11 +613,11 @@
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Vie käytöstä poistetut sivustot pilveen",
+        "message": "Vie ohitettavat sivustot pilveen",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Tuo käytöstä poistetut sivustot pilvestä",
+        "message": "Tuo ohitettavat sivustot pilvestä",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
@@ -687,11 +687,11 @@
         "description": "Shown in the popup on disabled sites."
     },
     "disabled_sites": {
-        "message": "Käytöstä poistetut sivustot",
+        "message": "Ohitettavat sivustot",
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger on poistettu käytöstä seuraavilla sivustoilla, eli Privacy Badger ei estä mitään käyttäessäsi näitä sivustoja, eikä se lähetä \"Do Not Track\" tai \"Global Privacy Control\" -signaaleja.</p><p>Jos epäilet Privacy Badgerin rikkovan verkkosivun tai haluat sallia tietyn sivuston jakaa tai myydä tietojasi, kirjoita sivuston verkkotunnus alla olevaan ja paina \"Lisää verkkotunnus\" -painiketta.</p>",
+        "message": "<p>Privacy Badger ohittaa seuraavat sivustot, eli Privacy Badger ei estä mitään käyttäessäsi näitä sivustoja, eikä se lähetä \"Do Not Track\" tai \"Global Privacy Control\" -signaaleja.</p><p>Jos epäilet Privacy Badgerin rikkovan verkkosivun tai haluat sallia tietyn sivuston jakaa tai myydä tietojasi, kirjoita sivuston verkkotunnus alla olevaan ja paina \"Lisää verkkotunnus\" -painiketta.</p>",
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
