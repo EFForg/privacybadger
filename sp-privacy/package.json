@@ -13,11 +13,11 @@
   },
   "devDependencies": {
     "copyfiles": "2.4.1",
-    "fs": "0.0.1-security",
     "prettier": "2.2.1",
     "typescript": "^4.1.5",
     "webextension-polyfill": "0.7.0"
   },
+  "license": "GPLv3+",
   "publishConfig": {
     "registry": "https://system1.jfrog.io/system1/api/npm/npm-virtual/"
   },
