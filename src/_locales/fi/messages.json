@@ -284,7 +284,7 @@
         "description": "Caption above reset button"
     },
     "reset_data_confirm": {
-        "message": "Seurantaverkkotunnusten palautus:\n\n  • Poistaa kaikki tiedot, jotka Privacy Badger on selauksesi pohjalta seurannoista oppinut\n  • Palauttaa seurantaverkkotunnusten listaksi uusimman esikoulutetun listan (lue lisää osoitteesta www.eff.org/badger-pretraining)",
+        "message": "Seurantaverkkotunnusten palautus:\n  • Poistaa kaikki tiedot, jotka Privacy Badger on selauksesi pohjalta seurannoista oppinut\n  • Palauttaa seurantaverkkotunnusten listaksi uusimman esikoulutetun listan (lue lisää osoitteesta www.eff.org/badger-pretraining)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all": {
@@ -292,11 +292,11 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data": {
-        "message": "Poista kaikki seurantaverkkotunnukset",
+        "message": "Poista seurantaverkkotunnukset",
         "description": "Caption above remove_all button"
     },
     "remove_all_data_confirm": {
-        "message": "Kaikkien seurantaverkkotunnusten poisto:\n\n  • Poistaa kaikki Privacy Badgerin tiedossa olevien seurantojen tiedot\n  • Aiheuttaa sen, ettei Privacy Badger estä mitään, kunnes se oppii ja sopeutuu selaukseesi uudelleen",
+        "message": "Kaikkien seurantaverkkotunnusten poisto:\n  • Poistaa kaikki Privacy Badgerin tiedossa olevien seurantojen tiedot\n  • Aiheuttaa sen, ettei Privacy Badger estä mitään, kunnes se oppii ja sopeutuu selaukseesi uudelleen",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
