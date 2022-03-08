@@ -125,10 +125,6 @@
         "message": "estetty",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Estä WebRTC:tä vuotamasta paikallista IP-osoitetta",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger oppii automaattisesti estämään näkymättömät seurannat. Käytä hetki nähdäksesi miten.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Lukeaksesi miten Privacy Badger toimii, paina alta avataksesi tiiviin pikaoppaan.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC voi vuotaa paikallisen IP-osoitteesi. Huomaa, että tämä valinta voi haitata Google Hangoutsin tapaisten konferenssisovellusten toimintaa.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Yleiset",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "Seuraava asetus on vanhentunut ja tullaan poistamaan tulevien Privacy Badgerin päivityksien yhteydessä:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Lue lisää osoitteesta $LINK$.",

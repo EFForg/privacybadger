@@ -125,10 +125,6 @@
         "message": "blokitaj",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Preventi WebRTC de malkovri lokan IP-adreson",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privata Melo aŭtomate lernas bloki nevideblajn spurilojn. Jen konciza klarigo kiel.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Por lerni kiel Privata Melo funkcias, alklaku sube por koncizan gvidilon.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC povas malkovri vian lokan IP-adreson. Rimarku, ke tio ĉi povas malpliigi rendimenton de aplikaĵoj por retaj konferencoj, ekz. Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Ĝeneralaj agordoj",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "La jena agordo estas kaduka kaj estos forigita en la venonta ĝisdatigo de Privata Melo:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Legu $LINK$ por pli da informoj.",

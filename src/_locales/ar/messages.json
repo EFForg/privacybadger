@@ -125,10 +125,6 @@
         "message": "المحجوب",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "امنع WebRTC من تسريب عناوين الإنترنت المحلية",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "يتعلم «غرير الخصوصية» تلقائيا كيف يحجب المتعقبات الخفية. خذ دقيقة من وقتك لتعرف كيف يحدث هذا.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "انقر أدناه لتطلع أكثر على كيف يعمل.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "يمكن أن يسرب WebRTC عنواوين الإنترنت (IP) المحلية. لاحظ أن تفعيل هذا الخيار قد يقلل من أداء برمجيات الاجتماعات على الوب مثل Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "الإعدادات العامة",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "زر $LINK$ لمزيد من المعلومات.",

@@ -125,10 +125,6 @@
         "message": "已阻擋",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "防止 WebRTC 洩漏本機 IP 地址",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger 會自動學習並阻擋不可見的追蹤器。花一分鐘來看看它怎麼運作的。",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "若要了解 Privacy Badger 的運作原理，請點擊下方進行快速教學。",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC 可能會洩漏您的 IP 地址。注意：開啟此選項可能會造成 Google Hangouts 等網路會議應用程式的效能變差。",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "一般設定",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "以下設定已被棄用，並將於未來的 Privacy Badger 更新中被移除：",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "請見 $LINK$ 以取得更多資訊。",

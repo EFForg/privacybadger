@@ -125,10 +125,6 @@
         "message": "заблоковані",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Не дозволяти WebRTC виявляти локальну IP-адресу",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger автоматично навчається блокувати невидимі елементи стеження. Витратьте хвилинку, щоб поглянути як.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Щоб дізнатися, як працює Privacy Badger, натисніть внизу для швидкого ознайомлення.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC може виявляти вашу локальну IP-адресу. Зауважте, що ця опція може спричинити погіршення швидкодії певних інструментів для веб-конференцій, таких як Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Загальні налаштування",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Для докладних відомостей відвідайте $LINK$.",

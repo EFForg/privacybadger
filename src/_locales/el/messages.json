@@ -125,10 +125,6 @@
         "message": "αποκλεισμένα",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Να αποτρέπεται η διάρρευση της τοπικής διεύθυνσης IP σας από το WebRTC",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Το Privacy Badger μαθαίνει αυτόματα να αποκλείει \"αόρατους\" ιχνηλάτες. Μάθετε πώς.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Για να μάθετε πώς δουλεύει το Privacy Badger, πατήστε παρακάτω για ένα γρήγορο μάθημα.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "Το WebRTC μπορεί να διαρρεύσει την τοπική διεύθυνση IP σας. Αν ενεργοποιήσετε αυτήν την επιλογή, ενδέχεται να υποβαθμιστεί η επίδοση σε εφαρμογές τηλεδιασκέψεων, όπως τα Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Γενικά",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "Η παρακάτω ρύθμιση θα διαγραφεί σε μια μελλοντική έκδοση του Privacy Badger:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Επισκεφτείτε την ιστοσελίδα $LINK$ για να μάθετε περισσότερα.",

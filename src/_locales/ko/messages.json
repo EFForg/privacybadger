@@ -125,10 +125,6 @@
         "message": "차단",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "WebRTC가 로컬 IP 주소를 유출하지 못하도록 합니다.",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger는 자동으로 보이지 않는 추적기를 차단하는 방법을 배웁니다. 잠시 시간을 내서 어떻게 동작하는지 알아보세요.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Privacy Badger의 동작 방식을 알아보려면 아래를 클릭하여 간단한 튜토리얼을 확인하세요.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC에서 로컬 IP 주소가 유출될 수 있습니다. 이 옵션을 활성화하면 Google Hangouts와 같은 웹 회의 앱의 성능이 저하될 수 있습니다.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "일반 설정",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "자세한 내용은 $LINK$ 참조.",

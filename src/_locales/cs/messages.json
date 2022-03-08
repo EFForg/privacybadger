@@ -125,10 +125,6 @@
         "message": "blokované",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Bránit uniku lokální IP adresy skrze WebRTC",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger se automaticky učí blokovat neviditelné sledovací prvky na webových stránkách. Jestliže máte minutku, ukážeme Vám jak.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Pokud chcete vědět, jak Privacy Badger funguje, klikněte níže pro rychlý tutoriál.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "Skrze WebRTC může unikat Vaše lokání IP adresa. Jestliže povolíte toto nastavení, kvalita Vašich hovorů na službách jako jsou Google Hangouts se může zhoršit.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Obecná nastavení",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Na adrese $LINK$ naleznete více informací.",

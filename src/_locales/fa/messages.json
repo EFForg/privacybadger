@@ -125,10 +125,6 @@
         "message": "مسدود شده",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "نگذار WebRTC نشانی IP را لو بدهد",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "پرایوسی بجر به صورت خودکار یاد می‌گیرد تا ردیاب‌های مخفی را مسدود کند. برای این‌که بفهمید چگونه این کار را انجام می‌دهد، یک دقیقه وقت بگذارید.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "برای یادگیری بیش‌تر دربارهٔ عملکرد پرایوسی بجر، روی قسمت پایین کلیک کنید.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC می‌تواند منجر به لو رفتن نشانی IP شما شود. توجه داشته باشید که این گزینه می‌تواند باعث کندی عملکرد در کاره‌های گفت‌وگویی وب مثل Google Hangouts شود.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "تنظیمات کلی",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "تنظیم زیر منسوخ شده‌اند و در به‌روزرسانی آتی پرایوسی بجر حذف خواهد شد:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "برای اطلاعات بیشتر به $LINK$ بروید.",

@@ -125,10 +125,6 @@
         "message": "חסום",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "מנע מן WebRTC להדליף כתובת IP מקומית",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger לומד באופן אוטומטי לחסום עוקבנים בלתי נראים. קח דקה כדי לראות כיצד.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "כדי ללמוד כיצד Privacy Badger עובד, לחץ למטה עבור הדרכה זריזה.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC יכול להדליף את כתובת ה־IP המקומית שלך. שים לב שאיפשור אפשרות זו עלול להפחית ביצועים על יישומי ועידת רשת כמו Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "הגדרות כלליות",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "ההגדרה הבאה הוצאה משימוש ותוסר בעדכון עתידי של Privacy Badger:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "בקר בכתובת $LINK$ כדי ללמוד עוד.",

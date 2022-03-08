@@ -125,10 +125,6 @@
         "message": "geblokkeerd",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Voorkom dat WebRTC het lokale IP-adres lekt",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger leert automatisch onzichtbare volgers te blokkeren. Neem even de tijd om te zien hoe het werkt.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Om te leren hoe Privacy Badger werkt klikt u hieronder voor een kort overzicht.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC kan uw lokale IP-adres lekken. Door dit te blokkeren kunnen de prestaties van sommige videoconferentie apps zoals Google Hangouts verminderen.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Algemene instellingen",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "De volgende instelling zal uit een toekomstige versie van Privacy Badger worden verwijderd:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Bezoek $LINK$ voor meer informatie.",

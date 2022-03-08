@@ -125,10 +125,6 @@
         "message": "blokeret",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Forhindr WebRTC i at lække lokal IP-adresse",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger lærer automatisk at blokere usynlige sporinger. Brug et minut på at se hvordan.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "For at lære hvordan Privacy Badger virker, klik herunder for en hurtig gennemgang.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC kan lække din lokale IP-addresse. Bemærk at aktivering af denne funktion kan have en negativ effekt på ydeevnen af webkonferenceprogrammer som Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Generelle Indstillinger",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Besøg $LINK$ for at lære mere.",

@@ -125,10 +125,6 @@
         "message": "letiltva",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "A WebRTC megakadályozása a helyi IP-cím kiszivárogtatásában",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "A Privacy Badger automatikusan megtanulja a láthatatlan követők tiltását. Szánjon rá egy percet, hogy meglássa hogyan.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Annak megismeréséhez, hogy a Privacy Badger hogyan működik, kattintson a lenti gyors ismertetőért.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "A WebRTC kiszivárogtathatja a helyi IP-címet. Ne feledje, hogy ezen beállítás engedélyezése leronthatja az olyan webkonferencia alkalmazásoknál a teljesítményt, mint például a Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Általános beállítások",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Látogassa meg a $LINK$ oldalt a további részletekért.",

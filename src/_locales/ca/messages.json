@@ -125,10 +125,6 @@
         "message": "blocat",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Impediu que el WebRTC filtri una adreça IP local",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger aprèn automàticament a blocar rastrejadors invisibles. Deixeu-nos un minut per ensenyar-vos com.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Per saber com treballa el Privacy Badger, cliqueu aquí baix i seguiu la guia ràpida.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC pot filtrar la vostra IP local. Teniu en compte que aquesta opció pot degradar el rendiment d'aplicacions de videoconferència com Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Configuració general",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Visiteu $LINK$ per saber-ne més.",

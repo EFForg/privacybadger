@@ -125,10 +125,6 @@
         "message": "заблокированные",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Предотвращать утечку локального IP-адреса через WebRTC",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger автоматически учится блокировать невидимые трекеры. Уделите минуту вашего времени, чтобы увидеть как.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Щелкните ниже, чтобы узнать, как работает Privacy Badger.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC может раскрыть ваш локальный IP-адрес. Примечание: включение данной опции может снизить производительность в приложениях для конференций, например Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Общие настройки",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "Следующая настройка была устаревшей и будет удалена в одном из будущих обновлений Privacy Badger:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Для получения более подробной информации посетите $LINK$.",

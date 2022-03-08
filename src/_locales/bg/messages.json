@@ -125,10 +125,6 @@
         "message": "блокирани",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "Спри изтичането на локалния ти IP адрес през WebRTC",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger автоматично се научава да блокира невидими преследвачи. Отдели си минутка, за да видиш как.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "За да разбереш как работи Privacy Badger, щракни долу, за да ти обясни набързо.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "През WebRTC може да изтече локалния ти IP адрес. Имай предвид, че включването на тази опция може да забави някои апове за разговори, като например Google Hangouts.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Общи настройки",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Посети $LINK$, за да научиш повече.",

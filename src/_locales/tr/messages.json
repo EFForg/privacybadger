@@ -125,10 +125,6 @@
         "message": "engellenmiş",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "WebRTC'nin yerel IP adresini açığa çıkarmasını engelle",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "Privacy Badger görünmez takipçileri engellemeyi otomatik olarak öğrenir. Nasıl olduğunu görmek için bir dakika ayırın.",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "Privacy Badger'ın nasıl çalıştığını öğrenmek için aşağıdaki kısa öğreticiye tıklayabilirsiniz.",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC yerel IP adresinizi açığa çıkarabilir. Bu seçeneğin etkinleştirilmesinin Google Hangouts gibi web konferans araçlarında performansı düşürebileceğini göz önünde bulundurun.",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "Genel Ayarlar",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "Daha fazlasını öğrenmek için $LINK$ adresini ziyaret edin.",

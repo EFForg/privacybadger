@@ -125,10 +125,6 @@
         "message": "已屏蔽",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
-    "options_webrtc_setting": {
-        "message": "阻止 WebRTC 泄露本地 IP 地址",
-        "description": "Checkbox label on the general settings page"
-    },
     "intro_welcome": {
         "message": "隐私獾会自动学习去屏蔽不可见的追踪器。看看这是如何做到的吧。",
         "description": "Intro page welcome paragraph."
@@ -306,10 +302,6 @@
     "intro_text2": {
         "message": "要了解隐私獾是如何工作的，点击这里来访问快速教程。",
         "description": "Second part of a reminder to visit the intro page"
-    },
-    "options_webrtc_warning": {
-        "message": "WebRTC 可能泄露您的本地 IP 地址。请注意，开启这个功能可能降低网络会议软件（如谷歌环聊）的性能。",
-        "description": "Tooltip on the general settings page"
     },
     "options_general_settings": {
         "message": "通用设置",
@@ -712,7 +704,7 @@
     },
     "deprecated_setting": {
         "message": "以下这些设置已经被弃用，并将在未来的隐私獾更新中被移除：",
-        "description": "Followed by the options_webrtc_setting message ('Prevent WebRTC...')"
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
         "message": "访问 $LINK$ 以了解更多。",
