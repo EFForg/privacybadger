@@ -34,8 +34,10 @@ var incognito = require("incognito");
 
 /**
  * Privacy Badger initializer.
+ *
+ * @param {Boolean} from_qunit don't intercept requests when run by unit tests
  */
-function Badger() {
+function Badger(from_qunit) {
   let self = this;
 
   self.isFirstRun = false;
@@ -101,6 +103,11 @@ function Badger() {
       // only need to do this when the widget list could have gotten updated
       self.blockWidgetDomains();
       self.blockPanopticlickDomains();
+    }
+
+    if (from_qunit) {
+      self.INITIALIZED = true;
+      return;
     }
 
     // start the listeners
@@ -1342,4 +1349,4 @@ function startBackgroundListeners() {
   });
 }
 
-var badger = window.badger = new Badger();
+let badger = window.badger = new Badger(document.location.pathname == "/tests/index.html");
