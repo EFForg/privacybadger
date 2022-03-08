@@ -46,13 +46,6 @@ function showNagMaybe() {
     }, cb);
   }
 
-  function _setSeenWebRtcDeprecation(cb) {
-    chrome.runtime.sendMessage({
-      type: "seenWebRtcDeprecation",
-      tabId: POPUP_DATA.tabId
-    }, cb);
-  }
-
   function _hideNag() {
     $nag.fadeOut();
     $outer.fadeOut();
@@ -133,25 +126,7 @@ function showNagMaybe() {
     $outer.show();
   }
 
-  function _showWebRtcDeprecationPrompt() {
-    $('#instruction-text').hide();
-
-    $("#webrtc-deprecation-ack-btn").on("click", function () {
-      _setSeenWebRtcDeprecation(function () {
-        _hideNag();
-      });
-    });
-
-    $('#webrtc-deprecation-div').show();
-    $('#fittslaw').hide();
-    $nag.show();
-    $outer.show();
-  }
-
-  if (POPUP_DATA.showWebRtcDeprecation) {
-    _showWebRtcDeprecationPrompt();
-
-  } else if (POPUP_DATA.showLearningPrompt) {
+  if (POPUP_DATA.showLearningPrompt) {
     _showLearningPrompt();
 
   } else if (!POPUP_DATA.settings.seenComic) {

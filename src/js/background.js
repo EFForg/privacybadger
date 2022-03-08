@@ -43,7 +43,6 @@ function Badger(from_qunit) {
   self.isFirstRun = false;
   self.isUpdate = false;
 
-  self.webRTCAvailable = checkWebRtcBrowserSupport();
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
 
   self.widgetList = [];
@@ -157,36 +156,6 @@ function Badger(from_qunit) {
       self.showFirstRunPage();
     }
   });
-
-  /**
-   * WebRTC availability check
-   */
-  function checkWebRtcBrowserSupport() {
-    if (!(chrome.privacy && chrome.privacy.network &&
-      chrome.privacy.network.webRTCIPHandlingPolicy)) {
-      return false;
-    }
-
-    var available = true;
-    var connection = null;
-
-    try {
-      var RTCPeerConnection = (
-        window.RTCPeerConnection || window.webkitRTCPeerConnection
-      );
-      if (RTCPeerConnection) {
-        connection = new RTCPeerConnection(null);
-      }
-    } catch (ex) {
-      available = false;
-    }
-
-    if (connection !== null && connection.close) {
-      connection.close();
-    }
-
-    return available;
-  }
 
   /**
    * Checks for availability of firstPartyDomain chrome.cookies API parameter.
@@ -354,16 +323,6 @@ Badger.prototype = {
         "hyperlinkAuditingEnabled",
         chrome.privacy.websites.hyperlinkAuditingEnabled,
         (self.getSettings().getItem("disableHyperlinkAuditing") ? false : null)
-      );
-    }
-
-    // when enabled, WebRTC IP handling policy is set to Mode 3
-    // https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01#page-5
-    if (badger.webRTCAvailable) {
-      _set_override(
-        "webRTCIPHandlingPolicy",
-        chrome.privacy.network.webRTCIPHandlingPolicy,
-        (self.getSettings().getItem("preventWebRTCIPLeak") ? 'default_public_interface_only' : null)
       );
     }
   },
@@ -854,7 +813,6 @@ Badger.prototype = {
     learnInIncognito: false,
     learnLocally: false,
     migrationLevel: 0,
-    preventWebRTCIPLeak: false,
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
@@ -918,11 +876,22 @@ Badger.prototype = {
     }
     badger.initDeprecations();
 
+    // remove obsolete settings
     if (self.isUpdate) {
-      // remove obsolete settings
-      if (settings.hasItem("showTrackingDomains")) {
-        settings.deleteItem("showTrackingDomains");
-      }
+      [
+        "preventWebRTCIPLeak",
+        "showTrackingDomains",
+        "webRTCIPProtection",
+      ].forEach(item => {
+        if (settings.hasItem(item)) { settings.deleteItem(item); }
+      });
+
+      [
+        "legacyWebRtcProtectionUser",
+        "showWebRtcDeprecation",
+      ].forEach(item => {
+        if (privateStore.hasItem(item)) { privateStore.deleteItem(item); }
+      });
     }
   },
 
@@ -931,31 +900,7 @@ Badger.prototype = {
    *
    * Called on Badger startup and user data import.
    */
-  initDeprecations: function () {
-    let self = this,
-      privateStore = self.getPrivateSettings();
-
-    if (!privateStore.hasItem("legacyWebRtcProtectionUser")) {
-      // initialize "legacy WebRTC IP leak protection user" flag
-      privateStore.setItem("legacyWebRtcProtectionUser",
-        self.getSettings().getItem("preventWebRTCIPLeak"));
-
-    } else if (!privateStore.getItem("legacyWebRtcProtectionUser")) {
-      // set legacy flag to true if the IP protection gets enabled
-      // for whatever reason (testing, user data import)
-      if (self.getSettings().getItem("preventWebRTCIPLeak")) {
-        privateStore.setItem("legacyWebRtcProtectionUser", true);
-      }
-    }
-
-    if (!privateStore.hasItem("showWebRtcDeprecation")) {
-      // will show WebRTC protection deprecation message
-      // iff showWebRtcDeprecation exists and is set to true
-      if (privateStore.getItem("legacyWebRtcProtectionUser")) {
-        privateStore.setItem("showWebRtcDeprecation", true);
-      }
-    }
-  },
+  initDeprecations: function () {},
 
   runMigrations: function() {
     var self = this;
@@ -985,6 +930,7 @@ Badger.prototype = {
       Migrations.resetWebRTCIPHandlingPolicy2,
       Migrations.resetWebRtcIpHandlingPolicy3,
       Migrations.forgetOpenDNS,
+      Migrations.unsetWebRTCIPHandlingPolicy,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
@@ -1040,9 +986,7 @@ Badger.prototype = {
         return;
       }
 
-      let special_page = !utils.hasOwn(self.tabData, tab_id);
-
-      if (self.criticalError || (!special_page && badger.getPrivateSettings().getItem("showWebRtcDeprecation"))) {
+      if (self.criticalError) {
         chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
         chrome.browserAction.setBadgeText({tabId: tab_id, text: "!"});
         return;
@@ -1052,7 +996,7 @@ Badger.prototype = {
       // - the counter is disabled
       // - we don't have tabData for whatever reason (special browser pages)
       // - Privacy Badger is disabled on the page
-      if (special_page ||
+      if (!utils.hasOwn(self.tabData, tab_id) ||
         !self.getSettings().getItem("showCounter") ||
         !self.isPrivacyBadgerEnabled(self.getFrameData(tab_id).host)
       ) {

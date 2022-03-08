@@ -168,18 +168,6 @@ function loadOptions() {
       });
   }
 
-  if (OPTIONS_DATA.webRTCAvailable && OPTIONS_DATA.legacyWebRtcProtectionUser) {
-    $("#webRTCToggle").show();
-    $("#toggle_webrtc_mode")
-      .prop("checked", OPTIONS_DATA.settings.preventWebRTCIPLeak)
-      .on("click", function () {
-        updatePrivacyOverride(
-          "preventWebRTCIPLeak",
-          $("#toggle_webrtc_mode").prop("checked")
-        );
-      });
-  }
-
   $('#local-learning-checkbox')
     .prop("checked", OPTIONS_DATA.settings.learnLocally)
     .on("click", (event) => {

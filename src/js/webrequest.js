@@ -1243,7 +1243,6 @@ function dispatcher(request, sender, sendResponse) {
       origins,
       settings: badger.getSettings().getItemClones(),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
-      showWebRtcDeprecation: !!badger.getPrivateSettings().getItem("showWebRtcDeprecation"),
       tabHost: tab_host,
       tabId: tab_id,
       tabUrl: request.tabUrl,
@@ -1266,10 +1265,8 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse({
       cookieblocked,
-      legacyWebRtcProtectionUser: badger.getPrivateSettings().getItem("legacyWebRtcProtectionUser"),
       origins,
       settings: badger.getSettings().getItemClones(),
-      webRTCAvailable: badger.webRTCAvailable,
       widgets: badger.widgetList.map(widget => widget.name),
     });
 
@@ -1304,13 +1301,6 @@ function dispatcher(request, sender, sendResponse) {
 
   case "seenLearningPrompt": {
     badger.getPrivateSettings().setItem("showLearningPrompt", false);
-    sendResponse();
-    break;
-  }
-
-  case "seenWebRtcDeprecation": {
-    badger.getPrivateSettings().setItem("showWebRtcDeprecation", false);
-    badger.updateBadge(request.tabId);
     sendResponse();
     break;
   }
