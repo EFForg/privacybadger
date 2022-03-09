@@ -16,7 +16,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
     },
     "report_broken_site": {
-        "message": "Signaler un site cassé",
+        "message": "Signaler un site perturbé",
         "description": "Button in the popup."
     },
     "version": {
@@ -244,7 +244,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Veuillez ne pas oublier de cliquer sur « Signaler un site cassé ». Nous respectons votre vie privée, et nous n’envoyons donc aucun rapport automatiquement.",
+        "message": "Veuillez ne pas oublier de cliquer sur « Signaler un site perturbé ». Nous respectons votre vie privée et nous n’envoyons donc aucun rapport automatiquement.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -370,7 +370,7 @@
         "description": ""
     },
     "options_domain_filter_dnt": {
-        "message": "compliant with EFF's DNT policy",
+        "message": "conforme à la politique de non-traçage de la FFÉ",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "popup_help_button": {
