@@ -138,23 +138,7 @@ function Badger(from_qunit) {
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
 
-    let privateStore = self.getPrivateSettings();
-    if (self.isFirstRun) {
-      privateStore.setItem("firstRunTimerFinished", false);
-
-      // work around the welcome page getting closed by an extension restart
-      // such as in response to being granted Private Browsing permission
-      // from the post-install doorhanger on Firefox
-      setTimeout(function () {
-        privateStore.setItem("firstRunTimerFinished", true);
-      }, utils.oneMinute());
-
-      self.showFirstRunPage();
-
-    } else if (!privateStore.getItem("firstRunTimerFinished")) {
-      privateStore.setItem("firstRunTimerFinished", true);
-      self.showFirstRunPage();
-    }
+    self.initWelcomePage();
   });
 
   /**
@@ -413,7 +397,29 @@ Badger.prototype = {
     });
   },
 
-  showFirstRunPage: function() {
+  initWelcomePage: function () {
+    let self = this,
+      privateStore = self.getPrivateSettings();
+
+    if (self.isFirstRun) {
+      privateStore.setItem("firstRunTimerFinished", false);
+
+      // work around the welcome page getting closed by an extension restart
+      // such as in response to being granted Private Browsing permission
+      // from the post-install doorhanger on Firefox
+      setTimeout(function () {
+        privateStore.setItem("firstRunTimerFinished", true);
+      }, utils.oneMinute());
+
+      self.showWelcomePage();
+
+    } else if (!privateStore.getItem("firstRunTimerFinished")) {
+      privateStore.setItem("firstRunTimerFinished", true);
+      self.showWelcomePage();
+    }
+  },
+
+  showWelcomePage: function () {
     let settings = this.getSettings();
     if (settings.getItem("showIntroPage")) {
       chrome.tabs.create({
