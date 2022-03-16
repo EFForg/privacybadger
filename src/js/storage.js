@@ -28,7 +28,6 @@ let utils = require("utils");
  *
  * https://github.com/EFForg/privacybadger/blob/master/doc/DESIGN-AND-ROADMAP.md#data-structures
  */
-
 function BadgerPen(callback) {
   let self = this;
 
@@ -47,6 +46,8 @@ function BadgerPen(callback) {
         _syncStorage(storageObj);
       }
     });
+
+    badger.initSettings();
 
     if (!chrome.storage.managed) {
       callback(self);

@@ -53,9 +53,6 @@ function Badger(from_qunit) {
   });
 
   self.storage = new pbStorage.BadgerPen(async function (thisStorage) {
-    self.initializeSettings();
-    // Privacy Badger settings are now fully ready
-
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
     // TODO there are async migrations
@@ -834,7 +831,7 @@ Badger.prototype = {
    * Initializes settings with defaults if needed,
    * detects whether Badger just got installed or upgraded
    */
-  initializeSettings: function () {
+  initSettings: function () {
     let self = this,
       settings = self.getSettings();
 
