@@ -312,10 +312,6 @@ class PBSeleniumTest(unittest.TestCase):
                 "badger.INITIALIZED"
             )
 
-            driver.close()
-            if driver.window_handles:
-                driver.switch_to.window(driver.window_handles[0])
-
             super(PBSeleniumTest, self).run(result)
 
     def is_firefox_nightly(self):

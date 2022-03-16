@@ -134,8 +134,6 @@ function Badger(from_qunit) {
     });
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
-
-    self.initWelcomePage();
   });
 
   /**

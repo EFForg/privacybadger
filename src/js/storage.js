@@ -41,6 +41,33 @@ function ingestManagedStorage(managedStore) {
   badger.getSettings().merge(settings);
 }
 
+let pollForManagedStorage = (function () {
+  const POLL_INTERVAL = 300,
+    MAX_TRIES = 15; // ~4.5 second delay to see welcome page for most users
+
+  return function (num_tries, callback) {
+    getManagedStorage(function (managedStore) {
+      if (utils.isObject(managedStore) && Object.keys(managedStore).length) {
+        // success
+        ingestManagedStorage(managedStore);
+        callback();
+        return;
+      }
+
+      num_tries++;
+      if (num_tries <= MAX_TRIES) {
+        // retry after a wait
+        setTimeout(function () {
+          pollForManagedStorage(num_tries, callback);
+        }, POLL_INTERVAL);
+      } else {
+        // give up
+        callback();
+      }
+    });
+  };
+}());
+
 /**
  * See the following link for documentation of
  * Privacy Badger's data objects in extension storage:
@@ -69,15 +96,38 @@ function BadgerPen(callback) {
     badger.initSettings();
 
     if (!chrome.storage.managed) {
+      setTimeout(function () {
+        badger.initWelcomePage();
+      }, 0);
       callback(self);
       return;
     }
 
     // see if we have any enterprise/admin/group policy overrides
     getManagedStorage(function (managedStore) {
-      if (utils.isObject(managedStore)) {
+      // there are values in managed storage
+      if (utils.isObject(managedStore) && Object.keys(managedStore).length) {
         ingestManagedStorage(managedStore);
+        setTimeout(function () {
+          badger.initWelcomePage();
+        }, 0);
+        callback(self);
+        return;
       }
+
+      // managed storage is empty
+
+      if (badger.isFirstRun) {
+        // poll for managed storage to work around Chromium bug
+        pollForManagedStorage(0, function () {
+          badger.initWelcomePage();
+        });
+      } else {
+        setTimeout(function () {
+          badger.initWelcomePage();
+        }, 0);
+      }
+
       callback(self);
     });
   });
