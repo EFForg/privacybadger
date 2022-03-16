@@ -22,6 +22,25 @@ require.scopes.storage = (function () {
 let constants = require("constants");
 let utils = require("utils");
 
+function getManagedStorage(callback) {
+  chrome.storage.managed.get(null, function (res) {
+    if (chrome.runtime.lastError) {
+      // ignore "Managed storage manifest not found" errors in Firefox
+    }
+    callback(res);
+  });
+}
+
+function ingestManagedStorage(managedStore) {
+  let settings = {};
+  for (let key in badger.defaultSettings) {
+    if (utils.hasOwn(managedStore, key)) {
+      settings[key] = managedStore[key];
+    }
+  }
+  badger.getSettings().merge(settings);
+}
+
 /**
  * See the following link for documentation of
  * Privacy Badger's data objects in extension storage:
@@ -55,21 +74,10 @@ function BadgerPen(callback) {
     }
 
     // see if we have any enterprise/admin/group policy overrides
-    chrome.storage.managed.get(null, function (managedStore) {
-      if (chrome.runtime.lastError) {
-        // ignore "Managed storage manifest not found" errors in Firefox
-      }
-
+    getManagedStorage(function (managedStore) {
       if (utils.isObject(managedStore)) {
-        let settings = {};
-        for (let key in badger.defaultSettings) {
-          if (utils.hasOwn(managedStore, key)) {
-            settings[key] = managedStore[key];
-          }
-        }
-        self.settings_map.merge(settings);
+        ingestManagedStorage(managedStore);
       }
-
       callback(self);
     });
   });
