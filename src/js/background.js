@@ -912,6 +912,9 @@ Badger.prototype = {
     var self = this;
     var settings = self.getSettings();
     var migrationLevel = settings.getItem('migrationLevel');
+    if (migrationLevel === null) {
+      return;
+    }
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently
     var migrations = [
