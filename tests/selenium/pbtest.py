@@ -308,9 +308,11 @@ class PBSeleniumTest(unittest.TestCase):
             # wait for Badger's storage, listeners, ...
             self.load_url(self.options_url)
             self.wait_for_script(
-                "return chrome.extension.getBackgroundPage()."
-                "badger.INITIALIZED"
-            )
+                "let badger = chrome.extension.getBackgroundPage().badger;"
+                "if (badger.INITIALIZED) {"
+                "  badger.getSettings().setItem('showIntroPage', false);"
+                "  return true;"
+                "}")
 
             super(PBSeleniumTest, self).run(result)
 
