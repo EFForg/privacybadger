@@ -27,7 +27,7 @@ class StorageTest(pbtest.PBSeleniumTest):
             timeout -= 1
 
         # make sure we didn't time out
-        self.assertGreater(timeout, 0, "Timed out waiting for DNT hashes")
+        assert timeout > 0, ("Timed out waiting for DNT hashes")
         # now check the downloaded policy hash
         get_dnt_hashes = (
             "return ("
@@ -38,33 +38,36 @@ class StorageTest(pbtest.PBSeleniumTest):
         )
         policy_hashes = self.js(get_dnt_hashes)
         for policy_hash in policy_hashes.keys():
-            self.assertEqual(PB_POLICY_HASH_LEN, len(policy_hash))
+            assert PB_POLICY_HASH_LEN == len(policy_hash)
 
     def test_should_init_storage_entries(self):
         self.load_url(self.options_url)
 
         self.check_policy_download()
-        self.assertEqual(
-            "https://www.eff.org/files/cookieblocklist_new.txt",
-            self.js(
-                "return chrome.extension.getBackgroundPage()."
-                "constants.YELLOWLIST_URL"
-            ) 
-        )
+        assert self.js(
+            "return chrome.extension.getBackgroundPage()."
+            "constants.YELLOWLIST_URL"
+        ) == "https://www.eff.org/files/cookieblocklist_new.txt"
 
         disabled_sites = self.js(
             "return chrome.extension.getBackgroundPage()."
             "badger.getSettings().getItem('disabledSites')"
         )
-        self.assertFalse(
-            len(disabled_sites),
-            "Shouldn't have any disabledSites after installation"
-        )
+        assert not disabled_sites, (
+            "Shouldn't have any disabledSites after installation")
 
-        self.assertTrue(self.js(
+        assert self.js(
             "return chrome.extension.getBackgroundPage()."
             "badger.getSettings().getItem('checkForDNTPolicy')"
-        ), "Should start with DNT policy enabled")
+        ), ("Should start with DNT policy enabled")
+
+        version_in_storage = self.js(
+            "return chrome.extension.getBackgroundPage()."
+            "badger.getPrivateSettings().getItem('badgerVersion')"
+        )
+        version_in_manifest = self.js("return chrome.runtime.getManifest().version")
+        assert version_in_storage == version_in_manifest, (
+            "private_storage should contain the correct version string")
 
 
 if __name__ == "__main__":

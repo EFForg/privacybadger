@@ -254,7 +254,7 @@ function loadOptions() {
     width: '100%'
   });
   OPTIONS_DATA.widgets.forEach(function (key) {
-    const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
+    const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions && OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
     const option = new Option(key, key, false, isSelected);
     $widgetExceptions.append(option).trigger("change");
   });
@@ -572,7 +572,7 @@ function removeDisabledSite(event) {
  * Updates the Site Exceptions form on the Widget Replacement tab.
  */
 function reloadWidgetSiteExceptions() {
-  let sites = Object.keys(OPTIONS_DATA.settings.widgetSiteAllowlist),
+  let sites = Object.keys(OPTIONS_DATA.settings.widgetSiteAllowlist || {}),
     $select = $('#widget-site-exceptions-select');
 
   // sort widget exemptions sites the same way other options page domains lists are

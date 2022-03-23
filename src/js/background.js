@@ -53,9 +53,6 @@ function Badger(from_qunit) {
   });
 
   self.storage = new pbStorage.BadgerPen(async function (thisStorage) {
-    self.initializeSettings();
-    // Privacy Badger settings are now fully ready
-
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
     // TODO there are async migrations
@@ -137,24 +134,6 @@ function Badger(from_qunit) {
     });
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
-
-    let privateStore = self.getPrivateSettings();
-    if (self.isFirstRun) {
-      privateStore.setItem("firstRunTimerFinished", false);
-
-      // work around the welcome page getting closed by an extension restart
-      // such as in response to being granted Private Browsing permission
-      // from the post-install doorhanger on Firefox
-      setTimeout(function () {
-        privateStore.setItem("firstRunTimerFinished", true);
-      }, utils.oneMinute());
-
-      self.showFirstRunPage();
-
-    } else if (!privateStore.getItem("firstRunTimerFinished")) {
-      privateStore.setItem("firstRunTimerFinished", true);
-      self.showFirstRunPage();
-    }
   });
 
   /**
@@ -413,7 +392,27 @@ Badger.prototype = {
     });
   },
 
-  showFirstRunPage: function() {
+  initWelcomePage: function () {
+    let self = this,
+      privateStore = self.getPrivateSettings();
+
+    if (self.isFirstRun) {
+      // work around the welcome page getting closed by an extension restart
+      // such as in response to being granted Private Browsing permission
+      // from the post-install doorhanger on Firefox
+      setTimeout(function () {
+        privateStore.setItem("firstRunTimerFinished", true);
+      }, utils.oneMinute());
+
+      self.showWelcomePage();
+
+    } else if (!privateStore.getItem("firstRunTimerFinished")) {
+      privateStore.setItem("firstRunTimerFinished", true);
+      self.showWelcomePage();
+    }
+  },
+
+  showWelcomePage: function () {
     let settings = this.getSettings();
     if (settings.getItem("showIntroPage")) {
       chrome.tabs.create({
@@ -828,7 +827,7 @@ Badger.prototype = {
    * Initializes settings with defaults if needed,
    * detects whether Badger just got installed or upgraded
    */
-  initializeSettings: function () {
+  initSettings: function () {
     let self = this,
       settings = self.getSettings();
 
@@ -874,6 +873,9 @@ Badger.prototype = {
         privateStore.setItem(key, privateDefaultSettings[key]);
       }
     }
+    if (self.isFirstRun) {
+      privateStore.setItem("firstRunTimerFinished", false);
+    }
     badger.initDeprecations();
 
     // remove obsolete settings
@@ -906,6 +908,9 @@ Badger.prototype = {
     var self = this;
     var settings = self.getSettings();
     var migrationLevel = settings.getItem('migrationLevel');
+    if (migrationLevel === null) {
+      return;
+    }
     // TODO do not remove any migration methods
     // TODO w/o refactoring migrationLevel handling to work differently
     var migrations = [
