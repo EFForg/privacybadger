@@ -331,7 +331,7 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #d
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin-top: 8px;
-    padding: 10px;
+    padding: 10px 8px;
     text-align: center;
     width: 49%;
 }
