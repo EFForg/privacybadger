@@ -1129,26 +1129,10 @@ function dispatcher(request, sender, sendResponse) {
     let button_path = chrome.runtime.getURL(
       "skin/socialwidgets/" + widgetData.replacementButton.imagePath);
 
-    let image_type = button_path.slice(button_path.lastIndexOf('.') + 1);
-
-    let xhrOptions = {};
-    if (image_type != "svg") {
-      xhrOptions.responseType = "arraybuffer";
-    }
-
-    // fetch replacement button image data
+    // fetch replacement button SVG image data
     utils.xhrRequest(button_path, function (err, response) {
-      // one data URI for SVGs
-      if (image_type == "svg") {
-        return sendResponse('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(response));
-      }
-
-      // another data URI for all other image formats
-      sendResponse(
-        'data:image/' + image_type + ';base64,' +
-        utils.arrayBufferToBase64(response)
-      );
-    }, "GET", xhrOptions);
+      return sendResponse('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(response));
+    }, "GET");
 
     // indicate this is an async response to chrome.runtime.onMessage
     return true;

@@ -36,23 +36,13 @@ function hasOwn(obj, prop) {
  * @param {String} url The url to get
  * @param {Function} callback The callback to call after request has finished
  * @param {String} method GET/POST
- * @param {Object} opts XMLHttpRequest options
  */
-function xhrRequest(url, callback, method, opts) {
+function xhrRequest(url, callback, method) {
   if (!method) {
     method = "GET";
   }
-  if (!opts) {
-    opts = {};
-  }
 
   let xhr = new XMLHttpRequest();
-
-  for (let key in opts) {
-    if (hasOwn(opts, key)) {
-      xhr[key] = opts[key];
-    }
-  }
 
   xhr.onload = function () {
     if (xhr.status == 200) {
@@ -74,25 +64,6 @@ function xhrRequest(url, callback, method, opts) {
 
   xhr.open(method, url, true);
   xhr.send();
-}
-
-/**
- * Converts binary data to base64-encoded text suitable for use in data URIs.
- *
- * Adapted from https://stackoverflow.com/a/9458996.
- *
- * @param {ArrayBuffer} buffer binary data
- *
- * @returns {String} base64-encoded text
- */
-function arrayBufferToBase64(buffer) {
-  var binary = '';
-  var bytes = new Uint8Array(buffer);
-  var len = bytes.byteLength;
-  for (var i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
 }
 
 /**
@@ -599,7 +570,6 @@ function filter(obj, cb) {
 
 /************************************** exports */
 let exports = {
-  arrayBufferToBase64,
   concatUniq,
   debounce,
   difference,
