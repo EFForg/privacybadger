@@ -131,8 +131,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         THIRD_PARTY = "efforg.github.io"
 
         # remove pre-trained domains
-        self.js("chrome.extension.getBackgroundPage()."
-            "badger.storage.clearTrackerData();")
+        self.clear_tracker_data()
 
         # load the first site
         self.load_url(SITE1_URL)

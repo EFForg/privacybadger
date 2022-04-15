@@ -30,8 +30,7 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         )
 
         # clear seed data to prevent any potential false positives
-        self.load_url(self.options_url)
-        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
+        self.clear_tracker_data()
 
         # load the test fixture without the URL parameter to to verify there is no tracking on the page by default
         self.load_url(FIXTURE_URL)

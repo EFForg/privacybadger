@@ -16,10 +16,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
-    def clear_seed_data(self):
-        self.load_url(self.options_url)
-        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
-
     def wait_for_page_to_start_loading(self, url, timeout=20):
         """Wait until the title element is present. Use it to work around
         Firefox not updating self.driver.current_url fast enough."""
@@ -178,7 +174,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_toggling_sliders(self):
         """Ensure toggling sliders is persisted."""
-        self.clear_seed_data()
+        self.clear_tracker_data()
 
         # enable learning to show not-yet-blocked domains in popup
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
@@ -226,7 +222,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_reverting_control(self):
         """Test restoring control of a domain to Privacy Badger."""
-        self.clear_seed_data()
+        self.clear_tracker_data()
 
         DOMAIN = "example.com"
         DOMAIN_ID = DOMAIN.replace(".", "-")

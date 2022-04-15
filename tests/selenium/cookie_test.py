@@ -37,16 +37,12 @@ class CookieTest(pbtest.PBSeleniumTest):
 
         THIRD_PARTY_DOMAIN = "efforg.github.io"
 
+        # remove pre-trained domains
+        self.clear_tracker_data()
+
         # enable local learning
-        self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('#local-learning-checkbox').click()
-
-        # remove pre-trained domains
-        self.js(
-            "chrome.extension.getBackgroundPage()."
-            "badger.storage.clearTrackerData();"
-        )
 
         # load the first site with the third party code that reads and writes a cookie
         self.load_url(SITE1_URL)

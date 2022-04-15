@@ -465,6 +465,15 @@ class PBSeleniumTest(unittest.TestCase):
             'input[name="{}"][checked]'.format(domain))
         return label.get_attribute('value')
 
+    def clear_tracker_data(self):
+        self.load_url(self.options_url)
+        self.driver.execute_async_script((
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'removeAllData'"
+            "}, done);"
+        ))
+
     def load_pb_ui(self, target_url):
         """Show the PB popup as a new tab.
 

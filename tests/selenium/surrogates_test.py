@@ -33,11 +33,9 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         SURROGATE_HOST = "www.google-analytics.com"
 
         # clear pre-trained/seed tracker data
-        self.load_url(self.options_url)
-        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
+        self.clear_tracker_data()
 
         # verify the surrogate is present
-        self.load_url(self.options_url)
         assert self.js(
             "let bg = chrome.extension.getBackgroundPage();"
             "const sdb = bg.require('surrogatedb');"

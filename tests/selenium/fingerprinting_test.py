@@ -45,8 +45,7 @@ return (
         FINGERPRINTING_DOMAIN = "cdn.jsdelivr.net"
 
         # clear pre-trained/seed tracker data
-        self.load_url(self.options_url)
-        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
+        self.clear_tracker_data()
 
         # visit the page
         self.load_url(FIXTURE_URL)

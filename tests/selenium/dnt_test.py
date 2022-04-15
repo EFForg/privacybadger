@@ -196,8 +196,7 @@ class DntTest(pbtest.PBSeleniumTest):
         NON_TRACKING_DOMAIN = "www.eff.org"
 
         # clear pre-trained/seed tracker data
-        self.load_url(self.options_url)
-        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
+        self.clear_tracker_data()
 
         # enable local learning
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
