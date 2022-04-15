@@ -31,39 +31,25 @@ function hasOwn(obj, prop) {
 }
 
 /**
- * Generic interface to make an XHR request
+ * Generic interface to make requests.
  *
- * @param {String} url The url to get
- * @param {Function} callback The callback to call after request has finished
- * @param {String} method GET/POST
+ * @param {String} url the URL to get
+ * @param {Function} callback the callback ({String?} error, {String?} response body text)
  */
-function xhrRequest(url, callback, method) {
-  if (!method) {
-    method = "GET";
-  }
-
-  let xhr = new XMLHttpRequest();
-
-  xhr.onload = function () {
-    if (xhr.status == 200) {
-      callback(null, xhr.response);
-    } else {
-      let error = {
-        status: xhr.status,
-        message: xhr.response,
-        object: xhr
-      };
-      callback(error, error.message);
+function fetchResource(url, callback) {
+  fetch(url).then(response => {
+    if (!response.ok) {
+      throw new Error("Non-2xx response status: " + response.status);
     }
-  };
+    return response.text();
 
-  // triggered by network problems
-  xhr.onerror = function () {
-    callback({ status: 0, message: "", object: xhr }, "");
-  };
+  }).then(data => {
+    // success
+    callback(null, data);
 
-  xhr.open(method, url, true);
-  xhr.send();
+  }).catch(error => {
+    callback(error, null);
+  });
 }
 
 /**
@@ -575,6 +561,7 @@ let exports = {
   difference,
   estimateMaxEntropy,
   explodeSubdomains,
+  fetchResource,
   filter,
   findCommonSubstrings,
   firstPartyProtectionsEnabled,
@@ -593,7 +580,6 @@ let exports = {
   random,
   rateLimit,
   sha1,
-  xhrRequest,
 };
 
 exports.isObject = function (obj) {

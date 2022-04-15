@@ -313,7 +313,7 @@ Badger.prototype = {
   loadSeedData: function (cb) {
     let self = this;
 
-    utils.xhrRequest(constants.SEED_DATA_LOCAL_URL, function (err, response) {
+    utils.fetchResource(constants.SEED_DATA_LOCAL_URL, function (err, response) {
       if (err) {
         return cb(new Error("Failed to fetch seed data"));
       }
@@ -569,7 +569,7 @@ Badger.prototype = {
 
       // we don't have the yellowlist initialized yet
       // initialize from disk
-      utils.xhrRequest(constants.YELLOWLIST_LOCAL_URL, (error, response) => {
+      utils.fetchResource(constants.YELLOWLIST_LOCAL_URL, (error, response) => {
         if (error) {
           console.error(error);
           return reject(new Error("Failed to fetch local yellowlist"));
@@ -594,15 +594,13 @@ Badger.prototype = {
       callback = function () {};
     }
 
-    utils.xhrRequest(constants.YELLOWLIST_URL, function (err, response) {
+    utils.fetchResource(constants.YELLOWLIST_URL, function (err, response) {
       if (err) {
         console.error(
           "Problem fetching yellowlist at",
           constants.YELLOWLIST_URL,
-          err.status,
-          err.message
+          err
         );
-
         return callback(new Error("Failed to fetch remote yellowlist"));
       }
 
@@ -663,7 +661,7 @@ Badger.prototype = {
 
       // we don't have DNT hashes initialized yet
       // initialize from disk
-      utils.xhrRequest(constants.DNT_POLICIES_LOCAL_URL, (error, response) => {
+      utils.fetchResource(constants.DNT_POLICIES_LOCAL_URL, (error, response) => {
         let hashes;
 
         if (error) {
@@ -705,10 +703,10 @@ Badger.prototype = {
       }, 0);
     }
 
-    utils.xhrRequest(constants.DNT_POLICIES_URL, function (err, response) {
+    utils.fetchResource(constants.DNT_POLICIES_URL, function (err, response) {
       if (err) {
         console.error("Problem fetching DNT policy hash list at",
-          constants.DNT_POLICIES_URL, err.status, err.message);
+          constants.DNT_POLICIES_URL, err);
         return cb(new Error("Failed to fetch remote DNT hashes"));
       }
 
@@ -776,24 +774,20 @@ Badger.prototype = {
    *
    * Rate-limited to at least one second apart.
    *
-   * @param {String} origin The host to check
-   * @param {Function} callback callback(successStatus)
+   * @param {String} origin the host to check
+   * @param {Function} callback the callback ({Boolean} success_status)
    */
   _checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
-    var successStatus = false;
-    var url = "https://" + origin + "/.well-known/dnt-policy.txt";
-    var dnt_hashes = this.storage.getStore('dnt_hashes');
+    const URL = "https://" + origin + "/.well-known/dnt-policy.txt";
+    const dntHashesStore = this.storage.getStore('dnt_hashes');
 
-    utils.xhrRequest(url,function(err,response) {
+    utils.fetchResource(URL, function (err, response) {
       if (err) {
-        callback(successStatus);
+        callback(false);
         return;
       }
       utils.sha1(response, function(hash) {
-        if (dnt_hashes.hasItem(hash)) {
-          successStatus = true;
-        }
-        callback(successStatus);
+        callback(dntHashesStore.hasItem(hash));
       });
     });
   }, constants.DNT_POLICY_CHECK_INTERVAL),

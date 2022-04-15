@@ -2,7 +2,7 @@
 
 (function () {
 
-const DNT_COMPLIANT_DOMAIN = 'eff.org',
+const DNT_COMPLIANT_DOMAIN = 'www.eff.org',
   DNT_DOMAINS = [
     DNT_COMPLIANT_DOMAIN,
     'dnt2.example',
@@ -17,7 +17,7 @@ let utils = require('utils'),
   mdfp = require('multiDomainFP');
 
 let clock,
-  server,
+  stubbedFetch,
   xhrSpy,
   dnt_policy_txt;
 
@@ -53,20 +53,18 @@ QUnit.module("Background", {
     let done = assert.async();
 
     // fetch locally stored DNT policy
-    utils.xhrRequest(POLICY_URL, function (err, data) {
+    utils.fetchResource(POLICY_URL, function (_, data) {
       dnt_policy_txt = data;
 
-      // set up fake server to simulate XMLHttpRequests
-      server = sinon.fakeServer.create({
-        respondImmediately: true
-      });
+      // set up fake server to simulate fetch()
+      stubbedFetch = sinon.stub(window, 'fetch');
       DNT_DOMAINS.forEach(domain => {
-        server.respondWith(
-          "GET",
-          "https://" + domain + "/.well-known/dnt-policy.txt",
-          [200, {}, dnt_policy_txt]
-        );
+        stubbedFetch
+          .withArgs("https://" + domain + "/.well-known/dnt-policy.txt")
+          .resolves(new Response(dnt_policy_txt));
       });
+      // all other URLs
+      stubbedFetch.resolves(new Response("not the DNT policy"));
 
       // set up fake timers to simulate window.setTimeout and co.
       clock = sinon.useFakeTimers(+new Date());
@@ -76,18 +74,17 @@ QUnit.module("Background", {
   },
 
   beforeEach: (/*assert*/) => {
-    // spy on utils.xhrRequest
-    xhrSpy = sinon.spy(utils, "xhrRequest");
+    xhrSpy = sinon.spy(utils, "fetchResource");
   },
 
   afterEach: (/*assert*/) => {
     // reset call counts, etc. after each test
-    utils.xhrRequest.restore();
+    utils.fetchResource.restore();
   },
 
   after: (/*assert*/) => {
     clock.restore();
-    server.restore();
+    fetch.restore();
   }
 });
 
@@ -505,13 +502,11 @@ QUnit.test("mergeUserData() clears snitch_map when all items are MDFP", (assert)
       badger.isUpdate = true;
       badger.getSettings().setItem("learnLocally", false);
 
-      server = sinon.fakeServer.create({
-        respondImmediately: true
-      });
+      stubbedFetch = sinon.stub(window, 'fetch');
     },
 
     after: (/*assert*/) => {
-      server.restore();
+      fetch.restore();
 
       badger.getSettings().setItem("learnLocally", LEARN_LOCALLY);
       badger.isUpdate = IS_UPDATE;
@@ -534,13 +529,12 @@ QUnit.test("mergeUserData() clears snitch_map when all items are MDFP", (assert)
     };
 
     // perform the update
-    server.respondWith(
-      "GET", (new URL(constants.SEED_DATA_LOCAL_URL)).pathname,
-      [200, {}, JSON.stringify({
+    stubbedFetch
+      .withArgs(constants.SEED_DATA_LOCAL_URL)
+      .resolves(new Response(JSON.stringify({
         action_map: newActionMap,
         snitch_map: newSnitchMap
-      })]
-    );
+      })));
     await badger.updateTrackerData();
 
     // check what happened
@@ -573,13 +567,12 @@ QUnit.test("mergeUserData() clears snitch_map when all items are MDFP", (assert)
     badger.storage.setupUserAction("youtube.com", constants.USER_BLOCK);
 
     // perform the update
-    server.respondWith(
-      "GET", (new URL(constants.SEED_DATA_LOCAL_URL)).pathname,
-      [200, {}, JSON.stringify({
+    stubbedFetch
+      .withArgs(constants.SEED_DATA_LOCAL_URL)
+      .resolves(new Response(JSON.stringify({
         action_map: newActionMap,
         snitch_map: newSnitchMap
-      })]
-    );
+      })));
     await badger.updateTrackerData();
 
     // check what happened

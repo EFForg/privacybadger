@@ -1130,7 +1130,7 @@ function dispatcher(request, sender, sendResponse) {
       "skin/socialwidgets/" + widgetData.replacementButton.imagePath);
 
     // fetch replacement button SVG image data
-    utils.xhrRequest(button_path, function (err, response) {
+    utils.fetchResource(button_path, function (_, response) {
       return sendResponse('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(response));
     }, "GET");
 
