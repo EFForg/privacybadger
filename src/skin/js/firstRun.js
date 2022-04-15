@@ -1,25 +1,17 @@
-(function($) {
-
-$(window).on("load", function () {
-
-  function setSeenComic() {
-    var badger = chrome.extension.getBackgroundPage().badger;
-    var settings = badger.getSettings();
-    settings.setItem("seenComic", true);
-  }
+$(function () {
+  let already_set = false;
 
   $(".scroll-it").smoothScroll();
 
-  var alreadySet = false;
   $(window).scroll(function () {
-    if (!alreadySet) {
+    if (!already_set) {
       if ($(window).scrollTop() > 400) {
-        alreadySet = true;
-        setSeenComic();
+        already_set = true;
+        chrome.runtime.sendMessage({
+          type: "updateSettings",
+          data: { seenComic: true }
+        });
       }
     }
   });
 });
-
-
-}(jQuery));
