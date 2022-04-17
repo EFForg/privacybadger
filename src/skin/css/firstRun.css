@@ -413,7 +413,7 @@ header img {
     width:15rem;
   }
 }
-header .title-bar h1 {
+header .title-bar h1, .title-bar h3{
   color:white;
   font-family:"ChunkFive",serif;
 }
@@ -681,9 +681,18 @@ body {
 #intro {
   padding:2rem 0rem 4rem;
 }
+#intro h3 {
+  margin-top: 2rem;
+}
+.how-to-open-popup-image {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 20px;
+  display: inline-block;
+}
 @media print, screen and (min-width: 40em) {
   #intro {
-    padding:4rem 0rem 14rem;
+    padding:4rem 0rem 4rem;
   }
 }
 [id*="pb-features-"],#pb-settings {
@@ -728,6 +737,9 @@ body {
 }
 #pb-settings {
   background-image:linear-gradient(#EC9329, #EC9329 30%, #fff 30%);
+}
+#pb-settings img {
+        margin-bottom: 1rem;
 }
 [id*="pb-donate"] {
   display:-ms-flexbox;

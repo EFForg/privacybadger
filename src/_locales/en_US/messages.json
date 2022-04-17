@@ -74,7 +74,7 @@
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
+        "message": "Privacy Badger is not an ad blocker, it's different!",
         "description": "Intro page paragraph heading."
     },
     "report_success": {
@@ -105,10 +105,6 @@
         "message": "Click to return control of this domain to Privacy Badger",
         "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
-    "next_section": {
-        "message": "next section",
-        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
-    },
     "extension_error_text": {
         "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
@@ -126,8 +122,12 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
+        "message": "Check out what Privacy Badger can do.",
         "description": "Intro page welcome paragraph."
+    },
+    "intro_instructions_open_popup": {
+        "message": "Give it a try, click on the Privacy Badger icon!",
+        "description": "instructions to open up the extensionn popup by clicking on the badger icon in the browser window, shown on first download page"
     },
     "error_input": {
         "message": "What's Wrong?",
@@ -244,8 +244,13 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
+        "message": "To help other Privacy Badger users, please click $REPORT_ICON$ <span style='font-weight:bold'>'Report broken site'</span> when you encounter a site that's not working. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message.",
+        "placeholders": {
+            "report_icon": {
+                "content": "<span class=\"ui-icon ui-icon-mail-send\"></span>"
+            }
+        }
     },
     "options_title": {
         "message": "Privacy Badger Options",
@@ -315,10 +320,6 @@
         "message": "Advanced",
         "description": "Subheading on the general settings options page."
     },
-    "intro_next_button": {
-        "message": "Take the tour",
-        "description": "Intro page welcome button."
-    },
     "badger_status_cookieblock": {
         "message": "Blocked cookies from $DOMAIN$",
         "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
@@ -334,8 +335,12 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "firstRun_title": {
-        "message": "Thank you for installing Privacy Badger!",
+        "message": "Thanks for installing Privacy Badger!",
         "description": ""
+    },
+    "firstRun_open_popup_title": {
+        "message": "Just one more thing: here's how to open Privacy Badger.",
+        "description": "title header that shows how to open the extension popup on the page the user first sees after downloading Privacy Badger"
     },
     "import_select_file": {
         "message": "Please select a file to import.",
@@ -344,14 +349,6 @@
     "tooltip_cookieblock": {
         "message": "Center the slider to block cookies",
         "description": ""
-    },
-    "intro_learns": {
-        "message": "Learns automatically",
-        "description": "Intro page paragraph heading"
-    },
-    "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
-        "description": "Intro page paragraph"
     },
     "intro_beyond_ads": {
         "message": "Catches sneaky trackers",
@@ -480,7 +477,7 @@
         "description": ""
     },
     "intro_privacy_note": {
-        "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
+        "message": "Privacy Badger is ready to help protect your privacy! Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
         "description": "Intro page paragraph."
     },
     "options_domain_list_trackers": {
@@ -505,7 +502,7 @@
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out!",
+        "message": "Instead of keeping lists of what to block, Privacy Badger learns automatically -- and discovers trackers based on their behavior.",
         "description": "Intro page paragraph."
     },
     "options_domain_status_filter": {
@@ -525,8 +522,13 @@
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
+        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the $DISABLE_ICON$ <span style='font-weight:bold'>'Disable'</span> button to turn off Privacy Badger for that site.",
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message.",
+        "placeholders": {
+            "disable_icon": {
+                "content": "<span class=\"ui-icon ui-icon-power\"></span>"
+            }
+        }
     },
     "intro_link_policy": {
         "message": "Privacy Policy",
