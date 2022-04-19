@@ -475,6 +475,20 @@ BadgerPen.prototype = {
         }
       }
     }
+  },
+
+  /**
+   * Forces a write of a Badger storage object's contents to extension storage.
+   */
+  forceSync: function (store_name, callback) {
+    let self = this;
+    if (!self.KEYS.includes(store_name)) {
+      setTimeout(function () {
+        callback("Error: Unknown Badger storage name");
+      }, 0);
+      return;
+    }
+    _syncStorage(self.getStore(store_name), true, callback);
   }
 };
 
@@ -677,38 +691,54 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = (function () {
-  var debouncedFuncs = {};
+let _syncStorage = (function () {
+  let debouncedFuncs = {};
 
-  function cb() {
-    if (chrome.runtime.lastError) {
+  function _sync(badgerStore, callback) {
+    if (!callback) {
+      callback = function () {};
+    }
+    let obj = {};
+    obj[badgerStore.name] = badgerStore._store;
+    chrome.storage.local.set(obj, function () {
+      if (!chrome.runtime.lastError) {
+        callback(null);
+        return;
+      }
       let err = chrome.runtime.lastError.message;
-      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")
-      && !err.startsWith("InvalidStateError:") && !err.startsWith("AbortError:")
-      && !err.startsWith("QuotaExceededError:")
-      ) {
+      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:") &&
+        !err.startsWith("InvalidStateError:") && !err.startsWith("AbortError:") &&
+        !err.startsWith("QuotaExceededError:")) {
         badger.criticalError = err;
       }
       console.error("Error writing to chrome.storage.local:", err);
+      callback(err);
+    });
+  }
+
+  /**
+   * Writes contents of Badger storage objects to extension storage.
+   *
+   * The writing is debounced by default.
+   *
+   * @param {BadgerStorage} badgerStore
+   * @param {Boolean} [force] perform sync immediately if truthy
+   * @param {Function} [callback] ONLY USED WHEN FORCING IMMEDIATE SYNC
+   */
+  return function (badgerStore, force, callback) {
+    // bypass debouncing
+    if (force) {
+      _sync(badgerStore, callback);
+      return;
     }
-  }
-
-  function sync(badgerStorage) {
-    var obj = {};
-    obj[badgerStorage.name] = badgerStorage._store;
-    chrome.storage.local.set(obj, cb);
-  }
-
-  // Creates debounced versions of "sync" function,
-  // one for each distinct badgerStorage value.
-  return function (badgerStorage) {
-    if (!utils.hasOwn(debouncedFuncs, badgerStorage.name)) {
+    // create debounced versions of _sync(), one per BadgerPen.prototype.KEYS
+    if (!utils.hasOwn(debouncedFuncs, badgerStore.name)) {
       // call sync at most once every two seconds
-      debouncedFuncs[badgerStorage.name] = utils.debounce(function () {
-        sync(badgerStorage);
+      debouncedFuncs[badgerStore.name] = utils.debounce(function () {
+        _sync(badgerStore);
       }, 2000);
     }
-    debouncedFuncs[badgerStorage.name]();
+    debouncedFuncs[badgerStore.name]();
   };
 }());
 

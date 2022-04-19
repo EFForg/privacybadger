@@ -1277,6 +1277,14 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // used by tests
+  case "syncStorage": {
+    badger.storage.forceSync(request.storeName, (err) => {
+      sendResponse(err);
+    });
+    return true; // async chrome.runtime.onMessage response
+  }
+
   case "seenComic": {
     badger.getSettings().setItem("seenComic", true);
     sendResponse();

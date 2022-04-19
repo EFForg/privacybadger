@@ -474,6 +474,21 @@ class PBSeleniumTest(unittest.TestCase):
             "}, done);"
         ))
 
+    def get_badger_storage(self, store_name):
+        self.load_url(self.options_url)
+        return self.driver.execute_async_script((
+            "let done = arguments[arguments.length - 1],"
+            "  store_name = arguments[0];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'syncStorage',"
+            "  storeName: store_name"
+            "}, function () {"
+            "  chrome.storage.local.get([store_name], function (res) {"
+            "    done(res[store_name]);"
+            "  });"
+            "});"
+        ), store_name)
+
     def load_pb_ui(self, target_url):
         """Show the PB popup as a new tab.
 

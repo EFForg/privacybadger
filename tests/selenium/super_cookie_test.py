@@ -12,17 +12,9 @@ from functools import partial
 class SupercookieTest(pbtest.PBSeleniumTest):
     """Make sure we detect potential supercookies. """
 
-    def get_snitch_map_for(self, origin):
+    def get_snitch_map_for(self, domain):
         self.open_window() # don't replace the test page to allow for retrying
-        self.load_url(self.options_url)
-
-        CHECK_SNITCH_MAP_JS = (
-            "return chrome.extension.getBackgroundPage()"
-            ".badger.storage.getStore('snitch_map')"
-            ".getItemClones()[arguments[0]];"
-        )
-
-        return self.js(CHECK_SNITCH_MAP_JS, origin)
+        return self.get_badger_storage('snitch_map').get(domain)
 
     def setUp(self):
         # enable local learning

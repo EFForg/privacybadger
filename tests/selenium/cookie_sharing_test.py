@@ -12,10 +12,7 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
     """
 
     def get_snitch_map(self):
-        return self.js(
-            "return chrome.extension.getBackgroundPage()."
-            "badger.storage.snitch_map.getItem('cloudinary.com');"
-        )
+        return self.get_badger_storage('snitch_map').get('cloudinary.com')
 
     def setUp(self):
         # enable local learning
@@ -35,19 +32,14 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         # load the test fixture without the URL parameter to to verify there is no tracking on the page by default
         self.load_url(FIXTURE_URL)
         # check to make sure the domain wasn't logged in snitch map
-        self.load_url(self.options_url)
-        self.assertFalse(self.get_snitch_map(),
+        assert not self.get_snitch_map(), (
             "Tracking detected but page expected to have no tracking at this point")
 
         # load the same test fixture, but pass the URL parameter for it to perform pixel cookie sharing
         self.load_url(FIXTURE_URL + "?trackMe=true")
         # check to make sure this domain is caught and correctly recorded in snitch map
-        self.load_url(self.options_url)
-        self.assertEqual(
-            ["efforg.github.io"],
-            self.get_snitch_map(),
-            "Pixel cookie sharing tracking failed to be detected"
-        )
+        assert ["efforg.github.io"] == self.get_snitch_map(), (
+            "Pixel cookie sharing tracking failed to be detected")
 
 
 if __name__ == "__main__":
