@@ -40,19 +40,10 @@ class DntTest(pbtest.PBSeleniumTest):
         try:
             headers = json.loads(text)['headers']
         except ValueError:
-            print("\nFailed to parse JSON from {}".format(repr(text)))
+            print(f"\nFailed to parse JSON from {repr(text)}")
             return None
 
         return headers
-
-    def domain_was_recorded(self, domain):
-        return self.js(
-            "return (Object.keys("
-            "  chrome.extension.getBackgroundPage()."
-            "  badger.storage.action_map.getItemClones()"
-            ").indexOf(arguments[0]) != -1);",
-            domain
-        )
 
     def domain_was_detected(self, domain):
         return self.js(
@@ -124,7 +115,7 @@ class DntTest(pbtest.PBSeleniumTest):
 
     def test_dnt_policy_check_should_not_set_cookies(self):
         TEST_DOMAIN = "dnt-test.trackersimulator.org"
-        TEST_URL = "https://{}/".format(TEST_DOMAIN)
+        TEST_URL = f"https://{TEST_DOMAIN}/"
 
         # verify that the domain itself doesn't set cookies
         self.load_url(TEST_URL)
@@ -160,7 +151,7 @@ class DntTest(pbtest.PBSeleniumTest):
 
     def test_dnt_policy_check_should_not_send_cookies(self):
         TEST_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
-        TEST_URL = "https://{}/".format(TEST_DOMAIN)
+        TEST_URL = f"https://{TEST_DOMAIN}/"
 
         # directly visit a DNT policy URL known to set cookies
         self.load_url(TEST_URL + ".well-known/dnt-policy.txt")
@@ -209,29 +200,25 @@ class DntTest(pbtest.PBSeleniumTest):
 
         # verify both domains are present on the page
         try:
-            selector = "iframe[src*='%s']" % TRACKING_DOMAIN
+            selector = f"iframe[src*='{TRACKING_DOMAIN}']"
             self.driver.find_element_by_css_selector(selector)
         except NoSuchElementException:
             self.fail("Unable to find the tracking domain on the page")
         try:
-            selector = "img[src*='%s']" % NON_TRACKING_DOMAIN
+            selector = f"img[src*='{NON_TRACKING_DOMAIN}']"
             self.driver.find_element_by_css_selector(selector)
         except NoSuchElementException:
             self.fail("Unable to find the non-tracking domain on the page")
 
-        self.load_url(self.options_url)
+        action_map = self.get_badger_storage('action_map')
 
         # verify that the cookie-tracking domain was recorded
-        self.assertTrue(
-            self.domain_was_recorded(TRACKING_DOMAIN),
-            "Tracking domain should have gotten recorded"
-        )
+        assert TRACKING_DOMAIN in action_map, (
+            "Tracking domain should have gotten recorded")
 
         # verify that the non-tracking domain was not recorded
-        self.assertFalse(
-            self.domain_was_recorded(NON_TRACKING_DOMAIN),
-            "Non-tracking domain should not have gotten recorded"
-        )
+        assert NON_TRACKING_DOMAIN not in action_map, (
+            "Non-tracking domain should not have gotten recorded")
 
     def test_first_party_dnt_header(self):
         TEST_URL = "https://httpbin.org/get"
