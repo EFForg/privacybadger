@@ -24,7 +24,7 @@ window.SLIDERS_DONE = false;
 const TOOLTIP_CONF = {
   maxWidth: 400
 };
-const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
+const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map", "tracking_map"];
 
 let i18n = chrome.i18n;
 
@@ -318,8 +318,8 @@ function parseUserDataFile(storageMapsList) {
     return alert(i18n.getMessage("invalid_json"));
   }
 
-  // validate by checking we have the same keys in the import as in the export
-  if (JSON.stringify(Object.keys(lists).sort()) != JSON.stringify(USER_DATA_EXPORT_KEYS.sort())) {
+  // validate keys (all keys must be known)
+  if (Object.keys(lists).some(key => !USER_DATA_EXPORT_KEYS.includes(key))) {
     return alert(i18n.getMessage("invalid_json"));
   }
 

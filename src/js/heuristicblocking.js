@@ -194,6 +194,8 @@ HeuristicBlocker.prototype = {
     const TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
 
+    let self = this;
+
     for (let p of searchParams) {
       let key = p[0],
         value = p[1];
@@ -261,7 +263,14 @@ HeuristicBlocker.prototype = {
             log("Found high-entropy cookie share from", tab_base, "to", request_host,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
               "\n  arg:", key, "=", value, "\n  substring:", s);
-            this._recordPrevalence(request_host, request_base, tab_base);
+            self._recordPrevalence(request_host, request_base, tab_base);
+
+            // record pixel cookie sharing
+            badger.storage.recordTrackingDetails(
+              request_host,
+              window.extractHostFromURL(tab_url),
+              'pixelcookieshare');
+
             return;
           }
         }

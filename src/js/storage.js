@@ -140,7 +140,22 @@ BadgerPen.prototype = {
     "cookieblock_list",
     "dnt_hashes",
     "settings_map",
-    "private_storage", // misc. utility settings, not for export
+
+    // misc. utility settings, not for export
+    "private_storage",
+
+    // logs what kind of tracking was observed:
+    // {
+    //   <tracker_fqdn>: {
+    //     <site_fqdn>: {
+    //       <tracking_type>: true,
+    //       ...
+    //     },
+    //     ...
+    //   },
+    //   ...
+    // }
+    "tracking_map",
   ],
 
   getStore: function (key) {
@@ -156,7 +171,7 @@ BadgerPen.prototype = {
    */
   clearTrackerData: function () {
     let self = this;
-    ['snitch_map', 'action_map'].forEach(key => {
+    ['action_map', 'snitch_map', 'tracking_map'].forEach(key => {
       self.getStore(key).updateObject({});
     });
   },
@@ -464,7 +479,7 @@ BadgerPen.prototype = {
 
     if (snitchMap.getItem(base_domain)) {
       log("Removing %s from snitch_map", base_domain);
-      badger.storage.getStore("snitch_map").deleteItem(base_domain);
+      snitchMap.deleteItem(base_domain);
     }
 
     for (let domain in actions) {
@@ -489,6 +504,20 @@ BadgerPen.prototype = {
       return;
     }
     _syncStorage(self.getStore(store_name), true, callback);
+  },
+
+  /**
+   * Simplifies updating tracking_map.
+   */
+  recordTrackingDetails: function (tracker_host, site_host, tracking_type) {
+    let self = this,
+      trackingDataStore = self.getStore('tracking_map'),
+      entry = trackingDataStore.getItem(tracker_host) || {};
+    if (!utils.hasOwn(entry, site_host)) {
+      entry[site_host] = {};
+    }
+    entry[site_host][tracking_type] = true;
+    trackingDataStore.setItem(tracker_host, entry);
   }
 };
 
@@ -677,9 +706,19 @@ BadgerStorage.prototype = {
     } else if (self.name == "snitch_map") {
       for (let tracker_base in mapData) {
         let siteBases = mapData[tracker_base];
-        for (let siteBase of siteBases) {
+        for (let site_base of siteBases) {
           badger.heuristicBlocking.updateTrackerPrevalence(
-            tracker_base, tracker_base, siteBase);
+            tracker_base, tracker_base, site_base);
+        }
+      }
+
+    } else if (self.name == "tracking_map") {
+      for (let tracker_host in mapData) {
+        for (let site_host in mapData[tracker_host]) {
+          for (let tracking_type in mapData[tracker_host][site_host]) {
+            badger.storage.recordTrackingDetails(
+              tracker_host, site_host, tracking_type);
+          }
         }
       }
     }
