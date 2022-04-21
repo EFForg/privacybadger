@@ -146,7 +146,7 @@ BadgerPen.prototype = {
 
     // logs what kind of tracking was observed:
     // {
-    //   <tracker_fqdn>: {
+    //   <tracker_base>: {
     //     <site_fqdn>: {
     //       <tracking_type>: true,
     //       ...
@@ -509,15 +509,15 @@ BadgerPen.prototype = {
   /**
    * Simplifies updating tracking_map.
    */
-  recordTrackingDetails: function (tracker_host, site_host, tracking_type) {
+  recordTrackingDetails: function (tracker_base, site_host, tracking_type) {
     let self = this,
       trackingDataStore = self.getStore('tracking_map'),
-      entry = trackingDataStore.getItem(tracker_host) || {};
+      entry = trackingDataStore.getItem(tracker_base) || {};
     if (!utils.hasOwn(entry, site_host)) {
       entry[site_host] = {};
     }
     entry[site_host][tracking_type] = true;
-    trackingDataStore.setItem(tracker_host, entry);
+    trackingDataStore.setItem(tracker_base, entry);
   }
 };
 
@@ -713,11 +713,11 @@ BadgerStorage.prototype = {
       }
 
     } else if (self.name == "tracking_map") {
-      for (let tracker_host in mapData) {
-        for (let site_host in mapData[tracker_host]) {
-          for (let tracking_type in mapData[tracker_host][site_host]) {
+      for (let tracker_base in mapData) {
+        for (let site_host in mapData[tracker_base]) {
+          for (let tracking_type in mapData[tracker_base][site_host]) {
             badger.storage.recordTrackingDetails(
-              tracker_host, site_host, tracking_type);
+              tracker_base, site_host, tracking_type);
           }
         }
       }

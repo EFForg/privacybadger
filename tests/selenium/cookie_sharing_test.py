@@ -26,7 +26,6 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
             f"https://{SITE_DOMAIN}/privacybadger-test-fixtures/html/"
             "pixel_cookie_sharing.html"
         )
-        TRACKER_DOMAIN = "res.cloudinary.com"
         TRACKER_BASE_DOMAIN = "cloudinary.com"
 
         # clear seed data to prevent any potential false positives
@@ -48,7 +47,7 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
 
         # check that we detected pixel cookie sharing specifically
         assert self.get_badger_storage('tracking_map')\
-            .get(TRACKER_DOMAIN, {}).get(SITE_DOMAIN, {}).get("pixelcookieshare"), (
+            .get(TRACKER_BASE_DOMAIN, {}).get(SITE_DOMAIN, {}).get("pixelcookieshare"), (
                 "Failed to record pixel cookie sharing detection")
 
 

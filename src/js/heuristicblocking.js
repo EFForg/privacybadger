@@ -267,7 +267,7 @@ HeuristicBlocker.prototype = {
 
             // record pixel cookie sharing
             badger.storage.recordTrackingDetails(
-              request_host,
+              request_base,
               window.extractHostFromURL(tab_url),
               'pixelcookieshare');
 

@@ -633,7 +633,7 @@ function recordFingerprinting(tab_id, msg) {
 
           // record canvas fingerprinting
           badger.storage.recordTrackingDetails(
-            script_host, document_host, 'canvas');
+            script_base, document_host, 'canvas');
         }
       }
       // This is a canvas write
