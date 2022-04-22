@@ -46,8 +46,8 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
             "Failed to detect tracking")
 
         # check that we detected pixel cookie sharing specifically
-        assert self.get_badger_storage('tracking_map')\
-            .get(TRACKER_BASE_DOMAIN, {}).get(SITE_DOMAIN, {}).get("pixelcookieshare"), (
+        assert "pixelcookieshare" in self.get_badger_storage('tracking_map')\
+            .get(TRACKER_BASE_DOMAIN, {}).get(SITE_DOMAIN, []), (
                 "Failed to record pixel cookie sharing detection")
 
 

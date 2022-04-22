@@ -46,8 +46,8 @@ class FingerprintingTest(pbtest.PBSeleniumTest):
             "Canvas fingerprinting domain should be reported in the popup")
 
         # check that we detected canvas fingerprinting specifically
-        assert self.get_badger_storage('tracking_map')\
-            .get(FP_BASE_DOMAIN, {}).get(SITE_DOMAIN, {}).get("canvas"), (
+        assert "canvas" in self.get_badger_storage('tracking_map')\
+            .get(FP_BASE_DOMAIN, {}).get(SITE_DOMAIN, []), (
                 "Failed to detect canvas fingerprinting script")
 
     # Privacy Badger overrides a few functions on canvas contexts to check for fingerprinting.

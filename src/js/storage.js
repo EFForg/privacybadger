@@ -147,10 +147,10 @@ BadgerPen.prototype = {
     // logs what kind of tracking was observed:
     // {
     //   <tracker_base>: {
-    //     <site_base>: {
-    //       <tracking_type>: true,
+    //     <site_base>: [
+    //       <tracking_type>, // "canvas" or "pixelcookieshare"
     //       ...
-    //     },
+    //     ],
     //     ...
     //   },
     //   ...
@@ -514,9 +514,11 @@ BadgerPen.prototype = {
       trackingDataStore = self.getStore('tracking_map'),
       entry = trackingDataStore.getItem(tracker_base) || {};
     if (!utils.hasOwn(entry, site_base)) {
-      entry[site_base] = {};
+      entry[site_base] = [];
     }
-    entry[site_base][tracking_type] = true;
+    if (!entry[site_base].includes(tracking_type)) {
+      entry[site_base].push(tracking_type);
+    }
     trackingDataStore.setItem(tracker_base, entry);
   }
 };
@@ -715,7 +717,7 @@ BadgerStorage.prototype = {
     } else if (self.name == "tracking_map") {
       for (let tracker_base in mapData) {
         for (let site_base in mapData[tracker_base]) {
-          for (let tracking_type in mapData[tracker_base][site_base]) {
+          for (let tracking_type of mapData[tracker_base][site_base]) {
             badger.storage.recordTrackingDetails(
               tracker_base, site_base, tracking_type);
           }
