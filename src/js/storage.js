@@ -715,8 +715,17 @@ BadgerStorage.prototype = {
       }
 
     } else if (self.name == "tracking_map") {
+      let snitchMap = badger.storage.getStore('snitch_map');
       for (let tracker_base in mapData) {
+        // merge only if we have a corresponding snitch_map entry
+        let snitchItem = snitchMap.getItem(tracker_base);
+        if (!snitchItem) {
+          continue;
+        }
         for (let site_base in mapData[tracker_base]) {
+          if (!snitchItem.includes(site_base)) {
+            continue;
+          }
           for (let tracking_type of mapData[tracker_base][site_base]) {
             badger.storage.recordTrackingDetails(
               tracker_base, site_base, tracking_type);
