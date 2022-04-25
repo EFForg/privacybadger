@@ -310,22 +310,22 @@ function importTrackerList() {
  * @param {String} storageMapsList data from JSON file that user provided
  */
 function parseUserDataFile(storageMapsList) {
-  let lists;
+  let data;
 
   try {
-    lists = JSON.parse(storageMapsList);
+    data = JSON.parse(storageMapsList);
   } catch (e) {
     return alert(i18n.getMessage("invalid_json"));
   }
 
-  // validate keys (all keys must be known)
-  if (Object.keys(lists).some(key => !USER_DATA_EXPORT_KEYS.includes(key))) {
+  // validate keys ("action_map" and "snitch_map" are required)
+  if (!['action_map', 'snitch_map'].every(i => utils.hasOwn(data, i))) {
     return alert(i18n.getMessage("invalid_json"));
   }
 
   chrome.runtime.sendMessage({
     type: "mergeUserData",
-    data: lists
+    data
   }, () => {
     alert(i18n.getMessage("import_successful"));
     location.reload();
