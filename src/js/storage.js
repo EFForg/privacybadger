@@ -475,11 +475,17 @@ BadgerPen.prototype = {
       dot_base = '.' + base_domain,
       actionMap = self.getStore('action_map'),
       actions = actionMap.getItemClones(),
-      snitchMap = self.getStore('snitch_map');
+      snitchMap = self.getStore('snitch_map'),
+      trackingMap = self.getStore('tracking_map');
 
     if (snitchMap.getItem(base_domain)) {
       log("Removing %s from snitch_map", base_domain);
       snitchMap.deleteItem(base_domain);
+    }
+
+    if (trackingMap.getItem(base_domain)) {
+      log("Removing %s from tracking_map", base_domain);
+      trackingMap.deleteItem(base_domain);
     }
 
     for (let domain in actions) {
