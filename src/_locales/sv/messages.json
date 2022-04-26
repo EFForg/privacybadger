@@ -244,7 +244,7 @@
         "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
     },
     "intro_report_button": {
-        "message": "Vänligen glöm inte att klicka på \"Rapportera bruten webbplats\". Vi respekterar din integritet så vi skickar inte automatiska rapporter.",
+        "message": "Glöm inte att klicka på \"Rapportera bruten webbplats\". Vi respekterar din integritet så vi skickar inte automatiska rapporter.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "options_title": {
@@ -338,7 +338,7 @@
         "description": ""
     },
     "import_select_file": {
-        "message": "Vänligen välj en fil att importera.",
+        "message": "Välj en fil att importera.",
         "description": ""
     },
     "tooltip_cookieblock": {
