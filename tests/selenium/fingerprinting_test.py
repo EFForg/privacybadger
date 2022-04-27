@@ -10,19 +10,6 @@ import pbtest
 class FingerprintingTest(pbtest.PBSeleniumTest):
     """Tests to make sure fingerprinting detection works as expected."""
 
-    def detected_fingerprinting(self, domain):
-        return self.js("""let tracker_origin = window.getBaseDomain("{}");
-let tabData = chrome.extension.getBackgroundPage().badger.tabData;
-return (
-  Object.keys(tabData).some(tab_id => {{
-    let fpData = tabData[tab_id].fpData;
-    return fpData &&
-      fpData.hasOwnProperty(tracker_origin) &&
-      fpData[tracker_origin].canvas &&
-      fpData[tracker_origin].canvas.fingerprinting === true;
-  }})
-);""".format(domain))
-
     def get_fillText_source(self):
         return self.js("""
             const canvas = document.getElementById("writetome");
@@ -38,11 +25,13 @@ return (
 
     @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_canvas_fingerprinting_detection(self):
+        SITE_DOMAIN = "efforg.github.io"
         FIXTURE_URL = (
-            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            f"https://{SITE_DOMAIN}/privacybadger-test-fixtures/html/"
             "fingerprinting.html"
         )
-        FINGERPRINTING_DOMAIN = "cdn.jsdelivr.net"
+        FP_DOMAIN = "cdn.jsdelivr.net"
+        FP_BASE_DOMAIN = "jsdelivr.net"
 
         # clear pre-trained/seed tracker data
         self.clear_tracker_data()
@@ -53,18 +42,13 @@ return (
         # open popup and check slider state
         self.load_pb_ui(FIXTURE_URL)
         sliders = self.get_tracker_state()
-        self.assertIn(
-            FINGERPRINTING_DOMAIN,
-            sliders['notYetBlocked'],
-            "Canvas fingerprinting domain should be reported in the popup"
-        )
+        assert FP_DOMAIN in sliders['notYetBlocked'], (
+            "Canvas fingerprinting domain should be reported in the popup")
 
         # check that we detected canvas fingerprinting specifically
-        self.load_url(self.options_url)
-        self.assertTrue(
-            self.detected_fingerprinting(FINGERPRINTING_DOMAIN),
-            "Canvas fingerprinting resource was detected as a fingerprinter."
-        )
+        assert "canvas" in self.get_badger_storage('tracking_map')\
+            .get(FP_BASE_DOMAIN, {}).get(SITE_DOMAIN, []), (
+                "Failed to detect canvas fingerprinting script")
 
     # Privacy Badger overrides a few functions on canvas contexts to check for fingerprinting.
     # In previous versions, it would restore the native function after a single call. Unfortunately,
@@ -80,9 +64,8 @@ return (
         self.load_url(FIXTURE_URL)
 
         # check that we did not restore the native function (should be hipdi polyfill)
-        self.assertNotIn("[native code]", self.get_fillText_source(),
-            "Canvas context fillText is not native version (polyfill has been retained)."
-        )
+        assert "[native code]" not in self.get_fillText_source(), (
+            "Canvas context fillText is not native version (polyfill has been retained)")
 
 
 if __name__ == "__main__":

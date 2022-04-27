@@ -24,7 +24,7 @@ window.SLIDERS_DONE = false;
 const TOOLTIP_CONF = {
   maxWidth: 400
 };
-const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
+const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map", "tracking_map"];
 
 let i18n = chrome.i18n;
 
@@ -310,22 +310,22 @@ function importTrackerList() {
  * @param {String} storageMapsList data from JSON file that user provided
  */
 function parseUserDataFile(storageMapsList) {
-  let lists;
+  let data;
 
   try {
-    lists = JSON.parse(storageMapsList);
+    data = JSON.parse(storageMapsList);
   } catch (e) {
     return alert(i18n.getMessage("invalid_json"));
   }
 
-  // validate by checking we have the same keys in the import as in the export
-  if (JSON.stringify(Object.keys(lists).sort()) != JSON.stringify(USER_DATA_EXPORT_KEYS.sort())) {
+  // validate keys ("action_map" and "snitch_map" are required)
+  if (!['action_map', 'snitch_map'].every(i => utils.hasOwn(data, i))) {
     return alert(i18n.getMessage("invalid_json"));
   }
 
   chrome.runtime.sendMessage({
     type: "mergeUserData",
-    data: lists
+    data
   }, () => {
     alert(i18n.getMessage("import_successful"));
     location.reload();

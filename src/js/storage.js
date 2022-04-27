@@ -140,7 +140,22 @@ BadgerPen.prototype = {
     "cookieblock_list",
     "dnt_hashes",
     "settings_map",
-    "private_storage", // misc. utility settings, not for export
+
+    // misc. utility settings, not for export
+    "private_storage",
+
+    // logs what kind of tracking was observed:
+    // {
+    //   <tracker_base>: {
+    //     <site_base>: [
+    //       <tracking_type>, // "canvas" or "pixelcookieshare"
+    //       ...
+    //     ],
+    //     ...
+    //   },
+    //   ...
+    // }
+    "tracking_map",
   ],
 
   getStore: function (key) {
@@ -156,7 +171,7 @@ BadgerPen.prototype = {
    */
   clearTrackerData: function () {
     let self = this;
-    ['snitch_map', 'action_map'].forEach(key => {
+    ['action_map', 'snitch_map', 'tracking_map'].forEach(key => {
       self.getStore(key).updateObject({});
     });
   },
@@ -460,11 +475,17 @@ BadgerPen.prototype = {
       dot_base = '.' + base_domain,
       actionMap = self.getStore('action_map'),
       actions = actionMap.getItemClones(),
-      snitchMap = self.getStore('snitch_map');
+      snitchMap = self.getStore('snitch_map'),
+      trackingMap = self.getStore('tracking_map');
 
     if (snitchMap.getItem(base_domain)) {
       log("Removing %s from snitch_map", base_domain);
-      badger.storage.getStore("snitch_map").deleteItem(base_domain);
+      snitchMap.deleteItem(base_domain);
+    }
+
+    if (trackingMap.getItem(base_domain)) {
+      log("Removing %s from tracking_map", base_domain);
+      trackingMap.deleteItem(base_domain);
     }
 
     for (let domain in actions) {
@@ -489,6 +510,22 @@ BadgerPen.prototype = {
       return;
     }
     _syncStorage(self.getStore(store_name), true, callback);
+  },
+
+  /**
+   * Simplifies updating tracking_map.
+   */
+  recordTrackingDetails: function (tracker_base, site_base, tracking_type) {
+    let self = this,
+      trackingDataStore = self.getStore('tracking_map'),
+      entry = trackingDataStore.getItem(tracker_base) || {};
+    if (!utils.hasOwn(entry, site_base)) {
+      entry[site_base] = [];
+    }
+    if (!entry[site_base].includes(tracking_type)) {
+      entry[site_base].push(tracking_type);
+    }
+    trackingDataStore.setItem(tracker_base, entry);
   }
 };
 
@@ -677,9 +714,28 @@ BadgerStorage.prototype = {
     } else if (self.name == "snitch_map") {
       for (let tracker_base in mapData) {
         let siteBases = mapData[tracker_base];
-        for (let siteBase of siteBases) {
+        for (let site_base of siteBases) {
           badger.heuristicBlocking.updateTrackerPrevalence(
-            tracker_base, tracker_base, siteBase);
+            tracker_base, tracker_base, site_base);
+        }
+      }
+
+    } else if (self.name == "tracking_map") {
+      let snitchMap = badger.storage.getStore('snitch_map');
+      for (let tracker_base in mapData) {
+        // merge only if we have a corresponding snitch_map entry
+        let snitchItem = snitchMap.getItem(tracker_base);
+        if (!snitchItem) {
+          continue;
+        }
+        for (let site_base in mapData[tracker_base]) {
+          if (!snitchItem.includes(site_base)) {
+            continue;
+          }
+          for (let tracking_type of mapData[tracker_base][site_base]) {
+            badger.storage.recordTrackingDetails(
+              tracker_base, site_base, tracking_type);
+          }
         }
       }
     }

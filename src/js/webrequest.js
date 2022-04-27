@@ -621,15 +621,21 @@ function recordFingerprinting(tab_id, msg) {
           scriptData.canvas.fingerprinting = true;
           log(script_host, 'caught fingerprinting on', document_host);
 
+          let document_base = window.getBaseDomain(document_host);
+
           // mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, script_base, window.getBaseDomain(document_host));
+            script_host, script_base, document_base);
 
           // log for popup
           let action = checkAction(tab_id, script_host);
           if (action) {
             badger.logThirdPartyOriginOnTab(tab_id, script_host, action);
           }
+
+          // record canvas fingerprinting
+          badger.storage.recordTrackingDetails(
+            script_base, document_base, 'canvas');
         }
       }
       // This is a canvas write
