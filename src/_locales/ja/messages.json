@@ -126,7 +126,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "intro_welcome": {
-        "message": "Privacy Badgerは、目に見えないトラッカーをブロックするように自動的に学習します。その方法をご覧ください。",
+        "message": "Privacy Badgerは、目に見えないトラッカーを自動的に学習してブロックします。その方法をご覧ください。",
         "description": "Intro page welcome paragraph."
     },
     "error_input": {
@@ -178,7 +178,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "これらのサイトでは常にウィジェットを許可します:",
+        "message": "これらのサイトでは常にウィジェットを読み込みます:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_show_nontracking_domains_checkbox": {
@@ -426,7 +426,7 @@
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "一部のウェブサイトでは、$LINK_START$あなたがリンクをクリックしてウェブサイトを離れるたびに、リンクトラッキングを使用してあなたを追跡しています。$LINK_END$ Privacy Badgerは、このウェブサイト上のそのようなリンクからトラッキングを削除します。",
+        "message": "一部のウェブサイトでは、あなたが$LINK_START$リンクをクリックしてウェブサイトを離れるたびに、リンクトラッキングを使用してあなたを追跡$LINK_END$しています。 Privacy Badgerは、このウェブサイト上のそのようなリンクからトラッキングを削除します。",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
@@ -561,7 +561,7 @@
         "description": ""
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badgerは、この$BUTTON$ボタンを置き換えました。",
+        "message": "Privacy Badgerは、この$BUTTON$ボタンを置き換えました",
         "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
