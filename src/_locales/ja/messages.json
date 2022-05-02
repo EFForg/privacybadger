@@ -426,7 +426,7 @@
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "一部のウェブサイトでは、あなたが$LINK_START$リンクをクリックしてウェブサイトを離れるたびに、リンクトラッキングを使用してあなたを追跡$LINK_END$しています。 Privacy Badgerは、このウェブサイト上のそのようなリンクからトラッキングを削除します。",
+        "message": "一部のウェブサイトでは、あなたがリンクをクリックしてウェブサイトを離れるたびに、$LINK_START$リンクトラッキングを使用してあなたを追跡$LINK_END$しています。 Privacy Badgerは、このウェブサイト上のそのようなリンクからトラッキングを削除します。",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
