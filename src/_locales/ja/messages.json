@@ -1,0 +1,723 @@
+{
+    "name": {
+        "message": "Privacy Badger",
+        "description": ""
+    },
+    "description": {
+        "message": "Privacy Badgerは、目に見えないトラッカーを自動的に学習してブロックします。",
+        "description": ""
+    },
+    "popup_disable_for_site": {
+        "message": "このサイトでは保護を無効にする",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "このサイトで保護を有効にする",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site"
+    },
+    "report_broken_site": {
+        "message": "サイトが動作しないことを報告",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "バージョン $VERSION_STRING$",
+        "description": "Shows Privacy Badger's version in the popup. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
+    "badger_status_block": {
+        "message": "$DOMAIN$ はブロックされました",
+        "description": "Tooltip shown when you hover over a domain name with a red slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "invalid_json": {
+        "message": "無効なJSONファイルです。",
+        "description": ""
+    },
+    "options_remove_origin_confirm": {
+        "message": "本当にPrivacy Badgerからこのドメインを削除しますか？",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
+    },
+    "badger_status_noaction": {
+        "message": "$DOMAIN$ からトラッカーは見つかりませんでした",
+        "description": "Tooltip shown when you hover over a non-tracking domain name with a green slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "non_tracker_tip": {
+        "message": "現在、Privacy Badgerは第三者がCookie、HTML5ローカルストレージ、またはCanvasフィンガープリンティングを使用して、あなたを追跡しているかどうかを確認するだけです。これらのドメインの中には、Privacy Badgerが検出できない追跡方法を使用しているものがあるかもしれません。",
+        "description": ""
+    },
+    "options_dnt_policy_setting": {
+        "message": "<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>サードパーティドメイン</a>が<a target='_blank' href='https://www.eff.org/dnt-policy'>EFFの Do Not Track ポリシー</a>に準拠しているか確認する",
+        "description": "Checkbox label on the general settings page"
+    },
+    "donate_to_eff": {
+        "message": "EFFへ寄付",
+        "description": "Link shown in the popup; also a button on the intro page"
+    },
+    "intro_donate_subheading": {
+        "message": "私たちのツールに寄付をし、共有することで、私たちをサポートしてください。",
+        "description": "Shown below the Donate button on the intro page."
+    },
+    "intro_not_an_adblocker": {
+        "message": "Privacy Badgerは広告ブロッカーではありません。",
+        "description": "Intro page paragraph heading."
+    },
+    "report_success": {
+        "message": "ありがとうございます！ 修正するよう検討します。",
+        "description": ""
+    },
+    "dnt_tooltip": {
+        "message": "このドメインは、あなたを追跡しないことを約束しています",
+        "description": "Tooltip shown when you hover over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
+    },
+    "breakage_warning_tooltip": {
+        "message": "このドメインをブロックすると、ウェブサイトが壊れることが報告されています",
+        "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "domain_slider_block_tooltip": {
+        "message": "完全にブロック",
+        "description": "Tooltip shown when you hover over the leftmost part of a domain slider"
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Cookieをブロック",
+        "description": "Tooltip shown when you hover over the center part of a domain slider"
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "許可",
+        "description": "Tooltip shown when you hover over the rightmost part of a domain slider"
+    },
+    "feed_the_badger_title": {
+        "message": "このドメインに対しての設定をPrivacy Badgerのデフォルトに復元します",
+        "description": "Tooltip shown when you hover over an undo arrow that appears when you move a domain slider away from its automatic setting."
+    },
+    "next_section": {
+        "message": "次へ",
+        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
+    },
+    "extension_error_text": {
+        "message": "以下のエラーについて、<a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>私たちに報告</a> してください:",
+        "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
+    },
+    "data_settings": {
+        "message": "データの管理",
+        "description": "This is an options page tab heading."
+    },
+    "report_title": {
+        "message": "エラーを報告",
+        "description": ""
+    },
+    "options_domain_filter_block": {
+        "message": "ブロック済み",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "intro_welcome": {
+        "message": "Privacy Badgerは、目に見えないトラッカーを自動的に学習してブロックします。その方法をご覧ください。",
+        "description": "Intro page welcome paragraph."
+    },
+    "error_input": {
+        "message": "問題の内容を説明してください",
+        "description": ""
+    },
+    "options_domain_list_tab": {
+        "message": "トラッキングドメイン",
+        "description": "This is an options page tab heading."
+    },
+    "share_button_title_twitter": {
+        "message": "Twitterで共有",
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
+    },
+    "first_run_text": {
+        "message": "Privacy Badgerがどのようにあなたのプライバシーを保護するかについて学ぶ",
+        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "download": {
+        "message": "ダウンロード",
+        "description": ""
+    },
+    "import": {
+        "message": "インポート",
+        "description": ""
+    },
+    "options_widget_replacement_tab": {
+        "message": "ウィジェットの置き換え",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "ソーシャルボタンやその他の潜在的に有用な（ビデオ、オーディオ、コメント）ウィジェットをブロックした場合、Privacy Badgerはそれらをクリックで有効になるプレースホルダーに置き換えることができます。",
+        "description": "Introduction to the Widget Replacement tab on the options page"
+    },
+    "options_social_widgets_checkbox": {
+        "message": "ウィジェットの置き換えを有効にする",
+        "description": "Checkbox label on the Widget Replacement tab"
+    },
+    "options_widget_exceptions_header": {
+        "message": "例外として扱うウィジェット",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_hide_social_widgets": {
+        "message": "以下のウィジェットは置き換えられません:",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_header": {
+        "message": "例外として扱うサイト",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_label": {
+        "message": "これらのサイトでは常にウィジェットを読み込みます:",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "トラッキングしていないと思われるドメインも表示する",
+        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+    },
+    "report_button": {
+        "message": "エラーを報告",
+        "description": ""
+    },
+    "badger_status_allow": {
+        "message": "$DOMAIN$ は許可されています",
+        "description": "Tooltip shown when you hover over a tracking but still allowed (green slider) domain name in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "privacy_badger_what_is": {
+        "message": "Privacy Badgerとは?",
+        "description": ""
+    },
+    "options_domain_search": {
+        "message": "ドメインで検索:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
+    },
+    "options_learn_setting": {
+        "message": "あなたのブラウジングから学習して未知のトラッカーをブロックする",
+        "description": "Checkbox label on the general settings page"
+    },
+    "local_learning_warning": {
+        "message": "学習機能を有効にすると、フィンガープリントのリスクが高まりウェブサイトが個人をより識別しやすくなる場合があります",
+        "description": "Tooltip on the general settings page"
+    },
+    "options_incognito_setting": {
+        "message": "プライベートウィンドウでも学習機能を有効にする",
+        "description": "Checkbox label on the general settings page"
+    },
+    "options_incognito_warning": {
+        "message": "プライベートウィンドウで学習機能を有効にすると、プライベートウィンドウでの閲覧履歴の痕跡がコンピュータに残ることがあります。デフォルトでは、Privacy Badgerはプライベートウィンドウで既に知っているトラッカーをブロックしますが、新しいトラッカーについては学習しません。プライベートウィンドウで多くのブラウジングを行う場合、このオプションを有効にするとよいでしょう。",
+        "description": "Tooltip on the general settings page"
+    },
+    "learning_prompt_text1": {
+        "message": "Privacy Badgerは、デフォルトで学習機能を無効にしました。",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "詳しくは以下をクリックしてください。",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Privacy Badgerの変更について",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
+    "show_counter_checkbox": {
+        "message": "トラッカーの数を表示する",
+        "description": "Checkbox label on the general settings page"
+    },
+    "what_is_a_tracker": {
+        "message": "トラッカーとは何ですか？",
+        "description": "Tooltip that comes up when you hover over the 'tracking domains' link under the Tracking Domains tab on the options page."
+    },
+    "intro_report_button": {
+        "message": "「サイトが動作しないことを報告」をクリックするのを忘れないでください。私たちはお客様のプライバシーを尊重し、自動的にレポートを送信することはありません。",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
+    },
+    "options_title": {
+        "message": "Privacy Badger の設定",
+        "description": ""
+    },
+    "report_terms": {
+        "message": "これにより、現在閲覧しているページ、ブラウザのバージョン、Privacy Badgerのバージョン、このページ上のすべてのスライダーの状態などの情報が自動的にEFFに送信されます。",
+        "description": ""
+    },
+    "options_domain_type_filter": {
+        "message": "タイプ別で絞り込む:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
+    "import_successful": {
+        "message": "トラッカーリストと設定の更新に成功しました!",
+        "description": ""
+    },
+    "export_user_data": {
+        "message": "ユーザーデータをエクスポート",
+        "description": ""
+    },
+    "manage_data_intro": {
+        "message": "ユーザーデータのインポートを行うと、以下の操作が実行されます:<ul><li>一般的な設定を上書きする</li><li>保護を無効にするサイトのリストを結合する</li><li>Privacy Badgerが検出したトラッカーに関する情報を結合する</li><li>スライダーのカスタマイズを上書きする</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
+    "reset": {
+        "message": "リセット",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "reset_data": {
+        "message": "トラッキングドメインのリセット",
+        "description": "Caption above reset button"
+    },
+    "reset_data_confirm": {
+        "message": "トラッキングドメインのリセットを行うことで以下の操作が実行されます:\n\n  • Privacy Badgerがあなたのブラウジングから学習したトラッカーに関するデータをすべて削除します。\n  •トラッキングドメインリストを最新の事前学習済みリストに復元します。（詳しくはwww.eff.org/badger-pretraining をご覧ください）",
+        "description": "Pop-up triggered when the reset_data button is clicked"
+    },
+    "remove_all": {
+        "message": "全て削除",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "remove_all_data": {
+        "message": "トラッキングドメインをすべて削除",
+        "description": "Caption above remove_all button"
+    },
+    "remove_all_data_confirm": {
+        "message": "トラッキングドメインをすべて削除すると以下の操作が実行されます:\n\n  • Privacy Badgerが知っているトラッカーに関する情報をすべて削除します。\n  • Privacy Badgerは、あなたのブラウジングから再学習するまで、何もブロックしません。",
+        "description": "Pop-up triggered when the remove_all_data button is clicked"
+    },
+    "intro_text1": {
+        "message": "あなたは現在、Privacy Badgerによって保護されています。",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Privacy Badgerの仕組みを知るには、以下をクリックして簡単なチュートリアルをご覧ください。",
+        "description": "Second part of a reminder to visit the intro page"
+    },
+    "options_general_settings": {
+        "message": "一般設定",
+        "description": "This is an options page tab heading."
+    },
+    "options_privacy_settings": {
+        "message": "プライバシー",
+        "description": "Subheading on the general settings options page."
+    },
+    "options_advanced_settings": {
+        "message": "高度な設定",
+        "description": "Subheading on the general settings options page."
+    },
+    "intro_next_button": {
+        "message": "ツアーを開始",
+        "description": "Intro page welcome button."
+    },
+    "badger_status_cookieblock": {
+        "message": "$DOMAIN$ のCookieがブロックされました",
+        "description": "Tooltip shown when you hover over a domain name with a yellow slider in the list of domains in the popup or under the Tracking Domains tab on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "Cookieをブロック済み",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "firstRun_title": {
+        "message": "Privacy Badgerをインストールしていただき、ありがとうございます。",
+        "description": ""
+    },
+    "import_select_file": {
+        "message": "インポートするファイルを選択してください。",
+        "description": ""
+    },
+    "tooltip_cookieblock": {
+        "message": "スライダーを中央にしてCookieをブロックします",
+        "description": ""
+    },
+    "intro_learns": {
+        "message": "目に見えないトラッカーを自動的に学習してブロックします",
+        "description": "Intro page paragraph heading"
+    },
+    "intro_learns_paragraph": {
+        "message": "Privacy Badgerはリストに基づいてブロックする代わりに、ウェブサイトの挙動を監視し自動的にトラッカーを発見します。",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads": {
+        "message": "卑劣なトラッカーを検出",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "目に見えない追跡は、さまざまな方法で行われます。 広告は氷山の一角にすぎません。 Privacy Badgerは、データの共有と販売を拒否するための<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control信号</a>と、あなたを追跡しないようにウェブサイトに指示するための<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track信号</a>を送信します。ウェブサイトがあなたの希望を無視した場合、Privacy Badgerは広告主や他の種類のトラッカーであるかに関係なく、それらの卑劣なトラッカーをブロックすることを学習します。",
+        "description": "Intro page paragraph."
+    },
+    "report_close": {
+        "message": "閉じる",
+        "description": ""
+    },
+    "import_user_data": {
+        "message": "ユーザーデータをインポート",
+        "description": ""
+    },
+    "options_domain_filter_dnt": {
+        "message": "EFFのDNTポリシーに準拠",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "popup_help_button": {
+        "message": "ヘルプ",
+        "description": "Tooltip that comes up when you hover over the question mark button in the upper right corner of the popup."
+    },
+    "options_domain_filter_allow": {
+        "message": "許可済み",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "intro_donate_heading": {
+        "message": "プライバシーはチームスポーツです!",
+        "description": "Part of the 'donate' section on the intro page."
+    },
+    "options_domain_filter_all": {
+        "message": "すべて",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "report_cancel": {
+        "message": "キャンセル",
+        "description": ""
+    },
+    "tooltip_block": {
+        "message": "スライダーを左に動かすと、ドメインがブロックされます",
+        "description": ""
+    },
+    "options_enable_dnt_checkbox": {
+        "message": "ウェブサイトに「<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>」 と 「<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>」 信号を送信する",
+        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+    },
+    "options_disable_google_nav_error_service": {
+        "message": "アクセスしたウェブアドレスをGoogleに送信しないようにします。これにより、ページが見つからないときに類似のページを提案することが無効になります。",
+        "description": "(Chrome only) Checkbox label found on the general settings page"
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "クリックしたリンクを追跡されないようにする  (\"hyperlink auditing\")",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_network_prediction": {
+        "message": "プリフェッチを無効にする",
+        "description": "Checkbox label found on the general settings page"
+    },
+    "options_disable_floc": {
+        "message": "GoogleのFederated Learning of Cohorts (FLoC)を無効化する",
+        "description": "(Chrome only) Checkbox label on the general settings page."
+    },
+    "options_domain_filter_user": {
+        "message": "ユーザー定義",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "popup_info_firstparty_protections": {
+        "message": "リンクトラッキングプロテクションを有効にする",
+        "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
+    },
+    "popup_info_firstparty_description": {
+        "message": "一部のウェブサイトでは、あなたがリンクをクリックしてウェブサイトを離れるたびに、$LINK_START$リンクトラッキングを使用してあなたを追跡$LINK_END$しています。 Privacy Badgerは、このウェブサイト上のそのようなリンクからトラッキングを削除します。",
+        "description": "Text revealed by clicking on the link tracking protection header in the popup",
+        "placeholders": {
+            "link_start": {
+                "content": "<a href='https://privacybadger.org/#What-about-tracking-by-the-sites-I-actively-visit%2c-like-NYTimes.com-or-Facebook.com' target='_blank'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "popup_instructions": {
+        "message": "$COUNT$の潜在的な$LINK_START$トラッカー$LINK_END$がブロック済み",
+        "description": "Popup message shown when at least one tracker was blocked.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "link_start": {
+                "content": "$2",
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "popup_instructions_no_trackers": {
+        "message": "$LINK_START$トラッカー$LINK_END$は検出されませんでした",
+        "description": "Text shown in the popup when there are no trackers on the page.",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "popup_blocked": {
+        "message": "このページには、サードパーティのリソースはありません。素晴らしい!",
+        "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
+    },
+    "intro_by_eff": {
+        "message": "EFF（電子フロンティア財団）のプロジェクト",
+        "description": ""
+    },
+    "tooltip_allow": {
+        "message": "スライダーを右に動かすと、ドメインが許可されます",
+        "description": ""
+    },
+    "intro_privacy_note": {
+        "message": "Privacy Badgerは、ユーザーが共有することを選択しない限り、ユーザーのブラウジングに関するデータを共有することは絶対にありません。",
+        "description": "Intro page paragraph."
+    },
+    "options_domain_list_trackers": {
+        "message": "Privacy Badgerはこれまでに、 $COUNT$個の潜在的な $TRACKER_LINK_START$トラッキングドメイン$TRACKER_LINK_END$ をブロックしました",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badgerはまだ <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>トラッキングドメイン</a> を検出していません。引き続きブラウジングをお楽しみください！",
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
+    },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badgerは、3つの異なるウェブサイトで同じトラッカーが見つかるとブロックを開始します。スリーストライクでアウト!",
+        "description": "Intro page paragraph."
+    },
+    "options_domain_status_filter": {
+        "message": "ステータスで絞り込み:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
+    "report_text": {
+        "message": "その問題についての説明。",
+        "description": ""
+    },
+    "intro_donate1": {
+        "message": "Privacy Badger を使用すると、 <a href='https://www.eff.org/' target='_blank'>EFF（電子フロンティア財団）</a> 他の何百万人ものユーザーと一緒になって、プライバシーのために闘うことになります。私たちはオンラインであなたの権利を守るために戦う非営利団体です。ご参加ありがとうございます!",
+        "description": "Part of the 'donate' section on the intro page."
+    },
+    "options_domain_search_tooltip": {
+        "message": "ドメインを除外するには、検索語の前に 「-」を付けます。例えば、 「.co -.com」 と入力すると、.co と .co.uk は表示されますが、.com は除外されます。",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
+    },
+    "intro_disable_button": {
+        "message": "Privacy Badgerがページを壊していると思われる場合（ビデオが再生されないなど）、「このサイトでは保護を無効にする」をクリックすると、そのサイトのPrivacy Badgerをオフにすることができます。",
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
+    },
+    "intro_link_policy": {
+        "message": "プライバシーポリシー",
+        "description": "Shown at the bottom of the intro page, links to the EFF software and technology projects privacy policy."
+    },
+    "report_input_label": {
+        "message": "説明",
+        "description": ""
+    },
+    "not_yet_blocked_header": {
+        "message": "Privacy Badgerは、これらのドメインがブロックされるべきかどうか、まだ決定していません。",
+        "description": "Popup domain list header text; separates blocked from haven't-yet-seen-enough-to-block potential trackers."
+    },
+    "options_show_not_yet_blocked": {
+        "message": "Privacy Badgerがまだブロックすると決めていないドメインを表示する:",
+        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
+    },
+    "non_tracker": {
+        "message": "以下のドメインは、あなたを追跡していないように見えます。",
+        "description": "Header text; separates tracking from non-tracking domains in the popup."
+    },
+    "popup_options_button": {
+        "message": "オプション",
+        "description": ""
+    },
+    "share_button_title_facebook": {
+        "message": "Facebookで共有",
+        "description": "Text that comes up when you hover over the social sharing buttons on the intro page."
+    },
+    "report_fail": {
+        "message": "すみません。何らかの問題が発生しました。",
+        "description": ""
+    },
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badgerは、この$BUTTON$ボタンを置き換えました",
+        "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
+        "placeholders": {
+            "button": {
+                "content": "$1",
+                "example": "Facebook Like"
+            }
+        }
+    },
+    "widget_placeholder_pb_has_replaced": {
+        "message": "Privacy Badgerは、 $START_ANCHOR_TAG$この $WIDGET$ ウィジェット$END_ANCHOR_TAG$ を置き換えました",
+        "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
+        "placeholders": {
+            "widget": {
+                "content": "$1",
+                "example": "Google reCAPTCHA"
+            },
+            "start_anchor_tag": {
+                "content": "$2",
+                "example": "<a href='https://vimeo.com/76979871'>"
+            },
+            "end_anchor_tag": {
+                "content": "$3",
+                "example": "</a>"
+            }
+        }
+    },
+    "allow_once": {
+        "message": "今回だけ読み込む",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "allow_on_site": {
+        "message": "このサイトでは常に読み込む",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
+    "sync_intro": {
+        "message": "同期機能:<ul><li>Firefox/Chrome Syncが必要です。</li><li>アップロードを行うと、クラウドにある既存のPrivacy Badgerのデータを上書きします。</li><li>ダウンロードを行うと、Badgerが無効になっているサイトのリストを結合します。</li></ul>",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload": {
+        "message": "アップロード",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "保護機能を無効化したサイトをクラウドにエクスポート",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "保護機能を無効化したサイトをクラウドからインポート",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "クラウドデータのインポートに成功しました。",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "クラウドデータをダウンロードできませんでした。",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "クラウドへのデータアップロードに成功しました。",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "クラウドへのデータアップロードに失敗しました。",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "クラウドにダウンロード可能なデータがありません。",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "share_title": {
+        "message": "友達に紹介する",
+        "description": "Title of the share overlay."
+    },
+    "popup_share_button": {
+        "message": "共有",
+        "description": "Tooltip that comes up when you hover over the share button in the upper right corner of the popup."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badgerは$COUNT$個の潜在的なトラッカーを$DOMAIN$でブロックしました:",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (privacybadger.org) は、目に見えないトラッカーを自動的に学習してブロックするブラウザ拡張機能です。Privacy Badgerは、オンラインであなたの権利を守るために戦う非営利団体、電子フロンティア財団（EFF）によって作られています。",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "クリップボードにコピー",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "コピーされました",
+        "description": "On-click text of the copy button on the share overlay."
+    },
+    "popup_special_page_header": {
+        "message": "このページで行うことはありません",
+        "description": "Heading for popup_special_page_paragraph"
+    },
+    "popup_special_page_paragraph": {
+        "message": "Privacy Badgerは、このような特殊なページでは機能しません。他の場所でブラウズしてみてください。",
+        "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
+    },
+    "popup_disabled_site_header": {
+        "message": "Privacy Badgerはこのサイトでは無効になっています",
+        "description": "Shown in the popup on disabled sites."
+    },
+    "disabled_sites": {
+        "message": "保護を無効化するサイト",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>Privacy Badger は次のサイトで無効になっています。つまり、Privacy Badger はここにリストされたサイトにアクセスしても何もブロックせず、Do Not Track や Global Privacy Control のシグナルを送信しません。</p><p>Privacy Badgerがページを壊していると思う場合、または特定のサイトがデータを共有または販売することを許可したい場合は、下のボックスにそのページのドメインを入力して、「ドメインを追加」ボタンをクリックしてください。</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "例: www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "ドメインを追加",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "remove_button": {
+        "message": "選択したドメインを削除",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "invalid_domain": {
+        "message": "有効なドメインまたはURLを追加してください",
+        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+    },
+    "deprecated_setting": {
+        "message": "以下の設定は非推奨となっており、将来のPrivacy Badgerのアップデートで削除される予定です:",
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
+    },
+    "learn_more_link": {
+        "message": "詳しくは $LINK$ をご覧ください。",
+        "description": "Reusable 'learn more link' message",
+        "placeholders": {
+            "link": {
+                "content": "$1",
+                "example": "<a href='https://example.com'>example.com</a>"
+            }
+        }
+    },
+    "acknowledgement_action": {
+        "message": "私はこのことを理解しています",
+        "description": "Acknowledgement button text"
+    }
+}
