@@ -15,6 +15,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+(function () {
+
 /**
  * Executes a script in the page's JavaScript context.
  *
@@ -47,3 +49,35 @@ function getFrameUrl() {
   return url;
 }
 window.FRAME_URL = getFrameUrl();
+
+// don't inject into non-HTML documents (such as XML documents)
+// but do inject into XHTML documents
+if (document instanceof HTMLDocument === false && (
+  document instanceof XMLDocument === false ||
+  document.createElement('div') instanceof HTMLDivElement === false
+)) {
+  return;
+}
+
+// END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
+
+// register listener in top-level frames only for now
+// NOTE: before removing this restriction,
+// investigate implications of third-party scripts in nested frames
+// generating pbSurrogateMessage events
+if (window.top != window) {
+  return;
+}
+
+document.addEventListener("pbSurrogateMessage", function (e) {
+  if (e.detail && e.detail.type == "widgetFromSurrogate") {
+    chrome.runtime.sendMessage({
+      type: "widgetFromSurrogate",
+      name: e.detail.name,
+      data: e.detail.widgetData,
+      frameUrl: window.FRAME_URL
+    });
+  }
+});
+
+}());

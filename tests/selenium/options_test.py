@@ -61,11 +61,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
 
-    def clear_seed_data(self):
-        """Clear the seed dataset to make test checks easier"""
-        self.load_options_page()
-        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
-
     def add_test_origin(self, origin, action):
         """Add given origin to backend storage."""
         self.load_options_page()
@@ -106,7 +101,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def test_added_origin_display(self):
         """Ensure origin and tracker message is displayed when there is 1 origin."""
-        self.clear_seed_data()
+        self.clear_tracker_data()
 
         self.add_test_origin("pbtest.org", "block")
 
@@ -123,7 +118,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def test_added_multiple_origins_display(self):
         """Ensure origin and tracker count is displayed when there are multiple origins."""
-        self.clear_seed_data()
+        self.clear_tracker_data()
 
         self.add_test_origin("pbtest.org", "block")
         self.add_test_origin("pbtest1.org", "block")
@@ -150,7 +145,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def test_removed_origin_display(self):
         """Ensure origin is removed properly."""
-        self.clear_seed_data()
+        self.clear_tracker_data()
         self.add_test_origin("pbtest.org", "block")
 
         self.load_options_page()
@@ -242,7 +237,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def tracking_user_overwrite(self, original_action, overwrite_action):
         """Ensure preferences are persisted when a user overwrites pb's default behaviour for an origin."""
-        self.clear_seed_data()
+        self.clear_tracker_data()
         self.add_test_origin("pbtest.org", original_action)
 
         self.load_options_page()

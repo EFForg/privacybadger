@@ -26,10 +26,6 @@ jobs:
     - env: INFO="firefox nightly" BROWSER=firefox
       addons:
         firefox: latest-nightly
-  allow_failures:
-    - env: INFO="firefox nightly" BROWSER=firefox
-      addons:
-        firefox: latest-nightly
 before_script: travis_retry ./scripts/setup_travis.sh
 script: . ./scripts/run_travis.sh
 services:

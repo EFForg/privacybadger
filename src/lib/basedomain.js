@@ -4,6 +4,8 @@
  * Available under MIT license <http://mths.be/mit>
  */
 
+(function () {
+
 const RE_V4 = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|0x[0-9a-f][0-9a-f]?|0[0-7]{3})\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|0x[0-9a-f][0-9a-f]?|0[0-7]{3})$/i;
 const RE_V4_HEX = /^0x([0-9a-f]{8})$/i;
 const RE_V4_NUMERIC = /^[0-9]+$/;
@@ -11,6 +13,10 @@ const RE_V4inV6 = /(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2
 
 const RE_BAD_CHARACTERS = /([^0-9a-f:])/i;
 const RE_BAD_ADDRESS = /([0-9a-f]{5,}|:{3,}|[^:]:$|^:[^:]$)/i;
+
+function hasOwn(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
 
 function isIPv4(address) {
   if (RE_V4.test(address)) {
@@ -89,7 +95,7 @@ function getBaseDomain(hostname) {
     next_dot = cur_domain.indexOf('.');
 
   for (;;) {
-    if (window.publicSuffixes.hasOwnProperty(cur_domain)) {
+    if (hasOwn(window.publicSuffixes, cur_domain)) {
       tld = window.publicSuffixes[cur_domain];
       break;
     }
@@ -150,7 +156,7 @@ function ipAddressToNumber(ip) {
  * @param {String} domain The domain to check
  * @returns {Boolean}
  */
-function isPrivateDomain(domain) { // eslint-disable-line no-unused-vars
+function isPrivateDomain(domain) {
   // Check for localhost match.
   if (domain === "localhost") {
     return true;
@@ -166,7 +172,7 @@ function isPrivateDomain(domain) { // eslint-disable-line no-unused-vars
   };
   for (var ip in privateIpMasks) {
     // Ignore object properties.
-    if (!privateIpMasks.hasOwnProperty(ip)) {
+    if (!hasOwn(privateIpMasks, ip)) {
       continue;
     }
 
@@ -194,7 +200,7 @@ function isPrivateDomain(domain) { // eslint-disable-line no-unused-vars
  *
  * @returns {Boolean}
  */
-function isThirdParty(request_host, site_host) { // eslint-disable-line no-unused-vars
+function isThirdParty(request_host, site_host) {
   if (!request_host || !site_host) {
     return true;
   }
@@ -223,7 +229,7 @@ function isThirdParty(request_host, site_host) { // eslint-disable-line no-unuse
 /**
  * Extracts host name from a URL.
  */
-function extractHostFromURL(url) { // eslint-disable-line no-unused-vars
+function extractHostFromURL(url) {
   if (url && extractHostFromURL._lastURL == url) {
     return extractHostFromURL._lastDomain;
   }
@@ -320,3 +326,15 @@ URI.prototype = {
     return this.spec.substring(0, this._hostPortEnd);
   }
 };
+
+// "exports"
+window.extractHostFromURL = extractHostFromURL;
+window.getBaseDomain = getBaseDomain;
+window.ipAddressToNumber = ipAddressToNumber;
+window.isIPv4 = isIPv4;
+window.isIPv6 = isIPv6;
+window.isPrivateDomain = isPrivateDomain;
+window.isThirdParty = isThirdParty;
+window.URI = URI;
+
+}());

@@ -235,36 +235,7 @@ exports.Migrations= {
     }
   },
 
-  forgetFirstPartySnitches: function (badger) {
-    console.log("Removing first parties from snitch map...");
-    let snitchMap = badger.storage.getStore("snitch_map"),
-      actionMap = badger.storage.getStore("action_map"),
-      snitchClones = snitchMap.getItemClones(),
-      actionClones = actionMap.getItemClones(),
-      correctedSites = {};
-
-    for (let domain in snitchClones) {
-      // creates new array of domains checking against the isThirdParty utility
-      let newSnitches = snitchClones[domain].filter(
-        item => utils.isThirdPartyDomain(item, domain));
-
-      if (newSnitches.length) {
-        correctedSites[domain] = newSnitches;
-      }
-    }
-
-    // clear existing maps and then use mergeUserData to rebuild them
-    actionMap.updateObject({});
-    snitchMap.updateObject({});
-
-    const data = {
-      snitch_map: correctedSites,
-      action_map: actionClones
-    };
-
-    // pass in boolean 2nd parameter to flag that it's run in a migration, preventing infinite loop
-    badger.mergeUserData(data, true);
-  },
+  forgetFirstPartySnitches: noop,
 
   forgetCloudflare: noop,
 
@@ -276,30 +247,52 @@ exports.Migrations= {
 
   resetWebRTCIPHandlingPolicy2: noop,
 
-  resetWebRtcIpHandlingPolicy3: function (badger) {
-    if (!badger.webRTCAvailable) {
-      return;
-    }
-
-    console.log("Migrating WebRTC IP protection ...");
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (res) {
-      if (res.levelOfControl != 'controlled_by_this_extension') {
-        return;
-      }
-
-      // since we previously enabled this privacy override,
-      // update corresponding Badger setting
-      badger.getSettings().setItem("preventWebRTCIPLeak", true);
-
-      // update the browser setting
-      // in case it needs to be migrated from Mode 4 to Mode 3
-      badger.setPrivacyOverrides();
-    });
-  },
+  resetWebRtcIpHandlingPolicy3: noop,
 
   forgetOpenDNS: (badger) => {
     console.log("Forgetting Cisco OpenDNS domains ...");
     badger.storage.forget("opendns.com");
+  },
+
+  unsetWebRTCIPHandlingPolicy: function (/*badger*/) {
+    if (!chrome.privacy || !chrome.privacy.network || !chrome.privacy.network.webRTCIPHandlingPolicy) {
+      return;
+    }
+
+    function checkWebRtcBrowserSupport() {
+      let available = true;
+      let connection = null;
+
+      try {
+        let RTCPeerConnection = (
+          window.RTCPeerConnection || window.webkitRTCPeerConnection
+        );
+        if (RTCPeerConnection) {
+          connection = new RTCPeerConnection(null);
+        }
+      } catch (ex) {
+        available = false;
+      }
+
+      if (connection !== null && connection.close) {
+        connection.close();
+      }
+
+      return available;
+    }
+
+    if (!checkWebRtcBrowserSupport()) {
+      return;
+    }
+
+    console.log("Unsetting webRTCIPHandlingPolicy ...");
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (res) {
+      if (res.levelOfControl == 'controlled_by_this_extension') {
+        chrome.privacy.network.webRTCIPHandlingPolicy.clear({
+          scope: 'regular'
+        });
+      }
+    });
   },
 
 };

@@ -29,6 +29,8 @@ URI:false,
 
 (function () {
 
+let utils = require('utils');
+
 QUnit.module("URL/host tools");
 
 QUnit.test("Host name extraction", function (assert) {
@@ -189,7 +191,7 @@ QUnit.test("Converting IP address to number checks", function (assert) {
 
   for (var ip in testResults) {
     // Ignore object properties.
-    if (!testResults.hasOwnProperty(ip)) {
+    if (!utils.hasOwn(testResults, ip)) {
       continue;
     }
 
@@ -222,7 +224,7 @@ QUnit.test("Private domain checks", function (assert) {
 
   for (var domain in testResults) {
     // Ignore object properties.
-    if (!testResults.hasOwnProperty(domain)) {
+    if (!utils.hasOwn(testResults, domain)) {
       continue;
     }
 

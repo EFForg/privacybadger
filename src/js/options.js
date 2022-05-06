@@ -24,7 +24,7 @@ window.SLIDERS_DONE = false;
 const TOOLTIP_CONF = {
   maxWidth: 400
 };
-const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map"];
+const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map", "tracking_map"];
 
 let i18n = chrome.i18n;
 
@@ -168,18 +168,6 @@ function loadOptions() {
       });
   }
 
-  if (OPTIONS_DATA.webRTCAvailable && OPTIONS_DATA.legacyWebRtcProtectionUser) {
-    $("#webRTCToggle").show();
-    $("#toggle_webrtc_mode")
-      .prop("checked", OPTIONS_DATA.settings.preventWebRTCIPLeak)
-      .on("click", function () {
-        updatePrivacyOverride(
-          "preventWebRTCIPLeak",
-          $("#toggle_webrtc_mode").prop("checked")
-        );
-      });
-  }
-
   $('#local-learning-checkbox')
     .prop("checked", OPTIONS_DATA.settings.learnLocally)
     .on("click", (event) => {
@@ -266,7 +254,7 @@ function loadOptions() {
     width: '100%'
   });
   OPTIONS_DATA.widgets.forEach(function (key) {
-    const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
+    const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions && OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
     const option = new Option(key, key, false, isSelected);
     $widgetExceptions.append(option).trigger("change");
   });
@@ -322,22 +310,22 @@ function importTrackerList() {
  * @param {String} storageMapsList data from JSON file that user provided
  */
 function parseUserDataFile(storageMapsList) {
-  let lists;
+  let data;
 
   try {
-    lists = JSON.parse(storageMapsList);
+    data = JSON.parse(storageMapsList);
   } catch (e) {
     return alert(i18n.getMessage("invalid_json"));
   }
 
-  // validate by checking we have the same keys in the import as in the export
-  if (JSON.stringify(Object.keys(lists).sort()) != JSON.stringify(USER_DATA_EXPORT_KEYS.sort())) {
+  // validate keys ("action_map" and "snitch_map" are required)
+  if (!['action_map', 'snitch_map'].every(i => utils.hasOwn(data, i))) {
     return alert(i18n.getMessage("invalid_json"));
   }
 
   chrome.runtime.sendMessage({
     type: "mergeUserData",
-    data: lists
+    data
   }, () => {
     alert(i18n.getMessage("import_successful"));
     location.reload();
@@ -584,7 +572,7 @@ function removeDisabledSite(event) {
  * Updates the Site Exceptions form on the Widget Replacement tab.
  */
 function reloadWidgetSiteExceptions() {
-  let sites = Object.keys(OPTIONS_DATA.settings.widgetSiteAllowlist),
+  let sites = Object.keys(OPTIONS_DATA.settings.widgetSiteAllowlist || {}),
     $select = $('#widget-site-exceptions-select');
 
   // sort widget exemptions sites the same way other options page domains lists are
@@ -768,7 +756,7 @@ function showTrackingDomains(domains, cb) {
     if (action) {
       let show_breakage_warning = (
         action == constants.USER_BLOCK &&
-        OPTIONS_DATA.cookieblocked.hasOwnProperty(domain)
+        utils.hasOwn(OPTIONS_DATA.cookieblocked, domain)
       );
       out.push(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
     }
@@ -843,7 +831,7 @@ function updateOrigin(origin, action, userset) {
 
   let show_breakage_warning = (
     action == constants.BLOCK &&
-    OPTIONS_DATA.cookieblocked.hasOwnProperty(origin)
+    utils.hasOwn(OPTIONS_DATA.cookieblocked, origin)
   );
 
   htmlUtils.toggleBlockedStatus($clicker, userset, show_breakage_warning);

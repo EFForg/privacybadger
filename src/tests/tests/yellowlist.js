@@ -7,19 +7,18 @@ function get_ylist() {
 }
 
 let constants = require('constants');
+let utils = require('utils');
 
-// fake server to simulate XMLHttpRequests
-let server;
+// fake server to simulate fetch()
+let stubbedFetch;
 
 QUnit.module("Yellowlist", (hooks) => {
   hooks.before((/*assert*/) => {
-    server = sinon.fakeServer.create({
-      respondImmediately: true
-    });
+    stubbedFetch = sinon.stub(window, 'fetch');
   });
 
   hooks.after((/*assert*/) => {
-    server.restore();
+    fetch.restore();
   });
 
   QUnit.test("Updating to a valid list", (assert) => {
@@ -38,8 +37,9 @@ QUnit.module("Yellowlist", (hooks) => {
     ylist[NEW_YLIST_DOMAIN] = true;
 
     // respond with the modified list
-    server.respondWith("GET", constants.YELLOWLIST_URL,
-      [200, {}, Object.keys(ylist).join("\n")]);
+    stubbedFetch
+      .withArgs(constants.YELLOWLIST_URL)
+      .resolves(new Response(Object.keys(ylist).join("\n")));
 
     badger.updateYellowlist(function (err) {
       assert.notOk(err, "callback status indicates success");
@@ -56,8 +56,9 @@ QUnit.module("Yellowlist", (hooks) => {
     assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
 
     // respond with no content
-    server.respondWith("GET", constants.YELLOWLIST_URL,
-      [200, {}, ""]);
+    stubbedFetch
+      .withArgs(constants.YELLOWLIST_URL)
+      .resolves(new Response("", {status: 200}));
 
     badger.updateYellowlist(function (err) {
       assert.ok(err, "callback status indicates failure");
@@ -84,8 +85,9 @@ QUnit.module("Yellowlist", (hooks) => {
 
     BAD_RESPONSES.forEach(response => {
       // respond with stuff that may look like the yellowlist but is not
-      server.respondWith("GET", constants.YELLOWLIST_URL,
-        [200, {}, response]);
+      stubbedFetch
+        .withArgs(constants.YELLOWLIST_URL)
+        .resolves(new Response(response, {status: 200}));
 
       badger.updateYellowlist(function (err) {
         assert.ok(err,
@@ -99,14 +101,18 @@ QUnit.module("Yellowlist", (hooks) => {
 
   QUnit.test("Updating gets a server error", (assert) => {
     let done = assert.async();
-    assert.expect(1);
 
     // respond with a 404 error
-    server.respondWith("GET", constants.YELLOWLIST_URL,
-      [404, {}, "page not found"]);
+    stubbedFetch
+      .withArgs(constants.YELLOWLIST_URL)
+      .resolves(new Response("page not found", {status: 404}));
 
     badger.updateYellowlist(function (err) {
       assert.ok(err, "callback status indicates failure");
+      if (err) {
+        assert.equal(err, "Error: Failed to fetch remote yellowlist",
+          "error matches expectation");
+      }
       done();
     });
   });
@@ -123,8 +129,9 @@ QUnit.module("Yellowlist", (hooks) => {
     // respond with this domain added
     let ylist = get_ylist();
     ylist[DOMAIN] = true;
-    server.respondWith("GET", constants.YELLOWLIST_URL,
-      [200, {}, Object.keys(ylist).join("\n")]);
+    stubbedFetch
+      .withArgs(constants.YELLOWLIST_URL)
+      .resolves(new Response(Object.keys(ylist).join("\n")));
 
     // update yellowlist
     badger.updateYellowlist(function (err) {
@@ -396,10 +403,10 @@ QUnit.module("Yellowlist", (hooks) => {
         // and add one for the yellowlist update assertion
         assert.expect(1 + Object.keys(test.domains).reduce((memo, domain) => {
           let data = test.domains[domain];
-          if (data.hasOwnProperty('expected')) {
+          if (utils.hasOwn(data, 'expected')) {
             memo++;
           }
-          if (data.hasOwnProperty('expectedBest')) {
+          if (utils.hasOwn(data, 'expectedBest')) {
             memo++;
           }
           return memo;
@@ -413,7 +420,7 @@ QUnit.module("Yellowlist", (hooks) => {
           if (conf.yellowlist) {
             ylistStorage.setItem(domain, true);
           }
-          if (conf.hasOwnProperty("initial")) {
+          if (utils.hasOwn(conf, "initial")) {
             badger.storage.setupHeuristicAction(domain, conf.initial);
           }
         }
@@ -427,8 +434,9 @@ QUnit.module("Yellowlist", (hooks) => {
             delete ylist[domain];
           }
         }
-        server.respondWith("GET", constants.YELLOWLIST_URL,
-          [200, {}, Object.keys(ylist).join("\n")]);
+        stubbedFetch
+          .withArgs(constants.YELLOWLIST_URL)
+          .resolves(new Response(Object.keys(ylist).join("\n")));
 
         badger.updateYellowlist(err => {
           assert.notOk(err, "callback status indicates success");
@@ -436,7 +444,7 @@ QUnit.module("Yellowlist", (hooks) => {
           for (let domain in test.domains) {
             let expected, data = test.domains[domain];
 
-            if (data.hasOwnProperty('expected')) {
+            if (utils.hasOwn(data, 'expected')) {
               expected = data.expected;
               assert.equal(
                 badger.storage.getAction(domain),
@@ -445,7 +453,7 @@ QUnit.module("Yellowlist", (hooks) => {
               );
             }
 
-            if (data.hasOwnProperty('expectedBest')) {
+            if (utils.hasOwn(data, 'expectedBest')) {
               expected = data.expectedBest;
               assert.equal(
                 badger.storage.getBestAction(domain),

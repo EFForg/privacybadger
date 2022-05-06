@@ -17,10 +17,56 @@
 
 /* globals badger:false, log:false */
 
-var constants = require("constants");
-var utils = require("utils");
-
 require.scopes.storage = (function () {
+
+let constants = require("constants");
+let utils = require("utils");
+
+function getManagedStorage(callback) {
+  chrome.storage.managed.get(null, function (res) {
+    if (chrome.runtime.lastError) {
+      // ignore "Managed storage manifest not found" errors in Firefox
+    }
+    callback(res);
+  });
+}
+
+function ingestManagedStorage(managedStore) {
+  let settings = {};
+  for (let key in badger.defaultSettings) {
+    if (utils.hasOwn(managedStore, key)) {
+      settings[key] = managedStore[key];
+    }
+  }
+  badger.getSettings().merge(settings);
+}
+
+let pollForManagedStorage = (function () {
+  const POLL_INTERVAL = 300,
+    MAX_TRIES = 15; // ~4.5 second delay to see welcome page for most users
+
+  return function (num_tries, callback) {
+    getManagedStorage(function (managedStore) {
+      if (utils.isObject(managedStore) && Object.keys(managedStore).length) {
+        // success
+        ingestManagedStorage(managedStore);
+        callback();
+        return;
+      }
+
+      num_tries++;
+      if (num_tries <= MAX_TRIES) {
+        // retry after a wait
+        setTimeout(function () {
+          pollForManagedStorage(num_tries, callback);
+        }, POLL_INTERVAL);
+      } else {
+        // give up
+        callback();
+      }
+    });
+  };
+}());
 
 /**
  * See the following link for documentation of
@@ -28,7 +74,6 @@ require.scopes.storage = (function () {
  *
  * https://github.com/EFForg/privacybadger/blob/master/doc/DESIGN-AND-ROADMAP.md#data-structures
  */
-
 function BadgerPen(callback) {
   let self = this;
 
@@ -39,7 +84,7 @@ function BadgerPen(callback) {
   // initialize from extension local storage
   chrome.storage.local.get(self.KEYS, function (store) {
     self.KEYS.forEach(key => {
-      if (store.hasOwnProperty(key)) {
+      if (utils.hasOwn(store, key)) {
         self[key] = new BadgerStorage(key, store[key]);
       } else {
         let storageObj = new BadgerStorage(key, {});
@@ -48,25 +93,39 @@ function BadgerPen(callback) {
       }
     });
 
+    badger.initSettings();
+
     if (!chrome.storage.managed) {
+      setTimeout(function () {
+        badger.initWelcomePage();
+      }, 0);
       callback(self);
       return;
     }
 
     // see if we have any enterprise/admin/group policy overrides
-    chrome.storage.managed.get(null, function (managedStore) {
-      if (chrome.runtime.lastError) {
-        // ignore "Managed storage manifest not found" errors in Firefox
+    getManagedStorage(function (managedStore) {
+      // there are values in managed storage
+      if (utils.isObject(managedStore) && Object.keys(managedStore).length) {
+        ingestManagedStorage(managedStore);
+        setTimeout(function () {
+          badger.initWelcomePage();
+        }, 0);
+        callback(self);
+        return;
       }
 
-      if (utils.isObject(managedStore)) {
-        let settings = {};
-        for (let key in badger.defaultSettings) {
-          if (managedStore.hasOwnProperty(key)) {
-            settings[key] = managedStore[key];
-          }
-        }
-        self.settings_map.merge(settings);
+      // managed storage is empty
+
+      if (badger.isFirstRun) {
+        // poll for managed storage to work around Chromium bug
+        pollForManagedStorage(0, function () {
+          badger.initWelcomePage();
+        });
+      } else {
+        setTimeout(function () {
+          badger.initWelcomePage();
+        }, 0);
       }
 
       callback(self);
@@ -81,11 +140,26 @@ BadgerPen.prototype = {
     "cookieblock_list",
     "dnt_hashes",
     "settings_map",
-    "private_storage", // misc. utility settings, not for export
+
+    // misc. utility settings, not for export
+    "private_storage",
+
+    // logs what kind of tracking was observed:
+    // {
+    //   <tracker_base>: {
+    //     <site_base>: [
+    //       <tracking_type>, // "canvas" or "pixelcookieshare"
+    //       ...
+    //     ],
+    //     ...
+    //   },
+    //   ...
+    // }
+    "tracking_map",
   ],
 
   getStore: function (key) {
-    if (this.hasOwnProperty(key)) {
+    if (utils.hasOwn(this, key)) {
       return this[key];
     }
     console.error("Can't initialize cache from getStore. You are using this API improperly");
@@ -97,7 +171,7 @@ BadgerPen.prototype = {
    */
   clearTrackerData: function () {
     let self = this;
-    ['snitch_map', 'action_map'].forEach(key => {
+    ['action_map', 'snitch_map', 'tracking_map'].forEach(key => {
       self.getStore(key).updateObject({});
     });
   },
@@ -229,9 +303,10 @@ BadgerPen.prototype = {
    * @returns {String} the best action for the FQDN
    */
   getBestAction: function (fqdn) {
-    let best_action = constants.NO_TRACKING;
-    let subdomains = utils.explodeSubdomains(fqdn);
-    let action_map = this.getStore('action_map');
+    let self = this,
+      action_map = self.getStore('action_map'),
+      best_action = constants.NO_TRACKING,
+      subdomains = utils.explodeSubdomains(fqdn);
 
     function getScore(action) {
       switch (action) {
@@ -255,10 +330,10 @@ BadgerPen.prototype = {
     // Loop through each subdomain we have a rule for
     // from least (base domain) to most (FQDN) specific
     // and keep the one which has the best score.
-    for (let i = subdomains.length; i >= 0; i--) {
+    for (let i = subdomains.length - 1; i >= 0; i--) {
       let domain = subdomains[i];
       if (action_map.hasItem(domain)) {
-        let action = this.getAction(
+        let action = self.getAction(
           action_map.getItem(domain),
           // ignore DNT unless it's directly on the FQDN being checked
           domain != fqdn
@@ -400,11 +475,17 @@ BadgerPen.prototype = {
       dot_base = '.' + base_domain,
       actionMap = self.getStore('action_map'),
       actions = actionMap.getItemClones(),
-      snitchMap = self.getStore('snitch_map');
+      snitchMap = self.getStore('snitch_map'),
+      trackingMap = self.getStore('tracking_map');
 
     if (snitchMap.getItem(base_domain)) {
       log("Removing %s from snitch_map", base_domain);
-      badger.storage.getStore("snitch_map").deleteItem(base_domain);
+      snitchMap.deleteItem(base_domain);
+    }
+
+    if (trackingMap.getItem(base_domain)) {
+      log("Removing %s from tracking_map", base_domain);
+      trackingMap.deleteItem(base_domain);
     }
 
     for (let domain in actions) {
@@ -415,6 +496,36 @@ BadgerPen.prototype = {
         }
       }
     }
+  },
+
+  /**
+   * Forces a write of a Badger storage object's contents to extension storage.
+   */
+  forceSync: function (store_name, callback) {
+    let self = this;
+    if (!self.KEYS.includes(store_name)) {
+      setTimeout(function () {
+        callback("Error: Unknown Badger storage name");
+      }, 0);
+      return;
+    }
+    _syncStorage(self.getStore(store_name), true, callback);
+  },
+
+  /**
+   * Simplifies updating tracking_map.
+   */
+  recordTrackingDetails: function (tracker_base, site_base, tracking_type) {
+    let self = this,
+      trackingDataStore = self.getStore('tracking_map'),
+      entry = trackingDataStore.getItem(tracker_base) || {};
+    if (!utils.hasOwn(entry, site_base)) {
+      entry[site_base] = [];
+    }
+    if (!entry[site_base].includes(tracking_type)) {
+      entry[site_base].push(tracking_type);
+    }
+    trackingDataStore.setItem(tracker_base, entry);
   }
 };
 
@@ -432,27 +543,8 @@ var _newActionMapObject = function() {
 };
 
 /**
- * Privacy Badger Storage Object. Has methods for getting, setting and deleting
- * should be used for all storage needs, transparently handles data presistence
- * syncing and private browsing.
- * Usage:
- * example_map = getStore('example_map');
- * # instance of BadgerStorage
- * example_map.setItem('foo', 'bar')
- * # null
- * example_map
- * # { foo: "bar" }
- * example_map.hasItem('foo')
- * # true
- * example_map.getItem('foo');
- * # 'bar'
- * example_map.getItem('not_real');
- * # undefined
- * example_map.deleteItem('foo');
- * # null
- * example_map.hasItem('foo');
- * # false
- *
+ * Privacy Badger Storage Object.
+ * Should be used for all storage needs.
  */
 
 /**
@@ -475,7 +567,7 @@ BadgerStorage.prototype = {
    */
   hasItem: function(key) {
     var self = this;
-    return self._store.hasOwnProperty(key);
+    return utils.hasOwn(self._store, key);
   },
 
   /**
@@ -583,7 +675,7 @@ BadgerStorage.prototype = {
 
         // default: overwrite existing setting with setting from import
         } else {
-          if (badger.defaultSettings.hasOwnProperty(prop)) {
+          if (utils.hasOwn(badger.defaultSettings, prop)) {
             self._store[prop] = mapData[prop];
           } else {
             console.error("Unknown Badger setting:", prop);
@@ -597,7 +689,7 @@ BadgerStorage.prototype = {
 
         // Copy over any user settings from the merged-in data
         if (action.userAction) {
-          if (self._store.hasOwnProperty(domain)) {
+          if (utils.hasOwn(self._store, domain)) {
             self._store[domain].userAction = action.userAction;
           } else {
             self._store[domain] = Object.assign(_newActionMapObject(), action);
@@ -605,7 +697,7 @@ BadgerStorage.prototype = {
         }
 
         // handle Do Not Track
-        if (self._store.hasOwnProperty(domain)) {
+        if (utils.hasOwn(self._store, domain)) {
           // Merge DNT settings if the imported data has a more recent update
           if (action.nextUpdateTime > self._store[domain].nextUpdateTime) {
             self._store[domain].nextUpdateTime = action.nextUpdateTime;
@@ -622,9 +714,28 @@ BadgerStorage.prototype = {
     } else if (self.name == "snitch_map") {
       for (let tracker_base in mapData) {
         let siteBases = mapData[tracker_base];
-        for (let siteBase of siteBases) {
+        for (let site_base of siteBases) {
           badger.heuristicBlocking.updateTrackerPrevalence(
-            tracker_base, tracker_base, siteBase);
+            tracker_base, tracker_base, site_base);
+        }
+      }
+
+    } else if (self.name == "tracking_map") {
+      let snitchMap = badger.storage.getStore('snitch_map');
+      for (let tracker_base in mapData) {
+        // merge only if we have a corresponding snitch_map entry
+        let snitchItem = snitchMap.getItem(tracker_base);
+        if (!snitchItem) {
+          continue;
+        }
+        for (let site_base in mapData[tracker_base]) {
+          if (!snitchItem.includes(site_base)) {
+            continue;
+          }
+          for (let tracking_type of mapData[tracker_base][site_base]) {
+            badger.storage.recordTrackingDetails(
+              tracker_base, site_base, tracking_type);
+          }
         }
       }
     }
@@ -636,46 +747,62 @@ BadgerStorage.prototype = {
   }
 };
 
-var _syncStorage = (function () {
-  var debouncedFuncs = {};
+let _syncStorage = (function () {
+  let debouncedFuncs = {};
 
-  function cb() {
-    if (chrome.runtime.lastError) {
+  function _sync(badgerStore, callback) {
+    if (!callback) {
+      callback = function () {};
+    }
+    let obj = {};
+    obj[badgerStore.name] = badgerStore._store;
+    chrome.storage.local.set(obj, function () {
+      if (!chrome.runtime.lastError) {
+        callback(null);
+        return;
+      }
       let err = chrome.runtime.lastError.message;
-      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:")
-      && !err.startsWith("InvalidStateError:") && !err.startsWith("AbortError:")
-      && !err.startsWith("QuotaExceededError:")
-      ) {
+      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:") &&
+        !err.startsWith("InvalidStateError:") && !err.startsWith("AbortError:") &&
+        !err.startsWith("QuotaExceededError:")) {
         badger.criticalError = err;
       }
       console.error("Error writing to chrome.storage.local:", err);
+      callback(err);
+    });
+  }
+
+  /**
+   * Writes contents of Badger storage objects to extension storage.
+   *
+   * The writing is debounced by default.
+   *
+   * @param {BadgerStorage} badgerStore
+   * @param {Boolean} [force] perform sync immediately if truthy
+   * @param {Function} [callback] ONLY USED WHEN FORCING IMMEDIATE SYNC
+   */
+  return function (badgerStore, force, callback) {
+    // bypass debouncing
+    if (force) {
+      _sync(badgerStore, callback);
+      return;
     }
-  }
-
-  function sync(badgerStorage) {
-    var obj = {};
-    obj[badgerStorage.name] = badgerStorage._store;
-    chrome.storage.local.set(obj, cb);
-  }
-
-  // Creates debounced versions of "sync" function,
-  // one for each distinct badgerStorage value.
-  return function (badgerStorage) {
-    if (!debouncedFuncs.hasOwnProperty(badgerStorage.name)) {
+    // create debounced versions of _sync(), one per BadgerPen.prototype.KEYS
+    if (!utils.hasOwn(debouncedFuncs, badgerStore.name)) {
       // call sync at most once every two seconds
-      debouncedFuncs[badgerStorage.name] = utils.debounce(function () {
-        sync(badgerStorage);
+      debouncedFuncs[badgerStore.name] = utils.debounce(function () {
+        _sync(badgerStore);
       }, 2000);
     }
-    debouncedFuncs[badgerStorage.name]();
+    debouncedFuncs[badgerStore.name]();
   };
 }());
 
 /************************************** exports */
-var exports = {};
-
-exports.BadgerPen = BadgerPen;
-
+let exports = {
+  BadgerPen,
+};
 return exports;
 /************************************** exports */
+
 }());

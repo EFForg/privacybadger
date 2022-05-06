@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import pytest
 import time
 import unittest
 
@@ -14,10 +15,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
-
-    def clear_seed_data(self):
-        self.load_url(self.options_url)
-        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
 
     def wait_for_page_to_start_loading(self, url, timeout=20):
         """Wait until the title element is present. Use it to work around
@@ -96,6 +93,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Get disable button on popup."""
         return self.driver.find_element_by_id("deactivate_site_btn")
 
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_welcome_page_reminder_overlay(self):
         """Ensure overlay links to new user welcome page."""
 
@@ -134,7 +132,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.find_element_by_id("options").click()
         self.switch_to_window_with_url(self.options_url)
 
-    @pbtest.repeat_if_failed(5)
     def test_trackers_link(self):
         """Ensure trackers link opens EFF website."""
 
@@ -177,7 +174,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_toggling_sliders(self):
         """Ensure toggling sliders is persisted."""
-        self.clear_seed_data()
+        self.clear_tracker_data()
 
         # enable learning to show not-yet-blocked domains in popup
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
@@ -225,7 +222,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def test_reverting_control(self):
         """Test restoring control of a domain to Privacy Badger."""
-        self.clear_seed_data()
+        self.clear_tracker_data()
 
         DOMAIN = "example.com"
         DOMAIN_ID = DOMAIN.replace(".", "-")
@@ -335,7 +332,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
                 'error reporting should be closed again')
 
-    @pbtest.repeat_if_failed(5)
     def test_donate_button(self):
         """Ensure donate button opens EFF website."""
 

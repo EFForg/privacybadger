@@ -20,6 +20,19 @@ require.scopes.surrogates = (function () {
 const db = require('surrogatedb'),
   utils = require('utils');
 
+const WIDGET_SURROGATES = utils.filter(db.hostnames, item => !!item.widgetName);
+
+function _match_prefix(url, hostname, tokens) {
+  let path_onwards = url.slice(url.indexOf(hostname) + hostname.length);
+  for (const token of tokens) {
+    if (path_onwards.startsWith(token)) {
+      return db.surrogates[token];
+    }
+  }
+
+  return false;
+}
+
 /**
  * Blocking tracking scripts (trackers) can cause parts of webpages to break.
  * Surrogate scripts are dummy pieces of JavaScript meant to supply just enough
@@ -34,29 +47,32 @@ const db = require('surrogatedb'),
  * parameter. This is an optimization: the calling context should already have
  * this information.
  *
- * @return {(String|Boolean)} The surrogate script as a data URI when there is a
- * match, or boolean false when there is no match.
+ * @return {(String|Boolean)} Extension URL to the surrogate script
+ * when there is a match; boolean false otherwise.
  */
-function getSurrogateURI(script_url, script_hostname) {
+function getSurrogateUri(script_url, script_hostname) {
   // do we have an entry for the script hostname?
-  if (db.hostnames.hasOwnProperty(script_hostname)) {
-    const tokens = db.hostnames[script_hostname];
+  if (!utils.hasOwn(db.hostnames, script_hostname)) {
+    return false;
+  }
 
-    // it's a wildcard token
-    if (utils.isString(tokens)) {
-      if (db.surrogates.hasOwnProperty(tokens)) {
-        // return the surrogate code
-        return 'data:application/javascript;base64,' + btoa(db.surrogates[tokens]);
-      }
-    }
+  const conf = db.hostnames[script_hostname];
 
-    // must be an array of suffix tokens
+  switch (conf.match) {
+
+  // wildcard token:
+  // matches any script URL for the hostname
+  case db.MATCH_ANY: {
+    return db.surrogates[conf.token];
+  }
+
+  // one or more suffix tokens:
+  // does the script URL (querystring excluded) end with one of these tokens?
+  case db.MATCH_SUFFIX: {
     const qs_start = script_url.indexOf('?');
 
-    for (let i = 0; i < tokens.length; i++) {
+    for (const token of conf.tokens) {
       // do any of the suffix tokens match the script URL?
-      const token = tokens[i];
-
       let match = false;
 
       if (qs_start == -1) {
@@ -69,19 +85,58 @@ function getSurrogateURI(script_url, script_hostname) {
         }
       }
 
+      // there is a match, return the surrogate code
       if (match) {
-        // there is a match, return the surrogate code
-        return 'data:application/javascript;base64,' + btoa(db.surrogates[token]);
+        return db.surrogates[token];
       }
     }
+
+    return false;
+  }
+
+  // one or more prefix tokens:
+  // does the script URL's path component begin with one of these tokens?
+  case db.MATCH_PREFIX: {
+    return _match_prefix(script_url, script_hostname, conf.tokens);
+  }
+
+  // MATCH_PREFIX with querystring parameter matching
+  case db.MATCH_PREFIX_WITH_PARAMS: {
+    let surl = _match_prefix(script_url, script_hostname, conf.tokens);
+
+    if (!surl) {
+      return false;
+    }
+
+    // check every key/value pair in conf.params against the querystring
+    let qs = (new URL(script_url)).searchParams;
+    for (let [key, value] of Object.entries(conf.params)) {
+      // is the key present?
+      if (value === true) {
+        if (!qs.get(key)) {
+          return false;
+        }
+      // is the key present and do the values match?
+      } else if (utils.isString(value)) {
+        if (qs.get(key) !== value) {
+          return false;
+        }
+      }
+    }
+
+    return surl;
+  }
+
   }
 
   return false;
 }
 
 const exports = {
-  getSurrogateURI: getSurrogateURI,
+  getSurrogateUri,
+  WIDGET_SURROGATES
 };
 
 return exports;
-})();
+
+}());

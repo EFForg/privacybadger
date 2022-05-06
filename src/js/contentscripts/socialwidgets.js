@@ -55,6 +55,10 @@ if (document instanceof HTMLDocument === false && (
   return;
 }
 
+function hasOwn(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
 // widget data
 let widgetList;
 
@@ -67,7 +71,9 @@ const WIDGET_ELS = {};
 /**
  * @param {Object} response response to checkWidgetReplacementEnabled
  */
-function initialize(response) {
+function init(response) {
+  const FRAME_ID = response.frameId;
+
   for (const key in response.translations) {
     TRANSLATIONS[key] = response.translations[key];
   }
@@ -79,8 +85,17 @@ function initialize(response) {
 
   // set up listener for dynamically created widgets
   chrome.runtime.onMessage.addListener(function (request) {
-    if (request.replaceWidget) {
-      replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
+    // blocked something, see if this is a widget domain that should be replaced
+    if (request.type == "replaceWidget") {
+      if (request.frameId === FRAME_ID) {
+        replaceSubsequentTrackerButtonsHelper(request.trackerDomain);
+      }
+
+    // widget replacement initiated by a surrogate script
+    } else if (request.type == "replaceWidgetFromSurrogate") {
+      if (request.frameId === FRAME_ID) {
+        replaceIndividualButton(request.widget);
+      }
     }
   });
 }
@@ -96,7 +111,7 @@ function createReplacementElement(widget, trackerElem, callback) {
   let buttonData = widget.replacementButton;
 
   // no image data to fetch
-  if (!buttonData.hasOwnProperty('imagePath')) {
+  if (!hasOwn(buttonData, 'imagePath')) {
     return setTimeout(function () {
       _createReplacementElementCallback(widget, trackerElem, callback);
     }, 0);
@@ -180,6 +195,7 @@ function _createButtonReplacement(widget, callback) {
 
   // in place button type; replace the existing button with code
   // specified in the widgets JSON
+  // TODO only AddThis uses this code path, replace with a type 4 probably
   } else if (button_type == 2) {
     button.addEventListener("click", function (e) {
       if (!e.isTrusted) { return; }
@@ -193,32 +209,16 @@ function _createButtonReplacement(widget, callback) {
 function _createWidgetReplacement(widget, trackerElem, callback) {
   let replacementEl;
 
-  // in-place widget type:
+  // in-place widget types:
+  //
+  // type 3:
   // reinitialize the widget by reinserting its element's HTML
-  if (widget.replacementButton.type == 3) {
-    replacementEl = createReplacementWidget(
-      widget, trackerElem, reinitializeWidgetAndUnblockTracker);
-
-  // in-place widget type:
+  //
+  // type 4:
   // reinitialize the widget by reinserting its element's HTML
   // and activating associated scripts
-  } else if (widget.replacementButton.type == 4) {
-    let activationFn = replaceWidgetAndReloadScripts;
-
-    // if there are no matching script elements
-    if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
-      // and we don't have a fallback script URL
-      if (!widget.fallbackScriptUrl) {
-        // we can't do "in-place" activation; reload the page instead
-        activationFn = function () {
-          unblockTracker(widget.name, function () {
-            location.reload();
-          });
-        };
-      }
-    }
-
-    replacementEl = createReplacementWidget(widget, trackerElem, activationFn);
+  if ([3, 4].includes(widget.replacementButton.type)) {
+    replacementEl = createReplacementWidget(widget, trackerElem);
   }
 
   callback(replacementEl);
@@ -276,32 +276,43 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, widget_name, html) {
  * Unblocks the given widget and replaces our replacement placeholder
  * with the original third-party widget element.
  *
+ * Reruns scripts defined in scriptSelectors, if any.
+ *
  * The teardown to the initialization defined in createReplacementWidget().
- *
- * @param {String} name the name/type of this widget (SoundCloud, Vimeo etc.)
  */
-function reinitializeWidgetAndUnblockTracker(name) {
-  unblockTracker(name, function () {
-    // restore all widgets of this type
-    WIDGET_ELS[name].forEach(data => {
-      data.parent.replaceChild(data.widget, data.replacement);
-    });
-    WIDGET_ELS[name] = [];
-  });
-}
+function restoreWidget(widget) {
+  let name = widget.name;
 
-/**
- * Similar to reinitializeWidgetAndUnblockTracker() above,
- * but also reruns scripts defined in scriptSelectors.
- *
- * @param {String} name the name/type of this widget (Disqus, Google reCAPTCHA)
- */
-function replaceWidgetAndReloadScripts(name) {
+  if (widget.scriptSelectors) {
+    if (widget.scriptSelectors.some(i => i.includes("onload\\=vueRecaptchaApiLoaded"))) {
+      // we can't do "in-place" activation; reload the page instead
+      unblockTracker(name, function () {
+        location.reload();
+      });
+      return;
+    }
+  }
+
   unblockTracker(name, function () {
     // restore all widgets of this type
     WIDGET_ELS[name].forEach(data => {
       data.parent.replaceChild(data.widget, data.replacement);
-      reloadScripts(data.scriptSelectors, data.fallbackScriptUrl);
+      if (data.scriptSelectors) {
+        // This is part of "click-to-play" for third-party page widgets:
+        // https://privacybadger.org/#How-does-Privacy-Badger-handle-social-media-widgets
+        //
+        // This is the part where the user chooses to activate the widget.
+        // Some widgets are driven by JavaScript; their JavaScript needs
+        // to be reloaded in order for the widget to function.
+        //
+        // Privacy Badger empowers the user to load certain widgets on demand,
+        // instead of continuing to let them load by default, without a choice.
+        //
+        // Any script reinserted here is a script that would have
+        // run on the page anyway, had Privacy Badger not blocked it.
+        // This should not fall under remote code review considerations.
+        reloadScripts(data.scriptSelectors);
+      }
     });
     WIDGET_ELS[name] = [];
   });
@@ -309,18 +320,26 @@ function replaceWidgetAndReloadScripts(name) {
 
 /**
  * Find and replace script elements with their copies to trigger re-running.
+ *
+ * This is code for re-activating a previously blocked third-party widget
+ * (such as Google reCAPTCHA or Disqus comments).
+ *
+ * The scripts being run are third-party widget scripts that Privacy Badger
+ * previously blocked and the user chose to activate.
+ *
+ * For example:
+ *
+ * 1. The user visits a page with comments powered by Disqus.
+ * 2. Privacy Badger blocks the Disqus script and inserts a placeholder
+ * where the Disqus widget would have appeared.
+ * 3. If the user chooses to click "Allow" in the placeholder, Privacy Badger
+ * removes the placeholder and reinserts the Disqus script.
+ *
+ * Any script reinserted here is a script that would have
+ * run on the page anyway, had Privacy Badger not blocked it.
  */
-function reloadScripts(selectors, fallback_script_url) {
+function reloadScripts(selectors) {
   let scripts = document.querySelectorAll(selectors.join(','));
-
-  // if there are no matches, try a known script URL
-  if (!scripts.length && fallback_script_url) {
-    let parent = document.documentElement,
-      replacement = document.createElement("script");
-    replacement.src = fallback_script_url;
-    parent.insertBefore(replacement, parent.firstChild);
-    return;
-  }
 
   for (let scriptEl of scripts) {
     // reinsert script elements only
@@ -341,6 +360,11 @@ function reloadScripts(selectors, fallback_script_url) {
 /**
  * Dumping scripts into innerHTML won't execute them, so replace them
  * with executable scripts.
+ *
+ * This is code for re-activating a previously blocked third-party widget.
+ *
+ * Any script reinserted here is a script that would have
+ * run on the page anyway, had Privacy Badger not blocked it.
  */
 function replaceScriptsRecurse(node) {
   if (node.nodeName && node.nodeName.toLowerCase() == 'script' &&
@@ -365,11 +389,11 @@ function replaceScriptsRecurse(node) {
  * Replaces all tracker buttons on the current web page with the internal
  * replacement buttons, respecting the user's blocking settings.
  *
- * @param {Array} widgetsToReplace a list of widget names to replace
+ * @param {Object} widgetsToReplace an object with keys set to widget names
  */
 function replaceInitialTrackerButtonsHelper(widgetsToReplace) {
   widgetList.forEach(function (widget) {
-    if (widgetsToReplace.hasOwnProperty(widget.name)) {
+    if (hasOwn(widgetsToReplace, widget.name)) {
       replaceIndividualButton(widget);
     }
   });
@@ -404,7 +428,7 @@ function _make_id(prefix) {
   return prefix + "-" + Math.random().toString().replace(".", "");
 }
 
-function createReplacementWidget(widget, elToReplace, activationFn) {
+function createReplacementWidget(widget, elToReplace) {
   let name = widget.name;
 
   let widgetFrame = document.createElement('iframe');
@@ -464,8 +488,10 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
 
   // get a direct link to widget content when available
   let widget_url;
-  // use the frame URL for framed widgets
-  if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src) {
+  if (widget.directLinkUrl) {
+    widget_url = widget.directLinkUrl;
+  } else if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src && !widget.noDirectLink) {
+    // use the frame URL for framed widgets
     widget_url = elToReplace.src;
   }
 
@@ -554,7 +580,7 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   widgetDiv.appendChild(buttonDiv);
 
   // save refs. to elements for use in teardown
-  if (!WIDGET_ELS.hasOwnProperty(name)) {
+  if (!hasOwn(WIDGET_ELS, name)) {
     WIDGET_ELS[name] = [];
   }
   let data = {
@@ -564,9 +590,6 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
   };
   if (widget.scriptSelectors) {
     data.scriptSelectors = widget.scriptSelectors;
-    if (widget.fallbackScriptUrl) {
-      data.fallbackScriptUrl = widget.fallbackScriptUrl;
-    }
   }
   WIDGET_ELS[name].push(data);
 
@@ -578,11 +601,13 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
     onceButton.addEventListener("click", function (e) {
       if (!e.isTrusted) { return; }
       e.preventDefault();
-      activationFn(name);
+      restoreWidget(widget);
     }, { once: true });
 
     siteButton.addEventListener("click", function (e) {
-      if (!e.isTrusted) { return; }
+      if (!e.isTrusted) {
+        return;
+      }
 
       e.preventDefault();
 
@@ -592,7 +617,7 @@ function createReplacementWidget(widget, elToReplace, activationFn) {
         type: "allowWidgetOnSite",
         widgetName: name
       }, function () {
-        activationFn(name);
+        restoreWidget(widget);
       });
     }, { once: true });
 
@@ -661,6 +686,17 @@ a:hover {
  * Replaces buttons/widgets in the DOM.
  */
 function replaceIndividualButton(widget) {
+  // for script type widgets,
+  // to avoid breaking lazy loaded widgets
+  // by replacing the DOM element too early
+  // first check whether a script is actually present
+  if (widget.replacementButton.type == 4) {
+    let script_selector = widget.scriptSelectors.join(',');
+    if (!document.querySelectorAll(script_selector).length) {
+      return;
+    }
+  }
+
   let selector = widget.buttonSelectors.join(','),
     elsToReplace = document.querySelectorAll(selector);
 
@@ -695,7 +731,12 @@ chrome.runtime.sendMessage({
   if (!response) {
     return;
   }
-  initialize(response);
+
+  init(response);
+
+  chrome.runtime.sendMessage({
+    type: "widgetReplacementReady"
+  });
 });
 
 }());

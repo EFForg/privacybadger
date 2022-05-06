@@ -11,11 +11,8 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         - tracking domain is caught by pixel tracking heuristic, snitch map entry is updated
     """
 
-    def get_snitch_map(self):
-        return self.js(
-            "return chrome.extension.getBackgroundPage()."
-            "badger.storage.snitch_map.getItem('cloudinary.com');"
-        )
+    def get_snitch_map_for(self, domain):
+        return self.get_badger_storage('snitch_map').get(domain)
 
     def setUp(self):
         # enable local learning
@@ -24,31 +21,34 @@ class PixelTrackingTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('#local-learning-checkbox').click()
 
     def test_pixel_cookie_sharing(self):
+        SITE_DOMAIN = "efforg.github.io"
         FIXTURE_URL = (
-            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            f"https://{SITE_DOMAIN}/privacybadger-test-fixtures/html/"
             "pixel_cookie_sharing.html"
         )
+        TRACKER_BASE_DOMAIN = "cloudinary.com"
 
         # clear seed data to prevent any potential false positives
-        self.load_url(self.options_url)
-        self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")
+        self.clear_tracker_data()
 
         # load the test fixture without the URL parameter to to verify there is no tracking on the page by default
         self.load_url(FIXTURE_URL)
+
         # check to make sure the domain wasn't logged in snitch map
-        self.load_url(self.options_url)
-        self.assertFalse(self.get_snitch_map(),
+        assert not self.get_snitch_map_for(TRACKER_BASE_DOMAIN), (
             "Tracking detected but page expected to have no tracking at this point")
 
         # load the same test fixture, but pass the URL parameter for it to perform pixel cookie sharing
         self.load_url(FIXTURE_URL + "?trackMe=true")
+
         # check to make sure this domain is caught and correctly recorded in snitch map
-        self.load_url(self.options_url)
-        self.assertEqual(
-            ["efforg.github.io"],
-            self.get_snitch_map(),
-            "Pixel cookie sharing tracking failed to be detected"
-        )
+        assert self.get_snitch_map_for(TRACKER_BASE_DOMAIN) == [SITE_DOMAIN], (
+            "Failed to detect tracking")
+
+        # check that we detected pixel cookie sharing specifically
+        assert "pixelcookieshare" in self.get_badger_storage('tracking_map')\
+            .get(TRACKER_BASE_DOMAIN, {}).get(SITE_DOMAIN, []), (
+                "Failed to record pixel cookie sharing detection")
 
 
 if __name__ == "__main__":

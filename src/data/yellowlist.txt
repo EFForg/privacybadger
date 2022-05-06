@@ -58,6 +58,7 @@ assetfiles.com
 assets-cdk.com
 auth0.com
 authorize.net
+azure-api.net
 azureedge.net
 bac-assets.com
 hiphotos.baidu.com
@@ -138,8 +139,11 @@ codepen.io
 codesandbox.io
 cdn.cohesionapps.com
 make.cohesionapps.com
+consent.cookiebot.com
+consentcdn.cookiebot.com
 cloudplatform.coveo.com
 platform.cloud.coveo.com
+platform-eu.cloud.coveo.com
 static.cloud.coveo.com
 creativecommons.org
 cstv.com
@@ -191,6 +195,7 @@ editmysite.com
 files.edx.org
 ehc.com
 elasticbeanstalk.com
+elfsight.com
 eltrafiko.com
 api-cdn.embed.ly
 api.embed.ly
@@ -299,6 +304,8 @@ maps.google.com
 mapsengine.google.com
 mt0.google.com
 mt1.google.com
+mt2.google.com
+mt3.google.com
 mts0.google.com
 mts1.google.com
 mw1.google.com
@@ -352,6 +359,7 @@ cdn2.hubspot.net
 humblebundle.com
 hwcdn.net
 hypothes.is
+iadvize.com
 ibsys.com
 icbdr.com
 mpsnare.iesnare.com
@@ -399,6 +407,9 @@ cdn.jwplayer.com
 entitlements.jwplayer.com
 jwpltx.com
 jwpsrv.com
+dapi.kakao.com
+developers.kakao.com
+kapi.kakao.com
 cdnapi.kaltura.com
 cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
@@ -478,6 +489,8 @@ mzstatic.com
 nanorep.co
 nationbuilder.com
 nationalgeographic.com
+map.naver.com
+pay.naver.com
 nbcuni.com
 neighborsink.com
 netdna-cdn.com
@@ -533,7 +546,9 @@ openload.co
 tile.openstreetmap.fr
 openstreetmap.org
 optimizely.com
+oraclecloud.com
 oregonlive.com
+cmp.osano.com
 outlook.com
 paddle.com
 pandacommerce.net
@@ -549,7 +564,9 @@ pgcdn.com
 phncdn.com
 photobucket.com
 phplist.com
+piano.io
 piclens.com
+pico.tools
 pinimg.com
 piratebay.org
 pistachio-cdn.graze.com
@@ -625,6 +642,7 @@ seeclickfix.com
 sgizmo.com
 shopify.com
 shopifycdn.com
+shopifycloud.com
 shopping.com
 shop-pro.jp
 shoprunner.com
@@ -669,6 +687,7 @@ streamtheworld.com
 stripe.com
 m.stripe.network
 stripecdn.com
+cdn.substack.com
 surveygizmo.com
 surveymonkey.com
 swiftype.com
@@ -690,6 +709,7 @@ tfaforms.net
 theplatform.com
 tile.thunderforest.com
 tiktokcdn.com
+tildacdn.com
 timeinc.net
 tinypass.com
 tinypic.com
@@ -730,11 +750,13 @@ uicdn.net
 ui-portal.de
 ultimedia.com
 ultraimg.com
+builder-assets.unbounce.com
 unicornmedia.com
 unsplash.com
 uplynk.com
 usa.gov
 usercentrics.eu
+viafoura.co
 viafoura.net
 viddler.com
 videobash.com
@@ -746,6 +768,8 @@ vimeo.com
 vimeocdn.com
 virtualearth.net
 visa.com
+marketplace.visualstudio.com
+update.code.visualstudio.com
 vmixcore.com
 voxmedia.com
 vox-cdn.com

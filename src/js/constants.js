@@ -15,9 +15,9 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.constants = (function() {
+require.scopes.constants = (function () {
 
-var exports = {
+let exports = {
 
   // Tracking status constants
   NO_TRACKING: "noaction",
@@ -52,4 +52,5 @@ exports.BLOCKED_ACTIONS = new Set([
 ]);
 
 return exports;
-})();
+
+}());

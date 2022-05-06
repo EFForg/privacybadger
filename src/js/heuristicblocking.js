@@ -17,12 +17,10 @@
 
 /* globals badger:false, log:false, URI:false */
 
-var constants = require("constants");
-var utils = require("utils");
+require.scopes.heuristicblocking = (function () {
 
-require.scopes.heuristicblocking = (function() {
-
-
+let constants = require("constants");
+let utils = require("utils");
 
 /*********************** heuristicblocking scope **/
 // make heuristic obj with utils and storage properties and put the things on it
@@ -126,7 +124,7 @@ HeuristicBlocker.prototype = {
     }
 
     // CNAME uncloaking
-    if (badger.cnameDomains.hasOwnProperty(request_host)) {
+    if (utils.hasOwn(badger.cnameDomains, request_host)) {
       // TODO details.url is still wrong
       request_host = badger.cnameDomains[request_host];
     }
@@ -196,6 +194,8 @@ HeuristicBlocker.prototype = {
     const TRACKER_ENTROPY_THRESHOLD = 33,
       MIN_STR_LEN = 8;
 
+    let self = this;
+
     for (let p of searchParams) {
       let key = p[0],
         value = p[1];
@@ -263,7 +263,12 @@ HeuristicBlocker.prototype = {
             log("Found high-entropy cookie share from", tab_base, "to", request_host,
               ":", entropy, "bits\n  cookie:", cookie.name, '=', cookie.value,
               "\n  arg:", key, "=", value, "\n  substring:", s);
-            this._recordPrevalence(request_host, request_base, tab_base);
+            self._recordPrevalence(request_host, request_base, tab_base);
+
+            // record pixel cookie sharing
+            badger.storage.recordTrackingDetails(
+              request_base, tab_base, 'pixelcookieshare');
+
             return;
           }
         }
@@ -659,7 +664,7 @@ function hasCookieTracking(details) {
 
     // loop over every name/value pair in every cookie
     for (let name in cookie) {
-      if (!cookie.hasOwnProperty(name)) {
+      if (!utils.hasOwn(cookie, name)) {
         continue;
       }
 
@@ -693,7 +698,7 @@ function startListeners() {
    * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
    */
   let extraInfoSpec = ['requestHeaders'];
-  if (chrome.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS')) {
+  if (utils.hasOwn(chrome.webRequest.OnBeforeSendHeadersOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
@@ -704,7 +709,7 @@ function startListeners() {
    * Adds onResponseStarted listener. Monitor for cookies
    */
   extraInfoSpec = ['responseHeaders'];
-  if (chrome.webRequest.OnResponseStartedOptions.hasOwnProperty('EXTRA_HEADERS')) {
+  if (utils.hasOwn(chrome.webRequest.OnResponseStartedOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onResponseStarted.addListener(function(details) {
@@ -723,10 +728,12 @@ function startListeners() {
 }
 
 /************************************** exports */
-var exports = {};
-exports.HeuristicBlocker = HeuristicBlocker;
-exports.startListeners = startListeners;
-exports.hasCookieTracking = hasCookieTracking;
+let exports = {
+  hasCookieTracking,
+  HeuristicBlocker,
+  startListeners,
+};
 return exports;
 /************************************** exports */
-})();
+
+}());

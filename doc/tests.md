@@ -85,7 +85,7 @@ $ BROWSER=firefox ENABLE_XVFB=1 pytest -s -v -k PopupTest tests/
 
 Test methods that you want to be discovered and run by `pytest` must be prefixed with the keyword `test`. For example: `test_pixel_tracking_detection`. A similar rule applies to naming any new test class files that you want to be detected by the testing suite: the `test` keyword must be appended to the end of the title. For example: `pixel_test.py`.
 
-When testing Badger's tracker detection/learning, you should first clear the pre-trained/seed tracker data. For example (run on Badger's options page): `self.js("chrome.extension.getBackgroundPage().badger.storage.clearTrackerData();")`. Clearing seed data ensures that the tracking domain was discovered just now and not from seed data.
+When testing Badger's tracker detection/learning, you should first clear the pre-trained/seed tracker data with `self.clear_tracker_data()`. Clearing seed data ensures that the tracking domain was discovered just now and not from seed data.
 
 You should also set up your tracking detection test in a way where your test fixture has a "no tracking" mode that you visit first and assert that no tracking was detected. This is to ensure that when we detect the tracking being tested we didn't actually detect some other kind of tracking instead.
 

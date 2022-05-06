@@ -128,8 +128,9 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         except TimeoutException:
             self.fail("Widget frame should still be here")
 
-        self.assertFalse(
-            self.txt_by_css('body'), "Widget frame should be empty")
+        frame_text = self.txt_by_css('body')
+        if frame_text != "This page has been blocked by an extension":
+            self.assertFalse(frame_text, "Widget frame should be empty")
 
         self.driver.switch_to.default_content()
 

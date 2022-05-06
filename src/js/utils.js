@@ -24,69 +24,32 @@ require.scopes.utils = (function () {
 
 let mdfp = require("multiDomainFP");
 
-/**
- * Generic interface to make an XHR request
- *
- * @param {String} url The url to get
- * @param {Function} callback The callback to call after request has finished
- * @param {String} method GET/POST
- * @param {Object} opts XMLHttpRequest options
- */
-function xhrRequest(url, callback, method, opts) {
-  if (!method) {
-    method = "GET";
-  }
-  if (!opts) {
-    opts = {};
-  }
-
-  let xhr = new XMLHttpRequest();
-
-  for (let key in opts) {
-    if (opts.hasOwnProperty(key)) {
-      xhr[key] = opts[key];
-    }
-  }
-
-  xhr.onload = function () {
-    if (xhr.status == 200) {
-      callback(null, xhr.response);
-    } else {
-      let error = {
-        status: xhr.status,
-        message: xhr.response,
-        object: xhr
-      };
-      callback(error, error.message);
-    }
-  };
-
-  // triggered by network problems
-  xhr.onerror = function () {
-    callback({ status: 0, message: "", object: xhr }, "");
-  };
-
-  xhr.open(method, url, true);
-  xhr.send();
+// TODO replace with Object.hasOwn() eventually
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn
+function hasOwn(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
 /**
- * Converts binary data to base64-encoded text suitable for use in data URIs.
+ * Generic interface to make requests.
  *
- * Adapted from https://stackoverflow.com/a/9458996.
- *
- * @param {ArrayBuffer} buffer binary data
- *
- * @returns {String} base64-encoded text
+ * @param {String} url the URL to get
+ * @param {Function} callback the callback ({String?} error, {String?} response body text)
  */
-function arrayBufferToBase64(buffer) {
-  var binary = '';
-  var bytes = new Uint8Array(buffer);
-  var len = bytes.byteLength;
-  for (var i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
+function fetchResource(url, callback) {
+  fetch(url).then(response => {
+    if (!response.ok) {
+      throw new Error("Non-2xx response status: " + response.status);
+    }
+    return response.text();
+
+  }).then(data => {
+    // success
+    callback(null, data);
+
+  }).catch(error => {
+    callback(error, null);
+  });
 }
 
 /**
@@ -445,7 +408,7 @@ function parseCookie(str, opts) {
       }
     }
 
-    if (!opts.noOverwrite || !parsed.hasOwnProperty(name)) {
+    if (!opts.noOverwrite || !hasOwn(parsed, name)) {
       parsed[name] = value;
     }
   }
@@ -575,17 +538,35 @@ function invert(obj) {
   return result;
 }
 
+/**
+ * Array.prototype.filter() for objects.
+ *
+ * @param {Object} obj
+ * @param {Function} cb receives two arguments: current value, current key
+ */
+function filter(obj, cb) {
+  let memo = {};
+  for (let [key, value] of Object.entries(obj)) {
+    if (cb(value, key)) {
+      memo[key] = value;
+    }
+  }
+  return memo;
+}
+
 /************************************** exports */
 let exports = {
-  arrayBufferToBase64,
   concatUniq,
   debounce,
   difference,
   estimateMaxEntropy,
   explodeSubdomains,
+  fetchResource,
+  filter,
   findCommonSubstrings,
   firstPartyProtectionsEnabled,
   getHostFromDomainInput,
+  hasOwn,
   invert,
   isRestrictedUrl,
   isThirdPartyDomain,
@@ -599,7 +580,6 @@ let exports = {
   random,
   rateLimit,
   sha1,
-  xhrRequest,
 };
 
 exports.isObject = function (obj) {

@@ -1,14 +1,15 @@
 # -*- coding: UTF-8 -*-
 
+import functools
 import json
 import os
+import re
 import subprocess
 import tempfile
 import time
 import unittest
 
 from contextlib import contextmanager
-from functools import partial, wraps
 from shutil import copytree
 
 from selenium import webdriver
@@ -234,23 +235,6 @@ class Shim:
 shim = Shim() # create the browser shim
 
 
-def if_firefox(wrapper):
-    '''
-    A test decorator that applies the function `wrapper` to the test if the
-    browser is firefox. Ex:
-
-    @if_firefox(unittest.skip("broken on ff"))
-    def test_stuff(self):
-        ...
-    '''
-    def test_catcher(test):
-        if shim.browser_type == 'firefox':
-            return wraps(test)(wrapper)(test)
-        return test
-
-    return test_catcher
-
-
 def retry_until(fun, tester=None, times=3, msg=None):
     """
     Execute function `fun` until either its return is truthy
@@ -285,24 +269,7 @@ def convert_exceptions_to_false(fun, silent=False):
                 print("\nCaught exception:", str(e))
             return False
         return result
-    return partial(converter, fun, silent)
-
-
-attempts = {} # used to count test retries
-def repeat_if_failed(ntimes): # noqa
-    '''
-    A decorator that retries the test if it fails `ntimes`. The TestCase must
-    be used on a subclass of unittest.TestCase. NB: this just registers function
-    to be retried. The try/except logic is in PBSeleniumTest.run.
-    '''
-    def test_catcher(test):
-        attempts[test.__name__] = ntimes
-
-        @wraps(test)
-        def caught(*args, **kwargs):
-            return test(*args, **kwargs)
-        return caught
-    return test_catcher
+    return functools.partial(converter, fun, silent)
 
 
 class PBSeleniumTest(unittest.TestCase):
@@ -335,40 +302,26 @@ class PBSeleniumTest(unittest.TestCase):
         self.test_url = self.base_url + "tests/index.html"
 
     def run(self, result=None):
-        nretries = attempts.get(result.name, 1)
-        for i in range(nretries):
-            try:
-                with self.manager() as driver:
-                    self.init(driver)
+        with self.manager() as driver:
+            self.init(driver)
 
-                    # wait for Badger's storage, listeners, ...
-                    self.load_url(self.options_url)
-                    self.wait_for_script(
-                        "return chrome.extension.getBackgroundPage()."
-                        "badger.INITIALIZED"
-                    )
+            # wait for Badger's storage, listeners, ...
+            self.load_url(self.options_url)
+            self.wait_for_script(
+                "let badger = chrome.extension.getBackgroundPage().badger;"
+                "if (badger.INITIALIZED) {"
+                "  badger.getSettings().setItem('showIntroPage', false);"
+                "  return true;"
+                "}")
 
-                    driver.close()
-                    if driver.window_handles:
-                        driver.switch_to.window(driver.window_handles[0])
+            super(PBSeleniumTest, self).run(result)
 
-                    super(PBSeleniumTest, self).run(result)
-
-                    # retry test magic
-                    if result.name in attempts and result._excinfo: # pylint:disable=protected-access
-                        raise Exception(result._excinfo.pop()) # pylint:disable=protected-access
-
-                    break
-
-            except Exception:
-                if i == nretries - 1:
-                    raise
-
-                wait_secs = 2 ** i
-                print('\nRetrying {} after {} seconds ...'.format(
-                    result, wait_secs))
-                time.sleep(wait_secs)
-                continue
+    def is_firefox_nightly(self):
+        caps = self.driver.capabilities
+        if caps['browserName'] == "firefox":
+            version = self.driver.capabilities['browserVersion']
+            return re.search('a[0-9]+$', version) is not None
+        return False
 
     def open_window(self):
         if self.driver.current_url.startswith("moz-extension://"):
@@ -511,6 +464,30 @@ class PBSeleniumTest(unittest.TestCase):
         label = self.driver.find_element_by_css_selector(
             'input[name="{}"][checked]'.format(domain))
         return label.get_attribute('value')
+
+    def clear_tracker_data(self):
+        self.load_url(self.options_url)
+        self.driver.execute_async_script((
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'removeAllData'"
+            "}, done);"
+        ))
+
+    def get_badger_storage(self, store_name):
+        self.load_url(self.options_url)
+        return self.driver.execute_async_script((
+            "let done = arguments[arguments.length - 1],"
+            "  store_name = arguments[0];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'syncStorage',"
+            "  storeName: store_name"
+            "}, function () {"
+            "  chrome.storage.local.get([store_name], function (res) {"
+            "    done(res[store_name]);"
+            "  });"
+            "});"
+        ), store_name)
 
     def load_pb_ui(self, target_url):
         """Show the PB popup as a new tab.

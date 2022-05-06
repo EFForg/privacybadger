@@ -1,7 +1,10 @@
 /* globals badger:false */
 
 require.scopes.incognito = (function() {
-var tabs = {};
+
+let utils = require('utils');
+
+let tabs = {};
 
 // Get all existing tabs
 chrome.tabs.query({}, function(results) {
@@ -32,7 +35,7 @@ function learningEnabled(tab_id) {
   }
   // if we don't have incognito data for whatever reason,
   // default to disabled
-  if (!tabs.hasOwnProperty(tab_id)) {
+  if (!utils.hasOwn(tabs, tab_id)) {
     return false;
   }
   // else, do not learn in incognito tabs
@@ -46,4 +49,5 @@ let exports = {
 };
 return exports;
 /************************************** exports */
-})();
+
+}());
