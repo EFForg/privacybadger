@@ -1,5 +1,7 @@
 # PRIVACY BADGER DESIGN AND ROADMAP
 
+See also [the FAQ on Privacy Badger's homepage](https://privacybadger.org/#faq).
+
 ## DESIGN
 
 ### OBJECTIVE
@@ -77,6 +79,18 @@ Learning from cookies happens in [`heuristicblocking.js`](../src/js/heuristicblo
 Privacy Badger also learns from [fingerprinting](../src/js/contentscripts/fingerprinting.js) and [HTML5 local storage "supercookies"](../src/js/contentscripts/supercookie.js).
 
 Request blocking/modification happens in [`webrequest.js`](../src/js/webrequest.js).
+
+##### Technical Implementation:
+
+When a browser with Privacy Badger enabled makes a request to a third party, and Privacy Badger observes tracking (for example, the request contains a cookie or the response tries to set a cookie), the domain gets flagged as "tracking".
+
+Origins that make tracking requests get stored in a key-value store (`snitch_map`) where the keys are the [eTLD+1](https://en.wikipedia.org/wiki/Public_Suffix_List) of tracking origins, and the values are lists of the first party eTLD+1 origins (that is, the sites) these requests were made on. Such origins also get stored in another key-value store (`action_map`) where each origin is associated with the action Privacy Badger should take when it next sees requests (or responses) by that origin.
+
+Once Privacy Badger sees tracking from an origin on `constants.TRACKING_THRESHOLD` or more first party origins, Privacy Badger will update `action_map` to note that this origin should now get blocked (`constants.BLOCK`). If the origin is on the yellow list, its `action_map` entry will instead get updated to `constants.COOKIEBLOCK`, and its requests will be allowed to resolve although without access to cookies or local storage and with the referer header trimmed or removed.
+
+Additionally users can manually set the desired action for any FQDN, which updates `action_map`.
+
+These key-value stores are stored on disk, and persist between browser sessions.
 
 ##### Data Structures:
 
@@ -210,7 +224,7 @@ research has determined that this is a reliable way to distinguish between
 fingerprinting and other third party canvas uses.
 
 This may be augmented by hooks to detect extensive enumeration of properties
-in the <tt>navigator</tt> object in the future.
+in the `navigator` object in the future.
 
 #### Pixel cookie sharing detection
 
@@ -221,26 +235,3 @@ Detection of first to third party cookie sharing via image pixels was added in [
 #### High priority issues
 
 Please see our ["high priority"-labeled issues](https://github.com/EFForg/privacybadger/issues?q=is%3Aissue+is%3Aopen+label%3A%22high+priority%22).
-
-## Technical Implementation
-
-### How are origins and the rules for them stored?
-
-When a browser with Privacy Badger enabled makes a request to a third party, if
-the request contains a cookie or the response tries to set a cookie it gets
-flagged as 'tracking'. Origins that make tracking requests get stored in a
-key→value store where the keys are the origins making the request, and the
-values are the first party origins these requests were made on. If that list of
-third parties contains three or more first party origins the third party origin
-gets added to another list of known trackers. When Privacy Badger gets a
-request from an origin on the known trackers list, if it is not on the yellow
-list then Privacy Badger blocks that request. If it is on the yellow list then
-the request is allowed to resolve, but all cookie setting and getting parts of
-it are blocked, while the referer header is trimmed or removed. Both of these
-lists are stored on disk, and persist between browser sessions.
-
-Additionally users can manually set the desired action for any FQDN.
-These get added to their own lists, which are also stored on disk, and get checked
-before Privacy Badger does its default action for a given origin. These are managed
-from the popup window for Privacy Badger on the page as well as the options menu
-for the whole extension.
