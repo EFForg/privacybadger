@@ -36,7 +36,8 @@ function showNagMaybe() {
 
   function _setSeenComic(cb) {
     chrome.runtime.sendMessage({
-      type: "seenComic"
+      type: "updateSettings",
+      data: { seenComic: true }
     }, cb);
   }
 

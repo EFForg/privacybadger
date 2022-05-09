@@ -1291,12 +1291,6 @@ function dispatcher(request, sender, sendResponse) {
     return true; // async chrome.runtime.onMessage response
   }
 
-  case "seenComic": {
-    badger.getSettings().setItem("seenComic", true);
-    sendResponse();
-    break;
-  }
-
   case "seenLearningPrompt": {
     badger.getPrivateSettings().setItem("showLearningPrompt", false);
     sendResponse();
