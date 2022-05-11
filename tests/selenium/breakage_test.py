@@ -2,9 +2,12 @@
 # -*- coding: UTF-8 -*-
 
 import unittest
+
 import pbtest
-from selenium.webdriver.support.ui import WebDriverWait
+
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class BreakageTest(pbtest.PBSeleniumTest):
@@ -21,10 +24,11 @@ class BreakageTest(pbtest.PBSeleniumTest):
 
     def test_should_search_google(self):
         self.load_url("https://www.google.com/")
-        qry_el = self.driver.find_element_by_name("q")
+        qry_el = self.driver.find_element(By.NAME, "q")
         qry_el.send_keys("EFF")  # search term
         qry_el.submit()
         WebDriverWait(self.driver, 10).until(EC.title_contains("EFF"))
+
 
 if __name__ == "__main__":
     unittest.main()

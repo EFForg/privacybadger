@@ -22,7 +22,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
     def perform_google_search(self):
         # perform a search
         self.load_url(f"https://{self.GOOGLE_SEARCH_DOMAIN}/")
-        qry_el = self.driver.find_element_by_name("q")
+        qry_el = self.driver.find_element(By.NAME, "q")
         qry_el.send_keys(self.SEARCH_TERM)
         qry_el.submit()
 
@@ -37,7 +37,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
         def _check_results():
             # select all anchor elements with non-empty href attributes
             SELECTOR = "a[href]:not([href=''])"
-            search_results = self.driver.find_elements_by_css_selector(SELECTOR)
+            search_results = self.driver.find_elements(By.CSS_SELECTOR, SELECTOR)
 
             # remove "About this result" links as they do not get cleaned
             # (they don't match any of the `trap_link` selectors)
@@ -97,7 +97,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
         def _perform_search_and_check_results():
             self.perform_google_search()
 
-            search_results = self.driver.find_elements_by_css_selector(SELECTOR)
+            search_results = self.driver.find_elements(By.CSS_SELECTOR, SELECTOR)
 
             # remove "About this result" links as they do not get cleaned
             # (they don't match any of the `trap_link` selectors)

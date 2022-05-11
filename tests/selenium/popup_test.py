@@ -31,7 +31,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             print(self.driver.page_source[:5000])
             print("...\n")
 
-            self.fail("Timed out waiting for %s to start loading" % url)
+            self.fail(f"Timed out waiting for {url} to start loading")
 
     def open_popup(self, show_nag=False, origins=None):
         """Open popup and optionally close overlay."""
@@ -87,11 +87,11 @@ class PopupTest(pbtest.PBSeleniumTest):
 
     def get_enable_button(self):
         """Get enable button on popup."""
-        return self.driver.find_element_by_id("activate_site_btn")
+        return self.driver.find_element(By.ID, "activate_site_btn")
 
     def get_disable_button(self):
         """Get disable button on popup."""
-        return self.driver.find_element_by_id("deactivate_site_btn")
+        return self.driver.find_element(By.ID, "deactivate_site_btn")
 
     @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_welcome_page_reminder_overlay(self):
@@ -104,7 +104,7 @@ class PopupTest(pbtest.PBSeleniumTest):
             pass
 
         self.open_popup(show_nag=True)
-        self.driver.find_element_by_id("intro-reminder-btn").click()
+        self.driver.find_element(By.ID, "intro-reminder-btn").click()
 
         # Look for first run page and return if found.
         self.switch_to_window_with_url(self.first_run_url)
@@ -122,14 +122,14 @@ class PopupTest(pbtest.PBSeleniumTest):
             self.fail("FAQ should not already be open")
 
         self.open_popup()
-        self.driver.find_element_by_id("help").click()
+        self.driver.find_element(By.ID, "help").click()
 
         self.switch_to_window_with_url(FAQ_URL)
 
     def test_options_button(self):
         """Ensure options page is opened when button is clicked."""
         self.open_popup()
-        self.driver.find_element_by_id("options").click()
+        self.driver.find_element(By.ID, "options").click()
         self.switch_to_window_with_url(self.options_url)
 
     def test_trackers_link(self):
@@ -140,7 +140,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_popup()
 
         # Get all possible tracker links ("no" and "multiple" messages)
-        trackers_links = self.driver.find_elements_by_css_selector("#pbInstructions a")
+        trackers_links = self.driver.find_elements(By.CSS_SELECTOR, "#pbInstructions a")
         if not trackers_links:
             self.fail("Unable to find trackers link on popup")
 
@@ -160,17 +160,17 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
-        self.assertEqual(EFF_URL, self.driver.current_url,
+        assert self.driver.current_url == EFF_URL, (
             "EFF website should open after clicking trackers link on popup")
 
         # Verify EFF website contains the linked anchor element.
-        faq_selector = 'a[href="{}"]'.format(EFF_URL[EFF_URL.index('#'):])
+        faq_selector = f"a[href='{EFF_URL[EFF_URL.index('#'):]}']"
         try:
             WebDriverWait(self.driver, pbtest.SEL_DEFAULT_WAIT_TIMEOUT).until(
                 expected_conditions.presence_of_element_located(
                     (By.CSS_SELECTOR, faq_selector)))
         except TimeoutException:
-            self.fail("Unable to find expected element ({}) on EFF website".format(faq_selector))
+            self.fail(f"Unable to find expected element ({faq_selector}) on EFF website")
 
     def test_toggling_sliders(self):
         """Ensure toggling sliders is persisted."""
@@ -187,7 +187,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # click input with JavaScript to avoid "Element ... is not clickable" /
         # "Other element would receive the click" Selenium limitation
-        self.js("$('#block-{}').click()".format(DOMAIN_ID))
+        self.js(f"$('#block-{DOMAIN_ID}').click()")
 
         # retrieve the new action
         self.load_url(self.options_url)
@@ -195,21 +195,19 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = self.get_domain_slider_state(DOMAIN)
 
-        self.assertEqual("block", new_action,
-            "The domain should be blocked on options page.")
+        assert new_action == "block", (
+            "The domain should be blocked on options page")
 
         # test toggling some more
         self.open_popup(origins={DOMAIN:"user_block"})
 
-        self.assertTrue(
-            self.driver.find_element_by_id("block-" + DOMAIN_ID).is_selected(),
-            "The domain should be shown as blocked in popup."
-        )
+        assert self.driver.find_element(By.ID, "block-" + DOMAIN_ID).is_selected(), (
+            "The domain should be shown as blocked in popup")
 
         # change to "cookieblock"
-        self.js("$('#cookieblock-{}').click()".format(DOMAIN_ID))
+        self.js(f"$('#cookieblock-{DOMAIN_ID}').click()")
         # change again to "block"
-        self.js("$('#block-{}').click()".format(DOMAIN_ID))
+        self.js(f"$('#block-{DOMAIN_ID}').click()")
 
         # retrieve the new action
         self.load_url(self.options_url)
@@ -217,8 +215,8 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
         new_action = self.get_domain_slider_state(DOMAIN)
 
-        self.assertEqual("block", new_action,
-            "The domain should still be blocked on options page.")
+        assert new_action == "block", (
+            "The domain should still be blocked on options page")
 
     def test_reverting_control(self):
         """Test restoring control of a domain to Privacy Badger."""
@@ -233,19 +231,18 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_popup(origins={DOMAIN:"cookieblock"})
 
         # reveal sliders
-        self.driver.find_element_by_id('expand-blocked-resources').click()
+        self.driver.find_element(By.ID, 'expand-blocked-resources').click()
         # TODO retry instead
         time.sleep(1)
 
         # set the domain to user control
         # click input with JavaScript to avoid "Element ... is not clickable" /
         # "Other element would receive the click" Selenium limitation
-        self.js("$('#block-{}').click()".format(DOMAIN_ID))
+        self.js(f"$('#block-{DOMAIN_ID}').click()")
 
         # restore control to Badger
-        self.driver.find_element_by_css_selector(
-            'div[data-origin="{}"] a.honeybadgerPowered'.format(DOMAIN)
-        ).click()
+        self.driver.find_element(By.CSS_SELECTOR,
+            f'div[data-origin="{DOMAIN}"] a.honeybadgerPowered').click()
 
         # get back to a valid window handle as the window just got closed
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -257,17 +254,13 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # assert the action is not what we manually clicked
         action = self.get_domain_slider_state(DOMAIN)
-        self.assertEqual("cookieblock", action,
-            "Domain's action should have been restored.")
+        assert action == "cookieblock", "Domain's action should have been restored"
 
         # assert the undo arrow is not displayed
-        self.driver.find_element_by_css_selector('a[href="#tab-tracking-domains"]').click()
-        self.assertFalse(
-            self.driver.find_element_by_css_selector(
-                'div[data-origin="{}"] a.honeybadgerPowered'.format(DOMAIN)
-            ).is_displayed(),
-            "Undo arrow should not be displayed."
-        )
+        self.driver.find_element(By.CSS_SELECTOR, 'a[href="#tab-tracking-domains"]').click()
+        assert not self.driver.find_element(By.CSS_SELECTOR,
+            f'div[data-origin="{DOMAIN}"] a.honeybadgerPowered').is_displayed(), (
+                "Undo arrow should not be displayed")
 
     def test_disable_enable_buttons(self):
         """Ensure disable/enable buttons change popup state."""
@@ -285,11 +278,11 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Check that popup state changed after disabling.
         disable_button = self.get_disable_button()
-        self.assertFalse(disable_button.is_displayed(),
-                         "Disable button" + DISPLAYED_ERROR)
+        assert not disable_button.is_displayed(), (
+            "Disable button" + DISPLAYED_ERROR)
         enable_button = self.get_enable_button()
-        self.assertTrue(enable_button.is_displayed(),
-                        "Enable button" + NOT_DISPLAYED_ERROR)
+        assert enable_button.is_displayed(), (
+            "Enable button" + NOT_DISPLAYED_ERROR)
 
         enable_button.click()
 
@@ -298,11 +291,9 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # Check that popup state changed after re-enabling.
         disable_button = self.get_disable_button()
-        self.assertTrue(disable_button.is_displayed(),
-                        "Disable button" + NOT_DISPLAYED_ERROR)
+        assert disable_button.is_displayed(), "Disable button" + NOT_DISPLAYED_ERROR
         enable_button = self.get_enable_button()
-        self.assertFalse(enable_button.is_displayed(),
-                         "Enable button" + DISPLAYED_ERROR)
+        assert not enable_button.is_displayed(), "Enable button" + DISPLAYED_ERROR
 
     def test_error_button(self):
         """Ensure error button opens report error overlay."""
@@ -310,27 +301,26 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # TODO: selenium firefox has a bug where is_displayed() is always True
         # for these elements. But we should use is_displayed when this is fixed.
-        #overlay_input = self.driver.find_element_by_id("error_input")
-        #self.assertTrue(overlay_input.is_displayed(), "User input" + error_message)
+        #overlay_input = self.driver.find_element(By.ID, "error_input")
+        #assert overlay_input.is_displayed(), "User input" + error_message
 
         # assert error reporting menu is not open
-        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
-                'error reporting should not be open')
+        assert not self.driver.find_elements(By.CLASS_NAME, 'active'), (
+            'error reporting should not be open')
 
         # Click error button to open overlay for reporting sites.
-        error_button = self.driver.find_element_by_id("error")
+        error_button = self.driver.find_element(By.ID, "error")
         error_button.click()
         time.sleep(1)
 
         # check error is open
-        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 1,
-                'error reporting should be open')
+        assert len(self.driver.find_elements(By.CLASS_NAME, 'active')) == 1, (
+            'error reporting should be open')
 
-        overlay_close = self.driver.find_element_by_id("report_close")
-        overlay_close.click()
+        self.driver.find_element(By.ID, "report_close").click()
         time.sleep(1)
-        self.assertTrue(len(self.driver.find_elements_by_class_name('active')) == 0,
-                'error reporting should be closed again')
+        assert not self.driver.find_elements(By.CLASS_NAME, 'active'), (
+            'error reporting should be closed again')
 
     def test_donate_button(self):
         """Ensure donate button opens EFF website."""
@@ -339,7 +329,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.open_popup()
 
-        donate_button = self.driver.find_element_by_id("donate")
+        donate_button = self.driver.find_element(By.ID, "donate")
 
         donate_button.click()
 
@@ -352,7 +342,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         self.wait_for_page_to_start_loading(EFF_URL)
 
-        self.assertEqual(EFF_URL, self.driver.current_url,
+        assert self.driver.current_url == EFF_URL, (
             "EFF website should open after clicking donate button on popup")
 
     def test_breakage_warnings(self):
@@ -360,29 +350,29 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_popup(origins={YLIST_DOMAIN: "cookieblock"})
 
         def get_breakage_icon():
-            return self.driver.find_element_by_css_selector(
-                'div.clicker[data-origin="{}"] span.breakage-warning'.format(YLIST_DOMAIN))
+            return self.driver.find_element(By.CSS_SELECTOR,
+                f'div.clicker[data-origin="{YLIST_DOMAIN}"] span.breakage-warning')
 
         # reveal sliders
-        self.driver.find_element_by_id('expand-blocked-resources').click()
+        self.driver.find_element(By.ID, 'expand-blocked-resources').click()
         # TODO retry instead
         time.sleep(1)
 
         # verify there is no breakage warning
         breakage_icon = get_breakage_icon()
-        self.assertFalse(breakage_icon.is_displayed())
+        assert not breakage_icon.is_displayed()
 
         # manually block the yellowlisted domain
-        self.js("$('#block-{}').click()".format(YLIST_DOMAIN.replace(".", "-")))
+        self.js(f'$("#block-{YLIST_DOMAIN.replace(".", "-")}").click()')
 
         # verify breakage warning is shown
         breakage_icon = get_breakage_icon()
-        self.assertTrue(breakage_icon.is_displayed())
+        assert breakage_icon.is_displayed()
 
         # verify breakage warning is there when reopened
         self.open_popup(origins={YLIST_DOMAIN: "user_block"}) # TODO hack
         breakage_icon = get_breakage_icon()
-        self.assertTrue(breakage_icon.is_displayed())
+        assert breakage_icon.is_displayed()
 
     def test_slider_hiding(self):
         YLIST_DOMAIN = "jquery.com"
@@ -393,27 +383,25 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         def assert_hidden(sliders):
             for slider in sliders:
-                self.assertFalse(slider.is_displayed(),
-                    "{} is visible but should be hidden".format(
-                        slider.get_attribute('data-origin')))
+                assert not slider.is_displayed(), (
+                    "{slider.get_attribute('data-origin')} is visible but should be hidden")
 
         def assert_visible(sliders):
             for slider in sliders:
-                self.assertTrue(slider.is_displayed(),
-                    "{} is hidden but should be visible".format(
-                        slider.get_attribute('data-origin')))
+                assert slider.is_displayed(), (
+                    f"{slider.get_attribute('data-origin')} is hidden but should be visible")
 
         self.open_popup(origins=TEST_DOMAINS)
-        sliders = self.driver.find_elements_by_css_selector('div.clicker')
+        sliders = self.driver.find_elements(By.CSS_SELECTOR, 'div.clicker')
 
         # verify we have the expected number of sliders
-        self.assertEqual(len(TEST_DOMAINS), len(sliders))
+        assert len(sliders) == len(TEST_DOMAINS)
 
         # verify sliders are hidden
         assert_hidden(sliders)
 
         # reveal sliders
-        self.driver.find_element_by_id('expand-blocked-resources').click()
+        self.driver.find_element(By.ID, 'expand-blocked-resources').click()
         # TODO retry instead
         time.sleep(1)
 
@@ -422,19 +410,19 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # reopen popup
         self.open_popup(origins=TEST_DOMAINS)
-        sliders = self.driver.find_elements_by_css_selector('div.clicker')
+        sliders = self.driver.find_elements(By.CSS_SELECTOR, 'div.clicker')
 
         # verify sliders are visible
         assert_visible(sliders)
 
         # verify domain is shown second in the list
-        self.assertEqual(YLIST_DOMAIN, sliders[1].get_attribute('data-origin'))
+        assert sliders[1].get_attribute('data-origin') == YLIST_DOMAIN
 
         # manually block the yellowlisted domain
-        self.js("$('#block-{}').click()".format(YLIST_DOMAIN.replace(".", "-")))
+        self.js(f'$("#block-{YLIST_DOMAIN.replace(".", "-")}").click()')
 
         # hide sliders
-        self.driver.find_element_by_id('collapse-blocked-resources').click()
+        self.driver.find_element(By.ID, 'collapse-blocked-resources').click()
         # TODO retry instead
         time.sleep(1)
 
@@ -444,18 +432,17 @@ class PopupTest(pbtest.PBSeleniumTest):
         # reopen popup
         TEST_DOMAINS[YLIST_DOMAIN] = "user_block" # TODO hack
         self.open_popup(origins=TEST_DOMAINS)
-        sliders = self.driver.find_elements_by_css_selector('div.clicker')
+        sliders = self.driver.find_elements(By.CSS_SELECTOR, 'div.clicker')
 
         # verify sliders are visible
         assert_visible(sliders)
 
         # verify breakage warning slider is at the top
-        self.assertEqual(YLIST_DOMAIN, sliders[0].get_attribute('data-origin'))
+        assert sliders[0].get_attribute('data-origin') == YLIST_DOMAIN
 
         # restore the user-set slider to default action
-        self.driver.find_element_by_css_selector(
-            'div[data-origin="{}"] a.honeybadgerPowered'.format(YLIST_DOMAIN)
-        ).click()
+        self.driver.find_element(By.CSS_SELECTOR,
+            f'div[data-origin="{YLIST_DOMAIN}"] a.honeybadgerPowered').click()
 
         # get back to a valid window handle as the window just got closed
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -463,7 +450,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         # reopen popup
         TEST_DOMAINS[YLIST_DOMAIN] = "cookieblock" # TODO hack
         self.open_popup(origins=TEST_DOMAINS)
-        sliders = self.driver.find_elements_by_css_selector('div.clicker')
+        sliders = self.driver.find_elements(By.CSS_SELECTOR, 'div.clicker')
 
         # verify sliders are hidden again
         assert_hidden(sliders)
@@ -477,14 +464,16 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # base case: verify blocked slider is hidden (list is collapsed)
         self.open_popup(origins={'example.com': 'block'})
-        slider = self.driver.find_element_by_css_selector('div.clicker[data-origin="example.com"]')
-        self.assertFalse(slider.is_displayed())
+        slider = self.driver.find_element(By.CSS_SELECTOR,
+            'div.clicker[data-origin="example.com"]')
+        assert not slider.is_displayed()
 
         # reopen popup
         self.open_popup(origins={'example.com': 'noaction'})
         # verify a non-tracking slider gets shown (no collapsing, just show the list)
-        slider = self.driver.find_element_by_css_selector('div.clicker[data-origin="example.com"]')
-        self.assertTrue(slider.is_displayed())
+        slider = self.driver.find_element(By.CSS_SELECTOR,
+            'div.clicker[data-origin="example.com"]')
+        assert slider.is_displayed()
 
 
 if __name__ == "__main__":

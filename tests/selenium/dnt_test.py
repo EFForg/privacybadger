@@ -9,6 +9,7 @@ import pbtest
 from functools import partial
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 from pbtest import retry_until
 
@@ -35,7 +36,7 @@ class DntTest(pbtest.PBSeleniumTest):
     def get_first_party_headers(self, url):
         self.load_url(url)
 
-        text = self.driver.find_element_by_tag_name('body').text
+        text = self.driver.find_element(By.TAG_NAME, 'body').text
 
         try:
             headers = json.loads(text)['headers']
@@ -201,12 +202,12 @@ class DntTest(pbtest.PBSeleniumTest):
         # verify both domains are present on the page
         try:
             selector = f"iframe[src*='{TRACKING_DOMAIN}']"
-            self.driver.find_element_by_css_selector(selector)
+            self.driver.find_element(By.CSS_SELECTOR, selector)
         except NoSuchElementException:
             self.fail("Unable to find the tracking domain on the page")
         try:
             selector = f"img[src*='{NON_TRACKING_DOMAIN}']"
-            self.driver.find_element_by_css_selector(selector)
+            self.driver.find_element(By.CSS_SELECTOR, selector)
         except NoSuchElementException:
             self.fail("Unable to find the non-tracking domain on the page")
 
@@ -259,7 +260,7 @@ class DntTest(pbtest.PBSeleniumTest):
 
         self.assertEqual(
             'no tracking (navigator.doNotTrack="1")',
-            self.driver.find_element_by_tag_name('body').text,
+            self.driver.find_element(By.TAG_NAME, 'body').text,
             "navigator.DoNotTrack should have been set to \"1\""
         )
         self.assertEqual(
@@ -276,7 +277,7 @@ class DntTest(pbtest.PBSeleniumTest):
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         self.assertEqual(
             'unset',
-            self.driver.find_element_by_tag_name('body').text[0:5],
+            self.driver.find_element(By.TAG_NAME, 'body').text[0:5],
             "navigator.DoNotTrack should have been left unset"
         )
         self.assertEqual(
@@ -295,7 +296,7 @@ class DntTest(pbtest.PBSeleniumTest):
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         self.assertEqual(
             'unset',
-            self.driver.find_element_by_tag_name('body').text[0:5],
+            self.driver.find_element(By.TAG_NAME, 'body').text[0:5],
             "navigator.DoNotTrack should have been left unset"
         )
         self.assertEqual(

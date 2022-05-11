@@ -7,6 +7,7 @@ import pbtest
 
 from time import sleep
 
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import (
     NoSuchElementException,
     StaleElementReferenceException,
@@ -110,7 +111,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
             widget_name = self.TYPE3_WIDGET_NAME
 
         try:
-            self.switch_to_frame('iframe[srcdoc*="{}"]'.format(widget_name))
+            self.switch_to_frame(f'iframe[srcdoc*="{widget_name}"]')
         except (StaleElementReferenceException, TimeoutException):
             self.fail("Unable to find widget placeholder frame")
 
@@ -130,7 +131,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
 
         frame_text = self.txt_by_css('body')
         if frame_text != "This page has been blocked by an extension":
-            self.assertFalse(frame_text, "Widget frame should be empty")
+            assert not frame_text, "Widget frame should be empty"
 
         self.driver.switch_to.default_content()
 
@@ -146,7 +147,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         if not widget_name:
             widget_name = self.TYPE3_WIDGET_NAME
         try:
-            self.switch_to_frame('iframe[srcdoc*="{}"]'.format(widget_name))
+            self.switch_to_frame(f'iframe[srcdoc*="{widget_name}"]')
             self.fail("Widget placeholder frame should be missing")
         except TimeoutException:
             pass
@@ -156,8 +157,8 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         if not widget_name:
             widget_name = self.TYPE3_WIDGET_NAME
         id_prefix = 'btn-once' if once else 'btn-site'
-        self.switch_to_frame('iframe[srcdoc*="{}"]'.format(widget_name))
-        self.find_el_by_css("button[id^='%s']" % id_prefix).click()
+        self.switch_to_frame(f'iframe[srcdoc*="{widget_name}"]')
+        self.find_el_by_css(f"button[id^='{id_prefix}']").click()
         self.driver.switch_to.default_content()
 
     def test_replacement_basic(self):
@@ -207,7 +208,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
 
         # verify the type 4 widget is still replaced
         try:
-            self.driver.find_element_by_css_selector(
+            self.driver.find_element(By.CSS_SELECTOR,
                 'div.' + self.TYPE4_WIDGET_CLASS)
             self.fail("Widget output container div should be missing")
         except NoSuchElementException:
@@ -217,10 +218,10 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.activate_widget(self.TYPE4_WIDGET_NAME)
 
         # assert all script attributes were copied
-        script_el = self.driver.find_element_by_css_selector(
+        script_el = self.driver.find_element(By.CSS_SELECTOR,
             'script.' + self.TYPE4_WIDGET_CLASS)
-        self.assertEqual("true", script_el.get_attribute('async'))
-        self.assertEqual("bar", script_el.get_attribute('data-foo'))
+        assert script_el.get_attribute('async') == "true"
+        assert script_el.get_attribute('data-foo') == "bar"
 
         self.assert_widget("type4")
 
@@ -260,9 +261,9 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-manage-widgets"]').click()
-        select = Select(self.driver.find_element_by_id('widget-site-exceptions-select'))
+        select = Select(self.driver.find_element(By.ID, 'widget-site-exceptions-select'))
         select.select_by_value(self.FIXTURES_HOST)
-        self.driver.find_element_by_id('widget-site-exceptions-remove-button').click()
+        self.driver.find_element(By.ID, 'widget-site-exceptions-remove-button').click()
 
         # verify basic widget is replaced again
         self.open_window()
@@ -296,7 +297,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-manage-widgets"]').click()
-        self.driver.find_element_by_id('replace-widgets-checkbox').click()
+        self.driver.find_element(By.ID, 'replace-widgets-checkbox').click()
 
         # verify basic widget is no longer replaced
         self.load_url(self.BASIC_FIXTURE_URL)
@@ -306,13 +307,13 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.assert_no_replacement(self.TYPE4_WIDGET_NAME)
         # type 4 widget should also have gotten blocked
         try:
-            widget_div = self.driver.find_element_by_css_selector(
+            widget_div = self.driver.find_element(By.CSS_SELECTOR,
                 'div.pb-type4-test-widget')
         except NoSuchElementException:
             self.fail("Widget div should still be here")
         # check the div's text a few times to make sure it stays empty
         for _ in range(3):
-            self.assertFalse(widget_div.text,
+            assert not widget_div.text, (
                 "Widget output container should remain empty")
             sleep(1)
 
