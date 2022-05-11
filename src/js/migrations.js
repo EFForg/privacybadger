@@ -141,6 +141,8 @@ exports.Migrations= {
   unblockIncorrectlyBlockedDomains: function (badger) {
     console.log("Running migration to unblock likely incorrectly blocked domains ...");
 
+    const BLOCK_THRESHOLD = badger.getPrivateSettings().getItem('blockThreshold');
+
     let action_map = badger.storage.getStore("action_map"),
       snitch_map = badger.storage.getStore("snitch_map");
 
@@ -161,7 +163,7 @@ exports.Migrations= {
       let action = "";
 
       if (sites && sites.length) {
-        if (sites.length >= constants.TRACKING_THRESHOLD) {
+        if (sites.length >= BLOCK_THRESHOLD) {
           // tracking domain over threshold, set it to cookieblock or block
           badger.heuristicBlocking.blocklistOrigin(base_domain, domain);
           continue;

@@ -859,6 +859,7 @@ Badger.prototype = {
 
     // initialize any other private store (not-for-export) settings
     let privateDefaultSettings = {
+      blockThreshold: constants.TRACKING_THRESHOLD,
       firstRunTimerFinished: true,
       showLearningPrompt: false,
     };

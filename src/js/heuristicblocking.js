@@ -299,7 +299,7 @@ HeuristicBlocker.prototype = {
 
   /**
    * Record HTTP request prevalence. Block a tracker if seen on more
-   * than constants.TRACKING_THRESHOLD pages
+   * than constants.TRACKING_THRESHOLD pages.
    *
    * NOTE: This is a private function and should never be called directly.
    * All calls should be routed through heuristicBlockingAccounting for normal usage
@@ -345,8 +345,9 @@ HeuristicBlocker.prototype = {
     self.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
     self.storage.setupHeuristicAction(tracker_base, constants.ALLOW);
 
-    // (cookie)block the tracker if it has been seen on multiple first party domains
-    if (firstParties.length >= constants.TRACKING_THRESHOLD) {
+    // (cookie)block if domain was seen tracking on enough first party domains
+    if (firstParties.length >=
+        self.storage.getStore('private_storage').getItem('blockThreshold')) {
       log("blocklisting", tracker_fqdn);
       self.blocklistOrigin(tracker_base, tracker_fqdn);
     }

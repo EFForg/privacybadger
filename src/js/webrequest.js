@@ -1291,6 +1291,16 @@ function dispatcher(request, sender, sendResponse) {
     return true; // async chrome.runtime.onMessage response
   }
 
+  // used by Badger Sett
+  case "setBlockThreshold": {
+    let value = +request.value;
+    if (value > 0) {
+      badger.getPrivateSettings().setItem("blockThreshold", value);
+    }
+    sendResponse();
+    break;
+  }
+
   case "seenLearningPrompt": {
     badger.getPrivateSettings().setItem("showLearningPrompt", false);
     sendResponse();
