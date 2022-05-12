@@ -1,14 +1,15 @@
 # Working with Privacy Badger's tests
 
-We have a few different types of tests:
+There are two types of tests:
 
-* We use [unit tests](/doc/tests.md#unit-tests) for confirming that smaller pieces of code behave as expected.
-* [Functional tests](/doc/tests.md#functional-tests) test the UI and that things integrate together properly.
-* [Travis CI](/doc/tests.md#travis-ci) runs all these automatically for every pull request on both Chrome and Firefox.
+* [Unit tests](/doc/tests.md#unit-tests) for exercising isolated units of code
+* [Functional tests](/doc/tests.md#functional-tests) for verifying high-level extension functionality
+
+[Travis CI](/doc/tests.md#travis-ci) runs unit and functional tests on every pull request on Chrome, Firefox and Edge.
 
 ## Travis CI
 
-Every pull request runs the full suite of functional and unit tests on [Travis CI](https://travis-ci.com/). We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Firefox Beta and Firefox ESR.
+Every pull request runs the full suite of tests on [Travis CI](https://travis-ci.com/). We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Edge Beta, Firefox Beta and Firefox ESR.
 
 See [`.travis.yml`](/.travis.yml) for Travis configuration, [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) for test setup, and [`scripts/run_travis.sh`](/scripts/run_travis.sh) for test execution procedures.
 

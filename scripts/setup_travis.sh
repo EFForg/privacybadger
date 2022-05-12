@@ -5,7 +5,28 @@ set -eu
 
 toplevel=$(git rev-parse --show-toplevel)
 
-function setup_firefox {
+install_edge_webdriver() {
+  edge_version=$(microsoft-edge-beta --product-version | cut -d . -f 1-3)
+  webdriver_version=$(curl -s "https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/" | grep -Eo "/${edge_version}\.[0-9]+/edgedriver_linux64.zip" | head -n1)
+
+  if [ -z "$webdriver_version" ]; then
+    echo "Failed to retrieve Edge WebDriver version!"
+    exit 1
+  fi
+
+  wget "https://msedgedriver.azureedge.net${webdriver_version}"
+  unzip edgedriver_linux64.zip
+  sudo mv msedgedriver /usr/local/bin/
+  sudo chmod a+x /usr/local/bin/msedgedriver
+
+  # check that Edge WebDriver is now present
+  type msedgedriver >/dev/null 2>&1 || {
+    echo "Failed to install Edge WebDriver!"
+    exit 1
+  }
+}
+
+install_geckodriver() {
     # Install the latest version of geckodriver
     version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep -i "^Location: " | sed 's/.*\///' | tr -d '\r')
 
@@ -36,19 +57,18 @@ function setup_firefox {
     }
 }
 
-function browser_setup {
-  # install python stuff
+install_python_deps() {
   pip install -r "$toplevel"/tests/requirements.txt
 }
 
-function setup_lint {
+install_node_deps() {
   # "--production" to skip installing devDependencies modules
   npm ci --production || exit 1
 }
 
 # check that the desired browser is present as it might fail to install
 # for example: https://travis-ci.org/EFForg/privacybadger/jobs/362381214
-function check_browser {
+check_browser() {
   type "$BROWSER" >/dev/null 2>&1 || {
     echo "$BROWSER seems to be missing!"
     exit 1
@@ -59,18 +79,23 @@ function check_browser {
 }
 
 case $INFO in
-  *chrome*)
+  *Chrome*)
     check_browser
     "$toplevel"/scripts/chromedriver.sh "$BROWSER"
-    browser_setup
+    install_python_deps
     ;;
-  *firefox*) # Install the latest version of geckodriver
+  *Firefox*)
     check_browser
-    setup_firefox
-    browser_setup
+    install_geckodriver
+    install_python_deps
+    ;;
+  *Edge*)
+    check_browser
+    install_edge_webdriver
+    install_python_deps
     ;;
   *lint*)
-    setup_lint
+    install_node_deps
     ;;
   *)
     echo "bad INFO variable, got $INFO"
