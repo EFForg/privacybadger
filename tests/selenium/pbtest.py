@@ -19,6 +19,7 @@ from selenium.common.exceptions import (
     WebDriverException,
 )
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.support.ui import WebDriverWait
@@ -34,8 +35,8 @@ except ImportError:
 
 SEL_DEFAULT_WAIT_TIMEOUT = 30
 
-BROWSER_TYPES = ['chrome', 'firefox']
-BROWSER_NAMES = ['google-chrome', 'google-chrome-stable', 'google-chrome-beta', 'firefox']
+BROWSER_TYPES = ['chrome', 'firefox', 'edge']
+BROWSER_NAMES = ['google-chrome', 'google-chrome-stable', 'google-chrome-beta', 'firefox', 'microsoft-edge', 'microsoft-edge-beta']
 
 parse_stdout = lambda res: res.strip().decode('utf-8')
 
@@ -107,14 +108,17 @@ class Shim:
 
         self.extension_path = os.path.join(GIT_ROOT, 'src')
 
-        if self.browser_type == 'chrome':
+        if self.browser_type in ('chrome', 'edge'):
             # this extension ID and the "key" property in manifest.json
             # must both be derived from the same private key
             self.info = {
                 'extension_id': 'mcgekeccgjgcmhnhbabplanchdogjcnh'
             }
-            self.manager = self.chrome_manager
             self.base_url = f"chrome-extension://{self.info['extension_id']}/"
+            if self.browser_type == 'chrome':
+                self.manager = self.chrome_manager
+            else:
+                self.manager = self.edge_manager
 
             # make extension ID constant across runs
             self.fix_chrome_extension_id()
@@ -130,7 +134,6 @@ class Shim:
         print(f"\nUsing browser path: {self.browser_path}\n"
               f"with browser type: {self.browser_type}\n"
               f"and extension path: {self.extension_path}\n")
-
 
     def fix_chrome_extension_id(self):
         # create temp directory
@@ -189,6 +192,27 @@ class Shim:
             except WebDriverException as e:
                 if i == 0: print("")
                 print("Chrome WebDriver initialization failed:")
+                print(str(e) + "Retrying ...")
+            else:
+                break
+
+        try:
+            yield driver
+        finally:
+            driver.quit()
+
+    @contextmanager
+    def edge_manager(self):
+        opts = EdgeOptions()
+        opts.add_argument("--load-extension=" + self.extension_path)
+        opts.binary_location = self.browser_path
+
+        for i in range(5):
+            try:
+                driver = webdriver.Edge(options=opts)
+            except WebDriverException as e:
+                if i == 0: print("")
+                print("Edge WebDriver initialization failed:")
                 print(str(e) + "Retrying ...")
             else:
                 break

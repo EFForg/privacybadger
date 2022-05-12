@@ -10,14 +10,13 @@ import pbtest
 class ServiceWorkersTest(pbtest.PBSeleniumTest):
     """Verifies interaction with sites that use Service Worker caches"""
 
-    def get_tab_data_domains(self):
-        domains = self.js(
+    def get_tab_data_url(self):
+        """Returns the top-level frame URL for the first tab."""
+        return self.js(
             "let tabData = chrome.extension.getBackgroundPage().badger.tabData;"
-            "return (Object.keys(tabData).map(tab_id => {"
-            "  return tabData[tab_id].frames[0].host;"
-            "}));"
+            "let min_tab_id = Math.min(...Object.keys(tabData));"
+            "return tabData[min_tab_id].frames[0].host;"
         )
-        return domains
 
     @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_returning_to_sw_cached_page(self):
@@ -47,11 +46,8 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         # and verify results
         self.open_window()
         self.load_url(self.options_url)
-        domains = self.get_tab_data_domains()
-        self.assertIn("efforg.github.io", domains,
-            "SW page URL was not correctly attributed")
-        self.assertEqual(1, len(domains),
-            "tabData contains an unexpected number of entries")
+        url = self.get_tab_data_url()
+        assert url == "efforg.github.io", "Unexpected first-tab URL in tabData"
 
 
 if __name__ == "__main__":
