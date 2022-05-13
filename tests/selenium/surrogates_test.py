@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import pytest
 import unittest
 
 import pbtest
@@ -28,7 +27,6 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         except TimeoutException:
             return False
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_ga_js_surrogate(self):
         SURROGATE_HOST = "www.google-analytics.com"
 

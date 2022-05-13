@@ -21,7 +21,6 @@ class CookieTest(pbtest.PBSeleniumTest):
             "first_party_cookie.html"
         ), "Set 1st party cookie")
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_cookie_tracker_detection(self):
         """Tests basic cookie tracking. The tracking site has no DNT file,
         and gets blocked by PB.

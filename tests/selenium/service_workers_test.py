@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import pytest
 import unittest
 
 import pbtest
@@ -18,7 +17,6 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
             "return tabData[min_tab_id].frames[0].host;"
         )
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_returning_to_sw_cached_page(self):
         FIXTURE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"

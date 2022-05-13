@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import pytest
 import time
 import unittest
 
@@ -93,7 +92,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Get disable button on popup."""
         return self.driver.find_element(By.ID, "deactivate_site_btn")
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_welcome_page_reminder_overlay(self):
         """Ensure overlay links to new user welcome page."""
 
