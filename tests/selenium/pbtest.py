@@ -354,20 +354,7 @@ class PBSeleniumTest(unittest.TestCase):
         return False
 
     def open_window(self):
-        if self.driver.current_url.startswith("moz-extension://"):
-            # work around https://bugzilla.mozilla.org/show_bug.cgi?id=1491443
-            self.wait_for_script("return typeof chrome != 'undefined' && chrome && chrome.extension")
-            self.js(
-                "delete window.__new_window_created;"
-                "chrome.windows.create({}, function () {"
-                "window.__new_window_created = true;"
-                "});"
-            )
-            self.wait_for_script("return window.__new_window_created")
-        else:
-            self.js('window.open()')
-
-        self.driver.switch_to.window(self.driver.window_handles[-1])
+        self.driver.switch_to.new_window('tab')
 
     def load_url(self, url, wait_for_body_text=False, retries=5):
         """Load a URL and wait before returning."""
