@@ -176,11 +176,8 @@ class Shim:
     @contextmanager
     def chrome_manager(self):
         opts = ChromeOptions()
-        if self.on_travis: # github.com/travis-ci/travis-ci/issues/938
-            opts.add_argument("--no-sandbox")
         opts.add_argument("--load-extension=" + self.extension_path)
         opts.binary_location = self.browser_path
-        opts.add_experimental_option("prefs", {"profile.block_third_party_cookies": False})
 
         # TODO not yet in Firefox (w/o hacks anyway):
         # https://github.com/mozilla/geckodriver/issues/284#issuecomment-456073771
