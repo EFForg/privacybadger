@@ -265,6 +265,20 @@
         "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
         "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
     },
+    "popup_error_text_low_disk_space_issue": {
+      "message": "Failed to write to extension storage: '$ERROR_TEXT$'. Is your disk low on space? $LEARN_MORE_LINK$",
+      "description": "Special error message for the 'Unkown Error Occurred' text that sometimes occurs on Firefox browsers with low disk space",
+      "placeholders": {
+        "error_text": {
+          "content": "$1",
+          "example": "Unkown error occurred"
+        },
+        "learn_more_link": {
+          "content": "$2",
+          "example": "Visit <a href='https://eff.org/'>here</a> to learn more."
+        }
+      }
+    },
     "firstRun_title": {
         "message": "Thank you for installing Privacy Badger!",
         "description": "Title and header of the intro page."
