@@ -84,6 +84,20 @@ function showNagMaybe() {
 
   function _showError(error_text) {
     $('#instruction-text').hide();
+    $('#error-message').text(error_text);
+    // if error is the 'unexpected error occurred' Firefox issue commonly associated with low disk space, show special message
+    if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function" && error_text.includes("unexpected")) {
+      browser.runtime.getBrowserInfo().then(function (info) {
+        if (info.name == "Firefox") {
+          // fetch the "learn more" message and populate with our FAQ link
+          let learn_more_link = chrome.i18n.getMessage("learn_more_link", ["<a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?'>our FAQ</a>"]);
+          // replace current error text with this special message
+          $('#error-text').html(chrome.i18n.getMessage("popup_error_text_low_disk_space_issue", [error_text, learn_more_link]));
+          // hide the error message output from appearing down below this special message
+          $('#error-message').hide();
+        }
+      });
+    }
     $('#error-text').show().find('a')
       .addClass('cta-button')
       .css({
@@ -92,7 +106,6 @@ function showNagMaybe() {
         display: 'inline-block',
         width: 'auto',
       });
-    $('#error-message').text(error_text);
 
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
