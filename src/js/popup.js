@@ -161,15 +161,8 @@ function init() {
     });
   });
 
-  let $overlay = $('#overlay');
-
-  // show error layout if the user was writing an error report
-  if (utils.hasOwn(POPUP_DATA, 'errorText') && POPUP_DATA.errorText) {
-    $overlay.toggleClass('active');
-  }
-
   $("#error").on("click", function() {
-    $overlay.toggleClass('active');
+    $('#overlay').toggleClass('active');
   });
   $("#report-cancel").on("click", function() {
     clearSavedErrorText();
@@ -185,6 +178,7 @@ function init() {
     clearSavedErrorText();
     closeOverlay();
   });
+
   $('#blockedResourcesContainer').on('change', 'input:radio', updateOrigin);
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
 
@@ -548,6 +542,10 @@ function refreshPopup() {
   // if there is any saved error text, fill the error input with it
   if (utils.hasOwn(POPUP_DATA, 'errorText')) {
     $("#error_input").val(POPUP_DATA.errorText);
+  }
+  // show error layout if the user was writing an error report
+  if (utils.hasOwn(POPUP_DATA, 'errorText') && POPUP_DATA.errorText) {
+    $('#overlay').toggleClass('active');
   }
 
   // show sliders when sliders were shown last

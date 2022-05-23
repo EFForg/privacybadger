@@ -503,7 +503,7 @@ class PBSeleniumTest(unittest.TestCase):
             "});"
         ), store_name)
 
-    def load_pb_ui(self, target_url):
+    def open_popup(self, target_url=None, show_reminder=False):
         """Show the PB popup as a new tab.
 
         If Selenium would let us just programmatically launch an extension from its icon,
@@ -524,13 +524,17 @@ class PBSeleniumTest(unittest.TestCase):
         self.load_url(self.popup_url)
 
         # get the popup populated with status information for the correct url
-        self.switch_to_window_with_url(self.popup_url)
         self.js("""
 /**
- * if the query url pattern matches a tab, switch the module's tab object to that tab
+ * @param {String} [url]
+ * @param {Boolean} [show_reminder]
  */
-(function (url) {
-  chrome.tabs.query({url}, function (tabs) {
+(function (url, show_reminder) {
+  let queryOpts = { currentWindow: true };
+  if (url) {
+    queryOpts = { url };
+  }
+  chrome.tabs.query(queryOpts, function (tabs) {
     if (!tabs || !tabs.length) {
       return;
     }
@@ -539,12 +543,14 @@ class PBSeleniumTest(unittest.TestCase):
       tabId: tabs[0].id,
       tabUrl: tabs[0].url
     }, (response) => {
+      response.settings.seenComic = !show_reminder;
       setPopupData(response);
       refreshPopup();
+      showNagMaybe(); // not init() because init() already ran and should only run once
       window.DONE_REFRESHING = true;
     });
   });
-}(arguments[0]));""", target_url)
+}(arguments[0], arguments[1]));""", target_url, show_reminder)
 
         # wait for popup to be ready
         self.wait_for_script(

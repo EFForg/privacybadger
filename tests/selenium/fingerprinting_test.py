@@ -38,7 +38,7 @@ class FingerprintingTest(pbtest.PBSeleniumTest):
         self.load_url(FIXTURE_URL)
 
         # open popup and check slider state
-        self.load_pb_ui(FIXTURE_URL)
+        self.open_popup(FIXTURE_URL)
         sliders = self.get_tracker_state()
         assert FP_DOMAIN in sliders['notYetBlocked'], (
             "Canvas fingerprinting domain should be reported in the popup")

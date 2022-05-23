@@ -120,21 +120,21 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
         # load the first site
         self.load_url(SITE1_URL)
-        self.load_pb_ui(SITE1_URL)
+        self.open_popup(SITE1_URL)
         sliders = self.get_tracker_state()
         assert THIRD_PARTY in sliders['notYetBlocked']
         self.close_window_with_url(SITE1_URL)
 
         # go to second site
         self.load_url(SITE2_URL)
-        self.load_pb_ui(SITE2_URL)
+        self.open_popup(SITE2_URL)
         sliders = self.get_tracker_state()
         assert THIRD_PARTY in sliders['notYetBlocked']
         self.close_window_with_url(SITE2_URL)
 
         # go to third site
         self.load_url(SITE3_URL)
-        self.load_pb_ui(SITE3_URL)
+        self.open_popup(SITE3_URL)
         sliders = self.get_tracker_state()
         assert THIRD_PARTY in sliders['blocked']
         self.close_window_with_url(SITE3_URL)

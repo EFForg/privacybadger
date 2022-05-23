@@ -45,7 +45,7 @@ class CookieTest(pbtest.PBSeleniumTest):
 
         # load the first site with the third party code that reads and writes a cookie
         self.load_url(SITE1_URL)
-        self.load_pb_ui(SITE1_URL)
+        self.open_popup(SITE1_URL)
         # TODO it takes another visit (or a page reload)
         # TODO to show the domain as not-yet-blocked-but-tracking?
         #sliders = self.get_tracker_state()
@@ -54,7 +54,7 @@ class CookieTest(pbtest.PBSeleniumTest):
 
         # go to second site
         self.load_url(SITE2_URL)
-        self.load_pb_ui(SITE2_URL)
+        self.open_popup(SITE2_URL)
         sliders = self.get_tracker_state()
         try:
             assert THIRD_PARTY_DOMAIN in sliders['notYetBlocked']
@@ -73,7 +73,7 @@ class CookieTest(pbtest.PBSeleniumTest):
 
         # go to third site
         self.load_url(SITE3_URL)
-        self.load_pb_ui(SITE3_URL)
+        self.open_popup(SITE3_URL)
         sliders = self.get_tracker_state()
         assert THIRD_PARTY_DOMAIN in sliders['notYetBlocked']
         self.close_window_with_url(SITE3_URL)
@@ -81,7 +81,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         # revisiting the first site should cause
         # the third-party domain to be blocked
         self.load_url(SITE1_URL)
-        self.load_pb_ui(SITE1_URL)
+        self.open_popup(SITE1_URL)
         sliders = self.get_tracker_state()
         assert THIRD_PARTY_DOMAIN in sliders['blocked']
 
