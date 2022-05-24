@@ -38,4 +38,7 @@ runff:
 runfn:
 	./node_modules/.bin/web-ext run --start-url "about:debugging#/runtime/this-firefox" -s src/ -f nightly
 
-.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle updatecnames todo tx runch runff runfn
+test:
+	BROWSER=chrome ENABLE_XVFB=1 pytest -s tests/
+
+.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle updatecnames todo tx runch runff runfn test
