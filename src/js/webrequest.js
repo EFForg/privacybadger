@@ -1291,6 +1291,18 @@ function dispatcher(request, sender, sendResponse) {
     return true; // async chrome.runtime.onMessage response
   }
 
+  // used by tests
+  case "setAction": {
+    let action = request.action;
+    if ([constants.ALLOW, constants.BLOCK, constants.COOKIEBLOCK].includes(action)) {
+      if (request.domain) {
+        badger.storage.setupHeuristicAction(request.domain, action);
+      }
+    }
+    sendResponse();
+    break;
+  }
+
   // used by Badger Sett
   case "setBlockThreshold": {
     let value = +request.value;

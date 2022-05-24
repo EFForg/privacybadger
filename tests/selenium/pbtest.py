@@ -429,24 +429,21 @@ class PBSeleniumTest(unittest.TestCase):
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-    def block_domain(self, domain):
+    def add_domain(self, domain, action):
+        """Adds given domain to backend storage."""
         self.load_url(self.options_url)
-        self.js((
-            "(function (domain) {"
-            "  let bg = chrome.extension.getBackgroundPage();"
-            "  let base_domain = window.getBaseDomain(domain);"
-            "  bg.badger.heuristicBlocking.blocklistOrigin(base_domain, domain);"
-            "}(arguments[0]));"
-        ), domain)
+        self.js(
+            "let domain = arguments[0],"
+            "  action = arguments[1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'setAction', domain, action"
+            "});", domain, action)
+
+    def block_domain(self, domain):
+        self.add_domain(domain, "block")
 
     def cookieblock_domain(self, domain):
-        self.load_url(self.options_url)
-        self.js((
-            "(function (domain) {"
-            "  let bg = chrome.extension.getBackgroundPage();"
-            "  bg.badger.storage.setupHeuristicAction(domain, bg.constants.COOKIEBLOCK);"
-            "}(arguments[0]));"
-        ), domain)
+        self.add_domain(domain, "cookieblock")
 
     def disable_badger_on_site(self, url):
         self.load_url(self.options_url)
