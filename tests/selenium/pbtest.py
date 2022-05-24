@@ -4,13 +4,12 @@ import functools
 import json
 import os
 import re
-import subprocess
 import tempfile
 import time
 import unittest
 
 from contextlib import contextmanager
-from shutil import copytree
+from shutil import copytree, which
 
 from selenium import webdriver
 from selenium.common.exceptions import (
@@ -38,22 +37,9 @@ SEL_DEFAULT_WAIT_TIMEOUT = 30
 BROWSER_TYPES = ['chrome', 'firefox', 'edge']
 BROWSER_NAMES = ['google-chrome', 'google-chrome-stable', 'google-chrome-beta', 'firefox', 'microsoft-edge', 'microsoft-edge-beta']
 
-parse_stdout = lambda res: res.strip().decode('utf-8')
-
-run_shell_command = lambda command: parse_stdout(subprocess.check_output(command))
-
 
 class WindowNotFoundException(Exception):
     pass
-
-
-def unix_which(command, silent=False):
-    try:
-        return run_shell_command(['which', command])
-    except subprocess.CalledProcessError as e:
-        if silent:
-            return None
-        raise e
 
 
 def get_browser_type(string):
@@ -64,13 +50,11 @@ def get_browser_type(string):
 
 
 def get_browser_name(string):
-    if ('/' in string) or ('\\' in string): # it's a path
-        return os.path.basename(string)
-
-    # it's a browser type
     for bn in BROWSER_NAMES:
-        if string in bn and unix_which(bn, silent=True):
-            return os.path.basename(unix_which(bn))
+        if string in bn:
+            bn_path = which(bn)
+            if bn_path:
+                return os.path.basename(bn_path)
     raise ValueError(f"Could not get browser name from {string}")
 
 
@@ -91,16 +75,19 @@ class Shim:
         if browser is None:
             raise ValueError("The BROWSER environment variable is not set. " + self._browser_msg)
 
-        if ("/" in browser) or ("\\" in browser): # path to a browser binary
+        if ("/" in browser) or ("\\" in browser):
+            # path to a browser binary
             self.browser_path = browser
-            self.browser_type = get_browser_type(self.browser_path)
-        elif unix_which(browser, silent=True): # executable browser name like 'google-chrome-stable'
-            self.browser_path = unix_which(browser)
             self.browser_type = get_browser_type(browser)
-        elif get_browser_type(browser): # browser type like 'firefox' or 'chrome'
+        elif which(browser):
+            # executable browser name like 'google-chrome-stable'
+            self.browser_path = which(browser)
+            self.browser_type = get_browser_type(browser)
+        elif get_browser_type(browser):
+            # browser type like 'firefox' or 'chrome'
             bname = get_browser_name(browser)
-            self.browser_path = unix_which(bname)
-            self.browser_type = browser
+            self.browser_path = which(bname)
+            self.browser_type = get_browser_type(browser)
         else:
             raise ValueError(f"Could not infer BROWSER from {browser}")
 
