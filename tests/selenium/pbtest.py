@@ -503,6 +503,7 @@ class PBSeleniumTest(unittest.TestCase):
 
         self.open_window()
         self.load_url(self.popup_url)
+        self.wait_for_script("return window.POPUP_INITIALIZED")
 
         # get the popup populated with status information for the correct url
         self.js("""
@@ -534,11 +535,7 @@ class PBSeleniumTest(unittest.TestCase):
 }(arguments[0], arguments[1]));""", target_url, show_reminder)
 
         # wait for popup to be ready
-        self.wait_for_script(
-            "return typeof window.DONE_REFRESHING != 'undefined' &&"
-            "window.POPUP_INITIALIZED &&"
-            "window.SLIDERS_DONE"
-        )
+        self.wait_for_script("return window.DONE_REFRESHING && window.SLIDERS_DONE")
 
     def get_tracker_state(self):
         """Parse the UI to group all third party origins into their respective action states."""
