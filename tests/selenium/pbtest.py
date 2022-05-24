@@ -42,8 +42,6 @@ parse_stdout = lambda res: res.strip().decode('utf-8')
 
 run_shell_command = lambda command: parse_stdout(subprocess.check_output(command))
 
-GIT_ROOT = run_shell_command(['git', 'rev-parse', '--show-toplevel'])
-
 
 class WindowNotFoundException(Exception):
     pass
@@ -106,7 +104,8 @@ class Shim:
         else:
             raise ValueError(f"Could not infer BROWSER from {browser}")
 
-        self.extension_path = os.path.join(GIT_ROOT, 'src')
+        self.extension_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
         if self.browser_type in ('chrome', 'edge'):
             # this extension ID and the "key" property in manifest.json
@@ -312,7 +311,6 @@ class PBSeleniumTest(unittest.TestCase):
         # setting DBUS_SESSION_BUS_ADDRESS to nonsense prevents frequent
         # hangs of chromedriver (possibly due to crbug.com/309093)
         os.environ["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
-        cls.proj_root = GIT_ROOT
 
     @classmethod
     def tearDownClass(cls):
