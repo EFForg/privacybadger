@@ -308,10 +308,6 @@ class PBSeleniumTest(unittest.TestCase):
             cls.vdisplay = Xvfb(width=1280, height=720)
             cls.vdisplay.start()
 
-        # setting DBUS_SESSION_BUS_ADDRESS to nonsense prevents frequent
-        # hangs of chromedriver (possibly due to crbug.com/309093)
-        os.environ["DBUS_SESSION_BUS_ADDRESS"] = "/dev/null"
-
     @classmethod
     def tearDownClass(cls):
         if cls.wants_xvfb:
