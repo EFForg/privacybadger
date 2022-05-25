@@ -130,6 +130,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
             self.fail("Widget frame should still be here")
 
         frame_text = self.txt_by_css('body')
+        # TODO doesn't work in non-English locales
         if frame_text != "This page has been blocked by an extension":
             assert not frame_text, "Widget frame should be empty"
 

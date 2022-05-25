@@ -154,8 +154,10 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.select_domain_list_tab()
 
         # make sure only two trackers are displayed now
-        assert self.driver.find_element(By.ID, "options_domain_list_trackers").text == \
-            "Privacy Badger has decided to block 2 potential tracking domains so far"
+        actual_text = self.driver.find_element(By.ID, "options_domain_list_trackers").text
+        expected_text = self.js("return chrome.i18n.getMessage("
+            "'options_domain_list_trackers', [2, '']);").replace("</a>", "")
+        assert actual_text == expected_text
 
         # click the "reset data" button to restore seed data and get rid of the
         # domains we learned
