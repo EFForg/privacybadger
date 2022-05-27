@@ -112,7 +112,6 @@ s2.graphiq.com
 s3.graphiq.com
 files.graphiq.com
 gr-assets.com
-guardian.co.uk
 media-imdb.com
 mediaworks.co.nz
 cc.cnetcontent.com
@@ -137,7 +136,6 @@ danid.dk
 check.ddos-guard.net
 dealer.com
 dealerinspire.com
-delicious.com
 deviantart.com
 deviantart.net
 digitaloceanspaces.com
@@ -145,7 +143,6 @@ digitalriver.com
 digitalrivercontent.net
 cdn.discourse.org
 discovery.com
-disquscdn.com
 dmcdn.com
 screendoor.dobt.co
 documentcloud.org
@@ -188,7 +185,6 @@ everyaction.com
 s-static.ak.facebook.com
 staticxx.facebook.com
 www.facebook.com
-fansonly.com
 travis-ci-org.global.ssl.fastly.net
 fastly.net
 fbcdn.net
@@ -366,7 +362,6 @@ kinja.com
 kinja-static.com
 klarna.com
 klarnacdn.net
-klm.com
 kxcdn.com
 ddragon.leagueoflegends.com
 libsyn.com
@@ -395,7 +390,6 @@ marketo.com
 mathjax.org
 matterport.com
 maxmind.com
-mcclatchyinteractive.com
 megaphone.fm
 mfstatic.cz
 microsoft.com
@@ -411,7 +405,6 @@ mozilla.org
 mozu.com
 msecnd.net
 msn.com
-mtv.com
 mtvnservices.com
 myportfolio.com
 myshopify.com
@@ -423,7 +416,6 @@ pay.naver.com
 nbcuni.com
 netdna-ssl.com
 nos.netease.com
-netflix.com
 networksolutions.com
 nextcloud.com
 nfl.com
@@ -473,7 +465,6 @@ payments-amazon.com
 paypal.com
 paypalobjects.com
 pdf.yt
-phncdn.com
 phplist.com
 piano.io
 pico.tools
@@ -544,7 +535,6 @@ securitymetrics.com
 shopify.com
 shopifycdn.com
 shopifycloud.com
-shopping.com
 shop-pro.jp
 shoprunner.com
 sidearmsports.com
@@ -553,10 +543,8 @@ shield.sitelock.com
 sketchfab.com
 public.slidesharecdn.com
 s-msft.com
-s-msn.com
 smugmug.com
 snapengage.com
-sndcdn.com
 snipcart.com
 auth.api.sonyentertainmentnetwork.com
 cdn-a.sonyentertainmentnetwork.com
@@ -649,7 +637,6 @@ vidible.tv
 vidyard.com
 vimeo.com
 vimeocdn.com
-virtualearth.net
 visa.com
 marketplace.visualstudio.com
 update.code.visualstudio.com
@@ -686,7 +673,6 @@ wordpress.com
 wp.com
 wpengine.com
 wufoo.com
-wxug.com
 y3.analytics.yahoo.com
 pipes.yahoo.com
 search.yahoo.com
