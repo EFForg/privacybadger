@@ -175,7 +175,6 @@ cdn.embed.ly
 cdn.embedly.com
 i-cdn.embed.ly
 i.embed.ly
-envato.com
 pp.ephapay.net
 epoch.com
 epoq.de
@@ -581,8 +580,6 @@ c.tadst.com
 cdn.tagcommander.com
 taleo.net
 uploads.tapatalk-cdn.com
-targetimg1.com
-targetimg2.com
 tarteaucitron.io
 tawk.to
 tegna-media.com
@@ -603,7 +600,6 @@ privacy-policy.truste.com
 trustpilot.com
 ttvnw.net
 tumblr.com
-turner.com
 turnto.com
 twimg.com
 api.twisto.cz
@@ -619,9 +615,6 @@ typekit.net
 typepad.com
 typography.com
 assets.ubuntu.com
-uicdn.com
-uicdn.net
-ui-portal.de
 ultimedia.com
 ultraimg.com
 builder-assets.unbounce.com
@@ -637,8 +630,6 @@ vidyard.com
 vimeo.com
 vimeocdn.com
 visa.com
-marketplace.visualstudio.com
-update.code.visualstudio.com
 voxmedia.com
 vox-cdn.com
 wallst.com
