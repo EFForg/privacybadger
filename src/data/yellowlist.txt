@@ -453,7 +453,6 @@ openlibrary.org
 openload.co
 tile.openstreetmap.fr
 openstreetmap.org
-optimizely.com
 oraclecloud.com
 cmp.osano.com
 outlook.com
