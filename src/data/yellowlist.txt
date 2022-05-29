@@ -630,6 +630,8 @@ vidyard.com
 vimeo.com
 vimeocdn.com
 visa.com
+marketplace.visualstudio.com
+update.code.visualstudio.com
 voxmedia.com
 vox-cdn.com
 wallst.com
