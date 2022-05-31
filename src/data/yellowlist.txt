@@ -591,6 +591,7 @@ tile.thunderforest.com
 tiktokcdn.com
 tildacdn.com
 tinypass.com
+tiqcdn.com
 townnews.com
 cookieblock.trackersimulate.org
 tradingview.com
