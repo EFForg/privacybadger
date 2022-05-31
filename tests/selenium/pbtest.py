@@ -327,7 +327,7 @@ class PBSeleniumTest(unittest.TestCase):
     def is_firefox_nightly(self):
         caps = self.driver.capabilities
         if caps['browserName'] == "firefox":
-            version = self.driver.capabilities['browserVersion']
+            version = caps['browserVersion']
             return re.search('a[0-9]+$', version) is not None
         return False
 
