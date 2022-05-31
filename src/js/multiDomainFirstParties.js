@@ -1357,6 +1357,7 @@ let multiDomainFirstPartiesArray = [
   [
     "facebook.com",
 
+    "instagram.com",
     "messenger.com",
     "workplace.com",
 
@@ -1366,6 +1367,7 @@ let multiDomainFirstPartiesArray = [
     "oculusvr.com",
     "powersunitedvr.com",
 
+    "cdninstagram.com",
     "facebook.net",
     "fbcdn.com",
     "fbcdn.net",
@@ -4500,6 +4502,8 @@ let multiDomainFirstPartiesArray = [
     "vzw.com",
 
     "aol.com",
+    "aolcdn.com",
+
     "autoblog.com",
     "engadget.com",
     "oath.com",
