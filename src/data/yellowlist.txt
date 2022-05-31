@@ -24,6 +24,7 @@ coin.amazonpay.com
 coin-eu.amazonpay.com
 americanexpress.com
 amuniversal.com
+aolcdn.com
 apple.com
 appspot.com
 arcgisonline.com
@@ -66,6 +67,7 @@ buzzfeed.com
 byteoversea.com
 calendly.com
 cbsi.com
+cdninstagram.com
 cern.ch
 ceros.com
 pwc.chase.com
