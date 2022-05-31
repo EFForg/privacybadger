@@ -10,7 +10,6 @@ from selenium.common.exceptions import (
     NoSuchElementException,
     TimeoutException,
 )
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -46,25 +45,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
     def load_options_page(self):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
-
-    def user_overwrite(self, origin, action):
-        # Get the slider that corresponds to this radio button
-        origin_div = self.find_el_by_css(f'div[data-origin="{origin}"]')
-        slider = origin_div.find_element(By.CSS_SELECTOR, '.switch-toggle')
-
-        # Click on the correct place over the slider to block this origin
-        click_action = ActionChains(self.driver)
-        if action == 'block':
-            # Top left (+2px)
-            click_action.move_to_element_with_offset(slider, 2, 2)
-        if action == 'cookieblock':
-            # Top middle
-            click_action.move_to_element_with_offset(slider, slider.size['width']/2, 2)
-        if action == 'allow':
-            # Top right
-            click_action.move_to_element_with_offset(slider, slider.size['width']-2, 2)
-        click_action.click()
-        click_action.perform()
 
     def test_added_origin_display(self):
         """Ensure origin and tracker count are displayed."""
@@ -173,8 +153,10 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
     def tracking_user_overwrite(self, original_action, overwrite_action):
         """Ensure preferences are persisted when a user overwrites pb's default behaviour for an origin."""
+        DOMAIN = "pbtest.org"
+
         self.clear_tracker_data()
-        self.add_domain("pbtest.org", original_action)
+        self.add_domain(DOMAIN, original_action)
 
         self.load_options_page()
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
@@ -186,7 +168,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.wait_for_script("return window.SLIDERS_DONE")
 
         # Change user preferences
-        self.user_overwrite("pbtest.org", overwrite_action)
+        domain_id = DOMAIN.replace(".", "-")
+        self.js(f"$('#{overwrite_action}-{domain_id}').click()")
 
         # Re-open the tab
         self.load_options_page()
@@ -199,7 +182,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         failure_msg = (
             f"Origin should be displayed as {overwrite_action} "
             f"after user overwrite of PB's decision to {original_action}")
-        self.assert_slider_state("pbtest.org", overwrite_action, failure_msg)
+        self.assert_slider_state(DOMAIN, overwrite_action, failure_msg)
 
     def test_tracking_user_overwrite_allowed_block(self):
         self.tracking_user_overwrite('allow', 'block')
