@@ -61,6 +61,7 @@ bit.ly
 blockstack.org
 blogger.com
 boldchat.com
+bootstrapcdn.com
 brightcove.com
 players.brightcove.net
 bungie.net
@@ -208,6 +209,7 @@ storage.googleapis.com
 googleapis.com
 lh4.googleusercontent.com
 googleusercontent.com
+googlevideo.com
 gravatar.com
 greenhouse.io
 rest.growinginteractive.com
