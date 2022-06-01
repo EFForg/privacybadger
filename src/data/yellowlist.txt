@@ -352,6 +352,7 @@ rackcdn.com
 radikal.ru
 radiofrance.fr
 image.rakuten.co.jp
+rambler.ru
 recaptcha.net
 recurly.com
 redcdn.pl
