@@ -38,6 +38,7 @@ auth0.com
 authorize.net
 azure-api.net
 azureedge.net
+bac-assets.com
 hiphotos.baidu.com
 imgsa.baidu.com
 imgsrc.baidu.com
@@ -299,6 +300,7 @@ nbcuni.com
 netdna-ssl.com
 nos.netease.com
 nextcloud.com
+ngfiles.com
 ngpvan.com
 nytimes.com
 ocdn.eu
