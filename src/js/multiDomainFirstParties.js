@@ -2343,7 +2343,6 @@ let multiDomainFirstPartiesArray = [
   ],
   ["lbry.com", "odysee.com", "lbry.tv"],
   ["linkedin.com", "licdn.com"],
-  ["livejournal.com", "livejournal.net", "lj-toys.com"],
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
   [
     "logmeininc.com",
@@ -3562,6 +3561,27 @@ let multiDomainFirstPartiesArray = [
     "vissel-kobe.co.jp",
 
     "rakuten-static.com",
+  ],
+  [
+    "rambler-co.ru",
+
+    "championat.com",
+    "ferra.ru",
+    "gazeta.ru",
+    "indicator.ru",
+    "lenta.ru",
+    "letidor.ru",
+    "livejournal.com",
+    "moslenta.ru",
+    "motor.ru",
+    "passion.ru",
+    "quto.ru",
+    "secretmag.ru",
+    "wmj.ru",
+
+    "livejournal.net",
+    "lj-toys.com",
+    "rambler.ru",
   ],
   [
     "reachplc.com",
