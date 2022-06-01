@@ -284,6 +284,8 @@ mapbox.com
 marketo.com
 matterport.com
 megaphone.fm
+graph.microsoft.com
+wcpstatic.microsoft.com
 mixcloud.com
 mlive.com
 mncdn.com
