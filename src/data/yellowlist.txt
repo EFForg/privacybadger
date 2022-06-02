@@ -364,6 +364,7 @@ cdngeneral.rentcafe.com
 rewardstyle.com
 rfksrv.com
 sagepay.com
+my.salesforce.com
 salesforceliveagent.com
 salsalabs.org
 sbnation.com
