@@ -2645,6 +2645,7 @@ let multiDomainFirstPartiesArray = [
     "microsoftonline-p.net",
     "microsoftstore.com",
     "microsoftstream.com",
+    "minecraft.net",
     "msads.net",
     "msappproxy.net",
     "msauthimages.net",
