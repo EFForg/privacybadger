@@ -21,8 +21,8 @@ This project is governed by [EFF's Public Projects Code of Conduct](https://www.
 Besides using [our GitHub issue tracker](https://github.com/EFForg/privacybadger/issues), you could [send us an email](mailto:extension-devs@eff.org), or join the [Privacy Badger mailing list](https://lists.eff.org/mailman/listinfo/privacybadger).
 
 We also hold public meetings using [Jitsi audio conferencing](https://meet.jit.si/PoliteBadgersSingEuphoricly):
-- Mondays at 10:30 AM PST
-- Thursdays at 11:30 AM PST
+- Mondays at 10:30 AM [Pacific Time](https://en.wikipedia.org/wiki/Pacific_Time_Zone)
+- Thursdays at 01:00 PM Pacific Time
 
 
 ## License
