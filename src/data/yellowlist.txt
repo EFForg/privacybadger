@@ -498,6 +498,7 @@ youku.com
 youtube.com
 youtube-nocookie.com
 ytimg.com
+zdassets.com
 zendesk.com
 zoho.com
 zoho.eu
