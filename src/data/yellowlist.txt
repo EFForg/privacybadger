@@ -259,8 +259,12 @@ jwpsrv.com
 dapi.kakao.com
 developers.kakao.com
 kapi.kakao.com
+cdnapi.kaltura.com
 cdnapisec.kaltura.com
+cdnbakmi.kaltura.com
 cdnsecakmi.kaltura.com
+cfvod.kaltura.com
+www.kaltura.com
 ssl.kaptcha.com
 kickstarter.com
 kingfeatures.com
