@@ -271,7 +271,8 @@
     "Streamable Player": {
         "domain": "streamable.com",
         "buttonSelectors": [
-            "iframe[src^='https://streamable.com/']"
+            "iframe[src^='https://streamable.com/']",
+            "iframe[src^='//streamable.com/']"
         ],
         "replacementButton": {
             "unblockDomains": [
