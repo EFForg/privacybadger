@@ -464,6 +464,7 @@ vimeocdn.com
 visa.com
 marketplace.visualstudio.com
 update.code.visualstudio.com
+vox-cdn.com
 voxmedia.com
 wallst.com
 weather.com
