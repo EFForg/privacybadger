@@ -2612,6 +2612,7 @@ let multiDomainFirstPartiesArray = [
     "1drv.ms",
     "aadrm.com",
     "acompli.net",
+    "adaptivecards.io",
     "adbureau.net",
     "adecn.com",
     "aka.ms",
