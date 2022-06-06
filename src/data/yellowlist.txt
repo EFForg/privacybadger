@@ -293,6 +293,7 @@ mapbox.com
 marketo.com
 matterport.com
 megaphone.fm
+ajax.microsoft.com
 graph.microsoft.com
 wcpstatic.microsoft.com
 mixcloud.com
