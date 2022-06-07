@@ -367,7 +367,7 @@ rambler.ru
 recaptcha.net
 recurly.com
 redcdn.pl
-reddit.com
+www.reddit.com
 redefine.pl
 cdngeneral.rentcafe.com
 rewardstyle.com
