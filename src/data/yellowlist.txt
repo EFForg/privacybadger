@@ -239,6 +239,7 @@ mpsnare.iesnare.com
 images-amazon.com
 imbox.io
 imgur.com
+imgix.net
 inq.com
 inscloudgate.net
 inside-graph.com
@@ -292,6 +293,7 @@ mp.lura.live
 mail.ru
 mailchimp.com
 mapbox.com
+mapquestapi.com
 marketo.com
 matterport.com
 megaphone.fm
