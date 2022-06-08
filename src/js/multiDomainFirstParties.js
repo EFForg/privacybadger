@@ -811,6 +811,8 @@ let multiDomainFirstPartiesArray = [
   ["century21.com", "21online.com"],
   ["chart.io", "chartio.com"],
   ["chaturbate.com", "highwebmedia.com"],
+  ["chegg.com", "citationmachine.net", "easybib.com", "internships.com",
+    "mathway.com", "cheggcdn.com"],
   [
     "cisco.com",
 
