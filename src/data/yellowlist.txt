@@ -25,6 +25,7 @@ coin-eu.amazonpay.com
 americanexpress.com
 amuniversal.com
 aolcdn.com
+interactives.ap.org
 apple.com
 appspot.com
 arcgis.com
