@@ -282,6 +282,7 @@ let multiDomainFirstPartiesArray = [
     "static-af.com",
     "static-kl.com",
   ],
+  ["alchemer.com", "surveygizmo.com"],
   [
     "alibaba.com",
 
