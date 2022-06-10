@@ -342,6 +342,7 @@ parastorage.com
 payments-amazon.com
 paypal.com
 paypalobjects.com
+pendo.io
 piano.io
 pico.tools
 pinimg.com
