@@ -424,6 +424,7 @@ stripe.com
 m.stripe.network
 stripecdn.com
 cdn.substack.com
+www.surveygizmo.com
 surveymonkey.com
 swiftype.com
 public.tableau.com
