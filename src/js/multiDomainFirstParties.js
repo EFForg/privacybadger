@@ -4885,6 +4885,22 @@ let multiDomainFirstPartiesArray = [
 
     "turner.com",
     "ugdturner.com",
+
+    "discovery.com",
+
+    "ahctv.com",
+    "animalplanet.com",
+    "cookingchanneltv.com",
+    "destinationamerica.com",
+    "discoverylife.com",
+    "food.com",
+    "foodnetwork.com",
+    "hgtv.com",
+    "investigationdiscovery.com",
+    "motortrend.com",
+    "sciencechannel.com",
+    "tlc.com",
+    "travelchannel.com",
   ],
   [
     "weather.com",
