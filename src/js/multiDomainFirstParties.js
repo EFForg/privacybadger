@@ -2969,6 +2969,7 @@ let multiDomainFirstPartiesArray = [
     "whimn.com.au",
   ],
   ["newgrounds.com", "ngfiles.com"],
+  ["nfl.com", "nflgamepass.com"],
   [
     "nineforbrands.com.au",
 
