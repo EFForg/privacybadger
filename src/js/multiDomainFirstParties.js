@@ -2667,6 +2667,7 @@ let multiDomainFirstPartiesArray = [
     "msn.com",
     "msndirect.com",
     "msocdn.com",
+    "msra.cn",
     "netconversions.com",
     "o365weve.com",
     "oaspapps.com",
@@ -2718,6 +2719,8 @@ let multiDomainFirstPartiesArray = [
     "xboxlive.com",
     "yammer.com",
     "yammerusercontent.com",
+
+    "msftauth.net",
 
     "github.com",
     "githubapp.com",
