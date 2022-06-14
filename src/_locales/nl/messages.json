@@ -24,7 +24,7 @@
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger werkt niet op speciale pagina's zoals deze. Surf ergens anders heen om het daar te proberen.",
+        "message": "Privacy Badger werkt niet op speciale pagina’s zoals deze. Surf ergens anders heen om het daar te proberen.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
@@ -54,7 +54,7 @@
         }
     },
     "popup_instructions": {
-        "message": "$COUNT$ potentiele $LINK_START$volgers$LINK_END$ geblokkeerd",
+        "message": "$COUNT$ potentiële $LINK_START$volgers$LINK_END$ geblokkeerd",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -84,7 +84,7 @@
         }
     },
     "popup_blocked": {
-        "message": "Ee is geen bron van een derde partij op deze webpagina aanwezig. Hoera voor privacy!",
+        "message": "Er is geen bron van een derde partij op deze webpagina aanwezig. Hoera voor privacy!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "tooltip_block": {
@@ -120,7 +120,7 @@
         }
     },
     "badger_status_allow": {
-        "message": "Toegestaan $DOMAIN$",
+        "message": "$DOMAIN$ toegestaan",
         "description": "Tooltip shown over a tracking but still allowed (green slider) domain name in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -156,7 +156,7 @@
         "description": "Tooltip shown over the rightmost part of a domain slider."
     },
     "breakage_warning_tooltip": {
-        "message": "Het staat bekend dat door het blokkeren van dit domein sommige websites niet langer goed werken",
+        "message": "Het is bekend dat door het blokkeren van dit domein sommige websites niet langer goed werken",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "feed_the_badger_title": {
@@ -172,7 +172,7 @@
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
     },
     "non_tracker_tip": {
-        "message": "Momenteel controleert Privacy Badger alleen of derde partijen cookies, HTML5 lokale opslag of canvas fingerprinting gebruiken om uw surfgedrag te volgen. Sommige van deze domeinen gebruiken wellicht volgmethoden die Privacy Badger (nog) niet detecteert.",
+        "message": "Momenteel controleert Privacy Badger alleen of derde partijen cookies, lokale opslag met HTML5 of canvas-fingerprinting gebruiken om uw surfgedrag te volgen. Sommige van deze domeinen gebruiken wellicht volgmethoden die Privacy Badger (nog) niet detecteert.",
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_title": {
