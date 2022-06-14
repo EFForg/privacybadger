@@ -299,6 +299,7 @@ mapbox.com
 mapquestapi.com
 marketo.com
 matterport.com
+medallia.com
 megaphone.fm
 ajax.microsoft.com
 atlas.microsoft.com
