@@ -340,6 +340,7 @@ secure-cf-c.ooyala.com
 opendesktop.org
 openload.co
 openstreetmap.org
+cdn.optimizely.com
 oraclecloud.com
 cmp.osano.com
 paddle.com
