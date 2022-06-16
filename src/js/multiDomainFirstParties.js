@@ -2720,6 +2720,7 @@ let multiDomainFirstPartiesArray = [
     "yammer.com",
     "yammerusercontent.com",
 
+    "s-msft.com",
     "msftauth.net",
 
     "github.com",
