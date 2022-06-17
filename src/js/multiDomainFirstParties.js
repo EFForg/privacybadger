@@ -3595,6 +3595,7 @@ let multiDomainFirstPartiesArray = [
     "secretmag.ru",
     "wmj.ru",
 
+    "eaglecdn.com",
     "livejournal.net",
     "lj-toys.com",
     "rambler.ru",
