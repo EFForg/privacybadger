@@ -6,6 +6,7 @@ acast.com
 actionnetwork.org
 imagesrv.adition.com
 acrobat.adobe.com
+animate.adobe.com
 auth.adobe.com
 documentcloud.adobe.com
 wwwimages.adobe.com
