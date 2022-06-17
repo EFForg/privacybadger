@@ -66,6 +66,12 @@ const hostnames = {
       '/tag/js/gpt.js',
     ]
   },
+  'pagead2.googlesyndication.com': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/tag/js/gpt.js',
+    ]
+  },
   'api.youneeq.ca': {
     match: MATCH_SUFFIX,
     tokens: [
