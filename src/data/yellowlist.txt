@@ -474,6 +474,7 @@ typekit.net
 typography.com
 ultimedia.com
 builder-assets.unbounce.com
+libraries.unbxdapi.com
 unicornmedia.com
 unsplash.com
 uplynk.com
