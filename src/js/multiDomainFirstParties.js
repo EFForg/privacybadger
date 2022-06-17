@@ -1447,6 +1447,15 @@ let multiDomainFirstPartiesArray = [
     "fncstatic.com",
   ],
   [
+    "freshworks.com",
+
+    "freshchat.com",
+    "freshdesk.com",
+    "freshmarketer.com",
+    "freshservice.com",
+    "myfreshworks.com",
+  ],
+  [
     "futureplc.com",
 
     "creativebloq.com",
