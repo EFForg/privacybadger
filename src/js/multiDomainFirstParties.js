@@ -4350,7 +4350,7 @@ let multiDomainFirstPartiesArray = [
   ["tvp.pl", "tvp.info"],
   ["twitter.com", "twimg.com", "t.co", "periscope.tv", "pscp.tv"],
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
-  ["ubisoft.com", "ubi.com", "anno-union.com", "thesettlers-alliance.com"],
+  ["ubisoft.com", "ubi.com", "anno-union.com", "thesettlers-alliance.com", "ubisoftconnect.com"],
   ["ui.com", "ubnt.com"],
   [
     "unitedhealthgroup.com",
