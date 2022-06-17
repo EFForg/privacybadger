@@ -4103,6 +4103,7 @@ let multiDomainFirstPartiesArray = [
     "stacksnippets.net",
   ],
   ["steampowered.com", "steamstatic.com", "steamcommunity.com"],
+  ["stripe.com", "stripe.network", "stripecdn.com"],
   ["suning.com", "suning.cn", "hksuning.com"],
   [
     "surveymonkey.com",
