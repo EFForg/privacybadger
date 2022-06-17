@@ -100,6 +100,8 @@ cloudplatform.coveo.com
 platform.cloud.coveo.com
 platform-eu.cloud.coveo.com
 static.cloud.coveo.com
+embed.crowdriff.com
+starling.crowdriff.com
 custhelp.com
 dailymotion.com
 danid.dk
