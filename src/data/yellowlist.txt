@@ -374,6 +374,7 @@ privacymanager.io
 cdn.privacy-mgmt.com
 providesupport.com
 img.purch.com
+pusher.com
 captcha.qq.com
 photo.store.qq.com
 queue-it.net
