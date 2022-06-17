@@ -40,6 +40,10 @@ aspnetcdn.com
 assets-cdk.com
 auth0.com
 authorize.net
+cmsembed.avplayer.com
+embed.avplayer.com
+packager.avplayer.com
+player.avplayer.com
 azure-api.net
 azureedge.net
 bac-assets.com
