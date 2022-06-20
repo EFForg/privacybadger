@@ -294,7 +294,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Onzichtbaar volgen gebeurd op allerlei manieren; advertenties zijn slechts het zichtbare topje van de ijsberg. Privacy Badger verzendt het <a href='https://globalprivacycontrol.org/' target='_blank'>“Global Privacy Control”-signaal</a>, om niet mee te doen aan het doorgeven en verkopen van uw data, en het <a href='https://www.eff.org/issues/do-not-track' target='_blank'>“Volg me niet”-signaal</a> om aan bedrijven aan te geven dat u niet gevolgd wilt worden. Als ze uw keuze niet respecteren, dan zal Privacy Badger leren om ze te blokkeren, ongeacht of ze adverteerders, volgers of iets anders zijn.",
+        "message": "Onzichtbaar volgen gebeurt op allerlei manieren; advertenties zijn slechts het zichtbare topje van de ijsberg. Privacy Badger verzendt het <a href='https://globalprivacycontrol.org/' target='_blank'>“Global Privacy Control”-signaal</a>, om niet mee te doen aan het doorgeven en verkopen van uw gegevens, en het <a href='https://www.eff.org/issues/do-not-track' target='_blank'>“Volg me niet”-signaal</a> om aan bedrijven aan te geven dat u niet gevolgd wilt worden. Als ze uw keuze niet respecteren, dan zal Privacy Badger leren om ze te blokkeren, ongeacht of ze adverteerders, volgers of iets anders zijn.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker": {
@@ -310,11 +310,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_disable_button": {
-        "message": "Als u vermoedt dat een webpagina niet meer werkt vanwege Privacy Badger (een video speelt bijvoorbeeld niet), dan kunt u op de knop 'Privacy Badger uitschakelen op deze website' klikken.",
+        "message": "Als u vermoedt dat een webpagina niet meer werkt vanwege Privacy Badger (een video speelt bijvoorbeeld niet), dan kunt u op de knop ‘Uitschakelen op deze website’ klikken.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
-        "message": "Vergeet alstublieft niet om op 'Defect voor deze site' te klikken. Om uw privacy te respecteren versturen we dat niet automatisch.",
+        "message": "Vergeet alstublieft niet om op ‘Defect voor deze site rapporteren’ te klikken. Om uw privacy te respecteren versturen we niet automatisch rapporten.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "intro_privacy_note": {
@@ -334,7 +334,7 @@
         "description": "A button on the intro page, and a link in the popup footer."
     },
     "intro_donate_subheading": {
-        "message": "Help ons door te doneren en uw steun voor onze hulpprogramma's te delen",
+        "message": "Help ons door te doneren en uw steun voor onze hulpprogramma’s te delen",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_link_policy": {
@@ -350,7 +350,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
-        "message": "Privacy Badger-opties",
+        "message": "Opties voor Privacy Badger",
         "description": ""
     },
     "options_general_settings": {
