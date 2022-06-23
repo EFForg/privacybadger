@@ -1,7 +1,7 @@
 sudo: required
 language: python
 os: linux
-dist: bionic
+dist: focal
 python: 3.7
 jobs:
   fast_finish: true
