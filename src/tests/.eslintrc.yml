@@ -1,3 +1,5 @@
+env:
+  jquery: true
 globals:
   # false to disallow overwriting
   badger: false

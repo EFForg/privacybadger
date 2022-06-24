@@ -1,5 +1,3 @@
-env:
-  jquery: false
 rules:
   indent:
     - error
