@@ -18,19 +18,18 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals log:false */
+import { extractHostFromURL, getBaseDomain } from "../lib/basedomain.js";
 
-var utils = require("utils");
-var constants = require("constants");
-var pbStorage = require("storage");
-
-var HeuristicBlocking = require("heuristicblocking");
-var FirefoxAndroid = require("firefoxandroid");
-var webrequest = require("webrequest");
-var widgetLoader = require("widgetloader");
-
-var Migrations = require("migrations").Migrations;
-var incognito = require("incognito");
+import { log } from "./bootstrap.js";
+import constants from "./constants.js";
+import FirefoxAndroid from "./firefoxandroid.js";
+import HeuristicBlocking from "./heuristicblocking.js";
+import incognito from "./incognito.js";
+import { Migrations } from "./migrations.js";
+import widgetLoader from "./socialwidgetloader.js";
+import BadgerPen from "./storage.js";
+import webrequest from "./webrequest.js";
+import utils from "./utils.js";
 
 /**
  * Privacy Badger initializer.
@@ -52,7 +51,7 @@ function Badger(from_qunit) {
     self.widgetList = widgets;
   });
 
-  self.storage = new pbStorage.BadgerPen(async function (thisStorage) {
+  self.storage = new BadgerPen(async function (thisStorage) {
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
     // TODO there are async migrations
@@ -446,7 +445,7 @@ Badger.prototype = {
     // block the domains
     for (let domain of domains) {
       self.heuristicBlocking.blocklistOrigin(
-        window.getBaseDomain(domain), domain);
+        getBaseDomain(domain), domain);
     }
   },
 
@@ -518,7 +517,7 @@ Badger.prototype = {
 
     self.tabData[tabId].frames[frameId] = {
       url: frameUrl,
-      host: window.extractHostFromURL(frameUrl)
+      host: extractHostFromURL(frameUrl)
     };
   },
 
@@ -1218,7 +1217,7 @@ Badger.prototype = {
 
     // TODO grab hostname from tabData instead
     if (!utils.isRestrictedUrl(tab_url) &&
-        self.isPrivacyBadgerEnabled(window.extractHostFromURL(tab_url))) {
+        self.isPrivacyBadgerEnabled(extractHostFromURL(tab_url))) {
       iconFilename = {
         19: chrome.runtime.getURL("icons/badger-19.png"),
         38: chrome.runtime.getURL("icons/badger-38.png")

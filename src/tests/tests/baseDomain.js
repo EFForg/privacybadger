@@ -18,18 +18,10 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global
-extractHostFromURL:false,
-getBaseDomain: false,
-ipAddressToNumber: false,
-isPrivateDomain:false,
-isThirdParty:false,
-URI:false,
-*/
+import { extractHostFromURL, getBaseDomain, ipAddressToNumber, isPrivateDomain,
+  isThirdParty, URI } from "../../lib/basedomain.js";
 
-(function () {
-
-let utils = require('utils');
+import utils from "../../js/utils.js";
 
 QUnit.module("URL/host tools");
 
@@ -257,5 +249,3 @@ QUnit.test("Third party checks", function (assert) {
     assert.equal(isThirdParty(tests[i][0], tests[i][1]), tests[i][2], tests[i][0] + " and " + tests[i][1]);
   }
 });
-
-}());

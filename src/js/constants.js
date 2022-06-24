@@ -15,10 +15,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.constants = (function () {
-
 let exports = {
-
   // Tracking status constants
   NO_TRACKING: "noaction",
   ALLOW: "allow",
@@ -51,6 +48,4 @@ exports.BLOCKED_ACTIONS = new Set([
   exports.USER_COOKIEBLOCK,
 ]);
 
-return exports;
-
-}());
+export default exports;

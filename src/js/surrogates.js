@@ -15,10 +15,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.surrogates = (function () {
-
-const db = require('surrogatedb'),
-  utils = require('utils');
+import db from "../data/surrogates.js";
+import utils from "./utils.js";
 
 const WIDGET_SURROGATES = utils.filter(db.hostnames, item => !!item.widgetName);
 
@@ -51,6 +49,10 @@ function _match_prefix(url, hostname, tokens) {
  * when there is a match; boolean false otherwise.
  */
 function getSurrogateUri(script_url, script_hostname) {
+  if (window.SURROGATES_DISABLED) {
+    return false;
+  }
+
   // do we have an entry for the script hostname?
   if (!utils.hasOwn(db.hostnames, script_hostname)) {
     return false;
@@ -132,11 +134,7 @@ function getSurrogateUri(script_url, script_hostname) {
   return false;
 }
 
-const exports = {
+export default {
   getSurrogateUri,
   WIDGET_SURROGATES
 };
-
-return exports;
-
-}());

@@ -1,5 +1,3 @@
-require.scopes.multiDomainFP = (function () {
-
 /**
  * 2d array of related domains (etld+1), all domains owned by the same entity go into
  * an array, this is later transformed for efficient lookups.
@@ -5165,11 +5163,10 @@ let _domainLookup = makeDomainLookup(multiDomainFirstPartiesArray);
  * @return boolean true if the domains are the same first party
  */
 let isMultiDomainFirstParty = makeIsMultiDomainFirstParty(_domainLookup);
-/************************************** exports */
-return {
+
+export default {
   isMultiDomainFirstParty,
   makeDomainLookup,
   makeIsMultiDomainFirstParty,
   multiDomainFirstPartiesArray,
 };
-})(); //require scopes

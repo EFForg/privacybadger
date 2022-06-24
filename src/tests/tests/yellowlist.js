@@ -1,13 +1,12 @@
-/* globals badger:false */
+import { getBaseDomain } from "../../lib/basedomain.js";
 
-(function () {
+import constants from "../../js/constants.js";
+import { Migrations } from "../../js/migrations.js";
+import utils from "../../js/utils.js";
 
 function get_ylist() {
   return badger.storage.getStore('cookieblock_list').getItemClones();
 }
-
-let constants = require('constants');
-let utils = require('utils');
 
 // fake server to simulate fetch()
 let stubbedFetch;
@@ -166,12 +165,12 @@ QUnit.module("Yellowlist", (hooks) => {
 
         // block the base domain
         badger.storage.setupHeuristicAction(
-          window.getBaseDomain(domain), constants.BLOCK);
+          getBaseDomain(domain), constants.BLOCK);
       }
     }
 
     // (re)apply yellowlist updates
-    require("migrations").Migrations.reapplyYellowlist(badger);
+    Migrations.reapplyYellowlist(badger);
 
     // all test domains should be now set to "cookieblock"
     for (let i = 0; i < DOMAINS.length; i++) {
@@ -388,7 +387,7 @@ QUnit.module("Yellowlist", (hooks) => {
 
     QUnit.test("googleapis.com is still a PSL TLD", (assert) => {
       assert.notEqual(
-        window.getBaseDomain("ajax.googleapis.com"),
+        getBaseDomain("ajax.googleapis.com"),
         "googleapis.com",
         "PSL yellowlist test depends on googleapis.com remaining a PSL TLD"
       );
@@ -471,5 +470,3 @@ QUnit.module("Yellowlist", (hooks) => {
   });
 
 });
-
-}());

@@ -18,11 +18,9 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals URI:false */
+import { extractHostFromURL, isThirdParty, getBaseDomain, URI } from "../lib/basedomain.js";
 
-require.scopes.utils = (function () {
-
-let mdfp = require("multiDomainFP");
+import mdfp from "./multiDomainFirstParties.js";
 
 // TODO replace with Object.hasOwn() eventually
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn
@@ -66,7 +64,7 @@ function explodeSubdomains(fqdn, all) {
   if (all) {
     baseDomain = fqdn.split('.').pop();
   } else {
-    baseDomain = window.getBaseDomain(fqdn);
+    baseDomain = getBaseDomain(fqdn);
   }
   var baseLen = baseDomain.split('.').length;
   var parts = fqdn.split('.');
@@ -442,10 +440,10 @@ function getHostFromDomainInput(input) {
  * @return {Boolean} true if the domains are third party
  */
 function isThirdPartyDomain(domain1, domain2) {
-  if (window.isThirdParty(domain1, domain2)) {
+  if (isThirdParty(domain1, domain2)) {
     return !mdfp.isMultiDomainFirstParty(
-      window.getBaseDomain(domain1),
-      window.getBaseDomain(domain2)
+      getBaseDomain(domain1),
+      getBaseDomain(domain2)
     );
   }
   return false;
@@ -470,7 +468,7 @@ let firstPartyProtectionsEnabled = (function () {
       if (contentScriptObj.js[0].includes("/firstparties/")) {
         let extractedUrls = [];
         for (let match of contentScriptObj.matches) {
-          extractedUrls.push(window.extractHostFromURL(match));
+          extractedUrls.push(extractHostFromURL(match));
         }
         firstParties.push(extractedUrls);
       }
@@ -554,8 +552,7 @@ function filter(obj, cb) {
   return memo;
 }
 
-/************************************** exports */
-let exports = {
+let utils = {
   concatUniq,
   debounce,
   difference,
@@ -582,18 +579,16 @@ let exports = {
   sha1,
 };
 
-exports.isObject = function (obj) {
+utils.isObject = function (obj) {
   let type = typeof obj;
   return type === 'function' || type === 'object' && !!obj;
 };
 
 // isFunction(), isString(), etc.
 for (let name of ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet']) {
-  exports['is' + name] = function (x) {
+  utils['is' + name] = function (x) {
     return toString.call(x) === '[object ' + name + ']';
   };
 }
 
-return exports;
-/************************************** exports */
-})(); //require scopes
+export default utils;

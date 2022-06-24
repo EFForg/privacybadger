@@ -1,6 +1,6 @@
-/* globals badger:false */
-
-(function () {
+import constants from "../../js/constants.js";
+import mdfp from "../../js/multiDomainFirstParties.js";
+import utils from "../../js/utils.js";
 
 const DNT_COMPLIANT_DOMAIN = 'www.eff.org',
   DNT_DOMAINS = [
@@ -11,10 +11,6 @@ const DNT_COMPLIANT_DOMAIN = 'www.eff.org',
     'dnt5.example',
   ],
   POLICY_URL = chrome.runtime.getURL('data/dnt-policy.txt');
-
-let utils = require('utils'),
-  constants = require('constants'),
-  mdfp = require('multiDomainFP');
 
 let clock,
   stubbedFetch,
@@ -591,7 +587,5 @@ QUnit.test("mergeUserData() clears snitch_map when all items are MDFP", (assert)
 
     done();
   });
-
-}());
 
 }());

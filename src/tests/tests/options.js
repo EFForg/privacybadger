@@ -1,8 +1,6 @@
-(function () {
+import { getOriginsArray } from "../../lib/options.js";
 
 QUnit.module("Options page utils");
-
-let { getOriginsArray } = require("optionslib");
 
 QUnit.test("getOriginsArray", (assert) => {
   const origins = {
@@ -113,5 +111,3 @@ QUnit.test("getOriginsArray", (assert) => {
   });
 
 });
-
-}());

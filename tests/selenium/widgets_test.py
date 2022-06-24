@@ -68,10 +68,14 @@ class WidgetsTest(pbtest.PBSeleniumTest):
 
         # reinitialize widgets using above JSON
         self.load_url(self.options_url)
-        self.js((
-            "(function (widgetsJson) {"
+        self.driver.execute_async_script((
+            "let done = arguments[arguments.length - 1];"
+            "(async function (widgetsJson) {"
             "  let bg = chrome.extension.getBackgroundPage();"
-            "  bg.badger.widgetList = bg.widgetLoader.initializeWidgets(widgetsJson);"
+            "  const { default: widgetLoader } = await import('../js/socialwidgetloader.js');"
+            "  bg.badger.widgetList = JSON.parse(JSON.stringify("
+            "    widgetLoader.initializeWidgets(widgetsJson)));"
+            "  done();"
             "}(arguments[0]));"
         ), widgetsJson)
 

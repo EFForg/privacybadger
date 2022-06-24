@@ -1,3 +1,5 @@
+/* eslint-env browser */
+
 $(function () {
   let already_set = false;
 

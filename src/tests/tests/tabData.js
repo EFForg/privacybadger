@@ -1,8 +1,7 @@
-/* globals badger:false */
+import { extractHostFromURL } from "../../lib/basedomain.js";
 
-(function () {
+import constants from "../../js/constants.js";
 
-let constants = require('constants');
 
 QUnit.module("tabData", {
   beforeEach: function () {
@@ -269,7 +268,7 @@ function() {
     let done = assert.async(2),
       called = false;
 
-    badger.disablePrivacyBadgerForOrigin(window.extractHostFromURL(this.SITE_URL));
+    badger.disablePrivacyBadgerForOrigin(extractHostFromURL(this.SITE_URL));
 
     this.setBadgeText.callsFake((obj) => {
       assert.deepEqual(obj, {tabId: this.tabId, text: ''});
@@ -306,5 +305,3 @@ function() {
   });
 
 });
-
-}());

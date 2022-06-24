@@ -1,10 +1,10 @@
-/* globals badger:false */
+import { extractHostFromURL, getBaseDomain } from "../../lib/basedomain.js";
 
-(function () {
+import { default as surrogatedb } from "../../data/surrogates.js";
+import surrogates from "../../js/surrogates.js";
+import utils from "../../js/utils.js";
 
-let utils = require('utils'),
-  surrogatedb = require('surrogatedb'),
-  getSurrogateUri = require('surrogates').getSurrogateUri;
+let getSurrogateUri = surrogates.getSurrogateUri;
 
 QUnit.module("Utils", function (/*hooks*/) {
 
@@ -118,7 +118,7 @@ QUnit.module("Utils", function (/*hooks*/) {
     );
 
     const PSL_TLD = "example.googlecode.com";
-    assert.equal(window.getBaseDomain(PSL_TLD), PSL_TLD,
+    assert.equal(getBaseDomain(PSL_TLD), PSL_TLD,
       PSL_TLD + " is a PSL TLD");
     badger.disablePrivacyBadgerForOrigin('*.googlecode.com');
     assert.notOk(badger.isPrivacyBadgerEnabled(PSL_TLD),
@@ -178,7 +178,7 @@ QUnit.module("Utils", function (/*hooks*/) {
 
     for (let test of TESTS) {
       let surrogate = getSurrogateUri(
-        test.url, window.extractHostFromURL(test.url));
+        test.url, extractHostFromURL(test.url));
       if (test.expected) {
         assert.ok(surrogate, test.msg);
         if (surrogate) {
@@ -198,12 +198,12 @@ QUnit.module("Utils", function (/*hooks*/) {
 
     // test negative match
     assert.notOk(
-      getSurrogateUri(NYT_URL, window.extractHostFromURL(NYT_URL)),
+      getSurrogateUri(NYT_URL, extractHostFromURL(NYT_URL)),
       "New York Times script URL should not match any surrogates"
     );
 
     // test surrogate suffix token response contents
-    surrogatedb.hostnames[window.extractHostFromURL(NYT_URL)] = {
+    surrogatedb.hostnames[extractHostFromURL(NYT_URL)] = {
       match: surrogatedb.MATCH_SUFFIX,
       tokens: [
         NYT_SCRIPT_PATH
@@ -211,7 +211,7 @@ QUnit.module("Utils", function (/*hooks*/) {
     };
     surrogatedb.surrogates[NYT_SCRIPT_PATH] = surrogatedb.surrogates.noopjs;
     assert.equal(
-      getSurrogateUri(NYT_URL, window.extractHostFromURL(NYT_URL)),
+      getSurrogateUri(NYT_URL, extractHostFromURL(NYT_URL)),
       surrogatedb.surrogates.noopjs,
       "New York Times script URL should now match the noop surrogate"
     );
@@ -228,7 +228,7 @@ QUnit.module("Utils", function (/*hooks*/) {
         msg: "token at start of path should match"
       },
       {
-        url: `https://${window.getBaseDomain(TEST_FQDN)}${TEST_TOKEN}`,
+        url: `https://${getBaseDomain(TEST_FQDN)}${TEST_TOKEN}`,
         expected: false,
         msg: "should not match (same base domain, but different FQDN)"
       },
@@ -257,8 +257,7 @@ QUnit.module("Utils", function (/*hooks*/) {
     surrogatedb.surrogates[TEST_TOKEN] = surrogatedb.surrogates.noopjs;
 
     for (let test of TESTS) {
-      let surrogate = getSurrogateUri(test.url,
-        window.extractHostFromURL(test.url));
+      let surrogate = getSurrogateUri(test.url, extractHostFromURL(test.url));
       if (test.expected) {
         assert.ok(surrogate, test.msg);
         if (surrogate) {
@@ -373,8 +372,7 @@ QUnit.module("Utils", function (/*hooks*/) {
         tokens: [TEST_TOKEN]
       };
 
-      let surrogate = getSurrogateUri(test.url,
-        window.extractHostFromURL(test.url));
+      let surrogate = getSurrogateUri(test.url, extractHostFromURL(test.url));
       if (test.expected) {
         assert.ok(surrogate, test.msg);
         if (surrogate) {
@@ -417,7 +415,7 @@ QUnit.module("Utils", function (/*hooks*/) {
       ).join('');
 
       assert.equal(
-        getSurrogateUri(url, window.extractHostFromURL(url)),
+        getSurrogateUri(url, extractHostFromURL(url)),
         surrogatedb.surrogates.noopjs,
         "A wildcard token should match all URLs for the hostname: " + url
       );
@@ -863,5 +861,3 @@ QUnit.module("Utils", function (/*hooks*/) {
   });
 
 });
-
-})();

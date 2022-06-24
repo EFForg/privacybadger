@@ -21,7 +21,6 @@
  * Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159
  */
 
-require.scopes.firefoxandroid = (function() {
 var hasPopupSupport = !!(
   chrome.browserAction.setPopup &&
   chrome.browserAction.getPopup
@@ -79,12 +78,9 @@ function getParentOfPopup(callback) {
   });
 }
 
-/************************************** exports */
-var exports = {};
-exports.startListeners = startListeners;
-exports.hasPopupSupport = hasPopupSupport;
-exports.hasBadgeSupport = hasBadgeSupport;
-exports.getParentOfPopup = getParentOfPopup;
-return exports;
-/************************************** exports */
-})();
+export default {
+  getParentOfPopup,
+  hasBadgeSupport,
+  hasPopupSupport,
+  startListeners
+};

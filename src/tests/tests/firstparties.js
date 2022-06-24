@@ -1,4 +1,4 @@
-(function () {
+/* eslint-env browser */
 
 let destination = 'https://the.beach/';
 let fb_wrap = 'https://facebook.com/l.php?u=' + destination;
@@ -163,5 +163,3 @@ QUnit.test('google search de-instrumentation', (assert) => {
   fixture.appendChild(chrome_link);
   fixture.appendChild(util_script);
 });
-
-}());

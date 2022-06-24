@@ -15,8 +15,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.surrogatedb = (function () {
-
 const MATCH_SUFFIX = 'suffix',
   MATCH_PREFIX = 'prefix',
   MATCH_PREFIX_WITH_PARAMS = 'prefix_params',
@@ -175,7 +173,7 @@ Object.keys(surrogates).forEach(key => {
   surrogates[key] = chrome.runtime.getURL(path);
 });
 
-const exports = {
+export default {
   MATCH_ANY,
   MATCH_PREFIX,
   MATCH_PREFIX_WITH_PARAMS,
@@ -183,6 +181,3 @@ const exports = {
   hostnames,
   surrogates,
 };
-
-return exports;
-})();

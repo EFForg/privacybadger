@@ -15,10 +15,13 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.htmlutils = (function () {
+/* eslint-env browser */
+
+import { isIPv4, isIPv6, getBaseDomain } from "../lib/basedomain.js";
+
+import constants from "./constants.js";
 
 const i18n = chrome.i18n;
-const constants = require("constants");
 
 function escape_html(unsafe) {
   return unsafe
@@ -264,7 +267,7 @@ let htmlUtils = {
    * @returns {String} The 'reversed' domain
    */
   makeSortable: (domain) => {
-    let base = window.getBaseDomain(domain),
+    let base = getBaseDomain(domain),
       base_minus_tld = base,
       dot_index = base.indexOf('.'),
       rest_of_it_reversed = '';
@@ -275,7 +278,7 @@ let htmlUtils = {
         .split('.').reverse().join('.');
     }
 
-    if (dot_index > -1 && !window.isIPv4(domain) && !window.isIPv6(domain)) {
+    if (dot_index > -1 && !isIPv4(domain) && !isIPv6(domain)) {
       base_minus_tld = base.slice(0, dot_index);
     }
 
@@ -286,9 +289,4 @@ let htmlUtils = {
 
 htmlUtils.escape = escape_html;
 
-let exports = {
-  htmlUtils,
-};
-return exports;
-
-})();
+export default htmlUtils;

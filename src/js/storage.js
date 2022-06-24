@@ -15,12 +15,13 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals badger:false, log:false */
+/* globals badger:false */
 
-require.scopes.storage = (function () {
+import { getBaseDomain } from "../lib/basedomain.js";
 
-let constants = require("constants");
-let utils = require("utils");
+import { log } from "./bootstrap.js";
+import constants from "./constants.js";
+import utils from "./utils.js";
 
 function getManagedStorage(callback) {
   chrome.storage.managed.get(null, function (res) {
@@ -232,7 +233,7 @@ BadgerPen.prototype = {
     addedDomains.forEach(function (domain) {
       ylistStorage.setItem(domain, true);
 
-      const base = window.getBaseDomain(domain);
+      const base = getBaseDomain(domain);
       if (actionMap.hasItem(base)) {
         const action = actionMap.getItem(base).heuristicAction;
         // if the domain's base domain is marked for blocking
@@ -247,10 +248,10 @@ BadgerPen.prototype = {
     removedDomains.forEach(function (domain) {
       ylistStorage.deleteItem(domain);
 
-      const base = window.getBaseDomain(domain);
+      const base = getBaseDomain(domain);
       // "subdomains" include the domain itself
       for (const subdomain of actionMap.keys()) {
-        if (window.getBaseDomain(subdomain) == base) {
+        if (getBaseDomain(subdomain) == base) {
           if (self.getAction(subdomain) != constants.NO_TRACKING) {
             badger.heuristicBlocking.blocklistOrigin(base, subdomain);
           }
@@ -798,11 +799,4 @@ let _syncStorage = (function () {
   };
 }());
 
-/************************************** exports */
-let exports = {
-  BadgerPen,
-};
-return exports;
-/************************************** exports */
-
-}());
+export default BadgerPen;

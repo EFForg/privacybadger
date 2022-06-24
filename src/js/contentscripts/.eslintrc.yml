@@ -1,0 +1,7 @@
+env:
+  jquery: false
+rules:
+  indent:
+    - error
+    - 2
+    - outerIIFEBody: 0

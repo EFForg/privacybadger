@@ -1,6 +1,4 @@
-(function () {
-
-let hb = require('heuristicblocking');
+import { default as hb } from "../../js/heuristicblocking.js";
 
 let chromeDetails = {
   frameId: 35,
@@ -161,5 +159,3 @@ QUnit.test("Cloudflare cookies should get ignored", (assert) => {
       "Cloudflare cookie test #" + i);
   }
 });
-
-}());
