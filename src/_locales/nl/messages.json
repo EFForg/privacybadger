@@ -358,15 +358,15 @@
         "description": "This is an options page tab heading."
     },
     "show_counter_checkbox": {
-        "message": "Geef het aantal geblokkeerde volgers weer",
+        "message": "Het aantal geblokkeerde volgers weergeven",
         "description": "Checkbox label on the general settings page"
     },
     "options_enable_dnt_checkbox": {
-        "message": "Verzend de “<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>” en “<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Volg me niet</a>” signalen naar websites",
+        "message": "De signalen “<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>” en “<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Volg me niet</a>” naar websites verzenden",
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_dnt_policy_setting": {
-        "message": "Controleer of <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domeinen van derde partijen</a> voldoen aan <a target='_blank' href='https://www.eff.org/dnt-policy'>het Niet-volgen-beleid (Do Not Track) van het EFF</a>",
+        "message": "Controleren of <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domeinen van derde partijen</a> voldoen aan <a target='_blank' href='https://www.eff.org/dnt-policy'>het Niet-volgen-beleid (Do Not Track) van het EFF</a>",
         "description": "Checkbox label on the general settings page"
     },
     "options_privacy_settings": {
@@ -374,7 +374,7 @@
         "description": "Subheading on the general settings options page."
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Voorkom dat websites volgen op welke verwijzingen u klikt (\"hyperlink auditing\")",
+        "message": "Voorkomen dat websites volgen op welke verwijzingen u klikt (“hyperlink auditing”)",
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_network_prediction": {
@@ -418,7 +418,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is op de volgende websitess uitgeschakeld. Dit betekent dat Privacy Badger niets zal blokkeren op één van de websites in deze lijst, en dat het ook niet het “Volg me niet”- of “Global Privacy Control”-signaal zal verzenden.</p><p>Als u vermoedt dat Privacy Badger het laden van een bepaalde webpagina verstoort, of als u een bepaalde website wil toestaan om uw data door te geven of verkopen, dan kunt u de domeinnaam van die webpagina invullen in het invoerveld hieronder en op de knop \"Domein toevoegen\" klikken.</p>",
+        "message": "<p>Privacy Badger is op de volgende websites uitgeschakeld. Dit betekent dat Privacy Badger niets zal blokkeren op één van de websites in deze lijst, en dat het ook niet het “Volg me niet”- of “Global Privacy Control”-signaal zal verzenden.</p><p>Als u vermoedt dat Privacy Badger het laden van een bepaalde webpagina verstoort, of als u een bepaalde website wil toestaan om uw gegevens door te geven of verkopen, dan kunt u de domeinnaam van die webpagina invullen in het invoerveld hieronder en op de knop “Domein toevoegen” klikken.</p>",
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
