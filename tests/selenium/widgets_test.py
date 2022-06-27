@@ -71,11 +71,11 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.driver.execute_async_script((
             "let done = arguments[arguments.length - 1];"
             "(async function (widgetsJson) {"
-            "  let bg = chrome.extension.getBackgroundPage();"
             "  const { default: widgetLoader } = await import('../js/socialwidgetloader.js');"
-            "  bg.badger.widgetList = JSON.parse(JSON.stringify("
-            "    widgetLoader.initializeWidgets(widgetsJson)));"
-            "  done();"
+            "  chrome.runtime.sendMessage({"
+            "    type: 'setWidgetList',"
+            "    value: widgetLoader.initializeWidgets(widgetsJson)"
+            "  }, done);"
             "}(arguments[0]));"
         ), widgetsJson)
 

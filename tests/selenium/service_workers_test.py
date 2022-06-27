@@ -11,11 +11,12 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
 
     def get_tab_data_url(self):
         """Returns the top-level frame URL for the first tab."""
-        return self.js(
-            "let tabData = chrome.extension.getBackgroundPage().badger.tabData;"
-            "let min_tab_id = Math.min(...Object.keys(tabData));"
-            "return tabData[min_tab_id].frames[0].host;"
-        )
+        return self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({ type: 'getTabData' }, tabData => {"
+            "  let min_tab_id = Math.min(...Object.keys(tabData));"
+            "  done(tabData[min_tab_id].frames[0].host);"
+            "});")
 
     def test_returning_to_sw_cached_page(self):
         FIXTURE_URL = (

@@ -315,11 +315,17 @@ class PBSeleniumTest(unittest.TestCase):
             # wait for Badger's storage, listeners, ...
             self.load_url(self.options_url)
             self.wait_for_script(
-                "let badger = chrome.extension.getBackgroundPage().badger;"
-                "if (badger.INITIALIZED) {"
-                "  badger.getSettings().setItem('showIntroPage', false);"
-                "  return true;"
-                "}")
+                "let done = arguments[arguments.length - 1];"
+                "chrome.runtime.sendMessage({"
+                "  type: 'isBadgerInitialized'"
+                "}, r => done(r));", execute_async=True)
+            # also disable the welcome page
+            self.driver.execute_async_script(
+                "let done = arguments[arguments.length - 1];"
+                "chrome.runtime.sendMessage({"
+                "  type: 'updateSettings',"
+                "  data: { showIntroPage: false }"
+                "}, done);")
 
             super().run(result)
 
@@ -374,19 +380,18 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.visibility_of_element_located((By.XPATH, xpath)))
 
-    def wait_for_script(
-        self,
-        script,
-        *script_args,
-        timeout=SEL_DEFAULT_WAIT_TIMEOUT,
-        message="Timed out waiting for execute_script to eval to True"
-    ):
-        """Variant of self.js that executes script continuously until it
-        returns True."""
-        return WebDriverWait(self.driver, timeout).until(
-            lambda driver: driver.execute_script(script, *script_args),
-            message
-        )
+    def wait_for_script(self, script, *script_args,
+        timeout=SEL_DEFAULT_WAIT_TIMEOUT, execute_async=False,
+        message="Timed out waiting for execute_script to eval to True"):
+
+        """Variant of execute_script/execute_async_script
+        that keeps rerunning the script until it returns True."""
+
+        def execute_script(dr):
+            if execute_async: return dr.execute_async_script(script, *script_args)
+            return dr.execute_script(script, *script_args)
+
+        return WebDriverWait(self.driver, timeout).until(execute_script, message)
 
     def wait_for_text(self, selector, text, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(

@@ -1284,6 +1284,24 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   // used by tests
+  case "checkForDntPolicy": {
+    badger.checkForDNTPolicy(request.domain, sendResponse);
+    return true; // async chrome.runtime.onMessage response
+  }
+
+  // used by tests
+  case "getTabData": {
+    sendResponse(badger.tabData);
+    break;
+  }
+
+  // used by tests
+  case "isBadgerInitialized": {
+    sendResponse(badger.INITIALIZED);
+    break;
+  }
+
+  // used by tests
   case "syncStorage": {
     badger.storage.forceSync(request.storeName, (err) => {
       sendResponse(err);
@@ -1299,6 +1317,20 @@ function dispatcher(request, sender, sendResponse) {
         badger.storage.setupHeuristicAction(request.domain, action);
       }
     }
+    sendResponse();
+    break;
+  }
+
+  // used by tests
+  case "setDntHashes": {
+    badger.storage.updateDntHashes(request.value);
+    sendResponse();
+    break;
+  }
+
+  // used by tests
+  case "setWidgetList": {
+    badger.widgetList = request.value;
     sendResponse();
     break;
   }
