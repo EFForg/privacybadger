@@ -313,6 +313,7 @@ medallia.com
 megaphone.fm
 ajax.microsoft.com
 atlas.microsoft.com
+api.cognitive.microsoft.com
 docs.microsoft.com
 graph.microsoft.com
 wcpstatic.microsoft.com
