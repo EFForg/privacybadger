@@ -1448,6 +1448,13 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // used by Badger Sett
+  case "mergeData": {
+    badger.mergeUserData(request.data);
+    sendResponse();
+    break;
+  }
+
   // called when a user imports data exported from another Badger instance
   case "mergeUserData": {
     badger.mergeUserData(request.data);
