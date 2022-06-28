@@ -382,7 +382,7 @@
         "description": "Checkbox label found on the general settings page"
     },
     "options_disable_google_nav_error_service": {
-        "message": "Schakel het naar Google verzenden van webadressen die u bezoekt uit. Hierdoor worden ook suggesties voor vergelijkbare pagina's als een pagina niet kan worden gevonden uitgeschakeld.",
+        "message": "Het naar Google verzenden van webadressen die u bezoekt uitschakelen. Hierdoor worden ook suggesties voor vergelijkbare pagina’s als een pagina niet kan worden gevonden uitgeschakeld.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
     "options_disable_floc": {
@@ -394,7 +394,7 @@
         "description": "Subheading on the general settings options page."
     },
     "options_learn_setting": {
-        "message": "Leer door het web te surfen nieuwe volgers te blokkeren",
+        "message": "Nieuwe volgers leren blokkeren op basis van uw surfgedrag",
         "description": "Checkbox label on the general settings page"
     },
     "local_learning_warning": {
@@ -406,11 +406,11 @@
         "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
-        "message": "Leer in incognitovensters",
+        "message": "In incognitovensters leren",
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "Als u leren in incognitovensters inschakelt kunnen er sporen van uw privé browsegeschiedenis op uw computer achterblijven. Standaard blokkeert Privacy Badger wel bekende volgers in incognitovensters, maar leert het niets over nieuwe volgers. U kunt deze optie inschakelen als u veel gebruik maakt van incognitovensters.",
+        "message": "Als u leren in incognitovensters inschakelt kunnen er sporen van uw privé-browsegeschiedenis op uw computer achterblijven. Standaard blokkeert Privacy Badger wel bekende volgers in incognitovensters, maar leert het niets over nieuwe volgers. U kunt deze optie inschakelen als u veel gebruik maakt van incognitovensters.",
         "description": "Tooltip on the general settings page"
     },
     "disabled_sites": {
