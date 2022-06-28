@@ -15,16 +15,14 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.migrations = (function () {
+import { getBaseDomain } from "../lib/basedomain.js";
 
-let utils = require("utils");
-let constants = require("constants");
+import constants from "./constants.js";
+import utils from "./utils.js";
 
 let noop = function () {};
 
-let exports = {};
-
-exports.Migrations= {
+let Migrations= {
   changePrivacySettings: noop,
   migrateAbpToStorage: noop,
 
@@ -114,7 +112,7 @@ exports.Migrations= {
       snitchMap = badger.storage.getStore("snitch_map");
 
     for (let domain in actions) {
-      const base = window.getBaseDomain(domain);
+      const base = getBaseDomain(domain);
 
       if (!MISTAKES.has(base)) {
         continue;
@@ -152,7 +150,7 @@ exports.Migrations= {
         continue;
       }
 
-      let base_domain = window.getBaseDomain(domain);
+      let base_domain = getBaseDomain(domain);
 
       // let's check snitch map
       // to see what state the blocked domain should be in instead
@@ -186,7 +184,7 @@ exports.Migrations= {
       domainsToFix = new Set(['eff.org', 'medium.com']);
 
     for (let domain in action_map.getItemClones()) {
-      let base = window.getBaseDomain(domain);
+      let base = getBaseDomain(domain);
       if (domainsToFix.has(base)) {
         action_map.deleteItem(domain);
         snitch_map.deleteItem(base);
@@ -204,7 +202,7 @@ exports.Migrations= {
     for (let i = 0; i < blocked.length; i++) {
       let domain = blocked[i];
       badger.heuristicBlocking.blocklistOrigin(
-        window.getBaseDomain(domain), domain);
+        getBaseDomain(domain), domain);
     }
   },
 
@@ -299,7 +297,6 @@ exports.Migrations= {
 
 };
 
-
-
-return exports;
-})(); //require scopes
+export {
+  Migrations,
+};

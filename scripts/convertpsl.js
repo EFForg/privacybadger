@@ -39,6 +39,6 @@ if (require.main == module) {
   let keys = Object.keys(psl).sort();
   fs.writeFileSync(
     filename,
-    `window.publicSuffixes = ${JSON.stringify(psl, keys, 2)};\n`,
+    `export default ${JSON.stringify(psl, keys, 2)};\n`,
     'utf8');
 }

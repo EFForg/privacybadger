@@ -33,45 +33,30 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         # clear pre-trained/seed tracker data
         self.clear_tracker_data()
 
-        # verify the surrogate is present
-        assert self.js(
-            "let bg = chrome.extension.getBackgroundPage();"
-            "const sdb = bg.require('surrogatedb');"
-            f"return sdb.hostnames.hasOwnProperty('{SURROGATE_HOST}');"
-        ), "surrogate is missing but should be present"
-
         # verify site loads
         assert self.load_ga_js_fixture(), (
             "page failed to load even before we did anything")
 
-        # block ga.js (known to break the site)
+        # block ga.js (should break the site)
         self.block_domain(SURROGATE_HOST)
-        # back up the surrogate definition before removing it
-        ga_backup = self.js(
-            "let bg = chrome.extension.getBackgroundPage();"
-            "const sdb = bg.require('surrogatedb');"
-            f"return JSON.stringify(sdb.hostnames['{SURROGATE_HOST}']);"
-        )
-        # now remove the surrogate
-        self.js(
-            "let bg = chrome.extension.getBackgroundPage();"
-            "const sdb = bg.require('surrogatedb');"
-            f"delete sdb.hostnames['{SURROGATE_HOST}'];"
-        )
+        # disable surrogates
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'disableSurrogates'"
+            "}, done);")
 
         # verify site breaks
         assert not self.load_ga_js_fixture(), (
             "page loaded successfully when it should have failed")
 
-        # re-enable surrogate
-        self.open_window()
+        # re-enable surrogates
         self.load_url(self.options_url)
-        self.js("(function () {"
-            "let bg = chrome.extension.getBackgroundPage();"
-            "const sdb = bg.require('surrogatedb');"
-            f"let gaSurrogate = JSON.parse('{ga_backup}');"
-            f"sdb.hostnames['{SURROGATE_HOST}'] = gaSurrogate;"
-            "}());")
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'restoreSurrogates'"
+            "}, done);")
 
         # verify site loads again
         assert retry_until(self.load_ga_js_fixture), (

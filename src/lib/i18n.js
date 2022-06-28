@@ -18,7 +18,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-(function () {
+/* eslint-env browser, jquery */
 
 const LOCALE = chrome.i18n.getMessage('@@ui_locale'),
   ON_POPUP = (document.location.pathname == "/skin/popup.html");
@@ -151,5 +151,3 @@ window.addEventListener("DOMContentLoaded", function () {
   setTextDirection();
   loadI18nStrings();
 }, true);
-
-}());

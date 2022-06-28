@@ -1,8 +1,6 @@
 /* globals badger:false */
 
-require.scopes.incognito = (function() {
-
-let utils = require('utils');
+import utils from "./utils.js";
 
 let tabs = {};
 
@@ -42,12 +40,7 @@ function learningEnabled(tab_id) {
   return !tabs[tab_id];
 }
 
-/************************************** exports */
-let exports = {
+export default {
   learningEnabled,
   startListeners,
 };
-return exports;
-/************************************** exports */
-
-}());

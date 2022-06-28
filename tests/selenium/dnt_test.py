@@ -18,12 +18,11 @@ class DntTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
 
     CHECK_FOR_DNT_POLICY_JS = (
-        "chrome.extension.getBackgroundPage()."
-        "badger.checkForDNTPolicy("
-        "  arguments[0],"
-        "  r => window.DNT_CHECK_RESULT = r"
-        ");"
-    )
+        "let done = arguments[arguments.length - 1];"
+        "chrome.runtime.sendMessage({"
+        "  type: 'checkForDntPolicy',"
+        "  domain: arguments[0]"
+        "}, done);")
 
     # TODO switch to non-delayed version
     # https://gist.github.com/ghostwords/9fc6900566a2f93edd8e4a1e48bbaa28
@@ -107,9 +106,7 @@ class DntTest(pbtest.PBSeleniumTest):
 
         self.load_url(self.options_url)
         # perform a DNT policy check
-        self.js(DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
-        # wait until checkForDNTPolicy completed
-        self.wait_for_script("return window.DNT_CHECK_RESULT === false")
+        self.driver.execute_async_script(DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
 
         # check that we didn't get cookied by the DNT URL
         self.load_url(TEST_URL)
@@ -130,19 +127,15 @@ class DntTest(pbtest.PBSeleniumTest):
         # where X is the number of cookies it got
         # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
         self.load_url(self.options_url)
-        self.js(
-            "chrome.extension.getBackgroundPage()."
-            "badger.storage.updateDntHashes({"
-            "  'cookies=0 test policy': 'f63ee614ebd77f8634b92633c6bb809a64b9a3d7'"
-            "});"
-        )
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'setDntHashes',"
+            "  value: { 'cookies=0 test policy': 'f63ee614ebd77f8634b92633c6bb809a64b9a3d7' }"
+            "}, done);")
 
         # perform a DNT policy check
-        self.js(DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
-        # wait until checkForDNTPolicy completed
-        self.wait_for_script("return typeof window.DNT_CHECK_RESULT != 'undefined';")
-        # get the result
-        result = self.js("return window.DNT_CHECK_RESULT;")
+        result = self.driver.execute_async_script(DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
         assert result, "No cookies were sent"
 
     def test_should_not_record_nontracking_domains(self):

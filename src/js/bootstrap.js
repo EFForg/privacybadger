@@ -16,22 +16,16 @@
  */
 
 window.DEBUG = false;
-window.badger = {};
 
 /**
 * Log a message to the console if debugging is enabled
 */
-window.log = function (/*...*/) {
+function log(/*...*/) {
   if (window.DEBUG) {
     console.log.apply(console, arguments);
   }
-};
-
-/**
- * Basic implementation of requirejs
- * for requiring other javascript files
- */
-function require(module) {
-  return require.scopes[module];
 }
-require.scopes = {};
+
+export {
+  log
+};

@@ -43,16 +43,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/* globals log:false */
-
-require.scopes.widgetloader = (function () {
-
-let utils = require('utils');
-
-let exports = {
-  initializeWidgets,
-  loadWidgetsFromFile,
-};
+import { log } from "./bootstrap.js";
+import utils from "./utils.js";
 
 /**
  * Returns the contents of the file at given path.
@@ -123,6 +115,7 @@ function SocialWidget(name, properties) {
   }
 }
 
-return exports;
-
-}()); //require scopes
+export default {
+  initializeWidgets,
+  loadWidgetsFromFile,
+};

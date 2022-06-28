@@ -15,8 +15,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require.scopes.optionslib = (function () {
-
 /**
  * Gets array of encountered origins.
  *
@@ -117,8 +115,6 @@ function getOriginsArray(origins, filter_text, type_filter, status_filter, show_
   return Object.keys(origins).filter(matchesFormFilters);
 }
 
-return {
+export {
   getOriginsArray,
 };
-
-}()); // end of require.scopes

@@ -18,6 +18,15 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* eslint-env browser, jquery */
+
+import { getBaseDomain } from "../lib/basedomain.js";
+import { getOriginsArray } from "../lib/options.js";
+
+import constants from "./constants.js";
+import htmlUtils from "./htmlutils.js";
+import utils from "./utils.js";
+
 window.OPTIONS_INITIALIZED = false;
 window.SLIDERS_DONE = false;
 
@@ -27,11 +36,6 @@ const TOOLTIP_CONF = {
 const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map", "tracking_map"];
 
 let i18n = chrome.i18n;
-
-let constants = require("constants");
-let { getOriginsArray } = require("optionslib");
-let htmlUtils = require("htmlutils").htmlUtils;
-let utils = require("utils");
 
 let OPTIONS_DATA = {};
 
@@ -651,7 +655,7 @@ function updateSummary() {
 
   // count unique (cookie)blocked tracking base domains
   let blockedDomains = getOriginsArray(OPTIONS_DATA.origins, null, "-dnt", null, false);
-  let baseDomains = new Set(blockedDomains.map(d => window.getBaseDomain(d)));
+  let baseDomains = new Set(blockedDomains.map(d => getBaseDomain(d)));
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [
       baseDomains.size,

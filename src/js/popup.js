@@ -18,13 +18,15 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* eslint-env browser, jquery */
+
 window.POPUP_INITIALIZED = false;
 window.SLIDERS_DONE = false;
 
-let constants = require("constants");
-let FirefoxAndroid = require("firefoxandroid");
-let htmlUtils = require("htmlutils").htmlUtils;
-let utils = require("utils");
+import constants from "./constants.js";
+import FirefoxAndroid from "./firefoxandroid.js";
+import htmlUtils from "./htmlutils.js";
+import utils from "./utils.js";
 
 let POPUP_DATA = {};
 
@@ -787,3 +789,8 @@ $(function () {
     });
   });
 });
+
+// expose certain functions to Selenium tests
+window.setPopupData = setPopupData;
+window.refreshPopup = refreshPopup;
+window.showNagMaybe = showNagMaybe;

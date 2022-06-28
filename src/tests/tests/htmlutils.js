@@ -1,9 +1,7 @@
-(function () {
+import constants from "../../js/constants.js";
+import htmlUtils from "../../js/htmlutils.js";
 
 QUnit.module("HTML Utils");
-
-let constants = require('constants'),
-  htmlUtils = require("htmlutils").htmlUtils;
 
 QUnit.test("getActionDescription", (assert) => {
   // Test parameters
@@ -237,5 +235,3 @@ QUnit.test("sortDomains", (assert) => {
     );
   });
 });
-
-}());

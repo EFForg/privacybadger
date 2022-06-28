@@ -1,8 +1,5 @@
-/* globals badger:false, constants:false */
-
-(function () {
-
-let utils = require('utils');
+import constants from "../../js/constants.js";
+import utils from "../../js/utils.js";
 
 const DOMAIN = "example.com",
   SUBDOMAIN = "widgets." + DOMAIN,
@@ -702,5 +699,3 @@ QUnit.test("checking cookieblock potential for subdomain with yellowlisted base 
 
   checkCookieblocking(assert);
 });
-
-}());

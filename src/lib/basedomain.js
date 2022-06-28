@@ -4,7 +4,7 @@
  * Available under MIT license <http://mths.be/mit>
  */
 
-(function () {
+import publicSuffixes from "./publicSuffixList.js";
 
 const RE_V4 = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|0x[0-9a-f][0-9a-f]?|0[0-7]{3})\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|0x[0-9a-f][0-9a-f]?|0[0-7]{3})$/i;
 const RE_V4_HEX = /^0x([0-9a-f]{8})$/i;
@@ -95,8 +95,8 @@ function getBaseDomain(hostname) {
     next_dot = cur_domain.indexOf('.');
 
   for (;;) {
-    if (hasOwn(window.publicSuffixes, cur_domain)) {
-      tld = window.publicSuffixes[cur_domain];
+    if (hasOwn(publicSuffixes, cur_domain)) {
+      tld = publicSuffixes[cur_domain];
       break;
     }
 
@@ -327,14 +327,13 @@ URI.prototype = {
   }
 };
 
-// "exports"
-window.extractHostFromURL = extractHostFromURL;
-window.getBaseDomain = getBaseDomain;
-window.ipAddressToNumber = ipAddressToNumber;
-window.isIPv4 = isIPv4;
-window.isIPv6 = isIPv6;
-window.isPrivateDomain = isPrivateDomain;
-window.isThirdParty = isThirdParty;
-window.URI = URI;
-
-}());
+export {
+  extractHostFromURL,
+  getBaseDomain,
+  ipAddressToNumber,
+  isIPv4,
+  isIPv6,
+  isPrivateDomain,
+  isThirdParty,
+  URI,
+};

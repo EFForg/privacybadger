@@ -15,12 +15,13 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* globals badger:false, log:false, URI:false */
+/* globals badger:false */
 
-require.scopes.heuristicblocking = (function () {
+import { getBaseDomain, URI } from "../lib/basedomain.js";
 
-let constants = require("constants");
-let utils = require("utils");
+import { log } from "./bootstrap.js";
+import constants from "./constants.js";
+import utils from "./utils.js";
 
 /*********************** heuristicblocking scope **/
 // make heuristic obj with utils and storage properties and put the things on it
@@ -113,7 +114,7 @@ HeuristicBlocker.prototype = {
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
-      self.tabOrigins[details.tabId] = window.getBaseDomain(request_host);
+      self.tabOrigins[details.tabId] = getBaseDomain(request_host);
       self.tabUrls[details.tabId] = details.url;
       return {};
     }
@@ -129,7 +130,7 @@ HeuristicBlocker.prototype = {
       request_host = badger.cnameDomains[request_host];
     }
 
-    let request_base = window.getBaseDomain(request_host);
+    let request_base = getBaseDomain(request_host);
 
     // ignore first-party requests
     if (!utils.isThirdPartyDomain(request_base, tab_base)) {
@@ -728,13 +729,8 @@ function startListeners() {
   {urls: ["<all_urls>"]}, extraInfoSpec);
 }
 
-/************************************** exports */
-let exports = {
+export default {
   hasCookieTracking,
   HeuristicBlocker,
   startListeners,
 };
-return exports;
-/************************************** exports */
-
-}());
