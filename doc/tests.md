@@ -68,7 +68,7 @@ Note that to use a debugger like `pdb` or `ipdb` you must pass the `-s` (`--capt
 $ BROWSER=/usr/bin/firefox pytest -v tests/selenium/qunit_test.py tests/
 
 # run a specific test on a specific class in a specific module with Chrome Beta
-$ BROWSER=google-chrome-beta pytest tests/selenium/super_cookie_test.py::SupercookieTest::test_should_detect_ls_of_third_party_frame
+$ BROWSER=google-chrome-beta pytest tests/selenium/supercookie_test.py::SupercookieTest::test_should_detect_ls_of_third_party_frame
 
 # run any tests whose name (including the module and class) matches the string cookie_test
 # this is often useful as a less verbose way to run a single test
