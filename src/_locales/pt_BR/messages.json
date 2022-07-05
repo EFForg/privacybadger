@@ -212,7 +212,7 @@
         "description": "Success status message."
     },
     "report_fail": {
-        "message": "Oops. Alguma coisa deu errado.",
+        "message": "Ops! Algo deu errado.",
         "description": "Error status message."
     },
     "share_title": {
@@ -579,7 +579,7 @@
         "description": ""
     },
     "sync_intro": {
-        "message": "Sincronização em nuvem:<ul><li>Requer sincronização do Chrome ou Firefox</li><li>O envio sobrescreve quaisquer dados existentes do Privacy Badger na nuvem</li><li>O download combina as listas de sites em que o seu Badger está desativado</li></ul>",
+        "message": "Sincronização na nuvem:<ul><li>Requer a sincronização do Chrome ou do Firefox</li><li>O envio sobrescreve quaisquer dados existentes do Privacy Badger na nuvem</li><li>O download combina as listas de sites em que o seu Badger está desativado</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload_cloud": {
