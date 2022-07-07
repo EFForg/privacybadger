@@ -32,15 +32,15 @@
         "description": "Shown in the popup on disabled sites."
     },
     "popup_disable_for_site": {
-        "message": "Вимкнути для цього сайту",
+        "message": "Вимкнути для цього сайту",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "Увімкнути для цього сайту",
+        "message": "Увімкнути для цього сайту",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "Report broken site",
+        "message": "Повідомити про пошкоджений сайт",
         "description": "Button in the popup."
     },
     "version": {
@@ -144,11 +144,11 @@
         "description": "Tooltip shown over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "domain_slider_block_tooltip": {
-        "message": "Заблокувати повністю",
+        "message": "Блокувати повністю",
         "description": "Tooltip shown over the leftmost part of a domain slider. This is an action (\"click here to ...\"), not a status."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Заблокувати куки",
+        "message": "Блокувати куки",
         "description": "Tooltip shown over the center part of a domain slider."
     },
     "domain_slider_allow_tooltip": {
@@ -314,7 +314,7 @@
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "message": "Обов'язково натисніть \"Повідомити про пошкоджений сайт\". Ми поважаємо вашу приватність, тому не надсилаємо автоматичні звіти.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "intro_privacy_note": {
@@ -515,7 +515,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
-        "message": "compliant with EFF's DNT policy",
+        "message": "сумісність з політикою DNT від EFF",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_status_filter": {
@@ -663,11 +663,11 @@
         "description": "Button text, part of a prompt to visit the blog."
     },
     "deprecated_setting": {
-        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
+        "message": "Зазначені налаштування застаріли та будуть вилучені в майбутніх оновленнях Privacy Badger.",
         "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
-        "message": "Для докладних відомостей відвідайте $LINK$.",
+        "message": "Відвідайте $LINK$, щоб дізнатися більше.",
         "description": "Reusable 'learn more link' message",
         "placeholders": {
             "link": {

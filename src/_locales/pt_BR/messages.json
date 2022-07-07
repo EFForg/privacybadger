@@ -418,7 +418,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>O Privacy Badger está desativado nos seguintes sites. Isso significa que o Privacy Badger não bloqueará nada quando você acessar os sites listados aqui e não enviará os sinais \"Não rastrear\" ou \"Global Privacy Control\".</p><p>Se você acha que o Privacy Badger está fazendo uma página não funcionar, ou gostaria de permitir que um determinado site compartilhe ou venda os seus dados, você pode digitar o domínio dessa página na caixa abaixo e clicar no botão \"Adicionar domínio\".</p>",
+        "message": "<p>O Privacy Badger está desativado nos sites a seguir. Isso significa que o Privacy Badger não bloqueará nada quando você acessar os sites listados aqui e não enviará os sinais \"Não rastrear\" nem \"Global Privacy Control\".</p><p>Se você acha que o Privacy Badger está fazendo uma página não funcionar, ou gostaria de permitir que um determinado site compartilhe ou venda os seus dados, você pode digitar o domínio dessa página na caixa abaixo e clicar no botão \"Adicionar domínio\".</p>",
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
