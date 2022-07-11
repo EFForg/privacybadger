@@ -651,7 +651,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger zal niet langer als standaard gedrag leren van uw surfgedrag.",
+        "message": "Privacy Badger zal niet langer standaard leren van uw surfgedrag.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {

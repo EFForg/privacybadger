@@ -92,7 +92,7 @@
         "description": "Domain slider list header tooltip."
     },
     "tooltip_cookieblock": {
-        "message": "Передвиньте переключатель в центр, чтобы заблокировать файлы cookie",
+        "message": "Передвиньте переключатель в центр, чтобы заблокировать куки-файлы",
         "description": "Domain slider list header tooltip."
     },
     "tooltip_allow": {
@@ -110,7 +110,7 @@
         }
     },
     "badger_status_cookieblock": {
-        "message": "Заблокированы файлы cookie от $DOMAIN$",
+        "message": "Заблокированы куки-файлы от $DOMAIN$",
         "description": "Tooltip shown over a domain name with a yellow slider in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -148,7 +148,7 @@
         "description": "Tooltip shown over the leftmost part of a domain slider. This is an action (\"click here to ...\"), not a status."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Заблокировать файлы cookie",
+        "message": "Заблокировать куки-файлы",
         "description": "Tooltip shown over the center part of a domain slider."
     },
     "domain_slider_allow_tooltip": {
@@ -172,7 +172,7 @@
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
     },
     "non_tracker_tip": {
-        "message": "На данный момент Privacy Badger проверяет только использование сторонних файлов cookie, локального хранилища HTML5 или метода canvas fingerprinting для отслеживания вашей сетевой активности. Некоторые домены могут использовать методы отслеживания, которые Privacy Badger не может обнаружить.",
+        "message": "На данный момент Privacy Badger проверяет только, если сторонные домены изпользуют куки-файлы, локального хранилища HTML5 или метод canvas fingerprinting для отслеживания вашей сетевой активности. Некоторые домены могут использовать методы отслеживания, которые Privacy Badger не может обнаружить.",
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_title": {
