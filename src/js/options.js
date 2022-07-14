@@ -545,7 +545,7 @@ function addDisabledSite(event) {
   }
 
   chrome.runtime.sendMessage({
-    type: "disablePrivacyBadgerForOrigin",
+    type: "disableOnSite",
     domain
   }, (response) => {
     OPTIONS_DATA.settings.disabledSites = response.disabledSites;
@@ -564,7 +564,7 @@ function removeDisabledSite(event) {
   }
 
   chrome.runtime.sendMessage({
-    type: "enablePrivacyBadgerForOriginList",
+    type: "reenableOnSites",
     domains
   }, (response) => {
     OPTIONS_DATA.settings.disabledSites = response.disabledSites;

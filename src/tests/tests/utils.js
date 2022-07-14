@@ -85,17 +85,17 @@ QUnit.module("Utils", function (/*hooks*/) {
     assert.ok(badger.isPrivacyBadgerEnabled("example.com"),
       "Domain starts out as enabled.");
 
-    badger.disablePrivacyBadgerForOrigin("example.com");
+    badger.disableOnSite("example.com");
     assert.notOk(badger.isPrivacyBadgerEnabled("example.com"),
       "Disabling the domain works.");
 
-    badger.enablePrivacyBadgerForOrigin("example.com");
+    badger.reenableOnSite("example.com");
     assert.ok(badger.isPrivacyBadgerEnabled("example.com"),
       "Re-enabling the domain works.");
   });
 
   QUnit.test("isPrivacyBadgerEnabled wildcard tests", function (assert) {
-    badger.disablePrivacyBadgerForOrigin('*.mail.example.com');
+    badger.disableOnSite('*.mail.example.com');
     assert.ok(
       badger.isPrivacyBadgerEnabled('www.example.com'),
       "Ignores cases without as many subdomains as the wildcard."
@@ -120,7 +120,7 @@ QUnit.module("Utils", function (/*hooks*/) {
     const PSL_TLD = "example.googlecode.com";
     assert.equal(getBaseDomain(PSL_TLD), PSL_TLD,
       PSL_TLD + " is a PSL TLD");
-    badger.disablePrivacyBadgerForOrigin('*.googlecode.com');
+    badger.disableOnSite('*.googlecode.com');
     assert.notOk(badger.isPrivacyBadgerEnabled(PSL_TLD),
       "PSL TLDs work with wildcards as expected.");
   });
@@ -132,10 +132,10 @@ QUnit.module("Utils", function (/*hooks*/) {
 
     let origLength = parsed() && parsed().length || 0;
 
-    badger.disablePrivacyBadgerForOrigin('foo.com');
+    badger.disableOnSite('foo.com');
     assert.ok(parsed().length == (origLength + 1), "one more disabled site");
 
-    badger.enablePrivacyBadgerForOrigin('foo.com');
+    badger.reenableOnSite('foo.com');
     assert.ok(parsed().length == origLength, "one less disabled site");
   });
 

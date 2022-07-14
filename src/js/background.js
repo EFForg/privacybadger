@@ -1087,15 +1087,15 @@ Badger.prototype = {
   },
 
   /**
-   * Add an origin to the disabled sites list
+   * Adds a domain to the list of disabled sites.
    *
-   * @param {String} origin The origin to disable the PB for
+   * @param {String} domain The site domain to disable PB for
    */
-  disablePrivacyBadgerForOrigin: function(origin) {
-    var settings = this.getSettings();
-    var disabledSites = settings.getItem('disabledSites');
-    if (disabledSites.indexOf(origin) < 0) {
-      disabledSites.push(origin);
+  disableOnSite: function (domain) {
+    let settings = this.getSettings();
+    let disabledSites = settings.getItem('disabledSites');
+    if (disabledSites.indexOf(domain) < 0) {
+      disabledSites.push(domain);
       settings.setItem("disabledSites", disabledSites);
     }
   },
@@ -1110,14 +1110,14 @@ Badger.prototype = {
   },
 
   /**
-   * Remove an origin from the disabledSites list
+   * Removes a domain from the list of disabled sites.
    *
-   * @param {String} origin The origin to disable the PB for
+   * @param {String} domain The site domain to re-enable PB on
    */
-  enablePrivacyBadgerForOrigin: function(origin) {
-    var settings = this.getSettings();
-    var disabledSites = settings.getItem("disabledSites");
-    var idx = disabledSites.indexOf(origin);
+  reenableOnSite: function (domain) {
+    let settings = this.getSettings();
+    let disabledSites = settings.getItem("disabledSites");
+    let idx = disabledSites.indexOf(domain);
     if (idx >= 0) {
       disabledSites.splice(idx, 1);
       settings.setItem("disabledSites", disabledSites);

@@ -268,7 +268,7 @@ function() {
     let done = assert.async(2),
       called = false;
 
-    badger.disablePrivacyBadgerForOrigin(extractHostFromURL(this.SITE_URL));
+    badger.disableOnSite(extractHostFromURL(this.SITE_URL));
 
     this.setBadgeText.callsFake((obj) => {
       assert.deepEqual(obj, {tabId: this.tabId, text: ''});

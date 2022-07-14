@@ -1365,15 +1365,15 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  case "activateOnSite": {
-    badger.enablePrivacyBadgerForOrigin(request.tabHost);
+  case "reenableOnSiteFromPopup": {
+    badger.reenableOnSite(request.tabHost);
     badger.updateIcon(request.tabId, request.tabUrl);
     sendResponse();
     break;
   }
 
-  case "deactivateOnSite": {
-    badger.disablePrivacyBadgerForOrigin(request.tabHost);
+  case "disableOnSiteFromPopup": {
+    badger.disableOnSite(request.tabHost);
     badger.updateIcon(request.tabId, request.tabUrl);
     sendResponse();
     break;
@@ -1496,17 +1496,17 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  case "disablePrivacyBadgerForOrigin": {
-    badger.disablePrivacyBadgerForOrigin(request.domain);
+  case "disableOnSite": {
+    badger.disableOnSite(request.domain);
     sendResponse({
       disabledSites: badger.getDisabledSites()
     });
     break;
   }
 
-  case "enablePrivacyBadgerForOriginList": {
+  case "reenableOnSites": {
     request.domains.forEach(function (domain) {
-      badger.enablePrivacyBadgerForOrigin(domain);
+      badger.reenableOnSite(domain);
     });
     sendResponse({
       disabledSites: badger.getDisabledSites()

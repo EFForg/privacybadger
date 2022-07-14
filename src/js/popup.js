@@ -365,7 +365,7 @@ function activateOnSite() {
   $("#activate_site_btn").prop("disabled", true);
 
   chrome.runtime.sendMessage({
-    type: "activateOnSite",
+    type: "reenableOnSiteFromPopup",
     tabHost: POPUP_DATA.tabHost,
     tabId: POPUP_DATA.tabId,
     tabUrl: POPUP_DATA.tabUrl
@@ -383,7 +383,7 @@ function deactivateOnSite() {
   $("#deactivate_site_btn").prop("disabled", true);
 
   chrome.runtime.sendMessage({
-    type: "deactivateOnSite",
+    type: "disableOnSiteFromPopup",
     tabHost: POPUP_DATA.tabHost,
     tabId: POPUP_DATA.tabId,
     tabUrl: POPUP_DATA.tabUrl
