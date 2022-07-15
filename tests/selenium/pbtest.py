@@ -433,15 +433,29 @@ class PBSeleniumTest(unittest.TestCase):
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
-    def add_domain(self, domain, action):
-        """Adds given domain to backend storage."""
+    def set_user_action(self, domain, action):
+        """Adds or modifies the action_map entry for `domain`,
+        setting userAction to `action`."""
         self.load_url(self.options_url)
-        self.js(
-            "let domain = arguments[0],"
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'saveOptionsToggle',"
+            "  origin: arguments[0],"
+            "  action: arguments[1]"
+            "}, done);", domain, action)
+
+    def add_domain(self, domain, action):
+        """Adds or modifies the action_map entry for `domain`,
+        setting heuristicAction to `action` (prefixing it by "user_")."""
+        self.load_url(self.options_url)
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1],"
+            "  domain = arguments[0],"
             "  action = arguments[1];"
             "chrome.runtime.sendMessage({"
             "  type: 'setAction', domain, action"
-            "});", domain, action)
+            "}, done);", domain, action)
 
     def block_domain(self, domain):
         self.add_domain(domain, "block")
@@ -456,6 +470,15 @@ class PBSeleniumTest(unittest.TestCase):
         self.driver.find_element(By.ID, 'new-disabled-site-input').send_keys(url)
         self.driver.find_element(By.CSS_SELECTOR, '#add-disabled-site').click()
 
+    def reenable_badger_on_site(self, domain):
+        self.load_url(self.options_url)
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'reenableOnSites',"
+            "  domains: [arguments[0]]"
+            "}, done);", domain)
+
     def get_domain_slider_state(self, domain):
         label = self.driver.find_element(
             By.CSS_SELECTOR, f'input[name="{domain}"][checked]')
@@ -463,12 +486,11 @@ class PBSeleniumTest(unittest.TestCase):
 
     def clear_tracker_data(self):
         self.load_url(self.options_url)
-        self.driver.execute_async_script((
+        self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"
             "chrome.runtime.sendMessage({"
             "  type: 'removeAllData'"
-            "}, done);"
-        ))
+            "}, done);")
 
     def get_badger_storage(self, store_name):
         self.load_url(self.options_url)
