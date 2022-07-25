@@ -45,17 +45,33 @@ class DntTest(pbtest.PBSeleniumTest):
 
         return headers
 
+    def set_dnt_hashes(self):
+        # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
+        # so that the DNT policy checks to the domain that replies with cookies=X
+        # will succeed when we don't send cookies along with the request
+        self.load_url(self.options_url)
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'setDntHashes',"
+            "  value: { 'cookies=0 test policy': 'f63ee614ebd77f8634b92633c6bb809a64b9a3d7' }"
+            "}, done);")
+
     def test_dnt_policy_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
-            "dnt.html"
+            "recording_nontracking_domains.html"
         )
-        DNT_DOMAIN = "www.eff.org"
+        DNT_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
 
-        # mark a DNT-compliant domain for blocking
+        self.clear_tracker_data()
+
+        self.set_dnt_hashes()
+
+        # mark the "DNT-compliant" domain for blocking
         self.block_domain(DNT_DOMAIN)
 
-        # visit a page that loads a resource from that DNT-compliant domain
+        # visit a page that loads a resource from that domain
         self.load_url(PAGE_URL)
 
         # verify that the domain is blocked
@@ -125,18 +141,12 @@ class DntTest(pbtest.PBSeleniumTest):
         # how to check we didn't send a cookie along with request?
         # the DNT policy URL used by this test returns "cookies=X"
         # where X is the number of cookies it got
-        # MEGAHACK: make sha1 of "cookies=0" a valid DNT hash
-        self.load_url(self.options_url)
-        self.driver.execute_async_script(
-            "let done = arguments[arguments.length - 1];"
-            "chrome.runtime.sendMessage({"
-            "  type: 'setDntHashes',"
-            "  value: { 'cookies=0 test policy': 'f63ee614ebd77f8634b92633c6bb809a64b9a3d7' }"
-            "}, done);")
+        self.set_dnt_hashes()
 
         # perform a DNT policy check
-        result = self.driver.execute_async_script(DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
-        assert result, "No cookies were sent"
+        result = self.driver.execute_async_script(
+            DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
+        assert result, "One or more cookies were sent (cookies=0 policy hash did not match)"
 
     def test_should_not_record_nontracking_domains(self):
         FIXTURE_URL = (
