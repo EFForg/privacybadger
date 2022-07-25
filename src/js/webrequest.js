@@ -1322,6 +1322,13 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   // used by tests
+  case "setDnt": {
+    badger.storage.setupDNT(request.domain);
+    sendResponse();
+    break;
+  }
+
+  // used by tests
   case "setDntHashes": {
     badger.storage.updateDntHashes(request.value);
     sendResponse();

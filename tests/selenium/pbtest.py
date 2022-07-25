@@ -433,9 +433,18 @@ class PBSeleniumTest(unittest.TestCase):
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
+    def set_dnt(self, domain):
+        self.load_url(self.options_url)
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'setDnt',"
+            "  domain: arguments[0]"
+            "}, done);", domain)
+
     def set_user_action(self, domain, action):
         """Adds or modifies the action_map entry for `domain`,
-        setting userAction to `action`."""
+        setting userAction to "user_" + `action`."""
         self.load_url(self.options_url)
         self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"
@@ -447,7 +456,7 @@ class PBSeleniumTest(unittest.TestCase):
 
     def add_domain(self, domain, action):
         """Adds or modifies the action_map entry for `domain`,
-        setting heuristicAction to `action` (prefixing it by "user_")."""
+        setting heuristicAction to `action`."""
         self.load_url(self.options_url)
         self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1],"

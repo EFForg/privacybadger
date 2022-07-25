@@ -57,6 +57,36 @@ class DntTest(pbtest.PBSeleniumTest):
             "  value: { 'cookies=0 test policy': 'f63ee614ebd77f8634b92633c6bb809a64b9a3d7' }"
             "}, done);")
 
+    def test_ignoring_dnt_compliance(self):
+        """We should ignore DNT compliance when DNT policy checking is off."""
+
+        PAGE_URL = (
+            "https://efforg.github.io/privacybadger-test-fixtures/html/"
+            "recording_nontracking_domains.html"
+        )
+        DNT_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
+
+        self.clear_tracker_data()
+
+        self.block_domain(DNT_DOMAIN)
+
+        self.set_dnt(DNT_DOMAIN)
+
+        self.load_url(PAGE_URL)
+        self.open_popup(PAGE_URL)
+        assert self.get_domain_slider_state(DNT_DOMAIN) == "allow", (
+            "DNT-compliant resource should be allowed")
+        self.close_window_with_url(PAGE_URL)
+
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#check_dnt_policy_checkbox').click()
+
+        self.load_url(PAGE_URL)
+        self.open_popup(PAGE_URL)
+        assert self.get_domain_slider_state(DNT_DOMAIN) == "block", (
+            "DNT-compliant resource should now be blocked")
+
     def test_dnt_policy_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
