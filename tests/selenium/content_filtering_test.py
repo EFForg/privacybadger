@@ -12,7 +12,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
     FIXTURE_DOMAIN = "efforg.github.io"
     FIXTURE_URL = (
         f"https://{FIXTURE_DOMAIN}/privacybadger-test-fixtures/html/"
-        "service_workers.html"
+        "3p_script_with_load_status.html"
     )
     THIRD_PARTY_DOMAIN = "privacybadger-tests.eff.org"
     SELECTOR = "#third-party-load-result"
@@ -126,6 +126,29 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
+
+    def test_ignoring_dnt_compliance(self):
+        """We should ignore DNT compliance when DNT policy checking is off."""
+
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.set_dnt(self.THIRD_PARTY_DOMAIN)
+
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+        self.open_popup(self.FIXTURE_URL)
+        assert self.get_domain_slider_state(self.THIRD_PARTY_DOMAIN) == "allow", (
+            "DNT-compliant resource should be allowed")
+        self.close_window_with_url(self.FIXTURE_URL)
+
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#check_dnt_policy_checkbox').click()
+
+        self.load_url(self.FIXTURE_URL)
+        self.assert_block()
+        self.open_popup(self.FIXTURE_URL)
+        assert self.get_domain_slider_state(self.THIRD_PARTY_DOMAIN) == "block", (
+            "DNT-compliant resource should now be blocked")
 
 
 if __name__ == "__main__":
