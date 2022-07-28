@@ -35,6 +35,16 @@ QUnit.test("test BadgerStorage methods", function (assert) {
   assert.notOk(actionMap.hasItem('foo'));
 });
 
+QUnit.test("getItem(): Updating properties of returned objects does not update original objects", function (assert) {
+  actionMap.setItem("xyz", { foo: "bar" });
+
+  let copyMaybe = actionMap.getItem("xyz");
+  copyMaybe.foo = "baz";
+
+  assert.deepEqual(actionMap.getItem("xyz"), { foo: "bar" },
+    "object in storage should have remained the same");
+});
+
 QUnit.test("test user override of default action for domain", function (assert) {
   badger.saveAction("allow", "pbtest.org");
   assert.equal(storage.getAction("pbtest.org"), constants.USER_ALLOW);

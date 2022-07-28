@@ -577,10 +577,10 @@ BadgerStorage.prototype = {
    * @param {String} key - the key for the item
    * @return {?*} the value for that key or null
    */
-  getItem: function(key) {
-    var self = this;
+  getItem: function (key) {
+    let self = this;
     if (self.hasItem(key)) {
-      return self._store[key];
+      return JSON.parse(JSON.stringify(self._store[key]));
     } else {
       return null;
     }
