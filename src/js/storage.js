@@ -645,14 +645,14 @@ BadgerStorage.prototype = {
   },
 
   /**
-   * When a user imports a tracker and settings list via the Import function,
-   * we want to overwrite any existing settings, while simultaneously merging
-   * in any new information (i.e. the list of disabled site domains). In order
-   * to do this, we need different logic for each of the storage maps based on
-   * their internal structure. The three cases in this function handle each of
-   * the three storage maps that can be exported.
+   * When a user imports data via the Import function, we want to overwrite
+   * any existing settings, while simultaneously merging in any new information
+   * (i.e. the list of disabled site domains). Thus, we need different logic
+   * for each of the storage objects based on their internal structure.
    *
-   * @param {Object} mapData The object containing storage map data to merge
+   * This is also used to load pre-trained data, and to ingest managed storage.
+   *
+   * @param {Object} mapData The storage object to merge into existing storage
    */
   merge: function (mapData) {
     const self = this;
@@ -661,23 +661,25 @@ BadgerStorage.prototype = {
       for (let prop in mapData) {
         // combine array settings via intersection/union
         if (prop == "disabledSites" || prop == "widgetReplacementExceptions") {
-          self._store[prop] = utils.concatUniq(self._store[prop], mapData[prop]);
+          self.setItem(prop, utils.concatUniq(self.getItem(prop), mapData[prop]));
 
         // string/array map
         } else if (prop == "widgetSiteAllowlist") {
+          let existingEntry = self.getItem(prop);
+
           // for every site host in the import
           for (let site in mapData[prop]) {
             // combine exception arrays
-            self._store[prop][site] = utils.concatUniq(
-              self._store[prop][site],
-              mapData[prop][site]
-            );
+            existingEntry[site] = utils.concatUniq(
+              existingEntry[site], mapData[prop][site]);
           }
+
+          self.setItem(prop, existingEntry);
 
         // default: overwrite existing setting with setting from import
         } else {
           if (utils.hasOwn(badger.defaultSettings, prop)) {
-            self._store[prop] = mapData[prop];
+            self.setItem(prop, mapData[prop]);
           } else {
             console.error("Unknown Badger setting:", prop);
           }
@@ -686,28 +688,31 @@ BadgerStorage.prototype = {
 
     } else if (self.name == "action_map") {
       for (let domain in mapData) {
-        let action = mapData[domain];
+        let newEntry = mapData[domain],
+          existingEntry = self.getItem(domain);
 
-        // Copy over any user settings from the merged-in data
-        if (action.userAction) {
-          if (utils.hasOwn(self._store, domain)) {
-            self._store[domain].userAction = action.userAction;
+        // copy over any user settings from the merged-in data
+        if (newEntry.userAction) {
+          if (existingEntry) {
+            existingEntry.userAction = newEntry.userAction;
+            self.setItem(domain, existingEntry);
           } else {
-            self._store[domain] = Object.assign(_newActionMapObject(), action);
+            self.setItem(domain, Object.assign(_newActionMapObject(), newEntry));
           }
         }
 
         // handle Do Not Track
-        if (utils.hasOwn(self._store, domain)) {
-          // Merge DNT settings if the imported data has a more recent update
-          if (action.nextUpdateTime > self._store[domain].nextUpdateTime) {
-            self._store[domain].nextUpdateTime = action.nextUpdateTime;
-            self._store[domain].dnt = action.dnt;
+        if (existingEntry) {
+          // merge DNT settings if the imported data has a more recent update
+          if (newEntry.nextUpdateTime > existingEntry.nextUpdateTime) {
+            existingEntry.nextUpdateTime = newEntry.nextUpdateTime;
+            existingEntry.dnt = newEntry.dnt;
+            self.setItem(domain, existingEntry);
           }
         } else {
-          // Import action map entries for new DNT-compliant domains
-          if (action.dnt) {
-            self._store[domain] = Object.assign(_newActionMapObject(), action);
+          // import action map entries for new DNT-compliant domains
+          if (newEntry.dnt) {
+            self.setItem(domain, Object.assign(_newActionMapObject(), newEntry));
           }
         }
       }
@@ -740,11 +745,6 @@ BadgerStorage.prototype = {
         }
       }
     }
-
-    // Async call to syncStorage.
-    setTimeout(function () {
-      _syncStorage(self);
-    }, 0);
   }
 };
 
