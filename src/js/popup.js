@@ -85,13 +85,7 @@ function showNagMaybe() {
   function _showError(error_text) {
     $('#instruction-text').hide();
     $('#error-message').text(error_text);
-    // if error is the 'unexpected error occurred' Firefox issue commonly associated with low disk space, show special message
-    if (error_text.includes("An unexpected error occurred")) {
-      // replace current error text with this special message
-      $('#error-text').html(chrome.i18n.getMessage("popup_error_text_low_disk_space_issue", [error_text]));
-      // hide the error message output from appearing down below this special message
-      $('#error-message').hide();
-    }
+
     $('#error-text').show().find('a')
       .addClass('cta-button')
       .css({
@@ -100,6 +94,19 @@ function showNagMaybe() {
         display: 'inline-block',
         width: 'auto',
       });
+
+    // if error is the 'unexpected error occurred' Firefox issue commonly associated with low disk space, show special message
+    if (error_text.includes("An unexpected error occurred")) {
+      // replace current error text with this special message
+      $('#error-text').html(chrome.i18n.getMessage("popup_error_text_low_disk_space_issue"));
+      // hide the error message output from appearing down below this special message
+      $('#error-message').hide();
+      $('#error-text').find('a').css({
+        textDecoration: "underline",
+        color: "black",
+        fontWeight: "bold"
+      });
+    }
 
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
