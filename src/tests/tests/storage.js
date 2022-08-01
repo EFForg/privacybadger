@@ -20,6 +20,10 @@ QUnit.module("Storage", {
       "test domain is not yet in action_map");
     assert.notOk(snitchMap.getItem(DOMAIN),
       "test domain is not yet in snitch_map");
+  },
+  afterEach: () => {
+    // remove any storage subscriptions
+    actionMap._subscribers = {};
   }
 });
 
@@ -43,6 +47,49 @@ QUnit.test("getItem(): Updating properties of returned objects does not update o
 
   assert.deepEqual(actionMap.getItem("xyz"), { foo: "bar" },
     "object in storage should have remained the same");
+});
+
+QUnit.test("subscribing to storage changes", function (assert) {
+  let done = assert.async(2);
+
+  actionMap.subscribe("set:foo", function (val) {
+    assert.equal(val, "bar", "We got notified with expected value");
+    done();
+  });
+
+  actionMap.subscribe("set:foo", function (val) {
+    assert.equal(val, "bar", "The second subscriber got notified too");
+    done();
+  });
+
+  actionMap.subscribe("set:xyz", function () {
+    assert.ok(false, "Subscribers to other storage keys should not get notified");
+    done();
+  });
+
+  actionMap.setItem("foo", "bar");
+});
+
+QUnit.test("updating object properties by subscribers does not update original objects", function (assert) {
+  let done = assert.async();
+
+  actionMap.subscribe("set:xyz", function (val) {
+    val.foo = "baz";
+  });
+
+  actionMap.subscribe("set:xyz", function (val) {
+    assert.deepEqual(val, { foo: "bar" },
+      "new value object should have remained the same");
+    val.foo = "baz";
+
+    setTimeout(function () {
+      assert.deepEqual(actionMap.getItem("xyz"), { foo: "bar" },
+        "storage should contain original value");
+      done();
+    }, 1);
+  });
+
+  actionMap.setItem("xyz", { foo: "bar" });
 });
 
 QUnit.test("test user override of default action for domain", function (assert) {
