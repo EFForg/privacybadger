@@ -92,6 +92,27 @@ QUnit.test("updating object properties by subscribers does not update original o
   actionMap.setItem("xyz", { foo: "bar" });
 });
 
+QUnit.test("subscribing to all storage keys", function (assert) {
+  let done = assert.async(2);
+
+  actionMap.subscribe("set:*", function (val, key) {
+    if (key == "foo") {
+      assert.equal(val, "bar", "We got notified with expected value");
+      done();
+    } else if (key == "abc") {
+      assert.equal(val, "xyz", "We got notified again with expected value");
+      done();
+    } else {
+      assert.ok(false, "Not expecting any other notifications");
+      done();
+    }
+  });
+
+  actionMap.setItem("foo", "bar");
+  snitchMap.setItem("foo", "123");
+  actionMap.setItem("abc", "xyz");
+});
+
 QUnit.test("test user override of default action for domain", function (assert) {
   badger.saveAction("allow", "pbtest.org");
   assert.equal(storage.getAction("pbtest.org"), constants.USER_ALLOW);

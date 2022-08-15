@@ -607,7 +607,7 @@ BadgerStorage.prototype = {
    */
   setItem: function (key, value) {
     let self = this;
-    self.notify("set:" + key, value);
+    self.notify("set:" + key, key, value);
     self._store[key] = value;
     setTimeout(function () {
       _syncStorage(self);
@@ -750,15 +750,25 @@ BadgerStorage.prototype = {
 
   /**
    * @param {String} name The event to notify subscribers for
+   * @param {String} key The storage key being created/updated
+   * @param {*} new_val The value being assigned to the key
    */
-  notify: function (name, new_val) {
+  notify: function (name, key, new_val) {
     let self = this;
-    if (!self._subscribers[name]) {
-      return;
+
+    function _notify(ename) {
+      if (self._subscribers[ename]) {
+        for (let fn of self._subscribers[ename]) {
+          fn.call(self, JSON.parse(JSON.stringify(new_val)), key);
+        }
+      }
     }
-    for (let fn of self._subscribers[name]) {
-      fn.call(self, JSON.parse(JSON.stringify(new_val)));
-    }
+
+    // exact match subscribers
+    _notify(name);
+
+    // wildcard subscribers
+    _notify(name.slice(0, name.indexOf(":") + 1) + "*");
   },
 
   /**
