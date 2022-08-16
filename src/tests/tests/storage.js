@@ -27,10 +27,6 @@ QUnit.module("Storage", {
   }
 });
 
-QUnit.test("testGetBadgerStorage", function (assert) {
-  assert.ok(actionMap.updateObject instanceof Function, "actionMap is a pbstorage");
-});
-
 QUnit.test("test BadgerStorage methods", function (assert) {
   actionMap.setItem('foo', 'bar');
   assert.equal(actionMap.getItem('foo'), 'bar');

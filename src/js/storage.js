@@ -167,14 +167,17 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Reset the snitch map and action map, forgetting all data the badger has
-   * learned from browsing.
+   * Empties tracking-related storage, forgetting all data learned from browsing.
    */
   clearTrackerData: function () {
     let self = this;
-    ['action_map', 'snitch_map', 'tracking_map'].forEach(key => {
-      self.getStore(key).updateObject({});
-    });
+
+    for (let store_name of ['action_map', 'snitch_map', 'tracking_map']) {
+      let store = self.getStore(store_name);
+      for (let key of store.keys()) {
+        store.deleteItem(key);
+      }
+    }
   },
 
   /**
@@ -261,11 +264,15 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Update DNT policy hashes
+   * Updates EFF's Do Not Track policy hashes.
    */
   updateDntHashes: function (hashes) {
-    let dnt_hashes = this.getStore('dnt_hashes');
-    dnt_hashes.updateObject(utils.invert(hashes));
+    let self = this,
+      dntPolicyStore = self.getStore('dnt_hashes');
+
+    for (let policy_name in hashes) {
+      dntPolicyStore.setItem(hashes[policy_name], policy_name);
+    }
   },
 
   /**
@@ -624,17 +631,6 @@ BadgerStorage.prototype = {
   deleteItem: function (key) {
     let self = this;
     delete self._store[key];
-    setTimeout(function () {
-      _syncStorage(self);
-    }, 0);
-  },
-
-  /**
-   * Update the entire object that this instance is storing
-   */
-  updateObject: function (object) {
-    let self = this;
-    self._store = object;
     setTimeout(function () {
       _syncStorage(self);
     }, 0);

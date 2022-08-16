@@ -28,17 +28,17 @@
   QUnit.testStart(() => {
     // back up settings and heuristic learning
     // TODO any other state we should reset? tabData?
-    badger.storage.KEYS.forEach(item => {
-      let obj = badger.storage.getStore(item);
-      BACKUP[item] = obj.getItemClones();
+    badger.storage.KEYS.forEach(store_name => {
+      let store = badger.storage.getStore(store_name);
+      BACKUP[store_name] = store.getItemClones();
     });
   });
 
   QUnit.testDone(() => {
     // restore original settings and heuristic learning
-    badger.storage.KEYS.forEach(item => {
-      let obj = badger.storage.getStore(item);
-      obj.updateObject(BACKUP[item]);
+    badger.storage.KEYS.forEach(store_name => {
+      let store = badger.storage.getStore(store_name);
+      store._store = BACKUP[store_name];
     });
   });
 

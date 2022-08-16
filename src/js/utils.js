@@ -527,15 +527,6 @@ function concatUniq(arr1, arr2) {
   return arr1.concat(arr2.filter(x => !arr1.includes(x)));
 }
 
-function invert(obj) {
-  let result = {};
-  let keys = Object.keys(obj);
-  for (let i = 0, length = keys.length; i < length; i++) {
-    result[obj[keys[i]]] = keys[i];
-  }
-  return result;
-}
-
 /**
  * Array.prototype.filter() for objects.
  *
@@ -564,7 +555,6 @@ let utils = {
   firstPartyProtectionsEnabled,
   getHostFromDomainInput,
   hasOwn,
-  invert,
   isRestrictedUrl,
   isThirdPartyDomain,
   nDaysFromNow,
