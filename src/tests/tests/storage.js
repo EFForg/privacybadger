@@ -37,16 +37,23 @@ QUnit.test("test BadgerStorage methods", function (assert) {
   assert.ok(actionMap.hasItem('foo'));
   actionMap.deleteItem('foo');
   assert.notOk(actionMap.hasItem('foo'));
+  assert.equal(actionMap.getItem('foo'), null);
 });
 
-QUnit.test("getItem(): Updating properties of returned objects does not update original objects", function (assert) {
+QUnit.test("getItem() returns clones of objects", function (assert) {
   actionMap.setItem("xyz", { foo: "bar" });
 
+  // updating properties of returned objects should not update original objects
   let copyMaybe = actionMap.getItem("xyz");
   copyMaybe.foo = "baz";
 
   assert.deepEqual(actionMap.getItem("xyz"), { foo: "bar" },
     "object in storage should have remained the same");
+});
+
+QUnit.test("getItem() does not error out with undefined", function (assert) {
+  actionMap.setItem("abc", undefined);
+  assert.equal(actionMap.getItem("abc"), undefined);
 });
 
 QUnit.test("subscribing to storage changes", function (assert) {

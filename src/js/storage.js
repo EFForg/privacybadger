@@ -583,7 +583,9 @@ BadgerStorage.prototype = {
   getItem: function (key) {
     let self = this;
     if (self.hasItem(key)) {
-      return JSON.parse(JSON.stringify(self._store[key]));
+      // return a clone of the value in storage
+      let str = JSON.stringify(self._store[key]);
+      return (str === undefined ? str : JSON.parse(str));
     } else {
       return null;
     }
@@ -751,15 +753,17 @@ BadgerStorage.prototype = {
   /**
    * @param {String} name The event to notify subscribers for
    * @param {String} key The storage key being created/updated
-   * @param {*} new_val The value being assigned to the key
+   * @param {*} val The new value being assigned to the key
    */
-  notify: function (name, key, new_val) {
+  notify: function (name, key, val) {
     let self = this;
 
     function _notify(ename) {
       if (self._subscribers[ename]) {
         for (let fn of self._subscribers[ename]) {
-          fn.call(self, JSON.parse(JSON.stringify(new_val)), key);
+          let str = JSON.stringify(val),
+            val_clone = (str === undefined ? str : JSON.parse(str));
+          fn.call(self, val_clone, key);
         }
       }
     }
