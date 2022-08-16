@@ -630,6 +630,7 @@ BadgerStorage.prototype = {
    */
   deleteItem: function (key) {
     let self = this;
+    self.notify("delete:" + key, key);
     delete self._store[key];
     setTimeout(function () {
       _syncStorage(self);
@@ -748,7 +749,7 @@ BadgerStorage.prototype = {
 
   /**
    * @param {String} name The event to notify subscribers for
-   * @param {String} key The storage key being created/updated
+   * @param {String} key The storage key being created/updated/deleted
    * @param {*} val The new value being assigned to the key
    */
   notify: function (name, key, val) {
@@ -781,6 +782,17 @@ BadgerStorage.prototype = {
       self._subscribers[name] = [];
     }
     self._subscribers[name].push(callback);
+  },
+
+  /**
+   * @param {String} name The event to clear subscriptions for
+   * @returns {Array} The subscriptions removed for that event name
+   */
+  unsubscribe: function (name) {
+    let self = this,
+      subs = self._subscribers[name] || [];
+    delete self._subscribers[name];
+    return subs;
   },
 };
 

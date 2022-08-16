@@ -116,6 +116,44 @@ QUnit.test("subscribing to all storage keys", function (assert) {
   actionMap.setItem("abc", "xyz");
 });
 
+QUnit.test("subscribing to deletions", function (assert) {
+  let done = assert.async(1);
+
+  actionMap.setItem("foo", "bar");
+
+  actionMap.subscribe("delete:foo", function () {
+    assert.deepEqual(Array.from(arguments), [undefined, "foo"]);
+    done();
+  });
+
+  actionMap.deleteItem("foo");
+});
+
+QUnit.test("unsubscribing from events", function (assert) {
+  let done = assert.async(1);
+
+  function handler(val) {
+    assert.equal(val, 2);
+    done();
+  }
+
+  // subscribe
+  actionMap.subscribe("set:foo", handler);
+
+  // remove the subscription
+  let subs = actionMap.unsubscribe("set:foo");
+  assert.deepEqual(subs[0], handler);
+
+  // should not get notified
+  actionMap.setItem("foo", 1);
+
+  // re-subscribe
+  actionMap.subscribe("set:foo", subs[0]);
+
+  // should get notified
+  actionMap.setItem("foo", 2);
+});
+
 QUnit.test("test user override of default action for domain", function (assert) {
   badger.saveAction("allow", "pbtest.org");
   assert.equal(storage.getAction("pbtest.org"), constants.USER_ALLOW);
