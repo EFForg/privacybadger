@@ -510,18 +510,10 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
  * @return {String} the host name for the tab
  */
 function getHostForTab(tabId) {
-  let mainFrameIdx = 0;
   if (!badger.tabData[tabId]) {
     return '';
   }
-  // TODO what does this actually do?
-  // meant to address https://github.com/EFForg/privacybadger/issues/136
-  if (_isTabAnExtension(tabId)) {
-    // If the tab is an extension get the url of the first frame for its implied URL
-    // since the url of frame 0 will be the hash of the extension key
-    mainFrameIdx = Object.keys(badger.tabData[tabId].frames)[1] || 0;
-  }
-  let frameData = badger.getFrameData(tabId, mainFrameIdx);
+  let frameData = badger.getFrameData(tabId, 0);
   if (!frameData) {
     return '';
   }
@@ -700,21 +692,6 @@ function _isTabChromeInternal(tabId) {
   }
 
   return false;
-}
-
-/**
- * Checks if the tab is a chrome-extension tab
- *
- * @param {Integer} tabId Id of the tab to test
- * @returns {boolean} Returns true if the tab is from a chrome-extension
- * @private
- */
-function _isTabAnExtension(tabId) {
-  let frameData = badger.getFrameData(tabId);
-  return (frameData && (
-    frameData.url.startsWith("chrome-extension://") ||
-    frameData.url.startsWith("moz-extension://")
-  ));
 }
 
 /**
