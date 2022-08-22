@@ -70,11 +70,12 @@ function onBeforeRequest(details) {
     return {cancel: true};
   }
 
-  if (_isTabChromeInternal(tab_id)) {
+  let frameData = badger.getFrameData(tab_id);
+  if (!frameData || tab_id < 0 || utils.isRestrictedUrl(url)) {
     return {};
   }
 
-  let tab_host = getHostForTab(tab_id);
+  let tab_host = frameData.host;
   let request_host = extractHostFromURL(url);
 
   // CNAME uncloaking
@@ -212,10 +213,11 @@ function onBeforeSendHeaders(details) {
   let frame_id = details.frameId,
     tab_id = details.tabId,
     type = details.type,
-    url = details.url;
+    url = details.url,
+    frameData = badger.getFrameData(tab_id);
 
-  if (_isTabChromeInternal(tab_id)) {
-    // DNT policy requests: strip cookies
+  if (!frameData || tab_id < 0 || utils.isRestrictedUrl(url)) {
+    // strip cookies from DNT policy requests
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
       let newHeaders = [];
@@ -230,10 +232,11 @@ function onBeforeSendHeaders(details) {
       };
     }
 
+    // ignore otherwise
     return {};
   }
 
-  let tab_host = getHostForTab(tab_id);
+  let tab_host = frameData.host;
   let request_host = extractHostFromURL(url);
 
   // CNAME uncloaking
@@ -316,10 +319,11 @@ function onBeforeSendHeaders(details) {
  */
 function onHeadersReceived(details) {
   let tab_id = details.tabId,
-    url = details.url;
+    url = details.url,
+    frameData = badger.getFrameData(tab_id);
 
-  if (_isTabChromeInternal(tab_id)) {
-    // DNT policy responses: strip cookies, reject redirects
+  if (!frameData || tab_id < 0 || utils.isRestrictedUrl(url)) {
+    // strip cookies, reject redirects from DNT policy responses
     if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // if it's a redirect, cancel it
       if (details.statusCode >= 300 && details.statusCode < 400) {
@@ -341,6 +345,7 @@ function onHeadersReceived(details) {
       };
     }
 
+    // ignore otherwise
     return {};
   }
 
@@ -353,7 +358,7 @@ function onHeadersReceived(details) {
     return { responseHeaders };
   }
 
-  let tab_host = getHostForTab(tab_id);
+  let tab_host = frameData.host;
   let response_host = extractHostFromURL(url);
 
   // CNAME uncloaking
@@ -502,19 +507,6 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
     }
     tabData.blockedFrameUrls[parent_frame_id].push(frame_url);
   });
-}
-
-/**
- * Gets the hostname for a given tab ID.
- * @param {Integer} tab_id
- * @returns {?String} the hostname for the tab or null if no data
- */
-function getHostForTab(tab_id) {
-  let frameData = badger.getFrameData(tab_id, 0);
-  if (!frameData) {
-    return null;
-  }
-  return frameData.host;
 }
 
 /**
@@ -669,26 +661,6 @@ function checkAction(tabId, requestHost, frameId) {
   }
 
   return badger.storage.getBestAction(requestHost);
-}
-
-/**
- * Checks if the tab is chrome internal
- *
- * @param {Integer} tabId Id of the tab to test
- * @returns {boolean} Returns true if the tab is chrome internal
- * @private
- */
-function _isTabChromeInternal(tabId) {
-  if (tabId < 0) {
-    return true;
-  }
-
-  let frameData = badger.getFrameData(tabId);
-  if (!frameData || !frameData.url.startsWith("http")) {
-    return true;
-  }
-
-  return false;
 }
 
 /**
@@ -1031,11 +1003,6 @@ function dispatcher(request, sender, sendResponse) {
 
   case "checkLocation": {
     if (!badger.isPrivacyBadgerEnabled(extractHostFromURL(sender.tab.url))) {
-      return sendResponse();
-    }
-
-    // Ignore requests from internal Chrome tabs.
-    if (_isTabChromeInternal(sender.tab.id)) {
       return sendResponse();
     }
 
