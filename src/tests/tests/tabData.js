@@ -9,7 +9,7 @@ QUnit.module("tabData", {
     this.SITE_URL = "http://example.com/";
     this.tabId = 9999;
 
-    badger.recordFrame(this.tabId, 0, this.SITE_URL);
+    badger.tabData.recordFrame(this.tabId, 0, this.SITE_URL);
 
     // stub chrome.tabs.get manually as we have some sort of issue stubbing with Sinon in Firefox
     this.chromeTabsGet = chrome.tabs.get;
@@ -22,7 +22,7 @@ QUnit.module("tabData", {
 
   afterEach: function () {
     chrome.tabs.get = this.chromeTabsGet;
-    delete badger.tabData[this.tabId];
+    badger.tabData.forget(this.tabId);
   }
 },
 function() {
