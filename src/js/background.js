@@ -58,8 +58,8 @@ function Badger(from_qunit) {
    * Callback that continues Privacy Badger initialization
    * once Badger storage is ready.
    */
-  async function onStorageReady(thisStorage) {
-    self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
+  async function onStorageReady() {
+    self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(self.storage);
 
     // TODO there are async migrations
     // TODO is this the right place for migrations?

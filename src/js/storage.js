@@ -100,8 +100,7 @@ function BadgerPen(callback) {
       setTimeout(function () {
         badger.initWelcomePage();
       }, 0);
-      callback(self);
-      return;
+      return callback();
     }
 
     // see if we have any enterprise/admin/group policy overrides
@@ -112,8 +111,7 @@ function BadgerPen(callback) {
         setTimeout(function () {
           badger.initWelcomePage();
         }, 0);
-        callback(self);
-        return;
+        return callback();
       }
 
       // managed storage is empty
@@ -129,7 +127,7 @@ function BadgerPen(callback) {
         }, 0);
       }
 
-      callback(self);
+      callback();
     });
   });
 }
