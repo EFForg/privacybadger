@@ -33,7 +33,7 @@ import webrequest from "./webrequest.js";
 import utils from "./utils.js";
 
 /**
- * Privacy Badger initializer.
+ * Privacy Badger constructor.
  *
  * @param {Boolean} from_qunit don't intercept requests when run by unit tests
  */
@@ -52,7 +52,13 @@ function Badger(from_qunit) {
     self.widgetList = widgets;
   });
 
-  self.storage = new BadgerPen(async function (thisStorage) {
+  self.storage = new BadgerPen(onStorageReady);
+
+  /**
+   * Callback that continues Privacy Badger initialization
+   * once Badger storage is ready.
+   */
+  async function onStorageReady(thisStorage) {
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(thisStorage);
 
     // TODO there are async migrations
@@ -134,7 +140,7 @@ function Badger(from_qunit) {
     });
     // set up periodic fetching of hashes from eff.org
     setInterval(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
-  });
+  }
 
   /**
    * Checks for availability of firstPartyDomain chrome.cookies API parameter.
@@ -160,8 +166,7 @@ function Badger(from_qunit) {
     }
     return true;
   }
-
-}
+} /* end of Badger constructor */
 
 Badger.prototype = {
   INITIALIZED: false,
