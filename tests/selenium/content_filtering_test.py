@@ -15,6 +15,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         "3p_script_with_load_status.html"
     )
     THIRD_PARTY_DOMAIN = "privacybadger-tests.eff.org"
+    THIRD_PARTY_SUBDOMAIN = "child1." + THIRD_PARTY_DOMAIN
     SELECTOR = "#third-party-load-result"
 
     # for cookie tests
@@ -91,13 +92,31 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         assert self.find_el_by_css('body').text == "cookies=0", (
             "No cookies should have been sent by the cookieblocked domain")
 
+    def test_cookieblocking_subdomain_of_blocked_domain(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.cookieblock_domain(self.THIRD_PARTY_SUBDOMAIN)
+        self.load_url(self.FIXTURE_URL + '?alt3p=1')
+        self.assert_load()
+
     def test_userblock(self):
         self.set_user_action(self.THIRD_PARTY_DOMAIN, "block")
 
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
 
-    def test_usercookieblock(self):
+    def test_userblock_overwrites_cookieblock(self):
+        self.cookieblock_domain(self.THIRD_PARTY_DOMAIN)
+        self.set_user_action(self.THIRD_PARTY_DOMAIN, "block")
+        self.load_url(self.FIXTURE_URL)
+        self.assert_block()
+
+    def test_userblock_overwrites_dnt(self):
+        self.set_dnt(self.THIRD_PARTY_DOMAIN)
+        self.set_user_action(self.THIRD_PARTY_DOMAIN, "block")
+        self.load_url(self.FIXTURE_URL)
+        self.assert_block()
+
+    def test_usercookieblock_stops_saving(self):
         self.set_user_action(self.COOKIE_DOMAIN, "cookieblock")
 
         self.load_url(self.COOKIE_FIXTURE_URL)
@@ -105,10 +124,28 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         assert not self.driver.get_cookies(), (
             "Cookie fixture should have been blocked from setting a cookie")
 
+    def test_usercookieblock_overwrites_block(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.load_url(self.FIXTURE_URL)
+        self.assert_block()
+
+        self.set_user_action(self.THIRD_PARTY_DOMAIN, "cookieblock")
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+
     def test_userallow(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
         self.set_user_action(self.THIRD_PARTY_DOMAIN, "allow")
 
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+
+    def test_userallow_overwrites_block(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.load_url(self.FIXTURE_URL)
+        self.assert_block()
+
+        self.set_user_action(self.THIRD_PARTY_DOMAIN, "allow")
         self.load_url(self.FIXTURE_URL)
         self.assert_load()
 
