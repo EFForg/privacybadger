@@ -162,6 +162,9 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         self.load_url(self.FIXTURE_URL)
+        # navigate elsewhere and back to work around the third-party getting served from cache
+        self.load_url(self.options_url)
+        self.load_url(self.FIXTURE_URL)
         self.assert_block()
 
     def test_disabling_on_site(self):
