@@ -149,6 +149,21 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_load()
 
+    def test_reverting_control(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.set_user_action(self.THIRD_PARTY_DOMAIN, "allow")
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+
+        # click the undo arrow
+        self.open_popup(self.FIXTURE_URL)
+        self.find_el_by_css(
+            f'div[data-origin="{self.THIRD_PARTY_DOMAIN}"] a.honeybadgerPowered').click()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+
+        self.load_url(self.FIXTURE_URL)
+        self.assert_block()
+
     def test_disabling_on_site(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
         self.disable_badger_on_site(self.FIXTURE_URL)
@@ -186,6 +201,19 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.open_popup(self.FIXTURE_URL)
         assert self.get_domain_slider_state(self.THIRD_PARTY_DOMAIN) == "block", (
             "DNT-compliant resource should now be blocked")
+
+    def test_removing_dnt(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.set_dnt(self.THIRD_PARTY_DOMAIN)
+
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+
+        assert not self.check_dnt(self.THIRD_PARTY_DOMAIN), (
+            "domain should not be DNT-compliant")
+
+        self.load_url(self.FIXTURE_URL)
+        self.assert_block()
 
 
 if __name__ == "__main__":
