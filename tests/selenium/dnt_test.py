@@ -17,13 +17,6 @@ from pbtest import retry_until
 class DntTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
 
-    CHECK_FOR_DNT_POLICY_JS = (
-        "let done = arguments[arguments.length - 1];"
-        "chrome.runtime.sendMessage({"
-        "  type: 'checkForDntPolicy',"
-        "  domain: arguments[0]"
-        "}, done);")
-
     # TODO switch to non-delayed version
     # https://gist.github.com/ghostwords/9fc6900566a2f93edd8e4a1e48bbaa28
     # once race condition (https://crbug.com/478183) is fixed
@@ -120,9 +113,8 @@ class DntTest(pbtest.PBSeleniumTest):
         self.load_url(TEST_URL)
         assert not self.driver.get_cookies(), "Should have no cookies again"
 
-        self.load_url(self.options_url)
         # perform a DNT policy check
-        self.driver.execute_async_script(DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
+        self.check_dnt(TEST_DOMAIN)
 
         # check that we didn't get cookied by the DNT URL
         self.load_url(TEST_URL)
@@ -144,8 +136,7 @@ class DntTest(pbtest.PBSeleniumTest):
         self.set_dnt_hashes()
 
         # perform a DNT policy check
-        result = self.driver.execute_async_script(
-            DntTest.CHECK_FOR_DNT_POLICY_JS, TEST_DOMAIN)
+        result = self.check_dnt(TEST_DOMAIN)
         assert result, "One or more cookies were sent (cookies=0 policy hash did not match)"
 
     def test_should_not_record_nontracking_domains(self):

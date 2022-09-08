@@ -442,6 +442,15 @@ class PBSeleniumTest(unittest.TestCase):
             "  domain: arguments[0]"
             "}, done);", domain)
 
+    def check_dnt(self, domain):
+        self.load_url(self.options_url)
+        return self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'checkForDntPolicy',"
+            "  domain: arguments[0]"
+            "}, done);", domain)
+
     def set_user_action(self, domain, action):
         """Adds or modifies the action_map entry for `domain`,
         setting userAction to "user_" + `action`."""
