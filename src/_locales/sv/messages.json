@@ -20,7 +20,7 @@
         "description": ""
     },
     "popup_special_page_header": {
-        "message": "Inget att göra på den här sidan",
+        "message": "Inget att göra på denna sida",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
@@ -84,7 +84,7 @@
         }
     },
     "popup_blocked": {
-        "message": "Det finns inga resurser från tredje part på den här sidan. Hurra för privatliv!",
+        "message": "Det finns inga resurser från tredje part på denna sida. Hurra för privatliv!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "tooltip_block": {
@@ -192,7 +192,7 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "Detta skickar automatiskt följande information till EFF: sidan du för närvarande besöker, din webbläsarversion, versionen av Privacy Badger och lägen för alla skjutreglagen för den här sidan.",
+        "message": "Detta skickar automatiskt följande information till EFF: sidan du för närvarande besöker, din webbläsarversion, versionen av Privacy Badger och lägen för alla skjutreglagen för denna sida.",
         "description": ""
     },
     "report_button": {
@@ -410,7 +410,7 @@
         "description": "Checkbox label on the general settings page"
     },
     "options_incognito_warning": {
-        "message": "Aktivering av inlärning i privata-/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan känner till i privata-/inkognitofönster, men den kommer inte att lära sig om nya spårare. Du kan vilja aktivera den här inställningen om du ofta använder privata-/inkognitofönster när du surfar.",
+        "message": "Aktivering av inlärning i privata-/inkognitofönster kan lämna spår av din privata surfhistorik på din dator. Som standard kommer Privacy Badger att blockera spårare som den redan känner till i privata-/inkognitofönster, men den kommer inte att lära sig om nya spårare. Du kan vilja aktivera denna inställning om du ofta använder privata-/inkognitofönster när du surfar.",
         "description": "Tooltip on the general settings page"
     },
     "disabled_sites": {
@@ -539,7 +539,7 @@
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "options_remove_origin_confirm": {
-        "message": "Är du säker på att du vill ta bort den här domänen från Privacy Badger?",
+        "message": "Är du säker på att du vill ta bort denna domän från Privacy Badger?",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "data_settings": {
