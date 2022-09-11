@@ -9,6 +9,93 @@ Besides automatic tracker blocking, Privacy Badger comes with privacy features l
 To learn more, see [the FAQ on Privacy Badger's homepage](https://privacybadger.org/#faq).
 
 
+## Supported Features
+Automatic Tracking Discovery- Privacy Badger does not curate a list of websites that track data, but manually scans each tracker and it's behavior
+
+Manual Selection- You can select from red, yellow, or green and get a default selection from privacy badger on each tracker. Red items are fully blocked, yellow items are loaded with cookies screened and removed, and green items are not impacted
+
+Disables third party trackers- Stops invisible or visible trackers from 3rd party apps, websites, cookies, ads, or links from gathering data
+
+Prevents third party canvas-based fingerprinting: Detects and blocks domains that are using fingerprinting
+
+
+## Supported Platforms
+
+Add the public build of privacy badger to your browser of choice using the links below 
+
+Google Chrome: https://chrome.google.com/webstore/detail/privacy-badger/pkehgijcmpdhfbdbbnkijodmdjhbjlgp
+
+Firefox: https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/
+
+Firefox for Android: https://addons.mozilla.org/android/addon/privacy-badger17/
+
+Edge: https://microsoftedge.microsoft.com/addons/detail/mkejgcgkdlddbggjhhflekkondicpnop
+
+Opera: https://addons.opera.com/en/extensions/details/privacy-badger
+
+
+## Project Setup and Local Build Process
+
+Go to the project page and create a new fork of the privacybadger project
+
+After creating the fork, clone the project using the link or .zip file to get it on your local machine
+
+After cloning the project, go to your terminal and navigate to the root directory of the project
+
+Run the following commands
+```
+$ npm install //installs the project dependencies
+
+$ npm run build //creates a build directory
+```
+
+## Building and Testing Project on Different Browsers
+### Chrome:
+
+Go to the chrome extension page: chrome://extensions/
+
+Select developer mode in the top right corner
+
+Select "load unpacked extensions" in the top left corner and select the project folder
+
+Test changes in the browser
+
+
+### Firefox:
+
+Go to the debugging page: about:debugging
+
+Select "This Firefox" from the left taskbar and find the temporary extension section
+
+Select "load temporary add-on" and select the project folder
+
+Test the changes in the browser
+
+
+### Edge:
+
+Go to the extensions page: edge://extensions/
+
+Select "Manage Extensions"
+
+On the left hand side task bar, enable developer mode
+
+Select "Load Unpacked" and select the project folder
+
+Test the changes in the browser
+
+
+### Opera:
+
+Go to the extensions page: opera:extensions
+
+Enable the developer mode button
+
+Select "Load unpacked extensions" and select the project folder
+
+Test the changes in the browser
+
+
 ## Contributing
 
 We're glad you want to help! Please see [our contributor guide](/CONTRIBUTING.md).
