@@ -443,11 +443,38 @@ function createReplacementWidget(widget, elToReplace) {
     "max-height: 600px",
     "z-index: 2147483647",
   ];
-  if (elToReplace.offsetWidth > 0) {
-    styleAttrs.push(`width: ${elToReplace.offsetWidth - 2*border_width}px`);
-  }
-  if (elToReplace.offsetHeight > 0) {
-    styleAttrs.push(`height: ${elToReplace.offsetHeight - 2*border_width}px`);
+  let elToReplaceStyles = window.getComputedStyle(elToReplace);
+  if (elToReplaceStyles.position == "absolute") {
+    styleAttrs.push("position: absolute");
+    for (let prop of ["width", "height", "top", "right", "bottom", "left"]) {
+      let val = elToReplaceStyles[prop];
+      if (!val) {
+        continue;
+      }
+      if (prop == "width" || prop == "height") {
+        if (elToReplaceStyles['box-sizing'] == 'content-box') {
+          if (Number.isInteger(val) || val.endsWith("px")) {
+            val = `${parseInt(val, 10) - 2*border_width}px`;
+          }
+        }
+      }
+      styleAttrs.push(prop + ": " + val);
+    }
+  } else {
+    if (elToReplace.offsetWidth > 0) {
+      if (elToReplaceStyles['box-sizing'] == 'content-box') {
+        styleAttrs.push(`width: ${elToReplace.offsetWidth - 2*border_width}px`);
+      } else {
+        styleAttrs.push(`width: ${elToReplace.offsetWidth}px`);
+      }
+    }
+    if (elToReplace.offsetHeight > 0) {
+      if (elToReplaceStyles['box-sizing'] == 'content-box') {
+        styleAttrs.push(`height: ${elToReplace.offsetHeight - 2*border_width}px`);
+      } else {
+        styleAttrs.push(`height: ${elToReplace.offsetHeight}px`);
+      }
+    }
   }
   widgetFrame.style = styleAttrs.join(" !important;") + " !important";
 
