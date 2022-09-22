@@ -946,6 +946,32 @@ function getSurrogateWidget(name, data, frame_url) {
     };
   }
 
+  if (name == "YouTube") {
+    if (!data || !data.domId || !data.videoId) {
+      return false;
+    }
+
+    let video_id = data.videoId,
+      dom_id = data.domId;
+
+    if (!OK.test(video_id) || !OK.test(dom_id)) {
+      return false;
+    }
+
+    let widget = {
+      name,
+      buttonSelectors: ["#" + dom_id],
+      scriptSelectors: [`script[src^='${CSS.escape("https://www.youtube.com/iframe_api")}']`],
+      replacementButton: {
+        "unblockDomains": ["www.youtube.com"],
+        "type": 4
+      },
+      directLinkUrl: `https://www.youtube.com/embed/${video_id}`
+    };
+
+    return widget;
+  }
+
   return false;
 }
 
