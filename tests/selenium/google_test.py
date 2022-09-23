@@ -4,6 +4,8 @@
 import time
 import unittest
 
+import pytest
+
 import pbtest
 
 from selenium.webdriver.common.by import By
@@ -82,6 +84,7 @@ class GoogleTest(pbtest.PBSeleniumTest):
 
     # TODO fake UA to test Firefox on Android?
     # TODO SELECTOR = "a[href^='/url?q=']"
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "chrome")
     def test_no_unwrapping_when_disabled(self):
         """Tests that Google search result links still match our selectors."""
 

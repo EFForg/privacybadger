@@ -4,6 +4,8 @@
 import time
 import unittest
 
+import pytest
+
 import pbtest
 
 from selenium.common.exceptions import TimeoutException
@@ -32,6 +34,9 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             self.fail(f"Timed out waiting for {url} to start loading")
 
+    @pytest.mark.xfail(pbtest.shim.browser_type in ("chrome", "edge") and
+                       "beta" in pbtest.shim.browser_path.lower(),
+                       reason="chromedriver bug?")
     def test_welcome_page_reminder_overlay(self):
         """Ensure overlay links to new user welcome page."""
 
