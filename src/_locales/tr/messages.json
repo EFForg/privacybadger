@@ -40,7 +40,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "Report broken site",
+        "message": "Bozuk siteyi rapor et",
         "description": "Button in the popup."
     },
     "version": {
@@ -144,15 +144,15 @@
         "description": "Tooltip shown over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "domain_slider_block_tooltip": {
-        "message": "Block entirely",
+        "message": "Tamamen engelle",
         "description": "Tooltip shown over the leftmost part of a domain slider. This is an action (\"click here to ...\"), not a status."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Block cookies",
+        "message": "Çerezleri engelle",
         "description": "Tooltip shown over the center part of a domain slider."
     },
     "domain_slider_allow_tooltip": {
-        "message": "Allow",
+        "message": "İzin ver",
         "description": "Tooltip shown over the rightmost part of a domain slider."
     },
     "breakage_warning_tooltip": {
@@ -314,7 +314,7 @@
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
+        "message": "Lütfen 'Bozuk siteyi rapor et' butonuna tıklamayı unutmayın. Gizliliğinize önem verdiğimiz için otomatik rapor göndermiyoruz.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "intro_privacy_note": {
@@ -515,7 +515,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
-        "message": "compliant with EFF's DNT policy",
+        "message": "EFF'in DNT poliçesi ile uyumlu",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_status_filter": {
@@ -663,7 +663,7 @@
         "description": "Button text, part of a prompt to visit the blog."
     },
     "deprecated_setting": {
-        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
+        "message": "Şu ayar kullanımdan kaldırıldı ve gelecekteki bir Privacy Badger güncellemesinde kaldırılacak:",
         "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
