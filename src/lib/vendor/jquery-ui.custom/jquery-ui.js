@@ -1,6 +1,6 @@
-/*! jQuery UI - v1.13.0 - 2021-10-26
+/*! jQuery UI - v1.13.2 - 2022-09-23
 * http://jqueryui.com
-* Includes: widget.js, form-reset-mixin.js, jquery-patch.js, keycode.js, labels.js, unique-id.js, widgets/button.js, widgets/checkboxradio.js, widgets/controlgroup.js, widgets/tabs.js
+* Includes: widget.js, form-reset-mixin.js, keycode.js, labels.js, unique-id.js, widgets/button.js, widgets/checkboxradio.js, widgets/controlgroup.js, widgets/tabs.js
 * Copyright jQuery Foundation and other contributors; Licensed MIT */
 
 ( function( factory ) {
@@ -20,11 +20,11 @@
 
 $.ui = $.ui || {};
 
-var version = $.ui.version = "1.13.0";
+var version = $.ui.version = "1.13.2";
 
 
 /*!
- * jQuery UI Widget 1.13.0
+ * jQuery UI Widget 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -88,7 +88,7 @@ $.widget = function( name, base, prototype ) {
 	constructor = $[ namespace ][ name ] = function( options, element ) {
 
 		// Allow instantiation without "new" keyword
-		if ( !this._createWidget ) {
+		if ( !this || !this._createWidget ) {
 			return new constructor( options, element );
 		}
 
@@ -510,6 +510,8 @@ $.Widget.prototype = {
 		}, options );
 
 		function bindRemoveEvent() {
+			var nodesToBind = [];
+
 			options.element.each( function( _, element ) {
 				var isTracked = $.map( that.classesElementLookup, function( elements ) {
 					return elements;
@@ -519,10 +521,12 @@ $.Widget.prototype = {
 					} );
 
 				if ( !isTracked ) {
-					that._on( $( element ), {
-						remove: "_untrackClassesElement"
-					} );
+					nodesToBind.push( element );
 				}
+			} );
+
+			that._on( $( nodesToBind ), {
+				remove: "_untrackClassesElement"
 			} );
 		}
 
@@ -771,7 +775,7 @@ var form = $.fn._form = function() {
 
 
 /*!
- * jQuery UI Form Reset Mixin 1.13.0
+ * jQuery UI Form Reset Mixin 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -833,82 +837,7 @@ var formResetMixin = $.ui.formResetMixin = {
 
 
 /*!
- * jQuery UI Support for jQuery core 1.8.x and newer 1.13.0
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- *
- */
-
-//>>label: jQuery 1.8+ Support
-//>>group: Core
-//>>description: Support version 1.8.x and newer of jQuery core
-
-
-// Support: jQuery 1.9.x or older
-// $.expr[ ":" ] is deprecated.
-if ( !$.expr.pseudos ) {
-	$.expr.pseudos = $.expr[ ":" ];
-}
-
-// Support: jQuery 1.11.x or older
-// $.unique has been renamed to $.uniqueSort
-if ( !$.uniqueSort ) {
-	$.uniqueSort = $.unique;
-}
-
-// Support: jQuery 2.2.x or older.
-// This method has been defined in jQuery 3.0.0.
-// Code from https://github.com/jquery/jquery/blob/e539bac79e666bba95bba86d690b4e609dca2286/src/selector/escapeSelector.js
-if ( !$.escapeSelector ) {
-
-	// CSS string/identifier serialization
-	// https://drafts.csswg.org/cssom/#common-serializing-idioms
-	var rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\x80-\uFFFF\w-]/g;
-
-	var fcssescape = function( ch, asCodePoint ) {
-		if ( asCodePoint ) {
-
-			// U+0000 NULL becomes U+FFFD REPLACEMENT CHARACTER
-			if ( ch === "\0" ) {
-				return "\uFFFD";
-			}
-
-			// Control characters and (dependent upon position) numbers get escaped as code points
-			return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
-		}
-
-		// Other potentially-special ASCII characters get backslash-escaped
-		return "\\" + ch;
-	};
-
-	$.escapeSelector = function( sel ) {
-		return ( sel + "" ).replace( rcssescape, fcssescape );
-	};
-}
-
-// Support: jQuery 3.4.x or older
-// These methods have been defined in jQuery 3.5.0.
-if ( !$.fn.even || !$.fn.odd ) {
-	$.fn.extend( {
-		even: function() {
-			return this.filter( function( i ) {
-				return i % 2 === 0;
-			} );
-		},
-		odd: function() {
-			return this.filter( function( i ) {
-				return i % 2 === 1;
-			} );
-		}
-	} );
-}
-
-;
-/*!
- * jQuery UI Keycode 1.13.0
+ * jQuery UI Keycode 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -943,7 +872,7 @@ var keycode = $.ui.keyCode = {
 
 
 /*!
- * jQuery UI Labels 1.13.0
+ * jQuery UI Labels 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -998,7 +927,7 @@ var labels = $.fn.labels = function() {
 
 
 /*!
- * jQuery UI Unique ID 1.13.0
+ * jQuery UI Unique ID 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1036,7 +965,7 @@ var uniqueId = $.fn.extend( {
 
 
 /*!
- * jQuery UI Controlgroup 1.13.0
+ * jQuery UI Controlgroup 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1057,7 +986,7 @@ var uniqueId = $.fn.extend( {
 var controlgroupCornerRegex = /ui-corner-([a-z]){2,6}/g;
 
 var widgetsControlgroup = $.widget( "ui.controlgroup", {
-	version: "1.13.0",
+	version: "1.13.2",
 	defaultElement: "<div>",
 	options: {
 		direction: "horizontal",
@@ -1321,7 +1250,7 @@ var widgetsControlgroup = $.widget( "ui.controlgroup", {
 } );
 
 /*!
- * jQuery UI Checkboxradio 1.13.0
+ * jQuery UI Checkboxradio 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1341,7 +1270,7 @@ var widgetsControlgroup = $.widget( "ui.controlgroup", {
 
 
 $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
-	version: "1.13.0",
+	version: "1.13.2",
 	options: {
 		disabled: null,
 		label: null,
@@ -1353,8 +1282,7 @@ $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
 	},
 
 	_getCreateOptions: function() {
-		var disabled, labels;
-		var that = this;
+		var disabled, labels, labelContents;
 		var options = this._super() || {};
 
 		// We read the type here, because it makes more sense to throw a element type error first,
@@ -1374,12 +1302,18 @@ $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
 
 		// We need to get the label text but this may also need to make sure it does not contain the
 		// input itself.
-		this.label.contents().not( this.element[ 0 ] ).each( function() {
+		// The label contents could be text, html, or a mix. We wrap all elements
+		// and read the wrapper's `innerHTML` to get a string representation of
+		// the label, without the input as part of it.
+		labelContents = this.label.contents().not( this.element[ 0 ] );
 
-			// The label contents could be text, html, or a mix. We concat each element to get a
-			// string representation of the label, without the input as part of it.
-			that.originalLabel += this.nodeType === 3 ? $( this ).text() : this.outerHTML;
-		} );
+		if ( labelContents.length ) {
+			this.originalLabel += labelContents
+				.clone()
+				.wrapAll( "<div></div>" )
+				.parent()
+				.html();
+		}
 
 		// Set the label option if we found label text
 		if ( this.originalLabel ) {
@@ -1587,7 +1521,7 @@ var widgetsCheckboxradio = $.ui.checkboxradio;
 
 
 /*!
- * jQuery UI Button 1.13.0
+ * jQuery UI Button 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1606,7 +1540,7 @@ var widgetsCheckboxradio = $.ui.checkboxradio;
 
 
 $.widget( "ui.button", {
-	version: "1.13.0",
+	version: "1.13.2",
 	defaultElement: "<button>",
 	options: {
 		classes: {
@@ -2042,7 +1976,7 @@ var safeActiveElement = $.ui.safeActiveElement = function( document ) {
 
 
 /*!
- * jQuery UI Tabs 1.13.0
+ * jQuery UI Tabs 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -2061,7 +1995,7 @@ var safeActiveElement = $.ui.safeActiveElement = function( document ) {
 
 
 $.widget( "ui.tabs", {
-	version: "1.13.0",
+	version: "1.13.2",
 	delay: 300,
 	options: {
 		active: null,
