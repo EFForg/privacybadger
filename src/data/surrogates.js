@@ -128,6 +128,7 @@ const hostnames = {
     match: MATCH_PREFIX,
     tokens: [
       '/iframe_api',
+      '/player_api',
     ],
     widgetName: "YouTube"
   },
@@ -172,6 +173,7 @@ const surrogates = {
   '/recaptcha/enterprise.js': 'grecaptcha_enterprise.js',
 
   '/iframe_api': 'youtube.js',
+  '/player_api': 'youtube.js',
 
   'noopjs': 'noop.js'
 };

@@ -961,7 +961,10 @@ function getSurrogateWidget(name, data, frame_url) {
     let widget = {
       name,
       buttonSelectors: ["#" + dom_id],
-      scriptSelectors: [`script[src^='${CSS.escape("https://www.youtube.com/iframe_api")}']`],
+      scriptSelectors: [
+        `script[src^='${CSS.escape("https://www.youtube.com/iframe_api")}']`,
+        `script[src^='${CSS.escape("https://www.youtube.com/player_api")}']`
+      ],
       replacementButton: {
         "unblockDomains": ["www.youtube.com"],
         "type": 4
