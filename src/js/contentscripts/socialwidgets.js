@@ -68,6 +68,8 @@ const TRANSLATIONS = {};
 // references to widget page elements
 const WIDGET_ELS = {};
 
+let doNotReplace = new WeakSet();
+
 /**
  * @param {Object} response response to checkWidgetReplacementEnabled
  */
@@ -441,8 +443,10 @@ function createReplacementWidget(widget, elToReplace) {
     "min-width: 220px",
     "min-height: 210px",
     "max-height: 600px",
-    "z-index: 2147483647",
+    "pointer-events: all",
+    "z-index: 999",
   ];
+  // TODO shouldn't need this (nor !important, nor _make_id, nor ...) if we use shadow DOM
   let elToReplaceStyles = window.getComputedStyle(elToReplace);
   if (elToReplaceStyles.position == "absolute") {
     styleAttrs.push("position: absolute");
@@ -502,7 +506,6 @@ function createReplacementWidget(widget, elToReplace) {
     "display: flex",
     "flex-wrap: wrap",
     "justify-content: center",
-    "text-align: center",
     "margin: 10px",
   ];
 
@@ -555,6 +558,12 @@ function createReplacementWidget(widget, elToReplace) {
     textDiv.appendChild(document.createTextNode(summary));
   }
 
+  let closeIcon = document.createElement('a'),
+    close_icon_id = _make_id("ico-close");
+  closeIcon.id = close_icon_id;
+  closeIcon.href = "javascript:void(0)"; // eslint-disable-line no-script-url
+  textDiv.appendChild(closeIcon);
+
   let infoIcon = document.createElement('a'),
     info_icon_id = _make_id("ico-help");
   infoIcon.id = info_icon_id;
@@ -586,7 +595,6 @@ function createReplacementWidget(widget, elToReplace) {
     "line-height: 16px",
     "padding: 10px",
     "margin: 4px",
-    "text-align: center",
     "width: 70%",
     "max-width: 280px",
   ];
@@ -623,7 +631,8 @@ function createReplacementWidget(widget, elToReplace) {
   // set up click handler
   widgetFrame.addEventListener('load', function () {
     let onceButton = widgetFrame.contentDocument.getElementById(button_id),
-      siteButton = widgetFrame.contentDocument.getElementById(site_button_id);
+      siteButton = widgetFrame.contentDocument.getElementById(site_button_id),
+      closeLink = widgetFrame.contentDocument.getElementById(close_icon_id);
 
     onceButton.addEventListener("click", function (e) {
       if (!e.isTrusted) { return; }
@@ -646,6 +655,16 @@ function createReplacementWidget(widget, elToReplace) {
       }, function () {
         restoreWidget(widget);
       });
+    }, { once: true });
+
+    closeLink.addEventListener("click", function (e) {
+      if (!e.isTrusted) {
+        return;
+      }
+      e.preventDefault();
+      WIDGET_ELS[name] = WIDGET_ELS[name].filter(d => d.replacement != widgetFrame);
+      doNotReplace.add(elToReplace);
+      widgetFrame.replaceWith(elToReplace);
     }, { once: true });
 
   }, false); // end of click handler
@@ -673,14 +692,19 @@ html, body {
   background-color: #fefefe !important;
   border: 2px solid #f06a0a !important;
 }
-#${info_icon_id} {
+#${info_icon_id}, #${close_icon_id} {
   position: absolute;
   ${TRANSLATIONS.rtl ? "left" : "right"}: 4px;
   top: 4px;
   line-height: 12px;
+  text-align: center;
   text-decoration: none;
 }
-#${info_icon_id}:before {
+#${close_icon_id} {
+  ${TRANSLATIONS.rtl ? "right" : "left"}: 4px;
+  width: 20px;
+}
+#${info_icon_id}:before, #${close_icon_id}:before {
   border: 2px solid;
   border-radius: 50%;
   display: inline-block;
@@ -692,7 +716,12 @@ html, body {
   height: 1em;
   width: 1em;
 }
-#${info_icon_id}:hover:before {
+#${close_icon_id}:before {
+  border: 0;
+  content: '\u2715';
+  padding: 4px;
+}
+#${info_icon_id}:hover:before, #${close_icon_id}:hover:before {
   color: #ec9329;
 }
 a {
@@ -727,11 +756,14 @@ function replaceIndividualButton(widget) {
   let selector = widget.buttonSelectors.join(','),
     elsToReplace = document.querySelectorAll(selector);
 
-  elsToReplace.forEach(function (el) {
+  for (let el of elsToReplace) {
+    if (doNotReplace.has(el)) {
+      continue;
+    }
     createReplacementElement(widget, el, function (replacementEl) {
       el.parentNode.replaceChild(replacementEl, el);
     });
-  });
+  }
 }
 
 /**
