@@ -2695,6 +2695,7 @@ let multiDomainFirstPartiesArray = [
     "passport.net",
     "phonefactor.net",
     "powerapps.com",
+    "powerautomate.com",
     "powerbi.com",
     "roiservice.com",
     "sfbassets.com",
