@@ -1,4 +1,4 @@
-// https://github.com/gorhill/uBlock/blob/dcc72ba51c30abd4a1216049cc34f6c429ab2090/src/web_accessible_resources/googletagservices_gpt.js
+// https://github.com/gorhill/uBlock/blob/a78bb0f8eb4a9c419bcafedba5a4e843232a16be/src/web_accessible_resources/googletagservices_gpt.js
 (function() {
     'use strict';
     // https://developers.google.com/doubleclick-gpt/reference
@@ -57,6 +57,7 @@
         getTargetingKeys: nooparrayfn,
         getSlots: nooparrayfn,
         refresh: noopfn,
+        removeEventListener: noopfn,
         set: noopthisfn,
         setCategoryExclusion: noopthisfn,
         setCentering: noopfn,
