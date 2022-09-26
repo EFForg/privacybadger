@@ -124,6 +124,14 @@ const hostnames = {
     ],
     widgetName: "Google reCAPTCHA"
   },
+  'www.youtube.com': {
+    match: MATCH_PREFIX,
+    tokens: [
+      '/iframe_api',
+      '/player_api',
+    ],
+    widgetName: "YouTube"
+  },
 };
 
 /**
@@ -163,6 +171,9 @@ const surrogates = {
 
   '/recaptcha/api.js': 'grecaptcha.js',
   '/recaptcha/enterprise.js': 'grecaptcha_enterprise.js',
+
+  '/iframe_api': 'youtube.js',
+  '/player_api': 'youtube.js',
 
   'noopjs': 'noop.js'
 };
