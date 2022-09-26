@@ -5076,6 +5076,7 @@ let multiDomainFirstPartiesArray = [
     "yandex.com.tr",
     "yandex.com.ua",
     "yandex.ee",
+    "yandex.eu",
     "yandex.fr",
     "yandex.kg",
     "yandex.kz",
