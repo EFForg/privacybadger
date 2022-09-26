@@ -9,7 +9,7 @@ There are two types of tests:
 
 ## Travis CI
 
-Every pull request runs the full suite of tests on [Travis CI](https://travis-ci.com/). We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Edge Beta, Firefox Beta and Firefox ESR.
+Every pull request runs the [full suite of tests on Travis CI](https://app.travis-ci.com/github/EFForg/privacybadger/branches). We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Edge Beta, Firefox Beta and Firefox ESR.
 
 See [`.travis.yml`](/.travis.yml) for Travis configuration, [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) for test setup, and [`scripts/run_travis.sh`](/scripts/run_travis.sh) for test execution procedures.
 
