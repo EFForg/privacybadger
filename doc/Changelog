@@ -1,6 +1,16 @@
 Privacy Badger Release Notes
 ============================
 
+2022.9.27
+* Improved widget replacement system to better handle embedded YouTube videos
+* Delayed opening the new user welcome page for a few seconds
+to work around a Chromium bug with administrator settings (managed storage)
+* Removed obsolete "Prevent WebRTC from leaking local IP address" setting
+* Fixed various site breakages
+* Added Japanese translations
+* Improved translations (Dutch, Finnish, French, Brazilian Portuguese,
+Russian, Spanish, Swedish, Turkish, Ukrainian)
+
 2021.11.23.1
 * Improved widget replacement system to better handle Google reCAPTCHA.
 Privacy Badger replaces potentially useful widgets with placeholders.
