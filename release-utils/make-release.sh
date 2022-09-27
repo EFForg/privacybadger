@@ -44,7 +44,6 @@ if ! release-utils/firefox-release.sh "$TARGET"; then
   exit 1
 fi
 
-
 ./release-utils/post-release.sh "$TARGET"
 
 rm -rf checkout
