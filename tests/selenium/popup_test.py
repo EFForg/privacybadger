@@ -4,11 +4,10 @@
 import time
 import unittest
 
-import pytest
-
 import pbtest
 
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import (
+    InvalidArgumentException, TimeoutException)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
@@ -34,9 +33,6 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             self.fail(f"Timed out waiting for {url} to start loading")
 
-    @pytest.mark.xfail(pbtest.shim.browser_type in ("chrome", "edge") and
-                       "beta" in pbtest.shim.browser_path.lower(),
-                       reason="chromedriver bug?")
     def test_welcome_page_reminder_overlay(self):
         """Ensure overlay links to new user welcome page."""
 
@@ -50,7 +46,10 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.find_element(By.ID, "intro-reminder-btn").click()
 
         # switch to the welcome page or fail
-        self.switch_to_window_with_url(self.first_run_url)
+        try:
+            self.switch_to_window_with_url(self.first_run_url)
+        except InvalidArgumentException:
+            self.switch_to_window_with_url(self.first_run_url)
 
     def test_help_button(self):
         """Ensure FAQ website is opened when help button is clicked."""
