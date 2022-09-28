@@ -68,6 +68,7 @@ const hostnames = {
     match: MATCH_SUFFIX,
     tokens: [
       '/tag/js/gpt.js',
+      '/omweb-v1.js',
     ]
   },
   'api.youneeq.ca': {
@@ -174,6 +175,8 @@ const surrogates = {
 
   '/iframe_api': 'youtube.js',
   '/player_api': 'youtube.js',
+
+  '/omweb-v1.js': 'noop.js',
 
   'noopjs': 'noop.js'
 };

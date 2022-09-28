@@ -158,8 +158,14 @@ function onBeforeRequest(details) {
  */
 function getWarSecret(tab_id, frame_id, url) {
   let secret = (+(("" + Math.random()).slice(2))).toString(16),
-    frameData = badger.tabData.getFrameData(tab_id, frame_id),
-    tokens = frameData.warAccessTokens;
+    frameData = badger.tabData.getFrameData(tab_id, frame_id);
+
+  if (!frameData) {
+    badger.tabData.recordFrame(tab_id, frame_id, null);
+    frameData = badger.tabData.getFrameData(tab_id, frame_id);
+  }
+
+  let tokens = frameData.warAccessTokens;
 
   if (!tokens) {
     tokens = {};

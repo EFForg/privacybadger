@@ -43,8 +43,8 @@ function TabData() {
    *     },
    *     frames: {
    *       <frame_id>: {
-   *         url: {String}
-   *         host: {String}
+   *         url: {?String}
+   *         host: {?String}
    *         widgetReplacementReady: {Boolean}
    *         widgetQueue: {Array} widget objects
    *         warAccessTokens: {
@@ -111,7 +111,7 @@ TabData.prototype.forget = function (tab_id) {
  *
  * @param {Integer} tab_id ID of the tab
  * @param {Integer} frame_id ID of the frame
- * @param {String} frame_url The url of the frame
+ * @param {?String} frame_url The URL of the frame
  */
 TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
   let self = this;
@@ -127,7 +127,7 @@ TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
 
   self._tabData[tab_id].frames[frame_id] = {
     url: frame_url,
-    host: extractHostFromURL(frame_url)
+    host: (frame_url ? extractHostFromURL(frame_url) : null)
   };
 };
 
