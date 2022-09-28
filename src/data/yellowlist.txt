@@ -162,6 +162,8 @@ fwmrm.net
 geetest.com
 geotrust.com
 getpocket.com
+cdn.getshogun.com
+lib.getshogun.com
 gfycat.com
 ggpht.com
 gigya.com
