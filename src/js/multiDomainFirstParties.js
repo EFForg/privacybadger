@@ -2922,6 +2922,7 @@ let multiDomainFirstPartiesArray = [
     "kada.com",
     "kaola.com",
     "kaola.com.hk",
+    "lofter.com",
   ],
   ["netflix.com", "nflxext.com", "nflximg.net", "nflxvideo.net"],
   [
