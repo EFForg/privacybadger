@@ -506,6 +506,7 @@ function createReplacementWidget(widget, elToReplace) {
     "display: flex",
     "flex-wrap: wrap",
     "justify-content: center",
+    "text-align: center",
     "margin: 10px",
   ];
 
