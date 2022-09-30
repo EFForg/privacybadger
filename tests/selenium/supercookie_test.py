@@ -38,14 +38,14 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         # the HTML page contains:
 
         # an iframe from THIRD_PARTY_BASE that writes to localStorage
-        self.assertEqual(
-            [FIRST_PARTY_BASE],
-            pbtest.retry_until(partial(self.get_snitch_map_for, THIRD_PARTY_BASE)),
-            msg="Frame sets localStorage but was not flagged as a tracker.")
+        snitch_map = pbtest.retry_until(
+            partial(self.get_snitch_map_for, THIRD_PARTY_BASE))
+        assert snitch_map == [FIRST_PARTY_BASE], (
+            "Frame sets localStorage but was not flagged as a tracker.")
 
         # and an image from raw.githubusercontent.com that doesn't do any tracking
-        self.assertFalse(self.get_snitch_map_for("raw.githubusercontent.com"),
-            msg="Image is not a tracker but was flagged as one.")
+        assert not self.get_snitch_map_for("raw.githubusercontent.com"), (
+            "Image is not a tracker but was flagged as one.")
 
 
     def test_should_detect_ls_of_third_party_frame(self):
@@ -65,10 +65,10 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         # We can work around this race condition by reloading the page.
         self.driver.refresh()
 
-        self.assertEqual(
-            [FIRST_PARTY_BASE],
-            pbtest.retry_until(partial(self.get_snitch_map_for, THIRD_PARTY_BASE), times=3)
-        )
+        snitch_map = pbtest.retry_until(
+            partial(self.get_snitch_map_for, THIRD_PARTY_BASE),
+            times=3)
+        assert snitch_map == [FIRST_PARTY_BASE]
 
     def test_should_not_detect_low_entropy_ls_of_third_party_frame(self):
         FIRST_PARTY_BASE = "eff.org"
@@ -107,7 +107,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
     def test_localstorage_learning(self):
         """Verifies that we learn to block a third-party domain if we see
-        non-trivial localstorage data from that third-party on three sites."""
+        non-trivial localStorage data from that third-party on three sites."""
 
         SITE1_URL = "https://ddrybktjfxh4.cloudfront.net/localstorage.html"
         SITE2_URL = "https://d3syxqe9po5ji0.cloudfront.net/localstorage.html"
