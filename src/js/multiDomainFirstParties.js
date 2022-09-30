@@ -1786,8 +1786,22 @@ let multiDomainFirstPartiesArray = [
     "www.googleapis.com",
 
     "nest.com",
+    "thinkwithgoogle.com",
+
+    "applieddigitalskills.withgoogle.com",
+    "cloudonair.withgoogle.com",
     "codingcompetitions.withgoogle.com",
+    "experiments.withgoogle.com",
+    "foobar.withgoogle.com",
+    "learndigital.withgoogle.com",
     "nestpowerproject.withgoogle.com",
+    "newsinitiative.withgoogle.com",
+    "projectshield.withgoogle.com",
+    "quickdraw.withgoogle.com",
+    "searchon.withgoogle.com",
+    "summerofcode.withgoogle.com",
+    "teachablemachine.withgoogle.com",
+    "webdesigner.withgoogle.com",
   ],
   ["www.gov.uk", "cabinet-office.gov.uk", "publishing.service.gov.uk"],
   [
