@@ -118,26 +118,28 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         # remove pre-trained domains
         self.clear_tracker_data()
 
+        def get_sliders(url, category):
+            self.open_popup(url)
+            sliders = self.get_tracker_state()
+            return sliders[category]
+
         # load the first site
         self.load_url(SITE1_URL)
-        self.open_popup(SITE1_URL)
-        sliders = self.get_tracker_state()
-        assert THIRD_PARTY in sliders['notYetBlocked']
-        self.close_window_with_url(SITE1_URL)
+        sliders = pbtest.retry_until(
+            partial(get_sliders, SITE1_URL, 'notYetBlocked'), times=3)
+        assert THIRD_PARTY in sliders
 
         # go to second site
         self.load_url(SITE2_URL)
-        self.open_popup(SITE2_URL)
-        sliders = self.get_tracker_state()
-        assert THIRD_PARTY in sliders['notYetBlocked']
-        self.close_window_with_url(SITE2_URL)
+        sliders = pbtest.retry_until(
+            partial(get_sliders, SITE2_URL, 'notYetBlocked'), times=3)
+        assert THIRD_PARTY in sliders
 
         # go to third site
         self.load_url(SITE3_URL)
-        self.open_popup(SITE3_URL)
-        sliders = self.get_tracker_state()
-        assert THIRD_PARTY in sliders['blocked']
-        self.close_window_with_url(SITE3_URL)
+        sliders = pbtest.retry_until(
+            partial(get_sliders, SITE3_URL, 'blocked'), times=3)
+        assert THIRD_PARTY in sliders, "third party should now be reported as blocked"
 
 
 if __name__ == "__main__":
