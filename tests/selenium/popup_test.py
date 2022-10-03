@@ -42,13 +42,14 @@ class PopupTest(pbtest.PBSeleniumTest):
         except pbtest.WindowNotFoundException:
             pass
 
+        # open another window to avoid implicit session deletion
+        self.open_window()
+
         self.open_popup(show_reminder=True)
         self.driver.find_element(By.ID, "intro-reminder-btn").click()
 
         # switch to the welcome page or fail
         try:
-            # work around self.driver.window_handles raising NoSuchWindowException
-            self.open_window()
             self.switch_to_window_with_url(self.first_run_url)
         except InvalidArgumentException:
             # work around self.driver.window_handles raising InvalidArgumentException
