@@ -47,8 +47,11 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # switch to the welcome page or fail
         try:
+            # work around self.driver.window_handles raising NoSuchWindowException
+            self.open_window()
             self.switch_to_window_with_url(self.first_run_url)
         except InvalidArgumentException:
+            # work around self.driver.window_handles raising InvalidArgumentException
             self.switch_to_window_with_url(self.first_run_url)
 
     def test_help_button(self):
