@@ -59,7 +59,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             "localstorage.html"
         ))
 
-        # TODO We get some intermittent failures for this test.
+        # TODO FIXME We get some intermittent failures for this test.
         # It seems we sometimes miss the setting of localStorage items
         # because the script runs after we already checked what's in localStorage.
         # We can work around this race condition by reloading the page.
@@ -78,7 +78,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             f"https://privacybadger-tests.{FIRST_PARTY_BASE}/html/"
             "localstorage_low_entropy.html"
         ))
-        self.driver.refresh()
+        self.driver.refresh() # TODO workaround
         assert not self.get_snitch_map_for(THIRD_PARTY_BASE)
 
     def test_should_not_detect_first_party_ls(self):
@@ -87,7 +87,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             f"https://{BASE_DOMAIN}/privacybadger-test-fixtures/html/"
             "localstorage/set_ls.html"
         ))
-        self.driver.refresh()
+        self.driver.refresh() # TODO workaround
         assert not self.get_snitch_map_for(BASE_DOMAIN)
 
     def test_should_not_detect_ls_of_third_party_script(self):
@@ -100,7 +100,7 @@ class SupercookieTest(pbtest.PBSeleniumTest):
             "localstorage_from_third_party_script.html"
         ))
 
-        self.driver.refresh()
+        self.driver.refresh() # TODO workaround
 
         assert not self.get_snitch_map_for(FIRST_PARTY_BASE)
         assert not self.get_snitch_map_for(THIRD_PARTY_BASE)
@@ -125,18 +125,24 @@ class SupercookieTest(pbtest.PBSeleniumTest):
 
         # load the first site
         self.load_url(SITE1_URL)
+        # TODO FIXME remove workaround once we fix race conditions in contentscripts/supercookie.js
+        self.driver.refresh()
         sliders = pbtest.retry_until(
             partial(get_sliders, SITE1_URL, 'notYetBlocked'), times=3)
         assert THIRD_PARTY in sliders
 
         # go to second site
         self.load_url(SITE2_URL)
+        # TODO workaround
+        self.driver.refresh()
         sliders = pbtest.retry_until(
             partial(get_sliders, SITE2_URL, 'notYetBlocked'), times=3)
         assert THIRD_PARTY in sliders
 
         # go to third site
         self.load_url(SITE3_URL)
+        # TODO workaround
+        self.driver.refresh()
         sliders = pbtest.retry_until(
             partial(get_sliders, SITE3_URL, 'blocked'), times=3)
         assert THIRD_PARTY in sliders, "third party should now be reported as blocked"
