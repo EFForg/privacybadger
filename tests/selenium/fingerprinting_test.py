@@ -5,6 +5,8 @@ import unittest
 
 import pbtest
 
+from functools import partial
+
 
 class FingerprintingTest(pbtest.PBSeleniumTest):
     """Tests to make sure fingerprinting detection works as expected."""
@@ -38,9 +40,13 @@ class FingerprintingTest(pbtest.PBSeleniumTest):
         self.load_url(FIXTURE_URL)
 
         # open popup and check slider state
-        self.open_popup(FIXTURE_URL)
-        sliders = self.get_tracker_state()
-        assert FP_DOMAIN in sliders['notYetBlocked'], (
+        def get_sliders(url, category):
+            self.open_popup(url)
+            sliders = self.get_tracker_state()
+            return sliders[category]
+        sliders = pbtest.retry_until(
+            partial(get_sliders, FIXTURE_URL, 'notYetBlocked'), times=3)
+        assert FP_DOMAIN in sliders, (
             "Canvas fingerprinting domain should be reported in the popup")
 
         # check that we detected canvas fingerprinting specifically
