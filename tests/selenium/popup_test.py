@@ -48,6 +48,9 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.find_element(By.ID, "intro-reminder-btn").click()
 
         # switch to the welcome page or fail
+        if pbtest.shim.browser_type in ("chrome", "edge"):
+            # work around some kind of Chromium race condition bug
+            time.sleep(1)
         self.switch_to_window_with_url(self.first_run_url)
 
     def test_help_button(self):
