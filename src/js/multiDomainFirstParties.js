@@ -1213,6 +1213,7 @@ let multiDomainFirstPartiesArray = [
     "envato-static.com",
   ],
   ["epicgames.com", "unrealengine.com", "bandcamp.com", "bcbits.com"],
+  ["etsy.com", "etsystatic.com"],
   [
     "eventbrite.com",
 
