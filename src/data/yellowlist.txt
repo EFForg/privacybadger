@@ -171,7 +171,6 @@ giphy.com
 gitbook.com
 github.com
 gleam.io
-accounts.google.com
 apis.google.com
 books.google.com
 calendar.google.com
