@@ -932,32 +932,23 @@ Badger.prototype = {
   },
 
   /**
-   * Check if privacy badger is enabled, take an origin and
-   * check against the disabledSites list
+   * Returns whether Privacy Badger is enabled on a given hostname.
    *
-   * @param {String} origin the origin to check
-   * @returns {Boolean} true if enabled
+   * @param {String} host the FQDN to check
+   *
+   * @returns {Boolean}
    */
-  isPrivacyBadgerEnabled: function(origin) {
-    var settings = this.getSettings();
-    var disabledSites = settings.getItem("disabledSites");
-    if (disabledSites && disabledSites.length > 0) {
-      for (var i = 0; i < disabledSites.length; i++) {
-        var site = disabledSites[i];
+  isPrivacyBadgerEnabled: function (host) {
+    let sitePatterns = this.getSettings().getItem("disabledSites") || [];
 
-        if (site.startsWith("*")) {
-          var wildcard = site.slice(1); // remove "*"
-
-          if (origin.endsWith(wildcard)) {
-            return false;
-          }
-        }
-
-        if (disabledSites[i] === origin) {
-          return false;
-        }
+    for (let pattern of sitePatterns) {
+      if (pattern.startsWith("*") && host.endsWith(pattern.slice(1))) {
+        return false;
+      } else if (pattern === host) {
+        return false;
       }
     }
+
     return true;
   },
 
