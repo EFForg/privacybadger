@@ -227,6 +227,20 @@
             "type": 0
         }
     },
+    "Qualtrics": {
+        "domains": [
+            "*.qualtrics.com"
+        ],
+        "buttonSelectors": [
+            "iframe[src*='.qualtrics.com/jfe/form/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "*.qualtrics.com"
+            ],
+            "type": 3
+        }
+    },
     "Rumble Video Player": {
         "domain": "rumble.com",
         "buttonSelectors": [
