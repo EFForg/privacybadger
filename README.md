@@ -31,4 +31,6 @@ We also hold public meetings using [Jitsi audio conferencing](https://meet.jit.s
 
 ## License
 
-Privacy Badger is licensed under the GPLv3+. See [LICENSE](/LICENSE) for more details.
+Privacy Badger is licensed under the [GPLv3+](LICENSE), however parts of the codebase originate from other projects.
+
+Check the [Licensing](doc/Licensing.md) information for more details.
