@@ -372,6 +372,7 @@ web.poecdn.com
 poll.fm
 postimg.cc
 powerreviews.com
+www.powr.io
 prcdn.co
 prismic.io
 privacymanager.io
