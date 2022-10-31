@@ -79,7 +79,7 @@ check_browser() {
 case $INFO in
   *Chrome*)
     check_browser
-    "$toplevel"/scripts/chromedriver.sh "$BROWSER"
+    "$toplevel"/scripts/chromedriver.sh "$BROWSER" || exit 1
     install_python_deps
     ;;
   *Firefox*)
