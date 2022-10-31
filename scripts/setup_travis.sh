@@ -1,20 +1,18 @@
 #!/usr/bin/env bash
 
-# stop on errors (nonzero exit codes), uninitialized vars
-set -eu
-
 toplevel=$(git rev-parse --show-toplevel)
 
 install_edge_webdriver() {
-  edge_version=$(microsoft-edge-beta --product-version | cut -d . -f 1-3)
-  webdriver_version=$(curl -s "https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/" | grep -Eo "/${edge_version}\.[0-9]+/edgedriver_linux64.zip" | head -n1)
-
-  if [ -z "$webdriver_version" ]; then
+  edge_version_major=$(microsoft-edge-beta --product-version | cut -d . -f 1)
+  edgedriver_version_url="https://msedgedriver.azureedge.net/LATEST_RELEASE_${edge_version_major}_LINUX"
+  edgedriver_version=$(curl -s "$edgedriver_version_url" | tr -d "\0\r\n" | cut -c 3-)
+  if [ -z "$edgedriver_version" ]; then
     echo "Failed to retrieve Edge WebDriver version!"
     exit 1
   fi
 
-  wget "https://msedgedriver.azureedge.net${webdriver_version}"
+  echo "Installing Edge WebDriver version $edgedriver_version ..."
+  wget "https://msedgedriver.azureedge.net/${edgedriver_version}/edgedriver_linux64.zip"
   unzip edgedriver_linux64.zip
   sudo mv msedgedriver /usr/local/bin/
   sudo chmod a+x /usr/local/bin/msedgedriver
