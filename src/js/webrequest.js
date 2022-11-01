@@ -1617,7 +1617,7 @@ function dispatcher(request, sender, sendResponse) {
 
 /*************** Event Listeners *********************/
 function startListeners() {
-  chrome.webNavigation.onBeforeNavigate.addListener(onNavigate);
+  chrome.webNavigation.onCommitted.addListener(onNavigate);
 
   chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
 

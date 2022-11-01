@@ -18,14 +18,15 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
     FIXTURE_HOST = "efforg.github.io"
     THIRD_PARTY_HOST = "privacybadger-tests.eff.org"
 
-    def get_tab_data_host(self):
-        """Returns the top-level frame URL for the first tab."""
-        return self.driver.execute_async_script(
+    def get_first_tab_data(self):
+        """Returns the top-level document's URL/host for the first tab."""
+        tab_data = self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"
             "chrome.runtime.sendMessage({ type: 'getTabData' }, tabData => {"
             "  let min_tab_id = Math.min(...Object.keys(tabData));"
-            "  done(tabData[min_tab_id].frames[0].host);"
+            "  done(tabData[min_tab_id].frames[0]);"
             "});")
+        return tab_data
 
     def init_sw_page(self):
         # visit the Service Worker page to activate the worker
@@ -48,13 +49,27 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         # return to the SW page
         self.driver.back()
 
-        # open a new window (to avoid clearing badger.tabData)
-        # and verify results
+        # open new window (to avoid clearing badger.tabData) and verify results
         self.open_window()
         self.load_url(self.options_url)
-        url = self.get_tab_data_host()
-        assert url == self.FIXTURE_HOST, (
+        tab_data = self.get_first_tab_data()
+        assert tab_data['host'] == self.FIXTURE_HOST, (
             "Unexpected first-tab hostname in tabData")
+
+    def test_redirect_to_sw_cached_page(self):
+        self.init_sw_page()
+
+        # visit a page that 302-redirects back to our fixture
+        self.load_url("https://httpbin.org/redirect-to"
+            "?url=https%3A%2F%2Fefforg.github.io%2Fprivacybadger-test-fixtures%2Fhtml%2Fservice_workers.html"
+            "&status_code=302")
+
+        # open new window (to avoid clearing badger.tabData) and verify results
+        self.open_window()
+        self.load_url(self.options_url)
+        tab_data = self.get_first_tab_data()
+        assert tab_data['url'] == self.FIXTURE_URL, (
+            "Unexpected first-tab URL in tabData")
 
     # TODO FIXME
     @pytest.mark.xfail(pbtest.shim.browser_type in ("chrome", "edge"),
