@@ -70,18 +70,32 @@ function onBeforeRequest(details) {
     return {cancel: true};
   }
 
-  let frameData = badger.tabData.getFrameData(tab_id);
-  if (!frameData || tab_id < 0 || utils.isRestrictedUrl(url)) {
+  if (tab_id < 0) {
+    // TODO may also want to apply this workaround in onBeforeSendHeaders(),
+    // TODO onHeadersReceived() and heuristicBlockingAccounting()
+    tab_id = guessTabIdFromInitiator(details);
+    // TODO details.type is always xmlhttprequest for SW-initiated requests in Chrome,
+    // TODO which means surrogation won't work and frames won't get collapsed
+    if (tab_id < 0) {
+      return {};
+    }
+  } else if (utils.isRestrictedUrl(url)) {
     return {};
   }
 
-  let tab_host = frameData.host;
   let request_host = extractHostFromURL(url);
 
   // CNAME uncloaking
   if (utils.hasOwn(badger.cnameDomains, request_host)) {
     request_host = badger.cnameDomains[request_host];
   }
+
+  let frameData = badger.tabData.getFrameData(tab_id);
+  if (!frameData) {
+    return {};
+  }
+
+  let tab_host = frameData.host;
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     return {};
@@ -525,6 +539,37 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
     }
     tabData.blockedFrameUrls[parent_frame_id].push(frame_url);
   });
+}
+
+/**
+ * Tries to work around tab ID of -1 for requests
+ * originated by a Service Worker in Chrome.
+ *
+ * https://bugs.chromium.org/p/chromium/issues/detail?id=766433#c13
+ *
+ * @param {Object} details webRequest request/response details object
+ *
+ * @returns {Integer} the tab ID or -1
+ */
+function guessTabIdFromInitiator(details) {
+  if (!details.initiator || details.initiator == "null") {
+    return -1;
+  }
+
+  if (details.tabId != -1 || details.frameId != -1 || details.parentFrameId != -1 || details.type != "xmlhttprequest") {
+    return -1;
+  }
+
+  // ignore trivially first party requests
+  if (details.url.startsWith(details.initiator)) {
+    return -1;
+  }
+
+  if (utils.hasOwn(badger.tabData.tabIdsByInitiator, details.initiator)) {
+    return badger.tabData.tabIdsByInitiator[details.initiator];
+  }
+
+  return -1;
 }
 
 /**

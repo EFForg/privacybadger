@@ -63,6 +63,16 @@ function TabData() {
    * }
    */
   self._tabData = {};
+
+  /**
+   * Mapping of Chrome webRequest details.initiator URLs to tab IDs.
+   *
+   * tabIdsByInitiator = {
+   *   <url>: {Integer} tab ID,
+   *   ...
+   * }
+   */
+  self.tabIdsByInitiator = {};
 }
 
 /**
@@ -103,7 +113,16 @@ TabData.prototype.has = function (tab_id) {
  * @param {Integer} tab_id ID of the tab
  */
 TabData.prototype.forget = function (tab_id) {
-  delete this._tabData[tab_id];
+  let self = this;
+
+  delete self._tabData[tab_id];
+
+  for (let initiator in self.tabIdsByInitiator) {
+    if (self.tabIdsByInitiator[initiator] == +tab_id) {
+      delete self.tabIdsByInitiator[initiator];
+      break;
+    }
+  }
 };
 
 /**
@@ -129,6 +148,11 @@ TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
     url: frame_url,
     host: (frame_url ? extractHostFromURL(frame_url) : null)
   };
+
+  if (frame_id === 0) {
+    let initiator = (new URL('/', frame_url)).toString().slice(0, -1);
+    self.tabIdsByInitiator[initiator] = +tab_id;
+  }
 };
 
 /**

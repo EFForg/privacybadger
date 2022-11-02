@@ -3,8 +3,6 @@
 
 import unittest
 
-import pytest
-
 import pbtest
 
 
@@ -71,9 +69,6 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         assert tab_data['url'] == self.FIXTURE_URL, (
             "Unexpected first-tab URL in tabData")
 
-    # TODO FIXME
-    @pytest.mark.xfail(pbtest.shim.browser_type in ("chrome", "edge"),
-        reason="SW-initiated requests in Chromium have tabId of -1 and are currently ignored")
     def test_blocking_sw_initiated_requests(self):
         self.clear_tracker_data()
         self.block_domain(self.THIRD_PARTY_HOST)
