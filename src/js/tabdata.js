@@ -118,7 +118,7 @@ TabData.prototype.forget = function (tab_id) {
   delete self._tabData[tab_id];
 
   for (let initiator in self.tabIdsByInitiator) {
-    if (self.tabIdsByInitiator[initiator] == +tab_id) {
+    if (self.tabIdsByInitiator[initiator] == tab_id) {
       delete self.tabIdsByInitiator[initiator];
       break;
     }
@@ -151,7 +151,7 @@ TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
 
   if (frame_id === 0 && frame_url) {
     let initiator = (new URL('/', frame_url)).toString().slice(0, -1);
-    self.tabIdsByInitiator[initiator] = +tab_id;
+    self.tabIdsByInitiator[initiator] = tab_id;
   }
 };
 
