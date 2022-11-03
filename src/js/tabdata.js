@@ -149,7 +149,7 @@ TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
     host: (frame_url ? extractHostFromURL(frame_url) : null)
   };
 
-  if (frame_id === 0) {
+  if (frame_id === 0 && frame_url) {
     let initiator = (new URL('/', frame_url)).toString().slice(0, -1);
     self.tabIdsByInitiator[initiator] = +tab_id;
   }
