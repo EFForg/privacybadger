@@ -1093,12 +1093,13 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkLocation": {
-    if (!badger.isPrivacyBadgerEnabled(extractHostFromURL(sender.tab.url))) {
+    let tab_host = extractHostFromURL(sender.tab.url);
+
+    if (!badger.isPrivacyBadgerEnabled(tab_host)) {
       return sendResponse();
     }
 
-    let frame_host = extractHostFromURL(request.frameUrl),
-      tab_host = extractHostFromURL(sender.tab.url);
+    let frame_host = extractHostFromURL(request.frameUrl);
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, frame_host)) {
