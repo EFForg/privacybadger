@@ -92,8 +92,6 @@ function onBeforeRequest(details) {
       // although we may redirect a non-script resource request to a matching surrogate.
       sw_request = true;
     }
-  } else if (utils.isRestrictedUrl(url)) {
-    return {};
   }
 
   let request_host = extractHostFromURL(url);
@@ -249,7 +247,7 @@ function onBeforeSendHeaders(details) {
     url = details.url,
     frameData = badger.tabData.getFrameData(tab_id);
 
-  if (!frameData || tab_id < 0 || utils.isRestrictedUrl(url)) {
+  if (!frameData || tab_id < 0) {
     // strip cookies from DNT policy requests
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
