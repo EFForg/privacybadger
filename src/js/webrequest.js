@@ -1080,6 +1080,12 @@ function dispatcher(request, sender, sendResponse) {
       console.error("Rejected unknown message %o from %s", request, sender.url);
       return sendResponse();
     }
+
+    // also reject messages from special pages like chrome://new-tab-page/
+    // our content scripts still run there, for example in YouTube embed frames
+    if (sender.tab && sender.tab.url && utils.isRestrictedUrl(sender.tab.url)) {
+      return sendResponse();
+    }
   }
 
   switch (request.type) {
