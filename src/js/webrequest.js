@@ -77,6 +77,14 @@ function onBeforeRequest(details) {
     // TODO details.type is always xmlhttprequest for SW-initiated requests in Chrome,
     // TODO which means surrogation won't work and frames won't get collapsed
     if (tab_id < 0) {
+      // TODO we still miss SW requests that show up after on-tab close cleanup
+      //
+      // TODO could also miss SW requests that come before webNavigation fires
+      //
+      // TODO also, if there are multiple tabs with the same URL,
+      // TODO we might assign SW requests to the wrong tab,
+      // TODO or miss them entirely (when the more recently opened tab
+      // TODO gets closed while the older tab is still loading)
       return {};
     }
   } else if (utils.isRestrictedUrl(url)) {
