@@ -48,7 +48,8 @@ function onBeforeRequest(details) {
   let frame_id = details.frameId,
     tab_id = details.tabId,
     type = details.type,
-    url = details.url;
+    url = details.url,
+    sw_request = false;
 
   if (type == "main_frame") {
     let oldTabData = badger.tabData.getFrameData(tab_id),
@@ -74,8 +75,6 @@ function onBeforeRequest(details) {
     // TODO may also want to apply this workaround in onBeforeSendHeaders(),
     // TODO onHeadersReceived() and heuristicBlockingAccounting()
     tab_id = guessTabIdFromInitiator(details);
-    // TODO details.type is always xmlhttprequest for SW-initiated requests in Chrome,
-    // TODO which means surrogation won't work and frames won't get collapsed
     if (tab_id < 0) {
       // TODO we still miss SW requests that show up after on-tab close cleanup
       //
@@ -86,6 +85,12 @@ function onBeforeRequest(details) {
       // TODO or miss them entirely (when the more recently opened tab
       // TODO gets closed while the older tab is still loading)
       return {};
+    } else {
+      // NOTE details.type is always xmlhttprequest for SW-initiated requests in Chrome,
+      // which means surrogation won't work and frames won't get collapsed.
+      // As a workaround, let's perform surrogation checks for all SW requests,
+      // although we may redirect a non-script resource request to a matching surrogate.
+      sw_request = true;
     }
   } else if (utils.isRestrictedUrl(url)) {
     return {};
@@ -124,7 +129,7 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  if (type == 'script') {
+  if (type == 'script' || sw_request) {
     let surrogate;
 
     if (utils.hasOwn(surrogates.WIDGET_SURROGATES, request_host)) {
