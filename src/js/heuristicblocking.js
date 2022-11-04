@@ -109,11 +109,11 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    let self = this,
-      request_host = (new URI(details.url)).host;
+    let self = this;
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
+      let request_host = (new URI(details.url)).host;
       self.tabOrigins[details.tabId] = getBaseDomain(request_host);
       self.tabUrls[details.tabId] = details.url;
       return {};
@@ -123,6 +123,8 @@ HeuristicBlocker.prototype = {
     if (!tab_base) {
       return {};
     }
+
+    let request_host = (new URI(details.url)).host;
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, request_host)) {
