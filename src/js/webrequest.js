@@ -48,7 +48,8 @@ function onBeforeRequest(details) {
   let frame_id = details.frameId,
     tab_id = details.tabId,
     type = details.type,
-    url = details.url;
+    url = details.url,
+    sw_request = false;
 
   if (type == "main_frame") {
     let oldTabData = badger.tabData.getFrameData(tab_id),
@@ -70,18 +71,42 @@ function onBeforeRequest(details) {
     return {cancel: true};
   }
 
-  let frameData = badger.tabData.getFrameData(tab_id);
-  if (!frameData || tab_id < 0 || utils.isRestrictedUrl(url)) {
-    return {};
+  if (tab_id < 0) {
+    // TODO may also want to apply this workaround in onBeforeSendHeaders(),
+    // TODO onHeadersReceived() and heuristicBlockingAccounting()
+    tab_id = guessTabIdFromInitiator(details);
+    if (tab_id < 0) {
+      // TODO we still miss SW requests that show up after on-tab close cleanup
+      //
+      // TODO could also miss SW requests that come before webNavigation fires
+      //
+      // TODO also, if there are multiple tabs with the same URL,
+      // TODO we might assign SW requests to the wrong tab,
+      // TODO or miss them entirely (when the more recently opened tab
+      // TODO gets closed while the older tab is still loading)
+      return {};
+    } else {
+      // NOTE details.type is always xmlhttprequest for SW-initiated requests in Chrome,
+      // which means surrogation won't work and frames won't get collapsed.
+      // As a workaround, let's perform surrogation checks for all SW requests,
+      // although we may redirect a non-script resource request to a matching surrogate.
+      sw_request = true;
+    }
   }
 
-  let tab_host = frameData.host;
   let request_host = extractHostFromURL(url);
 
   // CNAME uncloaking
   if (utils.hasOwn(badger.cnameDomains, request_host)) {
     request_host = badger.cnameDomains[request_host];
   }
+
+  let frameData = badger.tabData.getFrameData(tab_id);
+  if (!frameData) {
+    return {};
+  }
+
+  let tab_host = frameData.host;
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     return {};
@@ -102,7 +127,7 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  if (type == 'script') {
+  if (type == 'script' || sw_request) {
     let surrogate;
 
     if (utils.hasOwn(surrogates.WIDGET_SURROGATES, request_host)) {
@@ -222,7 +247,7 @@ function onBeforeSendHeaders(details) {
     url = details.url,
     frameData = badger.tabData.getFrameData(tab_id);
 
-  if (!frameData || tab_id < 0 || utils.isRestrictedUrl(url)) {
+  if (!frameData || tab_id < 0) {
     // strip cookies from DNT policy requests
     if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
@@ -525,6 +550,37 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
     }
     tabData.blockedFrameUrls[parent_frame_id].push(frame_url);
   });
+}
+
+/**
+ * Tries to work around tab ID of -1 for requests
+ * originated by a Service Worker in Chrome.
+ *
+ * https://bugs.chromium.org/p/chromium/issues/detail?id=766433#c13
+ *
+ * @param {Object} details webRequest request/response details object
+ *
+ * @returns {Integer} the tab ID or -1
+ */
+function guessTabIdFromInitiator(details) {
+  if (!details.initiator || details.initiator == "null") {
+    return -1;
+  }
+
+  if (details.tabId != -1 || details.frameId != -1 || details.parentFrameId != -1 || details.type != "xmlhttprequest") {
+    return -1;
+  }
+
+  // ignore trivially first party requests
+  if (details.url.startsWith(details.initiator)) {
+    return -1;
+  }
+
+  if (utils.hasOwn(badger.tabData.tabIdsByInitiator, details.initiator)) {
+    return badger.tabData.tabIdsByInitiator[details.initiator];
+  }
+
+  return -1;
 }
 
 /**
