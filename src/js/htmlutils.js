@@ -159,6 +159,7 @@ let htmlUtils = {
   getOriginHtml: (function () {
 
     const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
+      google_signin_tooltip = i18n.getMessage('google_signin_tooltip'),
       undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title'),
       dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
 
@@ -178,6 +179,13 @@ let htmlUtils = {
         classes.push('show-breakage-warning');
       }
 
+      let breakage_note_icon = '';
+      if (origin == "accounts.google.com" && action == constants.BLOCK && document.location.pathname == "/skin/popup.html") {
+        breakage_note_icon = `
+<span class="ui-icon ui-icon-info tooltip breakage-note" title="${google_signin_tooltip}" data-tooltipster='{"contentAsHTML": true}'></span>
+        `.trim();
+      }
+
       // show the DNT icon for DNT-compliant domains
       let dnt_html = '';
       if (action == constants.DNT) {
@@ -194,6 +202,7 @@ let htmlUtils = {
 <div class="${classes.join(' ')}" data-origin="${origin}">
   <div class="origin" role="heading" aria-level="4">
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
+    ${breakage_note_icon}
     <span class="origin-inner tooltip" title="${origin_tooltip}">${dnt_html}${origin}</span>
   </div>
   <a href="" class="removeOrigin">&#10006</a>

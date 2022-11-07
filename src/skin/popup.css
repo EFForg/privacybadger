@@ -128,13 +128,13 @@ button {
     color: red;
 }
 
-#blockedResources .breakage-warning {
+#blockedResources .breakage-warning, #blockedResources .breakage-note {
     color: red;
     display: none;
     font-size: 1.3em;
     margin: 0 2px 2px 0;
 }
-#blockedResources .show-breakage-warning .breakage-warning {
+#blockedResources .show-breakage-warning .breakage-warning, #blockedResources .breakage-note {
     display: inline-block;
 }
 
