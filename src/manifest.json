@@ -452,9 +452,7 @@
         "js/contentscripts/floc.js"
       ],
       "matches": [
-        "http://*/*",
-        "https://*/*",
-        "file://*/*"
+        "<all_urls>"
       ],
       "all_frames": true,
       "match_about_blank": true,
@@ -467,9 +465,7 @@
         "js/contentscripts/supercookie.js"
       ],
       "matches": [
-        "http://*/*",
-        "https://*/*",
-        "file://*/*"
+        "<all_urls>"
       ],
       "all_frames": true,
       "match_about_blank": true,
