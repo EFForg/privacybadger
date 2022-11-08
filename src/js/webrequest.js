@@ -60,10 +60,6 @@ function onBeforeRequest(details) {
     return {};
   }
 
-  if (type == "sub_frame") {
-    badger.tabData.recordFrame(tab_id, frame_id, url);
-  }
-
   // Block ping requests sent by navigator.sendBeacon (see, #587)
   // tabId for pings are always -1 due to Chrome bugs #522124 and #522129
   // Once these bugs are fixed, PB will treat pings as any other request
@@ -104,6 +100,10 @@ function onBeforeRequest(details) {
   let frameData = badger.tabData.getFrameData(tab_id);
   if (!frameData) {
     return {};
+  }
+
+  if (type == "sub_frame") {
+    badger.tabData.recordFrame(tab_id, frame_id, url);
   }
 
   let tab_host = frameData.host;
@@ -1078,6 +1078,12 @@ function dispatcher(request, sender, sendResponse) {
     ];
     if (!KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
       console.error("Rejected unknown message %o from %s", request, sender.url);
+      return sendResponse();
+    }
+
+    // also reject messages from special pages like chrome://new-tab-page/
+    // our content scripts still run there, for example in YouTube embed frames
+    if (sender.tab && sender.tab.url && utils.isRestrictedUrl(sender.tab.url)) {
       return sendResponse();
     }
   }
