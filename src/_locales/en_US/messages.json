@@ -160,7 +160,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "To enable logging in with your Google account:<ol><li>Move this slider right to allow accounts.google.com</li><li>Reload the page</li></ol>",
+        "message": "To enable logging into websites with your Google account, move this slider right, and reload the page",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {

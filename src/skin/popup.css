@@ -128,13 +128,13 @@ button {
     color: red;
 }
 
-#blockedResources .breakage-warning, #blockedResources .breakage-note {
+#blockedResources .breakage-warning {
     color: red;
     display: none;
     font-size: 1.3em;
     margin: 0 2px 2px 0;
 }
-#blockedResources .show-breakage-warning .breakage-warning, #blockedResources .breakage-note {
+#blockedResources .show-breakage-warning .breakage-warning {
     display: inline-block;
 }
 
@@ -463,6 +463,20 @@ div.overlay.active {
 }
 .tooltipster-sidetip .tooltipster-arrow-border {
     border: none;
+}
+
+.tooltipster-badger-breakage-note.tooltipster-sidetip .tooltipster-box {
+    background-color: #F06A0A;
+    padding: 10px 0;
+}
+.tooltipster-badger-breakage-note.tooltipster-sidetip .tooltipster-content {
+    color: #fefefe;
+    cursor: pointer;
+    font-size: 15px;
+}
+.tooltipster-badger-breakage-note.tooltipster-sidetip .tooltipster-arrow-background {
+    border-top-color: #F06A0A;
+    cursor: pointer;
 }
 
 #firstparty-protections-container {

@@ -159,7 +159,6 @@ let htmlUtils = {
   getOriginHtml: (function () {
 
     const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
-      google_signin_tooltip = i18n.getMessage('google_signin_tooltip'),
       undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title'),
       dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
 
@@ -169,21 +168,19 @@ let htmlUtils = {
 
       // Get classes for main div.
       let classes = ['clicker'];
-      if (action.startsWith('user')) {
-        classes.push('userset');
-        action = action.slice(5);
-      }
       // show warning when manually blocking a domain
       // that would have been cookieblocked otherwise
       if (show_breakage_warning) {
         classes.push('show-breakage-warning');
       }
-
-      let breakage_note_icon = '';
-      if (origin == "accounts.google.com" && action == constants.BLOCK && document.location.pathname == "/skin/popup.html") {
-        breakage_note_icon = `
-<span class="ui-icon ui-icon-info tooltip breakage-note" title="${google_signin_tooltip}" data-tooltipster='{"contentAsHTML": true}'></span>
-        `.trim();
+      // for explaining how to restore Google Sign-In
+      if (origin == "accounts.google.com" && (action == constants.BLOCK || action == constants.COOKIEBLOCK) && document.location.pathname == "/skin/popup.html") {
+        classes.push('breakage-note');
+      }
+      // manually-set sliders get an undo arrow
+      if (action.startsWith('user')) {
+        classes.push('userset');
+        action = action.slice(5);
       }
 
       // show the DNT icon for DNT-compliant domains
@@ -202,7 +199,6 @@ let htmlUtils = {
 <div class="${classes.join(' ')}" data-origin="${origin}">
   <div class="origin" role="heading" aria-level="4">
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
-    ${breakage_note_icon}
     <span class="origin-inner tooltip" title="${origin_tooltip}">${dnt_html}${origin}</span>
   </div>
   <a href="" class="removeOrigin">&#10006</a>

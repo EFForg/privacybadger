@@ -500,6 +500,51 @@ function revertDomainControl(event) {
 }
 
 /**
+ * Tooltip that explains how to enable signing into websites with Google.
+ */
+function createBreakageNote(domain, i18n_message_key) {
+  let $slider_allow = $(`#blockedResourcesInner label[for="allow-${domain.replace(/\./g, '-')}"]`);
+
+  // first remove the Allow tooltip so that future tooltipster calls
+  // return the tooltip we want (the breakage note, not Allow)
+  $slider_allow.tooltipster('destroy').tooltipster({
+    autoClose: false,
+    content: chrome.i18n.getMessage(i18n_message_key),
+    functionReady: function (tooltip) {
+      // record that this breakage note was shown
+      chrome.runtime.sendMessage({
+        type: "seenBreakageNote",
+        domain
+      });
+
+      // close on tooltip click/tap
+      $(tooltip.elementTooltip()).on('click', function (e) {
+        e.preventDefault();
+        tooltip.hide();
+      });
+      // also when Report Broken Site or Share overlays get activated
+      $('#error, #share').off('click.breakage-note').on('click.breakage-note', function (e) {
+        e.preventDefault();
+        tooltip.hide();
+      });
+    },
+    interactive: true,
+    position: ['top'],
+    trigger: 'custom',
+    theme: 'tooltipster-badger-breakage-note'
+
+  // now restore the Allow tooltip
+  }).tooltipster(Object.assign({}, htmlUtils.DOMAIN_TOOLTIP_CONF, {
+    content: chrome.i18n.getMessage('domain_slider_allow_tooltip'),
+    multiple: true
+  }));
+
+  if (POPUP_DATA.settings.seenComic && !POPUP_DATA.showLearningPrompt) {
+    $slider_allow.tooltipster('show');
+  }
+}
+
+/**
  * Refresh the content of the popup window
  *
  * @param {Integer} tabId The id of the tab
@@ -553,6 +598,10 @@ function refreshPopup() {
   // show sliders when sliders were shown last
   // or when there is at least one breakage warning
   if (POPUP_DATA.settings.showExpandedTrackingSection || (
+    !POPUP_DATA.shownBreakageNotes.includes('accounts.google.com') && (
+      POPUP_DATA.origins['accounts.google.com'] == constants.BLOCK ||
+      POPUP_DATA.origins['accounts.google.com'] == constants.COOKIEBLOCK)
+  ) || (
     POPUP_DATA.cookieblocked && Object.keys(POPUP_DATA.cookieblocked).some(
       d => POPUP_DATA.origins[d] == constants.USER_BLOCK)
   )) {
@@ -610,6 +659,11 @@ function refreshPopup() {
       let slider_html = htmlUtils.getOriginHtml(origin, action, show_breakage_warning);
       if (show_breakage_warning) {
         printableWarningSliders.push(slider_html);
+      } else if (origin == 'accounts.google.com' &&
+        !POPUP_DATA.shownBreakageNotes.includes('accounts.google.com') &&
+        (action == constants.BLOCK || action == constants.COOKIEBLOCK)
+      ) {
+        printableWarningSliders.unshift(slider_html);
       } else {
         printable.push(slider_html);
       }
@@ -692,6 +746,13 @@ function refreshPopup() {
     // activate tooltips
     $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
       htmlUtils.DOMAIN_TOOLTIP_CONF);
+    if ($printable.hasClass('breakage-note')) {
+      let domain = $printable[0].dataset.origin;
+      if (!POPUP_DATA.shownBreakageNotes.includes(domain)) {
+        // note: there is only one breakage note at this time (Google Sign-In)
+        createBreakageNote(domain, 'google_signin_tooltip');
+      }
+    }
 
     if (printable.length) {
       requestAnimationFrame(renderDomains);
