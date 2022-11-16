@@ -465,6 +465,20 @@ div.overlay.active {
     border: none;
 }
 
+.tooltipster-badger-breakage-note.tooltipster-sidetip .tooltipster-box {
+    background-color: #F06A0A;
+    padding: 10px 0;
+}
+.tooltipster-badger-breakage-note.tooltipster-sidetip .tooltipster-content {
+    color: #fefefe;
+    cursor: pointer;
+    font-size: 15px;
+}
+.tooltipster-badger-breakage-note.tooltipster-sidetip .tooltipster-arrow-background {
+    border-top-color: #F06A0A;
+    cursor: pointer;
+}
+
 #firstparty-protections-container {
     border-bottom: 1px solid #d3d3d3;
     margin: 10px 0;

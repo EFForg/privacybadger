@@ -159,6 +159,10 @@
         "message": "Blocking this domain is known to break websites",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
+    "google_signin_tooltip": {
+        "message": "To enable logging into websites with your Google account, move this slider right, and reload the page",
+        "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
+    },
     "feed_the_badger_title": {
         "message": "Click to return control of this domain to Privacy Badger",
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."

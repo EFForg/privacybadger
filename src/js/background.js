@@ -763,6 +763,7 @@ Badger.prototype = {
       blockThreshold: constants.TRACKING_THRESHOLD,
       firstRunTimerFinished: true,
       showLearningPrompt: false,
+      shownBreakageNotes: [],
     };
     for (let key of Object.keys(privateDefaultSettings)) {
       if (!privateStore.hasItem(key)) {

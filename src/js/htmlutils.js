@@ -150,10 +150,12 @@ let htmlUtils = {
 
   /**
    * Generates HTML for given origin.
+   * TODO origin --> domain
    *
    * @param {String} origin Origin to get HTML for.
    * @param {String} action Action for given origin.
-   * @param {Boolean} show_breakage_warning
+   * @param {Boolean} [show_breakage_warning]
+   * @param {Boolean} [show_breakage_note]
    * @returns {String} Origin HTML.
    */
   getOriginHtml: (function () {
@@ -162,20 +164,24 @@ let htmlUtils = {
       undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title'),
       dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
 
-    return function (origin, action, show_breakage_warning) {
+    return function (origin, action, show_breakage_warning, show_breakage_note) {
       action = escape_html(action);
       origin = escape_html(origin);
 
       // Get classes for main div.
       let classes = ['clicker'];
-      if (action.startsWith('user')) {
-        classes.push('userset');
-        action = action.slice(5);
-      }
       // show warning when manually blocking a domain
       // that would have been cookieblocked otherwise
       if (show_breakage_warning) {
         classes.push('show-breakage-warning');
+      }
+      if (show_breakage_note) {
+        classes.push('breakage-note');
+      }
+      // manually-set sliders get an undo arrow
+      if (action.startsWith('user')) {
+        classes.push('userset');
+        action = action.slice(5);
       }
 
       // show the DNT icon for DNT-compliant domains
