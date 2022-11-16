@@ -100,8 +100,9 @@ function showNagMaybe() {
         .addClass('cta-button')
         .css({
           borderRadius: '3px',
-          padding: '5px',
           display: 'inline-block',
+          padding: '5px',
+          textDecoration: 'none',
           width: 'auto',
         });
     }

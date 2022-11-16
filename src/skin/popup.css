@@ -48,9 +48,12 @@ body#main {
     src: url("./fonts/Chunk.ttf");
 }
 
-a { text-decoration: none }
-
-a:hover { color: #ec9329 }
+a, a:visited {
+    color: #222;
+}
+a:hover {
+    color: #f06a0a;
+}
 
 button {
     /* needed for Firefox */
@@ -119,13 +122,14 @@ button {
     background: url('/icons/badger-pin.png') no-repeat;
 }
 
-.removeOrigin {
+a.removeOrigin {
     float: right;
     margin-right: 0;
     width: 10px;
+    text-decoration: none;
 }
-.removeOrigin:hover {
-    color: red;
+a.removeOrigin:hover {
+    color: red !important;
 }
 
 #blockedResources .breakage-warning {
@@ -407,17 +411,21 @@ div.overlay.active {
 #report-terms {
     margin: 10px 0 !important;
 }
-.overlay_close {
+a.overlay_close {
   display: inline-block;
   float: right;
   background: none;
   border: 0;
   font-size: 1.4em;
   color: #ccc;
+  text-decoration: none;
 }
-.overlay_close:before {
+a.overlay_close:before {
   content: '\2716';
   margin: 4px;
+}
+a.overlay_close:hover {
+    color: #f06a0a;
 }
 #share_output {
   display: block;
@@ -546,7 +554,14 @@ div.overlay.active {
     :root {
         color-scheme: dark;
     }
-    
+
+    a, a:visited {
+        color: #ddd;
+    }
+    a:hover {
+        color: #f06a0a;
+    }
+
     body, #instruction, .key {
         background-color: #333;
         color: #ddd;
