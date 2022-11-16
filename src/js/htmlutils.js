@@ -150,10 +150,12 @@ let htmlUtils = {
 
   /**
    * Generates HTML for given origin.
+   * TODO origin --> domain
    *
    * @param {String} origin Origin to get HTML for.
    * @param {String} action Action for given origin.
-   * @param {Boolean} show_breakage_warning
+   * @param {Boolean} [show_breakage_warning]
+   * @param {Boolean} [show_breakage_note]
    * @returns {String} Origin HTML.
    */
   getOriginHtml: (function () {
@@ -162,7 +164,7 @@ let htmlUtils = {
       undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title'),
       dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
 
-    return function (origin, action, show_breakage_warning) {
+    return function (origin, action, show_breakage_warning, show_breakage_note) {
       action = escape_html(action);
       origin = escape_html(origin);
 
@@ -173,8 +175,7 @@ let htmlUtils = {
       if (show_breakage_warning) {
         classes.push('show-breakage-warning');
       }
-      // for explaining how to restore Google Sign-In
-      if (origin == "accounts.google.com" && (action == constants.BLOCK || action == constants.COOKIEBLOCK) && document.location.pathname == "/skin/popup.html") {
+      if (show_breakage_note) {
         classes.push('breakage-note');
       }
       // manually-set sliders get an undo arrow

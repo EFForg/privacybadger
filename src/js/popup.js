@@ -30,6 +30,12 @@ import utils from "./utils.js";
 
 let POPUP_DATA = {};
 
+// domains with breakage notes,
+// along with corresponding i18n locale message keys
+let BREAKAGE_NOTE_DOMAINS = {
+  "accounts.google.com": "google_signin_tooltip" // Google Sign-In
+};
+
 /* if they aint seen the comic*/
 function showNagMaybe() {
   var $nag = $("#instruction");
@@ -598,9 +604,10 @@ function refreshPopup() {
   // show sliders when sliders were shown last
   // or when there is at least one breakage warning
   if (POPUP_DATA.settings.showExpandedTrackingSection || (
-    !POPUP_DATA.shownBreakageNotes.includes('accounts.google.com') && (
-      POPUP_DATA.origins['accounts.google.com'] == constants.BLOCK ||
-      POPUP_DATA.origins['accounts.google.com'] == constants.COOKIEBLOCK)
+    Object.keys(BREAKAGE_NOTE_DOMAINS).some(d => (
+      (POPUP_DATA.origins[d] == constants.BLOCK ||
+        POPUP_DATA.origins[d] == constants.COOKIEBLOCK) &&
+      !POPUP_DATA.shownBreakageNotes.includes(d)))
   ) || (
     POPUP_DATA.cookieblocked && Object.keys(POPUP_DATA.cookieblocked).some(
       d => POPUP_DATA.origins[d] == constants.USER_BLOCK)
@@ -656,13 +663,16 @@ function refreshPopup() {
         action == constants.USER_BLOCK &&
         utils.hasOwn(POPUP_DATA.cookieblocked, origin)
       );
-      let slider_html = htmlUtils.getOriginHtml(origin, action, show_breakage_warning);
+      let show_breakage_note = false;
+      if (!show_breakage_warning) {
+        show_breakage_note = (utils.hasOwn(BREAKAGE_NOTE_DOMAINS, origin) &&
+          !POPUP_DATA.shownBreakageNotes.includes(origin) &&
+          (action == constants.BLOCK || action == constants.COOKIEBLOCK));
+      }
+      let slider_html = htmlUtils.getOriginHtml(origin, action, show_breakage_warning, show_breakage_note);
       if (show_breakage_warning) {
         printableWarningSliders.push(slider_html);
-      } else if (origin == 'accounts.google.com' &&
-        !POPUP_DATA.shownBreakageNotes.includes('accounts.google.com') &&
-        (action == constants.BLOCK || action == constants.COOKIEBLOCK)
-      ) {
+      } else if (show_breakage_note) {
         printableWarningSliders.unshift(slider_html);
       } else {
         printable.push(slider_html);
@@ -749,8 +759,7 @@ function refreshPopup() {
     if ($printable.hasClass('breakage-note')) {
       let domain = $printable[0].dataset.origin;
       if (!POPUP_DATA.shownBreakageNotes.includes(domain)) {
-        // note: there is only one breakage note at this time (Google Sign-In)
-        createBreakageNote(domain, 'google_signin_tooltip');
+        createBreakageNote(domain, BREAKAGE_NOTE_DOMAINS[domain]);
       }
     }
 
