@@ -5,14 +5,6 @@ body {
     width: 100%;
 }
 
-body.options a:not(.ui-tabs-anchor):not(.honeybadgerPowered):not(.removeOrigin) {
-    text-decoration: underline;
-}
-body.options a:hover:not(.ui-tabs-anchor):not(.honeybadgerPowered):not(.removeOrigin),
-body.options a:focus:not(.ui-tabs-anchor):not(.honeybadgerPowered):not(.removeOrigin) {
-    color: #f06a0a;
-}
-
 h1 {
     font-size: 17px;
     font-weight: bold;
