@@ -159,6 +159,10 @@
         "message": "Per bloki tiun ĉi nomregnon, retejoj povus misfunkcii",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
+    "google_signin_tooltip": {
+        "message": "To enable logging into websites with your Google account, move this slider right, and reload the page",
+        "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
+    },
     "feed_the_badger_title": {
         "message": "Alklaku por permesi al Privata Melo decidi kiel trakti tiun ĉi nomregnon",
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
@@ -263,7 +267,17 @@
     },
     "extension_error_text": {
         "message": "Bonvolu <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>informi nin</a> pri la jena eraro:",
-        "description": "Shown in the popup when there is a problem with the user's Privacy Badger extension that we want to encourage the user to tell us about."
+        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
+    },
+    "popup_error_text_low_disk_space_issue": {
+        "message": "Failed to write to extension storage: $ERROR_TEXT$.<br><br>Is your disk low on space?",
+        "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
+        "placeholders": {
+            "error_text": {
+                "content": "$1",
+                "example": "An unexpected error occurred"
+            }
+        }
     },
     "firstRun_title": {
         "message": "Dankon al vi pro instali Privatan Melon!",
