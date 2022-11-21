@@ -100,10 +100,9 @@ HeuristicBlocker.prototype = {
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
    * @param {Object} details request/response details
-   * @param {Boolean} check_for_cookie_share whether to check for cookie sharing
    */
   // TODO more like heuristicLearningFromCookies ... check DESIGN doc
-  heuristicBlockingAccounting: function (details, check_for_cookie_share) {
+  heuristicBlockingAccounting: function (details) {
     // ignore requests that are outside a tabbed window
     if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
       return {};
@@ -156,29 +155,53 @@ HeuristicBlocker.prototype = {
       self._recordPrevalence(request_host, request_base, tab_base);
       return {};
     }
+  },
 
-    // check for cookie sharing iff this is an image in the top-level frame, and the request URL has parameters
-    if (check_for_cookie_share && details.type == 'image' && details.frameId === 0 && details.url.indexOf('?') > -1) {
-      // get all non-HttpOnly cookies for the top-level frame
-      // and pass those to the cookie-share accounting function
-      let tab_url = self.tabUrls[details.tabId];
+  /**
+   * Calls the pixel cookie sharing checking function
+   * iff the request is for an image in the top-level frame,
+   * and the request URL has querystring parameters.
+   *
+   * @param {Object} details webRequest onResponseStarted details object
+   */
+  checkForPixelCookieSharing: function (details) {
+    if (details.type != 'image' || details.frameId !== 0 || details.url.indexOf('?') == -1) {
+      return;
+    }
 
-      let config = {
-        url: tab_url
-      };
-      if (badger.firstPartyDomainPotentiallyRequired) {
-        config.firstPartyDomain = null;
+    let self = this,
+      tab_base = self.tabOrigins[details.tabId];
+    if (!tab_base) {
+      return;
+    }
+    let tab_url = self.tabUrls[details.tabId];
+
+    // get all non-HttpOnly cookies for the top-level frame
+    // and pass those to the pixel cookie-share accounting function
+    let config = {
+      url: tab_url
+    };
+    if (badger.firstPartyDomainPotentiallyRequired) {
+      config.firstPartyDomain = null;
+    }
+    chrome.cookies.getAll(config, function (cookies) {
+      cookies = cookies.filter(cookie => !cookie.httpOnly);
+      if (cookies.length < 1) {
+        return;
       }
 
-      chrome.cookies.getAll(config, function (cookies) {
-        cookies = cookies.filter(cookie => !cookie.httpOnly);
-        if (cookies.length >= 1) {
-          // TODO refactor with new URI() above?
-          let searchParams = (new URL(details.url)).searchParams;
-          self.pixelCookieShareAccounting(tab_url, tab_base, searchParams, request_host, request_base, cookies);
-        }
-      });
-    }
+      let request_host = (new URI(details.url)).host;
+      // CNAME uncloaking
+      if (utils.hasOwn(badger.cnameDomains, request_host)) {
+        request_host = badger.cnameDomains[request_host];
+      }
+      let request_base = getBaseDomain(request_host);
+
+      // TODO refactor with new URI() above?
+      let searchParams = (new URL(details.url)).searchParams;
+
+      self.pixelCookieShareAccounting(tab_url, tab_base, searchParams, request_host, request_base, cookies);
+    });
   },
 
   /**
@@ -706,7 +729,7 @@ function startListeners() {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    return badger.heuristicBlocking.heuristicBlockingAccounting(details, true);
+    return badger.heuristicBlocking.heuristicBlockingAccounting(details);
   }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   /**
@@ -716,19 +739,23 @@ function startListeners() {
   if (utils.hasOwn(chrome.webRequest.OnResponseStartedOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
-  chrome.webRequest.onResponseStarted.addListener(function(details) {
-    var hasSetCookie = false;
-    for (var i = 0; i < details.responseHeaders.length; i++) {
+  chrome.webRequest.onResponseStarted.addListener(function (details) {
+    // check for cookie tracking if there are any set-cookie headers
+    let has_setcookie_header = false;
+    for (let i = 0; i < details.responseHeaders.length; i++) {
       if (details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
-        hasSetCookie = true;
+        has_setcookie_header = true;
         break;
       }
     }
-    if (hasSetCookie) {
-      return badger.heuristicBlocking.heuristicBlockingAccounting(details, false);
+    if (has_setcookie_header) {
+      badger.heuristicBlocking.heuristicBlockingAccounting(details);
     }
-  },
-  {urls: ["<all_urls>"]}, extraInfoSpec);
+
+    // check for pixel cookie sharing if the response appears to be for an image pixel
+    badger.heuristicBlocking.checkForPixelCookieSharing(details);
+
+  }, {urls: ["<all_urls>"]}, extraInfoSpec);
 }
 
 export default {
