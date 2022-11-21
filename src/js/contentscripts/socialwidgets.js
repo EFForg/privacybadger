@@ -500,7 +500,6 @@ function createReplacementWidget(widget, elToReplace) {
 
   // child div styles
   styleAttrs = [
-    "color: #303030",
     "font-family: helvetica, arial, sans-serif",
     "font-size: 16px",
     "display: flex",
@@ -672,6 +671,7 @@ function createReplacementWidget(widget, elToReplace) {
 
   let head_styles = `
 html, body {
+  color: #303030 !important;
   height: 100% !important;
   overflow: hidden !important;
 }
@@ -731,6 +731,33 @@ a {
 }
 a:hover {
   color: #ec9329;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+  body {
+    background-color: #333 !important;
+    color: #ddd !important;
+  }
+  a, a:visited {
+    color: #ddd !important;
+  }
+  a:hover {
+    color: #f06a0a !important;
+  }
+  #${info_icon_id}:before, #${close_icon_id}:before {
+    color: #aaa;
+  }
+  #${site_button_id} {
+    background-color: #333 !important;
+    border: solid 2px #ddd !important;
+    color: #ddd !important;
+  }
+  #${button_id}:hover, #${site_button_id}:hover {
+    background-color: #333 !important;
+    color: #ddd !important;
+  }
 }
   `.trim();
 
