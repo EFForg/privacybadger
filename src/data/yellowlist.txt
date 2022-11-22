@@ -537,6 +537,7 @@ yahooapis.com
 api-maps.yandex.ru
 img-fotki.yandex.ru
 maps.yandex.net
+strm.yandex.ru
 yastatic.net
 yelpcdn.com
 yimg.com
