@@ -71,7 +71,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "कोई $LINK_START$trackers$LINK_END$ नहीं रोके गए",
+        "message": "कोई $LINK_START$ट्रैकर्स$LINK_END$ नहीं रोके गए",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -284,7 +284,7 @@
         "description": "Title and header of the intro page."
     },
     "intro_by_eff": {
-        "message": "Electronic Frontier Foundation की एक परियोजना",
+        "message": "इलेक्ट्रॉनिक फ्रंटियर फाउंडेशन (EEF) की एक परियोजना",
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
@@ -340,11 +340,11 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "जब आप प्राइवेसी बैजर का उपयोग करते हैं तो आप <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> और लाखों अन्य उपयोगकर्ताओं के साथ निजता की लड़ाई में शामिल हो जाते हैं। हम ऑनलाइन आपके अधिकारों के लिए लड़ने वाली एक गैर-लाभकारी संस्था हैं। हमसे जुड़ने के लिए धन्यवाद!",
+        "message": "जब आप प्राइवेसी बैजर का उपयोग करते हैं तो आप <a href='https://www.eff.org/' target='_blank'>इलेक्ट्रॉनिक फ्रंटियर फाउंडेशन (EFF)</a> और लाखों अन्य उपयोगकर्ताओं के साथ निजता की लड़ाई में शामिल हो जाते हैं। हम ऑनलाइन आपके अधिकारों के लिए लड़ने वाली एक गैर-लाभकारी संस्था हैं। हमसे जुड़ने के लिए धन्यवाद!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "donate_to_eff": {
-        "message": "EFF को दान करें",
+        "message": "इलेक्ट्रॉनिक फ्रंटियर फाउंडेशन (EFF) को दान करें",
         "description": "A button on the intro page, and a link in the popup footer."
     },
     "intro_donate_subheading": {
@@ -436,7 +436,7 @@
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
-        "message": "e.g. www.example.com, *.example.net, example.org",
+        "message": "उदाहरण www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
@@ -529,7 +529,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
-        "message": "EFF की DNT नीति के अनुरूप",
+        "message": "इलेक्ट्रॉनिक फ्रंटियर फाउंडेशन (EFF) की DNT नीति के अनुरूप",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_status_filter": {
@@ -691,7 +691,7 @@
         }
     },
     "acknowledgement_action": {
-        "message": "I understand",
+        "message": "मै समझता/समझती हुँ",
         "description": "Acknowledgement button text"
     },
     "social_tooltip_pb_has_replaced": {
