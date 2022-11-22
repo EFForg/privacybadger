@@ -238,7 +238,7 @@
         }
     },
     "share_base_message": {
-        "message": "प्राइवेसी बैजर (privacybadger.org) एक ब्राउज़र एक्सटेंशन है जो स्वचालित रूप से अदृश्य ट्रैकर्स को ब्लॉक करना सीखता है। प्राइवेसी बैजर इलेक्ट्रॉनिक फ्रंटियर फाउंडेशन द्वारा बनाया गया है, जो एक गैर-लाभकारी संस्था है जो ऑनलाइन आपके अधिकारों के लिए लड़ती है।",
+        "message": "प्राइवेसी बैजर (privacybadger.org) एक ब्राउज़र एक्सटेंशन है जो स्वचालित रूप से अदृश्य ट्रैकर्स को ब्लॉक करना सीखता है। प्राइवेसी बैजर इलेक्ट्रॉनिक फ्रंटियर फाउंडेशन (EFF) द्वारा बनाया गया है, जो एक गैर-लाभकारी संस्था है जो ऑनलाइन आपके अधिकारों के लिए लड़ती है।",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -270,21 +270,21 @@
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
     "popup_error_text_low_disk_space_issue": {
-      "message": "एक्सटेंशन संग्रहण पर लिखने में विफल: $ERROR_TEXT$.<br><br>क्या आपकी डिस्क में जगह कम है?",
-      "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
-      "placeholders": {
-        "error_text": {
-          "content": "$1",
-          "example": "An unexpected error occurred"
+        "message": "एक्सटेंशन संग्रहण पर लिखने में विफल: $ERROR_TEXT$.<br><br>क्या आपकी डिस्क में जगह कम है?",
+        "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
+        "placeholders": {
+            "error_text": {
+                "content": "$1",
+                "example": "An unexpected error occurred"
+            }
         }
-      }
     },
     "firstRun_title": {
         "message": "प्राइवेसी बैजर इंस्टॉल करने के लिए धन्यवाद!",
         "description": "Title and header of the intro page."
     },
     "intro_by_eff": {
-        "message": "इलेक्ट्रॉनिक फ्रंटियर फाउंडेशन (EEF) की एक परियोजना",
+        "message": "इलेक्ट्रॉनिक फ्रंटियर फाउंडेशन (EFF) की एक परियोजना",
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
@@ -380,7 +380,7 @@
         "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
     },
     "options_dnt_policy_setting": {
-        "message": "जांचें कि क्या <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>third-party domains</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF की Do Not Track policy</a> का अनुपालन करते हैं",
+        "message": "जांचें कि क्या <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>तृतीय पक्ष डोमेन</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF की Do Not Track नीति</a> का अनुपालन करते हैं",
         "description": "Checkbox label on the general settings page"
     },
     "options_privacy_settings": {
@@ -529,7 +529,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
-        "message": "इलेक्ट्रॉनिक फ्रंटियर फाउंडेशन (EFF) की DNT नीति के अनुरूप",
+        "message": "EFF की DNT नीति के अनुरूप",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_status_filter": {
