@@ -10,7 +10,7 @@
     "jquery-smooth-scroll": "2.2.0",
     "jquery-ui": "1.13.2",
     "jquery-ui-iconfont": "2.3.2",
-    "qunit": "2.9.2",
+    "qunit": "2.19.3",
     "select2": "4.0.11",
     "sinon": "2.0.0",
     "tooltipster": "4.2.6",
