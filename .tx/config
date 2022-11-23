@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[privacy-badger.messagesjson]
+[o:eff:p:privacy-badger:r:messagesjson]
 file_filter = src/_locales/<lang>/messages.json
 source_file = src/_locales/en_US/messages.json
 source_lang = en_US

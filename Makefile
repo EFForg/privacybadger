@@ -25,6 +25,7 @@ upload:
 	scripts/generate-legacy-yellowlist.sh > $(TMPFILE) && scp $(TMPFILE) $$YELLOWLIST_LEGACY_UPLOAD_PATH && rm $(TMPFILE)
 	scp src/data/dnt-policies.json $$DNT_POLICIES_UPLOAD_PATH
 
+# get the Transifex CLI client from https://github.com/transifex/cli/releases/latest
 tx:
 	tx pull -f
 	scripts/fix_placeholders.py
