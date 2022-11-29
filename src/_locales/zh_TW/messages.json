@@ -88,15 +88,15 @@
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "tooltip_block": {
-        "message": "將滾動條滑到左邊封鎖該網域",
+        "message": "將滑桿滑到左邊封鎖該網域",
         "description": "Domain slider list header tooltip."
     },
     "tooltip_cookieblock": {
-        "message": "將滾動條滑到中間封鎖該網域的 cookie",
+        "message": "將滑桿滑到中間封鎖該網域的 cookie",
         "description": "Domain slider list header tooltip."
     },
     "tooltip_allow": {
-        "message": "將滾動條滑到右邊允許該網域",
+        "message": "將滑桿滑到右邊允許該網域",
         "description": "Domain slider list header tooltip."
     },
     "badger_status_block": {
@@ -196,7 +196,7 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "將會自動回報下列資訊給 EFF 電子前鋒基金會：您目前造訪的頁面、瀏覽器版本、Privacy Badger 版本，以及此頁面所有滾動條的狀態。",
+        "message": "將會自動回報下列資訊給 EFF 電子前鋒基金會：您目前造訪的頁面、瀏覽器版本、Privacy Badger 版本，以及此頁面所有滑桿的狀態。",
         "description": ""
     },
     "report_button": {
