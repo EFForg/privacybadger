@@ -160,7 +160,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Kirjautuaksesi verkkosivuille Google-tililläsi, siirrä tämä kytkin oikealle ja päivitä sivu",
+        "message": "Kirjautuaksesi verkkosivuille Google-tililläsi, siirrä tämä liukuvalitsin oikealle ja päivitä sivu",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
