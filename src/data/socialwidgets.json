@@ -150,6 +150,7 @@
         ],
         "buttonSelectors": [
             "iframe[src^='https://maps.google.com/maps/']",
+            "iframe[src^='https://maps.google.com/maps?']",
             "iframe[src^='https://www.google.com/maps/']"
         ],
         "noDirectLink": true,
