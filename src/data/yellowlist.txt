@@ -142,7 +142,6 @@ eventbrite.com
 everyaction.com
 s-static.ak.facebook.com
 staticxx.facebook.com
-www.facebook.com
 fastly.net
 fbcdn.net
 filepicker.io
