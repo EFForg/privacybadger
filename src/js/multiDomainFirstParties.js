@@ -608,6 +608,7 @@ let multiDomainFirstPartiesArray = [
     "directv.com",
     "directvnow.com",
   ],
+  ["audi.com", "audi.de", "audi.nl", "audi.com.mx", "audiusa.com", "audi-boerse.de"],
   [
     "autodesk.com",
 
@@ -804,6 +805,7 @@ let multiDomainFirstPartiesArray = [
     "mycanal.fr",
   ],
   ["capitalone.com", "capitalone360.com"],
+  ["carousell.com", "carousell.com.hk", "carousell.com.my", "carousell.sg", "karousell.com"],
   ["cb2.com", "crateandbarrel.com"],
   [
     "ccmbenchmark.com",
@@ -4075,6 +4077,7 @@ let multiDomainFirstPartiesArray = [
 
     "szn.cz",
   ],
+  ["shein.com", "shein.in", "shein.com.mx", "shein.co.uk", "romwe.com", "ltwebstatic.com"],
   [
     "shopee.com",
 
@@ -4716,6 +4719,7 @@ let multiDomainFirstPartiesArray = [
     "aolcdn.com",
 
     "autoblog.com",
+    "compuserve.com",
     "engadget.com",
     "oath.com",
     "overture.com",
@@ -4754,7 +4758,9 @@ let multiDomainFirstPartiesArray = [
 
     "yahoo.com.tw",
 
+    "yahoo.net",
     "yahooapis.com",
+    "yahoosandbox.com",
     "yimg.com",
   ],
   [
@@ -5179,6 +5185,7 @@ let multiDomainFirstPartiesArray = [
 
     "parastorage.com",
     "wixapps.net",
+    "wix-code.com",
     "wixmp.com",
     "wixstatic.com",
   ],
