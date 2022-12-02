@@ -124,13 +124,11 @@ HeuristicBlocker.prototype = {
     }
 
     let request_host = (new URI(details.url)).host;
-
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, request_host)) {
       // TODO details.url is still wrong
       request_host = badger.cnameDomains[request_host];
     }
-
     let request_base = getBaseDomain(request_host);
 
     // ignore first-party requests
@@ -140,11 +138,11 @@ HeuristicBlocker.prototype = {
 
     // short-circuit if we already observed this eTLD+1 tracking on this site
     let firstParties = self.storage.getStore('snitch_map').getItem(request_base);
-    if (firstParties && firstParties.indexOf(tab_base) > -1) {
+    if (firstParties && firstParties.includes(tab_base)) {
       return {};
     }
 
-    // abort if we already made a decision for this FQDN
+    // short-circuit if we already made a decision for this FQDN
     let action = self.storage.getAction(request_host);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return {};
@@ -165,6 +163,10 @@ HeuristicBlocker.prototype = {
    * @param {Object} details webRequest onResponseStarted details object
    */
   checkForPixelCookieSharing: function (details) {
+    if (!badger.isLearningEnabled(details.tabId)) {
+      return;
+    }
+
     if (details.type != 'image' || details.frameId !== 0 || details.url.indexOf('?') == -1) {
       return;
     }
@@ -175,6 +177,30 @@ HeuristicBlocker.prototype = {
       return;
     }
     let tab_url = self.tabUrls[details.tabId];
+
+    let request_host = (new URI(details.url)).host;
+    // CNAME uncloaking
+    if (utils.hasOwn(badger.cnameDomains, request_host)) {
+      request_host = badger.cnameDomains[request_host];
+    }
+    let request_base = getBaseDomain(request_host);
+
+    // ignore first-party requests
+    if (!utils.isThirdPartyDomain(request_base, tab_base)) {
+      return;
+    }
+
+    // short-circuit if we already observed this eTLD+1 tracking on this site
+    let firstParties = self.storage.getStore('snitch_map').getItem(request_base);
+    if (firstParties && firstParties.includes(tab_base)) {
+      return;
+    }
+
+    // short-circuit if we already made a decision for this FQDN
+    let action = self.storage.getAction(request_host);
+    if (action != constants.NO_TRACKING && action != constants.ALLOW) {
+      return;
+    }
 
     // get all non-HttpOnly cookies for the top-level frame
     // and pass those to the pixel cookie-share accounting function
@@ -189,13 +215,6 @@ HeuristicBlocker.prototype = {
       if (cookies.length < 1) {
         return;
       }
-
-      let request_host = (new URI(details.url)).host;
-      // CNAME uncloaking
-      if (utils.hasOwn(badger.cnameDomains, request_host)) {
-        request_host = badger.cnameDomains[request_host];
-      }
-      let request_base = getBaseDomain(request_host);
 
       // TODO refactor with new URI() above?
       let searchParams = (new URL(details.url)).searchParams;
@@ -310,7 +329,7 @@ HeuristicBlocker.prototype = {
    * @param {String} site_base Base domain of page where tracking occurred
    */
   updateTrackerPrevalence: function (tracker_fqdn, tracker_base, site_base) {
-    // abort if we already made a decision for this fqdn
+    // short-circuit if we already made a decision for this fqdn
     let action = this.storage.getAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return;
