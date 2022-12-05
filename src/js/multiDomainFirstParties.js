@@ -1526,6 +1526,15 @@ let multiDomainFirstPartiesArray = [
     "myfreshworks.com",
   ],
   [
+    "funkedigital.de",
+
+    "abendblatt.de",
+    "derwesten.de",
+    "morgenpost.de",
+
+    "fnki.de",
+  ],
+  [
     "futureplc.com",
 
     "creativebloq.com",
