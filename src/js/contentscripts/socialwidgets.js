@@ -293,6 +293,15 @@ function restoreWidget(widget) {
       });
       return;
     }
+
+    // if there are no matching script elements
+    if (!document.querySelectorAll(widget.scriptSelectors.join(',')).length) {
+      // we can't do "in-place" activation; reload the page instead
+      unblockTracker(name, function () {
+        location.reload();
+      });
+      return;
+    }
   }
 
   unblockTracker(name, function () {
@@ -770,17 +779,6 @@ a:hover {
  * Replaces buttons/widgets in the DOM.
  */
 function replaceIndividualButton(widget) {
-  // for script type widgets,
-  // to avoid breaking lazy loaded widgets
-  // by replacing the DOM element too early
-  // first check whether a script is actually present
-  if (widget.replacementButton.type == 4) {
-    let script_selector = widget.scriptSelectors.join(',');
-    if (!document.querySelectorAll(script_selector).length) {
-      return;
-    }
-  }
-
   let selector = widget.buttonSelectors.join(','),
     elsToReplace = document.querySelectorAll(selector);
 
