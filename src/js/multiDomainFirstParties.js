@@ -4817,6 +4817,7 @@ let multiDomainFirstPartiesArray = [
     "viacomcbs.com",
 
     "247sports.com",
+    "bet.com",
     "cbs.com",
     "cbsi.com",
     "cbsig.net",
@@ -4827,6 +4828,7 @@ let multiDomainFirstPartiesArray = [
     "cbsnews.com",
     "cbssports.com",
     "cbsstatic.com",
+    "cc.com",
     "chow.com",
     "chowhound.com",
     "chowmagazine.com",
@@ -4848,6 +4850,7 @@ let multiDomainFirstPartiesArray = [
     "maxpreps.com",
     "metacritic.com",
     "news.com",
+    "nick.com",
     "paramountplus.com",
     "popculture.com",
     "scout.com",
@@ -4860,6 +4863,8 @@ let multiDomainFirstPartiesArray = [
     "tvguide.com",
     "upload.com",
     "zdnet.com",
+
+    "paramount.tech",
   ],
   ["vimeo.com", "vimeocdn.com"],
   [
