@@ -240,6 +240,19 @@
             "type": 0
         }
     },
+    "PodBean Player": {
+        "domain": "www.podbean.com",
+        "buttonSelectors": [
+            "iframe[src^='https://www.podbean.com/media/player/']",
+            "iframe[src^='https://www.podbean.com/player-v2/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.podbean.com"
+            ],
+            "type": 3
+        }
+    },
     "Qualtrics": {
         "domains": [
             "*.qualtrics.com"
