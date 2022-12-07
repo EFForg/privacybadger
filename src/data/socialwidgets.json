@@ -192,6 +192,18 @@
             "type": 4
         }
     },
+    "iHeart Player": {
+        "domain": "www.iheart.com",
+        "buttonSelectors": [
+            "iframe[src^='https://www.iheart.com/live/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.iheart.com"
+            ],
+            "type": 3
+        }
+    },
     "LinkedIn": {
         "domain": "platform.linkedin.com",
         "buttonSelectors": [
