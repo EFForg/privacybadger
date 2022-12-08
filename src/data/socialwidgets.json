@@ -279,6 +279,24 @@
             "type": 3
         }
     },
+    "Rutube Player": {
+        "domains": [
+            "rutube.ru",
+            "www.rutube.ru"
+        ],
+        "buttonSelectors": [
+            "iframe[src^='https://rutube.ru/embed/']",
+            "iframe[src^='https://rutube.ru/play/embed/']",
+            "iframe[src^='https://www.rutube.ru/play/embed/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "rutube.ru",
+                "www.rutube.ru"
+            ],
+            "type": 3
+        }
+    },
     "SoundCloud": {
         "domain": "w.soundcloud.com",
         "buttonSelectors": [
