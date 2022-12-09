@@ -15,123 +15,91 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const MATCH_SUFFIX = 'suffix',
-  MATCH_PREFIX = 'prefix',
-  MATCH_PREFIX_WITH_PARAMS = 'prefix_params',
-  MATCH_ANY = 'any';
+const MATCH_SUFFIX = "suffix",
+  MATCH_PREFIX = "prefix",
+  MATCH_PREFIX_WITH_PARAMS = "prefix_params",
+  MATCH_ANY = "any";
 
 /**
  * `hostnames` maps hostnames to surrogate pattern tokens.
  */
 const hostnames = {
-  'b.scorecardresearch.com': {
+  "b.scorecardresearch.com": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/beacon.js',
-      '/c2/plugins/streamsense_plugin_html5.js',
-    ]
+    tokens: ["/beacon.js", "/c2/plugins/streamsense_plugin_html5.js"],
   },
-  'sb.scorecardresearch.com': {
+  "sb.scorecardresearch.com": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/beacon.js',
-      '/c2/plugins/streamsense_plugin_html5.js',
-    ]
+    tokens: ["/beacon.js", "/c2/plugins/streamsense_plugin_html5.js"],
   },
-  'ssl.google-analytics.com': {
+  "ssl.google-analytics.com": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/ga.js',
-      '/analytics.js',
-    ]
+    tokens: ["/ga.js", "/analytics.js"],
   },
-  'www.google-analytics.com': {
+  "www.google-analytics.com": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/analytics.js',
-      '/ga.js',
-    ]
+    tokens: ["/analytics.js", "/ga.js"],
   },
-  'www.googletagservices.com': {
+  "www.googletagservices.com": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/gpt.js',
-    ]
+    tokens: ["/gpt.js"],
   },
-  'securepubads.g.doubleclick.net': {
+  "securepubads.g.doubleclick.net": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/tag/js/gpt.js',
-    ]
+    tokens: ["/tag/js/gpt.js"],
   },
-  'pagead2.googlesyndication.com': {
+  "pagead2.googlesyndication.com": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/tag/js/gpt.js',
-      '/omweb-v1.js',
-    ]
+    tokens: ["/tag/js/gpt.js", "/omweb-v1.js"],
   },
-  'api.youneeq.ca': {
+  "api.youneeq.ca": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/app/yqmin',
-    ]
+    tokens: ["/app/yqmin"],
   },
-  'cdn.krxd.net': {
+  "cdn.krxd.net": {
     match: MATCH_ANY,
-    token: 'noopjs'
+    token: "noopjs",
   },
-  'widgets.outbrain.com': {
+  "widgets.outbrain.com": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/outbrain.js',
-    ]
+    tokens: ["/outbrain.js"],
   },
-  'c.amazon-adsystem.com': {
+  "c.amazon-adsystem.com": {
     match: MATCH_SUFFIX,
-    tokens: [
-      '/apstag.js',
-    ]
+    tokens: ["/apstag.js"],
   },
-  'rumble.com': {
+  "rumble.com": {
     match: MATCH_PREFIX,
-    tokens: [
-      '/embedJS/',
-    ],
-    widgetName: "Rumble Video Player"
+    tokens: ["/embedJS/"],
+    widgetName: "Rumble Video Player",
   },
-  'www.google.com': {
+  "www.google.com": {
     match: MATCH_PREFIX_WITH_PARAMS,
     params: {
       onload: true,
       //render: "explicit",
       render: true,
     },
-    tokens: [
-      '/recaptcha/api.js',
-      '/recaptcha/enterprise.js',
-    ],
-    widgetName: "Google reCAPTCHA"
+    tokens: ["/recaptcha/api.js", "/recaptcha/enterprise.js"],
+    widgetName: "Google reCAPTCHA",
   },
-  'www.recaptcha.net': {
+  "www.recaptcha.net": {
     match: MATCH_PREFIX_WITH_PARAMS,
     params: {
       onload: true,
       render: true,
     },
-    tokens: [
-      '/recaptcha/api.js',
-      '/recaptcha/enterprise.js',
-    ],
-    widgetName: "Google reCAPTCHA"
+    tokens: ["/recaptcha/api.js", "/recaptcha/enterprise.js"],
+    widgetName: "Google reCAPTCHA",
   },
-  'www.youtube.com': {
+  "www.youtube.com": {
     match: MATCH_PREFIX,
-    tokens: [
-      '/iframe_api',
-      '/player_api',
-    ],
-    widgetName: "YouTube"
+    tokens: ["/iframe_api", "/player_api"],
+    widgetName: "YouTube",
+  },
+  "cdn.intergient.com": {
+    match: MATCH_SUFFIX,
+    tokens: ["/ramp_core.js"],
   },
 };
 
@@ -148,42 +116,44 @@ const surrogates = {
   //
   // API reference:
   // https://developers.google.com/analytics/devguides/collection/gajs/methods/
-  '/ga.js': 'google_ga.js',
+  "/ga.js": "google_ga.js",
 
-  '/beacon.js': 'comscore_beacon.js',
+  "/beacon.js": "comscore_beacon.js",
 
   // http://www.dplay.se/ett-jobb-for-berg/ (videos)
-  '/c2/plugins/streamsense_plugin_html5.js': 'noop.js',
+  "/c2/plugins/streamsense_plugin_html5.js": "noop.js",
 
   // https://github.com/EFForg/privacybadger/issues/993
-  '/gpt.js': 'googletagservices_gpt.js',
-  '/tag/js/gpt.js': 'googletagservices_gpt.js',
+  "/gpt.js": "googletagservices_gpt.js",
+  "/tag/js/gpt.js": "googletagservices_gpt.js",
 
   // https://github.com/EFForg/privacybadger/issues/1014
-  '/app/yqmin': 'youneeq.js',
+  "/app/yqmin": "youneeq.js",
 
-  '/analytics.js': 'google_analytics.js',
+  "/analytics.js": "google_analytics.js",
 
-  '/outbrain.js': 'outbrain.js',
+  "/outbrain.js": "outbrain.js",
 
-  '/apstag.js': 'amazon_apstag.js',
+  "/apstag.js": "amazon_apstag.js",
 
-  '/embedJS/': 'rumble_embedjs.js',
+  "/embedJS/": "rumble_embedjs.js",
 
-  '/recaptcha/api.js': 'grecaptcha.js',
-  '/recaptcha/enterprise.js': 'grecaptcha_enterprise.js',
+  "/recaptcha/api.js": "grecaptcha.js",
+  "/recaptcha/enterprise.js": "grecaptcha_enterprise.js",
 
-  '/iframe_api': 'youtube.js',
-  '/player_api': 'youtube.js',
+  "/iframe_api": "youtube.js",
+  "/player_api": "youtube.js",
 
-  '/omweb-v1.js': 'noop.js',
+  "/omweb-v1.js": "noop.js",
+  
+  "/ramp_core.js": "noop.js", 
 
-  'noopjs': 'noop.js'
+  noopjs: "noop.js",
 };
 
 // expand filenames to extension URLs
-Object.keys(surrogates).forEach(key => {
-  let path = '/data/web_accessible_resources/' + surrogates[key];
+Object.keys(surrogates).forEach((key) => {
+  let path = "/data/web_accessible_resources/" + surrogates[key];
   surrogates[key] = chrome.runtime.getURL(path);
 });
 
