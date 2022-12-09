@@ -152,7 +152,7 @@ const surrogates = {
   
   "/ramp_core.js": "ramp.js", 
   
-  "/audience_segments": "audience_segments"
+  "/audience_segments": "audience_segments.json"
 
   noopjs: "noop.js",
 };
