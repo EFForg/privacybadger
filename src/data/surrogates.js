@@ -103,7 +103,7 @@ const hostnames = {
   },
   "fingerprinter-production.herokuapp.com": {
     match: MATCH_SUFFIX,
-    tokens: ["/audience_segments.txt"],
+    tokens: ["/audience_segments"],
   },
 };
 
