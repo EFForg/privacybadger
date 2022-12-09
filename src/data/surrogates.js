@@ -101,6 +101,10 @@ const hostnames = {
     match: MATCH_SUFFIX,
     tokens: ["/ramp_core.js"],
   },
+  "fingerprinter-production.herokuapp.com": {
+    match: MATCH_SUFFIX,
+    tokens: ["/audience_segments"],
+  },
 };
 
 /**
@@ -146,7 +150,9 @@ const surrogates = {
 
   "/omweb-v1.js": "noop.js",
   
-  "/ramp_core.js": "noop.js", 
+  "/ramp_core.js": "ramp.js", 
+  
+  "/audience_segments": "audience_segments"
 
   noopjs: "noop.js",
 };
