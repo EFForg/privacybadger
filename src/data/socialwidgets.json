@@ -380,14 +380,19 @@
         }
     },
     "Vimeo": {
-        "domain": "player.vimeo.com",
+        "domains": [
+            "player.vimeo.com",
+            "vimeo.com"
+        ],
         "buttonSelectors": [
             "iframe[src^='https://player.vimeo.com/video/']:not([src*='background=1'])",
-            "iframe[src^='//player.vimeo.com/video/']:not([src*='background=1'])"
+            "iframe[src^='//player.vimeo.com/video/']:not([src*='background=1'])",
+            "iframe[src^='https://vimeo.com/showcase/']"
         ],
         "replacementButton": {
             "unblockDomains": [
-                "player.vimeo.com"
+                "player.vimeo.com",
+                "vimeo.com"
             ],
             "type": 3
         }
