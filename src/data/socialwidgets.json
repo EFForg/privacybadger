@@ -114,6 +114,30 @@
             "type": 1
         }
     },
+    "Facebook Page": {
+        "domain": "www.facebook.com",
+        "buttonSelectors": [
+            "iframe[src^='https://www.facebook.com/plugins/page.php?']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.facebook.com"
+            ],
+            "type": 3
+        }
+    },
+    "Facebook Post": {
+        "domain": "www.facebook.com",
+        "buttonSelectors": [
+            "iframe[src^='https://www.facebook.com/plugins/post.php?']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.facebook.com"
+            ],
+            "type": 3
+        }
+    },
     "Facebook Share": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
