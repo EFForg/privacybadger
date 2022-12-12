@@ -4145,6 +4145,8 @@ let multiDomainFirstPartiesArray = [
     "pardot.com",
     "salesforceliveagent.com",
     "visualforce.com",
+
+    "salesforce-sites.com",
   ],
   ["sanguosha.com", "bianfeng.com"],
   ["schwab.com", "schwabplan.com"],
