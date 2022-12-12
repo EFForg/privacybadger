@@ -85,18 +85,6 @@
             "type": 4
         }
     },
-    "Facebook Comments": {
-        "domain": "www.facebook.com",
-        "buttonSelectors": [
-            "div.fb-comments.fb_iframe_widget"
-        ],
-        "replacementButton": {
-            "unblockDomains": [
-                "www.facebook.com"
-            ],
-            "type": 3
-        }
-    },
     "Facebook Like": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
