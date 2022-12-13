@@ -4950,7 +4950,24 @@ let multiDomainFirstPartiesArray = [
     "stubru.be",
   ],
   ["wa.gov", "wsdot.com", "wsdot.gov"],
-  ["walmart.com", "wal.co", "walmartimages.com", "walmart.ca"],
+  [
+    "walmart.com",
+
+    "walmartmexico.com",
+    "walmartcentroamerica.com",
+
+    "walmart.ca",
+    "walmart.com.mx",
+
+    "samsclub.com",
+    "sams.com.mx",
+
+    "bodegaaurrera.com.mx",
+
+    "wal.co",
+    "walmartimages.com",
+    "walmartimages.ca",
+  ],
   [
     "thewaltdisneycompany.com",
 
