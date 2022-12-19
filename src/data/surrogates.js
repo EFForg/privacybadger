@@ -26,62 +26,92 @@ const MATCH_SUFFIX = 'suffix',
 const hostnames = {
   'b.scorecardresearch.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/beacon.js', '/c2/plugins/streamsense_plugin_html5.js'],
+    tokens: [
+      '/beacon.js',
+      '/c2/plugins/streamsense_plugin_html5.js',
+    ]
   },
   'sb.scorecardresearch.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/beacon.js', '/c2/plugins/streamsense_plugin_html5.js'],
+    tokens: [
+      '/beacon.js',
+      '/c2/plugins/streamsense_plugin_html5.js',
+    ]
   },
   'ssl.google-analytics.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/ga.js', '/analytics.js'],
+    tokens: [
+      '/ga.js',
+      '/analytics.js',
+    ]
   },
   'www.google-analytics.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/analytics.js', '/ga.js'],
+    tokens: [
+      '/analytics.js',
+      '/ga.js',
+    ]
   },
   'www.googletagservices.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/gpt.js'],
+    tokens: [
+      '/gpt.js',
+    ]
   },
   'securepubads.g.doubleclick.net': {
     match: MATCH_SUFFIX,
-    tokens: ['/tag/js/gpt.js'],
+    tokens: [
+      '/tag/js/gpt.js',
+    ]
   },
   'pagead2.googlesyndication.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/tag/js/gpt.js', '/omweb-v1.js'],
+    tokens: [
+      '/tag/js/gpt.js',
+      '/omweb-v1.js',
+    ]
   },
   'api.youneeq.ca': {
     match: MATCH_SUFFIX,
-    tokens: ['/app/yqmin'],
+    tokens: [
+      '/app/yqmin',
+    ]
   },
   'cdn.krxd.net': {
     match: MATCH_ANY,
-    token: 'noopjs',
+    token: 'noopjs'
   },
   'widgets.outbrain.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/outbrain.js'],
+    tokens: [
+      '/outbrain.js',
+    ]
   },
   'c.amazon-adsystem.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/apstag.js'],
+    tokens: [
+      '/apstag.js',
+    ]
   },
   'rumble.com': {
     match: MATCH_PREFIX,
-    tokens: ['/embedJS/'],
-    widgetName: 'Rumble Video Player',
+    tokens: [
+      '/embedJS/',
+    ],
+    widgetName: "Rumble Video Player"
   },
   'www.google.com': {
     match: MATCH_PREFIX_WITH_PARAMS,
     params: {
       onload: true,
-      //render: 'explicit',
+      //render: "explicit",
       render: true,
     },
-    tokens: ['/recaptcha/api.js', '/recaptcha/enterprise.js'],
-    widgetName: 'Google reCAPTCHA',
+    tokens: [
+      '/recaptcha/api.js',
+      '/recaptcha/enterprise.js',
+    ],
+    widgetName: "Google reCAPTCHA"
   },
   'www.recaptcha.net': {
     match: MATCH_PREFIX_WITH_PARAMS,
@@ -89,17 +119,23 @@ const hostnames = {
       onload: true,
       render: true,
     },
-    tokens: ['/recaptcha/api.js', '/recaptcha/enterprise.js'],
-    widgetName: 'Google reCAPTCHA',
+    tokens: [
+      '/recaptcha/api.js',
+      '/recaptcha/enterprise.js',
+    ],
+    widgetName: "Google reCAPTCHA"
   },
   'www.youtube.com': {
     match: MATCH_PREFIX,
-    tokens: ['/iframe_api', '/player_api'],
-    widgetName: 'YouTube',
+    tokens: [
+      '/iframe_api',
+      '/player_api',
+    ],
+    widgetName: "YouTube"
   },
   'cdn.intergient.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/ramp.js'],
+    tokens: ['/ramp_core.js'],
   }
 };
 
@@ -146,13 +182,13 @@ const surrogates = {
 
   '/omweb-v1.js': 'noop.js',
   
-  '/ramp.js': 'ramp.js', 
+  '/ramp_core.js': 'ramp.js', 
 
-  'noopjs': 'noop.js',
+  'noopjs': 'noop.js'
 };
 
 // expand filenames to extension URLs
-Object.keys(surrogates).forEach((key) => {
+Object.keys(surrogates).forEach(key => {
   let path = '/data/web_accessible_resources/' + surrogates[key];
   surrogates[key] = chrome.runtime.getURL(path);
 });
