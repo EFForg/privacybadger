@@ -100,11 +100,7 @@ const hostnames = {
   'cdn.intergient.com': {
     match: MATCH_SUFFIX,
     tokens: ['/ramp_core.js'],
-  },
-  'fingerprinter-production.herokuapp.com': {
-    match: MATCH_SUFFIX,
-    tokens: ['/audience_segments'],
-  },
+  }
 };
 
 /**
