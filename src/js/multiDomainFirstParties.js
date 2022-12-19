@@ -452,6 +452,7 @@ let multiDomainFirstPartiesArray = [
     "amazon.com.tr",
     "amazon.co.uk",
     "amazon.de",
+    "amazon.eg",
     "amazon.es",
     "amazon.fr",
     "amazon.in",
@@ -470,8 +471,12 @@ let multiDomainFirstPartiesArray = [
     "audible.it",
 
     "6pm.com",
+    "abebooks.com",
+    "abebooks.co.uk",
     "acx.com",
+    "amazonaws.cn",
     "amazoninspire.com",
+    "amazon.jobs",
     "aws.training",
     "brilliancepublishing.com",
     "comixology.com",
@@ -4145,6 +4150,8 @@ let multiDomainFirstPartiesArray = [
     "pardot.com",
     "salesforceliveagent.com",
     "visualforce.com",
+
+    "salesforce-sites.com",
   ],
   ["sanguosha.com", "bianfeng.com"],
   ["schwab.com", "schwabplan.com"],
@@ -4403,7 +4410,7 @@ let multiDomainFirstPartiesArray = [
   ["tesla.com", "teslamotors.com"],
   ["thelocal.com", "thelocal.de", "thelocal.fr", "thelocal.se"],
   ["theregister.com", "theregister.co.uk", "regmedia.co.uk"],
-  ["tiktok.com", "byteoversea.com", "ibytedtos.com", "tiktokcdn.com", "tiktokv.com"],
+  ["tiktok.com", "byteoversea.com", "ibytedtos.com", "tiktokcdn.com", "tiktokcdn-us.com", "tiktokv.com"],
   ["tilda.cc", "tildacdn.com"],
   [
     "timesinternet.in",
@@ -4948,7 +4955,24 @@ let multiDomainFirstPartiesArray = [
     "stubru.be",
   ],
   ["wa.gov", "wsdot.com", "wsdot.gov"],
-  ["walmart.com", "wal.co", "walmartimages.com", "walmart.ca"],
+  [
+    "walmart.com",
+
+    "walmartmexico.com",
+    "walmartcentroamerica.com",
+
+    "walmart.ca",
+    "walmart.com.mx",
+
+    "samsclub.com",
+    "sams.com.mx",
+
+    "bodegaaurrera.com.mx",
+
+    "wal.co",
+    "walmartimages.com",
+    "walmartimages.ca",
+  ],
   [
     "thewaltdisneycompany.com",
 
@@ -5267,6 +5291,14 @@ let multiDomainFirstPartiesArray = [
     "wikiquote.org", "wikibooks.org", "wikisource.org", "wikinews.org",
     "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org",
     "wmfusercontent.org", "tools.wmflabs.org"],
+  [
+    "williams-sonomainc.com",
+
+    "potterybarn.com",
+    "potterybarnkids.com",
+    "westelm.com",
+    "williams-sonoma.com",
+  ],
   ["wisconsin.gov", "wi.gov"],
   [
     "wix.com",

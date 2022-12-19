@@ -85,18 +85,6 @@
             "type": 4
         }
     },
-    "Facebook Comments": {
-        "domain": "www.facebook.com",
-        "buttonSelectors": [
-            "div.fb-comments.fb_iframe_widget"
-        ],
-        "replacementButton": {
-            "unblockDomains": [
-                "www.facebook.com"
-            ],
-            "type": 3
-        }
-    },
     "Facebook Like": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
@@ -112,6 +100,30 @@
             ],
             "imagePath": "FacebookLike.svg",
             "type": 1
+        }
+    },
+    "Facebook Page": {
+        "domain": "www.facebook.com",
+        "buttonSelectors": [
+            "iframe[src^='https://www.facebook.com/plugins/page.php?']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.facebook.com"
+            ],
+            "type": 3
+        }
+    },
+    "Facebook Post": {
+        "domain": "www.facebook.com",
+        "buttonSelectors": [
+            "iframe[src^='https://www.facebook.com/plugins/post.php?']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.facebook.com"
+            ],
+            "type": 3
         }
     },
     "Facebook Share": {
@@ -285,6 +297,7 @@
             "www.rutube.ru"
         ],
         "buttonSelectors": [
+            "iframe[src^='https://rutube.ru/pl/']",
             "iframe[src^='https://rutube.ru/embed/']",
             "iframe[src^='https://rutube.ru/play/embed/']",
             "iframe[src^='https://www.rutube.ru/play/embed/']"
@@ -379,14 +392,19 @@
         }
     },
     "Vimeo": {
-        "domain": "player.vimeo.com",
+        "domains": [
+            "player.vimeo.com",
+            "vimeo.com"
+        ],
         "buttonSelectors": [
             "iframe[src^='https://player.vimeo.com/video/']:not([src*='background=1'])",
-            "iframe[src^='//player.vimeo.com/video/']:not([src*='background=1'])"
+            "iframe[src^='//player.vimeo.com/video/']:not([src*='background=1'])",
+            "iframe[src^='https://vimeo.com/showcase/']"
         ],
         "replacementButton": {
             "unblockDomains": [
-                "player.vimeo.com"
+                "player.vimeo.com",
+                "vimeo.com"
             ],
             "type": 3
         }

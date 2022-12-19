@@ -170,6 +170,7 @@ giphy.com
 gitbook.com
 github.com
 gleam.io
+global-e.com
 apis.google.com
 books.google.com
 calendar.google.com
