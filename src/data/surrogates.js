@@ -99,7 +99,7 @@ const hostnames = {
   },
   'cdn.intergient.com': {
     match: MATCH_SUFFIX,
-    tokens: ['/ramp_core.js'],
+    tokens: ['/ramp.js'],
   }
 };
 
@@ -146,7 +146,7 @@ const surrogates = {
 
   '/omweb-v1.js': 'noop.js',
   
-  '/ramp_core.js': 'ramp.js', 
+  '/ramp.js': 'ramp.js', 
 
   'noopjs': 'noop.js',
 };
