@@ -3094,6 +3094,7 @@ let multiDomainFirstPartiesArray = [
     "newsvine.com",
     "s-nbcnews.com",
   ],
+  ["ncsoft.com", "aiononline.com", "bladeandsoul.com", "guildwars2.com", "lineage2.com"],
   ["nefcuonline.com", "nefcu.com"],
   [
     "netease.com",
