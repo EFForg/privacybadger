@@ -160,7 +160,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "To enable logging into websites with your Google account, move this slider right, and reload the page",
+        "message": "Para habilitar o login em sites com a sua conta Google, mova este controle deslizante para a direita e recarregue a página",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -270,7 +270,7 @@
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
     "popup_error_text_low_disk_space_issue": {
-        "message": "Failed to write to extension storage: $ERROR_TEXT$.<br><br>Is your disk low on space?",
+        "message": "Falha ao gravar no armazenamento da extensão: $ERROR_TEXT$.<br><br>O armazenamento tem pouco espaço disponível?",
         "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
         "placeholders": {
             "error_text": {
