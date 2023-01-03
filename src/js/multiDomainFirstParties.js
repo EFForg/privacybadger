@@ -3148,6 +3148,22 @@ let multiDomainFirstPartiesArray = [
     "web.com",
   ],
   [
+    "newscorp.com",
+
+    "nypost.com",
+    "pagesix.com",
+    "thesun.co.uk",
+    "thetimes.co.uk",
+
+    "barrons.com",
+    "dowjones.com",
+    "dowjoneson.com",
+    "mansionglobal.com",
+    "marketwatch.com",
+    "wsj.com",
+    "wsj.net",
+  ],
+  [
     "newscorpaustralia.com",
 
     "1degree.com.au",
@@ -5344,7 +5360,6 @@ let multiDomainFirstPartiesArray = [
     "wpimg.pl",
   ],
   ["wpcu.coop", "wpcuonline.com"],
-  ["wsj.com", "wsj.net", "barrons.com", "dowjones.com", "dowjoneson.com", "mansionglobal.com", "marketwatch.com"],
   ["xda-developers.com", "xda-cdn.com"],
   ["xfinity.com", "comcast.net", "comcast.com"],
   ["xhamster.com", "xhcdn.com"],
