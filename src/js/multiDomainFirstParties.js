@@ -587,6 +587,27 @@ let multiDomainFirstPartiesArray = [
     "aaplimg.com", "cdn-apple.com"],
   ["applefcu.org", "applefcuonline.org"],
   ["archive.org", "openlibrary.org"],
+  [
+    "thearenagroup.net",
+
+    "dengarden.com",
+    "exemplore.com",
+    "fashionista.com",
+    "howcast.com",
+    "hubpages.com",
+    "indiancountrytoday.com",
+    "mensjournal.com",
+    "pairedlife.com",
+    "parade.com",
+    "pethelpful.com",
+    "si.com",
+    "thespun.com",
+    "thestreet.com",
+    "wanderwisdom.com",
+
+    "maven.io",
+    "mavencoalition.io",
+  ],
   ["asos.com", "asosservices.com"],
   [
     "atlassian.com",
