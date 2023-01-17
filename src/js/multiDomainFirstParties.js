@@ -2372,6 +2372,7 @@ let multiDomainFirstPartiesArray = [
     "brunch.co.kr",
     "daum.net",
     "kakao.com",
+    "tistory.com",
 
     "daumcdn.net",
     "kakaocdn.net",
