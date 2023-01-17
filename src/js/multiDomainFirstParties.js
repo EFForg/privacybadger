@@ -4618,6 +4618,7 @@ let multiDomainFirstPartiesArray = [
 
     "seatguru.com",
 
+    "jscache.com",
     "tacdn.com",
     "tamgrt.com",
   ],
