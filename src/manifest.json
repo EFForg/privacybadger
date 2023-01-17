@@ -486,6 +486,7 @@
   "minimum_chrome_version": "61.0",
   "name": "__MSG_name__",
   "browser_action": {
+    "default_area": "navbar",
     "default_icon": {
       "19": "icons/badger-19-disabled.png",
       "38": "icons/badger-38-disabled.png"
