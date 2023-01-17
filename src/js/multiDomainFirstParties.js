@@ -773,6 +773,7 @@ let multiDomainFirstPartiesArray = [
   ["bloomberg.com", "bbthat.com", "bwbx.io", "bloomberg.co.jp"],
   ["boardgamearena.com", "boardgamearena.net"],
   ["booking.com", "bstatic.com"],
+  ["bostonglobe.com", "boston.com", "statnews.com", "bostonglobemedia.com"],
   ["box.com", "boxcdn.net"],
   [
     "bytedance.com",
