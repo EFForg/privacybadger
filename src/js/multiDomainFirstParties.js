@@ -775,6 +775,20 @@ let multiDomainFirstPartiesArray = [
   ["booking.com", "bstatic.com"],
   ["box.com", "boxcdn.net"],
   [
+    "bytedance.com",
+
+    "douyin.com",
+    "tiktok.com",
+
+    "byteoversea.com",
+    "douyinstatic.com",
+    "ibytedtos.com",
+    "snssdk.com",
+    "tiktokcdn.com",
+    "tiktokcdn-us.com",
+    "tiktokv.com",
+  ],
+  [
     "bustle.company",
 
     "bustle.com",
@@ -4450,7 +4464,6 @@ let multiDomainFirstPartiesArray = [
   ["tesla.com", "teslamotors.com"],
   ["thelocal.com", "thelocal.de", "thelocal.fr", "thelocal.se"],
   ["theregister.com", "theregister.co.uk", "regmedia.co.uk"],
-  ["tiktok.com", "byteoversea.com", "ibytedtos.com", "tiktokcdn.com", "tiktokcdn-us.com", "tiktokv.com"],
   ["tilda.cc", "tildacdn.com"],
   [
     "timesinternet.in",
