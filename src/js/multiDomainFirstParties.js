@@ -1207,7 +1207,6 @@ let multiDomainFirstPartiesArray = [
     "ebaystatic.com",
     "ebay-us.com",
   ],
-  ["elsevier.com", "sciencedirect.com", "sciencedirectassets.com"],
   ["ename.com", "ename.cn", "ename.net"],
   [
     "enterprise.com",
@@ -4067,6 +4066,16 @@ let multiDomainFirstPartiesArray = [
     "reebok.ru",
     "reebok.se",
     "reebok.sk",
+  ],
+  [
+    "relx.com",
+
+    "elsevier.com",
+    "lexisnexis.com",
+    "sciencedirectassets.com",
+    "sciencedirect.com",
+    "ssrn.com",
+    "thelancet.com",
   ],
   [
     "reuters.com",
