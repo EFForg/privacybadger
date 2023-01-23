@@ -1952,6 +1952,23 @@ let multiDomainFirstPartiesArray = [
     "teachablemachine.withgoogle.com",
     "webdesigner.withgoogle.com",
   ],
+  [
+    "goto.com",
+
+    "logmeininc.com",
+    "citrixonline.com",
+    "gotomeeting.com",
+    "gotomeet.me",
+    "gotomypc.com",
+    "gotostage.com",
+    "gotowebinar.com",
+    "lastpass.com",
+    "logme.in",
+    "logmein.com",
+
+    "getgo.com",
+    "lmiutil.com",
+  ],
   ["www.gov.uk", "cabinet-office.gov.uk", "publishing.service.gov.uk"],
   [
     "gray.tv",
@@ -2527,20 +2544,6 @@ let multiDomainFirstPartiesArray = [
   ["lbry.com", "odysee.com", "lbry.tv"],
   ["linkedin.com", "licdn.com"],
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
-  [
-    "logmeininc.com",
-
-    "citrixonline.com",
-    "gotomeeting.com",
-    "gotomeet.me",
-    "gotomypc.com",
-    "gotostage.com",
-    "gotowebinar.com",
-    "logme.in",
-    "logmein.com",
-
-    "getgo.com",
-  ],
   [
     "loveholidays.com",
     "loveholidays.be",
