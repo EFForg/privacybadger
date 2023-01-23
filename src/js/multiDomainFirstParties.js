@@ -1060,8 +1060,10 @@ let multiDomainFirstPartiesArray = [
     "inews.co.uk",
     "mailonsunday.co.uk",
     "metro.co.uk",
+    "newzit.com",
     "thisismoney.co.uk",
 
+    "anm.co.uk",
     "dmgmediaprivacy.co.uk",
   ],
   [
