@@ -778,7 +778,15 @@ let multiDomainFirstPartiesArray = [
   ["bilibili.com", "acgvideo.com", "biliapi.net", "biliapi.com", "biligame.com", "hdslb.com"],
   ["binance.com", "binance.cloud", "binance.vision", "bnbstatic.com"],
   ["bitrix24.com", "bitrix24.ru", "1c-bitrix.ru", "bitrix.info", "bitrix24.net"],
-  ["blizzard.com", "battle.net", "worldofwarcraft.com"],
+  [
+    "blizzard.com",
+
+    "battle.net",
+    "heroesofthestorm.com",
+    "starcraft.com",
+    "starcraft2.com",
+    "worldofwarcraft.com",
+  ],
   ["bloomberg.com", "bbthat.com", "bwbx.io", "bloomberg.co.jp"],
   ["boardgamearena.com", "boardgamearena.net"],
   ["booking.com", "bstatic.com"],
@@ -1332,6 +1340,7 @@ let multiDomainFirstPartiesArray = [
   [
     "epicgames.com",
 
+    "3lateral.com",
     "artstation.com",
     "fallguys.com",
     "fortnite.com",
@@ -3423,6 +3432,7 @@ let multiDomainFirstPartiesArray = [
     "zappelin.nl",
     "zapp.nl",
   ],
+  ["ntt.com", "goo.ne.jp", "ocn.ne.jp"],
   [
     "nypublicradio.org",
 
