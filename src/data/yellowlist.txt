@@ -28,6 +28,7 @@ coin.amazonpay.com
 coin-eu.amazonpay.com
 americanexpress.com
 amuniversal.com
+anchor.fm
 aolcdn.com
 interactives.ap.org
 apple.com
