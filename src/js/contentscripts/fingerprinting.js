@@ -40,9 +40,6 @@ function getPageScript(event_id) {
 
     if (V8_STACK_TRACE_API) {
       ERROR.stackTraceLimit = Infinity; // collect all frames
-    } else {
-      // from https://github.com/csnover/TraceKit/blob/b76ad786f84ed0c94701c83d8963458a8da54d57/tracekit.js#L641
-      var geckoCallSiteRe = /^\s*(.*?)(?:\((.*?)\))?@?((?:file|https?|chrome):.*?):(\d+)(?::(\d+))?\s*$/i;
     }
 
     function hasOwn(obj, prop) {
@@ -54,10 +51,10 @@ function getPageScript(event_id) {
 
     // adapted from Underscore v1.6.0
     function debounce(func, wait, immediate) {
-      var timeout, args, context, timestamp, result;
+      let timeout, args, context, timestamp, result;
 
-      var later = function () {
-        var last = DATE.now() - timestamp;
+      let later = function () {
+        let last = DATE.now() - timestamp;
         if (last < wait) {
           timeout = setTimeout(later, wait - last);
         } else {
@@ -73,7 +70,7 @@ function getPageScript(event_id) {
         context = this; // eslint-disable-line consistent-this
         args = arguments;
         timestamp = DATE.now();
-        var callNow = immediate && !timeout;
+        let callNow = immediate && !timeout;
         if (!timeout) {
           timeout = setTimeout(later, wait);
         }
@@ -87,11 +84,11 @@ function getPageScript(event_id) {
     }
 
     // messages the injected script
-    var send = (function () {
-      var messages = [];
+    let send = (function () {
+      let messages = [];
 
       // debounce sending queued messages
-      var _send = debounce(function () {
+      let _send = debounce(function () {
         dispatchEvent.call(DOCUMENT, new CUSTOM_EVENT(EVENT_ID, {
           detail: messages
         }));
@@ -171,7 +168,9 @@ function getPageScript(event_id) {
       // this script is at 0, 1 and 2
       let callSite = trace[3];
 
-      let scriptUrlMatches = callSite.match(geckoCallSiteRe);
+      // from https://github.com/csnover/TraceKit/blob/b76ad786f84ed0c94701c83d8963458a8da54d57/tracekit.js#L641
+      const geckoCallSiteRe = /^\s*(.*?)(?:\((.*?)\))?@?((?:file|https?|chrome):.*?):(\d+)(?::(\d+))?\s*$/i,
+        scriptUrlMatches = callSite.match(geckoCallSiteRe);
       return scriptUrlMatches && scriptUrlMatches[3] || '';
     }
 
@@ -215,7 +214,7 @@ function getPageScript(event_id) {
      * @param item special item objects
      */
     function trapInstanceMethod(item) {
-      var is_canvas_write = (
+      let is_canvas_write = (
         item.propName == 'fillText' || item.propName == 'strokeText'
       );
 
@@ -223,10 +222,10 @@ function getPageScript(event_id) {
         // set to true after the first write, if the method is not
         // restorable. Happens if another library also overwrites
         // this method.
-        var skip_monitoring = false;
+        let skip_monitoring = false;
 
         function wrapped() {
-          var args = arguments;
+          let args = arguments;
 
           if (is_canvas_write) {
             // to avoid false positives,
@@ -237,7 +236,7 @@ function getPageScript(event_id) {
             }
           }
 
-          var script_url = (
+          let script_url = (
               V8_STACK_TRACE_API ?
                 getOriginatingScriptUrl() :
                 getOriginatingScriptUrlFirefox()
@@ -279,10 +278,10 @@ function getPageScript(event_id) {
       }(item.obj[item.propName]));
     }
 
-    var methods = [];
+    let methods = [];
 
-    ['getImageData', 'fillText', 'strokeText'].forEach(function (method) {
-      var item = {
+    for (let method of ['getImageData', 'fillText', 'strokeText']) {
+      let item = {
         objName: 'CanvasRenderingContext2D.prototype',
         propName: method,
         obj: CanvasRenderingContext2D.prototype,
@@ -295,7 +294,7 @@ function getPageScript(event_id) {
 
       if (method == 'getImageData') {
         item.extra = function () {
-          var args = arguments,
+          let args = arguments,
             width = args[2],
             height = args[3];
 
@@ -316,7 +315,7 @@ function getPageScript(event_id) {
       }
 
       methods.push(item);
-    });
+    }
 
     methods.push({
       objName: 'HTMLCanvasElement.prototype',
@@ -332,7 +331,9 @@ function getPageScript(event_id) {
       }
     });
 
-    methods.forEach(trapInstanceMethod);
+    for (let method of methods) {
+      trapInstanceMethod(method);
+    }
 
   // save locally to keep from getting overwritten by site code
   } + "(" + event_id + ", document, document.dispatchEvent, CustomEvent, Error, Date, setTimeout, Object, Function));";
