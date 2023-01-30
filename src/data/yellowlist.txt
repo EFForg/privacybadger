@@ -278,6 +278,7 @@ cdn.jwplayer.com
 entitlements.jwplayer.com
 jwpltx.com
 jwpsrv.com
+juicer.io
 dapi.kakao.com
 developers.kakao.com
 kapi.kakao.com
