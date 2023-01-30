@@ -502,6 +502,7 @@ ultimedia.com
 builder-assets.unbounce.com
 libraries.unbxdapi.com
 unicornmedia.com
+unpkg.com
 unsplash.com
 uplynk.com
 usercentrics.eu
