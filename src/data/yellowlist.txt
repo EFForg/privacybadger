@@ -18,6 +18,8 @@ akamai.net
 akamaihd.net
 akamaized.net
 alicdn.com
+alipay.com
+alipayobjects.com
 aliyuncs.com
 amazon.com
 s3.amazonaws.com
@@ -382,6 +384,7 @@ img.purch.com
 pusher.com
 captcha.qq.com
 photo.store.qq.com
+quadpay.com
 queue-it.net
 quotemedia.com
 api.razorpay.com
