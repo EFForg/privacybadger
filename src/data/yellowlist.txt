@@ -142,6 +142,7 @@ i-cdn.embed.ly
 pp.ephapay.net
 epoq.de
 et4.de
+eurolandir.com
 eventbrite.com
 everyaction.com
 s-static.ak.facebook.com
