@@ -2897,14 +2897,29 @@
     "cdn-btsg.com": {
       "heuristicAction": "allow"
     },
+    "cdn-client.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1675303927827
+    },
     "cdn-eu.dynamicyield.com": {
       "heuristicAction": "cookieblock"
     },
     "cdn-go.cn": {
       "heuristicAction": "allow"
     },
+    "cdn-images-1.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1675604685228
+    },
     "cdn-net.com": {
       "heuristicAction": "block"
+    },
+    "cdn-static-1.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1675197969155
     },
     "cdn.cohesionapps.com": {
       "heuristicAction": "cookieblock"
@@ -5926,6 +5941,11 @@
     "globo.com": {
       "heuristicAction": "allow"
     },
+    "glyph.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1675510080065
+    },
     "gm.com": {
       "heuristicAction": "allow"
     },
@@ -7214,7 +7234,9 @@
       "heuristicAction": "allow"
     },
     "ipp-meredith.com": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1675553369390
     },
     "ipredictive.com": {
       "heuristicAction": "block"
@@ -9012,6 +9034,11 @@
     },
     "mircheigeshoa.com": {
       "heuristicAction": "block"
+    },
+    "miro.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1675622575693
     },
     "missena.io": {
       "heuristicAction": "allow"
