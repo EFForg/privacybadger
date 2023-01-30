@@ -3,15 +3,15 @@
 import json
 import sys
 
-KEYS = set(['snitch_map', 'action_map', 'version'])
+KEYS = set(['snitch_map', 'action_map', 'tracking_map', 'version'])
 
-with open(sys.argv[1]) as f:
+with open(sys.argv[1], encoding="utf-8") as f:
     try:
         js = json.load(f)
         if set(js.keys()) == KEYS:
             sys.exit(0)
         else:
-            print("json keys %s are not correct" % js.keys())
+            print(f"json keys {js.keys()} are not correct")
             sys.exit(1)
     except Exception as e:
         print("error parsing json:", e)
