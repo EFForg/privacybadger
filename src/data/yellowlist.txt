@@ -86,6 +86,7 @@ cdninstagram.com
 cern.ch
 ceros.com
 pwc.chase.com
+cineca.it
 cloudflare.com
 cloudfront.net
 cloudinary.com
