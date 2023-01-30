@@ -1,6 +1,15 @@
 Privacy Badger Release Notes
 ============================
 
+2023.1.31
+* Added a note to the popup to explain that if you would like to log into
+websites with your Google account, you need to fully allow accounts.google.com
+* Added dark theme support to widget replacement placeholders
+* Fixed blocking service worker-initiated requests in Chrome
+* Fixed various site breakages
+* Added Hindi translations
+* Improved Traditional Chinese translations
+
 2022.9.27
 * Improved widget replacement system to better handle embedded YouTube videos
 * Delayed opening the new user welcome page for a few seconds
