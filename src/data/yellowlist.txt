@@ -252,6 +252,7 @@ static.hubspot.com
 cdn2.hubspot.net
 humblebundle.com
 hwcdn.net
+hyvor.com
 iadvize.com
 mpsnare.iesnare.com
 images-amazon.com
