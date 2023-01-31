@@ -944,6 +944,7 @@ let multiDomainFirstPartiesArray = [
   ["cox.com", "cox.net"],
   ["cricketwireless.com", "aiowireless.com"],
   ["ctrip.com", "c-ctrip.com", "trip.com"],
+  ["datadoghq.eu", "datadoghq.com"],
   ["dcu.org", "dcu-online.org"],
   ["dictionary.com", "thesaurus.com", "sfdict.com"],
   [
