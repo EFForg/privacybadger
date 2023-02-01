@@ -50,6 +50,7 @@ packager.avplayer.com
 player.avplayer.com
 azure-api.net
 azureedge.net
+b-cdn.net
 bac-assets.com
 hiphotos.baidu.com
 imgsa.baidu.com
@@ -162,6 +163,7 @@ fonts.com
 force.com
 formstack.com
 fundraiseup.com
+futurecdn.net
 fwmrm.net
 geetest.com
 geotrust.com
