@@ -521,7 +521,7 @@
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "options_domain_filter_all": {
-        "message": "הכל",
+        "message": "הכול",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_user": {
@@ -645,7 +645,7 @@
         "description": "Caption above remove_all button"
     },
     "remove_all": {
-        "message": "הסר הכל",
+        "message": "הסר הכול",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data_confirm": {
