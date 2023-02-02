@@ -298,6 +298,8 @@ kingfeatures.com
 kinja.com
 klarna.com
 klarnacdn.net
+a.klaviyo.com
+static.klaviyo.com
 kustomerapp.com
 kxcdn.com
 ddragon.leagueoflegends.com
