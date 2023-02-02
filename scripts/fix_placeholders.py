@@ -10,7 +10,7 @@ SOURCE_LOCALE = 'src/_locales/en_US/messages.json'
 
 def fix_locale(locale, placeholder_keys):
     # read in locale, preserving existing ordering
-    with open(locale, 'r') as f:
+    with open(locale, 'r', encoding="utf-8") as f:
         data = json.load(f, object_pairs_hook=OrderedDict)
 
     # restore missing placeholders
@@ -18,12 +18,12 @@ def fix_locale(locale, placeholder_keys):
         if key in data and "placeholders" not in data[key]:
             data[key]["placeholders"] = source_data[key]["placeholders"]
 
-    with open(locale, 'w') as f:
+    with open(locale, 'w', encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 
 if __name__ == '__main__':
-    with open(SOURCE_LOCALE, 'r') as f:
+    with open(SOURCE_LOCALE, 'r', encoding="utf-8") as f:
         source_data = json.load(f, object_pairs_hook=OrderedDict)
 
     # get keys of locale messages with placeholders
