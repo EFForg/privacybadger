@@ -14,6 +14,7 @@ xsdownload.adobe.com
 assets.adobedtm.com
 adyen.com
 affirm.com
+ahcdn.com
 akamai.net
 akamaihd.net
 akamaized.net
@@ -146,6 +147,7 @@ et4.de
 eurolandir.com
 eventbrite.com
 everyaction.com
+expedia.com
 s-static.ak.facebook.com
 staticxx.facebook.com
 fastly.net
@@ -457,7 +459,7 @@ streamtheworld.com
 stripe.com
 m.stripe.network
 stripecdn.com
-cdn.substack.com
+substack.com
 hdr.sundaysky.com
 images.sundaysky.com
 play.sundaysky.com
@@ -483,6 +485,7 @@ tiqcdn.com
 townnews.com
 cookieblock.trackersimulate.org
 tradingview.com
+serviceschipotlecom.trafficmanager.net
 trumba.com
 trustarc.com
 trustpilot.com
