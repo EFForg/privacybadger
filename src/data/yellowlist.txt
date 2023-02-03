@@ -542,6 +542,7 @@ webs.com
 websimages.com
 website-start.de
 weebly.com
+widget.weibo.com
 wikimedia.org
 wikipedia.org
 windows.net
