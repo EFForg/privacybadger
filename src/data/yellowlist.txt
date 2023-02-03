@@ -30,6 +30,7 @@ coin-eu.amazonpay.com
 americanexpress.com
 amuniversal.com
 anchor.fm
+play.aniview.com
 aolcdn.com
 interactives.ap.org
 apple.com
@@ -48,6 +49,7 @@ authorize.net
 cmsembed.avplayer.com
 embed.avplayer.com
 packager.avplayer.com
+packagercdn.avplayer.com
 player.avplayer.com
 azure-api.net
 azureedge.net
