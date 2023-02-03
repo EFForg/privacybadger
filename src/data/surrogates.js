@@ -52,6 +52,12 @@ const hostnames = {
       '/ga.js',
     ]
   },
+  'www.googletagmanager.com': {
+    match: MATCH_SUFFIX,
+    tokens: [
+      '/gtm.js',
+    ]
+  },
   'www.googletagservices.com': {
     match: MATCH_SUFFIX,
     tokens: [
@@ -154,6 +160,8 @@ const surrogates = {
 
   // http://www.dplay.se/ett-jobb-for-berg/ (videos)
   '/c2/plugins/streamsense_plugin_html5.js': 'noop.js',
+
+  '/gtm.js': 'googletagmanager_gtm.js',
 
   // https://github.com/EFForg/privacybadger/issues/993
   '/gpt.js': 'googletagservices_gpt.js',

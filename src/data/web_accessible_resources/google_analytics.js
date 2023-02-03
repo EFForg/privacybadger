@@ -1,4 +1,4 @@
-// https://github.com/gorhill/uBlock/blob/a78bb0f8eb4a9c419bcafedba5a4e843232a16be/src/web_accessible_resources/google-analytics_analytics.js + GTM workaround (e1f32a3)
+// https://github.com/gorhill/uBlock/blob/a78bb0f8eb4a9c419bcafedba5a4e843232a16be/src/web_accessible_resources/google-analytics_analytics.js
 (function() {
     'use strict';
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/
@@ -58,7 +58,6 @@
             dl.hide.end();
             dl.hide.end = ()=>{};
         }
-        /*
         if ( typeof dl.push === 'function' ) {
             const doCallback = function(item) {
                 if ( item instanceof Object === false ) { return; }
@@ -79,7 +78,6 @@
                 }
             }
         }
-        */
     }
     // empty ga queue
     if ( gaQueue instanceof Function && Array.isArray(gaQueue.q) ) {
