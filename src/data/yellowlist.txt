@@ -104,6 +104,7 @@ cdn.cohesionapps.com
 make.cohesionapps.com
 consent.cookiebot.com
 consentcdn.cookiebot.com
+cookielaw.org
 cloudplatform.coveo.com
 platform.cloud.coveo.com
 platform-eu.cloud.coveo.com
