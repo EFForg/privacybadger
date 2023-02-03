@@ -72,6 +72,7 @@ bigcommerce.com
 r.bing.com
 www.bing.com
 bit.ly
+bitsngo.net
 blockstack.org
 blogger.com
 boldchat.com
