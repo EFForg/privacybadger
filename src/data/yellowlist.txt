@@ -248,6 +248,7 @@ gstatic.com
 guildwars2.com
 hcaptcha.com
 herokuapp.com
+highwebmedia.com
 homestead.com
 cdn.hometogo.net
 cdn2.hometogo.net
