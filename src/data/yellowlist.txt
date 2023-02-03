@@ -399,6 +399,7 @@ cdn.privacy-mgmt.com
 providesupport.com
 img.purch.com
 pusher.com
+static.qiota.com
 captcha.qq.com
 photo.store.qq.com
 quadpay.com
