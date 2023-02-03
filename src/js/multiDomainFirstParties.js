@@ -3909,6 +3909,7 @@ let multiDomainFirstPartiesArray = [
     "qpic.cn",
     "qqmail.com",
     "qzone.com",
+    "sogou.com",
     "tencent.com",
     "tenpay.com",
     "ugdtimg.com",
