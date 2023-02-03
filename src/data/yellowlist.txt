@@ -426,6 +426,7 @@ cdngeneral.rentcafe.com
 rewardstyle.com
 rfksrv.com
 sagepay.com
+sajari.com
 commercecloud.salesforce.com
 my.salesforce.com
 salesforceliveagent.com
