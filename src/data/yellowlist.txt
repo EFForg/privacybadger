@@ -102,6 +102,7 @@ codepen.io
 codesandbox.io
 cdn.cohesionapps.com
 make.cohesionapps.com
+connatix.com
 consent.cookiebot.com
 consentcdn.cookiebot.com
 cookielaw.org
