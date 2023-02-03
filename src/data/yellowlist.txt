@@ -459,6 +459,7 @@ snipcart.com
 api.soundcloud.com
 feeds.soundcloud.com
 sp-prod.net
+sdk.split.io
 spot.im
 api.spreaker.com
 widget.spreaker.com
