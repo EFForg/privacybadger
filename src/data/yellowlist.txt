@@ -109,6 +109,8 @@ cdn.cohesionapps.com
 make.cohesionapps.com
 connatix.com
 consentmanager.net
+imgssl.constantcontact.com
+securepay.constantcontact.com
 consent.cookiebot.com
 consentcdn.cookiebot.com
 cookielaw.org
