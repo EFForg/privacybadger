@@ -279,6 +279,7 @@ images-amazon.com
 imbox.io
 imgur.com
 imgix.net
+e.infogram.com
 inq.com
 inscloudgate.net
 inside-graph.com
