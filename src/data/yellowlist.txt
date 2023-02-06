@@ -562,6 +562,7 @@ webs.com
 websimages.com
 website-start.de
 weebly.com
+cdn.weglot.com
 widget.weibo.com
 wikimedia.org
 wikipedia.org
