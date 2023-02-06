@@ -58,6 +58,7 @@ azure-api.net
 azureedge.net
 b-cdn.net
 bac-assets.com
+gimg3.baidu.com
 hiphotos.baidu.com
 imgsa.baidu.com
 imgsrc.baidu.com
@@ -71,6 +72,7 @@ maponline0.bdimg.com
 maponline1.bdimg.com
 maponline2.bdimg.com
 maponline3.bdimg.com
+pic.rmb.bdstatic.com
 static.beyondmenu.com
 www.beyondmenu.com
 bigcommerce.com
