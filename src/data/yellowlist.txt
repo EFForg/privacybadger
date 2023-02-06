@@ -9,6 +9,8 @@ acrobat.adobe.com
 animate.adobe.com
 auth.adobe.com
 documentcloud.adobe.com
+express.adobe.com
+spark.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
 assets.adobedtm.com
@@ -93,6 +95,7 @@ cern.ch
 ceros.com
 pwc.chase.com
 cineca.it
+classy.org
 cloudflare.com
 cloudfront.net
 cloudinary.com
@@ -112,6 +115,7 @@ cloudplatform.coveo.com
 platform.cloud.coveo.com
 platform-eu.cloud.coveo.com
 static.cloud.coveo.com
+code.createjs.com
 embed.crowdriff.com
 starling.crowdriff.com
 custhelp.com
@@ -173,6 +177,7 @@ formstack.com
 fundraiseup.com
 futurecdn.net
 fwmrm.net
+dm-localsites-assets.dm.aws.gartner.com
 geetest.com
 geotrust.com
 getpocket.com
@@ -186,6 +191,7 @@ gitbook.com
 github.com
 gleam.io
 global-e.com
+godaddy.com
 apis.google.com
 books.google.com
 calendar.google.com
