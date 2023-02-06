@@ -327,6 +327,8 @@ libsyn.com
 licdn.com
 addon.lidl.de
 lightboxcdn.com
+graphql-cdn-slplatform.liquidus.net
+platform.liquidus.net
 list-manage.com
 officeapps.live.com
 onedrive.live.com
