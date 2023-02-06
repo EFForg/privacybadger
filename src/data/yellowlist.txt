@@ -90,6 +90,7 @@ players.brightcove.net
 brm-core-0.brsrvr.com
 bungie.net
 buzzfeed.com
+bytecdntp.com
 byteoversea.com
 calendly.com
 cardinalcommerce.com
