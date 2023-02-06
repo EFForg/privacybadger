@@ -13,6 +13,7 @@ express.adobe.com
 spark.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
+adobetarget.data.adobedc.net
 assets.adobedtm.com
 adyen.com
 affirm.com
