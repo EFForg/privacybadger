@@ -85,6 +85,9 @@ blockstack.org
 blogger.com
 boldchat.com
 bootstrapcdn.com
+cdn.brid.tv
+p.brid.tv
+services.brid.tv
 brightcove.com
 players.brightcove.net
 brm-core-0.brsrvr.com
