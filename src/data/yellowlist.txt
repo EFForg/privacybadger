@@ -18,6 +18,7 @@ assets.adobedtm.com
 adyen.com
 affirm.com
 ahcdn.com
+airtrfx.com
 akamai.net
 akamaihd.net
 akamaized.net
