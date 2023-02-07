@@ -482,6 +482,8 @@ api.soundcloud.com
 feeds.soundcloud.com
 sp-prod.net
 sdk.split.io
+ls.fn.sportradar.com
+scoreboard.itfmp.sportradar.com
 spot.im
 api.spreaker.com
 widget.spreaker.com
