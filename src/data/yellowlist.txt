@@ -591,9 +591,11 @@ search.yahoo.com
 yahoo.net
 yahooapis.com
 api-maps.yandex.ru
+disk.yandex.ru
 img-fotki.yandex.ru
-maps.yandex.net
 strm.yandex.ru
+maps.yandex.net
+storage.yandex.net
 yastatic.net
 yelpcdn.com
 yimg.com
