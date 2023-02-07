@@ -73,6 +73,7 @@ maponline0.bdimg.com
 maponline1.bdimg.com
 maponline2.bdimg.com
 maponline3.bdimg.com
+code.bdstatic.com
 pic.rmb.bdstatic.com
 static.beyondmenu.com
 www.beyondmenu.com
