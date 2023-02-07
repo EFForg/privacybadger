@@ -115,6 +115,7 @@ codepen.io
 codesandbox.io
 cdn.cohesionapps.com
 make.cohesionapps.com
+25livepub.collegenet.com
 connatix.com
 consentmanager.net
 imgssl.constantcontact.com
