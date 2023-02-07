@@ -2,4 +2,4 @@
 
 ## Reporting a Vulnerability
 
-Security vulnerabilities can be reported privately to vulnerabilities@eff.org. Please see our [Security Vulnerability Disclosure Program](https://www.eff.org/security) for the GPG key and more information.
+Security vulnerabilities can be reported using [GitHub's private vulnerability reporting tool](https://github.com/EFForg/privacybadger/security/advisories/new).
