@@ -553,6 +553,10 @@ unpkg.com
 unsplash.com
 uplynk.com
 usercentrics.eu
+api.usbank.com
+content.usbank.com
+onlinebanking.usbank.com
+pay.usbank.com
 viafoura.co
 videodelivery.net
 vidible.tv
