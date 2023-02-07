@@ -427,6 +427,7 @@ providesupport.com
 img.purch.com
 pusher.com
 static.qiota.com
+www.qiota.com
 captcha.qq.com
 photo.store.qq.com
 quadpay.com
