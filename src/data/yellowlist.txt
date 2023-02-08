@@ -459,6 +459,7 @@ sagepay.com
 sajari.com
 commercecloud.salesforce.com
 my.salesforce.com
+my.salesforce-sites.com
 salesforceliveagent.com
 salsalabs.org
 sbnation.com
