@@ -501,6 +501,7 @@ widget.spreaker.com
 squarespace.com
 squareup.com
 ssl-images-amazon.com
+client.stackcommerce.io
 stackoverflow.com
 staticflickr.com
 statuspage.io
