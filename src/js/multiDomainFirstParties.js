@@ -2646,6 +2646,7 @@ let multiDomainFirstPartiesArray = [
     "vk.ru",
   ],
   ["mandtbank.com", "mtb.com"],
+  ["marugroup.net", "maruhub.com", "marupanels.com", "maru-cdn.com"],
   ["matchtv.ru", "sportbox.ru"],
   ["mathletics.com", "mathletics.com.au", "mathletics.co.uk"],
   [
