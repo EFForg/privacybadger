@@ -608,6 +608,7 @@ yahoo.net
 yahooapis.com
 api-maps.yandex.ru
 disk.yandex.ru
+forms.yandex.ru
 img-fotki.yandex.ru
 strm.yandex.ru
 maps.yandex.net
