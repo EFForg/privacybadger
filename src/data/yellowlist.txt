@@ -62,6 +62,7 @@ b-cdn.net
 bac-assets.com
 gimg3.baidu.com
 hiphotos.baidu.com
+image.baidu.com
 imgsa.baidu.com
 imgsrc.baidu.com
 api.map.baidu.com
@@ -436,6 +437,7 @@ pusher.com
 static.qiota.com
 www.qiota.com
 captcha.qq.com
+docs.qq.com
 photo.store.qq.com
 quadpay.com
 queue-it.net
