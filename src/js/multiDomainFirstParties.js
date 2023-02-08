@@ -4186,7 +4186,9 @@ let multiDomainFirstPartiesArray = [
     "lolstatic.com",
     "lolusercontent.com",
 
+    "arcane.com",
     "playruneterra.com",
+    "playvalorant.com",
 
     "riotcdn.net",
     "rdatasrv.net",
