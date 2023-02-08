@@ -1095,6 +1095,7 @@ let multiDomainFirstPartiesArray = [
     "anm.co.uk",
     "dmgmediaprivacy.co.uk",
   ],
+  ["dmm.com", "dmm.co.jp"],
   [
     "dpgmediagroup.com",
 
