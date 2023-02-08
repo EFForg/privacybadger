@@ -101,6 +101,7 @@ calendly.com
 cardinalcommerce.com
 cbsi.com
 cdninstagram.com
+cdnvideo.ru
 cern.ch
 ceros.com
 pwc.chase.com
@@ -427,6 +428,8 @@ prcdn.co
 prismic.io
 privacymanager.io
 cdn.privacy-mgmt.com
+navigation-api.project1service.com
+site-api.project1service.com
 providesupport.com
 img.purch.com
 pusher.com
