@@ -206,6 +206,7 @@ github.com
 gleam.io
 global-e.com
 godaddy.com
+accounts.google.com
 apis.google.com
 books.google.com
 calendar.google.com
