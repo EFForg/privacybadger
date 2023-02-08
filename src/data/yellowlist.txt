@@ -531,7 +531,9 @@ textalk.se
 tfaforms.com
 tfaforms.net
 theplatform.com
+www.tiktok.com
 tiktokcdn.com
+tiktokcdn-us.com
 tildacdn.com
 tinypass.com
 tiqcdn.com
