@@ -29,6 +29,20 @@
             "type": 3
         }
     },
+    "BitChute": {
+        "domains": [
+            "www.bitchute.com"
+        ],
+        "buttonSelectors": [
+            "iframe[src^='https://www.bitchute.com/embed/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.bitchute.com"
+            ],
+            "type": 3
+        }
+    },
     "Coub Player": {
         "domain": "coub.com",
         "buttonSelectors": [
