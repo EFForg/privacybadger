@@ -1503,25 +1503,6 @@ let multiDomainFirstPartiesArray = [
   ],
   ["express-scripts.com", "medcohealth.com"],
   [
-    "facebook.com",
-
-    "instagram.com",
-    "messenger.com",
-    "workplace.com",
-
-    "oculus.com",
-    "oculuscdn.com",
-    "oculusrift.com",
-    "oculusvr.com",
-    "powersunitedvr.com",
-
-    "cdninstagram.com",
-    "facebook.net",
-    "fbcdn.com",
-    "fbcdn.net",
-    "fbsbx.com",
-  ],
-  [
     "faithlife.com",
 
     "biblescreen.com",
@@ -2851,6 +2832,26 @@ let multiDomainFirstPartiesArray = [
     "mercedes-benz.si",
     "mercedes-benz.sk",
     "mercedes-benz.ua",
+  ],
+  [
+    "meta.com",
+
+    "facebook.com",
+    "instagram.com",
+    "messenger.com",
+    "workplace.com",
+
+    "oculus.com",
+    "oculuscdn.com",
+    "oculusrift.com",
+    "oculusvr.com",
+    "powersunitedvr.com",
+
+    "cdninstagram.com",
+    "facebook.net",
+    "fbcdn.com",
+    "fbcdn.net",
+    "fbsbx.com",
   ],
   ["mi.com", "xiaomi.com"],
   [
