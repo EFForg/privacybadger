@@ -348,7 +348,7 @@ QUnit.test("action map merge handles missing nextUpdateTime", (assert) => {
   newValue.nextUpdateTime = 200;
   actionMap.merge({[DOMAIN]: newValue});
   assert.notOk(actionMap.getItem(DOMAIN).dnt,
-    "DNT got overriden now that new data seems fresher");
+    "DNT got overridden now that new data seems fresher");
 });
 
 QUnit.test("action map merge handles missing userAction", (assert) => {
