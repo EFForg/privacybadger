@@ -80,6 +80,23 @@
             "type": 0
         }
     },
+    "Discord": {
+        "domains": [
+            "discord.com",
+            "discordapp.com"
+        ],
+        "buttonSelectors": [
+            "iframe[src^='https://discord.com/widget?']",
+            "iframe[src^='https://discordapp.com/widget?']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "discord.com",
+                "discordapp.com"
+            ],
+            "type": 3
+        }
+    },
     "Disqus": {
         "domains": [
             "disqus.com",
