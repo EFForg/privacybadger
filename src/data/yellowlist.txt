@@ -128,6 +128,7 @@ securepay.constantcontact.com
 consent.cookiebot.com
 consentcdn.cookiebot.com
 cookielaw.org
+cookie-cdn.cookiepro.com
 cloudplatform.coveo.com
 platform.cloud.coveo.com
 platform-eu.cloud.coveo.com
