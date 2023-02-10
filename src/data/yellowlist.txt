@@ -48,7 +48,7 @@ arkoselabs.com
 art19.com
 aspnetcdn.com
 assets-cdk.com
-kitchenaid-h.assetsadobe.com
+assetsadobe.com
 auth0.com
 authorize.net
 cmsembed.avplayer.com
