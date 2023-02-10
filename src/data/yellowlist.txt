@@ -414,6 +414,7 @@ cmp.osano.com
 paddle.com
 pandacommerce.net
 parastorage.com
+cdn.pathfactory.com
 payments-amazon.com
 paypal.com
 paypalobjects.com
