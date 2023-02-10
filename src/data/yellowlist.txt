@@ -391,6 +391,7 @@ nanorep.com
 map.naver.com
 pay.naver.com
 nbcuni.com
+edge-geo.nc0.co
 netdna-ssl.com
 nos.netease.com
 nextcloud.com
