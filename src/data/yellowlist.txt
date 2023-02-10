@@ -499,6 +499,7 @@ snipcart.com
 api.soundcloud.com
 feeds.soundcloud.com
 sp-prod.net
+cdn.split.io
 sdk.split.io
 ls.fn.sportradar.com
 scoreboard.itfmp.sportradar.com
