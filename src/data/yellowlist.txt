@@ -582,6 +582,7 @@ api.usbank.com
 content.usbank.com
 onlinebanking.usbank.com
 pay.usbank.com
+velocityweather.com
 viafoura.co
 videodelivery.net
 vidible.tv
