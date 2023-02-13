@@ -326,6 +326,7 @@ dapi.kakao.com
 developers.kakao.com
 kapi.kakao.com
 cdnapi.kaltura.com
+cdnapi-legacy.kaltura.com
 cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
 cdnsecakmi.kaltura.com
