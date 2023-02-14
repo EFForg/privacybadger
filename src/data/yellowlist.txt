@@ -510,6 +510,7 @@ feeds.soundcloud.com
 sp-prod.net
 cdn.split.io
 sdk.split.io
+avplayer-cdn.sportradar.com
 ls.fn.sportradar.com
 scoreboard.itfmp.sportradar.com
 spot.im
