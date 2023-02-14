@@ -12,6 +12,7 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 
@@ -45,6 +46,27 @@ class OptionsTest(pbtest.PBSeleniumTest):
     def load_options_page(self):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+
+    def test_reloading_should_reapply_filters(self):
+        FILTERVAL = "user"
+
+        self.load_options_page()
+        self.select_domain_list_tab()
+
+        # change a domain list filter
+        Select(self.find_el_by_css('#tracking-domains-type-filter')).select_by_value(FILTERVAL)
+
+        # reload page and assert filters are set
+        self.driver.refresh()
+        sel = Select(self.find_el_by_css('#tracking-domains-type-filter'))
+        assert sel.first_selected_option.get_attribute('value') == FILTERVAL
+
+        # open options page in a new window and assert filters are not set
+        self.open_window()
+        self.load_options_page()
+        self.select_domain_list_tab()
+        sel = Select(self.find_el_by_css('#tracking-domains-type-filter'))
+        assert not sel.first_selected_option.get_attribute('value')
 
     def test_added_origin_display(self):
         """Ensure origin and tracker count are displayed."""

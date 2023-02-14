@@ -678,16 +678,19 @@ function reloadTrackingDomainsTab() {
   // activate tooltips
   $('.tooltip:not(.tooltipstered)').tooltipster(TOOLTIP_CONF);
 
-  // Display tracking domains.
-  showTrackingDomains(
-    getOriginsArray(
-      OPTIONS_DATA.origins,
-      $("#trackingDomainSearch").val(),
-      $('#tracking-domains-type-filter').val(),
-      $('#tracking-domains-status-filter').val(),
-      $('#tracking-domains-show-not-yet-blocked').prop('checked')
-    )
-  );
+  // reloading the page should reapply search filters
+  let searchFilters = sessionStorage.getItem('domain-list-filters');
+  if (searchFilters) {
+    for (let filter of JSON.parse(searchFilters)) {
+      if (filter.type == 'checkbox') {
+        $(filter.sel).prop('checked', filter.val);
+      } else {
+        $(filter.sel).val(filter.val);
+      }
+    }
+  }
+
+  filterTrackingDomains();
 }
 
 /**
@@ -696,7 +699,8 @@ function reloadTrackingDomainsTab() {
 function filterTrackingDomains() {
   const $searchFilter = $('#trackingDomainSearch'),
     $typeFilter = $('#tracking-domains-type-filter'),
-    $statusFilter = $('#tracking-domains-status-filter');
+    $statusFilter = $('#tracking-domains-status-filter'),
+    $notYetBlockedFilter = $('#tracking-domains-show-not-yet-blocked');
 
   if ($typeFilter.val() == "dnt") {
     $statusFilter.prop("disabled", true).val("");
@@ -709,7 +713,7 @@ function filterTrackingDomains() {
     $searchFilter.val().toLowerCase(),
     $typeFilter.val(),
     $statusFilter.val(),
-    $('#tracking-domains-show-not-yet-blocked').prop('checked')
+    $notYetBlockedFilter.prop('checked')
   );
 
   let callback = function () {};
@@ -718,6 +722,24 @@ function filterTrackingDomains() {
       $searchFilter.focus();
     };
   }
+
+  // reloading the page should reapply search filters
+  sessionStorage.setItem('domain-list-filters', JSON.stringify([
+    {
+      sel: '#trackingDomainSearch',
+      val: $searchFilter.val()
+    }, {
+      sel: '#tracking-domains-show-not-yet-blocked',
+      val: $notYetBlockedFilter.prop('checked'),
+      type: 'checkbox'
+    }, {
+      sel: '#tracking-domains-status-filter',
+      val: $statusFilter.val()
+    }, {
+      sel: '#tracking-domains-type-filter',
+      val: $typeFilter.val()
+    },
+  ]));
 
   showTrackingDomains(filteredOrigins, callback);
 }
