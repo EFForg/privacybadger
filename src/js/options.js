@@ -59,7 +59,7 @@ function loadOptions() {
   $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteExceptions);
 
   // Set up input for searching through tracking domains.
-  $("#trackingDomainSearch").on("input", filterTrackingDomains);
+  $("#trackingDomainSearch").on("input", utils.debounce(filterTrackingDomains, 500));
   $("#tracking-domains-type-filter").on("change", filterTrackingDomains);
   $("#tracking-domains-status-filter").on("change", filterTrackingDomains);
   $("#tracking-domains-show-not-yet-blocked").on("change", filterTrackingDomains);
@@ -512,6 +512,8 @@ function updateDNTCheckboxClicked() {
 function updateCheckingDNTPolicy() {
   const enabled = $("#check_dnt_policy_checkbox").prop("checked");
 
+  // TODO toggling DNT checking should updateSliders() probably
+  // TODO as any DNT-declared domains will be shown incorrectly
   chrome.runtime.sendMessage({
     type: "updateSettings",
     data: {
@@ -702,46 +704,29 @@ function filterTrackingDomains() {
     $statusFilter.prop("disabled", false);
   }
 
-  let search_update = (this == $searchFilter[0]),
-    initial_search_text = $searchFilter.val().toLowerCase(),
-    time_to_wait = 0,
-    callback = function () {};
+  let filteredOrigins = getOriginsArray(
+    OPTIONS_DATA.origins,
+    $searchFilter.val().toLowerCase(),
+    $typeFilter.val(),
+    $statusFilter.val(),
+    $('#tracking-domains-show-not-yet-blocked').prop('checked')
+  );
 
-  // If we are here because the search filter got updated,
-  // wait a short period of time and see if search text has changed.
-  // If so it means user is still typing so hold off on filtering.
-  if (search_update) {
-    time_to_wait = 500;
+  let callback = function () {};
+  if (this == $searchFilter[0]) {
     callback = function () {
       $searchFilter.focus();
     };
   }
 
-  setTimeout(function () {
-    // check search text
-    let search_text = $searchFilter.val().toLowerCase();
-    if (search_text != initial_search_text) {
-      return;
-    }
-
-    // show filtered origins
-    let filteredOrigins = getOriginsArray(
-      OPTIONS_DATA.origins,
-      search_text,
-      $typeFilter.val(),
-      $statusFilter.val(),
-      $('#tracking-domains-show-not-yet-blocked').prop('checked')
-    );
-    showTrackingDomains(filteredOrigins, callback);
-
-  }, time_to_wait);
+  showTrackingDomains(filteredOrigins, callback);
 }
 
 /**
  * Renders the list of tracking domains.
  *
  * @param {Array} domains
- * @param {Function} cb callback
+ * @param {Function} [cb] callback
  */
 function showTrackingDomains(domains, cb) {
   if (!cb) {
