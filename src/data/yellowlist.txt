@@ -272,6 +272,7 @@ gravatar.com
 greenhouse.io
 rest.growinginteractive.com
 gstatic.com
+widgets.guidestar.org
 guildwars2.com
 hcaptcha.com
 herokuapp.com
