@@ -447,13 +447,14 @@
             "www.youtube-nocookie.com"
         ],
         "buttonSelectors": [
-            "iframe[src^='//youtube.com/embed/']",
-            "iframe[src^='//www.youtube.com/embed/']",
-            "iframe[src^='http://www.youtube.com/embed/']",
-            "iframe[src^='https://www.youtube.com/embed/']",
-            "iframe[src^='https://youtube.com/embed/']",
-            "iframe[src^='//www.youtube-nocookie.com/embed/']",
-            "iframe[src^='https://www.youtube-nocookie.com/embed/']"
+            "iframe[src^='//youtube.com/embed']",
+            "iframe[src^='//www.youtube.com/embed']",
+            "iframe[src^='http://www.youtube.com/embed']",
+            "iframe[src^='https://www.youtube.com/embed']",
+            "iframe[src^='https://youtube.com/embed']",
+            "iframe[src^='https://www.youtube.com/v/']",
+            "iframe[src^='//www.youtube-nocookie.com/embed']",
+            "iframe[src^='https://www.youtube-nocookie.com/embed']"
         ],
         "replacementButton": {
             "unblockDomains": [
