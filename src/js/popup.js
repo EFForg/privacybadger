@@ -647,6 +647,7 @@ function refreshPopup() {
 
   if (!originsArr.length) {
     // show "no trackers" message
+    $('#blockedResources').hide();
     $("#instructions-no-trackers").show();
 
     if (POPUP_DATA.settings.learnLocally && POPUP_DATA.settings.showNonTrackingDomains) {
@@ -728,11 +729,6 @@ function refreshPopup() {
         htmlUtils.getOriginHtml(nonTracking[i], constants.NO_TRACKING)
       );
     }
-  }
-
-  if (printable.length) {
-    // get containing HTML for domain list along with toggle legend icons
-    $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
   }
 
   // activate tooltips

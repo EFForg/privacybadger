@@ -644,12 +644,11 @@ function updateSummary() {
   // if there are no tracking domains
   let allTrackingDomains = Object.keys(OPTIONS_DATA.origins);
   if (!allTrackingDomains || !allTrackingDomains.length) {
-    // hide the number of trackers and slider instructions message
+    // hide the number of trackers message
     $("#options_domain_list_trackers").hide();
 
     // show "no trackers" message
     $("#options_domain_list_no_trackers").show();
-    $("#blockedResources").html('');
     $("#tracking-domains-div").hide();
 
     // activate tooltips
@@ -678,9 +677,6 @@ function updateSummary() {
  */
 function reloadTrackingDomainsTab() {
   updateSummary();
-
-  // Get containing HTML for domain list along with toggle legend icons.
-  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // activate tooltips
   $('.tooltip:not(.tooltipstered)').tooltipster(TOOLTIP_CONF);

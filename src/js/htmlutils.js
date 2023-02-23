@@ -132,22 +132,6 @@ let htmlUtils = {
   }()),
 
   /**
-   * Get HTML for tracker container.
-   *
-   * @returns {String} HTML for empty tracker container.
-   */
-  getTrackerContainerHtml: function() {
-    return `
-<div class="keyContainer">
-  <div class="key">
-    <img src="/icons/UI-icons-red.svg" class="tooltip" title="${i18n.getMessage("tooltip_block")}"><img src="/icons/UI-icons-yellow.svg" class="tooltip" title="${i18n.getMessage("tooltip_cookieblock")}"><img src="/icons/UI-icons-green.svg" class="tooltip" title="${i18n.getMessage("tooltip_allow")}">
-  </div>
-</div>
-<div id="blockedResourcesInner" class="clickerContainer"></div>
-    `.trim();
-  },
-
-  /**
    * Generates HTML for given origin.
    * TODO origin --> domain
    *
