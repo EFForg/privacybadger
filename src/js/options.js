@@ -778,12 +778,9 @@ function showTrackingDomains(domains, cb) {
 
     let $printable = $(out.splice(0, CHUNK).join(""));
 
-    $printable.appendTo('#blockedResourcesInner');
+    activateDomainListTooltips($printable);
 
-    // activate tooltips
-    // TODO disabled for performance reasons
-    //$('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
-    //  htmlUtils.DOMAIN_TOOLTIP_CONF);
+    $printable.appendTo('#blockedResourcesInner');
 
     if (out.length) {
       requestAnimationFrame(renderDomains);
@@ -805,6 +802,30 @@ function showTrackingDomains(domains, cb) {
     window.SLIDERS_DONE = true;
     cb();
   }
+}
+
+/**
+ * Activates fancy tooltips for each row in the list of tracking domains.
+ *
+ * The tooltips over domain names are constructed dynamically
+ * in preparation for fetching and showing extra information
+ * that is not already available on the options page
+ * on mouseenter/touchstart.
+ */
+function activateDomainListTooltips($html) {
+  $html.find('.origin-inner.tooltip').tooltipster({
+    functionBefore: function (tooltip, ev) {
+      let $domainEl = $(ev.origin).parents('.clicker').first(),
+        domain = $domainEl.data('origin');
+      tooltip.content(htmlUtils.getActionDescription(
+        OPTIONS_DATA.origins[domain], domain));
+    }
+  });
+
+  // TODO disabled for performance reasons
+  //$html.find('.breakage-warning.tooltip').tooltipster();
+  //$html.find('.switch-toggle > label.tooltip').tooltipster();
+  //$html.find('.honeybadgerPowered.tooltip').tooltipster();
 }
 
 /**
@@ -846,13 +867,6 @@ function updateOrigin(origin, action, userset) {
   );
 
   htmlUtils.toggleBlockedStatus($clicker, userset, show_breakage_warning);
-
-  // reinitialize the domain tooltip
-  // TODO disabled for performance reasons
-  //$clicker.find('.origin-inner').tooltipster('destroy');
-  //$clicker.find('.origin-inner').attr(
-  //  'title', htmlUtils.getActionDescription(action, origin));
-  //$clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 }
 
 /**
