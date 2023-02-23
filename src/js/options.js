@@ -79,13 +79,20 @@ function loadOptions() {
   });
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
+  $('#blockedResourcesInner').on('scroll', function () {
+    activateDomainListTooltips();
+  });
 
   // Display jQuery UI elements
   $("#tabs").tabs({
-    activate: function (event, ui) {
+    activate: function (_, ui) {
+      let tab_id = ui.newPanel.attr('id');
+      if (tab_id == 'tab-tracking-domains') {
+        activateDomainListTooltips();
+      }
       // update options page URL fragment identifier
       // to preserve selected tab on page reload
-      history.replaceState(null, null, "#" + ui.newPanel.attr('id'));
+      history.replaceState(null, null, "#" + tab_id);
     }
   });
   $("button").button();
@@ -778,8 +785,6 @@ function showTrackingDomains(domains, cb) {
 
     let $printable = $(out.splice(0, CHUNK).join(""));
 
-    activateDomainListTooltips($printable);
-
     $printable.appendTo('#blockedResourcesInner');
 
     if (out.length) {
@@ -787,6 +792,11 @@ function showTrackingDomains(domains, cb) {
     } else {
       $('#tracking-domains-loader').hide();
       $('#tracking-domains-div').css('visibility', 'visible');
+
+      if ($('#blockedResourcesInner').is(':visible')) {
+        activateDomainListTooltips();
+      }
+
       window.SLIDERS_DONE = true;
       cb();
     }
@@ -805,15 +815,29 @@ function showTrackingDomains(domains, cb) {
 }
 
 /**
- * Activates fancy tooltips for each row in the list of tracking domains.
+ * Activates fancy tooltips for each visible row
+ * in the list of tracking domains.
  *
  * The tooltips over domain names are constructed dynamically
  * in preparation for fetching and showing extra information
  * that is not already available on the options page
  * on mouseenter/touchstart.
  */
-function activateDomainListTooltips($html) {
-  $html.find('.origin-inner.tooltip').tooltipster({
+function activateDomainListTooltips() {
+  let container = document.getElementById('blockedResourcesInner');
+
+  // keep not-yet-tooltipstered, visible in scroll container elements only
+  let $rows = $('#blockedResourcesInner div.clicker').filter((_, el) => {
+    if (htmlUtils.isScrolledIntoView(el, container)) {
+      if (el.querySelector('.tooltipstered')) {
+        return false;
+      }
+      return el;
+    }
+    return false;
+  });
+
+  $rows.find('.origin-inner.tooltip').tooltipster({
     functionBefore: function (tooltip, ev) {
       let $domainEl = $(ev.origin).parents('.clicker').first(),
         domain = $domainEl.data('origin');
@@ -822,10 +846,9 @@ function activateDomainListTooltips($html) {
     }
   });
 
-  // TODO disabled for performance reasons
-  //$html.find('.breakage-warning.tooltip').tooltipster();
-  //$html.find('.switch-toggle > label.tooltip').tooltipster();
-  //$html.find('.honeybadgerPowered.tooltip').tooltipster();
+  $rows.find('.breakage-warning.tooltip').tooltipster();
+  $rows.find('.switch-toggle > label.tooltip').tooltipster();
+  $rows.find('.honeybadgerPowered.tooltip').tooltipster();
 }
 
 /**

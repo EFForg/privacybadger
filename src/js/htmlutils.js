@@ -290,6 +290,34 @@ let htmlUtils = {
     return (base_minus_tld + '.' + rest_of_it_reversed);
   },
 
+  /**
+   * Checks whether an element is at least partially visible
+   * within its scrollable container.
+   *
+   * @param {Element} elm
+   * @param {Element} container
+   *
+   * @returns {Boolean}
+   */
+  isScrolledIntoView: (elm, container) => {
+    let ctop = container.scrollTop,
+      cbot = ctop + container.clientHeight,
+      etop = elm.offsetTop,
+      ebot = etop + elm.clientHeight;
+
+    // completely in view
+    if (etop >= ctop && ebot <= cbot) {
+      return true;
+    }
+
+    // partially in view
+    if ((etop < ctop && ebot > ctop) || (ebot > cbot && etop < cbot)) {
+      return true;
+    }
+
+    return false;
+  },
+
 };
 
 htmlUtils.escape = escape_html;
