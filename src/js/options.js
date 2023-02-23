@@ -974,6 +974,8 @@ function removeOrigin(event) {
     OPTIONS_DATA.origins = response.origins;
     // if we removed domains, the summary text may have changed
     updateSummary();
+    // and we probably now have new visible rows in the tracking domains list
+    activateDomainListTooltips();
   });
 }
 
