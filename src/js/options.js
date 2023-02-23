@@ -759,7 +759,8 @@ function showTrackingDomains(domains, cb) {
   }
 
   window.SLIDERS_DONE = false;
-  $('#tracking-domains-div').css('visibility', 'hidden');
+  $('#tracking-domains-filters').hide();
+  $('#blockedResources').hide();
   $('#tracking-domains-loader').show();
 
   domains = htmlUtils.sortDomains(domains);
@@ -787,7 +788,8 @@ function showTrackingDomains(domains, cb) {
       requestAnimationFrame(renderDomains);
     } else {
       $('#tracking-domains-loader').hide();
-      $('#tracking-domains-div').css('visibility', 'visible');
+      $('#tracking-domains-filters').show();
+      $('#blockedResources').show();
 
       if ($('#blockedResourcesInner').is(':visible')) {
         activateDomainListTooltips();
@@ -804,7 +806,7 @@ function showTrackingDomains(domains, cb) {
     requestAnimationFrame(renderDomains);
   } else {
     $('#tracking-domains-loader').hide();
-    $('#tracking-domains-div').css('visibility', 'visible');
+    $('#tracking-domains-filters').show();
     window.SLIDERS_DONE = true;
     cb();
   }
