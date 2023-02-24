@@ -817,9 +817,8 @@ function showTrackingDomains(domains, cb) {
  * in the list of tracking domains.
  *
  * The tooltips over domain names are constructed dynamically
- * in preparation for fetching and showing extra information
- * that is not already available on the options page
- * on mouseenter/touchstart.
+ * for fetching and showing extra information
+ * that wasn't prefetched on options page load.
  */
 function activateDomainListTooltips() {
   let container = document.getElementById('blockedResourcesInner');
@@ -837,11 +836,42 @@ function activateDomainListTooltips() {
 
   $rows.find('.origin-inner.tooltip').tooltipster({
     functionBefore: function (tooltip, ev) {
-      let $domainEl = $(ev.origin).parents('.clicker').first(),
-        domain = $domainEl.data('origin');
-      tooltip.content(htmlUtils.getActionDescription(
-        OPTIONS_DATA.origins[domain], domain));
-    }
+      let $domainEl = $(ev.origin).parents('.clicker').first();
+      if ($domainEl.data('tooltip-fetched')) {
+        return;
+      }
+      tooltip.content($('<span class="ui-icon ui-icon-loading-status-circle rotate"></span>'));
+      chrome.runtime.sendMessage({
+        type: "getOptionsDomainTooltip",
+        domain: $domainEl.data('origin')
+      }, function (response) {
+        if (!response || !response.base || !response.snitchMap) {
+          tooltip.content($domainEl.data('origin'));
+          $domainEl.data('tooltip-fetched', '1');
+          return;
+        }
+        let $tip = $("<span>" +
+          i18n.getMessage('options_domain_list_sites', [response.base]) +
+          "<ul><li>" +
+          response.snitchMap.sort().map(site => {
+            if (response.trackingMap && utils.hasOwn(response.trackingMap, site)) {
+              if (response.trackingMap[site].includes("canvas")) {
+                site += ` (${i18n.getMessage('canvas_fingerprinting')})`;
+              }
+            }
+            return site;
+          }).join("</li><li>") +
+          "</li></ul>" +
+          i18n.getMessage('learn_more_link', ['<a target=_blank href="https://privacybadger.org/#How-does-Privacy-Badger-work">privacybadger.org</a>']) +
+          "</span>");
+        tooltip.content($tip);
+        $domainEl.data('tooltip-fetched', '1');
+      });
+    },
+    interactive: true,
+    theme: 'tooltipster-badger-domain-more-info',
+    trigger: 'click',
+    updateAnimation: false
   });
 
   $rows.find('.breakage-warning.tooltip').tooltipster();
