@@ -958,10 +958,10 @@ Badger.prototype = {
    * and if tab_id is for an incognito window,
    * is learning in incognito windows enabled?
    */
-  isLearningEnabled(tab_id) {
+  isLearningEnabled(tab_id, tab_host) {
     return (
       this.getSettings().getItem("learnLocally") &&
-      incognito.learningEnabled(tab_id)
+      incognito.learningEnabled(tab_id, tab_host)
     );
   },
 

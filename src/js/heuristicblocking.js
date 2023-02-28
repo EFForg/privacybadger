@@ -104,7 +104,7 @@ HeuristicBlocker.prototype = {
   // TODO more like heuristicLearningFromCookies ... check DESIGN doc
   heuristicBlockingAccounting: function (details) {
     // ignore requests that are outside a tabbed window
-    if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
+    if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId, details.url)) {
       return {};
     }
 

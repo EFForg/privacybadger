@@ -156,7 +156,7 @@ function onBeforeRequest(details) {
   });
 
   // if this is a heuristically- (not user-) blocked domain
-  if (action == constants.BLOCK && incognito.learningEnabled(tab_id)) {
+  if (action == constants.BLOCK && incognito.learningEnabled(tab_id, tab_host)) {
     // check for DNT policy asynchronously
     setTimeout(function () {
       badger.checkForDNTPolicy(request_host);
@@ -1207,7 +1207,7 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     sendResponse(frame_host &&
-      badger.isLearningEnabled(sender.tab.id) &&
+      badger.isLearningEnabled(sender.tab.id, tab_host) &&
       badger.isPrivacyBadgerEnabled(tab_host) &&
       utils.isThirdPartyDomain(frame_host, tab_host));
 
@@ -1218,7 +1218,7 @@ function dispatcher(request, sender, sendResponse) {
     let tab_host = extractHostFromURL(sender.tab.url);
 
     sendResponse(
-      badger.isLearningEnabled(sender.tab.id) &&
+      badger.isLearningEnabled(sender.tab.id, tab_host) &&
       badger.isPrivacyBadgerEnabled(tab_host));
 
     break;
