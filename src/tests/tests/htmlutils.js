@@ -9,17 +9,32 @@ QUnit.test("getActionDescription", (assert) => {
     origin = "pbtest.org";
   const tests = [
     {
-      action: "block",
+      action: constants.BLOCK,
       origin,
       expectedResult: getMessage('badger_status_block', origin)
     },
     {
-      action: "cookieblock",
+      action: constants.COOKIEBLOCK,
       origin,
       expectedResult: getMessage('badger_status_cookieblock', origin)
     },
     {
-      action: "allow",
+      action: constants.ALLOW,
+      origin,
+      expectedResult: getMessage('badger_status_allow', origin)
+    },
+    {
+      action: constants.USER_BLOCK,
+      origin,
+      expectedResult: getMessage('badger_status_block', origin)
+    },
+    {
+      action: constants.USER_COOKIEBLOCK,
+      origin,
+      expectedResult: getMessage('badger_status_cookieblock', origin)
+    },
+    {
+      action: constants.USER_ALLOW,
       origin,
       expectedResult: getMessage('badger_status_allow', origin)
     },

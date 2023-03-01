@@ -79,13 +79,20 @@ function loadOptions() {
   });
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
+  $('#blockedResourcesInner').on('scroll', function () {
+    activateDomainListTooltips();
+  });
 
   // Display jQuery UI elements
   $("#tabs").tabs({
-    activate: function (event, ui) {
+    activate: function (_, ui) {
+      let tab_id = ui.newPanel.attr('id');
+      if (tab_id == 'tab-tracking-domains') {
+        activateDomainListTooltips();
+      }
       // update options page URL fragment identifier
       // to preserve selected tab on page reload
-      history.replaceState(null, null, "#" + ui.newPanel.attr('id'));
+      history.replaceState(null, null, "#" + tab_id);
     }
   });
   $("button").button();
@@ -637,12 +644,11 @@ function updateSummary() {
   // if there are no tracking domains
   let allTrackingDomains = Object.keys(OPTIONS_DATA.origins);
   if (!allTrackingDomains || !allTrackingDomains.length) {
-    // hide the number of trackers and slider instructions message
+    // hide the number of trackers message
     $("#options_domain_list_trackers").hide();
 
     // show "no trackers" message
     $("#options_domain_list_no_trackers").show();
-    $("#blockedResources").html('');
     $("#tracking-domains-div").hide();
 
     // activate tooltips
@@ -671,9 +677,6 @@ function updateSummary() {
  */
 function reloadTrackingDomainsTab() {
   updateSummary();
-
-  // Get containing HTML for domain list along with toggle legend icons.
-  $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
 
   // activate tooltips
   $('.tooltip:not(.tooltipstered)').tooltipster(TOOLTIP_CONF);
@@ -756,7 +759,8 @@ function showTrackingDomains(domains, cb) {
   }
 
   window.SLIDERS_DONE = false;
-  $('#tracking-domains-div').css('visibility', 'hidden');
+  $('#tracking-domains-filters').hide();
+  $('#blockedResources').hide();
   $('#tracking-domains-loader').show();
 
   domains = htmlUtils.sortDomains(domains);
@@ -780,16 +784,17 @@ function showTrackingDomains(domains, cb) {
 
     $printable.appendTo('#blockedResourcesInner');
 
-    // activate tooltips
-    // TODO disabled for performance reasons
-    //$('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
-    //  htmlUtils.DOMAIN_TOOLTIP_CONF);
-
     if (out.length) {
       requestAnimationFrame(renderDomains);
     } else {
       $('#tracking-domains-loader').hide();
-      $('#tracking-domains-div').css('visibility', 'visible');
+      $('#tracking-domains-filters').show();
+      $('#blockedResources').show();
+
+      if ($('#blockedResourcesInner').is(':visible')) {
+        activateDomainListTooltips();
+      }
+
       window.SLIDERS_DONE = true;
       cb();
     }
@@ -801,10 +806,77 @@ function showTrackingDomains(domains, cb) {
     requestAnimationFrame(renderDomains);
   } else {
     $('#tracking-domains-loader').hide();
-    $('#tracking-domains-div').css('visibility', 'visible');
+    $('#tracking-domains-filters').show();
     window.SLIDERS_DONE = true;
     cb();
   }
+}
+
+/**
+ * Activates fancy tooltips for each visible row
+ * in the list of tracking domains.
+ *
+ * The tooltips over domain names are constructed dynamically
+ * for fetching and showing extra information
+ * that wasn't prefetched on options page load.
+ */
+function activateDomainListTooltips() {
+  let container = document.getElementById('blockedResourcesInner');
+
+  // keep not-yet-tooltipstered, visible in scroll container elements only
+  let $rows = $('#blockedResourcesInner div.clicker').filter((_, el) => {
+    if (htmlUtils.isScrolledIntoView(el, container)) {
+      if (el.querySelector('.tooltipstered')) {
+        return false;
+      }
+      return el;
+    }
+    return false;
+  });
+
+  $rows.find('.origin-inner.tooltip').tooltipster({
+    functionBefore: function (tooltip, ev) {
+      let $domainEl = $(ev.origin).parents('.clicker').first();
+      if ($domainEl.data('tooltip-fetched')) {
+        return;
+      }
+      tooltip.content($('<span class="ui-icon ui-icon-loading-status-circle rotate"></span>'));
+      chrome.runtime.sendMessage({
+        type: "getOptionsDomainTooltip",
+        domain: $domainEl.data('origin')
+      }, function (response) {
+        if (!response || !response.base || !response.snitchMap) {
+          tooltip.content($domainEl.data('origin'));
+          $domainEl.data('tooltip-fetched', '1');
+          return;
+        }
+        let $tip = $("<span>" +
+          i18n.getMessage('options_domain_list_sites', [response.base]) +
+          "<ul><li>" +
+          response.snitchMap.sort().map(site => {
+            if (response.trackingMap && utils.hasOwn(response.trackingMap, site)) {
+              if (response.trackingMap[site].includes("canvas")) {
+                site += ` (${i18n.getMessage('canvas_fingerprinting')})`;
+              }
+            }
+            return site;
+          }).join("</li><li>") +
+          "</li></ul>" +
+          i18n.getMessage('learn_more_link', ['<a target=_blank href="https://privacybadger.org/#How-does-Privacy-Badger-work">privacybadger.org</a>']) +
+          "</span>");
+        tooltip.content($tip);
+        $domainEl.data('tooltip-fetched', '1');
+      });
+    },
+    interactive: true,
+    theme: 'tooltipster-badger-domain-more-info',
+    trigger: 'click',
+    updateAnimation: false
+  });
+
+  $rows.find('.breakage-warning.tooltip').tooltipster();
+  $rows.find('.switch-toggle > label.tooltip').tooltipster();
+  $rows.find('.honeybadgerPowered.tooltip').tooltipster();
 }
 
 /**
@@ -846,13 +918,6 @@ function updateOrigin(origin, action, userset) {
   );
 
   htmlUtils.toggleBlockedStatus($clicker, userset, show_breakage_warning);
-
-  // reinitialize the domain tooltip
-  // TODO disabled for performance reasons
-  //$clicker.find('.origin-inner').tooltipster('destroy');
-  //$clicker.find('.origin-inner').attr(
-  //  'title', htmlUtils.getActionDescription(action, origin));
-  //$clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
 }
 
 /**
@@ -941,6 +1006,8 @@ function removeOrigin(event) {
     OPTIONS_DATA.origins = response.origins;
     // if we removed domains, the summary text may have changed
     updateSummary();
+    // and we probably now have new visible rows in the tracking domains list
+    activateDomainListTooltips();
   });
 }
 

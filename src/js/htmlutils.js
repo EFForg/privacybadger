@@ -36,6 +36,7 @@ let htmlUtils = {
 
   // default Tooltipster config
   TOOLTIPSTER_DEFAULTS: {
+    delay: 100,
     // allow per-instance option overriding
     functionInit: function (instance, helper) {
       let dataOptions = helper.origin.dataset.tooltipster;
@@ -54,12 +55,6 @@ let htmlUtils = {
     },
   },
 
-  // Tooltipster config for domain list tooltips
-  DOMAIN_TOOLTIP_CONF: {
-    delay: 100,
-    side: 'bottom',
-  },
-
   /**
    * Gets localized description for given action and origin.
    *
@@ -76,6 +71,10 @@ let htmlUtils = {
       dntTooltip: i18n.getMessage('dnt_tooltip')
     };
     return function (action, origin) {
+      if (action.startsWith('user')) {
+        action = action.slice(5);
+      }
+
       if (action == constants.DNT) {
         return messages.dntTooltip;
       }
@@ -131,22 +130,6 @@ let htmlUtils = {
     };
 
   }()),
-
-  /**
-   * Get HTML for tracker container.
-   *
-   * @returns {String} HTML for empty tracker container.
-   */
-  getTrackerContainerHtml: function() {
-    return `
-<div class="keyContainer">
-  <div class="key">
-    <img src="/icons/UI-icons-red.svg" class="tooltip" title="${i18n.getMessage("tooltip_block")}"><img src="/icons/UI-icons-yellow.svg" class="tooltip" title="${i18n.getMessage("tooltip_cookieblock")}"><img src="/icons/UI-icons-green.svg" class="tooltip" title="${i18n.getMessage("tooltip_allow")}">
-  </div>
-</div>
-<div id="blockedResourcesInner" class="clickerContainer"></div>
-    `.trim();
-  },
 
   /**
    * Generates HTML for given origin.
@@ -289,6 +272,34 @@ let htmlUtils = {
     }
 
     return (base_minus_tld + '.' + rest_of_it_reversed);
+  },
+
+  /**
+   * Checks whether an element is at least partially visible
+   * within its scrollable container.
+   *
+   * @param {Element} elm
+   * @param {Element} container
+   *
+   * @returns {Boolean}
+   */
+  isScrolledIntoView: (elm, container) => {
+    let ctop = container.scrollTop,
+      cbot = ctop + container.clientHeight,
+      etop = elm.offsetTop,
+      ebot = etop + elm.clientHeight;
+
+    // completely in view
+    if (etop >= ctop && ebot <= cbot) {
+      return true;
+    }
+
+    // partially in view
+    if ((etop < ctop && ebot > ctop) || (ebot > cbot && etop < cbot)) {
+      return true;
+    }
+
+    return false;
   },
 
 };

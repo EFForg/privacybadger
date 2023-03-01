@@ -1303,6 +1303,16 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  case "getOptionsDomainTooltip": {
+    let base = getBaseDomain(request.domain);
+    sendResponse({
+      base,
+      snitchMap: badger.storage.getStore('snitch_map').getItem(base),
+      trackingMap: badger.storage.getStore('tracking_map').getItem(base)
+    });
+    break;
+  }
+
   case "resetData": {
     badger.storage.clearTrackerData();
     badger.loadSeedData(err => {

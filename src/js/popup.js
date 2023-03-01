@@ -36,6 +36,10 @@ let BREAKAGE_NOTE_DOMAINS = {
   "accounts.google.com": "google_signin_tooltip" // Google Sign-In
 };
 
+const DOMAIN_TOOLTIP_CONF = {
+  side: 'bottom',
+};
+
 /* if they aint seen the comic*/
 function showNagMaybe() {
   var $nag = $("#instruction");
@@ -553,7 +557,7 @@ function createBreakageNote(domain, i18n_message_key) {
     theme: 'tooltipster-badger-breakage-note'
 
   // now restore the Allow tooltip
-  }).tooltipster(Object.assign({}, htmlUtils.DOMAIN_TOOLTIP_CONF, {
+  }).tooltipster(Object.assign({}, DOMAIN_TOOLTIP_CONF, {
     content: chrome.i18n.getMessage('domain_slider_allow_tooltip'),
     multiple: true
   }));
@@ -643,6 +647,7 @@ function refreshPopup() {
 
   if (!originsArr.length) {
     // show "no trackers" message
+    $('#blockedResources').hide();
     $("#instructions-no-trackers").show();
 
     if (POPUP_DATA.settings.learnLocally && POPUP_DATA.settings.showNonTrackingDomains) {
@@ -726,11 +731,6 @@ function refreshPopup() {
     }
   }
 
-  if (printable.length) {
-    // get containing HTML for domain list along with toggle legend icons
-    $("#blockedResources")[0].innerHTML = htmlUtils.getTrackerContainerHtml();
-  }
-
   // activate tooltips
   $('.tooltip').tooltipster();
 
@@ -767,8 +767,7 @@ function refreshPopup() {
     $printable.appendTo('#blockedResourcesInner');
 
     // activate tooltips
-    $('#blockedResourcesInner .tooltip:not(.tooltipstered)').tooltipster(
-      htmlUtils.DOMAIN_TOOLTIP_CONF);
+    $printable.find('.tooltip:not(.tooltipstered)').tooltipster(DOMAIN_TOOLTIP_CONF);
     if ($printable.hasClass('breakage-note')) {
       let domain = $printable[0].dataset.origin;
       if (!POPUP_DATA.shownBreakageNotes.includes(domain)) {
@@ -822,7 +821,7 @@ function updateOrigin() {
   $clicker.find('.origin-inner').tooltipster('destroy');
   $clicker.find('.origin-inner').attr(
     'title', htmlUtils.getActionDescription(action, origin));
-  $clicker.find('.origin-inner').tooltipster(htmlUtils.DOMAIN_TOOLTIP_CONF);
+  $clicker.find('.origin-inner').tooltipster(DOMAIN_TOOLTIP_CONF);
 
   // persist the change
   saveToggle(origin, action);
