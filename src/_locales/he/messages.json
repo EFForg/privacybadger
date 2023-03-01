@@ -7,6 +7,10 @@
         "message": "Privacy Badger לומד באופן אוטומטי לחסום עוקבנים בלתי נראים.",
         "description": "Extension description sometimes used by extension stores. See also 'intro_welcome', 'share_base_message' and 'intro_learns' messages."
     },
+    "canvas_fingerprinting": {
+        "message": "canvas fingerprinting",
+        "description": "Canvas fingerprinting is the tracking method described in https://en.wikipedia.org/wiki/Canvas_fingerprinting"
+    },
     "popup_help_button": {
         "message": "עזרה",
         "description": "Tooltip shown over the question mark button in the upper right corner of the popup."
@@ -551,6 +555,16 @@
     "options_show_not_yet_blocked": {
         "message": "הראה תחומים אשר Privacy Badger לא החליט עדין אם לחסום:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
+    },
+    "options_domain_list_sites": {
+        "message": "$DOMAIN$ was seen tracking on the following sites:",
+        "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
     },
     "options_remove_origin_confirm": {
         "message": "האם אתה בטוח שאתה רוצה להסיר תחום זה מן Privacy Badger?",
