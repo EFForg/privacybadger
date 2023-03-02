@@ -5665,7 +5665,7 @@ let multiDomainFirstPartiesArray = [
     "zohostatic.com",
   ],
   ["zonealarm.com", "zonelabs.com"],
-  ["miraheze.org", "allthetropes.org", "rosettacode.org", "nonbinary.wiki"]
+  ["miraheze.org", "allthetropes.org", "rosettacode.org", "nonbinary.wiki", "publictestwiki.com"]
 ];
 
 /**
