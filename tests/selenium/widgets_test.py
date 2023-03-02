@@ -165,6 +165,8 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.switch_to_frame(f'iframe[srcdoc*="{widget_name}"]')
         self.find_el_by_css(f"button[id^='{id_prefix}']").click()
         self.driver.switch_to.default_content()
+        # wait a bit for the widget to get reinserted
+        sleep(1)
 
     def test_replacement_basic(self):
         # visit the basic widget fixture
