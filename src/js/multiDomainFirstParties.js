@@ -5525,10 +5525,13 @@ let multiDomainFirstPartiesArray = [
   ],
   ["wellsfargo.com", "wf.com"],
   ["wetter.com", "tiempo.es", "wettercomassets.com"],
-  ["wikipedia.org", "wikimedia.org", "wikimediafoundation.org", "wiktionary.org",
+  [
+    "wikipedia.org", "wikimedia.org", "wikimediafoundation.org", "wiktionary.org",
     "wikiquote.org", "wikibooks.org", "wikisource.org", "wikinews.org",
     "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org",
-    "wmfusercontent.org", "tools.wmflabs.org"],
+    "wmfusercontent.org", "tools.wmflabs.org",
+    "mediawiki.org"
+  ],
   [
     "williams-sonomainc.com",
 
