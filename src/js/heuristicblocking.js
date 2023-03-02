@@ -719,6 +719,18 @@ function hasCookieTracking(details) {
       if (name == "__cf_bm") {
         continue;
       }
+      
+      // MediaWiki session cookies. These can be seen on Miraheze, Wikimedia, and most wikifarms. Detecting these as trackers will break
+      // almost any MediaWiki wikifarm that uses CentralAuth, along with almost any MediaWiki wiki that has more than one domain.
+      if (
+          name == "centralauth_Session"
+          || name == "centralauth_User"
+          || name == "centralauth_ss0-Token"
+          || name == "centralauth_ss0-User"
+          || name == "ss0-centralauth_Session"
+      ) {
+        continue;
+      }
 
       let value = cookie[name].toLowerCase();
 
