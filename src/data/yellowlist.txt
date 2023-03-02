@@ -526,7 +526,7 @@ staticflickr.com
 statuspage.io
 steampowered.com
 streamtheworld.com
-stripe.com
+js.stripe.com
 m.stripe.network
 stripecdn.com
 substack.com
