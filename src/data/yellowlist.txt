@@ -653,3 +653,4 @@ zoho.eu
 zohopublic.com
 zohostatic.com
 zopim.com
+static.miraheze.org
