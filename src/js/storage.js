@@ -616,9 +616,7 @@ BadgerStorage.prototype = {
     let self = this;
     self.notify("set:" + key, key, value);
     self._store[key] = value;
-    setTimeout(function () {
-      _syncStorage(self);
-    }, 0);
+    _syncStorage(self);
   },
 
   /**
@@ -630,9 +628,7 @@ BadgerStorage.prototype = {
     let self = this;
     self.notify("delete:" + key, key);
     delete self._store[key];
-    setTimeout(function () {
-      _syncStorage(self);
-    }, 0);
+    _syncStorage(self);
   },
 
   /**
