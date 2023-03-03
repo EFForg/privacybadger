@@ -5530,7 +5530,6 @@ let multiDomainFirstPartiesArray = [
     "wikiquote.org", "wikibooks.org", "wikisource.org", "wikinews.org",
     "wikiversity.org", "mediawiki.org", "wikidata.org", "wikivoyage.org",
     "wmfusercontent.org", "tools.wmflabs.org",
-    "mediawiki.org"
   ],
   [
     "williams-sonomainc.com",
