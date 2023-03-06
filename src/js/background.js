@@ -54,6 +54,15 @@ function Badger(from_qunit) {
 
   self.storage = new BadgerPen(onStorageReady);
 
+  // initialize all chrome.* API listeners on first turn of event loop
+  if (!from_qunit) {
+    incognito.startListeners();
+    webrequest.startListeners();
+    HeuristicBlocking.startListeners();
+    FirefoxAndroid.startListeners();
+    startBackgroundListeners();
+  }
+
   /**
    * Callback that continues Privacy Badger initialization
    * once Badger storage is ready.
@@ -107,24 +116,14 @@ function Badger(from_qunit) {
       self.blockPanopticlickDomains();
     }
 
-    if (from_qunit) {
-      self.INITIALIZED = true;
-      return;
-    }
-
-    // start the listeners
-    incognito.startListeners();
-    webrequest.startListeners();
-    HeuristicBlocking.startListeners();
-    FirefoxAndroid.startListeners();
-    startBackgroundListeners();
-
     console.log("Privacy Badger is ready to rock!");
     console.log("Set DEBUG=1 to view console messages.");
     self.INITIALIZED = true;
 
-    self.initYellowlistUpdates();
-    self.initDntPolicyUpdates();
+    if (!from_qunit) {
+      self.initYellowlistUpdates();
+      self.initDntPolicyUpdates();
+    }
   }
 
   /**
@@ -1218,7 +1217,7 @@ Badger.prototype = {
 
 function startBackgroundListeners() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    if (changeInfo.status == "loading" && tab.url) {
+    if (badger.INITIALIZED && changeInfo.status == "loading" && tab.url) {
       badger.updateIcon(tab.id, tab.url);
       badger.updateBadge(tabId);
     }
@@ -1226,13 +1225,17 @@ function startBackgroundListeners() {
 
   // Update icon if a tab is replaced or loaded from cache
   chrome.tabs.onReplaced.addListener(function(addedTabId/*, removedTabId*/) {
-    chrome.tabs.get(addedTabId, function(tab) {
-      badger.updateIcon(tab.id, tab.url);
-    });
+    if (badger.INITIALIZED) {
+      chrome.tabs.get(addedTabId, function(tab) {
+        badger.updateIcon(tab.id, tab.url);
+      });
+    }
   });
 
   chrome.tabs.onActivated.addListener(function (activeInfo) {
-    badger.updateBadge(activeInfo.tabId);
+    if (badger.INITIALIZED) {
+      badger.updateBadge(activeInfo.tabId);
+    }
   });
 }
 

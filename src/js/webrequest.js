@@ -45,6 +45,10 @@ let tempAllowlist = {},
  * @returns {Object} Can cancel requests
  */
 function onBeforeRequest(details) {
+  if (!badger.INITIALIZED) {
+    return;
+  }
+
   let frame_id = details.frameId,
     tab_id = details.tabId,
     type = details.type,
@@ -57,7 +61,7 @@ function onBeforeRequest(details) {
     forgetTab(tab_id, is_reload);
     badger.tabData.recordFrame(tab_id, frame_id, url);
     initAllowedWidgets(tab_id, badger.tabData.getFrameData(tab_id).host);
-    return {};
+    return;
   }
 
   // Block ping requests sent by navigator.sendBeacon (see, #587)
@@ -80,7 +84,7 @@ function onBeforeRequest(details) {
       // TODO we might assign SW requests to the wrong tab,
       // TODO or miss them entirely (when the more recently opened tab
       // TODO gets closed while the older tab is still loading)
-      return {};
+      return;
     } else {
       // NOTE details.type is always xmlhttprequest for SW-initiated requests in Chrome,
       // which means surrogation won't work and frames won't get collapsed.
@@ -99,7 +103,7 @@ function onBeforeRequest(details) {
 
   let frameData = badger.tabData.getFrameData(tab_id);
   if (!frameData) {
-    return {};
+    return;
   }
 
   if (type == "sub_frame") {
@@ -109,22 +113,22 @@ function onBeforeRequest(details) {
   let tab_host = frameData.host;
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
-    return {};
+    return;
   }
 
   let action = checkAction(tab_id, request_host, frame_id);
   if (!action) {
-    return {};
+    return;
   }
 
   badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
-    return {};
+    return;
   }
 
   if (action != constants.BLOCK && action != constants.USER_BLOCK) {
-    return {};
+    return;
   }
 
   if (type == 'script' || sw_request) {
@@ -214,6 +218,10 @@ function getWarSecret(tab_id, frame_id, url) {
  * @returns {Object|undefined} Can cancel requests
  */
 function filterWarRequests(details) {
+  if (!badger.INITIALIZED) {
+    return;
+  }
+
   let url = details.url,
     frameData = badger.tabData.getFrameData(details.tabId, details.frameId),
     tokens = frameData && frameData.warAccessTokens;
@@ -241,6 +249,10 @@ function filterWarRequests(details) {
  * @returns {Object} modified headers
  */
 function onBeforeSendHeaders(details) {
+  if (!badger.INITIALIZED) {
+    return;
+  }
+
   let frame_id = details.frameId,
     tab_id = details.tabId,
     type = details.type,
@@ -264,7 +276,7 @@ function onBeforeSendHeaders(details) {
     }
 
     // ignore otherwise
-    return {};
+    return;
   }
 
   let tab_host = frameData.host;
@@ -275,7 +287,7 @@ function onBeforeSendHeaders(details) {
       return { requestHeaders: details.requestHeaders };
     }
 
-    return {};
+    return;
   }
 
   let request_host = extractHostFromURL(url);
@@ -296,7 +308,7 @@ function onBeforeSendHeaders(details) {
       return { requestHeaders: details.requestHeaders };
     }
 
-    return {};
+    return;
   }
 
   let action = checkAction(tab_id, request_host, frame_id);
@@ -306,7 +318,7 @@ function onBeforeSendHeaders(details) {
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
-    return {};
+    return;
   }
 
   // handle cookieblocked requests
@@ -357,6 +369,10 @@ function onBeforeSendHeaders(details) {
  * @returns {Object} The new response headers
  */
 function onHeadersReceived(details) {
+  if (!badger.INITIALIZED) {
+    return;
+  }
+
   let tab_id = details.tabId,
     url = details.url,
     frameData = badger.tabData.getFrameData(tab_id);
@@ -385,7 +401,7 @@ function onHeadersReceived(details) {
     }
 
     // ignore otherwise
-    return {};
+    return;
   }
 
   if (details.type == 'main_frame') {
@@ -398,7 +414,7 @@ function onHeadersReceived(details) {
       return { responseHeaders };
     }
 
-    return {};
+    return;
   }
 
   let tab_host = frameData.host;
@@ -410,18 +426,18 @@ function onHeadersReceived(details) {
   }
 
   if (!utils.isThirdPartyDomain(response_host, tab_host)) {
-    return {};
+    return;
   }
 
   let action = checkAction(tab_id, response_host, details.frameId);
   if (!action) {
-    return {};
+    return;
   }
 
   badger.logThirdPartyOriginOnTab(tab_id, response_host, action);
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
-    return {};
+    return;
   }
 
   if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
@@ -440,7 +456,9 @@ function onHeadersReceived(details) {
  * @param {Integer} tabId Id of the tab
  */
 function onTabRemoved(tabId) {
-  forgetTab(tabId);
+  if (badger.INITIALIZED) {
+    forgetTab(tabId);
+  }
 }
 
 /**
@@ -451,6 +469,9 @@ function onTabRemoved(tabId) {
  * @param {Integer} removedTabId The tab id that gets removed
  */
 function onTabReplaced(addedTabId, removedTabId) {
+  if (!badger.INITIALIZED) {
+    return;
+  }
   forgetTab(removedTabId);
   // Update the badge of the added tab, which was probably used for prerendering.
   badger.updateBadge(addedTabId);
@@ -461,6 +482,10 @@ function onTabReplaced(addedTabId, removedTabId) {
  * so we need a fallback for (re)initializing tabData.
  */
 function onNavigate(details) {
+  if (!badger.INITIALIZED) {
+    return;
+  }
+
   const tab_id = details.tabId,
     url = details.url;
 
@@ -1054,6 +1079,9 @@ function getSurrogateWidget(name, data, frame_url) {
 
 // NOTE: sender.tab is available for content script (not popup) messages only
 function dispatcher(request, sender, sendResponse) {
+  if (!badger.INITIALIZED) {
+    return sendResponse();
+  }
 
   // messages from content scripts are to be treated with greater caution:
   // https://groups.google.com/a/chromium.org/d/msg/chromium-extensions/0ei-UCHNm34/lDaXwQhzBAAJ

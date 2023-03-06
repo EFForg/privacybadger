@@ -105,7 +105,7 @@ HeuristicBlocker.prototype = {
   heuristicBlockingAccounting: function (details) {
     // ignore requests that are outside a tabbed window
     if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
-      return {};
+      return;
     }
 
     let self = this;
@@ -115,12 +115,12 @@ HeuristicBlocker.prototype = {
       let request_host = (new URI(details.url)).host;
       self.tabOrigins[details.tabId] = getBaseDomain(request_host);
       self.tabUrls[details.tabId] = details.url;
-      return {};
+      return;
     }
 
     let tab_base = self.tabOrigins[details.tabId];
     if (!tab_base) {
-      return {};
+      return;
     }
 
     let request_host = (new URI(details.url)).host;
@@ -133,25 +133,25 @@ HeuristicBlocker.prototype = {
 
     // ignore first-party requests
     if (!utils.isThirdPartyDomain(request_base, tab_base)) {
-      return {};
+      return;
     }
 
     // short-circuit if we already observed this eTLD+1 tracking on this site
     let firstParties = self.storage.getStore('snitch_map').getItem(request_base);
     if (firstParties && firstParties.includes(tab_base)) {
-      return {};
+      return;
     }
 
     // short-circuit if we already made a decision for this FQDN
     let action = self.storage.getAction(request_host);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
-      return {};
+      return;
     }
 
     // check if there are tracking cookies
     if (hasCookieTracking(details)) {
       self._recordPrevalence(request_host, request_base, tab_base);
-      return {};
+      return;
     }
   },
 
@@ -748,7 +748,9 @@ function startListeners() {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    return badger.heuristicBlocking.heuristicBlockingAccounting(details);
+    if (badger.INITIALIZED) {
+      badger.heuristicBlocking.heuristicBlockingAccounting(details);
+    }
   }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
   /**
@@ -759,6 +761,10 @@ function startListeners() {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onResponseStarted.addListener(function (details) {
+    if (!badger.INITIALIZED) {
+      return;
+    }
+
     // check for cookie tracking if there are any set-cookie headers
     let has_setcookie_header = false;
     for (let i = 0; i < details.responseHeaders.length; i++) {
