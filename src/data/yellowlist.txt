@@ -412,6 +412,7 @@ omny.fm
 attservicesinc.tt.omtrdc.net
 dsw.tt.omtrdc.net
 onetrust.com
+h-microsoft.online-metrix.net
 onnetwork.tv
 secure-cf-c.ooyala.com
 opendesktop.org
