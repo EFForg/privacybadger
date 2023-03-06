@@ -528,6 +528,7 @@ steampowered.com
 streamtheworld.com
 api.stripe.com
 checkout.stripe.com
+hooks.stripe.com
 js.stripe.com
 merchant-ui-api.stripe.com
 m.stripe.network
