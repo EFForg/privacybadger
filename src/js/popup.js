@@ -253,6 +253,11 @@ function init() {
     $(this).text(chrome.i18n.getMessage("copy_button_copied"));
   });
 
+  $('html').css({
+    overflow: 'visible',
+    visibility: 'visible'
+  });
+
   window.POPUP_INITIALIZED = true;
 }
 
