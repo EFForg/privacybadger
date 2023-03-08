@@ -253,6 +253,11 @@ function init() {
     $(this).text(chrome.i18n.getMessage("copy_button_copied"));
   });
 
+  $('html').css({
+    overflow: 'visible',
+    visibility: 'visible'
+  });
+
   window.POPUP_INITIALIZED = true;
 }
 
@@ -859,16 +864,28 @@ function setPopupData(data) {
 $(function () {
   $.tooltipster.setDefaults(htmlUtils.TOOLTIPSTER_DEFAULTS);
 
-  getTab(function (tab) {
+  function getPopupData(tab) {
     chrome.runtime.sendMessage({
       type: "getPopupData",
       tabId: tab.id,
       tabUrl: tab.url
     }, (response) => {
+      if (!response) {
+        // event page/extension service worker is still starting up, retry
+        // async w/ non-zero delay to avoid locking up the messaging channel
+        setTimeout(function () {
+          getPopupData(tab);
+        }, 10);
+        return;
+      }
       setPopupData(response);
       refreshPopup();
       init();
     });
+  }
+
+  getTab(function (tab) {
+    getPopupData(tab);
   });
 });
 
