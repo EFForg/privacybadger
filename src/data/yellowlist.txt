@@ -373,6 +373,7 @@ mapquestapi.com
 marketo.com
 matterport.com
 medallia.com
+mediawiki.org
 megaphone.fm
 ajax.microsoft.com
 atlas.microsoft.com
@@ -380,6 +381,7 @@ api.cognitive.microsoft.com
 docs.microsoft.com
 graph.microsoft.com
 wcpstatic.microsoft.com
+static.miraheze.org
 mixcloud.com
 mlive.com
 mncdn.com
