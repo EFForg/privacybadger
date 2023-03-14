@@ -381,6 +381,7 @@ api.cognitive.microsoft.com
 docs.microsoft.com
 graph.microsoft.com
 wcpstatic.microsoft.com
+www.microsoft.com
 static.miraheze.org
 mixcloud.com
 mlive.com
