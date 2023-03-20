@@ -403,10 +403,6 @@
         "message": "Вимкнути надсилання відвідуваних веб адрес в Google. Ця дія вимикає пропозиції для схожих сторінок, коли сторінку не вдається знайти.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Вимкнути Federated Learning of Cohorts (FLoC) від Google",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Розширені",
         "description": "Subheading on the general settings options page."

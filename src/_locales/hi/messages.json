@@ -403,10 +403,6 @@
         "message": "आप जिन वेब पतों पर जाते हैं उन्हें Google को भेजना निष्क्रिय करें। जब कोई पृष्ठ नहीं मिल पाता है तो यह समान पृष्ठों के सुझावों को अक्षम कर देता है।",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Google की Federated Learning of Cohorts (FLoC) को अक्षम करें",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "उन्नत",
         "description": "Subheading on the general settings options page."

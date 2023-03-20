@@ -403,10 +403,6 @@
         "message": "停用將您造訪的網址傳送給 Google 的功能。這會在找不到網頁時停用相似頁面的建議。",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "停用 Google 的同類群組聯合學習 (FLoC)",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "進階",
         "description": "Subheading on the general settings options page."

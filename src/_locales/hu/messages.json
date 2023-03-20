@@ -403,10 +403,6 @@
         "message": "Meglátogatott webcímek küldésének letiltása a Google számára. Ez letiltja a hasonló oldalak javaslatait, ha egy oldal nem található.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Speciális",
         "description": "Subheading on the general settings options page."

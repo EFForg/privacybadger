@@ -403,10 +403,6 @@
         "message": "アクセスしたウェブアドレスをGoogleに送信しないようにします。これにより、ページが見つからないときに類似のページを提案することが無効になります。",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "GoogleのFederated Learning of Cohorts (FLoC)を無効化する",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "高度な設定",
         "description": "Subheading on the general settings options page."

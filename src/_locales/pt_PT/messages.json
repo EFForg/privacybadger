@@ -403,10 +403,6 @@
         "message": "Desativar o envio de endereços web que visita para o Google. Isto também desativa as sugestões para páginas similares quando uma página não é encontrada.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Desativar o Federated Learning of Cohorts do Google (FLoC)",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Avançado",
         "description": "Subheading on the general settings options page."

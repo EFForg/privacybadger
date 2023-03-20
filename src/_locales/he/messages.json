@@ -403,10 +403,6 @@
         "message": "השבת שליחת כתובות אתר שאתה מבקר בהן אל Google. זה משבית הצעות אל דפים דומים כאשר דף אינו יכול להימצא.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "השבת את למידה מאוחדת של מקבצים (FLoC) של Google",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "מתקדם",
         "description": "Subheading on the general settings options page."

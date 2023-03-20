@@ -403,10 +403,6 @@
         "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Disable Google's Federated Learning of Cohorts (FLoC)",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Advanced",
         "description": "Subheading on the general settings options page."

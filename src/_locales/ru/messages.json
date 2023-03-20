@@ -403,10 +403,6 @@
         "message": "Отключить отправление адресов посещаемых веб-страниц в Google (это отключит предложение вариантов когда страница не найдена)",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Отключить Federated Learning of Cohorts (FLoC) от Google",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Дополнительные",
         "description": "Subheading on the general settings options page."

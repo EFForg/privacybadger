@@ -405,15 +405,6 @@ function onHeadersReceived(details) {
   }
 
   if (details.type == 'main_frame') {
-    if (badger.isFlocOverwriteEnabled()) {
-      let responseHeaders = details.responseHeaders || [];
-      responseHeaders.push({
-        name: 'permissions-policy',
-        value: 'interest-cohort=()'
-      });
-      return { responseHeaders };
-    }
-
     return;
   }
 
@@ -1091,7 +1082,6 @@ function dispatcher(request, sender, sendResponse) {
       "allowWidgetOnSite",
       "checkDNT",
       "checkEnabled",
-      "checkFloc",
       "checkLocation",
       "checkWidgetReplacementEnabled",
       "detectFingerprinting",
@@ -1657,13 +1647,6 @@ function dispatcher(request, sender, sendResponse) {
       badger.isDNTSignalEnabled()
       && badger.isPrivacyBadgerEnabled(extractHostFromURL(sender.tab.url))
     );
-    break;
-  }
-
-  // called from contentscripts/floc.js
-  // to check if we should disable document.interestCohort
-  case "checkFloc": {
-    sendResponse(badger.isFlocOverwriteEnabled());
     break;
   }
 

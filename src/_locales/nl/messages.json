@@ -403,10 +403,6 @@
         "message": "Het naar Google verzenden van webadressen die u bezoekt uitschakelen. Hierdoor worden ook suggesties voor vergelijkbare pagina’s als een pagina niet kan worden gevonden uitgeschakeld.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Googles Federated Learning of Cohorts (FLoC) uitschakelen",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Geavanceerd",
         "description": "Subheading on the general settings options page."

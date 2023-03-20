@@ -403,10 +403,6 @@
         "message": "Älä käytä avaamiesi verkkotunnusten lähetytä Googlelle. Tämä poistaa käytöstä samantyylisen sisällön ehdotukset silloin, kun sivua ei löydy.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Poista Googlen Federated Learning of Cohorts (FLoC) käytöstä",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Lisäasetukset",
         "description": "Subheading on the general settings options page."

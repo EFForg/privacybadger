@@ -403,10 +403,6 @@
         "message": "Να απενεργοποιηθεί η αποστολή διευθύνσεων URL που επισκέπτομαι στη Google. Αυτή η επιλογή απενεργοποιεί προτάσεις για παρόμοιες σελίδες όταν κάποια δεν μπορεί να βρεθεί.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Να απενεργοποιηθεί το χαρακτηριστικό Federated Learning of Cohorts (FLoC) της Google",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Για προχωρημένους",
         "description": "Subheading on the general settings options page."

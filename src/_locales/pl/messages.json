@@ -403,10 +403,6 @@
         "message": "Wyłącz wysyłanie adresów stron internetowych do Google. Opcja ta wyłącza sugestie podobnych stron wyświetlanych kiedy żądana strona nie została znaleziona.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Wyłącz mechanizm FLoC (Federated Learning of Cohorts) firmy Google",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Zaawansowane",
         "description": "Subheading on the general settings options page."

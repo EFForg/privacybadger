@@ -403,10 +403,6 @@
         "message": "غیرفعال‌سازی ارسال نشانی‌های وبی که بازدید می‌کنید به گوگل. این پیشنهادهای صفحات مشابه را وقتی که صفحه یافت نشد،‌ غیرفعال می‌کند.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "غیرفعال‌سازی یادگیری فدرال شدهٔ گوگل (FLoC)",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "پیش‌رفته",
         "description": "Subheading on the general settings options page."

@@ -403,10 +403,6 @@
         "message": "Senden besuchter Web-Adressen an Google deaktivieren. Dies deaktiviert Vorschläge für ähnliche Seiten, wenn eine Seite nicht gefunden werden kann.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Googles »Föderiertes Lernen von Kohorten« (FLoC) deaktivieren",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Erweitert",
         "description": "Subheading on the general settings options page."

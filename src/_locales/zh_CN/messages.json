@@ -403,10 +403,6 @@
         "message": "禁止向谷歌发送你访问的网址。如果此项开启，在找不到要访问的网页时将不会显示有关类似网页的建议。",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "禁用谷歌的同类群组联合学习（FLoC）",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "高级",
         "description": "Subheading on the general settings options page."

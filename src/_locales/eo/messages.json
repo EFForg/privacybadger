@@ -403,10 +403,6 @@
         "message": "Malaktivigi sendi adresojn de vizitataj retejoj al Google. Tio ĉi malaktivigas sugestojn pri similaj retejoj, kiam la paĝo ne povas esti malfermita.",
         "description": "(Chrome only) Checkbox label found on the general settings page"
     },
-    "options_disable_floc": {
-        "message": "Malaktivigi la meĥanismon FLoC (Federated Learning of Cohorts) de Google",
-        "description": "(Chrome only) Checkbox label on the general settings page."
-    },
     "options_advanced_settings": {
         "message": "Spertulaj",
         "description": "Subheading on the general settings options page."

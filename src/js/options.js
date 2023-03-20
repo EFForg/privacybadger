@@ -164,21 +164,6 @@ function loadOptions() {
       });
   }
 
-  // only show the FLoC override if browser supports it
-  if (document.interestCohort) {
-    $("#disable-floc").show();
-    $("#disable-floc-checkbox")
-      .prop("checked", OPTIONS_DATA.settings.disableFloc)
-      .on("click", function () {
-        const disableFloc = $("#disable-floc-checkbox").prop("checked");
-
-        chrome.runtime.sendMessage({
-          type: "updateSettings",
-          data: { disableFloc }
-        });
-      });
-  }
-
   $('#local-learning-checkbox')
     .prop("checked", OPTIONS_DATA.settings.learnLocally)
     .on("click", (event) => {
