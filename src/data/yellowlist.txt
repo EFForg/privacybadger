@@ -383,6 +383,7 @@ graph.microsoft.com
 wcpstatic.microsoft.com
 www.microsoft.com
 static.miraheze.org
+meta.miraheze.org
 mixcloud.com
 mlive.com
 mncdn.com
