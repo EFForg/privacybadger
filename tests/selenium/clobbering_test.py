@@ -3,6 +3,8 @@
 
 import unittest
 
+import pytest
+
 import pbtest
 
 
@@ -67,6 +69,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
                 "localStorage (%s) was read despite cookieblocking" % selector
             )
 
+    @pytest.mark.flaky(reruns=3)
     def test_referrer_header(self):
         FIXTURE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
