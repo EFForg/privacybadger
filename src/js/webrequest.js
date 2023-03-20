@@ -255,13 +255,12 @@ function onBeforeSendHeaders(details) {
 
   let frame_id = details.frameId,
     tab_id = details.tabId,
-    type = details.type,
     url = details.url,
     frameData = badger.tabData.getFrameData(tab_id);
 
   if (!frameData || tab_id < 0) {
     // strip cookies from DNT policy requests
-    if (type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
+    if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // remove Cookie headers
       let newHeaders = [];
       for (let i = 0, count = details.requestHeaders.length; i < count; i++) {
@@ -281,7 +280,7 @@ function onBeforeSendHeaders(details) {
 
   let tab_host = frameData.host;
 
-  if (type == 'main_frame') {
+  if (details.type == 'main_frame') {
     if (badger.isDNTSignalEnabled() && badger.isPrivacyBadgerEnabled(tab_host)) {
       details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
       return { requestHeaders: details.requestHeaders };
@@ -373,6 +372,10 @@ function onHeadersReceived(details) {
     return;
   }
 
+  if (details.type == 'main_frame') {
+    return;
+  }
+
   let tab_id = details.tabId,
     url = details.url,
     frameData = badger.tabData.getFrameData(tab_id);
@@ -401,10 +404,6 @@ function onHeadersReceived(details) {
     }
 
     // ignore otherwise
-    return;
-  }
-
-  if (details.type == 'main_frame') {
     return;
   }
 
