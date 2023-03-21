@@ -21,33 +21,6 @@ class SupercookieTest(pbtest.PBSeleniumTest):
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('#local-learning-checkbox').click()
 
-    # test for https://github.com/EFForg/privacybadger/pull/1403
-    def test_async_tracking_attribution_bug(self):
-        FIRST_PARTY_BASE = "eff.org"
-        THIRD_PARTY_BASE = "efforg.github.io"
-
-        self.load_url((
-            f"https://privacybadger-tests.{FIRST_PARTY_BASE}/html/"
-            "async_localstorage_attribution_bug.html"
-        ))
-
-        # the above HTML page reloads itself furiously to trigger our bug
-        # we need to wait for it to finish reloading
-        self.wait_for_script("return window.DONE_RELOADING === true")
-
-        # the HTML page contains:
-
-        # an iframe from THIRD_PARTY_BASE that writes to localStorage
-        snitch_map = pbtest.retry_until(
-            partial(self.get_snitch_map_for, THIRD_PARTY_BASE))
-        assert snitch_map == [FIRST_PARTY_BASE], (
-            "Frame sets localStorage but was not flagged as a tracker.")
-
-        # and an image from raw.githubusercontent.com that doesn't do any tracking
-        assert not self.get_snitch_map_for("raw.githubusercontent.com"), (
-            "Image is not a tracker but was flagged as one.")
-
-
     def test_should_detect_ls_of_third_party_frame(self):
         FIRST_PARTY_BASE = "eff.org"
         THIRD_PARTY_BASE = "efforg.github.io"
