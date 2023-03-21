@@ -239,46 +239,7 @@ let Migrations= {
     badger.storage.forget("opendns.com");
   },
 
-  unsetWebRTCIPHandlingPolicy: function (/*badger*/) {
-    if (!chrome.privacy || !chrome.privacy.network || !chrome.privacy.network.webRTCIPHandlingPolicy) {
-      return;
-    }
-
-    function checkWebRtcBrowserSupport() {
-      let available = true;
-      let connection = null;
-
-      try {
-        let RTCPeerConnection = (
-          window.RTCPeerConnection || window.webkitRTCPeerConnection
-        );
-        if (RTCPeerConnection) {
-          connection = new RTCPeerConnection(null);
-        }
-      } catch (ex) {
-        available = false;
-      }
-
-      if (connection !== null && connection.close) {
-        connection.close();
-      }
-
-      return available;
-    }
-
-    if (!checkWebRtcBrowserSupport()) {
-      return;
-    }
-
-    console.log("Unsetting webRTCIPHandlingPolicy ...");
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (res) {
-      if (res.levelOfControl == 'controlled_by_this_extension') {
-        chrome.privacy.network.webRTCIPHandlingPolicy.clear({
-          scope: 'regular'
-        });
-      }
-    });
-  },
+  unsetWebRTCIPHandlingPolicy: noop,
 
 };
 
