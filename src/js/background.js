@@ -70,9 +70,6 @@ function Badger(from_qunit) {
   async function onStorageReady() {
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(self.storage);
 
-    // TODO is this the right place for migrations?
-    self.runMigrations();
-
     self.setPrivacyOverrides();
 
     // kick off async initialization steps
@@ -113,6 +110,10 @@ function Badger(from_qunit) {
       // only need to do this when the widget list could have gotten updated
       self.blockWidgetDomains();
       self.blockPanopticlickDomains();
+    }
+
+    if (self.isUpdate) {
+      self.runMigrations();
     }
 
     console.log("Privacy Badger is ready to rock!");
@@ -751,7 +752,7 @@ Badger.prototype = {
     hideBlockedElements: true,
     learnInIncognito: false,
     learnLocally: false,
-    migrationLevel: 0,
+    migrationLevel: Migrations.length,
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
@@ -849,45 +850,15 @@ Badger.prototype = {
    */
   initDeprecations: function () {},
 
-  runMigrations: function() {
-    var self = this;
-    var settings = self.getSettings();
-    var migrationLevel = settings.getItem('migrationLevel');
-    if (migrationLevel === null) {
-      return;
-    }
-    // TODO do not remove any migration methods
-    // TODO w/o refactoring migrationLevel handling to work differently
-    var migrations = [
-      Migrations.changePrivacySettings,
-      Migrations.migrateAbpToStorage,
-      Migrations.migrateBlockedSubdomainsToCookieblock,
-      Migrations.migrateLegacyFirefoxData,
-      Migrations.migrateDntRecheckTimes,
-      // Need to run this migration again for everyone to #1181
-      Migrations.migrateDntRecheckTimes2,
-      Migrations.forgetMistakenlyBlockedDomains,
-      Migrations.unblockIncorrectlyBlockedDomains,
-      Migrations.forgetBlockedDNTDomains,
-      Migrations.reapplyYellowlist,
-      Migrations.forgetNontrackingDomains,
-      Migrations.forgetMistakenlyBlockedDomains,
-      Migrations.resetWebRTCIPHandlingPolicy,
-      Migrations.enableShowNonTrackingDomains,
-      Migrations.forgetFirstPartySnitches,
-      Migrations.forgetCloudflare,
-      Migrations.forgetConsensu,
-      Migrations.resetWebRTCIPHandlingPolicy2,
-      Migrations.resetWebRtcIpHandlingPolicy3,
-      Migrations.forgetOpenDNS,
-      Migrations.unsetWebRTCIPHandlingPolicy,
-    ];
+  runMigrations: function () {
+    let self = this,
+      settings = self.getSettings(),
+      migrationLevel = settings.getItem('migrationLevel');
 
-    for (var i = migrationLevel; i < migrations.length; i++) {
-      migrations[i].call(Migrations, self);
+    for (let i = migrationLevel; i < Migrations.length; i++) {
+      Migrations[i].call(self);
       settings.setItem('migrationLevel', i+1);
     }
-
   },
 
   /**

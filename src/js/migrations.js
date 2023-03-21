@@ -17,8 +17,7 @@
 
 let noop = function () {};
 
-let Migrations= {
-
+let exports = {
   changePrivacySettings: noop,
   migrateAbpToStorage: noop,
   migrateBlockedSubdomainsToCookieblock: noop,
@@ -39,9 +38,34 @@ let Migrations= {
   resetWebRtcIpHandlingPolicy3: noop,
   forgetOpenDNS: noop,
   unsetWebRTCIPHandlingPolicy: noop,
-
 };
 
+// TODO do not remove any migration methods w/o refactoring
+// TODO migrationLevel handling to work differently
+let Migrations = [
+  exports.changePrivacySettings,
+  exports.migrateAbpToStorage,
+  exports.migrateBlockedSubdomainsToCookieblock,
+  exports.migrateLegacyFirefoxData,
+  exports.migrateDntRecheckTimes,
+  exports.migrateDntRecheckTimes2,
+  exports.forgetMistakenlyBlockedDomains,
+  exports.unblockIncorrectlyBlockedDomains,
+  exports.forgetBlockedDNTDomains,
+  exports.reapplyYellowlist,
+  exports.forgetNontrackingDomains,
+  exports.forgetMistakenlyBlockedDomains,
+  exports.resetWebRTCIPHandlingPolicy,
+  exports.enableShowNonTrackingDomains,
+  exports.forgetFirstPartySnitches,
+  exports.forgetCloudflare,
+  exports.forgetConsensu,
+  exports.resetWebRTCIPHandlingPolicy2,
+  exports.resetWebRtcIpHandlingPolicy3,
+  exports.forgetOpenDNS,
+  exports.unsetWebRTCIPHandlingPolicy,
+];
+
 export {
-  Migrations,
+  Migrations
 };
