@@ -70,7 +70,6 @@ function Badger(from_qunit) {
   async function onStorageReady() {
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(self.storage);
 
-    // TODO there are async migrations
     // TODO is this the right place for migrations?
     self.runMigrations();
 

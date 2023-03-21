@@ -25,22 +25,7 @@ let noop = function () {};
 let Migrations= {
   changePrivacySettings: noop,
   migrateAbpToStorage: noop,
-
-  migrateBlockedSubdomainsToCookieblock: function(badger) {
-    setTimeout(function() {
-      console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
-      let ylist = badger.storage.getStore('cookieblock_list');
-      badger.storage.getAllDomainsByPresumedAction(constants.BLOCK).forEach(fqdn => {
-        utils.explodeSubdomains(fqdn, true).forEach(domain => {
-          if (ylist.hasItem(domain)) {
-            console.log('moving', fqdn, 'from block to cookie block');
-            badger.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
-          }
-        });
-      });
-    }, 1000 * 30);
-  },
-
+  migrateBlockedSubdomainsToCookieblock: noop,
   migrateLegacyFirefoxData: noop,
 
   migrateDntRecheckTimes: function(badger) {
