@@ -197,9 +197,9 @@ p, #settingsForm {
 
 /* domain more info tooltips */
 .origin-inner {
+    border-bottom: 1px dotted #333;
     cursor: pointer;
-    text-decoration: underline dotted #505050;
-    text-underline-offset: 2px;
+    display: inline-block;
 }
 .tooltipster-badger-domain-more-info.tooltipster-sidetip .tooltipster-box {
     padding: 10px 0;
@@ -352,6 +352,10 @@ header {
         border: 1px solid #555;
     }
 
+    .origin-inner {
+        border-bottom: 1px dotted #ddd;
+    }
+
     #resetData, #removeAllData {
         background-color: #86151d;
         background-image: none;
@@ -410,7 +414,7 @@ header {
         color: #f96a0a;
     }
 
-    .select2-container--default.select2-container--disabled .select2-selection--multiple     {
+    .select2-container--default.select2-container--disabled .select2-selection--multiple {
         background-color: #222;
         opacity: 0.5;
         cursor: not-allowed;
