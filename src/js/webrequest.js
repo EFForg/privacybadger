@@ -372,7 +372,18 @@ function onHeadersReceived(details) {
     return;
   }
 
+  // Google's Topics API: opt out all websites from topics generation
   if (details.type == 'main_frame') {
+    if (badger.isTopicsOverwriteEnabled()) {
+      let responseHeaders = details.responseHeaders || [];
+      responseHeaders.push({
+        name: 'permissions-policy',
+        // https://github.com/GoogleChrome/developer.chrome.com/issues/2296#issuecomment-1075478309
+        value: 'interest-cohort=()'
+      });
+      return { responseHeaders };
+    }
+
     return;
   }
 
