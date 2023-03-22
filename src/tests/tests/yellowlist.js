@@ -1,7 +1,6 @@
 import { getBaseDomain } from "../../lib/basedomain.js";
 
 import constants from "../../js/constants.js";
-import { Migrations } from "../../js/migrations.js";
 import utils from "../../js/utils.js";
 
 function get_ylist() {
@@ -145,42 +144,6 @@ QUnit.module("Yellowlist", (hooks) => {
 
       done();
     });
-  });
-
-  QUnit.test("Reapplying yellowlist updates", (assert) => {
-    // these are all on the yellowlist
-    let DOMAINS = [
-      // domain, action
-      ["books.google.com", null], // null means do not record
-      ["clients6.google.com", ""],
-      ["storage.googleapis.com", constants.BLOCK],
-    ];
-
-    // set up test data
-    for (let i = 0; i < DOMAINS.length; i++) {
-      let [domain, action] = DOMAINS[i];
-      if (action !== null) {
-        // record the domain with specified action
-        badger.storage.setupHeuristicAction(domain, action);
-
-        // block the base domain
-        badger.storage.setupHeuristicAction(
-          getBaseDomain(domain), constants.BLOCK);
-      }
-    }
-
-    // (re)apply yellowlist updates
-    Migrations.reapplyYellowlist(badger);
-
-    // all test domains should be now set to "cookieblock"
-    for (let i = 0; i < DOMAINS.length; i++) {
-      let [domain,] = DOMAINS[i];
-      assert.equal(
-        badger.storage.getBestAction(domain),
-        constants.COOKIEBLOCK,
-        domain + " is cookieblocked"
-      );
-    }
   });
 
   QUnit.module("Removing domains", () => {

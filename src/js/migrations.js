@@ -15,288 +15,57 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { getBaseDomain } from "../lib/basedomain.js";
-
-import constants from "./constants.js";
-import utils from "./utils.js";
-
 let noop = function () {};
 
-let Migrations= {
+let exports = {
   changePrivacySettings: noop,
   migrateAbpToStorage: noop,
-
-  migrateBlockedSubdomainsToCookieblock: function(badger) {
-    setTimeout(function() {
-      console.log('MIGRATING BLOCKED SUBDOMAINS THAT ARE ON COOKIE BLOCK LIST');
-      let ylist = badger.storage.getStore('cookieblock_list');
-      badger.storage.getAllDomainsByPresumedAction(constants.BLOCK).forEach(fqdn => {
-        utils.explodeSubdomains(fqdn, true).forEach(domain => {
-          if (ylist.hasItem(domain)) {
-            console.log('moving', fqdn, 'from block to cookie block');
-            badger.storage.setupHeuristicAction(fqdn, constants.COOKIEBLOCK);
-          }
-        });
-      });
-    }, 1000 * 30);
-  },
-
+  migrateBlockedSubdomainsToCookieblock: noop,
   migrateLegacyFirefoxData: noop,
-
-  migrateDntRecheckTimes: function(badger) {
-    var action_map = badger.storage.getStore('action_map');
-    for (var domain in action_map.getItemClones()) {
-      if (badger.storage.getNextUpdateForDomain(domain) === 0) {
-        // Recheck at a random time in the next week
-        var recheckTime = utils.random(Date.now(), utils.nDaysFromNow(7));
-        badger.storage.touchDNTRecheckTime(domain, recheckTime);
-      }
-    }
-
-  },
-
-  // Fixes https://github.com/EFForg/privacybadger/issues/1181
-  migrateDntRecheckTimes2: function(badger) {
-    console.log('fixing DNT check times');
-    var action_map = badger.storage.getStore('action_map');
-    for (var domain in action_map.getItemClones()) {
-      // Recheck at a random time in the next week
-      var recheckTime = utils.random(utils.oneDayFromNow(), utils.nDaysFromNow(7));
-      badger.storage.touchDNTRecheckTime(domain, recheckTime);
-    }
-  },
-
-  forgetMistakenlyBlockedDomains: function (badger) {
-    console.log("Running migration to forget mistakenly flagged domains ...");
-
-    const MISTAKES = new Set([
-      '2mdn.net',
-      'akamaized.net',
-      'bootcss.com',
-      'cloudinary.com',
-      'edgesuite.net',
-      'ehowcdn.com',
-      'ewscloud.com',
-      'fncstatic.com',
-      'fontawesome.com',
-      'hgmsites.net',
-      'hsforms.net',
-      'hubspot.com',
-      'jsdelivr.net',
-      'jwplayer.com',
-      'jwpsrv.com',
-      'kinja-img.com',
-      'kxcdn.com',
-      'ldwgroup.com',
-      'metapix.net',
-      'optnmstr.com',
-      'parastorage.com',
-      'polyfill.io',
-      'qbox.me',
-      'rfdcontent.com',
-      'scene7.com',
-      'sinaimg.cn',
-      'slidesharecdn.com',
-      'staticworld.net',
-      'taleo.net',
-      'techhive.com',
-      'unpkg.com',
-      'uvcdn.com',
-      'washingtonpost.com',
-      'wixstatic.com',
-      'ykimg.com',
-    ]);
-
-    const actionMap = badger.storage.getStore("action_map"),
-      actions = actionMap.getItemClones(),
-      snitchMap = badger.storage.getStore("snitch_map");
-
-    for (let domain in actions) {
-      const base = getBaseDomain(domain);
-
-      if (!MISTAKES.has(base)) {
-        continue;
-      }
-
-      // remove only if
-      // user did not set an override
-      // and domain was seen tracking
-      const map = actions[domain];
-      if (map.userAction != "" || (
-        map.heuristicAction != constants.ALLOW &&
-        map.heuristicAction != constants.BLOCK &&
-        map.heuristicAction != constants.COOKIEBLOCK
-      )) {
-        continue;
-      }
-
-      console.log("Removing %s ...", domain);
-      actionMap.deleteItem(domain);
-      snitchMap.deleteItem(base);
-    }
-  },
-
-  unblockIncorrectlyBlockedDomains: function (badger) {
-    console.log("Running migration to unblock likely incorrectly blocked domains ...");
-
-    const BLOCK_THRESHOLD = badger.getPrivateSettings().getItem('blockThreshold');
-
-    let action_map = badger.storage.getStore("action_map"),
-      snitch_map = badger.storage.getStore("snitch_map");
-
-    // for every blocked domain
-    for (let domain in action_map.getItemClones()) {
-      if (action_map.getItem(domain).heuristicAction != constants.BLOCK) {
-        continue;
-      }
-
-      let base_domain = getBaseDomain(domain);
-
-      // let's check snitch map
-      // to see what state the blocked domain should be in instead
-      let sites = snitch_map.getItem(base_domain);
-
-      // default to "no tracking"
-      // using "" and not constants.NO_TRACKING to match current behavior
-      let action = "";
-
-      if (sites && sites.length) {
-        if (sites.length >= BLOCK_THRESHOLD) {
-          // tracking domain over threshold, set it to cookieblock or block
-          badger.heuristicBlocking.blocklistOrigin(base_domain, domain);
-          continue;
-
-        } else {
-          // tracking domain below threshold
-          action = constants.ALLOW;
-        }
-      }
-
-      badger.storage.setupHeuristicAction(domain, action);
-    }
-  },
-
-  forgetBlockedDNTDomains: function(badger) {
-    console.log('Running migration to forget mistakenly blocked DNT domains');
-
-    let action_map = badger.storage.getStore("action_map"),
-      snitch_map = badger.storage.getStore("snitch_map"),
-      domainsToFix = new Set(['eff.org', 'medium.com']);
-
-    for (let domain in action_map.getItemClones()) {
-      let base = getBaseDomain(domain);
-      if (domainsToFix.has(base)) {
-        action_map.deleteItem(domain);
-        snitch_map.deleteItem(base);
-      }
-    }
-  },
-
-  reapplyYellowlist: function (badger) {
-    console.log("(Re)applying yellowlist ...");
-
-    let blocked = badger.storage.getAllDomainsByPresumedAction(
-      constants.BLOCK);
-
-    // reblock all blocked domains to trigger yellowlist logic
-    for (let i = 0; i < blocked.length; i++) {
-      let domain = blocked[i];
-      badger.heuristicBlocking.blocklistOrigin(
-        getBaseDomain(domain), domain);
-    }
-  },
-
-  forgetNontrackingDomains: function (badger) {
-    console.log("Forgetting non-tracking domains ...");
-
-    const actionMap = badger.storage.getStore("action_map"),
-      actions = actionMap.getItemClones();
-
-    for (let domain in actions) {
-      const map = actions[domain];
-      if (map.userAction == "" && map.heuristicAction == "") {
-        actionMap.deleteItem(domain);
-      }
-    }
-  },
-
+  migrateDntRecheckTimes: noop,
+  migrateDntRecheckTimes2: noop,
+  forgetMistakenlyBlockedDomains: noop,
+  unblockIncorrectlyBlockedDomains: noop,
+  forgetBlockedDNTDomains: noop,
+  reapplyYellowlist: noop,
+  forgetNontrackingDomains: noop,
   resetWebRTCIPHandlingPolicy: noop,
-
-  enableShowNonTrackingDomains: function (badger) {
-    console.log("Enabling showNonTrackingDomains for some users");
-
-    let actionMap = badger.storage.getStore("action_map"),
-      actions = actionMap.getItemClones();
-
-    // if we have any customized sliders
-    if (Object.keys(actions).some(domain => actions[domain].userAction != "")) {
-      // keep showing non-tracking domains in the popup
-      badger.getSettings().setItem("showNonTrackingDomains", true);
-    }
-  },
-
+  enableShowNonTrackingDomains: noop,
   forgetFirstPartySnitches: noop,
-
   forgetCloudflare: noop,
-
-  // https://github.com/EFForg/privacybadger/pull/2245#issuecomment-545545717
-  forgetConsensu: (badger) => {
-    console.log("Forgetting consensu.org domains (GDPR consent provider) ...");
-    badger.storage.forget("consensu.org");
-  },
-
+  forgetConsensu: noop,
   resetWebRTCIPHandlingPolicy2: noop,
-
   resetWebRtcIpHandlingPolicy3: noop,
-
-  forgetOpenDNS: (badger) => {
-    console.log("Forgetting Cisco OpenDNS domains ...");
-    badger.storage.forget("opendns.com");
-  },
-
-  unsetWebRTCIPHandlingPolicy: function (/*badger*/) {
-    if (!chrome.privacy || !chrome.privacy.network || !chrome.privacy.network.webRTCIPHandlingPolicy) {
-      return;
-    }
-
-    function checkWebRtcBrowserSupport() {
-      let available = true;
-      let connection = null;
-
-      try {
-        let RTCPeerConnection = (
-          window.RTCPeerConnection || window.webkitRTCPeerConnection
-        );
-        if (RTCPeerConnection) {
-          connection = new RTCPeerConnection(null);
-        }
-      } catch (ex) {
-        available = false;
-      }
-
-      if (connection !== null && connection.close) {
-        connection.close();
-      }
-
-      return available;
-    }
-
-    if (!checkWebRtcBrowserSupport()) {
-      return;
-    }
-
-    console.log("Unsetting webRTCIPHandlingPolicy ...");
-    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, function (res) {
-      if (res.levelOfControl == 'controlled_by_this_extension') {
-        chrome.privacy.network.webRTCIPHandlingPolicy.clear({
-          scope: 'regular'
-        });
-      }
-    });
-  },
-
+  forgetOpenDNS: noop,
+  unsetWebRTCIPHandlingPolicy: noop,
 };
 
+// TODO do not remove any migration methods w/o refactoring
+// TODO migrationLevel handling to work differently
+let Migrations = [
+  exports.changePrivacySettings,
+  exports.migrateAbpToStorage,
+  exports.migrateBlockedSubdomainsToCookieblock,
+  exports.migrateLegacyFirefoxData,
+  exports.migrateDntRecheckTimes,
+  exports.migrateDntRecheckTimes2,
+  exports.forgetMistakenlyBlockedDomains,
+  exports.unblockIncorrectlyBlockedDomains,
+  exports.forgetBlockedDNTDomains,
+  exports.reapplyYellowlist,
+  exports.forgetNontrackingDomains,
+  exports.forgetMistakenlyBlockedDomains,
+  exports.resetWebRTCIPHandlingPolicy,
+  exports.enableShowNonTrackingDomains,
+  exports.forgetFirstPartySnitches,
+  exports.forgetCloudflare,
+  exports.forgetConsensu,
+  exports.resetWebRTCIPHandlingPolicy2,
+  exports.resetWebRtcIpHandlingPolicy3,
+  exports.forgetOpenDNS,
+  exports.unsetWebRTCIPHandlingPolicy,
+];
+
 export {
-  Migrations,
+  Migrations
 };
