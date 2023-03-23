@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "Montri nombron de spuriloj",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "Sendi al retejoj la signalojn “<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>” kaj “<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Ne Spuri Min</a>” (DNT)",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "Kontroli ĉu <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>eksteraj domajnoj</a> kongruas kun la <a target='_blank' href='https://www.eff.org/dnt-policy'>politiko pri nespurado de EFF</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "Privateco",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Preventi retejojn de spuri ligilojn, kiujn vi alklakas («hyperlink auditing»)",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "Malaktivigi antaŭlegon",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "Malaktivigi sendi adresojn de vizitataj retejoj al Google. Tio ĉi malaktivigas sugestojn pri similaj retejoj, kiam la paĝo ne povas esti malfermita.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "Spertulaj",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "Lerni bloki novajn spurilojn surbaze de via retumado",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "Aktivigo de lernado dum retumado povas igi vin pli identigebla al retejoj",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Montri nomregnojn, kiuj verŝajne ne spuras vin",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Lerni en privataj fenestroj",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Aktivigo de lernado en privataj fenestroj povas resti spurojn de historio de via privata retumado en via komputilo. Implicite Privata Melo blokos jam-konatajn spurilojn en privataj langetoj, tamen ne lernos pri novaj spuriloj. Vi povas aktivigi tiun ĉi agordon, se vi multe retumas en privataj fenestroj.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "Neblokataj retejoj",

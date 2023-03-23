@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "Отображать счетчик трекеров",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "Отправлять сайтам сигналы «<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>» и «<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>»",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "Проверять, соблюдают ли <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>сторонние домены</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>политику EFF «Do Not Track»</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "Приватность",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Запретить сайтам следить, на какие ссылки вы нажимаете («аудит гиперссылок»)",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "Отключить предзагрузку",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "Отключить отправление адресов посещаемых веб-страниц в Google (это отключит предложение вариантов когда страница не найдена)",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "Дополнительные",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "Обучение блокировки новых трекеров по мере вашего пользования Интернетом",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "Включение обучения может помочь веб-сайтам идентифицировать вас",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Отображать домены у которых отслеживающая активность не обнаружена",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Обучение в приватных/инкогнито окнах",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Включенное обучение в приватных/инкогнито окнах может оставить следы из приватной истории браузера на вашем компьютере. По умолчанию Privacy Badger блокирует уже известные ему трекеры в приватных/инкогнито окнах, но не обучается поиску новых трекеров. Вы можете захотеть включить эту опцию, если часто используете приватные/инкогнито окна.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "Отключенные сайты",

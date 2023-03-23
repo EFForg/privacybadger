@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "Takipçi sayısını göster",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "Websitelere \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Gizlilik Kontrolü</a>\" ve \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" sinyali gönder",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>Üçüncü parti adreslerin</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF'nin Do Not Track poliçesine</a> uyup uymadığını kontrol et",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "Gizlilik",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Sitelerin hangi linklere tıkladığınızı takip etmesini önleyin (\"hyperlink denetleme\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "Prefetchingi devre dışı bırak",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "Google'a ziyaret ettiğiniz web adreslerini göndermeyi devre dışı bırak. Bu, bir sayfa bulunamadığında benzer sayfa önermeyi devre dışı bırakır.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "Gelişmiş",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "Gezintinizden yeni takipçileri engellemeyi öğren",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "Öğrenmeyi etkinleştirmek sizi websitelere daha tanımlanabilir hale getirebilir",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Sizi izlemiyor gibi görünen adresleri göster",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Özel/Gizli pencerelerde öğren",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Özel/gizli pencerelerde öğrenmeyi etkinleştirmek bilgisayarınızdaki özel arama geçmişinize dair izler bırakabilir. Varsayılan olarak, Privacy Badger halihazırda haberdar olduğu takipçileri Özel/Gizli pencerelerde engeller, ancak yeni takipçiler hakkında bilgi edinmez. Eğer gezintinizin büyük bölümü Özel/Gizli pencerelerde oluyorsa bunu etkinleştirmek isteyebilirsiniz.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "Engellenmiş Siteler",

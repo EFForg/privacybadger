@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "Näytä seurantojen määrä",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "Lähetä sivustoille \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" ja \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" -signaalit",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "Tarkista, että <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>kolmansien osapuolien verkkotunnukset</a> noudattavat <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:n \"Do Not Track\" -käytäntöä</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "Tietosuoja",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Estä sivustoja seuraamasta mitä linkkejä painat (ns. \"hyperlink auditing\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "Älä käytä linkkien esihakua",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "Älä käytä avaamiesi verkkotunnusten lähetytä Googlelle. Tämä poistaa käytöstä samantyylisen sisällön ehdotukset silloin, kun sivua ei löydy.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "Lisäasetukset",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "Opi estämään uusia seurantoja selauksesi perusteella",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "Oppimisen käyttöönotto voi tehdä sinusta tunnistettavamman sivustoille",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Näytä verkkotunnukset, jotka eivät näytä seuraavan sinua",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Opi yksityisessä selauksessa",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Oppimisen käyttö myös yksityisessä selausikkunoissa saattaa jättää tietokoneellesi jälkiä yksityisestä selaushistoriastasi. Oletusarvoisesti Privacy Badger estää jo entuudestaan tuntemansa seurannat yksityisessä selaustilassa, muttei opettele uusia. Tämä valinta voi olla hyödyllinen, jos selaat verkkoa paljon yksityisessä selaustilassa.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "Ohitettavat sivustot",

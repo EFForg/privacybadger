@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "トラッカーの数を表示する",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "ウェブサイトに「<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>」 と 「<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>」 信号を送信する",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>サードパーティドメイン</a>が<a target='_blank' href='https://www.eff.org/dnt-policy'>EFFの Do Not Track ポリシー</a>に準拠しているか確認する",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "プライバシー",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "クリックしたリンクを追跡されないようにする  (\"hyperlink auditing\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "プリフェッチを無効にする",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "アクセスしたウェブアドレスをGoogleに送信しないようにします。これにより、ページが見つからないときに類似のページを提案することが無効になります。",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "高度な設定",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "あなたのブラウジングから学習して未知のトラッカーをブロックする",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "学習機能を有効にすると、フィンガープリントのリスクが高まりウェブサイトが個人をより識別しやすくなる場合があります",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "トラッキングしていないと思われるドメインも表示する",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "プライベートウィンドウでも学習機能を有効にする",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "プライベートウィンドウで学習機能を有効にすると、プライベートウィンドウでの閲覧履歴の痕跡がコンピュータに残ることがあります。デフォルトでは、Privacy Badgerはプライベートウィンドウで既に知っているトラッカーをブロックしますが、新しいトラッカーについては学習しません。プライベートウィンドウで多くのブラウジングを行う場合、このオプションを有効にするとよいでしょう。",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "保護を無効化するサイト",

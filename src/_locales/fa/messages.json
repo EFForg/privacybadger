@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "نمایش تعداد ردیاب‌ها",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "فرستادن اخطارهای «<a href='https://globalprivacycontrol.org/' target='_blank'>مهار حریم خصوصی جهانی</a>» و «<a href='https://www.eff.org/issues/do-not-track' target='_blank'>ردیابی نکن</a>» به وبگاه‌ها",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "بررسی کن آیا <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>دامنه‌های شخص ثالث</a> با <a target='_blank' href='https://www.eff.org/dnt-policy'>خط مشی ردیابی نکن EFF</a> تطابق دارند",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "حریم خصوصی",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "جلوگیری از ردیابی پیوندهایی که شما روی‌شان کلیک می‌کنید توسط وبگاه‌ها («hyperlink auditing»)",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "غیرفعال‌سازی پیش‌واکشی",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "غیرفعال‌سازی ارسال نشانی‌های وبی که بازدید می‌کنید به گوگل. این پیشنهادهای صفحات مشابه را وقتی که صفحه یافت نشد،‌ غیرفعال می‌کند.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "پیش‌رفته",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "یادگیری مسدود کردن ردیاب‌های جدید از وبگردی شما",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "فعال‌سازی یادگیری ممکن است شما را برای وبگاه‌ها قابل تشخیص‌تر کند",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "دامنه‌هایی که شما را ردیابی نمی‌کنند را نمایش بده",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "یادگیری در پنجره‌های خصوصی/ناشناس",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "فعال‌سازی یادگیری در پنجره‌های خصوصی/ناشناس ممکن است ردی از تاریخچهٔ وبگردی خصوصی شما روی رایانه‌تان به جا بگذارد. به‌صورت پیش‌فرض، پرایوسی بجر ردیاب‌هایی که در پنجره‌های خصوصی/ناشناس می‌شناسد را مسدود خواهد کرد، اما دربارهٔ ردیاب‌های جدید اطلاعی کسب نخواهد کرد. اگر بیش‌تر وقت خود را در پنجره‌های خصوصی/ناشناس می‌گذرانید شاید بهتر باشد که این گزینه را فعال کنید.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "وبگاه‌های غیرفعال شده",

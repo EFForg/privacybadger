@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "顯示追蹤器數量",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "傳送「<a href='https://globalprivacycontrol.org/' target='_blank'>全域隱私控制</a>」訊號與「<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>」訊號給網頁",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "檢查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方網域</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'>EFF 的 Do Not Track 政策</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "隱私",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "阻止網站追蹤您點擊的連結（「超連結審核」）",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "停用預讀功能",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "停用將您造訪的網址傳送給 Google 的功能。這會在找不到網頁時停用相似頁面的建議。",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "進階",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "了解如何透過您的瀏覽封鎖新的追蹤器",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "啟用學習可能會讓您更容易被網站識別",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "顯示似乎未在追蹤您的網域",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "在隱私／無痕視窗中學習",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "在隱私／無痕視窗中啟用學習可能會導致隱私瀏覽紀錄留在您的電腦上。預設情況下，Privacy Badger 會在隱私／無痕視窗中阻擋任何已知的追蹤器，但是不會學習任何新的追蹤器。您可能會想要在您的瀏覽大部份都在隱私／無痕視窗中度過時啟用此選項。",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "停用的網站",

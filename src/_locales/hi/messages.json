@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "ट्रैकर्स की संख्या दिखाएं",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "वेबसाइटों को \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" और \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals भेजें",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "जांचें कि क्या <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>तृतीय पक्ष डोमेन</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF की Do Not Track नीति</a> का अनुपालन करते हैं",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "निजता",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "साइटों को ट्रैक करने से रोकें कि आप किन लिंक पर क्लिक करते हैं (\"hyperlink auditing\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "प्रीफेचिंग निष्क्रिय करें",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "आप जिन वेब पतों पर जाते हैं उन्हें Google को भेजना निष्क्रिय करें। जब कोई पृष्ठ नहीं मिल पाता है तो यह समान पृष्ठों के सुझावों को अक्षम कर देता है।",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "उन्नत",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "अपने ब्राउज़िंग से नए ट्रैकर्स को ब्लॉक करना सीखें",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "सीखने को सक्षम करने से आप वेबसाइटों के लिए और अधिक पहचाने जाने योग्य बन सकते हैं",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "वे डोमेन दिखाएं जो आपको ट्रैक करते प्रतीत नहीं हो रहे हैं",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Private/Incognito विंडो में सीखें",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Private/Incognito विंडो में सीखने को सक्षम करने से आपके कंप्यूटर पर आपके निजी ब्राउज़िंग इतिहास के निशान रह सकते हैं। डिफ़ॉल्ट रूप से, प्राइवेसी बैजर उन ट्रैकर्स को ब्लॉक कर देगा जिनके बारे में वह पहले से ही Private/Incognito विंडो में जानता है, लेकिन यह नए ट्रैकर्स के बारे में नहीं सीखेगा। यदि आपकी अधिकांश ब्राउज़िंग Private/Incognito विंडो में होती है, तो हो सकता है कि आप इस विकल्प को सक्षम करना चाहें।.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "अक्षम साइटें",

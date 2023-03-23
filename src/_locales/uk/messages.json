@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "Показувати лічильник стеження",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "Передавати вебсайтам сигнали \"<a href='https://globalprivacycontrol.org/' target='_blank'>Глобальний контроль приватності (Global Privacy Control)</a>\" та \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Не стежити (Do Not Track)</a>\"",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "Перевіряти, чи <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>сторонні домени</a> підтримують <a target='_blank' href='https://www.eff.org/dnt-policy'>політику EFF щодо відмови від стеження</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "Приватність",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Не дозволяти сайтам стежити, на які посилання ви натискаєте (\"аудит гіперпосилань\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "Вимкнути попереднє завантаження",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "Вимкнути надсилання відвідуваних веб адрес в Google. Ця дія вимикає пропозиції для схожих сторінок, коли сторінку не вдається знайти.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "Розширені",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "Навчатися блокувати нові елементи стеження під час перегляду",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "Увімкнення навчання може дозволити вебсайтам легше ідентифікувати вас",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Показувати домени, що не стежать за вами",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Навчання у приватних/анонімних вікнах",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Увімкнення навчання у приватних/анонімних вікнах може залишати сліди історії перегляду на комп'ютері. Типово, Privacy Badger буде блокувати відомі йому елементи стеження в приватних/анонімних вікнах, але не буде вивчати нові. Ймовірно, ви захочете увімкнути цю функцію, якщо багато часу проводите у приватному/анонімному перегляді.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "Вимкнені сайти",

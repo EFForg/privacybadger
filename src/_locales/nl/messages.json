@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "Het aantal geblokkeerde volgers weergeven",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "De signalen “<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>” en “<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Volg me niet</a>” naar websites verzenden",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "Controleren of <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domeinen van derde partijen</a> voldoen aan <a target='_blank' href='https://www.eff.org/dnt-policy'>het Niet-volgen-beleid (Do Not Track) van het EFF</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "Privacy",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Voorkomen dat websites volgen op welke verwijzingen u klikt (“hyperlink auditing”)",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "Vooraf ophalen uitschakelen",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "Het naar Google verzenden van webadressen die u bezoekt uitschakelen. Hierdoor worden ook suggesties voor vergelijkbare pagina’s als een pagina niet kan worden gevonden uitgeschakeld.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "Geavanceerd",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "Nieuwe volgers leren blokkeren op basis van uw surfgedrag",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "Door leren in te schakelen wordt u mogelijk meer identificeerbaar voor websites",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Geef domeinen weer welke u niet lijken te volgen",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "In incognitovensters leren",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Als u leren in incognitovensters inschakelt kunnen er sporen van uw privé-browsegeschiedenis op uw computer achterblijven. Standaard blokkeert Privacy Badger wel bekende volgers in incognitovensters, maar leert het niets over nieuwe volgers. U kunt deze optie inschakelen als u veel gebruik maakt van incognitovensters.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "Uitgeschakelde websites",

@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "הראה ספירת עוקבנים",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "שלח אל אתרים את האותות \"<a href='https://globalprivacycontrol.org/' target='_blank'>בקרה גלובלית של פרטיות</a>\" ו\"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>אל תעקוב</a>\"",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "בדוק אם <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>תחומי צד־שלישי</a> מצייתים אל <a target='_blank' href='https://www.eff.org/dnt-policy'>מדיניות אל תעקוב של EFF</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "פרטיות",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "מנע מאתרים לעקוב אחר אילו אתרים אתה לוחץ (\"מבדק היפר־קישורים\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "השבת חיזוי אתרים",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "השבת שליחת כתובות אתר שאתה מבקר בהן אל Google. זה משבית הצעות אל דפים דומים כאשר דף אינו יכול להימצא.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "מתקדם",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "למד לחסום עוקבנים חדשים מתוך גלישתך",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "אפשור למידה עשוי לעשות אותך בר־זיהוי יותר כלפי אתרים",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "הראה תחומים שנראה כי אינם עוקבים אחריך",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "למד בחלונות פרטיים או בחלונות עילום שם",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "איפשור למידה בחלונות פרטיים או בחלונות עילום שם עלול להותיר עקבות של היסטוריה של גלישה פרטית. כברירת מחדל, Privacy Badger יחסום עוקבנים שהוא כבר יודע עליהם בחלונות פרטיים או בחלונות עילום שם, אבל הוא לא ילמד על עוקבנים חדשים. ייתכן שתרצה לאפשר אפשרות זו אם חלק גדול של הגלישה שלך מתרחש בחלונות פרטיים או בחלונות עילום שם.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "אתרים מושבתים",

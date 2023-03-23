@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "Exibir contagem de rastreadores",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "Enviar aos sites os sinais \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" e \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Não rastrear</a>\"",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "Verificar se os <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domínios de terceiros</a> estão em conformidade com a <a target='_blank' href='https://www.eff.org/dnt-policy'>política de não rastrear da EFF</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "Privacidade",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Impedir que os sites rastreiem em quais links você clica (\"auditoria de hiperlink\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "Desativar pré-busca",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "Desativar o envio de endereços web que você acessa para o Google. Isso desativa sugestões de páginas semelhantes quando uma página não pode ser encontrada.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "Avançado",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "Aprender a bloquear novos rastreadores ao navegar",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "Ativar a aprendizagem pode torná-lo mais identificável aos sites",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Exibir domínios que parecem não estar rastreando você",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Aprender em janelas privadas/anônimas",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Ativar o aprendizado em janelas privadas/anônimas pode deixar rastros do seu histórico privado de navegação em seu computador. Por padrão, o Privacy Badger bloqueará rastreadores já conhecidos em janelas privadas/anônimas, mas não aprenderá sobre novos rastreadores. Você talvez queira ativar esta opção se grande parte da sua navegação ocorrer em janelas privadas/anônimas.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "Sites desativados",

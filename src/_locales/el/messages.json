@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "Να εμφανίζεται ο αριθμός των ιχνηλατών",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "Να στέλνονται τα σήματα \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" και \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" στις ιστοσελίδες που επισκέπτομαι",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "Να ελέγχεται εάν <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>τρίτα domains</a> συμβαδίζουν με <a target='_blank' href='https://www.eff.org/dnt-policy'>την Do Not Track πολιτική της EFF</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "Απόρρητο",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Να μην επιτρέπεται στους ιστοτόπους να παρακολουθούν τους συνδέσμους που πατάω (\"hyperlink auditing\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "Να απενεργοποιηθεί η προφόρτωση",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "Να απενεργοποιηθεί η αποστολή διευθύνσεων URL που επισκέπτομαι στη Google. Αυτή η επιλογή απενεργοποιεί προτάσεις για παρόμοιες σελίδες όταν κάποια δεν μπορεί να βρεθεί.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "Για προχωρημένους",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "Να μαθαίνω αυτόματα να αποκλείω ιχνηλάτες",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "Αν ενεργοποιήσετε τη λειτουργία μάθησης, μπορεί να είστε περισσότερο αναγνωρίσιμοι σε ιστοσελίδες",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Να εμφανίζεις domains που δε φαίνεται να με ιχνηλατούν",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Να μαθαίνω και στην ανώνυμη περιήγηση",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Ενεργοποιώντας τη μάθηση στην Ανώνυμη περιήγηση ενδέχεται να αφήσει ίχνη ιστορικού στον υπολογιστή σας. Αυτόματα, το Privacy Badger θα αποκλείσει domains που ήδη ξέρει στην Ανώνυμη περιήγηση, αλλά δε θα μάθει για νέους ιχνηλάτες. Μπορείτε να ενεργοποιήσετε αυτήν την επιλογή εάν σερφάρετε συχνά ανώνυμα.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "Απενεργοποιημένες ιστοσελίδες",

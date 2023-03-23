@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "Követők számának megjelenítése",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "A „<a href='https://globalprivacycontrol.org/' target='_blank'>globális adatvédelmi szabályozás</a>” és a „<a href='https://www.eff.org/issues/do-not-track' target='_blank'>ne kövessen</a>” jelzések küldése a weboldalaknak",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "Annak ellenőrzése, hogy a <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>harmadik felek tartományai</a> betartják-e az <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF „ne kövessenek” irányelvét</a>",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "Adatvédelem",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "Előtöltés letiltása",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "Meglátogatott webcímek küldésének letiltása a Google számára. Ez letiltja a hasonló oldalak javaslatait, ha egy oldal nem található.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "Speciális",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "Tanulja meg az új követők tiltását a böngészésétől",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "A tanulás engedélyezése azonosíthatóbbá teheti Önt a weboldalak számára",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "Tartományok megjelenítése, amelyekről úgy tűnik, hogy nem követik Önt",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Tanulás privát vagy inkognitó ablakokban",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "A tanulás engedélyezése a privát vagy inkognitó ablakban nyomokat hagyhat a számítógépén a személyes böngészési előzményeiről. Alapértelmezetten a Privacy Badger tiltani fogja azokat a követőket, amelyek már tudnak a privát vagy inkognitó ablakokról, de nem fogja megtanulni az új követőket. Akkor lehet érdemes engedélyeznie ezt a beállítást, ha a böngészése nagy részét privát vagy inkognitó ablakban végzi.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "Letiltott oldalak",

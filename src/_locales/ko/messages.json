@@ -377,55 +377,59 @@
     },
     "show_counter_checkbox": {
         "message": "추적기의 수를 표시합니다.",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
         "message": "웹 사이트에 \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" 와 \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>추적 금지</a>\" 신호를 보냅니다.",
-        "description": "Checkbox label for enabling/disabling the Sec-GPC and DNT signals, found on the general settings page"
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
         "message": "<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>제 3자 도메인</a>이 <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF의 추적 금지 정책</a>을 준수하는지 확인합니다.",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
         "message": "프라이버시",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
         "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
         "message": "프리페칭 비활성화.",
-        "description": "Checkbox label found on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
         "message": "방문한 웹 주소를 Google에 전송하는 것을 비활성화합니다. 이것은 페이지를 찾을 수 없을 때 유사한 페이지를 제안하는 것을 비활성화시킵니다.",
-        "description": "(Chrome only) Checkbox label found on the general settings page"
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Disable Google's Topics API",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
         "message": "고급",
-        "description": "Subheading on the general settings options page."
+        "description": "Subheading in general settings."
     },
     "options_learn_setting": {
         "message": "사용자의 검색에서 새 추적기를 차단하는 방법을 학습합니다.",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
         "message": "Enabling learning may make you more identifiable to websites",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
         "message": "사용자를 추적하지 않는 것으로 보이는 도메인을 표시합니다.",
-        "description": "Checkbox label on the general settings page. Should match wording used in the 'non_tracker' message."
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
         "message": "Private/Incognito 창에서 학습합니다.",
-        "description": "Checkbox label on the general settings page"
+        "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
         "message": "Private/Incognito 창에서 학습을 활성화하면 컴퓨터에 개인 검색 기록을 남길 수 있습니다. 기본적으로 Privacy Badger는 Private/Incognito 창에서 이미 알고 있는 추적기를 차단하지만 새로운 추적기에 대해서는 학습하지 않습니다. Private/Incognito 창에서 많은 검색이 발생하는 경우 이 옵션을 사용하도록 설정할 수 있습니다.",
-        "description": "Tooltip on the general settings page"
+        "description": "Tooltip in general settings."
     },
     "disabled_sites": {
         "message": "비활성화 사이트",
