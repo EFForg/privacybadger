@@ -749,6 +749,7 @@ Badger.prototype = {
     disableGoogleNavErrorService: true,
     disableHyperlinkAuditing: true,
     disableNetworkPrediction: true,
+    disableTopics: true,
     hideBlockedElements: true,
     learnInIncognito: false,
     learnLocally: false,
@@ -990,6 +991,13 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
+  },
+
+  isTopicsOverwriteEnabled: function () {
+    if (document.browsingTopics) {
+      return this.getSettings().getItem("disableTopics");
+    }
+    return false;
   },
 
   /**

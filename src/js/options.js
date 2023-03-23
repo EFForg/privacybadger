@@ -164,6 +164,21 @@ function loadOptions() {
       });
   }
 
+  // only show the Topics API override if browser supports it
+  if (document.browsingTopics) {
+    $("#disable-topics").show();
+    $("#disable-topics-checkbox")
+      .prop("checked", OPTIONS_DATA.settings.disableTopics)
+      .on("click", function () {
+        const disableTopics = $("#disable-topics-checkbox").prop("checked");
+
+        chrome.runtime.sendMessage({
+          type: "updateSettings",
+          data: { disableTopics }
+        });
+      });
+  }
+
   $('#local-learning-checkbox')
     .prop("checked", OPTIONS_DATA.settings.learnLocally)
     .on("click", (event) => {
