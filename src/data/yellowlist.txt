@@ -350,7 +350,6 @@ kustomerapp.com
 kxcdn.com
 ddragon.leagueoflegends.com
 libsyn.com
-licdn.com
 addon.lidl.de
 lightboxcdn.com
 graphql-cdn-slplatform.liquidus.net
