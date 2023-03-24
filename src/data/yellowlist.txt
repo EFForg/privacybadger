@@ -311,7 +311,6 @@ instructure.com
 intensedebate.com
 intercom.io
 intercomcdn.com
-investingchannel.com
 script.ioam.de
 issuu.com
 iubenda.com
@@ -321,7 +320,6 @@ jsdelivr.net
 content.jwplatform.com
 cdn.jwplayer.com
 entitlements.jwplayer.com
-jwpltx.com
 jwpsrv.com
 juicer.io
 dapi.kakao.com
@@ -365,7 +363,6 @@ livestream.com
 lloydsbankinggroup.com
 lpsnmedia.net
 mp.lura.live
-mail.ru
 mailchimp.com
 mapbox.com
 mapquestapi.com
@@ -442,7 +439,6 @@ plot.ly
 web.poecdn.com
 poll.fm
 postimg.cc
-powerreviews.com
 www.powr.io
 prcdn.co
 prismic.io
