@@ -35,7 +35,6 @@ americanexpress.com
 amuniversal.com
 anchor.fm
 play.aniview.com
-aolcdn.com
 interactives.ap.org
 apple.com
 appspot.com
@@ -61,7 +60,6 @@ player.avplayer.com
 azure-api.net
 azureedge.net
 b-cdn.net
-bac-assets.com
 gimg3.baidu.com
 hiphotos.baidu.com
 image.baidu.com
@@ -103,7 +101,6 @@ byteoversea.com
 calendly.com
 cardinalcommerce.com
 cbsi.com
-cdninstagram.com
 cdnvideo.ru
 cern.ch
 ceros.com
@@ -399,7 +396,6 @@ edge-geo.nc0.co
 netdna-ssl.com
 nos.netease.com
 nextcloud.com
-ngfiles.com
 ngpvan.com
 noaa.gov
 nosto.com
@@ -466,7 +462,6 @@ rackcdn.com
 radikal.ru
 radiofrance.fr
 image.rakuten.co.jp
-rambler.ru
 cidades.rdstation.com.br
 recaptcha.net
 recurly.com
@@ -603,8 +598,6 @@ vidyard.com
 vimeo.com
 vimeocdn.com
 visa.com
-marketplace.visualstudio.com
-update.code.visualstudio.com
 vox-cdn.com
 voxmedia.com
 wallst.com
