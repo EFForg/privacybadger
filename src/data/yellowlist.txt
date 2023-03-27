@@ -439,6 +439,9 @@ plot.ly
 web.poecdn.com
 poll.fm
 postimg.cc
+display.powerreviews.com
+images.powerreviews.com
+ui.powerreviews.com
 www.powr.io
 prcdn.co
 prismic.io
