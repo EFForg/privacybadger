@@ -2,7 +2,7 @@
 
 We need your help in translating Privacy Badger to [every possible language](https://developer.chrome.com/docs/webstore/i18n/?csw=1#choosing-locales-to-support)!
 
-You can contribute directly on GitHub, or you could [join us on Transifex](https://www.transifex.com/eff/privacy-badger/), a localization platform. (We may [migrate from Transifex to potentially Weblate](https://github.com/EFForg/privacybadger/issues/2591#issuecomment-616816017) in the future.)
+You can contribute directly on GitHub, or you could [join us on Transifex](https://explore.transifex.com/eff/privacy-badger/), a localization platform. (We may [migrate from Transifex to potentially Weblate](https://github.com/EFForg/privacybadger/issues/2591#issuecomment-616816017) in the future.)
 
 See below for miscellaneous notes as well as instructions for contributing via GitHub.
 
