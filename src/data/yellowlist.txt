@@ -580,8 +580,8 @@ twitter.com
 platform.twitter.com
 syndication.twitter.com
 typeform.com
-typekit.com
-typekit.net
+use.typekit.com
+use.typekit.net
 typography.com
 assets.ubembed.com
 js.ubembed.com
