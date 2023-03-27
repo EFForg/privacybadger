@@ -166,6 +166,8 @@ ehc.com
 elfsight.com
 api-cdn.embed.ly
 cdn.embedly.com
+cdn.discordapp.com
+media.discordapp.net
 i-cdn.embed.ly
 pp.ephapay.net
 epoq.de
