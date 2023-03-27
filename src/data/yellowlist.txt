@@ -584,6 +584,8 @@ typeform.com
 typekit.com
 typekit.net
 typography.com
+assets.ubembed.com
+js.ubembed.com
 ultimedia.com
 builder-assets.unbounce.com
 libraries.unbxdapi.com
