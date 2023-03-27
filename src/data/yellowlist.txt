@@ -339,6 +339,7 @@ klarna.com
 klarnacdn.net
 a.klaviyo.com
 static.klaviyo.com
+static-forms.klaviyo.com
 www.klaviyo.com
 kustomerapp.com
 kxcdn.com
