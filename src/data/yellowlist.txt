@@ -583,8 +583,6 @@ typeform.com
 use.typekit.com
 use.typekit.net
 typography.com
-assets.ubembed.com
-js.ubembed.com
 ultimedia.com
 builder-assets.unbounce.com
 libraries.unbxdapi.com
