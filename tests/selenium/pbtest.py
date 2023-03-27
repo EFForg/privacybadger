@@ -414,6 +414,11 @@ class PBSeleniumTest(unittest.TestCase):
                         continue
                 except NoSuchWindowException:
                     pass
+                except WebDriverException as e:
+                    if "cannot determine loading status" in str(e):
+                        pass
+                    else:
+                        raise e
                 else:
                     return
 
