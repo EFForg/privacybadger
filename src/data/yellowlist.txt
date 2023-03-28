@@ -143,6 +143,8 @@ dealerinspire.com
 digitaloceanspaces.com
 digitalriver.com
 digitalrivercontent.net
+cdn.discordapp.com
+media.discordapp.net
 pics.dmm.co.jp
 documentcloud.org
 donorbox.org
@@ -166,8 +168,6 @@ ehc.com
 elfsight.com
 api-cdn.embed.ly
 cdn.embedly.com
-cdn.discordapp.com
-media.discordapp.net
 i-cdn.embed.ly
 pp.ephapay.net
 epoq.de
@@ -377,8 +377,8 @@ docs.microsoft.com
 graph.microsoft.com
 wcpstatic.microsoft.com
 www.microsoft.com
-static.miraheze.org
 meta.miraheze.org
+static.miraheze.org
 mixcloud.com
 mlive.com
 mncdn.com
