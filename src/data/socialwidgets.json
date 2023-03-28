@@ -356,16 +356,19 @@
     "Spotify Player": {
         "domains": [
             "embed.spotify.com",
-            "open.spotify.com"
+            "open.spotify.com",
+            "podcasters.spotify.com"
         ],
         "buttonSelectors": [
             "iframe[src^='https://embed.spotify.com/']",
-            "iframe[src^='https://open.spotify.com/embed']"
+            "iframe[src^='https://open.spotify.com/embed']",
+            "iframe[src^='https://podcasters.spotify.com/pod/']"
         ],
         "replacementButton": {
             "unblockDomains": [
                 "embed.spotify.com",
-                "open.spotify.com"
+                "open.spotify.com",
+                "podcasters.spotify.com"
             ],
             "type": 3
         }
