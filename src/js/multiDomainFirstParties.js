@@ -2611,6 +2611,7 @@ let multiDomainFirstPartiesArray = [
   ],
   [
     "mail.ru",
+    "sportmail.ru",
     "imgsmail.ru",
 
     "ok.ru",
