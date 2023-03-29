@@ -32,15 +32,15 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "O Privacy Badger está desactivado neste site",
+        "message": "O Privacy Badger está desativado neste site",
         "description": "Shown in the popup on disabled sites."
     },
     "popup_disable_for_site": {
-        "message": "Desativar para este site",
+        "message": "Desativar para este site",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "Ativar para este site",
+        "message": "Ativar para este site",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
@@ -372,7 +372,7 @@
         "description": ""
     },
     "options_general_settings": {
-        "message": "Configurações gerais",
+        "message": "Definições gerais",
         "description": "This is an options page tab heading."
     },
     "show_counter_checkbox": {
@@ -404,7 +404,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's Topics API",
+        "message": "Disativar Google's Topics API",
         "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
@@ -575,7 +575,7 @@
         "description": "This is an options page tab heading."
     },
     "manage_data_intro": {
-        "message": "Importar dados do utilizador:<ul><li>Substitui as configurações gerais</li><li>Combina as listas de sites desativados</li><li>Combina informações sobre os rastreadores que o Privacy Badger detetou</li><li>Substitui personalizações do controlo deslizante</li></ul>",
+        "message": "Importar dados do utilizador:<ul><li>Substitui as definições gerais</li><li>Combina as listas de sites desativados</li><li>Combina informações sobre os rastreadores que o Privacy Badger detetou</li><li>Substitui personalizações do controlo deslizante</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "export_user_data": {
@@ -603,7 +603,7 @@
         "description": ""
     },
     "import_successful": {
-        "message": "Lista de rastreadores e configurações atualizadas com sucesso!",
+        "message": "Lista de rastreadores e definições atualizadas com sucesso!",
         "description": ""
     },
     "sync_intro": {
@@ -643,15 +643,15 @@
         "description": "'Error' message when there is on cloud data to download."
     },
     "reset_data": {
-        "message": "Limpar domínios de rastreamento",
+        "message": "Repor domínios de rastreamento",
         "description": "Caption above reset button"
     },
     "reset": {
-        "message": "Limpar",
+        "message": "Repor",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Limpar os domínios de rastreamento irá:\n\n  • Eliminar todos os dados sobre rastreadores que o Privacy Badger aprendeu com sua navegação\n  • Restaurar a lista de domínios de rastreamento para a última lista pré-criada (visite www.eff.org/badger-pretraining para saber mais)",
+        "message": "Repor os domínios de rastreamento irá:\n\n  • Eliminar todos os dados sobre rastreadores que o Privacy Badger aprendeu com sua navegação\n  • Restaurar a lista de domínios de rastreamento para a última lista pré-criada (visite www.eff.org/badger-pretraining para saber mais)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
