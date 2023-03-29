@@ -4187,6 +4187,7 @@ let multiDomainFirstPartiesArray = [
     "skapiec.pl",
     "vod.pl",
 
+    "dreamlab.pl",
     "grupaonet.pl",
   ],
   [
