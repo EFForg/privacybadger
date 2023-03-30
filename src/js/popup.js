@@ -567,7 +567,7 @@ function createBreakageNote(domain, i18n_message_key) {
     multiple: true
   }));
 
-  if (POPUP_DATA.settings.seenComic && !POPUP_DATA.showLearningPrompt) {
+  if (POPUP_DATA.settings.seenComic && !POPUP_DATA.showLearningPrompt && !POPUP_DATA.criticalError) {
     $slider_allow.tooltipster('show');
   }
 }
