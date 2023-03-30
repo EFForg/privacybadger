@@ -96,7 +96,7 @@
         "description": "Domain slider list header tooltip."
     },
     "tooltip_cookieblock": {
-        "message": "برای مسدود کردن کوکی‌ها لغزنده را در وسط قرار بدهید",
+        "message": "برای مسدود کردن کلوچک‌ها لغزنده را در وسط قرار بدهید",
         "description": "Domain slider list header tooltip."
     },
     "tooltip_allow": {
@@ -114,7 +114,7 @@
         }
     },
     "badger_status_cookieblock": {
-        "message": "کوکی‌های متعلق به$DOMAIN$ مسدود شد",
+        "message": "کلوچک‌های متعلق به$DOMAIN$ مسدود شد",
         "description": "Tooltip shown over a domain name with a yellow slider in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -152,7 +152,7 @@
         "description": "Tooltip shown over the leftmost part of a domain slider. This is an action (\"click here to ...\"), not a status."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "مسدودیت کوکی‌ها",
+        "message": "مسدودیت کلوچک‌ها",
         "description": "Tooltip shown over the center part of a domain slider."
     },
     "domain_slider_allow_tooltip": {
