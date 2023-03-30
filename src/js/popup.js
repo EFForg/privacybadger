@@ -623,9 +623,11 @@ function refreshPopup() {
     $('#overlay').toggleClass('active');
   }
 
-  // show sliders when sliders were shown last
+  // show sliders when sliders were shown last,
+  // or when there is a visible breakage note,
   // or when there is at least one breakage warning
   if (POPUP_DATA.settings.showExpandedTrackingSection || (
+    (POPUP_DATA.settings.seenComic && !POPUP_DATA.showLearningPrompt && !POPUP_DATA.criticalError) &&
     Object.keys(BREAKAGE_NOTE_DOMAINS).some(d => (
       (POPUP_DATA.origins[d] == constants.BLOCK ||
         POPUP_DATA.origins[d] == constants.COOKIEBLOCK) &&
