@@ -152,7 +152,10 @@ function showNagMaybe() {
     $outer.show();
   }
 
-  if (POPUP_DATA.showLearningPrompt) {
+  if (POPUP_DATA.criticalError) {
+    _showError(POPUP_DATA.criticalError);
+
+  } else if (POPUP_DATA.showLearningPrompt) {
     _showLearningPrompt();
 
   } else if (!POPUP_DATA.settings.seenComic) {
@@ -163,8 +166,6 @@ function showNagMaybe() {
       }
     });
 
-  } else if (POPUP_DATA.criticalError) {
-    _showError(POPUP_DATA.criticalError);
   }
 }
 
