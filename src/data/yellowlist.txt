@@ -419,6 +419,7 @@ openload.co
 openstreetmap.org
 cdn.optimizely.com
 oraclecloud.com
+consent.api.osano.com
 cmp.osano.com
 paddle.com
 pandacommerce.net
