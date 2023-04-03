@@ -176,6 +176,7 @@ eurolandir.com
 eventbrite.com
 everyaction.com
 expedia.com
+privacy.ezodn.com
 s-static.ak.facebook.com
 staticxx.facebook.com
 fastly.net
