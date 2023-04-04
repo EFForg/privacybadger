@@ -708,7 +708,19 @@ let multiDomainFirstPartiesArray = [
   ],
   ["balsamiq.com", "balsamiq.cloud"],
   ["bancomer.com", "bancomer.com.mx", "bbvanet.com.mx"],
-  ["bankofamerica.com", "bofa.com", "mbna.com", "ml.com", "usecfo.com", "bac-assets.com"],
+  [
+    "bankofamerica.com",
+
+    "bofa.com",
+    "mbna.com",
+    "usecfo.com",
+
+    "ml.com",
+    "mymerrill.com",
+    "merrilledge.com",
+
+    "bac-assets.com",
+  ],
   ["bank-yahav.co.il", "bankhapoalim.co.il"],
   [
     "bauermedia.co.uk",
@@ -3103,7 +3115,6 @@ let multiDomainFirstPartiesArray = [
     "myheritagefiles.com",
     "myheritageimages.com",
   ],
-  ["mymerrill.com", "ml.com", "merrilledge.com"],
   ["mynortonaccount.com", "norton.com"],
   ["mysmartedu.com", "mysmartabc.com"],
   ["myuv.com", "uvvu.com"],
