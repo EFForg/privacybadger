@@ -32,6 +32,7 @@ amazonaws.com
 coin.amazonpay.com
 coin-eu.amazonpay.com
 americanexpress.com
+ampproject.net
 amuniversal.com
 anchor.fm
 play.aniview.com
