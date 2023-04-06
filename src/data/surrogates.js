@@ -139,6 +139,10 @@ const hostnames = {
     ],
     widgetName: "YouTube"
   },
+  'cdn.intergient.com': {
+    match: MATCH_SUFFIX,
+    tokens: ['/ramp_core.js'],
+  }
 };
 
 /**
@@ -185,6 +189,8 @@ const surrogates = {
   '/player_api': 'youtube.js',
 
   '/omweb-v1.js': 'noop.js',
+  
+  '/ramp_core.js': 'ramp.js', 
 
   'noopjs': 'noop.js'
 };
