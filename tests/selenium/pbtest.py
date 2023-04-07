@@ -337,7 +337,11 @@ class PBSeleniumTest(unittest.TestCase):
         return False
 
     def open_window(self):
-        self.driver.switch_to.new_window('tab')
+        try:
+            self.driver.switch_to.new_window('tab')
+        except NoSuchWindowException:
+            time.sleep(1)
+            self.driver.switch_to.new_window('tab')
 
     def load_url(self, url, wait_for_body_text=False, retries=5):
         """Load a URL and wait before returning."""
