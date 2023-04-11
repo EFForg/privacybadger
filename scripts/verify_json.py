@@ -3,7 +3,13 @@
 import json
 import sys
 
-KEYS = set(['snitch_map', 'action_map', 'tracking_map', 'version'])
+KEYS = set([
+    'action_map',
+    'fp_scripts',
+    'snitch_map',
+    'tracking_map',
+    'version',
+])
 
 with open(sys.argv[1], encoding="utf-8") as f:
     try:

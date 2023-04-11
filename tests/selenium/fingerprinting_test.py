@@ -32,6 +32,7 @@ class FingerprintingTest(pbtest.PBSeleniumTest):
         )
         FP_DOMAIN = "cdn.jsdelivr.net"
         FP_BASE_DOMAIN = "jsdelivr.net"
+        FP_PATH = "/npm/fingerprintjs2@1.5.1/dist/fingerprint2.min.js"
 
         # clear pre-trained/seed tracker data
         self.clear_tracker_data()
@@ -53,6 +54,10 @@ class FingerprintingTest(pbtest.PBSeleniumTest):
         assert "canvas" in self.get_badger_storage('tracking_map')\
             .get(FP_BASE_DOMAIN, {}).get(SITE_DOMAIN, []), (
                 "Failed to detect canvas fingerprinting script")
+
+        # confirm we recorded the script's domain and path combo
+        assert FP_PATH in self.get_badger_storage('fp_scripts').get(FP_DOMAIN, {}), (
+            "Failed to record the fingerprinting script's path")
 
     # Privacy Badger overrides a few functions on canvas contexts to check for fingerprinting.
     # In previous versions, it would restore the native function after a single call. Unfortunately,

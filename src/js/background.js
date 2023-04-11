@@ -1175,11 +1175,11 @@ Badger.prototype = {
 
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
-    ["snitch_map", "action_map", "settings_map", "tracking_map"].forEach(function (key) {
+    for (let key of ["snitch_map", "action_map", "settings_map", "tracking_map", "fp_scripts"]) {
       if (utils.hasOwn(data, key)) {
         self.storage.getStore(key).merge(data[key]);
       }
-    });
+    }
   }
 
 };

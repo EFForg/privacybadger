@@ -33,7 +33,13 @@ window.SLIDERS_DONE = false;
 const TOOLTIP_CONF = {
   maxWidth: 400
 };
-const USER_DATA_EXPORT_KEYS = ["action_map", "snitch_map", "settings_map", "tracking_map"];
+const USER_DATA_EXPORT_KEYS = [
+  "action_map",
+  "snitch_map",
+  "settings_map",
+  "tracking_map",
+  "fp_scripts",
+];
 
 let i18n = chrome.i18n;
 

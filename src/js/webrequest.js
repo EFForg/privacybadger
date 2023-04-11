@@ -649,7 +649,15 @@ function recordFingerprinting(tab_id, msg) {
   }
 
   let document_host = badger.tabData.getFrameData(tab_id).host,
-    script_host = extractHostFromURL(msg.scriptUrl);
+    script_host = "", script_path = "";
+
+  try {
+    let parsedScriptUrl = new URL(msg.scriptUrl);
+    script_host = parsedScriptUrl.hostname;
+    script_path = parsedScriptUrl.pathname;
+  } catch (e) {
+    console.error("Failed to parse URL of %s\n", msg.scriptUrl, e);
+  }
 
   // CNAME uncloaking
   if (utils.hasOwn(badger.cnameDomains, script_host)) {
@@ -705,6 +713,8 @@ function recordFingerprinting(tab_id, msg) {
           // record canvas fingerprinting
           badger.storage.recordTrackingDetails(
             script_base, document_base, 'canvas');
+          badger.storage.recordFingerprintingScript(
+            script_host, script_path);
         }
       }
       // This is a canvas write
