@@ -331,8 +331,11 @@ cdnapisec.kaltura.com
 cdnbakmi.kaltura.com
 cdnsecakmi.kaltura.com
 cfvod.kaltura.com
+api.eu.kaltura.com
+cfvod.eu.kaltura.com
 kaf.kaltura.com
 klive.kaltura.com
+ott.kaltura.com
 upload.kaltura.com
 www.kaltura.com
 ssl.kaptcha.com
