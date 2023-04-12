@@ -597,10 +597,17 @@ QUnit.test("REQUESTBODY key is Firefox only", (assert) => {
   if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function") {
     let done = assert.async();
     browser.runtime.getBrowserInfo().then(function (info) {
-      assert.ok(utils.hasOwn(obro, info.name == "Firefox" ? 'REQUESTBODY' : 'REQUEST_BODY'));
+      if (info.name == "Firefox") {
+        assert.notOk(utils.hasOwn(obro, 'REQUEST_BODY'));
+        assert.ok(utils.hasOwn(obro, 'REQUESTBODY'));
+      } else {
+        assert.ok(utils.hasOwn(obro, 'REQUEST_BODY'));
+        assert.notOk(utils.hasOwn(obro, 'REQUESTBODY'));
+      }
       done();
     });
   } else {
     assert.ok(utils.hasOwn(obro, 'REQUEST_BODY'));
+    assert.notOk(utils.hasOwn(obro, 'REQUESTBODY'));
   }
 });
