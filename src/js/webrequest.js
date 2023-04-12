@@ -242,6 +242,29 @@ function filterWarRequests(details) {
 }
 
 /**
+ * Blocks moz-extension CSP reports to mitigate
+ * https://bugzilla.mozilla.org/show_bug.cgi?id=1267027
+ *
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {Object|undefined} Can cancel requests
+ */
+function blockMozCspReports(details) {
+  let report;
+  try {
+    report = JSON.parse(
+      String.fromCharCode.apply(null,
+        new Uint8Array(details.requestBody.raw[0].bytes)));
+  } catch (e) {
+    console.error("Failed to parse CSP report:", e);
+    return;
+  }
+  if (report['csp-report'] && report['csp-report']['source-file'] == 'moz-extension') {
+    return { cancel: true };
+  }
+}
+
+/**
  * Filters outgoing cookies and referer
  * Injects DNT
  *
@@ -1732,7 +1755,15 @@ function startListeners() {
   chrome.webRequest.onBeforeRequest.addListener(filterWarRequests, {
     urls: chrome.runtime.getManifest().web_accessible_resources.map(
       path => chrome.runtime.getURL(path))
-  }, ["blocking"]);
+  }, ['blocking']);
+
+  // this is Firefox-only because the key is 'REQUEST_BODY' in Chrome
+  if (utils.hasOwn(chrome.webRequest.OnBeforeRequestOptions, 'REQUESTBODY')) {
+    chrome.webRequest.onBeforeRequest.addListener(blockMozCspReports, {
+      types: ['csp_report'],
+      urls: ['<all_urls>']
+    }, ['blocking', 'requestBody']);
+  }
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
   if (utils.hasOwn(chrome.webRequest.OnBeforeSendHeadersOptions, 'EXTRA_HEADERS')) {
