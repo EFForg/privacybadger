@@ -589,3 +589,18 @@ QUnit.test("mergeUserData() clears snitch_map when all items are MDFP", (assert)
   });
 
 }());
+
+QUnit.module("Early-warning checks");
+
+QUnit.test("REQUESTBODY key is Firefox only", (assert) => {
+  let obro = chrome.webRequest.OnBeforeRequestOptions;
+  if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function") {
+    let done = assert.async();
+    browser.runtime.getBrowserInfo().then(function (info) {
+      assert.ok(utils.hasOwn(obro, info.name == "Firefox" ? 'REQUESTBODY' : 'REQUEST_BODY'));
+      done();
+    });
+  } else {
+    assert.ok(utils.hasOwn(obro, 'REQUEST_BODY'));
+  }
+});
