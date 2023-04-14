@@ -1,0 +1,747 @@
+{
+    "name": {
+        "message": "Privacy Badger",
+        "description": "The name of this extension."
+    },
+    "description": {
+        "message": "Privacy Badger tự động học cách chặn các máy theo dõi mà chạy ngầm.",
+        "description": "Extension description sometimes used by extension stores. See also 'intro_welcome', 'share_base_message' and 'intro_learns' messages."
+    },
+    "canvas_fingerprinting": {
+        "message": "định dang web",
+        "description": "Canvas fingerprinting is the tracking method described in https://en.wikipedia.org/wiki/Canvas_fingerprinting"
+    },
+    "popup_help_button": {
+        "message": "giúp",
+        "description": "Tooltip shown over the question mark button in the upper right corner of the popup."
+    },
+    "popup_share_button": {
+        "message": "chia sẻ",
+        "description": "Tooltip shown over the share button in the upper right corner of the popup."
+    },
+    "popup_options_button": {
+        "message": "Tùy chọn",
+        "description": ""
+    },
+    "popup_special_page_header": {
+        "message": "Không có gì để làm trên trang này",
+        "description": "Heading for popup_special_page_paragraph"
+    },
+    "popup_special_page_paragraph": {
+        "message": "Privacy Badger không hoạt động trên các trang đặc biệt như trang này. Hãy thử một số trang khác",
+        "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
+    },
+    "popup_disabled_site_header": {
+        "message": "Privacy Badger bị vô hiệu hóa trên trang web này",
+        "description": "Shown in the popup on disabled sites."
+    },
+    "popup_disable_for_site": {
+        "message": "Vô hiệu hóa cho trang web này",
+        "description": "Button in the popup."
+    },
+    "popup_enable_for_site": {
+        "message": "Kích hoạt cho trang web này",
+        "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
+    },
+    "report_broken_site": {
+        "message": "Báo cáo trang web bị hỏng",
+        "description": "Button in the popup."
+    },
+    "version": {
+        "message": "phiên bản $VERSION_STRING$",
+        "description": "Version text in the popup footer. For example, \"version 2018.8.1\".",
+        "placeholders": {
+            "version_string": {
+                "content": "$1",
+                "example": "2018.8.1"
+            }
+        }
+    },
+    "popup_instructions": {
+        "message": "$COUNT$khả năng $LINK_START$theo dõi$LINK_END$ bị chặn",
+        "description": "Popup message shown when at least one tracker was blocked.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "link_start": {
+                "content": "$2",
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "popup_instructions_no_trackers": {
+        "message": "Không $LINK_START$ theo dõi $LINK_END$bị chặn",
+        "description": "Text shown in the popup when there are no trackers on the page.",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "popup_blocked": {
+        "message": "Không có dấu hiệu bên thứ 3 ở trang này. Tận hưởng sự riêng tư!",
+        "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
+    },
+    "tooltip_block": {
+        "message": "Di chuyển thanh trượt sang bên trái để chặn tên miền ",
+        "description": "Domain slider list header tooltip."
+    },
+    "tooltip_cookieblock": {
+        "message": "Chỉnh thanh trượt ở giữa để chặn cookie",
+        "description": "Domain slider list header tooltip."
+    },
+    "tooltip_allow": {
+        "message": "Di chuyển thanh trượt sang bên phải để cho phép tên miền",
+        "description": "Domain slider list header tooltip."
+    },
+    "badger_status_block": {
+        "message": "Chặn $DOMAIN$",
+        "description": "Tooltip shown over a domain name with a red slider in the domain slider list. This is a status (\"example.com was blocked\"), not an action (\"click here to block example.com\").",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "badger_status_cookieblock": {
+        "message": "Chặn cookies từ $DOMAIN$",
+        "description": "Tooltip shown over a domain name with a yellow slider in the domain slider list.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "badger_status_allow": {
+        "message": "Cho phép $DOMAIN$",
+        "description": "Tooltip shown over a tracking but still allowed (green slider) domain name in the domain slider list.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "badger_status_noaction": {
+        "message": "Không có theo dõi nào với$DOMAIN$",
+        "description": "Tooltip shown over a non-tracking domain name with a green slider in the domain slider list.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "dnt_tooltip": {
+        "message": "tên miền hứa sẽ không theo dõi bạn",
+        "description": "Tooltip shown over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
+    },
+    "domain_slider_block_tooltip": {
+        "message": "Chặn hoàn toàn",
+        "description": "Tooltip shown over the leftmost part of a domain slider. This is an action (\"click here to ...\"), not a status."
+    },
+    "domain_slider_cookieblock_tooltip": {
+        "message": "Chặn cookies",
+        "description": "Tooltip shown over the center part of a domain slider."
+    },
+    "domain_slider_allow_tooltip": {
+        "message": "Cho phép",
+        "description": "Tooltip shown over the rightmost part of a domain slider."
+    },
+    "breakage_warning_tooltip": {
+        "message": "Chặn tên miền này sẽ làm hỏng trang web",
+        "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
+    },
+    "google_signin_tooltip": {
+        "message": "Để cho phép đăng nhập vào các trang web bằng tài khoản Google của bạn, hãy di chuyển thanh trượt này sang phải và tải lại trang",
+        "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
+    },
+    "feed_the_badger_title": {
+        "message": "ấn để trả lại quyền kiểm soát tên miền này cho Privacy Badger",
+        "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
+    },
+    "not_yet_blocked_header": {
+        "message": "Badger của bạn vẫn chưa quyết định liệu những miền này có bị chặn hay không",
+        "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
+    },
+    "non_tracker": {
+        "message": "Các tên miền phía dưới có vẻ không theo dõi bạn",
+        "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
+    },
+    "non_tracker_tip": {
+        "message": "Hiện tại, Privacy Badger chỉ kiểm tra xem các bên thứ ba có đang sử dụng cookie, bộ nhớ cục bộ HTML5 hoặc định danh web để theo dõi hoạt động duyệt web của bạn hay không. Một số tên miền này có thể đang sử dụng các phương pháp theo dõi mà Privacy Badger không thể phát hiện.",
+        "description": "Tooltip for the 'non_tracker' message."
+    },
+    "report_title": {
+        "message": "Báo lỗi",
+        "description": "Title of the 'Report broken site' popup overlay."
+    },
+    "report_text": {
+        "message": "Mô tả ngắn gọn lỗi dưới đây.",
+        "description": "The 'below' refers to a text input located below this text. This asks the user to describe what problem the user experienced."
+    },
+    "report_input_label": {
+        "message": "Miêu tả",
+        "description": "Label for the text input in the 'Report broken site' overlay."
+    },
+    "error_input": {
+        "message": "Sai gì?",
+        "description": "Placeholder text in the text input in the 'Report broken site' overlay."
+    },
+    "report_terms": {
+        "message": "Thao tác này sẽ tự động gửi thông tin sau tới EFF: trang bạn hiện đang truy cập, phiên bản trình duyệt của bạn, phiên bản Privacy Badger và trạng thái của tất cả các thanh trượt trên trang này.",
+        "description": ""
+    },
+    "report_button": {
+        "message": "Gửi lỗi",
+        "description": "Button text."
+    },
+    "report_cancel": {
+        "message": "Hủy bỏ",
+        "description": "Button text."
+    },
+    "report_close": {
+        "message": "Đóng",
+        "description": "Link text."
+    },
+    "report_success": {
+        "message": "Cảm ơn! Chúng ta sẽ đi đến cuối cùng",
+        "description": "Success status message."
+    },
+    "report_fail": {
+        "message": "Ối. Đã xảy ra sự cố.",
+        "description": "Error status message."
+    },
+    "share_title": {
+        "message": "Nói với bạn của bạn",
+        "description": "Title of the Share popup overlay."
+    },
+    "share_tracker_header": {
+        "message": "Privacy Badger  chặn $COUNT$chương trình theo dõi khả nghi ở$DOMAIN$",
+        "description": "Header above the list of tracking domains in the share message.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "15"
+            },
+            "domain": {
+                "content": "$2",
+                "example": "example.com"
+            }
+        }
+    },
+    "share_base_message": {
+        "message": "Privacy Badger (privacybadger.org) là một tiện ích mở rộng của trình duyệt tự động học cách chặn các chương trình theo dõi ngầm. Privacy Badger được tạo bởi Electronic Frontier Foundation, một tổ chức phi lợi nhuận đấu tranh cho các quyền của bạn trên mạng.",
+        "description": "The base message that is always included in the share message."
+    },
+    "copy_button_initial": {
+        "message": "Sao chép vào clipboard",
+        "description": "Initial text of the copy button on the share overlay."
+    },
+    "copy_button_copied": {
+        "message": "Sao chép",
+        "description": "On-click text of the copy button on the share overlay."
+    },
+    "popup_info_firstparty_protections": {
+        "message": "Bảo vệ theo dõi liên kết hoạt động",
+        "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
+    },
+    "popup_info_firstparty_description": {
+        "message": "Một số trang web $LINK_START$sử dụng theo dõi liên kết để theo dõi bạn $LINK_END$ bất cứ khi nào bạn nhấp vào một liên kết để rời khỏi trang web. Privacy Badger xóa theo dõi khỏi các liên kết như vậy trên trang web này.",
+        "description": "Text revealed by clicking on the link tracking protection header in the popup",
+        "placeholders": {
+            "link_start": {
+                "content": "<a href='https://privacybadger.org/#What-about-tracking-by-the-sites-I-actively-visit%2c-like-NYTimes.com-or-Facebook.com' target='_blank'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "extension_error_text": {
+        "message": "Vui lòng <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>cho chúng tôi </a>biết về lỗi sau:",
+        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
+    },
+    "popup_error_text_low_disk_space_issue": {
+        "message": "Không thể ghi vào bộ lưu trữ mở rộng: $ERROR_TEXT$. <br><br>Ổ đĩa của bạn sắp hết dung lượng?",
+        "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
+        "placeholders": {
+            "error_text": {
+                "content": "$1",
+                "example": "An unexpected error occurred"
+            }
+        }
+    },
+    "firstRun_title": {
+        "message": "Cảm ơn bạn đã cài đặt Privacy Badger!",
+        "description": "Title and header of the intro page."
+    },
+    "intro_by_eff": {
+        "message": "Một dự án của Electronic Frontier Foundation",
+        "description": "Message in the header of the intro page."
+    },
+    "intro_welcome": {
+        "message": "Privacy Badger tự động học cách chặn các trình theo dõi chạy ngầm. Hãy dành một phút để xem cách thực hiện.",
+        "description": "Intro page welcome paragraph."
+    },
+    "intro_next_button": {
+        "message": "đi tham quan",
+        "description": "Intro page welcome button."
+    },
+    "intro_learns": {
+        "message": "Học tự động",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_learns_paragraph": {
+        "message": "Thay vì giữ danh sách những thứ cần chặn, Privacy Badger tự động phát hiện ra những trình theo dõi dựa trên hành vi của chúng.",
+        "description": "Intro page paragraph."
+    },
+    "intro_beyond_ads": {
+        "message": "phát hiện trình theo dõi lén",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Theo dõi ngầm xảy ra theo mọi cách; quảng cáo chỉ là phần nổi của tảng băng chìm. Privacy Badger gửi <a href='https://globalprivacycontrol.org/' target='_blank'>tín hiệu Kiểm soát quyền riêng tư toàn cầu </a> để giúp bạn chọn không tham gia chia sẻ và bán dữ liệu, đồng thời <a href='https://www.eff.org/issues/do-not-track' target='_blank'>gửi tín hiệu Không theo dõi để yêu cầu các công ty không theo dõi bạn. Nếu họ phớt lờ mong muốn của bạn, Privacy Badger sẽ học cách chặn họ—cho dù họ là nhà quảng cáo hay loại theo dõi nào đó",
+        "description": "Intro page paragraph."
+    },
+    "intro_not_an_adblocker": {
+        "message": "Không phải là trình chặn quảng cáo, tôi khác biệt",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger bắt đầu chặn khi thấy cùng một chương trình theo dõi trên ba trang web khác nhau. Nếu xuất hiện 3 lần nữa thì sẽ chặn nó",
+        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    },
+    "next_section": {
+        "message": "phần tiếp theo",
+        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
+    },
+    "intro_disable_button": {
+        "message": "Nếu bạn cho rằng Privacy Badger đang làm hỏng một trang (ví dụ: một video không phát), bạn có thể nhấp vào nút 'Tắt' để tắt Privacy Badger cho trang web đó.",
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
+    },
+    "intro_report_button": {
+        "message": "Xin đừng quên nhấp vào 'Báo cáo trang web bị hỏng'. Chúng tôi tôn trọng quyền riêng tư của bạn nên chúng tôi không gửi báo cáo tự động.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
+    },
+    "intro_privacy_note": {
+        "message": "Privacy Badger sẽ KHÔNG BAO GIỜ chia sẻ dữ liệu về trình duyệt của bạn trừ khi bạn chọn chia sẻ dữ liệu đó.",
+        "description": "Intro page paragraph."
+    },
+    "intro_donate_heading": {
+        "message": "Quyền riêng tư là một môn thể thao đồng đội!",
+        "description": "Part of the 'donate' section on the intro page."
+    },
+    "intro_donate1": {
+        "message": "Khi bạn sử dụng Privacy Badger, bạn tham gia <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> và hàng triệu người dùng khác trong cuộc đấu tranh dành quyền riêng tư. Chúng tôi là một tổ chức phi lợi nhuận đấu tranh cho quyền của bạn trực tuyến. Cảm ơn vì đã tham gia cùng chúng tôi!",
+        "description": "Part of the 'donate' section on the intro page."
+    },
+    "donate_to_eff": {
+        "message": "Đóng góp cho EFF",
+        "description": "A button on the intro page, and a link in the popup footer."
+    },
+    "intro_donate_subheading": {
+        "message": "Giúp chúng tôi bằng cách ủng hộ và chia sẻ sự hỗ trợ của bạn cho các công cụ của chúng tôi",
+        "description": "Shown below the Donate button on the intro page."
+    },
+    "intro_link_policy": {
+        "message": "Chính sách bảo mật",
+        "description": "Shown at the bottom of the intro page."
+    },
+    "share_button_title_facebook": {
+        "message": "Chia sẻ trên facebook",
+        "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
+    "share_button_title_twitter": {
+        "message": "Chia sẽ trên Twitter",
+        "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
+    "options_title": {
+        "message": "Privacy Badger Options",
+        "description": ""
+    },
+    "options_general_settings": {
+        "message": "Cài đặt chung",
+        "description": "This is an options page tab heading."
+    },
+    "show_counter_checkbox": {
+        "message": "Hiển thị số lượng người theo dõi",
+        "description": "Checkbox label in general settings."
+    },
+    "options_enable_dnt_checkbox": {
+        "message": "Gửi đến các trang web thôn tin<a href='https://globalprivacycontrol.org/' target='_blank'>\"Kiểm soát quyền riêng tư toàn cầu\"</a> và <a href='https://www.eff.org/issues/do-not-track' target='_blank'>\"Không theo dõi\"</a>",
+        "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
+    },
+    "options_dnt_policy_setting": {
+        "message": "Kiểm tra xem liệu<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'> tên miền của bên thứ ba </a>có tuân thủ <a target='_blank' href='https://www.eff.org/dnt-policy'>chính sách Không theo dõi của EFF không</a>",
+        "description": "Checkbox label in general settings."
+    },
+    "options_privacy_settings": {
+        "message": "Sự riêng tư",
+        "description": "Subheading in general settings."
+    },
+    "options_disable_hyperlink_auditing": {
+        "message": "chặn các trang web theo dõi liên kết bạn nhấp vào (\"kiểm tra siêu liên kết\")",
+        "description": "Checkbox label in general settings."
+    },
+    "options_disable_network_prediction": {
+        "message": "vô hiệu hóa việc tảo ra bộ nhớ cache",
+        "description": "Checkbox label in general settings."
+    },
+    "options_disable_google_nav_error_service": {
+        "message": "Tắt gửi địa chỉ trang web bạn truy cập tới Google. Thao tác này sẽ tắt đề xuất cho các trang tương tự khi không tìm thấy trang.",
+        "description": "(Chrome only) Checkbox label in general settings."
+    },
+    "options_disable_floc": {
+        "message": "Vô hiệu hóa API chủ đề của Google",
+        "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
+    },
+    "options_advanced_settings": {
+        "message": "Trình độ cao",
+        "description": "Subheading in general settings."
+    },
+    "options_learn_setting": {
+        "message": "Tìm hiểu cách chặn tiến trình theo dõi mới khỏi trình duyệt của bạn",
+        "description": "Checkbox label in general settings."
+    },
+    "local_learning_warning": {
+        "message": "Kích hoạt tính năng học tập có thể khiến bạn dễ nhận dạng hơn trên các trang web",
+        "description": "Tooltip in general settings."
+    },
+    "options_show_nontracking_domains_checkbox": {
+        "message": "Hiển thị các tên miền có vẻ không theo dõi bạn",
+        "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
+    },
+    "options_incognito_setting": {
+        "message": "Học trong cửa sổ Riêng tư/Ẩn danh",
+        "description": "Checkbox label in general settings."
+    },
+    "options_incognito_warning": {
+        "message": "Kích hoạt việc học tập trong cửa sổ Riêng tư/Ẩn danh có thể để lại dấu vết lịch sử trang web cá nhân trên máy tính của bạn. Theo mặc định, Privacy Badger sẽ chặn các tiến trình theo dõi mà nó đã biết trong cửa sổ Riêng tư/Ẩn danh, nhưng nó sẽ không tìm hiểu về các tiến trình theo dõi mới. Bạn có thể muốn bật tùy chọn này nếu nhiều lích sử hoạt động trang web của bạn diễn ra trong cửa sổ Riêng tư/Ẩn danh.",
+        "description": "Tooltip in general settings."
+    },
+    "disabled_sites": {
+        "message": "Trang web bị vô hiệu hóa",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "<p>Privacy Badger bị vô hiệu hóa trên các trang web sau. Điều này có nghĩa là Privacy Badger sẽ không chặn bất kỳ thứ gì khi bạn truy cập các trang web được liệt kê ở đây và sẽ không gửi tín hiệu Không theo dõi hoặc Kiểm soát quyền riêng tư toàn cầu. </p><p>Nếu bạn cho rằng Privacy Badger đang làm hỏng một trang hoặc bạn muốn cho phép một trang cụ thể nào đó được phép chia sẻ hoặc bán dữ liệu của bạn, bạn có thể nhập tên miền của trang đó vào hộp bên dưới và nhấp vào nút \"Thêm tên miền\".</p>",
+        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "Ví dụ. www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "thêm tên miền",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "remove_button": {
+        "message": "Bỏ đã chọn",
+        "description": "Button found under the Disabled Sites tab on the options page"
+    },
+    "invalid_domain": {
+        "message": "Vui lòng thêm miền hoặc URL hợp lệ",
+        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+    },
+    "options_widget_replacement_tab": {
+        "message": "Thay thế tiện ích",
+        "description": "Options page tab heading"
+    },
+    "options_widget_replacement_desc": {
+        "message": "Khi chặn các nút mạng xã hội và các tiện ích hữu ích khác (video, âm thanh, nhận xét), Privacy Badger có thể thay thế chúng bằng các biểu tượng nhấn để kích hoạt.",
+        "description": "Introduction to the Widget Replacement tab on the options page"
+    },
+    "options_social_widgets_checkbox": {
+        "message": "Bật tính năng thay thế tiện ích",
+        "description": "Checkbox label on the Widget Replacement tab"
+    },
+    "options_widget_exceptions_header": {
+        "message": "Tiện ích riêng",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_hide_social_widgets": {
+        "message": "Không thay thế các tiện ích sau:",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_header": {
+        "message": "Trang wb riêng",
+        "description": "Header text on the Widget Replacement tab"
+    },
+    "options_widget_site_exceptions_label": {
+        "message": "Luôn cho phép các tiện ích trên những trang web này:",
+        "description": "Label for a form on the Widget Replacement tab"
+    },
+    "options_domain_list_tab": {
+        "message": "Theo dõi tên miền",
+        "description": "This is an options page tab heading."
+    },
+    "options_domain_list_trackers": {
+        "message": "Privacy Badger đã quyết định chặn $COUNT$các miền theo dõi$TRACKER_LINK_START$ khả nghi$TRACKER_LINK_END$ cho đến nay",
+        "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "900"
+            },
+            "tracker_link_start": {
+                "content": "$2",
+                "example": "<a href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+            },
+            "tracker_link_end": {
+                "content": "</a>"
+            }
+        }
+    },
+    "options_domain_list_no_trackers": {
+        "message": "Privacy Badger chưa phát hiện bất kỳ <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>tên miền theo dõi </a>nào. Tiếp tục duyệt!",
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
+    },
+    "what_is_a_tracker": {
+        "message": "Tiến trình theo dõi là gì?",
+        "description": "Tooltip shown over the 'tracking domains' link under the Tracking Domains tab on the options page."
+    },
+    "options_domain_search": {
+        "message": "Tìm kiếm tên miền:",
+        "description": "Label for a text input box on the Tracking Domains options page tab."
+    },
+    "options_domain_search_tooltip": {
+        "message": "Để loại trừ các tên miền, hãy thêm \"-\" vào trước cụm từ tìm kiếm của bạn. Ví dụ: \".co -.com\" sẽ hiển thị các miền .co và .co.uk nhưng không hiển thị các miền .com.",
+        "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
+    },
+    "options_domain_type_filter": {
+        "message": "Lọc theo loại:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_all": {
+        "message": "Tất cả",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_user": {
+        "message": "do người dùng kiểm soát",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_dnt": {
+        "message": "tuân thủ chính sách DNT của EFF",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_status_filter": {
+        "message": "Lọc theo trạng thái:",
+        "description": "Label for a dropdown control on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_block": {
+        "message": "bị chặn",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_cookieblock": {
+        "message": "bị chặn một phần",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_domain_filter_allow": {
+        "message": "cho phép",
+        "description": "Dropdown control setting on the Tracking Domains options page tab."
+    },
+    "options_show_not_yet_blocked": {
+        "message": "Hiển thị các tên miền mà Badger của bạn chưa quyết định chặn:",
+        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
+    },
+    "options_domain_list_sites": {
+        "message": "$DOMAIN$đã tìm thấy theo dõi trên các trang web sau:",
+        "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "options_remove_origin_confirm": {
+        "message": "Bạn có chắc chắn muốn xóa tên miền này khỏi Privacy Badger không?",
+        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
+    },
+    "data_settings": {
+        "message": "Quản lý dữ liệu",
+        "description": "This is an options page tab heading."
+    },
+    "manage_data_intro": {
+        "message": "Nhập dữ liệu người dùng:<ul><li> Ghi đè cài đặt chung </li><li>Kết hợp danh sách các trang web bị vô hiệu hóa </li><li>Kết hợp thông tin về những gì tiến trình theo dõi Privacy Badger đã xem</li><li>Ghi đè các giá trị đã thay đổi trên thanh trượt</li></ul>",
+        "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
+    },
+    "export_user_data": {
+        "message": "Xuất dữ liệu người dùng",
+        "description": ""
+    },
+    "download": {
+        "message": "Tải xuống",
+        "description": "Button text shown under both 'export_user_data' and 'download_cloud' headings."
+    },
+    "import_user_data": {
+        "message": "Nhập dữ liệu người dùng",
+        "description": ""
+    },
+    "import": {
+        "message": "Nhập",
+        "description": ""
+    },
+    "import_select_file": {
+        "message": "Vui lòng chọn một tệp để nhập.",
+        "description": ""
+    },
+    "invalid_json": {
+        "message": "Tệp JSON không hợp lệ.",
+        "description": ""
+    },
+    "import_successful": {
+        "message": "Đã cập nhật thành công danh sách theo dõi và cài đặt!",
+        "description": ""
+    },
+    "sync_intro": {
+        "message": "Đồng bộ hóa trên cloud: <ul><li>Yêu cầu đồng bộ Firefox/Chrome </li><li>Tải lên sẽ ghi đè mọi dữ liệu Privacy Badger hiện có trên cloud</li><li>Tải xuống tất cả danh sách các trang web mà Badger của bạn bị vô hiệu hóa",
+        "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
+    },
+    "upload_cloud": {
+        "message": "Xuất các trang web bị vô hiệu hóa sang cloud",
+        "description": "Button title for uploading data to the cloud on Manage Data options page tab."
+    },
+    "upload": {
+        "message": "Tải lên",
+        "description": "Button label for uploading data to the cloud on Manage Data options page tab."
+    },
+    "download_cloud": {
+        "message": "Nhập các trang web bị vô hiệu hóa từ cloud",
+        "description": "Button title for downloading data from the cloud on Manage Data options page tab."
+    },
+    "download_cloud_success": {
+        "message": "Dữ liệu trên cloud đã được nhập thành công.",
+        "description": "Message displayed to the user after successfully merging cloud data."
+    },
+    "download_cloud_failure": {
+        "message": "Không thể tải xuống dữ liệu trên cloud.",
+        "description": "Message displayed to the user after failing to download cloud data."
+    },
+    "upload_cloud_success": {
+        "message": "Dữ liệu được tải lên cloud thành công",
+        "description": "Message displayed to the user after successfully uploading local data."
+    },
+    "upload_cloud_failure": {
+        "message": "Không thể tải dữ liệu lên cloud",
+        "description": "Message displayed to the user after failing to upload local data."
+    },
+    "download_cloud_no_data": {
+        "message": "Không có dữ liệu trên cloud để tải xuống.",
+        "description": "'Error' message when there is on cloud data to download."
+    },
+    "reset_data": {
+        "message": "Đặt lại tên miền theo dõi",
+        "description": "Caption above reset button"
+    },
+    "reset": {
+        "message": "Khởi động lại",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "reset_data_confirm": {
+        "message": "Việc đặt lại miền theo dõi sẽ:\n\n• Xóa tất cả dữ liệu về các tiến trình theo dõi mà Privacy Badger đã học được từ trình duyệt của bạn\n• Khôi phục danh sách tên miền theo dõi sang danh sách khởi tạo mới nhất (truy cập www.eff.org/badger-pretraining để tìm hiểu thêm)",
+        "description": "Pop-up triggered when the reset_data button is clicked"
+    },
+    "remove_all_data": {
+        "message": "Xóa tất cả các miền theo dõi",
+        "description": "Caption above remove_all button"
+    },
+    "remove_all": {
+        "message": "Bỏ hết",
+        "description": "Options page button, under the Manage Data tab"
+    },
+    "remove_all_data_confirm": {
+        "message": "Việc xóa tất cả các miền theo dõi sẽ:\n\n• Xóa mọi thứ mà Privacy Badger biết về các tiến trình theo dõi\n• Làm cho Privacy Badger không thể chặn bất kỳ thứ gì cho đến khi nó có cơ hội để học lại từ trình duyệt của bạn",
+        "description": "Pop-up triggered when the remove_all_data button is clicked"
+    },
+    "intro_text1": {
+        "message": "Bạn hiện được bảo vệ bởi Privacy Badger.",
+        "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "intro_text2": {
+        "message": "Để tìm hiểu cách hoạt động của Privacy Badger, nhấp vào bên dưới để xem hướng dẫn nhanh.",
+        "description": "Second part of a reminder to visit the intro page"
+    },
+    "first_run_text": {
+        "message": "Tìm hiểu cách Privacy Badger bảo vệ quyền riêng tư của bạn",
+        "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
+    },
+    "learning_prompt_text1": {
+        "message": "Theo mặc định, Privacy Badger sẽ không còn học từ trình duyệt của bạn nữa.",
+        "description": "First part of a prompt to visit the blog."
+    },
+    "learning_prompt_text2": {
+        "message": "Nhấp vào bên dưới để tìm hiểu thêm.",
+        "description": "Second part of a prompt to visit the blog."
+    },
+    "learning_prompt_button": {
+        "message": "Tìm hiểu cách Privacy Badger đang thay đổi",
+        "description": "Button text, part of a prompt to visit the blog."
+    },
+    "deprecated_setting": {
+        "message": "Cài đặt sau không được dùng nữa và sẽ bị xóa trong các bản cập nhật Privacy Badger tiếp theo:",
+        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
+    },
+    "learn_more_link": {
+        "message": "Truy cập $LINK$để tìm hiểu thêm.",
+        "description": "Reusable 'learn more link' message",
+        "placeholders": {
+            "link": {
+                "content": "$1",
+                "example": "<a href='https://example.com'>example.com</a>"
+            }
+        }
+    },
+    "acknowledgement_action": {
+        "message": "Tôi hiểu",
+        "description": "Acknowledgement button text"
+    },
+    "social_tooltip_pb_has_replaced": {
+        "message": "Privacy Badger đã thay thế $BUTTON$ nút này",
+        "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
+        "placeholders": {
+            "button": {
+                "content": "$1",
+                "example": "Facebook Like"
+            }
+        }
+    },
+    "widget_placeholder_pb_has_replaced": {
+        "message": "Privacy Badger đã thay $START_ANCHOR_TAG$thế tiện ích$WIDGET$ này$END_ANCHOR_TAG$",
+        "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
+        "placeholders": {
+            "widget": {
+                "content": "$1",
+                "example": "Google reCAPTCHA"
+            },
+            "start_anchor_tag": {
+                "content": "$2",
+                "example": "<a href='https://vimeo.com/76979871'>"
+            },
+            "end_anchor_tag": {
+                "content": "$3",
+                "example": "</a>"
+            }
+        }
+    },
+    "allow_once": {
+        "message": "cho phép một lần",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
+    },
+    "allow_on_site": {
+        "message": "Luôn cho phép trên trang web này",
+        "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    }
+}
