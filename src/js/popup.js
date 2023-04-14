@@ -786,6 +786,8 @@ function refreshPopup() {
     if (printable.length) {
       requestAnimationFrame(renderDomains);
     } else {
+      $('#not-yet-blocked-header').tooltipster();
+      $('#non-trackers-header').tooltipster();
       window.SLIDERS_DONE = true;
     }
   }
