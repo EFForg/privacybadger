@@ -464,47 +464,6 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Removes a base domain and its subdomains from snitch and action maps.
-   * Preserves action map entries with user overrides.
-   *
-   * @param {String} base_domain
-   */
-  forget: function (base_domain) {
-    let self = this,
-      dot_base = '.' + base_domain,
-      actionMap = self.getStore('action_map'),
-      snitchMap = self.getStore('snitch_map'),
-      trackingMap = self.getStore('tracking_map'),
-      fpStore = self.getStore('fp_scripts');
-
-    if (snitchMap.getItem(base_domain)) {
-      log("Removing %s from snitch_map", base_domain);
-      snitchMap.deleteItem(base_domain);
-    }
-
-    if (trackingMap.getItem(base_domain)) {
-      log("Removing %s from tracking_map", base_domain);
-      trackingMap.deleteItem(base_domain);
-    }
-
-    for (let domain of fpStore.keys()) {
-      if (domain == base_domain || domain.endsWith(dot_base)) {
-        log("Removing %s from fp_scripts", domain);
-        fpStore.deleteItem(domain);
-      }
-    }
-
-    for (let domain of actionMap.keys()) {
-      if (domain == base_domain || domain.endsWith(dot_base)) {
-        if (actionMap.getItem(domain).userAction == "") {
-          log("Removing %s from action_map", domain);
-          actionMap.deleteItem(domain);
-        }
-      }
-    }
-  },
-
-  /**
    * Forces a write of a Badger storage object's contents to extension storage.
    */
   forceSync: function (store_name, callback) {
