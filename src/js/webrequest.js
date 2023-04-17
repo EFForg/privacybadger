@@ -127,6 +127,32 @@ function onBeforeRequest(details) {
     return;
   }
 
+  // block requests to known fingerprinter scripts
+  // hosted by (user)cookieblocked CDNs
+  if (type == 'script' || sw_request) {
+    if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
+      if (request_host == 'cdnjs.cloudflare.com' ||
+        request_host == 'cdn.jsdelivr.net' ||
+        request_host == 'd38xvr37kwwhcm.cloudfront.net' ||
+        request_host.endsWith('.azureedge.net') ||
+        request_host.endsWith('.storage.googleapis.com')) {
+
+        let fpScripts = badger.storage.getStore('fp_scripts').getItem(request_host);
+
+        if (fpScripts) {
+          let script_path = url.slice(url.indexOf(request_host) + request_host.length),
+            qs_start = script_path.indexOf('?');
+          if (qs_start != -1) {
+            script_path = script_path.slice(0, qs_start);
+          }
+          if (utils.hasOwn(fpScripts, script_path)) {
+            return { cancel: true };
+          }
+        }
+      }
+    }
+  }
+
   if (action != constants.BLOCK && action != constants.USER_BLOCK) {
     return;
   }

@@ -95,8 +95,23 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
     def test_cookieblocking_subdomain_of_blocked_domain(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
         self.cookieblock_domain(self.THIRD_PARTY_SUBDOMAIN)
-        self.load_url(self.FIXTURE_URL + '?alt3p=1')
+        self.load_url(self.FIXTURE_URL + '?alt3p')
         self.assert_load()
+
+    def test_blocking_fp_script_served_from_cookieblocked_cdn(self):
+        self.cookieblock_domain("cdn.jsdelivr.net")
+
+        # enable local learning
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#local-learning-checkbox').click()
+
+        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
+        self.assert_load()
+
+        # navigate elsewhere and back to work around the third-party getting served from cache
+        self.load_url(self.options_url)
+        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
+        self.assert_block()
 
     def test_userblock(self):
         self.set_user_action(self.THIRD_PARTY_DOMAIN, "block")
