@@ -4,56 +4,59 @@ import htmlUtils from "../../js/htmlutils.js";
 QUnit.module("HTML Utils");
 
 QUnit.test("getActionDescription", (assert) => {
-  // Test parameters
   const getMessage = chrome.i18n.getMessage,
-    origin = "pbtest.org";
+    fqdn = "example.com";
+
   const tests = [
     {
       action: constants.BLOCK,
-      origin,
-      expectedResult: getMessage('badger_status_block', origin)
+      fqdn,
+      expectedResult: getMessage('badger_status_block', fqdn)
     },
     {
       action: constants.COOKIEBLOCK,
-      origin,
-      expectedResult: getMessage('badger_status_cookieblock', origin)
+      fqdn,
+      expectedResult: getMessage('badger_status_cookieblock', fqdn)
     },
     {
       action: constants.ALLOW,
-      origin,
-      expectedResult: getMessage('badger_status_allow', origin)
+      fqdn,
+      expectedResult: getMessage('badger_status_allow', fqdn)
     },
     {
       action: constants.USER_BLOCK,
-      origin,
-      expectedResult: getMessage('badger_status_block', origin)
+      fqdn,
+      expectedResult: getMessage('badger_status_block', fqdn)
     },
     {
       action: constants.USER_COOKIEBLOCK,
-      origin,
-      expectedResult: getMessage('badger_status_cookieblock', origin)
+      fqdn,
+      expectedResult: getMessage('badger_status_cookieblock', fqdn)
+    },
+    {
+      action: constants.USER_COOKIEBLOCK,
+      fqdn,
+      blockedFpScripts: ['/fp.min.js'],
+      expectedResult: getMessage('badger_status_blocked_scripts', fqdn)
     },
     {
       action: constants.USER_ALLOW,
-      origin,
-      expectedResult: getMessage('badger_status_allow', origin)
+      fqdn,
+      expectedResult: getMessage('badger_status_allow', fqdn)
     },
     {
       action: "dnt",
-      origin,
+      fqdn,
       expectedResult: getMessage('dnt_tooltip')
     },
   ];
 
-  // Run each test.
-  for (let i = 0; i < tests.length; i++) {
-    const test = tests[i],
-      message = `Inputs: '${test.action}' and '${test.origin}'`;
-
+  for (let test of tests) {
     assert.equal(
-      htmlUtils.getActionDescription(test.action, test.origin),
+      htmlUtils.getActionDescription(
+        test.action, test.fqdn, test.blockedFpScripts),
       test.expectedResult,
-      message
+      `Inputs: '${test.action}' and '${test.fqdn}'`
     );
   }
 });

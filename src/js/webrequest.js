@@ -146,6 +146,7 @@ function onBeforeRequest(details) {
             script_path = script_path.slice(0, qs_start);
           }
           if (utils.hasOwn(fpScripts, script_path)) {
+            badger.tabData.logFpScript(tab_id, request_host, url);
             return { cancel: true };
           }
         }
@@ -1327,6 +1328,7 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     sendResponse({
+      blockedFpScripts: badger.tabData._tabData[tab_id].blockedFpScripts,
       cookieblocked,
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
