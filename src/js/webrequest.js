@@ -147,6 +147,15 @@ function onBeforeRequest(details) {
           }
           if (utils.hasOwn(fpScripts, script_path)) {
             badger.tabData.logFpScript(tab_id, request_host, url);
+
+            let surrogate = surrogates.getSurrogateUri(url, request_host);
+            if (surrogate) {
+              let secret = getWarSecret(tab_id, frame_id, surrogate);
+              return {
+                redirectUrl: surrogate + '?key=' + secret
+              };
+            }
+
             return { cancel: true };
           }
         }

@@ -4,6 +4,7 @@ rules:
     - 4
     - outerIIFEBody: 1
   keyword-spacing: off
+  no-bitwise: off
   no-empty: off
   no-extra-semi: off
   space-in-parens: off

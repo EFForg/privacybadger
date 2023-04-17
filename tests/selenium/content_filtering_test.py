@@ -101,6 +101,13 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
     def test_blocking_fp_script_served_from_cookieblocked_cdn(self):
         self.cookieblock_domain("cdn.jsdelivr.net")
 
+        # disable surrogates
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'disableSurrogates'"
+            "}, done);")
+
         # enable local learning
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('#local-learning-checkbox').click()
