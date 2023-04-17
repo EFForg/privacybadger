@@ -1677,8 +1677,9 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "removeOrigin": {
-    badger.storage.getStore("snitch_map").deleteItem(request.origin);
-    badger.storage.getStore("action_map").deleteItem(request.origin);
+    for (let name of ['snitch_map', 'action_map', 'tracking_map', 'fp_scripts']) {
+      badger.storage.getStore(name).deleteItem(request.origin);
+    }
     sendResponse({
       origins: badger.storage.getTrackingDomains()
     });
