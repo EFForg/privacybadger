@@ -127,6 +127,42 @@ function onBeforeRequest(details) {
     return;
   }
 
+  // block requests to known fingerprinter scripts
+  // hosted by (user)cookieblocked CDNs
+  if (type == 'script' || sw_request) {
+    if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
+      if (request_host == 'cdnjs.cloudflare.com' ||
+        request_host == 'cdn.jsdelivr.net' ||
+        request_host == 'd38xvr37kwwhcm.cloudfront.net' ||
+        request_host.endsWith('.azureedge.net') ||
+        request_host.endsWith('.storage.googleapis.com')) {
+
+        let fpScripts = badger.storage.getStore('fp_scripts').getItem(request_host);
+
+        if (fpScripts) {
+          let script_path = url.slice(url.indexOf(request_host) + request_host.length),
+            qs_start = script_path.indexOf('?');
+          if (qs_start != -1) {
+            script_path = script_path.slice(0, qs_start);
+          }
+          if (utils.hasOwn(fpScripts, script_path)) {
+            badger.tabData.logFpScript(tab_id, request_host, url);
+
+            let surrogate = surrogates.getSurrogateUri(url, request_host);
+            if (surrogate) {
+              let secret = getWarSecret(tab_id, frame_id, surrogate);
+              return {
+                redirectUrl: surrogate + '?key=' + secret
+              };
+            }
+
+            return { cancel: true };
+          }
+        }
+      }
+    }
+  }
+
   if (action != constants.BLOCK && action != constants.USER_BLOCK) {
     return;
   }
@@ -672,7 +708,15 @@ function recordFingerprinting(tab_id, msg) {
   }
 
   let document_host = badger.tabData.getFrameData(tab_id).host,
-    script_host = extractHostFromURL(msg.scriptUrl);
+    script_host = "", script_path = "";
+
+  try {
+    let parsedScriptUrl = new URL(msg.scriptUrl);
+    script_host = parsedScriptUrl.hostname;
+    script_path = parsedScriptUrl.pathname;
+  } catch (e) {
+    console.error("Failed to parse URL of %s\n", msg.scriptUrl, e);
+  }
 
   // CNAME uncloaking
   if (utils.hasOwn(badger.cnameDomains, script_host)) {
@@ -728,6 +772,8 @@ function recordFingerprinting(tab_id, msg) {
           // record canvas fingerprinting
           badger.storage.recordTrackingDetails(
             script_base, document_base, 'canvas');
+          badger.storage.recordFingerprintingScript(
+            script_host, script_path);
         }
       }
       // This is a canvas write
@@ -1314,6 +1360,7 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     sendResponse({
+      blockedFpScripts: badger.tabData._tabData[tab_id].blockedFpScripts,
       cookieblocked,
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
@@ -1653,8 +1700,9 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "removeOrigin": {
-    badger.storage.getStore("snitch_map").deleteItem(request.origin);
-    badger.storage.getStore("action_map").deleteItem(request.origin);
+    for (let name of ['snitch_map', 'action_map', 'tracking_map', 'fp_scripts']) {
+      badger.storage.getStore(name).deleteItem(request.origin);
+    }
     sendResponse({
       origins: badger.storage.getTrackingDomains()
     });

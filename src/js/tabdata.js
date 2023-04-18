@@ -25,6 +25,10 @@ function TabData() {
   /**
    * {
    *   <tab_id>: {
+   *     blockedFpScripts: {
+   *       <script_fqdn>: {String} script URL,
+   *       ...
+   *     },
    *     blockedFrameUrls: {
    *       <parent_frame_id>: [
    *         {String} blocked frame URL,
@@ -137,6 +141,7 @@ TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
 
   if (!self.has(tab_id)) {
     self._tabData[tab_id] = {
+      blockedFpScripts: {},
       blockedFrameUrls: {},
       fpData: {},
       frames: {},
@@ -212,6 +217,28 @@ TabData.prototype.logTracker = function (tab_id, fqdn, action) {
   }
 
   self._tabData[tab_id].trackers[fqdn] = action;
+};
+
+/**
+ * Records blocking a previously detected fingerprinting script.
+ *
+ * @param {Integer} tab_id the ID of the tab
+ * @param {String} fqdn the script's domain
+ * @param {String} url the full URL of the script
+ */
+TabData.prototype.logFpScript = function (tab_id, fqdn, url) {
+  let self = this;
+
+  if (!self.has(tab_id)) {
+    console.error("logFpScript(%s, %s, %s): uninitialized tabData", tab_id, fqdn, url);
+    return;
+  }
+
+  if (!utils.hasOwn(self._tabData[tab_id].blockedFpScripts, fqdn)) {
+    self._tabData[tab_id].blockedFpScripts[fqdn] = [];
+  }
+
+  self._tabData[tab_id].blockedFpScripts[fqdn].push(url);
 };
 
 /**

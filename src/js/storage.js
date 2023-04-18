@@ -155,6 +155,16 @@ BadgerPen.prototype = {
     //   ...
     // }
     "tracking_map",
+
+    // logs fingerprinter script domains and paths:
+    // {
+    //   <script_fqdn>: {
+    //     <script_path>: 1,
+    //     ...
+    //   },
+    //   ...
+    // }
+    "fp_scripts",
   ],
 
   getStore: function (key) {
@@ -170,7 +180,7 @@ BadgerPen.prototype = {
   clearTrackerData: function () {
     let self = this;
 
-    for (let store_name of ['action_map', 'snitch_map', 'tracking_map']) {
+    for (let store_name of ['action_map', 'snitch_map', 'tracking_map', 'fp_scripts']) {
       let store = self.getStore(store_name);
       for (let key of store.keys()) {
         store.deleteItem(key);
@@ -454,40 +464,6 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Removes a base domain and its subdomains from snitch and action maps.
-   * Preserves action map entries with user overrides.
-   *
-   * @param {String} base_domain
-   */
-  forget: function (base_domain) {
-    let self = this,
-      dot_base = '.' + base_domain,
-      actionMap = self.getStore('action_map'),
-      actions = actionMap.getItemClones(),
-      snitchMap = self.getStore('snitch_map'),
-      trackingMap = self.getStore('tracking_map');
-
-    if (snitchMap.getItem(base_domain)) {
-      log("Removing %s from snitch_map", base_domain);
-      snitchMap.deleteItem(base_domain);
-    }
-
-    if (trackingMap.getItem(base_domain)) {
-      log("Removing %s from tracking_map", base_domain);
-      trackingMap.deleteItem(base_domain);
-    }
-
-    for (let domain in actions) {
-      if (domain == base_domain || domain.endsWith(dot_base)) {
-        if (actions[domain].userAction == "") {
-          log("Removing %s from action_map", domain);
-          actionMap.deleteItem(domain);
-        }
-      }
-    }
-  },
-
-  /**
    * Forces a write of a Badger storage object's contents to extension storage.
    */
   forceSync: function (store_name, callback) {
@@ -502,7 +478,7 @@ BadgerPen.prototype = {
   },
 
   /**
-   * Simplifies updating tracking_map.
+   * Helps update tracking_map.
    */
   recordTrackingDetails: function (tracker_base, site_base, tracking_type) {
     let self = this,
@@ -516,6 +492,16 @@ BadgerPen.prototype = {
     }
     trackingDataStore.setItem(tracker_base, entry);
   },
+
+  /**
+   * Helps update fp_scripts.
+   */
+  recordFingerprintingScript: function (script_fqdn, script_path) {
+    let fpStore = this.getStore('fp_scripts'),
+      entry = fpStore.getItem(script_fqdn) || {};
+    entry[script_path] = 1;
+    fpStore.setItem(script_fqdn, entry);
+  }
 };
 
 /**
@@ -716,6 +702,19 @@ BadgerStorage.prototype = {
             badger.storage.recordTrackingDetails(
               tracker_base, site_base, tracking_type);
           }
+        }
+      }
+
+    } else if (self.name == "fp_scripts") {
+      let snitchMap = badger.storage.getStore('snitch_map');
+      for (let script_fqdn in mapData) {
+        // merge only if we have a corresponding snitch_map entry
+        let snitchItem = snitchMap.getItem(getBaseDomain(script_fqdn));
+        if (!snitchItem) {
+          continue;
+        }
+        for (let script_path in mapData[script_fqdn]) {
+          badger.storage.recordFingerprintingScript(script_fqdn, script_path);
         }
       }
     }

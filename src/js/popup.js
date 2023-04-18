@@ -37,6 +37,7 @@ let BREAKAGE_NOTE_DOMAINS = {
 };
 
 const DOMAIN_TOOLTIP_CONF = {
+  maxWidth: 300,
   side: 'bottom',
 };
 
@@ -677,25 +678,26 @@ function refreshPopup() {
   let nonTracking = [];
   originsArr = htmlUtils.sortDomains(originsArr);
 
-  for (let origin of originsArr) {
-    let action = origins[origin];
+  for (let fqdn of originsArr) {
+    let action = origins[fqdn];
 
     if (action == constants.NO_TRACKING) {
-      nonTracking.push(origin);
+      nonTracking.push(fqdn);
     } else if (action == constants.ALLOW) {
-      unblockedTrackers.push(origin);
+      unblockedTrackers.push(fqdn);
     } else {
       let show_breakage_warning = (
         action == constants.USER_BLOCK &&
-        utils.hasOwn(POPUP_DATA.cookieblocked, origin)
+        utils.hasOwn(POPUP_DATA.cookieblocked, fqdn)
       );
       let show_breakage_note = false;
       if (!show_breakage_warning) {
-        show_breakage_note = (utils.hasOwn(BREAKAGE_NOTE_DOMAINS, origin) &&
-          !POPUP_DATA.shownBreakageNotes.includes(origin) &&
+        show_breakage_note = (utils.hasOwn(BREAKAGE_NOTE_DOMAINS, fqdn) &&
+          !POPUP_DATA.shownBreakageNotes.includes(fqdn) &&
           (action == constants.BLOCK || action == constants.COOKIEBLOCK));
       }
-      let slider_html = htmlUtils.getOriginHtml(origin, action, show_breakage_warning, show_breakage_note);
+      let slider_html = htmlUtils.getOriginHtml(fqdn, action,
+        show_breakage_warning, show_breakage_note, POPUP_DATA.blockedFpScripts[fqdn]);
       if (show_breakage_warning) {
         printableWarningSliders.push(slider_html);
       } else if (show_breakage_note) {
