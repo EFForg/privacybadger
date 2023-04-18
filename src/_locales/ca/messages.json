@@ -123,6 +123,16 @@
             }
         }
     },
+    "badger_status_blocked_scripts": {
+        "message": "Blocked cookies and fingerprinting scripts from $DOMAIN$",
+        "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
     "badger_status_allow": {
         "message": "Permès $DOMAIN$",
         "description": "Tooltip shown over a tracking but still allowed (green slider) domain name in the domain slider list.",
