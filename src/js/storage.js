@@ -687,13 +687,19 @@ BadgerStorage.prototype = {
       }
 
     } else if (self.name == "tracking_map") {
+      // keep up to BLOCK_THRESHOLD entries,
+      // favoring ones with matching site base domains in snitch_map
+      const BLOCK_THRESHOLD = badger.storage.getStore('private_storage').getItem('blockThreshold');
       let snitchMap = badger.storage.getStore('snitch_map');
+
       for (let tracker_base in mapData) {
         // merge only if we have a corresponding snitch_map entry
         let snitchItem = snitchMap.getItem(tracker_base);
         if (!snitchItem) {
           continue;
         }
+
+        // first add the entries found in snitch_map
         for (let site_base in mapData[tracker_base]) {
           if (!snitchItem.includes(site_base)) {
             continue;
@@ -701,6 +707,24 @@ BadgerStorage.prototype = {
           for (let tracking_type of mapData[tracker_base][site_base]) {
             badger.storage.recordTrackingDetails(
               tracker_base, site_base, tracking_type);
+          }
+        }
+
+        // now see if we should add any more entries up to the limit
+        let trackerItem = self.getItem(tracker_base);
+        if (trackerItem && Object.keys(trackerItem).length >= BLOCK_THRESHOLD) {
+          continue;
+        }
+        for (let site_base in mapData[tracker_base]) {
+          if (snitchItem.includes(site_base)) {
+            continue;
+          }
+          for (let tracking_type of mapData[tracker_base][site_base]) {
+            badger.storage.recordTrackingDetails(
+              tracker_base, site_base, tracking_type);
+          }
+          if (Object.keys(self.getItem(tracker_base)).length >= BLOCK_THRESHOLD) {
+            break;
           }
         }
       }
