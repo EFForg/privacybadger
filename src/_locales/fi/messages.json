@@ -114,7 +114,7 @@
         }
     },
     "badger_status_cookieblock": {
-        "message": "Evästeet estetty verkkotunnuksesta $DOMAIN$",
+        "message": "Evästeet estetty verkkotunnukselta $DOMAIN$",
         "description": "Tooltip shown over a domain name with a yellow slider in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -124,7 +124,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Evästeet ja leimausskriptit verkkotunnukselta $DOMAIN$ estettiin",
+        "message": "Evästeet ja leimausskriptit estetty verkkotunnukselta $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -144,7 +144,7 @@
         }
     },
     "badger_status_noaction": {
-        "message": "Ei seurantaa verkkotunnuksesta $DOMAIN$",
+        "message": "Ei seurantaa verkkotunnukselta $DOMAIN$",
         "description": "Tooltip shown over a non-tracking domain name with a green slider in the domain slider list.",
         "placeholders": {
             "domain": {
