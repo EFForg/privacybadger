@@ -341,7 +341,7 @@ function onBeforeSendHeaders(details) {
   let tab_host = frameData.host;
 
   if (details.type == 'main_frame') {
-    if (badger.isDNTSignalEnabled() && badger.isPrivacyBadgerEnabled(tab_host)) {
+    if (badger.isDntSignalEnabled(tab_host) && badger.isPrivacyBadgerEnabled(tab_host)) {
       details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
       return { requestHeaders: details.requestHeaders };
     }
@@ -357,13 +357,9 @@ function onBeforeSendHeaders(details) {
   }
 
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
-    if (badger.isDNTSignalEnabled() && badger.isPrivacyBadgerEnabled(tab_host)) {
+    if (badger.isDntSignalEnabled(tab_host) && badger.isPrivacyBadgerEnabled(tab_host)) {
       // send Do Not Track header even when HTTP and cookie blocking are disabled
-      if (tab_host == 'www.costco.com') {
-        details.requestHeaders.push({name: "Sec-GPC", value: "1"});
-      } else {
-        details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
-      }
+      details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
       return { requestHeaders: details.requestHeaders };
     }
 
@@ -406,7 +402,7 @@ function onBeforeSendHeaders(details) {
     }
 
     // add DNT header
-    if (badger.isDNTSignalEnabled()) {
+    if (badger.isDntSignalEnabled(tab_host)) {
       newHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
     }
 
@@ -415,7 +411,7 @@ function onBeforeSendHeaders(details) {
 
   // if we are here, we're looking at a third-party request
   // that's not yet blocked or cookieblocked
-  if (badger.isDNTSignalEnabled()) {
+  if (badger.isDntSignalEnabled(tab_host)) {
     details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
   }
   return {requestHeaders: details.requestHeaders};
@@ -1725,10 +1721,10 @@ function dispatcher(request, sender, sendResponse) {
   // called from contentscripts/dnt.js
   // to check if it should set DNT on Navigator
   case "checkDNT": {
+    let tab_host = extractHostFromURL(sender.tab.url);
     sendResponse(
-      badger.isDNTSignalEnabled()
-      && badger.isPrivacyBadgerEnabled(extractHostFromURL(sender.tab.url))
-    );
+      badger.isDntSignalEnabled(tab_host) &&
+      badger.isPrivacyBadgerEnabled(tab_host));
     break;
   }
 

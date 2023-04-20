@@ -985,8 +985,24 @@ Badger.prototype = {
     );
   },
 
-  isDNTSignalEnabled: function() {
-    return this.getSettings().getItem("sendDNTSignal");
+  /**
+   * Returns whether we should send DNT/GPC signals on a given website.
+   *
+   * @param {String} site_host the FQDN of the website
+   *
+   * @returns {Boolean}
+   */
+  isDntSignalEnabled: function (site_host) {
+    if (!this.getSettings().getItem("sendDNTSignal")) {
+      return false;
+    }
+    // temp. exception list for sites
+    // where sending DNT/GPC signals causes major breakages
+    // TODO indicate when this happens in the UI somehow
+    const gpcDisabledWebsites = {
+      'www.costco.com': true,
+    };
+    return !utils.hasOwn(gpcDisabledWebsites, site_host);
   },
 
   isCheckingDNTPolicyEnabled: function() {
