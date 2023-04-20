@@ -128,10 +128,13 @@ consent.cookiebot.com
 consentcdn.cookiebot.com
 cookielaw.org
 cookie-cdn.cookiepro.com
-cloudplatform.coveo.com
 platform.cloud.coveo.com
+platform-au.cloud.coveo.com
 platform-eu.cloud.coveo.com
+search.cloud.coveo.com
+search-eu.cloud.coveo.com
 static.cloud.coveo.com
+cloudplatform.coveo.com
 code.createjs.com
 embed.crowdriff.com
 starling.crowdriff.com
