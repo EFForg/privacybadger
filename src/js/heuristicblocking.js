@@ -369,7 +369,15 @@ HeuristicBlocker.prototype = {
 
     let self = this,
       firstParties = [],
+      actionMap = self.storage.getStore('action_map'),
       snitchMap = self.storage.getStore('snitch_map');
+
+    if (!actionMap.hasItem(tracker_fqdn)) {
+      self.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
+      if (!actionMap.hasItem(tracker_base)) {
+        self.storage.setupHeuristicAction(tracker_base, constants.ALLOW);
+      }
+    }
 
     if (snitchMap.hasItem(tracker_base)) {
       firstParties = snitchMap.getItem(tracker_base);
@@ -383,12 +391,6 @@ HeuristicBlocker.prototype = {
     // record that we've seen this tracker on this domain
     firstParties.push(site_base);
     snitchMap.setItem(tracker_base, firstParties);
-
-    // ALLOW indicates this is a tracker still below TRACKING_THRESHOLD
-    // (vs. NO_TRACKING for resources we haven't seen perform tracking yet).
-    // see https://github.com/EFForg/privacybadger/pull/1145#discussion_r96676710
-    self.storage.setupHeuristicAction(tracker_fqdn, constants.ALLOW);
-    self.storage.setupHeuristicAction(tracker_base, constants.ALLOW);
 
     // (cookie)block if domain was seen tracking on enough first party domains
     if (firstParties.length >=
