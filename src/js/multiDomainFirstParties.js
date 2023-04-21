@@ -446,6 +446,8 @@ let multiDomainFirstPartiesArray = [
     "lazada.co.th",
     "lazada.sg",
     "lazada.vn",
+
+    "lazcdn.com",
   ],
   ["allstate.com", "myallstate.com"],
   ["altra.org", "altraonline.org"],
