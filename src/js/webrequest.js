@@ -133,6 +133,7 @@ function onBeforeRequest(details) {
     if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
       if (request_host == 'cdn.jsdelivr.net' ||
         request_host == 'cdnjs.cloudflare.com' ||
+        request_host == 'd1af033869koo7.cloudfront.net' ||
         request_host == 'd38xvr37kwwhcm.cloudfront.net' ||
         request_host == 'd.alicdn.com' ||
         request_host == 'gadasource.storage.googleapis.com' ||
