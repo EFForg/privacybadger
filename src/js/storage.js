@@ -651,29 +651,23 @@ BadgerStorage.prototype = {
         let newEntry = mapData[domain],
           existingEntry = self.getItem(domain);
 
-        // copy over any user settings from the merged-in data
-        if (newEntry.userAction) {
-          if (existingEntry) {
+        if (existingEntry) {
+          // for existing domains, overwrite with user action set in the import
+          if (newEntry.userAction) {
             existingEntry.userAction = newEntry.userAction;
             self.setItem(domain, existingEntry);
-          } else {
-            self.setItem(domain, Object.assign(_newActionMapObject(), newEntry));
           }
-        }
 
-        // handle Do Not Track
-        if (existingEntry) {
           // merge DNT settings if the imported data has a more recent update
           if (newEntry.nextUpdateTime > existingEntry.nextUpdateTime) {
             existingEntry.nextUpdateTime = newEntry.nextUpdateTime;
             existingEntry.dnt = newEntry.dnt;
             self.setItem(domain, existingEntry);
           }
+
         } else {
-          // import action map entries for new DNT-compliant domains
-          if (newEntry.dnt) {
-            self.setItem(domain, Object.assign(_newActionMapObject(), newEntry));
-          }
+          // just import
+          self.setItem(domain, Object.assign(_newActionMapObject(), newEntry));
         }
       }
 
