@@ -647,6 +647,8 @@ BadgerStorage.prototype = {
       }
 
     } else if (self.name == "action_map") {
+      let snitchMap = badger.storage.getStore('snitch_map');
+
       for (let domain in mapData) {
         let newEntry = mapData[domain],
           existingEntry = self.getItem(domain);
@@ -666,8 +668,11 @@ BadgerStorage.prototype = {
           }
 
         } else {
-          // just import
-          self.setItem(domain, Object.assign(_newActionMapObject(), newEntry));
+          // import user-set domains, DNT-compliant domains,
+          // and also domains present in snitch_map
+          if (newEntry.userAction || newEntry.dnt || snitchMap.getItem(getBaseDomain(domain))) {
+            self.setItem(domain, Object.assign(_newActionMapObject(), newEntry));
+          }
         }
       }
 

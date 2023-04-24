@@ -325,9 +325,9 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
   // merge in a blocked parent domain and a subdomain
   badger.mergeUserData(USER_DATA);
 
-  assert.notOk(actionMap.getItem(SUBDOMAIN),
-    SUBDOMAIN + " should have been discarded during merge"
-  );
+  assert.ok(actionMap.getItem(SUBDOMAIN),
+    SUBDOMAIN + " should have been preserved during merge");
+  assert.equal(badger.storage.getBestAction(SUBDOMAIN), constants.BLOCK);
 
   // clean up
   actionMap.deleteItem(DOMAIN);
@@ -335,8 +335,7 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
   snitchMap.deleteItem(DOMAIN);
 
   // now add subdomain to yellowlist
-  badger.storage.getStore('cookieblock_list')
-    .setItem(SUBDOMAIN, true);
+  badger.storage.getStore('cookieblock_list').setItem(SUBDOMAIN, true);
 
   // and do the merge again
   badger.mergeUserData(USER_DATA);
@@ -349,6 +348,7 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
     constants.COOKIEBLOCK,
     SUBDOMAIN + " should be cookieblocked"
   );
+  assert.equal(badger.storage.getBestAction(SUBDOMAIN), constants.COOKIEBLOCK);
 });
 
 QUnit.test("mergeUserData() preserves snitch map data when no MDFP", (assert) => {
