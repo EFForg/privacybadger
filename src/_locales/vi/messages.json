@@ -498,7 +498,7 @@
         "description": "This is an options page tab heading."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger đã quyết định chặn $COUNT$ các miền theo dõi $TRACKER_LINK_START$khả nghi$TRACKER_LINK_END$ cho đến nay",
+        "message": "Privacy Badger đã quyết định chặn $COUNT$ các $TRACKER_LINK_START$miền theo dõi$TRACKER_LINK_END$ khả nghi cho đến nay",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
