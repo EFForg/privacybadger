@@ -18,6 +18,8 @@ if wget -q -T 30 -O "$TEMPFILE" -- $SEED_URL && [ -s "$TEMPFILE" ]; then
     exit 1
   fi
 
+  python scripts/prune_seed_json.py "$TEMPFILE"
+
   if cmp -s "$TEMPFILE" $SEED_PATH; then
     echo "    no seed data updates"
   else
