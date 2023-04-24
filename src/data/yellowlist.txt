@@ -573,6 +573,7 @@ townnews.com
 cookieblock.trackersimulate.org
 tradingview.com
 serviceschipotlecom.trafficmanager.net
+cdn.transcend.io
 trumba.com
 trustarc.com
 trustpilot.com
