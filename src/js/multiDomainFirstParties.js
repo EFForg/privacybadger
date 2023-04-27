@@ -960,6 +960,22 @@ let multiDomainFirstPartiesArray = [
   ["ctrip.com", "c-ctrip.com", "trip.com"],
   ["datadoghq.eu", "datadoghq.com"],
   ["dcu.org", "dcu-online.org"],
+  [
+    "deliveroo.com",
+
+    "deliveroo.ae",
+    "deliveroo.be",
+    "deliveroo.com.au",
+    "deliveroo.com.kw",
+    "deliveroo.com.sg",
+    "deliveroo.co.uk",
+    "deliveroo.de",
+    "deliveroo.es",
+    "deliveroo.fr",
+    "deliveroo.ie",
+    "deliveroo.it",
+    "deliveroo.nl",
+  ],
   ["dictionary.com", "thesaurus.com", "sfdict.com"],
   [
     "digikey.com",
