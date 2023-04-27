@@ -3857,6 +3857,19 @@ let multiDomainFirstPartiesArray = [
     "pricerunner.uk",
   ],
   [
+    "prisa.com",
+
+    "as.com",
+    "cadenaser.com",
+    "caracol.com.co",
+    "elpais.com",
+    "wradio.com.co",
+    "wradio.com.mx",
+
+    "epimg.net",
+    "prisasd.com",
+  ],
+  [
     "prosiebensat1.de",
     "prosiebensat1.com",
 
