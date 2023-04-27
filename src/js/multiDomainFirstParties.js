@@ -3863,6 +3863,7 @@ let multiDomainFirstPartiesArray = [
     "cadenaser.com",
     "caracol.com.co",
     "elpais.com",
+    "huffingtonpost.es",
     "wradio.com.co",
     "wradio.com.mx",
 
@@ -5134,7 +5135,6 @@ let multiDomainFirstPartiesArray = [
     "huffingtonpost.co.uk",
     "huffingtonpost.co.za",
     "huffingtonpost.de",
-    "huffingtonpost.es",
     "huffingtonpost.fr",
     "huffingtonpost.gr",
     "huffingtonpost.in",
