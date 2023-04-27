@@ -5693,12 +5693,14 @@ let multiDomainFirstPartiesArray = [
     "zoho.com.au",
     "zoho.eu",
     "zoho.in",
+    "zoho.jp",
 
     "zohositescontent.com",
     "zohositescontent.com.au",
     "zohositescontent.eu",
 
     "manageengine.com",
+    "qntrl.com",
 
     "zohocdn.com",
     "zohocorp.com",
