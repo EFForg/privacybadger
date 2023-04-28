@@ -1607,6 +1607,8 @@ let multiDomainFirstPartiesArray = [
 
     "fox10phoenix.com",
     "fox13news.com",
+    "fox13seattle.com",
+    "fox26houston.com",
     "fox29.com",
     "fox2detroit.com",
     "fox32chicago.com",
@@ -1619,6 +1621,7 @@ let multiDomainFirstPartiesArray = [
     "fox7austin.com",
     "fox9.com",
     "foxla.com",
+    "ktvu.com",
     "q13fox.com",
 
     "fncstatic.com",
