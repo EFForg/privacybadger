@@ -674,5 +674,6 @@ zendesk.com
 zoho.com
 zoho.eu
 zohopublic.com
+zohopublic.eu
 zohostatic.com
 zopim.com
