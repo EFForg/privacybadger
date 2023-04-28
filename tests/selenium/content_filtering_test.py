@@ -115,6 +115,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL + '?fingerprintjs')
         self.assert_load()
 
+        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
         # navigate elsewhere and back to work around the third-party getting served from cache
         self.load_url(self.options_url)
         self.load_url(self.FIXTURE_URL + '?fingerprintjs')
