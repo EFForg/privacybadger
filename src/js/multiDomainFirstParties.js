@@ -1433,6 +1433,7 @@ let multiDomainFirstPartiesArray = [
     "mrjet.se",
     "orbitz.com",
     "travelocity.com",
+    "travelocity.ca",
     "wotif.com",
 
     "expedia-aarp.com",
