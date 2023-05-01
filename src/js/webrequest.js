@@ -136,8 +136,9 @@ function onBeforeRequest(details) {
         request_host == 'd1af033869koo7.cloudfront.net' ||
         request_host == 'd38xvr37kwwhcm.cloudfront.net' ||
         request_host == 'd.alicdn.com' ||
-        request_host == 'gadasource.storage.googleapis.com' ||
-        request_host.endsWith('.azureedge.net')) {
+        request_host == 'fp-cdn.azureedge.net' ||
+        request_host == 'sdtagging.azureedge.net' ||
+        request_host == 'gadasource.storage.googleapis.com') {
 
         let fpScripts = badger.storage.getStore('fp_scripts').getItem(request_host);
 
