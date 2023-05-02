@@ -1147,6 +1147,7 @@ let multiDomainFirstPartiesArray = [
     "hardware.info",
     "hln.be",
     "humo.be",
+    "independer.nl",
     "parool.nl",
     "persgroepinternational.be",
     "persgroepinternational.com",
