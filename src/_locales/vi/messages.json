@@ -260,7 +260,7 @@
         "description": "Initial text of the copy button on the share overlay."
     },
     "copy_button_copied": {
-        "message": "Sao chép",
+        "message": "Đã sao chép",
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_info_firstparty_protections": {
@@ -374,11 +374,11 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_twitter": {
-        "message": "Chia sẽ trên Twitter",
+        "message": "Chia sẻ trên Twitter",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
-        "message": "Privacy Badger Options",
+        "message": "Lựa chọn Privacy Badger",
         "description": ""
     },
     "options_general_settings": {
@@ -551,7 +551,7 @@
         "description": "Label for a dropdown control on the Tracking Domains options page tab."
     },
     "options_domain_filter_block": {
-        "message": "bị chặn",
+        "message": "đã chặn",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_cookieblock": {
@@ -559,7 +559,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_allow": {
-        "message": "cho phép",
+        "message": "đã cho phép",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
