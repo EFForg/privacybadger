@@ -124,7 +124,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Cookie bị chặn và chặn thu thập thông tin người dùng từ $DOMAIN$",
+        "message": "Chặn cookie và chặn thu thập định danh người dùng từ $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -378,7 +378,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
-        "message": "Lựa chọn Privacy Badger",
+        "message": "Tùy chọn Privacy Badger",
         "description": ""
     },
     "options_general_settings": {
