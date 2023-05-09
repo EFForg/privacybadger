@@ -5201,6 +5201,7 @@ let multiDomainFirstPartiesArray = [
 
     "yahoo.net",
     "yahooapis.com",
+    "yahoodns.net",
     "yahoosandbox.com",
     "yimg.com",
   ],
