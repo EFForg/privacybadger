@@ -3645,6 +3645,11 @@
     "cdkeys.com": {
       "heuristicAction": "allow"
     },
+    "cdn-client.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1684304906675
+    },
     "cdn-eu.dynamicyield.com": {
       "heuristicAction": "cookieblock"
     },
@@ -3654,11 +3659,21 @@
     "cdn-go.cn": {
       "heuristicAction": "allow"
     },
+    "cdn-images-1.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1683972691521
+    },
     "cdn-images.mailchimp.com": {
       "heuristicAction": "cookieblock"
     },
     "cdn-net.com": {
       "heuristicAction": "block"
+    },
+    "cdn-static-1.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1684180937991
     },
     "cdn.api.twitter.com": {
       "heuristicAction": "cookieblock"
@@ -7202,6 +7217,11 @@
     "globo.com": {
       "heuristicAction": "allow"
     },
+    "glyph.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1683942879114
+    },
     "gm.com": {
       "heuristicAction": "allow"
     },
@@ -8749,7 +8769,9 @@
       "heuristicAction": "allow"
     },
     "ipp-meredith.com": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1683876200258
     },
     "ipredictive.com": {
       "heuristicAction": "block"
@@ -10555,6 +10577,11 @@
     },
     "miridih.com": {
       "heuristicAction": "allow"
+    },
+    "miro.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1684183134632
     },
     "mirtesen.ru": {
       "heuristicAction": "allow"
