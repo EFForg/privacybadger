@@ -1,6 +1,23 @@
 Privacy Badger Release Notes
 ============================
 
+2023.5.10
+* Expanded protection for "cookieblocked" (slider set to yellow) domains.
+These domains are allowed to load without access to cookies, as a compromise
+to avoid breaking websites. However, sometimes the same domain is used to
+serve both unobjectionable content as well as obnoxious fingerprinters
+that do not need cookies to track your browsing. Privacy Badger will now
+fully block these fingerprinters.
+* Disabled Google's Topics API by default. The Topics API replaces
+Federated Learning of Cohorts (FLoC).
+* You can now see where Privacy Badger observed tracking by a given domain
+by clicking on the domain name in the list of tracking domains
+on the options page
+* Fixed various site breakages
+* Added Vietnamese translations
+* Improved translations (Finnish, French, Hebrew, Persian,
+European Portuguese, Russian, Spanish)
+
 2023.1.31
 * Added a note to the popup to explain that if you would like to log into
 websites with your Google account, you need to fully allow accounts.google.com
