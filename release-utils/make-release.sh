@@ -32,13 +32,13 @@ export PREPKG=pkg/privacy_badger-$TARGET.zip
 export PREPKGCWS=pkg/privacy_badger-$TARGET.zip
 
 
-echo "Making Opera zip"
+echo "Making Chrome/Opera zip"
 if ! release-utils/make-release-zip.sh "$TARGET"; then
-  echo "Failed to build target $TARGET for Opera"
+  echo "Failed to build target $TARGET for Chrome/Opera"
   exit 1
 fi
 
-echo "Making Firefox release"
+echo "Making Firefox zip (for AMO and Edge) and Firefox XPI (for self hosting)"
 if ! release-utils/firefox-release.sh "$TARGET"; then
   echo "Failed to build target $TARGET for Firefox"
   exit 1
