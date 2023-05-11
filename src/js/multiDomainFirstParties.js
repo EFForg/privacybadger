@@ -819,6 +819,7 @@ let multiDomainFirstPartiesArray = [
     "tiktokcdn.com",
     "tiktokcdn-us.com",
     "tiktokv.com",
+    "ttwstatic.com",
   ],
   [
     "bustle.company",
