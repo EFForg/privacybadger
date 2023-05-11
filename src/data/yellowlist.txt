@@ -60,6 +60,7 @@ packagercdn.avplayer.com
 player.avplayer.com
 azure-api.net
 azureedge.net
+azurefd.net
 b-cdn.net
 gimg3.baidu.com
 hiphotos.baidu.com
