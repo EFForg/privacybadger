@@ -2914,6 +2914,7 @@ let multiDomainFirstPartiesArray = [
     "bing.net",
     "cloudappsecurity.com",
     "dynamics.com",
+    "eng.ms",
     "gamesforwindows.com",
     "getgamesmart.com",
     "gfx.ms",
