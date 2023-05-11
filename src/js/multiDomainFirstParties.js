@@ -2910,6 +2910,7 @@ let multiDomainFirstPartiesArray = [
     "azureedge.net",
     "azure.net",
     "azurerms.com",
+    "azuresynapse.net",
     "bing.com",
     "bing.net",
     "cloudappsecurity.com",
