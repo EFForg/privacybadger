@@ -18,12 +18,17 @@ fi
 
 PKGDIR=pkg
 CHROME_PKG=$PKGDIR/privacy_badger-"$TARGET".crx
-if ! [ -f "$CHROME_PKG" ] ; then
-  mv $PKGDIR/privacy-badger-"$TARGET".crx "$CHROME_PKG"
-fi
 CHROME_ALT=$PKGDIR/privacy_badger-chrome.crx
-echo "Uploading chrome package"
+
+curl -L "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=31.0.1609.0&acceptformat=crx2,crx3&x=id%3Dpkehgijcmpdhfbdbbnkijodmdjhbjlgp%26uc" > "$CHROME_PKG"
+
+if [ ! -s "$CHROME_PKG" ]; then
+  echo "Failed to download CRX from Chrome Web Store"
+  exit 1
+fi
+
 cp "$CHROME_PKG" "$CHROME_ALT"
-echo Copying .crx files...
+
+echo "Uploading Chrome packages ..."
 scp "$CHROME_PKG" "$USER@$SERVER:/www/eff.org/files" || exit 1
 scp "$CHROME_ALT" "$USER@$SERVER:/www/eff.org/files" || exit 1
