@@ -43,6 +43,18 @@
             "type": 3
         }
     },
+    "Captivate Player": {
+        "domain": "player.captivate.fm",
+        "buttonSelectors": [
+            "iframe[src^='//player.captivate.fm/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "player.captivate.fm"
+            ],
+            "type": 3
+        }
+    },
     "Coub Player": {
         "domain": "coub.com",
         "buttonSelectors": [
