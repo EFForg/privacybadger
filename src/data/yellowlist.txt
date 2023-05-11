@@ -155,6 +155,9 @@ documentcloud.org
 donorbox.org
 cdn.dopc.cz
 dotsub.com
+dl.dropbox.com
+paper-attachments.dropbox.com
+www.dropbox.com
 dl.dropboxusercontent.com
 duosecurity.com
 dynamics.com
