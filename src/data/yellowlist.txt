@@ -414,6 +414,7 @@ nextcloud.com
 ngpvan.com
 noaa.gov
 nosto.com
+digital.nuance.com
 nytimes.com
 ocdn.eu
 okta.com
