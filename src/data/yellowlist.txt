@@ -449,6 +449,8 @@ pinimg.com
 plex.tv
 pling.com
 plot.ly
+fastfs1.podbean.com
+mcdn.podbean.com
 web.poecdn.com
 poll.fm
 postimg.cc
