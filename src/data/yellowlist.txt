@@ -283,6 +283,7 @@ widgets.guidestar.org
 guildwars2.com
 hcaptcha.com
 herokuapp.com
+code.highcharts.com
 highwebmedia.com
 homestead.com
 cdn.hometogo.net
