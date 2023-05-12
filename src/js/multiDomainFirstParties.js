@@ -4,6 +4,7 @@
  */
 let multiDomainFirstPartiesArray = [
   ["1800contacts.com", "800contacts.com"],
+  ["2gis.ru", "2gis.ae", "2gis.kg", "2gis.kz", "2gis.com"],
   ["360.cn", "360.com", "360kuai.com", "360safe.com", "qhimg.com", "qhupdate.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
   ["9gag.com", "9cache.com"],
