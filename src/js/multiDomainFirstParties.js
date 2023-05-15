@@ -513,6 +513,7 @@ let multiDomainFirstPartiesArray = [
     "ttvnw.net",
 
     "a2z.com",
+    "amazon.dev",
     "amazonpay.com",
     "media-amazon.com",
     "media-imdb.com",
