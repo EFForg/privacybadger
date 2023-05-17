@@ -923,6 +923,7 @@ let multiDomainFirstPartiesArray = [
     "tibco.com",
   ],
   ["cms.gov", "medicare.gov", "mymedicare.gov"],
+  ["coach.com", "coachoutlet.com"],
   ["codepen.io", "cdpn.io"],
   ["concur.com", "concursolutions.com"],
   [
