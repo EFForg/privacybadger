@@ -582,6 +582,7 @@ theplatform.com
 tiktokcdn.com
 tildacdn.com
 tinypass.com
+cloud.tinymce.com
 tiqcdn.com
 townnews.com
 cookieblock.trackersimulate.org
