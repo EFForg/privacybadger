@@ -179,6 +179,7 @@ api-cdn.embed.ly
 cdn.embedly.com
 i-cdn.embed.ly
 pp.ephapay.net
+episerver.net
 epoq.de
 et4.de
 eurolandir.com
