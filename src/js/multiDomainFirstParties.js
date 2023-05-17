@@ -546,7 +546,6 @@ let multiDomainFirstPartiesArray = [
 
     "aexp-static.com",
   ],
-  ["ameritrade.com", "tdameritrade.com"],
   [
     "ancestry.com",
 
@@ -4416,7 +4415,21 @@ let multiDomainFirstPartiesArray = [
     "lj-toys.com",
     "rambler.ru",
   ],
-  ["schwab.com", "schwabplan.com"],
+  [
+    "schwab.com",
+
+    "schwab.com.hk",
+    "schwabassetmanagement.com",
+    "schwabcharitable.org",
+    "schwabcdn.com",
+
+    "tdameritrade.com",
+    "advisorclient.com",
+    "ameritrade.com",
+    "tdameritrade.com.sg",
+    "thinkorswim.com",
+    "thinkorswim.com.sg",
+  ],
   ["scmp.com", "i-scmp.com"],
   ["sears.com", "shld.net"],
   [
