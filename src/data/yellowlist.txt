@@ -58,6 +58,7 @@ embed.avplayer.com
 packager.avplayer.com
 packagercdn.avplayer.com
 player.avplayer.com
+awswaf.com
 azure-api.net
 azureedge.net
 azurefd.net
