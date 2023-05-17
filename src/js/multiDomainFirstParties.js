@@ -4512,6 +4512,7 @@ let multiDomainFirstPartiesArray = [
   ["skysports.com", "skybet.com", "skyvegas.com"],
   ["slashdot.org", "sourceforge.net", "fsdn.com", "slashdotmedia.com"],
   ["slickdeals.net", "slickdealscdn.com"],
+  ["snapchat.com", "bitmoji.com"],
   ["snapfish.com", "snapfish.ca"],
   [
     "sony.com",
