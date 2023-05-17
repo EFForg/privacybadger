@@ -491,6 +491,7 @@ cidades.rdstation.com.br
 recaptcha.net
 recurly.com
 redcdn.pl
+embed.reddit.com
 oauth.reddit.com
 www.reddit.com
 redefine.pl
