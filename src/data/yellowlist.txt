@@ -371,6 +371,7 @@ list-manage.com
 officeapps.live.com
 onedrive.live.com
 livechatinc.com
+cdn.livechat-files.com
 livehelpnow.net
 liveperson.com
 liveperson.net
