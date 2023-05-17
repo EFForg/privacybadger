@@ -445,6 +445,7 @@ paddle.com
 pandacommerce.net
 parastorage.com
 cdn.pathfactory.com
+cdn-app.pathfactory.com
 payments-amazon.com
 paypal.com
 paypalobjects.com
