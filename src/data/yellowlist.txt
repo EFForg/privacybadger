@@ -150,6 +150,7 @@ digitalriver.com
 digitalrivercontent.net
 cdn.discordapp.com
 media.discordapp.net
+discoverevvnt.com
 pics.dmm.co.jp
 documentcloud.org
 donorbox.org
