@@ -519,6 +519,7 @@ let multiDomainFirstPartiesArray = [
     "media-imdb.com",
     "ssl-images-amazon.com",
   ],
+  ["ameba.jp", "ameblo.jp"],
   [
     "americanexpress.com",
 
