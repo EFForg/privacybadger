@@ -252,6 +252,7 @@ khms2.google.com
 khms3.google.com
 khms4.google.com
 labs.google.com
+lookerstudio.google.com
 maps-api-ssl.google.com
 maps.google.com
 mapsengine.google.com
