@@ -86,10 +86,6 @@ p, #settingsForm {
     margin: 20px 0 0;
 }
 
-#pbInstructions {
-  margin-bottom: 20px;
-}
-
 #tab-manage-data {
   overflow: auto;
 }
