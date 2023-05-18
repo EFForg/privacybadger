@@ -153,10 +153,6 @@ p, #settingsForm {
     }
 }
 
-#blockedResources {
-  width: 390px;
-}
-
 #tracking-domains-filters {
     color: #505050;
     font-size: 14px;
@@ -284,9 +280,27 @@ header {
     margin-inline-start: 25px;
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 500px) {
     .ui-tabs .ui-tabs-panel {
         padding: 0.5em 0;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .origin {
+        max-width: 340px;
+    }
+
+    .switch-container {
+        margin-left: 350px;
+    }
+
+    .key {
+        left: 345px;
+    }
+
+    .honeybadgerPowered {
+        left: 470px;
     }
 }
 
