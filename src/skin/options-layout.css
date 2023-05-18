@@ -193,9 +193,9 @@ p, #settingsForm {
 
 /* domain more info tooltips */
 .origin-inner {
-    border-bottom: 1px dotted #333;
     cursor: pointer;
-    display: inline-block;
+    text-decoration: underline dotted #505050;
+    text-underline-offset: 2px;
 }
 .tooltipster-badger-domain-more-info.tooltipster-sidetip .tooltipster-box {
     padding: 10px 0;
@@ -349,7 +349,7 @@ header {
     }
 
     .origin-inner {
-        border-bottom: 1px dotted #ddd;
+        text-decoration: underline dotted #ddd;
     }
 
     #resetData, #removeAllData {
