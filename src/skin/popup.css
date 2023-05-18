@@ -124,7 +124,7 @@ button {
 
 a.removeOrigin {
     float: right;
-    margin-right: 0;
+    margin-right: 10px;
     width: 10px;
     text-decoration: none;
 }
