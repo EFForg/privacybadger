@@ -3,12 +3,12 @@
     "properties": {
         "checkForDNTPolicy": {
             "title": "Check if third-parties comply with EFF's DNT policy",
-            "description": "If set to false then do not query third-party domains for declared compliance with EFF's Do Not Track policy.",
+            "description": "If set to false then do not query third-party domains for declarations of compliance with EFF's Do Not Track policy.",
             "type": "boolean"
         },
         "disabledSites": {
-            "title": "Disabled sites",
-            "description": "List of site domains where Privacy Badger is disabled.",
+            "title": "Websites to disable Privacy Badger on",
+            "description": "This is a list of website domains where Privacy Badger will be disabled. This means that Privacy Badger will not block anything or send DNT/GPC signals to anything when you visit a website on this list. This is NOT a list of tracker domains for Privacy Badger to always allow to load.",
             "type": "array",
             "items": {
                 "type": "string"
@@ -25,13 +25,13 @@
             "type": "boolean"
         },
         "sendDNTSignal": {
-            "title": "Send websites the Do Not Track signal",
-            "description": "Toggles sending the DNT header and setting navigator.doNotTrack on websites.",
+            "title": "Send GPC/DNT signals",
+            "description": "Toggles global sending of Global Privacy Control and Do Not Track signals.",
             "type": "boolean"
         },
         "showCounter": {
             "title": "Show count of blocked items",
-            "description": "Toggles showing the counter over Privacy Badger's button in the browser toolbar.",
+            "description": "Toggles showing the counter over Privacy Badger's icon in the browser toolbar.",
             "type": "boolean"
         },
         "showIntroPage": {
