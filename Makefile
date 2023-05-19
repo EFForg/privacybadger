@@ -33,6 +33,9 @@ tx:
 runch:
 	./node_modules/.bin/web-ext run --target chromium --start-url "chrome://extensions" -s src/
 
+runfa:
+	./node_modules/.bin/web-ext run -s src/ --target firefox-android --adb-bin $$ADB_BIN --android-device $$ANDROID_DEVICE_ID --firefox-apk org.mozilla.firefox --verbose
+
 runff:
 	./node_modules/.bin/web-ext run --devtools --start-url "about:debugging#/runtime/this-firefox" -s src/
 
@@ -42,4 +45,4 @@ runfn:
 test:
 	BROWSER=chrome ENABLE_XVFB=1 pytest -s tests/
 
-.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle updatecnames todo tx runch runff runfn test
+.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle updatecnames todo tx runch runfa runff runfn test
