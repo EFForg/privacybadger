@@ -4685,6 +4685,7 @@ let multiDomainFirstPartiesArray = [
   ["telekom.com", "t-online.de"],
   ["terabox.com", "4funbox.com", "mirrobox.com", "teraboxcdn.com"],
   ["tesla.com", "teslamotors.com"],
+  ["thegioididong.com", "dienmayxanh.com", "tgdd.vn"],
   ["thelocal.com", "thelocal.de", "thelocal.fr", "thelocal.se"],
   ["theregister.com", "theregister.co.uk", "regmedia.co.uk"],
   ["tilda.cc", "tildacdn.com"],
