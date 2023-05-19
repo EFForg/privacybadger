@@ -501,6 +501,8 @@ redefine.pl
 cdngeneral.rentcafe.com
 rewardstyle.com
 rfksrv.com
+media.richrelevance.com
+recs.richrelevance.com
 c.riskified.com
 img.riskified.com
 sagepay.com
