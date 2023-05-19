@@ -304,6 +304,7 @@ meetings.hubspot.com
 no-cache.hubspot.com
 static.hubspot.com
 cdn2.hubspot.net
+play.hubspotvideo.com
 humblebundle.com
 hwcdn.net
 hyvor.com
