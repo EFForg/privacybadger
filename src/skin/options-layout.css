@@ -86,10 +86,6 @@ p, #settingsForm {
     margin: 20px 0 0;
 }
 
-#pbInstructions {
-  margin-bottom: 20px;
-}
-
 #tab-manage-data {
   overflow: auto;
 }
@@ -157,10 +153,6 @@ p, #settingsForm {
     }
 }
 
-#blockedResources {
-  width: 390px;
-}
-
 #tracking-domains-filters {
     color: #505050;
     font-size: 14px;
@@ -197,9 +189,9 @@ p, #settingsForm {
 
 /* domain more info tooltips */
 .origin-inner {
-    border-bottom: 1px dotted #333;
     cursor: pointer;
-    display: inline-block;
+    text-decoration: underline dotted #505050;
+    text-underline-offset: 2px;
 }
 .tooltipster-badger-domain-more-info.tooltipster-sidetip .tooltipster-box {
     padding: 10px 0;
@@ -288,9 +280,27 @@ header {
     margin-inline-start: 25px;
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 500px) {
     .ui-tabs .ui-tabs-panel {
         padding: 0.5em 0;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .origin {
+        max-width: 340px;
+    }
+
+    .switch-container {
+        margin-left: 350px;
+    }
+
+    .key {
+        left: 345px;
+    }
+
+    .honeybadgerPowered {
+        left: 470px;
     }
 }
 
@@ -348,12 +358,12 @@ header {
     }
 
     #tracking-domains-filters {
-        color: #ddd;
+        color: #bbb;
         border: 1px solid #555;
     }
 
     .origin-inner {
-        border-bottom: 1px dotted #ddd;
+        text-decoration: underline dotted #ddd;
     }
 
     #resetData, #removeAllData {

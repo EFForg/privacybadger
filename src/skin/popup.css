@@ -124,7 +124,7 @@ button {
 
 a.removeOrigin {
     float: right;
-    margin-right: 0;
+    margin-right: 10px;
     width: 10px;
     text-decoration: none;
 }
@@ -538,7 +538,7 @@ a.overlay_close:hover {
         max-width: 150px;
     }
 
-    .switch-container{
+    .switch-container {
         width: 100px;
         display: block;
         margin-left: 150px;
