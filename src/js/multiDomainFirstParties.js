@@ -2243,7 +2243,7 @@ let multiDomainFirstPartiesArray = [
     "hearstnp.com",
   ],
   ["himss.org", "healthcarefinancenews.com", "healthcareitnews.com", "mobihealthnews.com"],
-  ["hostinger.com", "hostinger.in", "hostinger.co.id", "hostinger.co.uk", "hostinger.com.br"],
+  ["hostinger.com", "hosting24.com", "hostinger.in", "hostinger.co.id", "hostinger.co.uk", "hostinger.com.br"],
   [
     "houzz.com",
 
