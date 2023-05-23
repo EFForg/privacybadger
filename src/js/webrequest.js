@@ -24,6 +24,7 @@
 /* globals badger:false */
 
 import { extractHostFromURL, getBaseDomain, isPrivateDomain } from "../lib/basedomain.js";
+import { guessTabIdFromInitiator } from "../lib/webrequestUtils.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -39,10 +40,11 @@ let tempAllowlist = {},
 /***************** Blocking Listener Functions **************/
 
 /**
- * Event handling of http requests, main logic to collect data what to block
+ * This is where we block or replace requests with empty "surrogates".
  *
- * @param {Object} details The event details
- * @returns {Object} Can cancel requests
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {Object|undefined} Can cancel requests
  */
 function onBeforeRequest(details) {
   if (!badger.INITIALIZED) {
@@ -53,6 +55,7 @@ function onBeforeRequest(details) {
     tab_id = details.tabId,
     type = details.type,
     url = details.url,
+    // is this a service worker-initiated request?
     sw_request = false;
 
   if (type == "main_frame") {
@@ -85,13 +88,12 @@ function onBeforeRequest(details) {
       // TODO or miss them entirely (when the more recently opened tab
       // TODO gets closed while the older tab is still loading)
       return;
-    } else {
-      // NOTE details.type is always xmlhttprequest for SW-initiated requests in Chrome,
-      // which means surrogation won't work and frames won't get collapsed.
-      // As a workaround, let's perform surrogation checks for all SW requests,
-      // although we may redirect a non-script resource request to a matching surrogate.
-      sw_request = true;
     }
+    // NOTE details.type is always xmlhttprequest for SW-initiated requests in Chrome,
+    // which means surrogation won't work and frames won't get collapsed.
+    // As a workaround, let's perform surrogation checks for all SW requests,
+    // although we may redirect a non-script resource request to a matching surrogate.
+    sw_request = true;
   }
 
   let request_host = extractHostFromURL(url);
@@ -212,7 +214,7 @@ function onBeforeRequest(details) {
     }, 0);
   }
 
-  return {cancel: true};
+  return { cancel: true };
 }
 
 /**
@@ -308,7 +310,7 @@ function blockMozCspReports(details) {
  * Injects DNT
  *
  * @param {Object} details Event details
- * @returns {Object} modified headers
+ * @returns {Object} Contains the modified headers
  */
 function onBeforeSendHeaders(details) {
   if (!badger.INITIALIZED) {
@@ -416,14 +418,16 @@ function onBeforeSendHeaders(details) {
   if (badger.isDntSignalEnabled(tab_host)) {
     details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
   }
-  return {requestHeaders: details.requestHeaders};
+  return { requestHeaders: details.requestHeaders };
 }
 
 /**
- * Filters incoming cookies out of the response header
+ * Filters incoming cookies out of the response header,
+ * and opts out from Google's Topics API.
  *
- * @param {Object} details The event details
- * @returns {Object} The new response headers
+ * @param {Object} details webRequest response details object
+ *
+ * @returns {Object} Contains the new response headers
  */
 function onHeadersReceived(details) {
   if (!badger.INITIALIZED) {
@@ -503,7 +507,7 @@ function onHeadersReceived(details) {
     let newHeaders = details.responseHeaders.filter(function(header) {
       return (header.name.toLowerCase() != "set-cookie");
     });
-    return {responseHeaders: newHeaders};
+    return { responseHeaders: newHeaders };
   }
 }
 
@@ -634,37 +638,6 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
     }
     tabData.blockedFrameUrls[parent_frame_id].push(frame_url);
   });
-}
-
-/**
- * Tries to work around tab ID of -1 for requests
- * originated by a Service Worker in Chrome.
- *
- * https://bugs.chromium.org/p/chromium/issues/detail?id=766433#c13
- *
- * @param {Object} details webRequest request/response details object
- *
- * @returns {Integer} the tab ID or -1
- */
-function guessTabIdFromInitiator(details) {
-  if (!details.initiator || details.initiator == "null") {
-    return -1;
-  }
-
-  if (details.tabId != -1 || details.frameId != -1 || details.parentFrameId != -1 || details.type != "xmlhttprequest") {
-    return -1;
-  }
-
-  // ignore trivially first party requests
-  if (details.url.startsWith(details.initiator)) {
-    return -1;
-  }
-
-  if (utils.hasOwn(badger.tabData.tabIdsByInitiator, details.initiator)) {
-    return badger.tabData.tabIdsByInitiator[details.initiator];
-  }
-
-  return -1;
 }
 
 /**
