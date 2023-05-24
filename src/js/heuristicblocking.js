@@ -17,7 +17,8 @@
 
 /* globals badger:false */
 
-import { getBaseDomain, URI } from "../lib/basedomain.js";
+import { extractHostFromURL, getBaseDomain, URI } from "../lib/basedomain.js";
+import { getInitiatorUrl } from "../lib/webrequestUtils.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -112,8 +113,8 @@ HeuristicBlocker.prototype = {
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
-      let request_host = (new URI(details.url)).host;
-      self.tabOrigins[details.tabId] = getBaseDomain(request_host);
+      let tab_host = (new URI(details.url)).host;
+      self.tabOrigins[details.tabId] = getBaseDomain(tab_host);
       self.tabUrls[details.tabId] = details.url;
       return;
     }
@@ -130,6 +131,11 @@ HeuristicBlocker.prototype = {
       request_host = badger.cnameDomains[request_host];
     }
     let request_base = getBaseDomain(request_host);
+
+    let initiator_url = getInitiatorUrl(self.tabUrls[details.tabId], details);
+    if (initiator_url) {
+      tab_base = getBaseDomain(extractHostFromURL(initiator_url));
+    }
 
     // ignore first-party requests
     if (!utils.isThirdPartyDomain(request_base, tab_base)) {
@@ -184,6 +190,12 @@ HeuristicBlocker.prototype = {
       request_host = badger.cnameDomains[request_host];
     }
     let request_base = getBaseDomain(request_host);
+
+    let initiator_url = getInitiatorUrl(tab_url, details);
+    if (initiator_url) {
+      tab_url = initiator_url;
+      tab_base = getBaseDomain(extractHostFromURL(initiator_url));
+    }
 
     // ignore first-party requests
     if (!utils.isThirdPartyDomain(request_base, tab_base)) {

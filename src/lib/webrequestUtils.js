@@ -50,6 +50,59 @@ function guessTabIdFromInitiator(details) {
   return -1;
 }
 
+/**
+ * Looks up the top-level document URL for a given request/response
+ * from metadata on the request/response object.
+ *
+ * Returns null if we already appear to have the correct document URL,
+ * or if the metadata is unavailable for whatever reason.
+ *
+ * @param {String} tab_url our guess for the top-level document URL
+ * @param {Object} details webRequest request/response details object
+ *
+ * @returns {?String} the top-level document URL or null
+ */
+function getInitiatorUrl(tab_url, details) {
+  // Firefox 58+
+  if (utils.hasOwn(details, "documentUrl") && utils.hasOwn(details, "frameAncestors")) {
+    let url;
+
+    if (details.frameAncestors.length) {
+      // inside a frame
+      url = details.frameAncestors[details.frameAncestors.length - 1].url;
+    } else {
+      // inside the top-level document
+      url = details.documentUrl;
+    }
+
+    if (url == tab_url) {
+      // already have the correct hostname
+      return null;
+    }
+
+    return url;
+  }
+
+  // Chrome 63+
+  if (utils.hasOwn(details, "initiator")) {
+    if (details.initiator && details.initiator != "null") {
+      // can only rely on initiator for main frame resources:
+      // https://crbug.com/838242#c17
+      if (details.parentFrameId == -1 || (details.type == "sub_frame" && details.parentFrameId === 0)) {
+        // note that "initiator" does not give us the complete document URL
+        if (!tab_url.startsWith(details.initiator)) {
+          return details.initiator + '/';
+        }
+      }
+    }
+
+    return null;
+  }
+
+  return null;
+}
+
 export {
+  getInitiatorUrl,
   guessTabIdFromInitiator,
 };
