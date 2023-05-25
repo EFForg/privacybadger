@@ -5,6 +5,10 @@ import unittest
 
 import pbtest
 
+from functools import partial
+
+from pbtest import retry_until
+
 
 class NavigationTest(pbtest.PBSeleniumTest):
     """Verifies navigation-related fixes and workarounds."""
@@ -45,7 +49,8 @@ class NavigationTest(pbtest.PBSeleniumTest):
         self.driver.switch_to.window(self.driver.window_handles[-2])
         self.driver.refresh()
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        assert self.get_trackers(FIXTURE_URL) == {THIRD_PARTY_HOST: "noaction"}, "beacon should have fired"
+        domains = pbtest.retry_until(partial(self.get_trackers, FIXTURE_URL), times=2)
+        assert domains == {THIRD_PARTY_HOST: "noaction"}, "beacon should have fired"
 
         # visit a different site (doesn't matter what it is,
         # just needs to be an http site with a different domain)
