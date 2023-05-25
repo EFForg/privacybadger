@@ -781,10 +781,12 @@ function startListeners() {
 
     // check for cookie tracking if there are any set-cookie headers
     let has_setcookie_header = false;
-    for (let i = 0; i < details.responseHeaders.length; i++) {
-      if (details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
-        has_setcookie_header = true;
-        break;
+    if (details.responseHeaders) {
+      for (let i = 0; i < details.responseHeaders.length; i++) {
+        if (details.responseHeaders[i].name.toLowerCase() == "set-cookie") {
+          has_setcookie_header = true;
+          break;
+        }
       }
     }
     if (has_setcookie_header) {

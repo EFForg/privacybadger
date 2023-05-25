@@ -129,6 +129,7 @@ function onBeforeRequest(details) {
     return;
   }
 
+  // TODO !from_current_tab requests shouldn't go through allowedOnTab()
   let action = checkAction(tab_id, request_host, frame_id);
   if (!action) {
     return;
@@ -164,6 +165,10 @@ function onBeforeRequest(details) {
             script_path = script_path.slice(0, qs_start);
           }
           if (utils.hasOwn(fpScripts, script_path)) {
+            if (!from_current_tab) {
+              return { cancel: true };
+            }
+
             badger.tabData.logFpScript(tab_id, request_host, url);
 
             let surrogate = surrogates.getSurrogateUri(url, request_host);
@@ -185,7 +190,7 @@ function onBeforeRequest(details) {
     return;
   }
 
-  if (type == 'script' || sw_request) {
+  if ((type == 'script' || sw_request) && from_current_tab) {
     let surrogate;
 
     if (utils.hasOwn(surrogates.WIDGET_SURROGATES, request_host)) {
