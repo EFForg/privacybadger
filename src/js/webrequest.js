@@ -552,11 +552,13 @@ function onHeadersReceived(details) {
 /**
  * Event handler when a tab gets removed
  *
- * @param {Integer} tabId Id of the tab
+ * @param {Integer} tab_id Id of the tab
  */
-function onTabRemoved(tabId) {
+function onTabRemoved(tab_id) {
   if (badger.INITIALIZED) {
-    forgetTab(tabId);
+    setTimeout(function () {
+      forgetTab(tab_id);
+    }, 20000);
   }
 }
 
