@@ -13,7 +13,6 @@ express.adobe.com
 spark.adobe.com
 wwwimages.adobe.com
 xsdownload.adobe.com
-adobetarget.data.adobedc.net
 assets.adobedtm.com
 adyen.com
 affirm.com
@@ -277,7 +276,6 @@ www.google.com
 ajax.googleapis.com
 storage.googleapis.com
 googleapis.com
-googletagmanager.com
 lh4.googleusercontent.com
 googleusercontent.com
 googlevideo.com
