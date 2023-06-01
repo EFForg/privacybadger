@@ -49,8 +49,10 @@ class NavigationTest(pbtest.PBSeleniumTest):
         self.driver.switch_to.window(self.driver.window_handles[-2])
         self.driver.refresh()
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        domains = pbtest.retry_until(partial(self.get_trackers, FIXTURE_URL), times=2)
-        assert domains == {THIRD_PARTY_HOST: "noaction"}, "beacon should have fired"
+        domains = pbtest.retry_until(partial(self.get_trackers, FIXTURE_URL),
+                                     tester=lambda x: x == "allow",
+                                     times=3)
+        assert domains == {THIRD_PARTY_HOST: "allow"}, "beacon should have fired"
 
         # visit a different site (doesn't matter what it is,
         # just needs to be an http site with a different domain)

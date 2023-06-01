@@ -39,10 +39,13 @@ Privacy Badger:
    certain parts of first party cookies back to itself using image query
    strings (pixel cookie sharing).
 
+   2d. Observes on which first party origins a given third party
+   uses the [Beacon API].
+
 3. If a third party origin receives a cookie, a supercookie, an image pixel
-   containing first party cookie data, or makes JavaScript fingerprinting API
-   calls on 3 or more first party origins, this is deemed to be "cross site
-   tracking".
+   containing first party cookie data, uses the Beacon API, or makes
+   JavaScript fingerprinting API calls on three or more first party origins,
+   this is deemed to be "cross site tracking".
 4. Typically, cross site trackers are blocked completely; Privacy Badger
    prevents the browser from communicating with them. The exception is if the
    site is on Privacy Badger's "yellow list" (aka the "cookie block list"), in
@@ -74,7 +77,7 @@ Privacy Badger:
 
 #### Further Details
 
-Learning from cookies happens in [`heuristicblocking.js`](../src/js/heuristicblocking.js) [*sic*].
+Learning from cookies and the Beacon API happens in [`heuristicblocking.js`](../src/js/heuristicblocking.js) [*sic*].
 
 Privacy Badger also learns from [fingerprinting](../src/js/contentscripts/fingerprinting.js) and [HTML5 local storage "supercookies"](../src/js/contentscripts/supercookie.js).
 
@@ -230,8 +233,15 @@ in the `navigator` object in the future.
 
 Detection of first to third party cookie sharing via image pixels was added in [#2088](https://github.com/EFForg/privacybadger/issues/2088).
 
+#### Beacon API detection
+
+Added in https://github.com/EFForg/privacybadger/pull/2898.
+
 ### ROADMAP
 
 #### High priority issues
 
 Please see our ["high priority"-labeled issues](https://github.com/EFForg/privacybadger/issues?q=is%3Aissue+is%3Aopen+label%3A%22high+priority%22).
+
+
+[Beacon API]: https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API
