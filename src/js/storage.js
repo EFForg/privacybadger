@@ -147,7 +147,7 @@ BadgerPen.prototype = {
     // {
     //   <tracker_base>: {
     //     <site_base>: [
-    //       <tracking_type>, // "canvas" or "pixelcookieshare"
+    //       <tracking_type>, // "beacon", "canvas", or "pixelcookieshare"
     //       ...
     //     ],
     //     ...

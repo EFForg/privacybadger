@@ -78,7 +78,7 @@ function onBeforeRequest(details) {
 
   if (tab_id < 0) {
     // TODO may also want to apply this workaround in onBeforeSendHeaders(),
-    // TODO onHeadersReceived() and heuristicBlockingAccounting()
+    // TODO onHeadersReceived() and heuristicBlocking.checkForTrackingCookies()
     tab_id = guessTabIdFromInitiator(details);
     if (tab_id < 0) {
       // TODO we still miss SW requests that show up after on-tab close cleanup
@@ -611,7 +611,7 @@ function onNavigate(details) {
 
   initAllowedWidgets(tab_id, tab_host);
 
-  // initialize tab data bookkeeping used by heuristicBlockingAccounting()
+  // initialize tab data bookkeeping used by heuristicBlocking.checkForTrackingCookies()
   // to avoid missing or misattributing learning
   // when there is no "main_frame" webRequest callback
   // (such as on Service Worker pages)

@@ -97,29 +97,34 @@ HeuristicBlocker.prototype = {
   },
 
   /**
-   * Wraps _recordPrevalence for use from webRequest listeners.
+   * Checks whether `details` is a third-party Beacon API request.
+   *
+   * Otherwise, checks third-party requests/responses for tracking cookies.
+   *
+   * This wraps _recordPrevalence for use from webRequest listeners.
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
-   * @param {Object} details request/response details
+   * @param {Object} details webRequest request/response details object
    */
-  // TODO more like heuristicLearningFromCookies ... check DESIGN doc
-  heuristicBlockingAccounting: function (details) {
+  checkForTrackingCookies: function (details) {
     // ignore requests that are outside a tabbed window
     if (details.tabId < 0 || !badger.isLearningEnabled(details.tabId)) {
       return;
     }
 
-    let self = this;
+    let self = this,
+      tab_id = details.tabId,
+      from_current_tab = true;
 
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
       let tab_host = (new URI(details.url)).host;
-      self.tabOrigins[details.tabId] = getBaseDomain(tab_host);
-      self.tabUrls[details.tabId] = details.url;
+      self.tabOrigins[tab_id] = getBaseDomain(tab_host);
+      self.tabUrls[tab_id] = details.url;
       return;
     }
 
-    let tab_base = self.tabOrigins[details.tabId];
+    let tab_base = self.tabOrigins[tab_id];
     if (!tab_base) {
       return;
     }
@@ -132,8 +137,9 @@ HeuristicBlocker.prototype = {
     }
     let request_base = getBaseDomain(request_host);
 
-    let initiator_url = getInitiatorUrl(self.tabUrls[details.tabId], details);
+    let initiator_url = getInitiatorUrl(self.tabUrls[tab_id], details);
     if (initiator_url) {
+      from_current_tab = false;
       tab_base = getBaseDomain(extractHostFromURL(initiator_url));
     }
 
@@ -154,10 +160,22 @@ HeuristicBlocker.prototype = {
       return;
     }
 
+    if (details.type == "beacon" || details.type == "ping") {
+      self._recordPrevalence(request_host, request_base, tab_base);
+      // update tracking_map
+      badger.storage.recordTrackingDetails(request_base, tab_base, 'beacon');
+      // log in popup
+      if (from_current_tab) {
+        badger.logThirdPartyOriginOnTab(
+          tab_id, request_host, badger.storage.getBestAction(request_host));
+      }
+      // don't bother checking for tracking cookies
+      return;
+    }
+
     // check if there are tracking cookies
     if (hasCookieTracking(details)) {
       self._recordPrevalence(request_host, request_base, tab_base);
-      return;
     }
   },
 
@@ -359,7 +377,7 @@ HeuristicBlocker.prototype = {
    * than constants.TRACKING_THRESHOLD pages.
    *
    * NOTE: This is a private function and should never be called directly.
-   * All calls should be routed through heuristicBlockingAccounting for normal usage
+   * All calls should be routed through checkForTrackingCookies for normal usage
    * and updateTrackerPrevalence for manual modifications (e.g. importing
    * tracker lists).
    *
@@ -754,22 +772,18 @@ function hasCookieTracking(details) {
 }
 
 function startListeners() {
-  /**
-   * Adds heuristicBlockingAccounting as listened to onBeforeSendHeaders request
-   */
+  // inspect cookies in outgoing headers
   let extraInfoSpec = ['requestHeaders'];
   if (utils.hasOwn(chrome.webRequest.OnBeforeSendHeadersOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
   chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
     if (badger.INITIALIZED) {
-      badger.heuristicBlocking.heuristicBlockingAccounting(details);
+      badger.heuristicBlocking.checkForTrackingCookies(details);
     }
   }, {urls: ["<all_urls>"]}, extraInfoSpec);
 
-  /**
-   * Adds onResponseStarted listener. Monitor for cookies
-   */
+  // inspect cookies in incoming headers
   extraInfoSpec = ['responseHeaders'];
   if (utils.hasOwn(chrome.webRequest.OnResponseStartedOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
@@ -790,7 +804,7 @@ function startListeners() {
       }
     }
     if (has_setcookie_header) {
-      badger.heuristicBlocking.heuristicBlockingAccounting(details);
+      badger.heuristicBlocking.checkForTrackingCookies(details);
     }
 
     // check for pixel cookie sharing if the response appears to be for an image pixel
