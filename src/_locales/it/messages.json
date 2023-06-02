@@ -124,7 +124,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Blocked cookies and fingerprinting scripts from $DOMAIN$",
+        "message": "Bloccati i cookie e gli script di fingerprinting da $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -174,7 +174,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "To enable logging into websites with your Google account, move this slider right, and reload the page",
+        "message": "Per abilitare l'accesso ai siti web con il proprio account Google, spostare il pulsante a destra e ricaricare la pagina",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -182,7 +182,7 @@
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "not_yet_blocked_header": {
-        "message": "Il tuo tasso non ha ancora deciso se questi domini andrebbero bloccati",
+        "message": "Il tuo Badger non ha ancora deciso se questi domini andrebbero bloccati",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
     "non_tracker": {
@@ -284,7 +284,7 @@
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
     "popup_error_text_low_disk_space_issue": {
-        "message": "Failed to write to extension storage: $ERROR_TEXT$.<br><br>Is your disk low on space?",
+        "message": "Impossibile scrivere nell'archivio estensioni: $ERROR_TEXT$.<br><br>Il tuo disco ha poco spazio?",
         "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
         "placeholders": {
             "error_text": {
@@ -414,7 +414,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's Topics API",
+        "message": "Disattiva l'API degli argomenti di Google",
         "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
@@ -527,7 +527,7 @@
         "description": "Label for a text input box on the Tracking Domains options page tab."
     },
     "options_domain_search_tooltip": {
-        "message": "Per escludere domini, apponi al termine di ricerca il segno \"-\". Ad esempio, \".co -.com\" mostrerà i domini .co e .co.uk ma non .com.",
+        "message": "Per escludere domini, anteponi al termine di ricerca il segno \"-\". Ad esempio, \".co -.com\" mostrerà i domini .co e .co.uk ma non .com.",
         "description": "Tooltip for an \"information\" icon next to the domain search input on the Tracking Domains options page tab."
     },
     "options_domain_type_filter": {
@@ -539,7 +539,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_user": {
-        "message": "utente-dipendenti",
+        "message": "controllato dall'utente",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
@@ -563,11 +563,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
-        "message": "Mostra i domini che il tuo tasso non ha ancora deciso di bloccare:",
+        "message": "Mostra i domini che il tuo Badger non ha ancora deciso di bloccare:",
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "options_domain_list_sites": {
-        "message": "$DOMAIN$ was seen tracking on the following sites:",
+        "message": "$DOMAIN$ è stato visto tracciare sui seguenti siti:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
@@ -617,7 +617,7 @@
         "description": ""
     },
     "sync_intro": {
-        "message": "Sincronizzazione cloud:<ul><li>Richiede Firefox/Chrome Sync</li><li>L'invio sovrascrive qualsiasi dato di Privacy Badger nel cloud</li><li>Lo scaricamento combina gli elenchi di siti dove il tuo tasso è disattivato</li></ul>",
+        "message": "Sincronizzazione cloud:<ul><li>Richiede Firefox/Chrome Sync</li><li>L'invio sovrascrive qualsiasi dato di Privacy Badger nel cloud</li><li>Lo scaricamento combina gli elenchi di siti dove il tuo Badger è disattivato</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload_cloud": {
@@ -673,7 +673,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data_confirm": {
-        "message": "La rimozione di tutti i domini traccianti causa:\n\n  • L'eliminazione di tutto ciò che Privacy Badger sa sui tracker\n  • Privacy Badger non bloccherà nulla finchè non ha avuto la possibilità di re-imparare dalla tua navigazione",
+        "message": "La rimozione di tutti i domini traccianti causa:\n\n  • L'eliminazione di tutto ciò che Privacy Badger sa sui tracker\n  • Privacy Badger non bloccherà nulla finchè non avrà avuto la possibilità di re-imparare dalla tua navigazione",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
@@ -681,7 +681,7 @@
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
-        "message": "Per conoscere il funzionamento del programma, cliccare sotto per una breve guida.",
+        "message": "Per conoscere il funzionamento del programma, clicca sotto per una breve guida.",
         "description": "Second part of a reminder to visit the intro page"
     },
     "first_run_text": {
@@ -701,7 +701,7 @@
         "description": "Button text, part of a prompt to visit the blog."
     },
     "deprecated_setting": {
-        "message": "La seguente impostazioni è stata deprecata e sarà rimossa in un aggiornamento futuro di Privacy Badger:",
+        "message": "La seguente impostazione è deprecata e sarà rimossa in un aggiornamento futuro di Privacy Badger:",
         "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
