@@ -51,28 +51,31 @@ function fetchResource(url, callback) {
 }
 
 /**
- * Return an array of all subdomains in an FQDN, ordered from the FQDN to the
- * eTLD+1. e.g. [a.b.eff.org, b.eff.org, eff.org]
- * if 'all' is passed in then the array will include all domain levels, not
- * just down to the base domain
+ * Splits a given FQDN into an array of FQDNs present inside the FQDN,
+ * ordered from the FQDN itself down to the eTLD+1.
+ *
+ * For example: ['a.b.eff.org', 'b.eff.org', 'eff.org']
+ *
  * @param {String} fqdn the domain to split
- * @param {boolean} all whether to include all domain levels
- * @returns {Array} the subdomains
+ * @param {Boolean} all whether to go past eTLD+1: ['bbc.co.uk', 'co.uk', 'uk']
+ *
+ * @returns {Array}
  */
 function explodeSubdomains(fqdn, all) {
-  var baseDomain;
+  let subdomains = [],
+    parts = fqdn.split('.'),
+    max_loop_idx;
+
   if (all) {
-    baseDomain = fqdn.split('.').pop();
+    max_loop_idx = parts.length - 1;
   } else {
-    baseDomain = getBaseDomain(fqdn);
+    max_loop_idx = parts.length - getBaseDomain(fqdn).split('.').length;
   }
-  var baseLen = baseDomain.split('.').length;
-  var parts = fqdn.split('.');
-  var numLoops = parts.length - baseLen;
-  var subdomains = [];
-  for (var i=0; i<=numLoops; i++) {
+
+  for (let i = 0; i <= max_loop_idx; i++) {
     subdomains.push(parts.slice(i).join('.'));
   }
+
   return subdomains;
 }
 

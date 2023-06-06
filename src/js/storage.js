@@ -320,7 +320,7 @@ BadgerPen.prototype = {
    */
   getBestAction: function (fqdn) {
     let self = this,
-      action_map = self.getStore('action_map'),
+      actionStore = self.getStore('action_map'),
       best_action = constants.NO_TRACKING,
       subdomains = utils.explodeSubdomains(fqdn);
 
@@ -348,12 +348,11 @@ BadgerPen.prototype = {
     // and keep the one which has the best score.
     for (let i = subdomains.length - 1; i >= 0; i--) {
       let domain = subdomains[i];
-      if (action_map.hasItem(domain)) {
+      if (actionStore.hasItem(domain)) {
         let action = self.getAction(
-          action_map.getItem(domain),
+          actionStore.getItem(domain),
           // ignore DNT unless it's directly on the FQDN being checked
-          domain != fqdn
-        );
+          domain != fqdn);
         if (getScore(action) >= getScore(best_action)) {
           best_action = action;
         }

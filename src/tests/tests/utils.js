@@ -8,12 +8,64 @@ let getSurrogateUri = surrogates.getSurrogateUri;
 
 QUnit.module("Utils", function (/*hooks*/) {
 
-  QUnit.test("explodeSubdomains", function (assert) {
-    var fqdn = "test.what.yea.eff.org";
-    var subs = utils.explodeSubdomains(fqdn);
-    assert.equal(subs.length, 4);
-    assert.equal(subs[0], fqdn);
-    assert.equal(subs[3], "eff.org");
+  QUnit.test("explodeSubdomains()", (assert) => {
+    let TESTS = [
+      {
+        desc: "basic",
+        fqdn: "test.what.yea.eff.org",
+        expected: [
+          "test.what.yea.eff.org",
+          "what.yea.eff.org",
+          "yea.eff.org",
+          "eff.org"
+        ]
+      },
+      {
+        desc: "multi-dot eTLD",
+        fqdn: "cdn.bbc.co.uk",
+        expected: [
+          "cdn.bbc.co.uk",
+          "bbc.co.uk"
+        ]
+      },
+      {
+        desc: "multi-dot eTLD; `all` is set",
+        fqdn: "cdn.bbc.co.uk",
+        all: true,
+        expected: [
+          "cdn.bbc.co.uk",
+          "bbc.co.uk",
+          "co.uk",
+          "uk"
+        ]
+      },
+      {
+        desc: "no dots at all",
+        fqdn: "localhost",
+        expected: ["localhost"]
+      },
+      {
+        desc: "no dots at all; `all` is set",
+        fqdn: "localhost",
+        all: true,
+        expected: ["localhost"]
+      },
+      {
+        desc: "empty string",
+        fqdn: "",
+        expected: [""]
+      },
+      {
+        desc: "empty string; `all` is set",
+        fqdn: "",
+        all: true,
+        expected: [""]
+      },
+    ];
+    for (let test of TESTS) {
+      let subs = utils.explodeSubdomains(test.fqdn, !!test.all);
+      assert.deepEqual(subs, test.expected, test.desc);
+    }
   });
 
   QUnit.module("fetchResource", function (hooks) {

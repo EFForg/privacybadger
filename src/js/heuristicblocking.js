@@ -155,7 +155,7 @@ HeuristicBlocker.prototype = {
     }
 
     // short-circuit if we already made a decision for this FQDN
-    let action = self.storage.getAction(request_host);
+    let action = self.storage.getBestAction(request_host);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return;
     }
@@ -227,7 +227,7 @@ HeuristicBlocker.prototype = {
     }
 
     // short-circuit if we already made a decision for this FQDN
-    let action = self.storage.getAction(request_host);
+    let action = self.storage.getBestAction(request_host);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return;
     }
@@ -360,7 +360,7 @@ HeuristicBlocker.prototype = {
    */
   updateTrackerPrevalence: function (tracker_fqdn, tracker_base, site_base) {
     // short-circuit if we already made a decision for this fqdn
-    let action = this.storage.getAction(tracker_fqdn);
+    let action = this.storage.getBestAction(tracker_fqdn);
     if (action != constants.NO_TRACKING && action != constants.ALLOW) {
       return;
     }
