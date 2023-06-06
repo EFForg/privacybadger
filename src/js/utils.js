@@ -57,23 +57,32 @@ function fetchResource(url, callback) {
  * For example: ['a.b.eff.org', 'b.eff.org', 'eff.org']
  *
  * @param {String} fqdn the domain to split
- * @param {Boolean} all whether to go past eTLD+1: ['bbc.co.uk', 'co.uk', 'uk']
+ * @param {Boolean} [all] whether to go past eTLD+1: ['bbc.co.uk', 'co.uk', 'uk']
  *
  * @returns {Array}
  */
 function explodeSubdomains(fqdn, all) {
   let subdomains = [],
-    parts = fqdn.split('.'),
-    max_loop_idx;
+    base_domain,
+    dot = -1,
+    piece;
 
   if (all) {
-    max_loop_idx = parts.length - 1;
+    base_domain = fqdn.slice(fqdn.lastIndexOf('.') + 1);
   } else {
-    max_loop_idx = parts.length - getBaseDomain(fqdn).split('.').length;
+    base_domain = getBaseDomain(fqdn);
   }
 
-  for (let i = 0; i <= max_loop_idx; i++) {
-    subdomains.push(parts.slice(i).join('.'));
+  for (;;) {
+    piece = fqdn.slice(dot + 1);
+    subdomains.push(piece);
+    if (base_domain == piece) {
+      break;
+    }
+    dot = fqdn.indexOf('.', dot + 1);
+    if (dot < 0) {
+      break;
+    }
   }
 
   return subdomains;

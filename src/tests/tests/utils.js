@@ -21,7 +21,7 @@ QUnit.module("Utils", function (/*hooks*/) {
         ]
       },
       {
-        desc: "multi-dot eTLD",
+        desc: "multi-dot country code eTLD",
         fqdn: "cdn.bbc.co.uk",
         expected: [
           "cdn.bbc.co.uk",
@@ -37,6 +37,23 @@ QUnit.module("Utils", function (/*hooks*/) {
           "bbc.co.uk",
           "co.uk",
           "uk"
+        ]
+      },
+      {
+        desc: "PSL domain",
+        fqdn: "storage.googleapis.com",
+        expected: [
+          "storage.googleapis.com"
+        ]
+      },
+      {
+        desc: "PSL domain; `all` is set",
+        fqdn: "storage.googleapis.com",
+        all: true,
+        expected: [
+          "storage.googleapis.com",
+          "googleapis.com",
+          "com"
         ]
       },
       {
