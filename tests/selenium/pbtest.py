@@ -167,7 +167,7 @@ class Shim:
 
         # TODO not yet in Firefox (w/o hacks anyway):
         # https://github.com/mozilla/geckodriver/issues/284#issuecomment-456073771
-        opts.set_capability("loggingPrefs", {'browser': 'ALL'})
+        opts.set_capability("goog:loggingPrefs", {'browser': 'ALL'})
 
         for i in range(5):
             try:
