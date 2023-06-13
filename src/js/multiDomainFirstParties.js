@@ -3980,6 +3980,15 @@ let multiDomainFirstPartiesArray = [
 
     "postmedia.digital",
   ],
+  [
+    "prensaiberica360.es",
+
+    "elperiodico.com",
+    "levante-emv.com",
+    "lne.es",
+
+    "prensaiberica.es",
+  ],
   ["pressreader.com", "prcdn.co"],
   [
     "pricerunner.com",
@@ -4400,6 +4409,15 @@ let multiDomainFirstPartiesArray = [
     "rtlz.nl",
     "videoland.com",
     "vtbl.nl",
+  ],
+  [
+    "rvohealth.com",
+
+    "greatist.com",
+    "healthgrades.com",
+    "healthline.com",
+    "medicalnewstoday.com",
+    "psychcentral.com",
   ],
   [
     "s-kanava.fi",
@@ -4858,6 +4876,7 @@ let multiDomainFirstPartiesArray = [
     "b93.net",
     "bigcat921.com",
     "bigcat953.com",
+    "brooklynvegan.com",
     "clrvynt.com",
     "cnynews.com",
     "comicsalliance.com",
@@ -4893,6 +4912,7 @@ let multiDomainFirstPartiesArray = [
     "wzozfm.com",
     "xxlmag.com",
 
+    "townsquare.media",
     "townsquareblogs.com",
   ],
   [
@@ -5261,6 +5281,14 @@ let multiDomainFirstPartiesArray = [
     "uicdn.com",
     "uicdn.net",
     "uimserv.net",
+  ],
+  [
+    "universalmusic.com",
+
+    "taylorswift.com",
+    "udiscovermusic.com",
+
+    "umusic.com",
   ],
   ["vanguard.com", "investornews.vanguard", "vanguardblog.com", "vanguardcanada.ca", "vanguardinvestor.co.uk", "vgcontent.info"],
   [
