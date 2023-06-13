@@ -2229,7 +2229,6 @@ let multiDomainFirstPartiesArray = [
     "st-hatena.com",
   ],
   ["healthfusion.com", "healthfusionclaims.com"],
-  ["healthlinemedia.com", "greatist.com", "healthline.com", "medicalnewstoday.com", "psychcentral.com"],
   [
     "hearst.com",
 
@@ -4289,6 +4288,18 @@ let multiDomainFirstPartiesArray = [
   ["reddit.com", "redditmedia.com", "redditstatic.com", "redd.it", "redditenhancementsuite.com", "reddituploads.com", "imgur.com"],
   ["redhat.com", "openshift.com", "openshift.org", "okd.io"],
   [
+    "redventures.com",
+
+    "greatist.com",
+    "healthgrades.com",
+    "healthline.com",
+    "healthlinemedia.com",
+    "medicalnewstoday.com",
+    "psychcentral.com",
+
+    "rvohealth.com",
+  ],
+  [
     "reebok.at",
     "reebok.be",
     "reebok.ca",
@@ -4409,15 +4420,6 @@ let multiDomainFirstPartiesArray = [
     "rtlz.nl",
     "videoland.com",
     "vtbl.nl",
-  ],
-  [
-    "rvohealth.com",
-
-    "greatist.com",
-    "healthgrades.com",
-    "healthline.com",
-    "medicalnewstoday.com",
-    "psychcentral.com",
   ],
   [
     "s-kanava.fi",
