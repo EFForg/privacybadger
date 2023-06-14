@@ -4182,6 +4182,7 @@ let multiDomainFirstPartiesArray = [
 
     "rakuten-static.com",
   ],
+  ["rbcroyalbank.com", "royalbank.com", "rbc.com"],
   [
     "reachplc.com",
 
