@@ -1,7 +1,9 @@
 {
   "action_map": {
     "00px.net": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1686989093360
     },
     "04xmhp.ru": {
       "heuristicAction": "allow"
