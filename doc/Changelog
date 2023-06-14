@@ -1,6 +1,19 @@
 Privacy Badger Release Notes
 ============================
 
+2023.6.14
+* Privacy Badger now comes with the largest blocklist yet, thanks to improved
+tracking detection and continually expanding pre-training. In addition
+to learning from tracking techniques like cookies and canvas fingerprinting,
+Privacy Badger now also learns from the Beacon API. To learn more, visit
+www.eff.org/badger-pretraining and
+https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API.
+* Fixed blocking trackers from just-closed tabs or from pages you recently
+navigated away from
+* Improved display of tracking domains on the options page on larger screens
+* Fixed various site breakages
+* Improved Italian translations
+
 2023.5.10
 * Expanded protection for "cookieblocked" (slider set to yellow) domains.
 These domains are allowed to load without access to cookies, as a compromise
