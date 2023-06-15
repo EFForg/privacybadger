@@ -569,6 +569,7 @@ js.stripe.com
 merchant-ui-api.stripe.com
 m.stripe.network
 stripecdn.com
+strpst.com
 substack.com
 hdr.sundaysky.com
 images.sundaysky.com
