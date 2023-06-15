@@ -468,8 +468,9 @@ ui.powerreviews.com
 www.powr.io
 prcdn.co
 prismic.io
-privacymanager.io
+sdk.privacy-center.org
 cdn.privacy-mgmt.com
+privacymanager.io
 navigation-api.project1service.com
 site-api.project1service.com
 providesupport.com
