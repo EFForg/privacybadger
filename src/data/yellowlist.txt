@@ -685,6 +685,7 @@ img-fotki.yandex.ru
 strm.yandex.ru
 maps.yandex.net
 vtrans.s3-private.mds.yandex.net
+s3.yandex.net
 storage.yandex.net
 browser.translate.yandex.net
 yastatic.net
