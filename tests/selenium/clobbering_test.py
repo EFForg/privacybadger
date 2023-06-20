@@ -69,7 +69,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
                 "localStorage (%s) was read despite cookieblocking" % selector
             )
 
-    @pytest.mark.flaky(reruns=3)
+    @pytest.mark.flaky(reruns=9)
     def test_referrer_header(self):
         FIXTURE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
@@ -80,7 +80,8 @@ class ClobberingTest(pbtest.PBSeleniumTest):
         def verify_referrer_header(expected, failure_message):
             self.load_url(FIXTURE_URL)
             self.wait_for_script(
-                "return document.getElementById('referrer').textContent != '';")
+                "return document.getElementById('referrer').textContent != '';",
+                timeout=10)
             referrer = self.txt_by_css("#referrer")
             self.assertEqual("Referer=", referrer[0:8], "Unexpected page output")
             self.assertEqual(expected, referrer[8:], failure_message)
@@ -88,8 +89,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
         # verify base case
         verify_referrer_header(
             FIXTURE_URL,
-            "Unexpected default referrer header"
-        )
+            "Unexpected default referrer header")
 
         # cookieblock the domain fetched by the fixture
         self.cookieblock_domain(THIRD_PARTY_DOMAIN)
@@ -97,8 +97,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
         # recheck what the referrer header looks like now after cookieblocking
         verify_referrer_header(
             "https://efforg.github.io/",
-            "Referrer header does not appear to be origin-only"
-        )
+            "Referrer header does not appear to be origin-only")
 
 
 if __name__ == "__main__":
