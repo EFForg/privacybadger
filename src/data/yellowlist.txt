@@ -293,6 +293,7 @@ hcaptcha.com
 herokuapp.com
 code.highcharts.com
 highwebmedia.com
+cdn.hinet.net
 homestead.com
 cdn.hometogo.net
 cdn2.hometogo.net
