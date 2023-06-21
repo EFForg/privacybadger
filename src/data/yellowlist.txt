@@ -278,6 +278,7 @@ www.google.com
 ajax.googleapis.com
 storage.googleapis.com
 googleapis.com
+googletagmanager.com
 lh4.googleusercontent.com
 googleusercontent.com
 googlevideo.com
