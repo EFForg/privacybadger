@@ -152,6 +152,7 @@ cdn.discordapp.com
 media.discordapp.net
 discoverevvnt.com
 pics.dmm.co.jp
+api.docodoco.jp
 documentcloud.org
 donorbox.org
 cdn.dopc.cz
