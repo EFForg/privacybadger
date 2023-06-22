@@ -308,6 +308,18 @@
             "type": 0
         }
     },
+    "Pinterest Image": {
+        "domain": "assets.pinterest.com",
+        "buttonSelectors": [
+            "iframe[src^='https://assets.pinterest.com/ext/embed.html']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "assets.pinterest.com"
+            ],
+            "type": 3
+        }
+    },
     "Qualtrics": {
         "domains": [
             "*.qualtrics.com"
