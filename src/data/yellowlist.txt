@@ -299,6 +299,7 @@ homestead.com
 cdn.hometogo.net
 cdn2.hometogo.net
 hootsuite.com
+forms.hsforms.com
 api.hubspot.com
 app.hubspot.com
 cta-service-cms2.hubspot.com
