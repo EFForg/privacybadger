@@ -296,18 +296,6 @@
             "type": 3
         }
     },
-    "Pinterest": {
-        "domain": "assets.pinterest.com",
-        "buttonSelectors": [
-            "script[src='//assets.pinterest.com/js/pinit.js']",
-            ".pin-it-button"
-        ],
-        "replacementButton": {
-            "details": "http://pinterest.com/pin/create/button/?url=",
-            "imagePath": "Pinterest.svg",
-            "type": 0
-        }
-    },
     "Pinterest Image": {
         "domain": "assets.pinterest.com",
         "buttonSelectors": [
