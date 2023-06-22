@@ -94,17 +94,6 @@
             "type": 3
         }
     },
-    "Digg": {
-        "domain": "widgets.digg.com",
-        "buttonSelectors": [
-            ".DiggThisButton"
-        ],
-        "replacementButton": {
-            "details": "http://www.digg.com/submit?url=",
-            "imagePath": "Digg.svg",
-            "type": 0
-        }
-    },
     "Discord": {
         "domains": [
             "discord.com",
