@@ -24,6 +24,7 @@ akamaized.net
 alicdn.com
 alipay.com
 alipayobjects.com
+cf.aliyun.com
 aliyuncs.com
 amazon.com
 s3.amazonaws.com
