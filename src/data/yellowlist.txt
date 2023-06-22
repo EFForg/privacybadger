@@ -197,6 +197,8 @@ s-static.ak.facebook.com
 staticxx.facebook.com
 fastly.net
 fbcdn.net
+cart-imgs.fc2.com
+thumb.fc2.com
 filepicker.io
 filestackapi.com
 flipcause.com
