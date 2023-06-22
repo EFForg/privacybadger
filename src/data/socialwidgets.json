@@ -29,6 +29,19 @@
             "type": 3
         }
     },
+    "Bilibili Player": {
+        "domain": "player.bilibili.com",
+        "buttonSelectors": [
+            "iframe[src^='//player.bilibili.com/player.html']",
+            "iframe[src^='https://player.bilibili.com/player.html']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "player.bilibili.com"
+            ],
+            "type": 3
+        }
+    },
     "BitChute": {
         "domains": [
             "www.bitchute.com"
