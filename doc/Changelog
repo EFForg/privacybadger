@@ -1,6 +1,9 @@
 Privacy Badger Release Notes
 ============================
 
+2023.6.23
+Bug fix release addressing various site breakages
+
 2023.6.14
 * Privacy Badger now comes with the largest blocklist yet, thanks to improved
 tracking detection and continually expanding pre-training. In addition
