@@ -4370,7 +4370,7 @@ let multiDomainFirstPartiesArray = [
     "thomsonreuters.ru",
   ],
   [
-    "ringieraxelspringer.com",
+    "ringieraxelspringer.pl",
 
     "aktuality.sk",
     "auto-swiat.pl",
@@ -4394,6 +4394,8 @@ let multiDomainFirstPartiesArray = [
 
     "dreamlab.pl",
     "grupaonet.pl",
+
+    "ocdn.eu",
   ],
   [
     "riotgames.com",
