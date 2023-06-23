@@ -15,6 +15,19 @@
             "type": 2
         }
     },
+    "Aparat Player": {
+        "domain": "www.aparat.com",
+        "buttonSelectors": [
+            "iframe[src^='https://www.aparat.com/embed/']",
+            "iframe[src^='https://www.aparat.com/video/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.aparat.com"
+            ],
+            "type": 3
+        }
+    },
     "Apple Music": {
         "domains": [
             "embed.music.apple.com"
