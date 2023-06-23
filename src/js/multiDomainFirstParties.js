@@ -2706,7 +2706,6 @@ let multiDomainFirstPartiesArray = [
   ],
   ["lbry.com", "odysee.com", "lbry.tv"],
   ["likee.video", "like-video.com", "like.video", "likee.com", "likeevideo.com"],
-  ["linkedin.com", "licdn.com"],
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
   [
     "loveholidays.com",
@@ -3104,6 +3103,9 @@ let multiDomainFirstPartiesArray = [
 
     "s-msft.com",
     "msftauth.net",
+
+    "linkedin.com",
+    "licdn.com",
 
     "github.com",
     "githubapp.com",
