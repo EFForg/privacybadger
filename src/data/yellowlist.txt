@@ -369,6 +369,7 @@ kinja.com
 klarna.com
 klarnacdn.net
 eu-library.klarnaservices.com
+na-library.klarnaservices.com
 a.klaviyo.com
 static.klaviyo.com
 static-forms.klaviyo.com
