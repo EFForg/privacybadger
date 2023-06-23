@@ -495,6 +495,7 @@ docs.qq.com
 photo.store.qq.com
 quadpay.com
 queue-it.net
+cdn.quilljs.com
 quotemedia.com
 api.razorpay.com
 checkout.razorpay.com
