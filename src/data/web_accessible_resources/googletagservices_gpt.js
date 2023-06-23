@@ -1,4 +1,4 @@
-// https://github.com/gorhill/uBlock/blob/5a9cd724ca47c3a0577decbab053b9d8b05a3b1b/src/web_accessible_resources/googletagservices_gpt.js
+// https://github.com/gorhill/uBlock/blob/5a9cd724ca47c3a0577decbab053b9d8b05a3b1b/src/web_accessible_resources/googletagservices_gpt.js + nytimes.com getTargeting() fix
 (function() {
     'use strict';
     // https://developers.google.com/doubleclick-gpt/reference
@@ -53,7 +53,7 @@
         enableVideoAds: noopfn,
         get: noopnullfn,
         getAttributeKeys: nooparrayfn,
-        getTargeting: noopfn,
+        getTargeting: nooparrayfn,
         getTargetingKeys: nooparrayfn,
         getSlots: nooparrayfn,
         refresh: noopfn,
