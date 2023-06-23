@@ -1,4 +1,4 @@
-// https://github.com/gorhill/uBlock/blob/a78bb0f8eb4a9c419bcafedba5a4e843232a16be/src/web_accessible_resources/googletagservices_gpt.js
+// https://github.com/gorhill/uBlock/blob/5a9cd724ca47c3a0577decbab053b9d8b05a3b1b/src/web_accessible_resources/googletagservices_gpt.js
 (function() {
     'use strict';
     // https://developers.google.com/doubleclick-gpt/reference
@@ -65,6 +65,7 @@
         setForceSafeFrame: noopthisfn,
         setLocation: noopthisfn,
         setPublisherProvidedId: noopthisfn,
+        setPrivacySettings: noopthisfn,
         setRequestNonPersonalizedAds: noopthisfn,
         setSafeFrameConfig: noopthisfn,
         setTagForChildDirectedTreatment: noopthisfn,
@@ -99,6 +100,7 @@
     p.setClickUrl = noopthisfn;
     p.setCollapseEmptyDiv = noopthisfn;
     p.setTargeting = noopthisfn;
+    p.updateTargetingFromMap = noopthisfn;
     //
     const gpt = window.googletag || {};
     const cmd = gpt.cmd || [];
