@@ -1877,11 +1877,13 @@ let multiDomainFirstPartiesArray = [
   ],
   [
     "google.com",
-    "youtube.com",
-    "gmail.com",
+
+    "android.com",
     "blogger.com",
-    "googleblog.com",
     "chromium.org",
+    "gmail.com",
+    "googleblog.com",
+    "youtube.com",
 
     "ggpht.com",
     "googleusercontent.com",
@@ -2088,6 +2090,7 @@ let multiDomainFirstPartiesArray = [
     "storage.googleapis.com",
     "www.googleapis.com",
 
+    "autodraw.com",
     "nest.com",
     "thinkwithgoogle.com",
 
