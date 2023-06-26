@@ -975,6 +975,7 @@ Badger.prototype = {
     // TODO indicate when this happens in the UI somehow
     const gpcDisabledWebsites = {
       'www.costco.com': true,
+      'fivethirtyeight.com': true,
     };
     return !utils.hasOwn(gpcDisabledWebsites, site_host);
   },
