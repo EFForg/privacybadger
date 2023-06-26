@@ -752,6 +752,10 @@ function refreshPopup() {
       // make sure to show domain list
       // (there is no toggle button when nothing was blocked)
       $('#blockedResources').show();
+    } else {
+      // hide the domain list legend when there are no domains to show
+      // (there are only non-tracking domains but show non-tracking is off)
+      $('#blockedResources').hide();
     }
 
   } else {
