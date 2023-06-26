@@ -253,6 +253,7 @@ fonts.google.com
 fundingchoicesmessages.google.com
 fusiontables.google.com
 groups.google.com
+inputtools.google.com
 kh.google.com
 khms0.google.com
 khms1.google.com
@@ -280,6 +281,7 @@ sites.google.com
 smartlock.google.com
 spreadsheets.google.com
 talkgadget.google.com
+tools.google.com
 translate.google.com
 trends.google.com
 video.google.com
