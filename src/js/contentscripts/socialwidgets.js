@@ -787,7 +787,9 @@ function replaceIndividualButton(widget) {
       continue;
     }
     createReplacementElement(widget, el, function (replacementEl) {
-      el.parentNode.replaceChild(replacementEl, el);
+      if (el.parentNode) {
+        el.parentNode.replaceChild(replacementEl, el);
+      }
     });
   }
 }
