@@ -37,6 +37,7 @@ amuniversal.com
 anchor.fm
 play.aniview.com
 interactives.ap.org
+appconsent.io
 apple.com
 appspot.com
 arcgis.com
