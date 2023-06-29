@@ -60,6 +60,8 @@ packager.avplayer.com
 packagercdn.avplayer.com
 player.avplayer.com
 awswaf.com
+api.axept.io
+client.axept.io
 static.axept.io
 azure-api.net
 azureedge.net
