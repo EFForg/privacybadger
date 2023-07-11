@@ -2968,6 +2968,7 @@ let multiDomainFirstPartiesArray = [
     "facebook.com",
     "instagram.com",
     "messenger.com",
+    "threads.net",
     "workplace.com",
 
     "oculus.com",
