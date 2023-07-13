@@ -1,13 +1,13 @@
-/* globals findInAllFrames:false */
+/* globals findInAllFrames:false, observeMutations:false */
 
 // Outbound Google links are different across browsers.
 // In order here: Firefox, Chrome, Firefox Android
 //
 // Ignore internal links in Chrome and desktop Firefox
 // to avoid unwrapping (and breaking the dropdown on) the settings link
-let trap_link = "a[onmousedown^='return rwt(this,']:not([href^='/']), a[ping]:not([href^='/']), a[href^='/url?q='], a[data-jsarwt='1']";
+let link_selector = "a[onmousedown^='return rwt(this,']:not([href^='/']), a[ping]:not([href^='/']), a[href^='/url?q='], a[data-jsarwt='1']";
 
-// Remove excessive attributes and event listeners from link a
+// Remove excessive attributes and event listeners from link elements
 function cleanLink(a) {
   // remove all attributes except for href,
   // target (to support "Open each selected result in a new browser window"),
@@ -35,12 +35,6 @@ function cleanLink(a) {
   }
 }
 
-function cleanAllLinks() {
-  findInAllFrames(trap_link).forEach((link) => {
-    cleanLink(link);
-  });
-}
-
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
   type: "checkEnabled"
@@ -49,10 +43,11 @@ chrome.runtime.sendMessage({
     return;
   }
 
-  // since the page is rendered all at once,
-  // no need to set up a mutationObserver or setInterval
-  cleanAllLinks();
-  // there does appear to be a timing issue here though,
-  // so let's rerun after a delay
-  setTimeout(cleanAllLinks, 2000);
+  // clean already present links
+  findInAllFrames(link_selector).forEach((link) => {
+    cleanLink(link);
+  });
+
+  // clean dynamically added links
+  observeMutations(link_selector, cleanLink);
 });
