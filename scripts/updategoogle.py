@@ -25,7 +25,7 @@ def update_manifest(tempfile_path, manifest_path):
 
         scripts_idx = -1
         for idx, entry in enumerate(manifest['content_scripts']):
-            if "js/firstparties/google-search.js" in entry['js']:
+            if "js/firstparties/google.js" in entry['js']:
                 scripts_idx = idx
                 break
         if scripts_idx == -1:

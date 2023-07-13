@@ -42,7 +42,7 @@
     {
       "js": [
         "js/firstparties/lib/utils.js",
-        "js/firstparties/google-search.js"
+        "js/firstparties/google.js"
       ],
       "matches": [
         "https://docs.google.com/*",

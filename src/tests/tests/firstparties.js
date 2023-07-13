@@ -105,7 +105,7 @@ QUnit.test('Google search de-instrumentation', (assert) => {
 
   // create the content script
   let g_script = document.createElement('script');
-  g_script.src = '../js/firstparties/google-search.js';
+  g_script.src = '../js/firstparties/google.js';
   g_script.onload = function() {
     assert.notOk(ff_link.onmousedown, 'removed mouseDown event from ff link');
     assert.ok(ff_link.rel.includes('noreferrer'), 'added noreferrer to link');
