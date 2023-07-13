@@ -1,11 +1,19 @@
 /* globals findInAllFrames:false, observeMutations:false */
 
 // Outbound Google links are different across browsers.
-// In order here: Firefox, Chrome, Firefox Android
 //
 // Ignore internal links in Chrome and desktop Firefox
 // to avoid unwrapping (and breaking the dropdown on) the settings link
-let link_selector = "a[onmousedown^='return rwt(this,']:not([href^='/']), a[ping]:not([href^='/']), a[href^='/url?q='], a[data-jsarwt='1']";
+let link_selector = [
+  // Firefox
+  "a[onmousedown^='return rwt(this,']:not([href^='/'])",
+  // Chrome
+  "a[ping]:not([href^='/'])",
+  // Firefox Android
+  "a[href^='/url?q=']",
+  // alternate Firefox selector
+  "a[data-jsarwt='1']",
+].join(', ');
 
 // Remove excessive attributes and event listeners from link elements
 function cleanLink(a) {
