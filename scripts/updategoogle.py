@@ -6,17 +6,20 @@ import sys
 from collections import OrderedDict
 
 def convert(text):
-    patterns = []
+    patterns = [
+        "https://docs.google.com/*",
+        "http://docs.google.com/*",
+    ]
     for domain in text.split():
         patterns.append("https://www" + domain + "/*")
         patterns.append("http://www" + domain + "/*")
     return patterns
 
 def update_manifest(tempfile_path, manifest_path):
-    with open(manifest_path, 'r') as f:
+    with open(manifest_path, 'r', encoding="utf-8") as f:
         manifest = json.load(f, object_pairs_hook=OrderedDict)
 
-    with open(tempfile_path, 'r+') as f:
+    with open(tempfile_path, 'r+', encoding="utf-8") as f:
         # tempfile_path contains Google's supported domains
         match_patterns = convert(f.read())
 
@@ -44,6 +47,7 @@ def update_manifest(tempfile_path, manifest_path):
             file=f
         )
         f.truncate()
+
 
 if __name__ == '__main__':
     # argv[1]: the path to a copy of https://www.google.com/supported_domains

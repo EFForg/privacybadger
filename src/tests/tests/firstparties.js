@@ -3,7 +3,6 @@
 let destination = 'https://the.beach/';
 let fb_wrap = 'https://facebook.com/l.php?u=' + destination;
 let fb_xss = 'https://facebook.com/l.php?u=javascript://bad.site/%250Aalert(1)';
-let g_wrap = 'https://www.google.com/url?q=' + destination;
 let g_ping = '/url?url=' + destination;
 
 function makeLink(href) {
@@ -49,7 +48,7 @@ function unstub() {
 
 QUnit.module('First parties');
 
-QUnit.test('facebook script unwraps valid links', (assert) => {
+QUnit.test('Facebook script unwraps valid links', (assert) => {
   const NUM_CHECKS = 4,
     done = assert.async();
   assert.expect(NUM_CHECKS);
@@ -89,43 +88,7 @@ QUnit.test('facebook script unwraps valid links', (assert) => {
   fixture.appendChild(util_script);
 });
 
-
-QUnit.test('google shim link unwrapping', (assert) => {
-  const NUM_CHECKS = 2,
-    done = assert.async();
-  assert.expect(NUM_CHECKS);
-
-  let fixture = document.getElementById('qunit-fixture');
-  let shim_link = makeLink(g_wrap);
-
-  // create first-party utility script
-  let util_script = document.createElement('script');
-  util_script.src = '../js/firstparties/lib/utils.js';
-
-  // create the content script
-  let g_script = document.createElement('script');
-  g_script.src = '../js/firstparties/google-static.js';
-  g_script.onload = function() {
-    assert.equal(shim_link.href, destination, 'unwrapped shim link');
-    assert.ok(shim_link.rel.includes('noreferrer'),
-      'added noreferrer to shim link');
-
-    unstub();
-    done();
-  };
-
-  // after the utility script has finished loading, add the content script
-  util_script.onload = function() {
-    fixture.append(g_script);
-  };
-
-  stub([shim_link], '/url?');
-  fixture.appendChild(shim_link);
-  fixture.appendChild(util_script);
-});
-
-
-QUnit.test('google search de-instrumentation', (assert) => {
+QUnit.test('Google search de-instrumentation', (assert) => {
   const NUM_CHECKS = 3,
     done = assert.async();
   assert.expect(NUM_CHECKS);

@@ -45,6 +45,8 @@
         "js/firstparties/google-search.js"
       ],
       "matches": [
+        "https://docs.google.com/*",
+        "http://docs.google.com/*",
         "https://www.google.com/*",
         "http://www.google.com/*",
         "https://www.google.ad/*",
@@ -426,20 +428,6 @@
         "https://www.google.cat/*",
         "http://www.google.cat/*"
       ],
-      "run_at": "document_idle"
-    },
-    {
-      "js": [
-        "js/firstparties/lib/utils.js",
-        "js/firstparties/google-static.js"
-      ],
-      "matches": [
-        "https://hangouts.google.com/*",
-        "http://hangouts.google.com/*",
-        "https://docs.google.com/*",
-        "http://docs.google.com/*"
-      ],
-      "all_frames": true,
       "run_at": "document_idle"
     },
     {

@@ -13,6 +13,10 @@ let link_selector = [
   "a[href^='/url?q=']",
   // alternate Firefox selector
   "a[data-jsarwt='1']",
+  // Google Docs (all browsers)
+  "a[href^='www.google.com/url?']",
+  // image search results (all browsers)
+  `a[href^='${document.domain}/url?']`,
 ].join(', ');
 
 // Remove excessive attributes and event listeners from link elements
@@ -34,9 +38,11 @@ function cleanLink(a) {
   a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
   a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
 
-  // reassign href when in firefox android
-  if (a.href.startsWith(document.location.origin + "/url?q=")) {
-    let href = (new URL(a.href)).searchParams.get('q');
+  // need to fix the href in Google Docs, Google image search results,
+  // or Google text search results with Firefox for Android
+  if (a.href.startsWith(document.location.origin + "/url?")) {
+    let searchParams = (new URL(a.href)).searchParams;
+    let href = searchParams.get('url') || searchParams.get('q');
     if (href && window.isURL(href)) {
       a.href = href;
     }
