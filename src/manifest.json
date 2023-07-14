@@ -47,6 +47,8 @@
       "matches": [
         "https://docs.google.com/*",
         "http://docs.google.com/*",
+        "https://mail.google.com/*",
+        "http://mail.google.com/*",
         "https://www.google.com/*",
         "http://www.google.com/*",
         "https://www.google.ad/*",

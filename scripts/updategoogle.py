@@ -9,6 +9,8 @@ def convert(text):
     patterns = [
         "https://docs.google.com/*",
         "http://docs.google.com/*",
+        "https://mail.google.com/*",
+        "http://mail.google.com/*",
     ]
     for domain in text.split():
         patterns.append("https://www" + domain + "/*")

@@ -1,23 +1,33 @@
 /* globals findInAllFrames:false, observeMutations:false */
 
-// Outbound Google links are different across browsers.
+let link_selector;
+
+// Google Docs
+if (document.domain == "docs.google.com") {
+  link_selector = "a[href^='www.google.com/url?']";
+
+// Gmail
+} else if (document.domain == "mail.google.com") {
+  link_selector = "a[href^='https://www.google.com/url?']";
+
+// Outbound Google search result links are different across browsers.
 //
 // Ignore internal links in Chrome and desktop Firefox
 // to avoid unwrapping (and breaking the dropdown on) the settings link
-let link_selector = [
-  // Firefox
-  "a[onmousedown^='return rwt(this,']:not([href^='/'])",
-  // Chrome
-  "a[ping]:not([href^='/'])",
-  // Firefox Android
-  "a[href^='/url?q=']",
-  // alternate Firefox selector
-  "a[data-jsarwt='1']",
-  // Google Docs (all browsers)
-  "a[href^='www.google.com/url?']",
-  // image search results (all browsers)
-  `a[href^='${document.domain}/url?']`,
-].join(', ');
+} else {
+  link_selector = [
+    // Firefox
+    "a[onmousedown^='return rwt(this,']:not([href^='/'])",
+    // Chrome
+    "a[ping]:not([href^='/'])",
+    // Firefox Android
+    "a[href^='/url?q=']",
+    // alternate Firefox selector
+    "a[data-jsarwt='1']",
+    // image search results (all browsers)
+    `a[href^='${document.domain}/url?']`,
+  ].join(', ');
+}
 
 // Remove excessive attributes and event listeners from link elements
 function cleanLink(a) {
@@ -38,9 +48,9 @@ function cleanLink(a) {
   a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
   a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
 
-  // need to fix the href in Google Docs, Google image search results,
+  // need to fix the href in Google Docs, Gmail, Google image search results,
   // or Google text search results with Firefox for Android
-  if (a.href.startsWith(document.location.origin + "/url?")) {
+  if (a.href.startsWith("https://www.google.com/url?") || a.href.startsWith(document.location.origin + "/url?")) {
     let searchParams = (new URL(a.href)).searchParams;
     let href = searchParams.get('url') || searchParams.get('q');
     if (href && window.isURL(href)) {
