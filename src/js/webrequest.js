@@ -326,6 +326,39 @@ function blockMozCspReports(details) {
 }
 
 /**
+ * A backstop to remove undesirable redirects for when our JS approach fails.
+ *
+ * Some Google properties (such as Google Docs in Firefox) rewrite clicked
+ * link actions via some mix of capturing all events, window.open() with
+ * document.write(), and meta refresh.
+ *
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {Object|undefined} Can redirect requests
+ */
+const GOOGLE_REDIRECT_HOST = 'www.google.com';
+function bypassGoogleRedirects(details) {
+  if (!badger.INITIALIZED) { return; }
+  if (!badger.isPrivacyBadgerEnabled(GOOGLE_REDIRECT_HOST)) { return; }
+  let urlObj, redirect_url;
+  try {
+    urlObj = new URL(details.url);
+  } catch (e) { /* ignore */ }
+  if (urlObj && urlObj.searchParams) {
+    redirect_url = urlObj.searchParams.get('q');
+  }
+  if (redirect_url) {
+    if (redirect_url.startsWith("https://") || redirect_url.startsWith("http://")) {
+      if (utils.isThirdPartyDomain(extractHostFromURL(redirect_url), GOOGLE_REDIRECT_HOST)) {
+        return {
+          redirectUrl: redirect_url
+        };
+      }
+    }
+  }
+}
+
+/**
  * Filters outgoing cookies and referer
  * Injects DNT
  *
@@ -1822,6 +1855,11 @@ function startListeners() {
       urls: ['<all_urls>']
     }, ['blocking', 'requestBody']);
   }
+
+  chrome.webRequest.onBeforeRequest.addListener(bypassGoogleRedirects, {
+    types: ["main_frame"],
+    urls: [`https://${GOOGLE_REDIRECT_HOST}/url?*`]
+  }, ["blocking"]);
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
   if (utils.hasOwn(chrome.webRequest.OnBeforeSendHeadersOptions, 'EXTRA_HEADERS')) {
