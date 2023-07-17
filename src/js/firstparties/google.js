@@ -4,7 +4,7 @@ let link_selector;
 
 // Google Docs
 if (document.domain == "docs.google.com") {
-  link_selector = "a[href^='www.google.com/url?']";
+  link_selector = "a[href^='www.google.com/url?'], a[href^='https://www.google.com/url?']";
 
 // Gmail
 } else if (document.domain == "mail.google.com") {
