@@ -345,7 +345,7 @@ function bypassGoogleRedirects(details) {
     urlObj = new URL(details.url);
   } catch (e) { /* ignore */ }
   if (urlObj && urlObj.searchParams) {
-    redirect_url = urlObj.searchParams.get('q');
+    redirect_url = urlObj.searchParams.get('url') || urlObj.searchParams.get('q');
   }
   if (redirect_url) {
     if (redirect_url.startsWith("https://") || redirect_url.startsWith("http://")) {
