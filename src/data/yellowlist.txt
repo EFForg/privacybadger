@@ -605,6 +605,10 @@ web.sundaysky.com
 www.surveygizmo.com
 surveymonkey.com
 swiftype.com
+stonly.com
+api.stonly.com
+s.stonly.com
+media.stonly.com
 t.me
 public.tableau.com
 cdn.tagcommander.com
