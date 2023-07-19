@@ -359,6 +359,32 @@ function bypassGoogleRedirects(details) {
 }
 
 /**
+ * Blocks Google's /gen_204 requests.
+ *
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {Object|undefined} Can cancel requests
+ */
+function blockGoogleGen204s(details) {
+  if (!badger.INITIALIZED) { return; }
+
+  let frameData = badger.tabData.getFrameData(details.tabId);
+  if (!frameData) {
+    return;
+  }
+  let tab_host = frameData.host,
+    initiator_url = getInitiatorUrl(frameData.url, details);
+  if (initiator_url) {
+    tab_host = extractHostFromURL(initiator_url);
+  }
+  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
+    return;
+  }
+
+  return { cancel: true };
+}
+
+/**
  * Filters outgoing cookies and referer
  * Injects DNT
  *
@@ -1860,6 +1886,27 @@ function startListeners() {
     types: ["main_frame"],
     urls: [`https://${GOOGLE_REDIRECT_HOST}/url?*`]
   }, ["blocking"]);
+
+  let googleGen204MatchPatterns;
+  try {
+    googleGen204MatchPatterns = chrome.runtime.getManifest().content_scripts
+      .find(i => i.js.includes("js/firstparties/google.js")
+        || i.js.includes(chrome.runtime.getURL("js/firstparties/google.js")))
+      .matches.filter(d => d.startsWith("https://www.") && d.endsWith("/*"))
+      .map(d => d.replace(/^https:\/\/www\./, 'https://*.').replace(/\/\*$/, '/gen_204?*'));
+  } catch (e) { /* ignore */ }
+  if (googleGen204MatchPatterns) {
+    try {
+      chrome.webRequest.onBeforeRequest.addListener(blockGoogleGen204s, {
+        types: ["ping", "beacon"], urls: googleGen204MatchPatterns
+      }, ["blocking"]);
+    } catch (e) {
+      // must be Chrome where the "beacon" request type errors out
+      chrome.webRequest.onBeforeRequest.addListener(blockGoogleGen204s, {
+        types: ["ping"], urls: googleGen204MatchPatterns
+      }, ["blocking"]);
+    }
+  }
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
   if (utils.hasOwn(chrome.webRequest.OnBeforeSendHeadersOptions, 'EXTRA_HEADERS')) {
