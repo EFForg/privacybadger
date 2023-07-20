@@ -7,16 +7,25 @@ let link_selector = [
   `a[href^='${document.location.hostname}/url?']`,
 ].join(', ');
 
-function cleanLink(a) {
-  // need to fix the href in Google Docs, Gmail, Google image search results,
-  // or Google text search results with Firefox for Android
-  if (a.href.startsWith("https://www.google.com/url?") || a.href.startsWith(document.location.origin + "/url?")) {
-    let searchParams = (new URL(a.href)).searchParams;
-    let href = searchParams.get('url') || searchParams.get('q');
-    if (href && window.isURL(href)) {
-      a.href = href;
-      a.rel = "noreferrer noopener";
-    }
+function cleanLink(a, norecurse) {
+  if (!a.href.startsWith("https://www.google.com/url?") &&
+    !a.href.startsWith(document.location.origin + "/url?")) {
+    return;
+  }
+
+  let searchParams = (new URL(a.href)).searchParams,
+    href = searchParams.get('url') || searchParams.get('q');
+
+  if (!href || !window.isURL(href)) {
+    return;
+  }
+
+  a.href = href;
+  a.rel = "noreferrer noopener";
+
+  // links could be double wrapped (`/mobilebasic` Google doc)
+  if (!norecurse) {
+    cleanLink(a, true);
   }
 }
 
