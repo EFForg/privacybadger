@@ -336,10 +336,10 @@ function blockMozCspReports(details) {
  *
  * @returns {Object|undefined} Can redirect requests
  */
-const GOOGLE_REDIRECT_HOST = 'www.google.com';
 function bypassGoogleRedirects(details) {
   if (!badger.INITIALIZED) { return; }
-  if (!badger.isPrivacyBadgerEnabled(GOOGLE_REDIRECT_HOST)) { return; }
+  let request_host = extractHostFromURL(details.url);
+  if (!badger.isPrivacyBadgerEnabled(request_host)) { return; }
   let urlObj, redirect_url;
   try {
     urlObj = new URL(details.url);
@@ -349,7 +349,7 @@ function bypassGoogleRedirects(details) {
   }
   if (redirect_url) {
     if (redirect_url.startsWith("https://") || redirect_url.startsWith("http://")) {
-      if (utils.isThirdPartyDomain(extractHostFromURL(redirect_url), GOOGLE_REDIRECT_HOST)) {
+      if (utils.isThirdPartyDomain(extractHostFromURL(redirect_url), request_host)) {
         return {
           redirectUrl: redirect_url
         };
@@ -1882,30 +1882,34 @@ function startListeners() {
     }, ['blocking', 'requestBody']);
   }
 
-  chrome.webRequest.onBeforeRequest.addListener(bypassGoogleRedirects, {
-    types: ["main_frame"],
-    urls: [`https://${GOOGLE_REDIRECT_HOST}/url?*`]
-  }, ["blocking"]);
-
-  let googleGen204MatchPatterns;
+  let googleHosts;
   try {
-    googleGen204MatchPatterns = chrome.runtime.getManifest().content_scripts
+    googleHosts = chrome.runtime.getManifest().content_scripts
       .find(i => i.js.includes("js/firstparties/google.js")
         || i.js.includes(chrome.runtime.getURL("js/firstparties/google.js")))
-      .matches.filter(d => d.startsWith("https://www.") && d.endsWith("/*"))
-      .map(d => d.replace(/^https:\/\/www\./, 'https://*.').replace(/\/\*$/, '/gen_204?*'));
+      .matches.filter(i => i.startsWith("https://www.") && i.endsWith("/*"))
+      .map(i => i.slice(8).slice(0, -2));
   } catch (e) { /* ignore */ }
-  if (googleGen204MatchPatterns) {
+
+  if (googleHosts && googleHosts.length) {
+    chrome.webRequest.onBeforeRequest.addListener(bypassGoogleRedirects, {
+      types: ["main_frame"],
+      urls: googleHosts.map(d => `https://${d}/url?*`)
+    }, ["blocking"]);
+
+    let gen204MatchPatterns = googleHosts.map(d => `https://${d}/gen_204?*`);
     try {
       chrome.webRequest.onBeforeRequest.addListener(blockGoogleGen204s, {
-        types: ["ping", "beacon"], urls: googleGen204MatchPatterns
+        types: ["ping", "beacon"], urls: gen204MatchPatterns
       }, ["blocking"]);
     } catch (e) {
       // must be Chrome where the "beacon" request type errors out
       chrome.webRequest.onBeforeRequest.addListener(blockGoogleGen204s, {
-        types: ["ping"], urls: googleGen204MatchPatterns
+        types: ["ping"], urls: gen204MatchPatterns
       }, ["blocking"]);
     }
+  } else {
+    console.error("No Google hosts found!");
   }
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
