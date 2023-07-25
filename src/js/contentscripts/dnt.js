@@ -31,20 +31,26 @@ function getPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (NAVIGATOR, OBJECT) {
+  return "(" + function (NAVIGATOR, NAVIGATOR_INSTANCE, OBJECT) {
 
-    if (NAVIGATOR.doNotTrack != "1") {
-      OBJECT.defineProperty(OBJECT.getPrototypeOf(NAVIGATOR), "doNotTrack", {
+    if (NAVIGATOR_INSTANCE.doNotTrack != "1") {
+      OBJECT.defineProperty(NAVIGATOR.prototype, "doNotTrack", {
         get: function doNotTrack() {
           return "1";
-        }
+        },
+        configurable: true,
+        enumerable: true
       });
     }
 
-    if (!NAVIGATOR.globalPrivacyControl) {
+    if (!NAVIGATOR_INSTANCE.globalPrivacyControl) {
       try {
-        OBJECT.defineProperty(NAVIGATOR, "globalPrivacyControl", {
-          value: true
+        OBJECT.defineProperty(NAVIGATOR.prototype, "globalPrivacyControl", {
+          get: function globalPrivacyControl() {
+            return true;
+          },
+          configurable: true,
+          enumerable: true
         });
       } catch (e) {
         console.error("Privacy Badger failed to set navigator.globalPrivacyControl, probably because another extension set it in an incompatible way first.");
@@ -52,7 +58,7 @@ function getPageScript() {
     }
 
   // save locally to keep from getting overwritten by site code
-  } + "(window.navigator, Object));";
+  } + "(window.Navigator, window.navigator, Object));";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
