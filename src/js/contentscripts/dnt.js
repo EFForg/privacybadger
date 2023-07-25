@@ -31,10 +31,10 @@ function getPageScript() {
   // code below is not a content script: no chrome.* APIs /////////////////////
 
   // return a string
-  return "(" + function (NAVIGATOR, NAVIGATOR_INSTANCE, OBJECT) {
+  return "(" + function () {
 
-    if (NAVIGATOR_INSTANCE.doNotTrack != "1") {
-      OBJECT.defineProperty(NAVIGATOR.prototype, "doNotTrack", {
+    if (window.navigator.doNotTrack != "1") {
+      Object.defineProperty(window.Navigator.prototype, "doNotTrack", {
         get: function doNotTrack() {
           return "1";
         },
@@ -43,9 +43,9 @@ function getPageScript() {
       });
     }
 
-    if (!NAVIGATOR_INSTANCE.globalPrivacyControl) {
+    if (!window.navigator.globalPrivacyControl) {
       try {
-        OBJECT.defineProperty(NAVIGATOR.prototype, "globalPrivacyControl", {
+        Object.defineProperty(window.Navigator.prototype, "globalPrivacyControl", {
           get: function globalPrivacyControl() {
             return true;
           },
@@ -57,8 +57,7 @@ function getPageScript() {
       }
     }
 
-  // save locally to keep from getting overwritten by site code
-  } + "(window.Navigator, window.navigator, Object));";
+  } + "());";
 
   // code above is not a content script: no chrome.* APIs /////////////////////
 
