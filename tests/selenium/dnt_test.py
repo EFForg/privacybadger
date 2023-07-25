@@ -217,9 +217,13 @@ class DntTest(pbtest.PBSeleniumTest):
         self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
         body_text = self.driver.find_element(By.TAG_NAME, 'body').text
         assert body_text == 'no tracking (navigator.doNotTrack="1")', (
-            'navigator.DoNotTrack should have been set to "1"')
+            'navigator.doNotTrack should have been set to "1"')
         assert self.js("return navigator.globalPrivacyControl === true"), (
             "navigator.globalPrivacyControl should have been set to true")
+        assert self.js("""
+return Object.getOwnPropertyDescriptor(
+  Navigator.prototype, 'globalPrivacyControl')?.get?.call(navigator);
+"""), "GPC should be set on Navigator.prototype"
 
     def test_navigator_unmodified_when_disabled_on_site(self):
         self.disable_badger_on_site(DntTest.NAVIGATOR_DNT_TEST_URL)
@@ -228,8 +232,7 @@ class DntTest(pbtest.PBSeleniumTest):
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         body_text = self.driver.find_element(By.TAG_NAME, 'body').text
-        assert body_text[0:5] == 'unset', (
-            "navigator.DoNotTrack should have been left unset")
+        assert body_text[0:5] == 'unset', "navigator.doNotTrack should have been left unset"
         assert self.js("return typeof navigator.globalPrivacyControl == 'undefined'"), (
             "navigator.globalPrivacyControl should have been left unset")
 
@@ -242,8 +245,7 @@ class DntTest(pbtest.PBSeleniumTest):
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         body_text = self.driver.find_element(By.TAG_NAME, 'body').text
-        assert body_text[0:5] == 'unset', (
-            "navigator.DoNotTrack should have been left unset")
+        assert body_text[0:5] == 'unset', "navigator.doNotTrack should have been left unset"
         assert self.js("return typeof navigator.globalPrivacyControl == 'undefined'"), (
             "navigator.globalPrivacyControl should have been left unset")
 
