@@ -3,7 +3,7 @@
 # installs the appropriate version of ChromeDriver for a given Chrome version
 
 TEMPFILE=$(mktemp)
-CHROME="$1" # google-chrome or google-chrome-beta or ...
+CHROME="${1:-google-chrome}" # google-chrome or google-chrome-beta or ...
 
 trap 'rm $TEMPFILE' EXIT
 
