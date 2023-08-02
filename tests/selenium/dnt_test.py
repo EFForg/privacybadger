@@ -31,6 +31,9 @@ class DntTest(pbtest.PBSeleniumTest):
         text = self.driver.find_element(By.TAG_NAME, 'body').text
 
         try:
+            # work around MS Edge JSON viewer garbage
+            if text.startswith('1\n'):
+                text = text.partition('{')[2]
             headers = json.loads(text)['headers']
         except ValueError:
             print(f"\nFailed to parse JSON from {repr(text)}")
