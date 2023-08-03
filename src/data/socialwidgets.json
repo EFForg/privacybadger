@@ -381,6 +381,7 @@
         "replacementButton": {
             "unblockDomains": [
                 "embed.spotify.com",
+                "embed-standalone.spotify.com",
                 "open.spotify.com",
                 "podcasters.spotify.com"
             ],
