@@ -33,7 +33,7 @@ class DntTest(pbtest.PBSeleniumTest):
         try:
             # work around MS Edge JSON viewer garbage
             if text.startswith('1\n'):
-                text = text.partition('{')[2]
+                text = '{' + text.partition('{')[2]
             headers = json.loads(text)['headers']
         except ValueError:
             print(f"\nFailed to parse JSON from {repr(text)}")
