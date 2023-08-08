@@ -326,6 +326,65 @@ function blockMozCspReports(details) {
 }
 
 /**
+ * A backstop to remove undesirable redirects for when our JS approach fails.
+ *
+ * Some Google properties (such as Google Docs in Firefox) rewrite clicked
+ * link actions via some mix of capturing all events, window.open() with
+ * document.write(), and meta refresh.
+ *
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {Object|undefined} Can redirect requests
+ */
+function bypassGoogleRedirects(details) {
+  if (!badger.INITIALIZED) { return; }
+  let request_host = extractHostFromURL(details.url);
+  if (!badger.isPrivacyBadgerEnabled(request_host)) { return; }
+  let urlObj, redirect_url;
+  try {
+    urlObj = new URL(details.url);
+  } catch (e) { /* ignore */ }
+  if (urlObj && urlObj.searchParams) {
+    redirect_url = urlObj.searchParams.get('url') || urlObj.searchParams.get('q');
+  }
+  if (redirect_url) {
+    if (redirect_url.startsWith("https://") || redirect_url.startsWith("http://")) {
+      if (utils.isThirdPartyDomain(extractHostFromURL(redirect_url), request_host)) {
+        return {
+          redirectUrl: redirect_url
+        };
+      }
+    }
+  }
+}
+
+/**
+ * Blocks Google's /gen_204 requests.
+ *
+ * @param {Object} details webRequest request details object
+ *
+ * @returns {Object|undefined} Can cancel requests
+ */
+function blockGoogleGen204s(details) {
+  if (!badger.INITIALIZED) { return; }
+
+  let frameData = badger.tabData.getFrameData(details.tabId);
+  if (!frameData) {
+    return;
+  }
+  let tab_host = frameData.host,
+    initiator_url = getInitiatorUrl(frameData.url, details);
+  if (initiator_url) {
+    tab_host = extractHostFromURL(initiator_url);
+  }
+  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
+    return;
+  }
+
+  return { cancel: true };
+}
+
+/**
  * Filters outgoing cookies and referer
  * Injects DNT
  *
@@ -1821,6 +1880,36 @@ function startListeners() {
       types: ['csp_report'],
       urls: ['<all_urls>']
     }, ['blocking', 'requestBody']);
+  }
+
+  let googleHosts;
+  try {
+    googleHosts = chrome.runtime.getManifest().content_scripts
+      .find(i => i.js.includes("js/firstparties/google.js")
+        || i.js.includes(chrome.runtime.getURL("js/firstparties/google.js")))
+      .matches.filter(i => i.startsWith("https://www.") && i.endsWith("/*"))
+      .map(i => i.slice(8).slice(0, -2));
+  } catch (e) { /* ignore */ }
+
+  if (googleHosts && googleHosts.length) {
+    chrome.webRequest.onBeforeRequest.addListener(bypassGoogleRedirects, {
+      types: ["main_frame"],
+      urls: googleHosts.map(d => `https://${d}/url?*`)
+    }, ["blocking"]);
+
+    let gen204MatchPatterns = googleHosts.map(d => `https://${d}/gen_204?*`);
+    try {
+      chrome.webRequest.onBeforeRequest.addListener(blockGoogleGen204s, {
+        types: ["ping", "beacon"], urls: gen204MatchPatterns
+      }, ["blocking"]);
+    } catch (e) {
+      // must be Chrome where the "beacon" request type errors out
+      chrome.webRequest.onBeforeRequest.addListener(blockGoogleGen204s, {
+        types: ["ping"], urls: gen204MatchPatterns
+      }, ["blocking"]);
+    }
+  } else {
+    console.error("No Google hosts found!");
   }
 
   let extraInfoSpec = ['requestHeaders', 'blocking'];
