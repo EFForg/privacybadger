@@ -223,11 +223,11 @@ class Shim:
                 opts.set_preference('network.http.referer.disallowCrossSiteRelaxingDefault', False)
 
                 # to produce a trace-level geckodriver.log,
-                # remove the log_path argument to FirefoxService()
+                # remove the log_output argument to FirefoxService()
                 # and uncomment the line below
                 #opts.log.level = "trace"
 
-                service = FirefoxService(log_path=os.path.devnull)
+                service = FirefoxService(log_output=os.path.devnull)
                 driver = webdriver.Firefox(options=opts, service=service)
 
             except WebDriverException as e:
