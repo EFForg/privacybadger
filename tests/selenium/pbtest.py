@@ -325,8 +325,16 @@ class PBSeleniumTest(unittest.TestCase):
                 "chrome.runtime.sendMessage({"
                 "  type: 'updateSettings',"
                 "  data: { showIntroPage: false }"
-                "}, done);")
-
+                "}, () => {"
+                "   chrome.tabs.query({}, (res) => {"
+                "     let welcome_tab = res && res.find("
+                "       tab => tab.url == chrome.runtime.getURL('skin/firstRun.html'));"
+                "     if (!welcome_tab) {"
+                "       return done();"
+                "     }"
+                "     chrome.tabs.remove(welcome_tab.id, done);"
+                "   });"
+                "});")
             super().run(result)
 
     def is_firefox_nightly(self):
