@@ -1,4 +1,4 @@
-selenium
-xvfbwrapper 
 pytest
 pytest-rerunfailures
+selenium
+xvfbwrapper

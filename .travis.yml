@@ -2,7 +2,7 @@ sudo: required
 language: python
 os: linux
 dist: focal
-python: 3.7
+python: 3.8
 jobs:
   fast_finish: true
   include:
