@@ -223,7 +223,7 @@ TabData.prototype.saveSession = (function () {
  * @param {Object} data the tab data
  */
 TabData.prototype.set = function (tab_id, data) {
-  this._tabData[tab_id] = data;
+  this._tabData[tab_id] = JSON.parse(JSON.stringify(data));
   this.saveSession();
 };
 
