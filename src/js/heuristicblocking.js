@@ -27,7 +27,9 @@ import utils from "./utils.js";
 /*********************** heuristicblocking scope **/
 // make heuristic obj with utils and storage properties and put the things on it
 function HeuristicBlocker(pbStorage) {
-  this.storage = pbStorage;
+  let self = this;
+
+  self.storage = pbStorage;
 
   // TODO roll into tabData? -- 6/10/2019 not for now, since tabData is populated
   // by the synchronous listeners in webrequests.js and tabOrigins is used by the
@@ -35,8 +37,19 @@ function HeuristicBlocker(pbStorage) {
   // those two. Also, tabData is cleaned up every time a tab is closed, so
   // dangling requests that don't trigger listeners until after the tab closes are
   // impossible to attribute to a tab.
-  this.tabOrigins = {};
-  this.tabUrls = {};
+  self.tabOrigins = {};
+  self.tabUrls = {};
+
+  // initialize tab bases and URLs for already-open tabs
+  chrome.tabs.query({}, function (res) {
+    for (let tab of res) {
+      if (utils.isRestrictedUrl(tab.url)) {
+        continue;
+      }
+      self.tabOrigins[tab.id] = getBaseDomain((new URI(tab.url)).host);
+      self.tabUrls[tab.id] = tab.url;
+    }
+  });
 }
 
 HeuristicBlocker.prototype = {
