@@ -77,6 +77,33 @@ function TabData() {
    * }
    */
   self.tabIdsByInitiator = {};
+
+  /**
+   * Mapping of (widget) domains to tab IDs.
+   * Used to look up all widget domains that have been activated on a given tab.
+   *
+   * tempAllowlist = {
+   *   <tab_id>: [
+   *     {String} domain,
+   *     ...
+   *   ],
+   *   ...
+   * }
+   */
+  self.tempAllowlist = {};
+  /**
+   * Mapping of widget names to tab IDs.
+   * Used to look up all widget names that have been activated on a given tab.
+   *
+   * tempAllowedWidgets = {
+   *   <tab_id>: [
+   *     {String} widget name,
+   *     ...
+   *   ],
+   *   ...
+   * }
+   */
+  self.tempAllowedWidgets = {};
 }
 
 /**
@@ -106,6 +133,17 @@ TabData.prototype.initialize = function () {
 
             self.tabIdsByInitiator[getChromeInitiator(tab.url)] = tab.id;
 
+            if (savedData.tempAllowlist) {
+              if (utils.hasOwn(savedData.tempAllowlist, tab.id)) {
+                self.tempAllowlist[tab.id] = [...savedData.tempAllowlist[tab.id]];
+              }
+            }
+            if (savedData.tempAllowedWidgets) {
+              if (utils.hasOwn(savedData.tempAllowedWidgets, tab.id)) {
+                self.tempAllowedWidgets[tab.id] = [...savedData.tempAllowedWidgets[tab.id]];
+              }
+            }
+
             continue;
           }
 
@@ -130,7 +168,11 @@ TabData.prototype.restoreSession = function (callback) {
     return callback({});
   }
 
-  const SESSION_STORAGE_KEYS = ['tabData'];
+  const SESSION_STORAGE_KEYS = [
+    'tabData',
+    'tempAllowlist',
+    'tempAllowedWidgets',
+  ];
 
   chrome.storage.session.get(SESSION_STORAGE_KEYS, function (res) {
     if (utils.isObject(res) && Object.keys(res).length) {
@@ -151,7 +193,9 @@ TabData.prototype.saveSession = (function () {
   // persist to session storage at most once every second
   let _save = utils.debounce(function () {
     chrome.storage.session.set({
-      tabData: this._tabData
+      tabData: this._tabData,
+      tempAllowlist: this.tempAllowlist,
+      tempAllowedWidgets: this.tempAllowedWidgets,
     });
   }, 1000);
 
@@ -198,11 +242,17 @@ TabData.prototype.has = function (tab_id) {
  * Removes all per-tab data (such as on tab closing).
  *
  * @param {Integer} tab_id ID of the tab
+ * @param {Boolean} [keep_temp_allowlists=false]
  */
-TabData.prototype.forget = function (tab_id) {
+TabData.prototype.forget = function (tab_id, keep_temp_allowlists) {
   let self = this;
 
   delete self._tabData[tab_id];
+
+  if (!keep_temp_allowlists) {
+    delete self.tempAllowlist[tab_id];
+    delete self.tempAllowedWidgets[tab_id];
+  }
 
   for (let initiator in self.tabIdsByInitiator) {
     if (self.tabIdsByInitiator[initiator] == tab_id) {
@@ -392,6 +442,33 @@ TabData.prototype.logCanvasFingerprinting = function (tab_id, script_base) {
     scriptData = self.getScriptData(tab_id, script_base);
 
   scriptData.canvas.fingerprinting = true;
+  self.saveSession();
+};
+
+/**
+ * Marks a set of (widget) domains to be (temporarily) allowed on a tab.
+ *
+ * @param {Integer} tab_id the ID of the tab
+ * @param {Array} domains the domains
+ * @param {String} widget_name the name (ID) of the widget
+ */
+TabData.prototype.allowOnTab = function (tab_id, domains, widget_name) {
+  let self = this;
+
+  if (!utils.hasOwn(self.tempAllowlist, tab_id)) {
+    self.tempAllowlist[tab_id] = [];
+  }
+  for (let domain of domains) {
+    if (!self.tempAllowlist[tab_id].includes(domain)) {
+      self.tempAllowlist[tab_id].push(domain);
+    }
+  }
+
+  if (!utils.hasOwn(self.tempAllowedWidgets, tab_id)) {
+    self.tempAllowedWidgets[tab_id] = [];
+  }
+  self.tempAllowedWidgets[tab_id].push(widget_name);
+
   self.saveSession();
 };
 
