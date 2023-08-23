@@ -327,9 +327,22 @@ URI.prototype = {
   }
 };
 
+/**
+ * Given a URL, returns a substring matching
+ * webRequest's details.initiator in Chrome.
+ *
+ * @param {String} url
+ *
+ * @returns {String}
+ */
+function getChromeInitiator(url) {
+  return (new URL('/', url)).toString().slice(0, -1);
+}
+
 export {
   extractHostFromURL,
   getBaseDomain,
+  getChromeInitiator,
   ipAddressToNumber,
   isIPv4,
   isIPv6,
