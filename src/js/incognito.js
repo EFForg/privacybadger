@@ -12,17 +12,17 @@ chrome.tabs.query({}, function(results) {
 });
 
 // Create tab event listeners
-function onUpdatedListener(tabId, changeInfo, tab) {
+function onCreatedListener(tab) {
   tabs[tab.id] = tab.incognito;
 }
 
-function onRemovedListener(tabId) {
-  delete tabs[tabId];
+function onRemovedListener(tab_id) {
+  delete tabs[tab_id];
 }
 
 // Subscribe to tab events
 function startListeners() {
-  chrome.tabs.onUpdated.addListener(onUpdatedListener);
+  chrome.tabs.onCreated.addListener(onCreatedListener);
   chrome.tabs.onRemoved.addListener(onRemovedListener);
 }
 
