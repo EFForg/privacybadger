@@ -32,11 +32,6 @@ import incognito from "./incognito.js";
 import surrogates from "./surrogates.js";
 import utils from "./utils.js";
 
-/************ Local Variables *****************/
-
-let tempAllowlist = {},
-  tempAllowedWidgets = {};
-
 /***************** Blocking Listener Functions **************/
 
 /**
@@ -856,14 +851,10 @@ function recordFingerprinting(tab_id, msg) {
  * Cleans up tab-specific data.
  *
  * @param {Integer} tab_id the ID of the tab
- * @param {Boolean} is_reload whether the page is simply being reloaded
+ * @param {Boolean} is_reload whether the page is being reloaded
  */
 function forgetTab(tab_id, is_reload) {
-  badger.tabData.forget(tab_id);
-  if (!is_reload) {
-    delete tempAllowlist[tab_id];
-    delete tempAllowedWidgets[tab_id];
-  }
+  badger.tabData.forget(tab_id, is_reload);
 }
 
 /**
@@ -951,8 +942,8 @@ let getWidgetList = (function () {
       // like Tumblr do the right thing after a widget is allowed
       // (but the page hasn't yet been reloaded)
       // and don't keep replacing an already allowed widget type in those frames
-      if (utils.hasOwn(tempAllowedWidgets, tab_id) &&
-          tempAllowedWidgets[tab_id].includes(widget.name)) {
+      if (utils.hasOwn(badger.tabData.tempAllowedWidgets, tab_id) &&
+          badger.tabData.tempAllowedWidgets[tab_id].includes(widget.name)) {
         continue;
       }
 
@@ -1019,11 +1010,11 @@ let getWidgetList = (function () {
  * @returns {Boolean} true if FQDN is on the temporary allow list
  */
 function allowedOnTab(tab_id, request_host, frame_id) {
-  if (!utils.hasOwn(tempAllowlist, tab_id)) {
+  if (!utils.hasOwn(badger.tabData.tempAllowlist, tab_id)) {
     return false;
   }
 
-  let exceptions = tempAllowlist[tab_id];
+  let exceptions = badger.tabData.tempAllowlist[tab_id];
 
   for (let exception of exceptions) {
     if (exception == request_host) {
@@ -1076,29 +1067,6 @@ function getWidgetDomains(widget_name) {
 }
 
 /**
- * Marks a set of (widget) domains to be (temporarily) allowed on a tab.
- *
- * @param {Integer} tab_id the ID of the tab
- * @param {Array} domains the domains
- * @param {String} widget_name the name (ID) of the widget
- */
-function allowOnTab(tab_id, domains, widget_name) {
-  if (!utils.hasOwn(tempAllowlist, tab_id)) {
-    tempAllowlist[tab_id] = [];
-  }
-  for (let domain of domains) {
-    if (!tempAllowlist[tab_id].includes(domain)) {
-      tempAllowlist[tab_id].push(domain);
-    }
-  }
-
-  if (!utils.hasOwn(tempAllowedWidgets, tab_id)) {
-    tempAllowedWidgets[tab_id] = [];
-  }
-  tempAllowedWidgets[tab_id].push(widget_name);
-}
-
-/**
  * Called upon navigation to prepopulate the temporary allowlist
  * with domains for widgets marked as always allowed on a given site.
  */
@@ -1108,7 +1076,7 @@ function initAllowedWidgets(tab_id, tab_host) {
     for (let widget_name of allowedWidgets[tab_host]) {
       let widgetDomains = getWidgetDomains(widget_name);
       if (widgetDomains) {
-        allowOnTab(tab_id, widgetDomains, widget_name);
+        badger.tabData.allowOnTab(tab_id, widgetDomains, widget_name);
       }
     }
   }
@@ -1308,7 +1276,7 @@ function dispatcher(request, sender, sendResponse) {
     if (!widgetDomains) {
       return sendResponse();
     }
-    allowOnTab(sender.tab.id, widgetDomains, request.widgetName);
+    badger.tabData.allowOnTab(sender.tab.id, widgetDomains, request.widgetName);
     sendResponse();
     break;
   }
