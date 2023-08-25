@@ -440,6 +440,10 @@ function _make_id(prefix) {
 }
 
 function createReplacementWidget(widget, elToReplace) {
+  if (!elToReplace.parentNode) {
+    return null;
+  }
+
   let name = widget.name;
 
   let widgetFrame = document.createElement('iframe');
@@ -787,7 +791,7 @@ function replaceIndividualButton(widget) {
       continue;
     }
     createReplacementElement(widget, el, function (replacementEl) {
-      if (el.parentNode) {
+      if (replacementEl) {
         el.parentNode.replaceChild(replacementEl, el);
       }
     });
