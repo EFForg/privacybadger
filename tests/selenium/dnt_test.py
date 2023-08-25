@@ -235,9 +235,14 @@ return Object.getOwnPropertyDescriptor(
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         body_text = self.driver.find_element(By.TAG_NAME, 'body').text
-        assert body_text[0:5] == 'unset', "navigator.doNotTrack should have been left unset"
-        assert self.js("return typeof navigator.globalPrivacyControl == 'undefined'"), (
-            "navigator.globalPrivacyControl should have been left unset")
+        assert body_text[0:5] == 'unset', (
+            "navigator.doNotTrack should be unset or \"unspecified\"")
+
+        # GPC on Navigator should be unset (Chrome) or False (Firefox)
+        assert self.js("""
+return typeof navigator.globalPrivacyControl == 'undefined' ||
+  navigator.globalPrivacyControl === false;
+"""), "navigator.globalPrivacyControl should be unset or False"
 
     def test_navigator_unmodified_when_dnt_disabled(self):
         self.load_url(self.options_url)
@@ -248,9 +253,14 @@ return Object.getOwnPropertyDescriptor(
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         body_text = self.driver.find_element(By.TAG_NAME, 'body').text
-        assert body_text[0:5] == 'unset', "navigator.doNotTrack should have been left unset"
-        assert self.js("return typeof navigator.globalPrivacyControl == 'undefined'"), (
-            "navigator.globalPrivacyControl should have been left unset")
+        assert body_text[0:5] == 'unset', (
+            "navigator.doNotTrack should be unset or \"unspecified\"")
+
+        # GPC on Navigator should be unset (Chrome) or False (Firefox)
+        assert self.js("""
+return typeof navigator.globalPrivacyControl == 'undefined' ||
+  navigator.globalPrivacyControl === false;
+"""), "navigator.globalPrivacyControl should be unset or False"
 
 
 if __name__ == "__main__":
