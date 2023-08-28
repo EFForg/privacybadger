@@ -100,5 +100,5 @@
                 surrogatePlayers.delete(target);
             }
         };
-    }, 0);
+    }, 100);
 }());
