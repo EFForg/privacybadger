@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Privacy Badger 會自動學習並阻擋不可見的追蹤器。",
+        "message": "Privacy Badger 會自動學習來封鎖隱形的追蹤器。",
         "description": "Extension description sometimes used by extension stores. See also 'intro_welcome', 'share_base_message' and 'intro_learns' messages."
     },
     "canvas_fingerprinting": {
@@ -44,7 +44,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "回報損壞的網站",
+        "message": "回報無法運作的網站",
         "description": "Button in the popup."
     },
     "version": {
@@ -124,7 +124,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "來自 $DOMAIN$ 的被封鎖 cookies 與指紋指令稿",
+        "message": "來自 $DOMAIN$ 的被封鎖 cookies 與指紋指令碼",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -144,7 +144,7 @@
         }
     },
     "badger_status_noaction": {
-        "message": "沒有追蹤 $DOMAIN$",
+        "message": "$DOMAIN$ 沒有追蹤器",
         "description": "Tooltip shown over a non-tracking domain name with a green slider in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -170,7 +170,7 @@
         "description": "Tooltip shown over the rightmost part of a domain slider."
     },
     "breakage_warning_tooltip": {
-        "message": "已知封鎖此網域會破壞網站",
+        "message": "已知封鎖此網域會導致網站無法運作",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
@@ -238,7 +238,7 @@
         "description": "Title of the Share popup overlay."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger 封鎖了 $COUNT$ 潛在的追蹤器於 $DOMAIN$：",
+        "message": "Privacy Badger 已經封鎖了 $COUNT$ 潛在的追蹤器於 $DOMAIN$：",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -252,7 +252,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) 是一個會自動學習阻擋不可見追蹤器的瀏覽器附加元件。Privacy Badger 由電子前鋒基金會製作，它是一個為您的線上權利戰鬥的非營利組織。",
+        "message": "Privacy Badger (privacybadger.org) 是一個會自動學習封鎖不可見追蹤器的瀏覽器附加元件。Privacy Badger 由電子前哨基金會 (EFF) 製作，它是一個為捍衛您的線上權利而戰的非營利組織。",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -298,11 +298,11 @@
         "description": "Title and header of the intro page."
     },
     "intro_by_eff": {
-        "message": "EFF 電子前鋒基金會的專案",
+        "message": "電子前哨基金會 (EFF) 的專案",
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger 會自動學習並阻擋不可見的追蹤器。花一分鐘來看看它怎麼運作的。",
+        "message": "Privacy Badger 會自動學習來封鎖隱形的追蹤器。花一分鐘來看看它怎麼運作的。",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -322,7 +322,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "不可見的追蹤會以各種方式發生；廣告只是可見的冰山一角。Privacy Badger 傳送<a href='https://globalprivacycontrol.org/' target='_blank'>全域隱私控制訊號</a>，來讓您退出資料分享與販售，以及 <a href='https://www.eff.org/issues/do-not-track' target='_blank'>「Do Not Track」訊號</a>來告訴公司不要追蹤您。如果他們忽略了您的請求，Privacy Badger 將會學習封鎖它們，不論它們是廣告還是其他類型的追蹤器都一樣。",
+        "message": "隱形的追蹤會以各種方式發生；廣告只是可見的冰山一角。Privacy Badger 傳送<a href='https://globalprivacycontrol.org/' target='_blank'>全域隱私控制訊號</a>，來讓您退出資料分享與販售，以及 <a href='https://www.eff.org/issues/do-not-track' target='_blank'>「Do Not Track」訊號</a>來告訴公司不要追蹤您。如果他們忽略了您的請求，Privacy Badger 將會學習封鎖它們，不論它們是廣告還是其他類型的追蹤器都一樣。",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker": {
@@ -338,11 +338,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_disable_button": {
-        "message": "若您覺得 Privacy Badger 破壞了某個頁面（舉例來說，影片無法播放之類的），您可以點按「停用」按鈕來將 Privacy Badger 在該網站上關閉。",
+        "message": "若您覺得 Privacy Badger 導致某個頁面無法運作（例如，影片無法播放之類的），您可以點擊「停用」按鈕，在該網站關閉 Privacy Badger。",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
-        "message": "請不要忘記點擊「回報損壞的網站」。我們尊重您的隱私，所以不會自動傳送回報。",
+        "message": "請不要忘記點擊「回報無法運作的網站」。我們尊重您的隱私，所以不會自動傳送報告。",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "intro_privacy_note": {
@@ -354,7 +354,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "當您使用 Privacy Badger，您就會加入<a href='https://www.eff.org/' target='_blank'>電子前鋒基金會 (EFF)</a>與其他數百萬個使用者一同為隱私而戰。我們是一個為您的線上權利而戰的非營利組織。感謝您加入我們！",
+        "message": "當您使用 Privacy Badger 時，您就和 <a href='https://www.eff.org/' target='_blank'>電子前哨基金會 (EFF)</a> 與其他數百萬個使用者一同為隱私而戰。我們是非營利組織，為捍衛您的線上權利而戰。感謝您加入我們！",
         "description": "Part of the 'donate' section on the intro page."
     },
     "donate_to_eff": {
@@ -446,7 +446,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪在這裡列出來的網站時阻擋任何東西，其也將不會傳送「Do Not Track」或全域隱私控制訊號。</p><p>若您覺得 Privacy Badger 把頁面弄壞了，或您希望與特定的網站分享或販售您的資料，那麼您可以透過在下方的輸入框中輸入網域並點按「新增網域」按鈕來新增網域。</p>",
+        "message": "<p>Privacy Badger 已在下列的網站中停用。這代表了 Privacy Badger 將不會在您造訪這些網站時封鎖任何東西，也不會傳送「Do Not Track」或全域隱私控制訊號。</p><p>如果您覺得 Privacy Badger 導致某個頁面無法運作，或希望允許特定網站分享或銷售您的資料，您可以在下方的文字方塊中輸入網域名稱並點選「新增網域」按鈕來新增網域。</p>",
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
