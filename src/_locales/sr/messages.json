@@ -4,11 +4,11 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Privacy Badger automatski identifikuje i blokira nevidljive trekere",
+        "message": "Privacy Badger automatski uči da blokira nevidljive trekere.",
         "description": "Extension description sometimes used by extension stores. See also 'intro_welcome', 'share_base_message' and 'intro_learns' messages."
     },
     "canvas_fingerprinting": {
-        "message": "Canvas fingerprinting metoda",
+        "message": "canvas fingerprinting metoda",
         "description": "Canvas fingerprinting is the tracking method described in https://en.wikipedia.org/wiki/Canvas_fingerprinting"
     },
     "popup_help_button": {
@@ -58,7 +58,7 @@
         }
     },
     "popup_instructions": {
-        "message": "$COUNT$potencijalnih $LINK_START$ trekera$LINK_END$je blokirano",
+        "message": "$COUNT$ potencijalnih $LINK_START$trekera$LINK_END$je blokirano",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -104,7 +104,7 @@
         "description": "Domain slider list header tooltip."
     },
     "badger_status_block": {
-        "message": "Blokirano$DOMAIN$",
+        "message": "Blokirano $DOMAIN$",
         "description": "Tooltip shown over a domain name with a red slider in the domain slider list. This is a status (\"example.com was blocked\"), not an action (\"click here to block example.com\").",
         "placeholders": {
             "domain": {
@@ -124,7 +124,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Blokirani  kolačići i  fingerprinting skripte sa $DOMAIN$",
+        "message": "Blokirani kolačići i fingerprinting skripte sa $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -134,7 +134,7 @@
         }
     },
     "badger_status_allow": {
-        "message": "Dozvoljeno$DOMAIN$",
+        "message": "Dozvoljeno $DOMAIN$",
         "description": "Tooltip shown over a tracking but still allowed (green slider) domain name in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -170,11 +170,11 @@
         "description": "Tooltip shown over the rightmost part of a domain slider."
     },
     "breakage_warning_tooltip": {
-        "message": "Poznato je da će blokiranje ovog domena pokvariti sajtove.",
+        "message": "Poznato je da će blokiranje ovog domena pokvariti sajtove",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Da biste omogućili prijavljivanje na veb sajtove korišćenjem Google naloga, pomerite ovaj klizač udesno i ponovo učitajte stranicu.",
+        "message": "Da biste omogućili prijavljivanje na veb sajtove korišćenjem Google naloga, pomerite ovaj klizač udesno i ponovo učitajte stranicu",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -182,7 +182,7 @@
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "not_yet_blocked_header": {
-        "message": "Vaš Badger nije još odlučio da li ovi domeni trebaju da budu blokirani.",
+        "message": "Vaš Badger nije još odlučio da li ovi domeni trebaju da budu blokirani",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
     "non_tracker": {
@@ -198,7 +198,7 @@
         "description": "Title of the 'Report broken site' popup overlay."
     },
     "report_text": {
-        "message": "Ukratko opišite grešku ispod",
+        "message": "Ukratko opišite grešku ispod.",
         "description": "The 'below' refers to a text input located below this text. This asks the user to describe what problem the user experienced."
     },
     "report_input_label": {
@@ -238,7 +238,7 @@
         "description": "Title of the Share popup overlay."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger je blokirao $COUNT$potencijalnih trekera na $DOMAIN$:",
+        "message": "Privacy Badger je blokirao $COUNT$ potencijalnih trekera na $DOMAIN$:",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -268,7 +268,7 @@
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Neki veb sajtovi $LINK_START$koriste praćenje veza da vas prate $LINK_END$kad god kliknete na vezu da napustite veb sajt. Privacy Badger uklanja praćenje iz takvih linkova na ovom veb sajtu.",
+        "message": "Neki veb sajtovi $LINK_START$koriste praćenje veza da vas prate$LINK_END$kad god kliknete na vezu da napustite veb sajt. Privacy Badger uklanja praćenje iz takvih linkova na ovom veb sajtu.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
@@ -280,11 +280,11 @@
         }
     },
     "extension_error_text": {
-        "message": "Molimo vas <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>prijavite nam</a>ovu grešku:",
+        "message": "Molimo vas <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>prijavite nam</a> ovu grešku:",
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
     "popup_error_text_low_disk_space_issue": {
-        "message": "Neuspelo pisanje u skladište ekstenzije:$ERROR_TEXT$. <br><br>Da li imate dovoljno mesta na disku?",
+        "message": "Neuspelo pisanje u skladište ekstenzije: $ERROR_TEXT$.<br><br>Da li imate dovoljno mesta na disku?",
         "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
         "placeholders": {
             "error_text": {
@@ -322,7 +322,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Nevidljivo praćenje se dešava na najrazličitije načine: reklame su samo vidljivi vrh ledenog brega. Privacy Badger šalje <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>kako bi odustao od deljenja i prodaje podataka, kao i <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a>kako bi rekao kompanijama da vas ne prate. Ako budu ignorisali vaše želje Privacy Badger će naučiti da ih blokira - bilo da su oglašivači ili drugi vidovi trekera.",
+        "message": "Nevidljivo praćenje se dešava na najrazličitije načine: reklame su samo vidljivi vrh ledenog brega. Privacy Badger šalje <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a> kako bi odustao od deljenja i prodaje podataka, kao i <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> kako bi rekao kompanijama da vas ne prate. Ako budu ignorisali vaše želje Privacy Badger će naučiti da ih blokira - bilo da su oglašivači ili drugi vidovi trekera.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker": {
@@ -390,11 +390,11 @@
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
-        "message": "Šalji <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a> i <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>signale sajtovima",
+        "message": "Šalji <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a> i <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a> signale sajtovima",
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
-        "message": "Proveri da li se<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domeni trećih lica</a>pridržavaju <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF Do Not Track polise</a>",
+        "message": "Proveri da li se <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>domeni trećih lica</a> pridržavaju <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF Do Not Track polise</a>",
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
@@ -410,7 +410,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
-        "message": "Onemogući slanje veb adresa koje posećujete Guglu. Ovo onemogućava predloge za slične stranice kada stranica ne može  biti nađena.",
+        "message": "Onemogući slanje veb adresa koje posećujete Guglu. Ovo onemogućava predloge za slične stranice kada stranica ne može biti nađena.",
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
@@ -498,7 +498,7 @@
         "description": "This is an options page tab heading."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger je odlučio da blokira $COUNT$ potencijalnih $TRACKER_LINK_START$domena koji prate$TRACKER_LINK_END$ do sada.",
+        "message": "Privacy Badger je odlučio da blokira $COUNT$ potencijalnih $TRACKER_LINK_START$domena koji prate$TRACKER_LINK_END$ do sada",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -559,7 +559,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_allow": {
-        "message": "Dozvoljeno",
+        "message": "dozvoljeno",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
@@ -567,7 +567,7 @@
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "options_domain_list_sites": {
-        "message": "$DOMAIN$je primećen da prati na sledećim sajtovima:",
+        "message": "$DOMAIN$ je primećen da prati na sledećim sajtovima:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
@@ -705,7 +705,7 @@
         "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
-        "message": "Posetite $LINK$da biste saznali više",
+        "message": "Posetite $LINK$ da biste saznali više.",
         "description": "Reusable 'learn more link' message",
         "placeholders": {
             "link": {
@@ -719,7 +719,7 @@
         "description": "Acknowledgement button text"
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "Privacy Badger je zamenio ovo $BUTTON$dugme",
+        "message": "Privacy Badger je zamenio ovo $BUTTON$ dugme",
         "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
@@ -729,7 +729,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger je zamenio $START_ANCHOR_TAG$ovaj$WIDGET$ vidžet$END_ANCHOR_TAG$",
+        "message": "Privacy Badger je zamenio $START_ANCHOR_TAG$ovaj $WIDGET$ vidžet$END_ANCHOR_TAG$",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
