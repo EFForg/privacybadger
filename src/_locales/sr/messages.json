@@ -24,7 +24,7 @@
         "description": ""
     },
     "popup_special_page_header": {
-        "message": "Ništa nije potrebno na ovoj stranici.",
+        "message": "Ništa nije potrebno na ovoj stranici",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
@@ -58,7 +58,7 @@
         }
     },
     "popup_instructions": {
-        "message": "$COUNT$ potencijalnih $LINK_START$trekera$LINK_END$je blokirano",
+        "message": "$COUNT$ potencijalnih $LINK_START$trekera$LINK_END$ je blokirano",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -268,7 +268,7 @@
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Neki veb sajtovi $LINK_START$koriste praćenje veza da vas prate$LINK_END$kad god kliknete na vezu da napustite veb sajt. Privacy Badger uklanja praćenje iz takvih linkova na ovom veb sajtu.",
+        "message": "Neki veb sajtovi $LINK_START$koriste praćenje veza da vas prate$LINK_END$ kad god kliknete na vezu da napustite veb sajt. Privacy Badger uklanja praćenje iz takvih linkova na ovom veb sajtu.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
@@ -354,7 +354,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "Kada koristite Privacy Badger pridružujete se <a href='https://www.eff.org/' target='_blank'>Fondaciji za elektronske granice</a> i milionima drugih korisnika u borbi za privatnost. Mi smo neprofitna organizacija koja se bori za onlajn prava. Hvala što ste nam se pridružili!",
+        "message": "Kada koristite Privacy Badger pridružujete se <a href='https://www.eff.org/' target='_blank'>Fondaciji za elektronske granice</a> i milionima drugih korisnika u borbi za privatnost. Mi smo neprofitna organizacija koja se bori za vaša onlajn prava. Hvala što ste nam se pridružili!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "donate_to_eff": {
@@ -362,7 +362,7 @@
         "description": "A button on the intro page, and a link in the popup footer."
     },
     "intro_donate_subheading": {
-        "message": "Pomozite nam donacijom i deljenjem podrške našim alatima.",
+        "message": "Pomozite nam donacijom i deljenjem podrške našim alatima",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_link_policy": {
