@@ -344,6 +344,55 @@ Badger.prototype = {
     });
   },
 
+  /**
+   * If the background process is an event page or a service worker,
+   * it can get terminated while the user is still on the welcome page.
+   *
+   * When the user spends >= 30s on the welcome page, the background process
+   * will get terminated and another welcome page will unexpectedly appear
+   * following any user action that restarts the background process.
+   *
+   * (We reopen the welcome page via firstRunTimerFinished, our workaround
+   * for restoring the welcome page when Firefox restarts the extension
+   * in response to interaction with the private browsing permission hanger.)
+   *
+   * Since extension alarm events reset the idle timer in both Firefox and
+   * Chrome, let's periodically set an immediately firing alarm to keep
+   * the background process running as long as the welcome page stays open.
+  */
+  keepBackgroundAliveForWelcomePage: function () {
+    let ALARM_NAME = "welcome-page-keepalive",
+      INTERVAL = 10000; // 10 secs
+
+    // wait a bit and create an alarm that will reset the idle timer
+    //
+    // we use setTimeout to set an immediately firing alarm
+    // because the alarms API has a minimum resolution of one minute,
+    // but we want to trigger an extension event after several seconds
+    setTimeout(function () {
+      chrome.alarms.create(ALARM_NAME, { delayInMinutes: 0 });
+    }, INTERVAL);
+
+    chrome.alarms.onAlarm.addListener(alarm => {
+      if (alarm.name != ALARM_NAME) {
+        return;
+      }
+
+      // if the welcome page is still open
+      chrome.tabs.query({
+        url: chrome.runtime.getURL("/skin/firstRun.html")
+      }, function (tabs) {
+        if (!tabs.length) {
+          return;
+        }
+        // wait and create another alarm
+        setTimeout(function () {
+          chrome.alarms.create(ALARM_NAME, { delayInMinutes: 0 });
+        }, INTERVAL);
+      });
+    });
+  },
+
   initWelcomePage: function () {
     let self = this,
       privateStore = self.getPrivateSettings();
@@ -365,10 +414,14 @@ Badger.prototype = {
   },
 
   showWelcomePage: function () {
-    let settings = this.getSettings();
+    let self = this,
+      settings = self.getSettings();
+
     if (settings.getItem("showIntroPage")) {
       chrome.tabs.create({
         url: chrome.runtime.getURL("/skin/firstRun.html")
+      }, function () {
+        self.keepBackgroundAliveForWelcomePage();
       });
     } else {
       // don't remind users to look at the intro page either

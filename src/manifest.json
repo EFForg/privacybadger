@@ -11,6 +11,7 @@
   },
   "incognito": "spanning",
   "permissions": [
+    "alarms",
     "tabs",
     "http://*/*",
     "https://*/*",
