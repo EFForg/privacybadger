@@ -4,14 +4,15 @@ $(function () {
   $(".scroll-it").smoothScroll();
 
   $(window).scroll(function () {
-    if (!already_set) {
-      if ($(window).scrollTop() > 400) {
-        already_set = true;
-        chrome.runtime.sendMessage({
-          type: "updateSettings",
-          data: { seenComic: true }
-        });
-      }
+    if (already_set) {
+      return;
+    }
+    if ($(window).scrollTop() > 400) {
+      already_set = true;
+      chrome.runtime.sendMessage({
+        type: "updateSettings",
+        data: { seenComic: true }
+      });
     }
   });
 });

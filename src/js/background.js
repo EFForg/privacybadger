@@ -43,6 +43,13 @@ function Badger(from_qunit) {
   self.isFirstRun = false;
   self.isUpdate = false;
 
+  (function () {
+    let manifestJson = chrome.runtime.getManifest();
+    self.manifestVersion = manifestJson.manifest_version;
+    self.isEventPage = (utils.hasOwn(manifestJson.background, "persistent") &&
+      manifestJson.background.persistent === false);
+  }());
+
   self.firstPartyDomainPotentiallyRequired = testCookiesFirstPartyDomain();
 
   self.widgetList = [];
@@ -344,6 +351,79 @@ Badger.prototype = {
     });
   },
 
+  /**
+   * If the background process is an event page or a service worker,
+   * it can get terminated while the user is still on the welcome page.
+   *
+   * When the user spends >= 30s on the welcome page, the background process
+   * will get terminated and another welcome page will unexpectedly appear
+   * following any user action that restarts the background process.
+   *
+   * (We reopen the welcome page via firstRunTimerFinished, our workaround
+   * for restoring the welcome page when Firefox restarts the extension
+   * in response to interaction with the private browsing permission hanger.)
+   *
+   * Let's periodically call a low-overhead, no-side effects API to keep
+   * the background process running as long as the welcome page stays open.
+   *
+   * While extension alarm events reset the idle timer in both Firefox and
+   * Chrome, Chrome enforces a minimum resolution of one minute. However,
+   * since most extension API calls also reset the idle timer in Chrome,
+   * simply looking up whether the welcome page is still open is enough
+   * to reset the idle timer.
+  */
+  keepBackgroundAliveForWelcomePage: function () {
+    let ALARM_NAME = "welcome-page-keepalive",
+      INTERVAL = 10000; // 10 secs
+
+    if (badger.manifestVersion == 2 && !badger.isEventPage) {
+      return; // noop
+    }
+
+    function getWelcomeTab(callback) {
+      chrome.tabs.query({
+        url: chrome.runtime.getURL("/skin/firstRun.html")
+      }, function (tabs) {
+        callback(tabs[0]);
+      });
+    }
+
+    function workaroundForChrome() {
+      setTimeout(function () {
+        getWelcomeTab(function (tab) {
+          if (tab) {
+            workaroundForChrome();
+          }
+        });
+      }, INTERVAL);
+    }
+
+    if (!badger.isEventPage) {
+      workaroundForChrome();
+      return;
+    }
+
+    // create an alarm that will reset the idle timer in Firefox
+    chrome.alarms.create(ALARM_NAME, {
+      when: Date.now() + INTERVAL
+    });
+
+    chrome.alarms.onAlarm.addListener(alarm => {
+      if (alarm.name != ALARM_NAME) {
+        return;
+      }
+      getWelcomeTab(function (tab) {
+        // if the welcome page is still open
+        if (tab) {
+          // create another alarm
+          chrome.alarms.create(ALARM_NAME, {
+            when: Date.now() + INTERVAL
+          });
+        }
+      });
+    });
+  },
+
   initWelcomePage: function () {
     let self = this,
       privateStore = self.getPrivateSettings();
@@ -365,10 +445,14 @@ Badger.prototype = {
   },
 
   showWelcomePage: function () {
-    let settings = this.getSettings();
+    let self = this,
+      settings = self.getSettings();
+
     if (settings.getItem("showIntroPage")) {
       chrome.tabs.create({
         url: chrome.runtime.getURL("/skin/firstRun.html")
+      }, function () {
+        self.keepBackgroundAliveForWelcomePage();
       });
     } else {
       // don't remind users to look at the intro page either
