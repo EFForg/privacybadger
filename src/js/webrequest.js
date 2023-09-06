@@ -1186,8 +1186,16 @@ function getSurrogateWidget(name, data, frame_url) {
 
 // NOTE: sender.tab is available for content script (not popup) messages only
 function dispatcher(request, sender, sendResponse) {
+  // messages may arrive before Privacy Badger is ready
+  // for example, user clicks to open the popup when the ephemeral background
+  // process is not running; the getPopupData message from the popup causes
+  // the background to start but the background is not yet ready to respond
   if (!badger.INITIALIZED) {
-    return sendResponse();
+    setTimeout(function () {
+      dispatcher(request, sender, sendResponse);
+    }, 50);
+    // indicate this is an async response to chrome.runtime.onMessage
+    return true;
   }
 
   // messages from content scripts are to be treated with greater caution:
@@ -1210,7 +1218,12 @@ function dispatcher(request, sender, sendResponse) {
       "widgetFromSurrogate",
       "widgetReplacementReady",
     ];
-    if (!KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
+    if (KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
+      if (!sender.tab) {
+        console.error("Dropping malformed content script message %o from %s", request, sender.url);
+        return sendResponse();
+      }
+    } else {
       console.error("Rejected unknown message %o from %s", request, sender.url);
       return sendResponse();
     }

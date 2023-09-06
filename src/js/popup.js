@@ -881,14 +881,6 @@ $(function () {
       tabId: tab.id,
       tabUrl: tab.url
     }, (response) => {
-      if (!response) {
-        // event page/extension service worker is still starting up, retry
-        // async w/ non-zero delay to avoid locking up the messaging channel
-        setTimeout(function () {
-          getPopupData(tab);
-        }, 10);
-        return;
-      }
       setPopupData(response);
       refreshPopup();
       init();
