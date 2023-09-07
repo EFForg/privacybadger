@@ -373,10 +373,11 @@ Badger.prototype = {
    * to reset the idle timer.
   */
   keepBackgroundAliveForWelcomePage: function () {
-    let ALARM_NAME = "welcome-page-keepalive",
-      INTERVAL = 10000; // 10 secs
+    let self = this,
+      ALARM_NAME = "welcome-page-keepalive",
+      INTERVAL = utils.oneSecond() * 10;
 
-    if (badger.manifestVersion == 2 && !badger.isEventPage) {
+    if (self.manifestVersion == 2 && !self.isEventPage) {
       return; // noop
     }
 
@@ -391,37 +392,41 @@ Badger.prototype = {
     function workaroundForChrome() {
       setTimeout(function () {
         getWelcomeTab(function (tab) {
-          if (tab) {
+          // if the welcome page is still open,
+          // or if first run timer hasn't finished yet
+          if (tab || !self.getPrivateSettings().getItem('firstRunTimerFinished')) {
+            // trigger another check
             workaroundForChrome();
           }
         });
       }, INTERVAL);
     }
 
-    if (!badger.isEventPage) {
-      workaroundForChrome();
-      return;
-    }
-
-    // create an alarm that will reset the idle timer in Firefox
-    chrome.alarms.create(ALARM_NAME, {
-      when: Date.now() + INTERVAL
-    });
-
-    chrome.alarms.onAlarm.addListener(alarm => {
+    function workaroundForFirefox(alarm) {
       if (alarm.name != ALARM_NAME) {
         return;
       }
       getWelcomeTab(function (tab) {
-        // if the welcome page is still open
-        if (tab) {
+        // if the welcome page is still open,
+        // or if first run timer hasn't finished yet
+        if (tab || !self.getPrivateSettings().getItem('firstRunTimerFinished')) {
           // create another alarm
-          chrome.alarms.create(ALARM_NAME, {
-            when: Date.now() + INTERVAL
-          });
+          chrome.alarms.create(ALARM_NAME, { when: Date.now() + INTERVAL });
+        } else {
+          chrome.alarms.onAlarm.removeListener(workaroundForFirefox);
         }
       });
-    });
+    }
+
+    if (self.isEventPage) {
+      // an alarms extension event that triggers a listener
+      // resets the idle timer in Firefox
+      chrome.alarms.onAlarm.addListener(workaroundForFirefox);
+      // create the first alarm
+      chrome.alarms.create(ALARM_NAME, { when: Date.now() + INTERVAL });
+    } else {
+      workaroundForChrome();
+    }
   },
 
   initWelcomePage: function () {
