@@ -578,7 +578,7 @@ scoreboard.itfmp.sportradar.com
 spot.im
 api.spreaker.com
 widget.spreaker.com
-live-chat-static.sprinklr.com
+sprinklr.com
 squarespace.com
 squareup.com
 ssl-images-amazon.com
