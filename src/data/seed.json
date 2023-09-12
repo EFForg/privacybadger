@@ -3490,14 +3490,29 @@
     "cdn-app.pathfactory.com": {
       "heuristicAction": "cookieblock"
     },
+    "cdn-client.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1694635212695
+    },
     "cdn-eu.dynamicyield.com": {
       "heuristicAction": "cookieblock"
     },
     "cdn-go.cn": {
       "heuristicAction": "allow"
     },
+    "cdn-images-1.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1694687567789
+    },
     "cdn-net.com": {
       "heuristicAction": "block"
+    },
+    "cdn-static-1.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1694922608966
     },
     "cdn.cohesionapps.com": {
       "heuristicAction": "cookieblock"
@@ -7092,6 +7107,11 @@
     "gloriousbeef.com": {
       "heuristicAction": "allow"
     },
+    "glyph.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1694636876943
+    },
     "gm.com": {
       "heuristicAction": "block"
     },
@@ -10581,6 +10601,11 @@
     },
     "miridih.com": {
       "heuristicAction": "allow"
+    },
+    "miro.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1695147537487
     },
     "mirtesen.ru": {
       "heuristicAction": "allow"
@@ -15220,8 +15245,9 @@
       "nextUpdateTime": 1686821545799
     },
     "statad.ru": {
+      "dnt": true,
       "heuristicAction": "block",
-      "nextUpdateTime": 1686998499644
+      "nextUpdateTime": 1695069929763
     },
     "statcounter.com": {
       "heuristicAction": "block",
