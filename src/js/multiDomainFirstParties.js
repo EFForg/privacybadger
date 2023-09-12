@@ -1863,6 +1863,7 @@ let multiDomainFirstPartiesArray = [
     "glassdoor.ie",
     "glassdoor.nl",
   ],
+  ["gm.com", "buick.com", "chevrolet.com", "gmc.com", "gmcertified.com"],
   ["gogoair.com", "gogoinflight.com"],
   [
     "gogoanime.llc",
