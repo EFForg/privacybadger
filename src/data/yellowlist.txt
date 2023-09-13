@@ -506,6 +506,8 @@ www.qiota.com
 captcha.qq.com
 docs.qq.com
 photo.store.qq.com
+weixin.qq.com
+res.wx.qq.com
 quadpay.com
 queue-it.net
 cdn.quilljs.com
