@@ -694,6 +694,8 @@ wnyc.org
 woosmap.com
 wordpress.com
 c0.wp.com
+fonts.wp.com
+fonts-api.wp.com
 i0.wp.com
 i1.wp.com
 i2.wp.com
