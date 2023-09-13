@@ -809,6 +809,7 @@ let multiDomainFirstPartiesArray = [
     "worldofwarcraft.com",
   ],
   ["bloomberg.com", "bbthat.com", "bwbx.io", "bloomberg.co.jp"],
+  ["bmwusa.com", "bmwfs.com"],
   ["boardgamearena.com", "boardgamearena.net"],
   ["booking.com", "rentalcars.com", "bstatic.com"],
   ["bostonglobe.com", "boston.com", "statnews.com", "bostonglobemedia.com"],
