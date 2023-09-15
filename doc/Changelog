@@ -5,7 +5,7 @@ Privacy Badger Release Notes
 * Improved link tracking protection ("link unwrapping") on Google sites.
 With this update Privacy Badger removes tracking from links in Google Docs,
 Gmail, Google Maps, and Google Images results. Privacy Badger now also removes
-tracking for links added after scrolling through Google Search results.
+tracking from links added after scrolling through Google Search results.
 * Fixed various site breakages
 * Added Malay and restored Serbian translations
 * Improved Traditional Chinese translations
