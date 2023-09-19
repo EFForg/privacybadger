@@ -502,6 +502,10 @@ site-api.project1service.com
 providesupport.com
 img.purch.com
 pusher.com
+captcha.px-cdn.net
+client.px-cdn.net
+captcha.px-cloud.net
+client.px-cloud.net
 static.qiota.com
 www.qiota.com
 captcha.qq.com
