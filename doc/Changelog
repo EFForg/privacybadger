@@ -6,6 +6,7 @@ Privacy Badger Release Notes
 With this update Privacy Badger removes tracking from links in Google Docs,
 Gmail, Google Maps, and Google Images results. Privacy Badger now also removes
 tracking from links added after scrolling through Google Search results.
+To learn more, visit https://eff.org/badger-link-tracking-protection-update
 * Fixed various site breakages
 * Added Malay and restored Serbian translations
 * Improved Traditional Chinese translations
