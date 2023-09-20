@@ -14,6 +14,6 @@ https://github.com/EFForg/privacybadger/wiki/Find-out-why-Privacy-Badger-is-bloc
 
 #### What is your debug output for this domain?
 To get the debug output, please see the instructions link above.
-```
+```jsonc
 Paste debug output here.
 ```
