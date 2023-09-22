@@ -326,6 +326,7 @@ no-cache.hubspot.com
 static.hubspot.com
 cdn2.hubspot.net
 play.hubspotvideo.com
+play-eu1.hubspotvideo.com
 humblebundle.com
 hwcdn.net
 hyvor.com
