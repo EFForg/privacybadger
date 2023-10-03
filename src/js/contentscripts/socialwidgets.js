@@ -790,6 +790,14 @@ function replaceIndividualButton(widget) {
     if (doNotReplace.has(el)) {
       continue;
     }
+    // also don't replace if we think we currently have a placeholder
+    // for this widget type attached to the same parent element
+    if (hasOwn(WIDGET_ELS, widget.name)) {
+      if (WIDGET_ELS[widget.name].some(d => d.parent == el.parentNode)) {
+        // something went wrong, give up
+        continue;
+      }
+    }
     createReplacementElement(widget, el, function (replacementEl) {
       if (replacementEl) {
         el.parentNode.replaceChild(replacementEl, el);
