@@ -69,17 +69,26 @@ function getSurrogateUri(script_url, script_hostname) {
   }
 
   // one or more suffix tokens:
-  // does the script URL (querystring excluded) end with one of these tokens?
+  // does the script URL (querystring and hash excluded) end with one of these tokens?
   case db.MATCH_SUFFIX: {
-    const qs_start = script_url.indexOf('?');
+    const hash_start = script_url.indexOf('#'),
+      qs_start = (hash_start == -1 ?
+        script_url.indexOf('?') :
+        script_url.slice(0, hash_start).indexOf('?'));
 
     for (const token of conf.tokens) {
       // do any of the suffix tokens match the script URL?
       let match = false;
 
       if (qs_start == -1) {
-        if (script_url.endsWith(token)) {
-          match = true;
+        if (hash_start == -1) {
+          if (script_url.endsWith(token)) {
+            match = true;
+          }
+        } else {
+          if (script_url.endsWith(token, hash_start)) {
+            match = true;
+          }
         }
       } else {
         if (script_url.endsWith(token, qs_start)) {

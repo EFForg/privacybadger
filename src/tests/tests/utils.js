@@ -243,6 +243,21 @@ QUnit.module("Utils", function (/*hooks*/) {
         expected: false,
         msg: "should not match (token in querystring)"
       },
+      {
+        url: `https://${TEST_FQDN}${TEST_TOKEN}#foo`,
+        expected: true,
+        msg: "ga.js URL should still match regardless of trailing hash"
+      },
+      {
+        url: `https://${TEST_FQDN}${TEST_TOKEN}#?foo=bar`,
+        expected: true,
+        msg: "ga.js URL should still match if the trailing hash contains ?"
+      },
+      {
+        url: `https://${TEST_FQDN}${TEST_TOKEN}?foo=bar#?foo=bar`,
+        expected: true,
+        msg: "ga.js URL with querystring and hash should still match"
+      },
     ];
 
     for (let test of TESTS) {
