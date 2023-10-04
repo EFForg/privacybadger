@@ -5469,6 +5469,7 @@ let multiDomainFirstPartiesArray = [
     "samsclub.com",
     "sams.com.mx",
 
+    "asda.com",
     "bodegaaurrera.com.mx",
 
     "wal.co",
