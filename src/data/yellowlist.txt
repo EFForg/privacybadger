@@ -615,6 +615,7 @@ player.sundaysky.com
 web.sundaysky.com
 www.surveygizmo.com
 surveymonkey.com
+svea.com
 swiftype.com
 t.me
 public.tableau.com
