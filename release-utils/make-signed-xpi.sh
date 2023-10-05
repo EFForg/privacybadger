@@ -42,11 +42,11 @@ echo "Making zip file for AMO"
 (cd ../checkout/src && rm -f ../../pkg/"$AMO_ZIP_NAME" && zip -q -r ../../pkg/"$AMO_ZIP_NAME" ./*)
 
 echo "Inserting self-hosted package ID"
-$PATCHER ../checkout/src/manifest.json 'set' 'applications.gecko.id' 'jid1-MnnxcxisBPnSXQ-eff@jetpack'
-$PATCHER ../checkout/src/manifest.json 'set' 'applications.gecko.update_url' 'https://www.eff.org/files/privacy-badger-updates.json'
+$PATCHER ../checkout/src/manifest.json 'set' 'browser_specific_settings.gecko.id' 'jid1-MnnxcxisBPnSXQ-eff@jetpack'
+$PATCHER ../checkout/src/manifest.json 'set' 'browser_specific_settings.gecko.update_url' 'https://www.eff.org/files/privacy-badger-updates.json'
 
 # lint checkout again as our modification above could have broken something
-# disable AMO-specific checks to allow applications.gecko.update_url
+# disable AMO-specific checks to allow browser_specific_settings.gecko.update_url
 $WEB_EXT lint -s ../checkout/src --self-hosted
 
 echo "Making self-hosted XPI package with 'web-ext sign'"
