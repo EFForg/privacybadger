@@ -170,6 +170,15 @@ BadgerPen.prototype = {
     //   ...
     // }
     "fp_scripts",
+
+    // maps request/response URLs to tuples containing:
+    // - a counter of how many times an action was taken for this URL
+    // - the webRequest API action(s) taken
+    // {
+    //   <url>: [<counter>, <comma-and-space-separated-actions>],
+    //   ...
+    // }
+    "webrequest_log",
   ],
 
   getStore: function (key) {
@@ -185,7 +194,7 @@ BadgerPen.prototype = {
   clearTrackerData: function () {
     let self = this;
 
-    for (let store_name of ['action_map', 'snitch_map', 'tracking_map', 'fp_scripts']) {
+    for (let store_name of ['action_map', 'snitch_map', 'tracking_map', 'fp_scripts', 'webrequest_log']) {
       let store = self.getStore(store_name);
       for (let key of store.keys()) {
         store.deleteItem(key);
@@ -505,6 +514,40 @@ BadgerPen.prototype = {
       entry = fpStore.getItem(script_fqdn) || {};
     entry[script_path] = 1;
     fpStore.setItem(script_fqdn, entry);
+  },
+
+  /**
+   * Helps update webrequest_log.
+   *
+   * @param {String} url
+   * @param {String} actions
+   * @param {Integer} [count] If set, data is being merged,
+   * so rather than incrementing by one, add this amount .
+   */
+  logWebRequestAction: function (url, actions, count) {
+    let store = this.getStore('webrequest_log');
+
+    if (!store.hasItem(url)) {
+      store.setItem(url, [
+        (count ? count : 1),
+        actions
+      ]);
+      return;
+    }
+
+    let [curr_count, val] = store.getItem(url),
+      valArr = val.split(", ");
+
+    for (let new_action of actions.split(", ")) {
+      if (!valArr.includes(new_action)) {
+        valArr.push(new_action);
+      }
+    }
+
+    store.setItem(url, [
+      (count ? curr_count + count : curr_count + 1),
+      valArr.sort().join(", ")
+    ]);
   }
 };
 
@@ -742,6 +785,11 @@ BadgerStorage.prototype = {
         for (let script_path in mapData[script_fqdn]) {
           badger.storage.recordFingerprintingScript(script_fqdn, script_path);
         }
+      }
+
+    } else if (self.name == "webrequest_log") {
+      for (let url in mapData) {
+        badger.storage.logWebRequestAction(url, mapData[url][1], mapData[url][0]);
       }
     }
   },

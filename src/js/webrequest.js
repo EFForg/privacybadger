@@ -68,6 +68,7 @@ function onBeforeRequest(details) {
   // tabId for pings are always -1 due to Chrome bugs #522124 and #522129
   // Once these bugs are fixed, PB will treat pings as any other request
   if (type == "ping" && tab_id < 0) {
+    badger.storage.logWebRequestAction(url, "block-ping-old");
     return {cancel: true};
   }
 
@@ -161,6 +162,7 @@ function onBeforeRequest(details) {
           }
           if (utils.hasOwn(fpScripts, script_path)) {
             if (!from_current_tab) {
+              badger.storage.logWebRequestAction(url, "block-fpscript-from-noncurrent-tab");
               return { cancel: true };
             }
 
@@ -169,11 +171,13 @@ function onBeforeRequest(details) {
             let surrogate = surrogates.getSurrogateUri(url, request_host);
             if (surrogate) {
               let secret = getWarSecret(tab_id, frame_id, surrogate);
+              badger.storage.logWebRequestAction(url, "surrogate-fpscript");
               return {
                 redirectUrl: surrogate + '?key=' + secret
               };
             }
 
+            badger.storage.logWebRequestAction(url, "block-fpscript");
             return { cancel: true };
           }
         }
@@ -200,6 +204,7 @@ function onBeforeRequest(details) {
 
     if (surrogate) {
       let secret = getWarSecret(tab_id, frame_id, surrogate);
+      badger.storage.logWebRequestAction(url, "surrogate-script");
       return {
         redirectUrl: surrogate + '?key=' + secret
       };
@@ -229,6 +234,7 @@ function onBeforeRequest(details) {
     }, 0);
   }
 
+  badger.storage.logWebRequestAction(url, "block");
   return { cancel: true };
 }
 
@@ -283,6 +289,7 @@ function filterWarRequests(details) {
     tokens = frameData && frameData.warAccessTokens;
 
   if (!tokens) {
+    badger.storage.logWebRequestAction(url, "block-no-war-auth-token");
     return { cancel: true };
   }
 
@@ -291,6 +298,7 @@ function filterWarRequests(details) {
     secret = url_no_qs && tokens[url_no_qs];
 
   if (!secret || url != `${url_no_qs}?key=${secret}`) {
+    badger.storage.logWebRequestAction(url, "block-wrong-war-auth-token");
     return { cancel: true };
   }
 
@@ -316,6 +324,7 @@ function blockMozCspReports(details) {
     return;
   }
   if (report['csp-report'] && report['csp-report']['source-file'] == 'moz-extension') {
+    badger.storage.logWebRequestAction(details.url, "block-moz-csp-report");
     return { cancel: true };
   }
 }
@@ -345,6 +354,7 @@ function bypassGoogleRedirects(details) {
   if (redirect_url) {
     if (redirect_url.startsWith("https://") || redirect_url.startsWith("http://")) {
       if (utils.isThirdPartyDomain(extractHostFromURL(redirect_url), request_host)) {
+        badger.storage.logWebRequestAction(details.url, "fix-google-redirect");
         return {
           redirectUrl: redirect_url
         };
@@ -376,6 +386,7 @@ function blockGoogleGen204s(details) {
     return;
   }
 
+  badger.storage.logWebRequestAction(details.url, "block-goog-gen204");
   return { cancel: true };
 }
 
@@ -408,6 +419,7 @@ function onBeforeSendHeaders(details) {
           newHeaders.push(header);
         }
       }
+      //badger.storage.logWebRequestAction(url, "strip-cookies-from-dnt-policy-request");
       return {
         requestHeaders: newHeaders
       };
@@ -422,6 +434,7 @@ function onBeforeSendHeaders(details) {
   if (details.type == 'main_frame') {
     if (badger.isDntSignalEnabled(tab_host) && badger.isPrivacyBadgerEnabled(tab_host)) {
       details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
+      //badger.storage.logWebRequestAction(url, "add-dnt-header-main_frame");
       return { requestHeaders: details.requestHeaders };
     }
 
@@ -445,6 +458,7 @@ function onBeforeSendHeaders(details) {
     if (badger.isDntSignalEnabled(tab_host) && badger.isPrivacyBadgerEnabled(tab_host)) {
       // send Do Not Track header even when HTTP and cookie blocking are disabled
       details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
+      //badger.storage.logWebRequestAction(url, "add-dnt-header-first-party");
       return { requestHeaders: details.requestHeaders };
     }
 
@@ -491,6 +505,7 @@ function onBeforeSendHeaders(details) {
       newHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
     }
 
+    badger.storage.logWebRequestAction(url, "strip-cookies-remove-referrers-add-dnt");
     return {requestHeaders: newHeaders};
   }
 
@@ -499,6 +514,7 @@ function onBeforeSendHeaders(details) {
   if (badger.isDntSignalEnabled(tab_host)) {
     details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
   }
+  //badger.storage.logWebRequestAction(url, "add-dnt-header-third-party");
   return { requestHeaders: details.requestHeaders };
 }
 
@@ -524,6 +540,7 @@ function onHeadersReceived(details) {
         // https://github.com/GoogleChrome/developer.chrome.com/issues/2296#issuecomment-1075478309
         value: 'interest-cohort=()'
       });
+      //badger.storage.logWebRequestAction(details.url, "add-topics-optout-header");
       return { responseHeaders };
     }
 
@@ -540,6 +557,7 @@ function onHeadersReceived(details) {
     if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
       // if it's a redirect, cancel it
       if (details.statusCode >= 300 && details.statusCode < 400) {
+        //badger.storage.logWebRequestAction(url, "block-dnt-policy-redirect");
         return {
           cancel: true
         };
@@ -553,6 +571,7 @@ function onHeadersReceived(details) {
           newHeaders.push(headers[i]);
         }
       }
+      //badger.storage.logWebRequestAction(url, "strip-cookies-dnt-policy-response");
       return {
         responseHeaders: newHeaders
       };
@@ -597,6 +616,7 @@ function onHeadersReceived(details) {
     let newHeaders = details.responseHeaders.filter(function(header) {
       return (header.name.toLowerCase() != "set-cookie");
     });
+    badger.storage.logWebRequestAction(url, "strip-set-cookie-headers");
     return { responseHeaders: newHeaders };
   }
 }
@@ -1554,10 +1574,7 @@ function dispatcher(request, sender, sendResponse) {
 
   // used by Badger Sett
   case "setBlockThreshold": {
-    let value = +request.value;
-    if (value > 0) {
-      badger.getPrivateSettings().setItem("blockThreshold", value);
-    }
+    // no-op to disable no-blocking mode
     sendResponse();
     break;
   }
