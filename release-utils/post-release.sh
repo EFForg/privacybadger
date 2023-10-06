@@ -45,7 +45,8 @@ echo "  \"version\": \"$TARGET\","
 echo "  \"update_link\": \"https://eff.org/files/privacy-badger-eff-$TARGET.xpi\","
 echo "  \"update_hash\": \"sha256:$(sha256sum "$PKG" | cut -c 1-64)\","
 echo "  \"browser_specific_settings\": {"
-echo "    \"gecko\": { \"strict_min_version\": \"60.0\" }"
+echo "    \"gecko\": { \"strict_min_version\": \"78.0\" }",
+echo "    \"gecko_android\": {}"
 echo "  }"
 echo "}"
 

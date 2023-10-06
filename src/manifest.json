@@ -6,8 +6,9 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "jid1-MnnxcxisBPnSXQ@jetpack",
-      "strict_min_version": "60.0"
-    }
+      "strict_min_version": "78.0"
+    },
+    "gecko_android": {}
   },
   "incognito": "spanning",
   "permissions": [
