@@ -175,7 +175,13 @@ BadgerPen.prototype = {
     // - a counter of how many times an action was taken for this URL
     // - the webRequest API action(s) taken
     // {
-    //   <url>: [<counter>, <comma-and-space-separated-actions>],
+    //   <url>: {
+    //     <resource_type>: {
+    //       <http_method>: [<counter>, <comma-and-space-separated-actions>],
+    //       ...
+    //     },
+    //     ...
+    //   },
     //   ...
     // }
     "webrequest_log",
@@ -520,34 +526,53 @@ BadgerPen.prototype = {
    * Helps update webrequest_log.
    *
    * @param {String} url
-   * @param {String} actions
+   * @param {String} resource_type
+   * @param {String} http_method
+   * @param {String} actions The taken action or actions (when merging data).
    * @param {Integer} [count] If set, data is being merged,
-   * so rather than incrementing by one, add this amount .
+   *   so instead of incrementing by one the number of times
+   *   we've seen this URL, add `count` amount.
    */
-  logWebRequestAction: function (url, actions, count) {
+  logWebRequestAction: function (url, resource_type, http_method, actions, count) {
     let store = this.getStore('webrequest_log');
 
     if (!store.hasItem(url)) {
-      store.setItem(url, [
-        (count ? count : 1),
-        actions
-      ]);
+      let val = {};
+      val[resource_type] = {};
+      val[resource_type][http_method] = [(count ? count : 1), actions];
+      store.setItem(url, val);
       return;
     }
 
-    let [curr_count, val] = store.getItem(url),
-      valArr = val.split(", ");
+    let val = store.getItem(url);
+
+    if (!utils.hasOwn(val, resource_type)) {
+      val[resource_type] = {};
+      val[resource_type][http_method] = [(count ? count : 1), actions];
+      store.setItem(url, val);
+      return;
+    }
+
+    if (!utils.hasOwn(val[resource_type], http_method)) {
+      val[resource_type][http_method] = [(count ? count : 1), actions];
+      store.setItem(url, val);
+      return;
+    }
+
+    let [curr_count, curr_actions] = val[resource_type][http_method],
+      actionsArr = curr_actions.split(", ");
 
     for (let new_action of actions.split(", ")) {
-      if (!valArr.includes(new_action)) {
-        valArr.push(new_action);
+      if (!actionsArr.includes(new_action)) {
+        actionsArr.push(new_action);
       }
     }
 
-    store.setItem(url, [
+    val[resource_type][http_method] = [
       (count ? curr_count + count : curr_count + 1),
-      valArr.sort().join(", ")
-    ]);
+      actionsArr.sort().join(", ")
+    ];
+    store.setItem(url, val);
   }
 };
 
@@ -789,7 +814,16 @@ BadgerStorage.prototype = {
 
     } else if (self.name == "webrequest_log") {
       for (let url in mapData) {
-        badger.storage.logWebRequestAction(url, mapData[url][1], mapData[url][0]);
+        for (let resource_type in mapData[url]) {
+          for (let http_method in mapData[url][resource_type]) {
+            badger.storage.logWebRequestAction(
+              url,
+              resource_type,
+              http_method,
+              mapData[url][resource_type][http_method][1],
+              mapData[url][resource_type][http_method][0]);
+          }
+        }
       }
     }
   },
