@@ -407,11 +407,16 @@
         ],
         "buttonSelectors": [
             "iframe[src^='https://www.tiktok.com/embed/']",
-            "iframe[src^='//www.tiktok.com/embed/']"
+            "iframe[src^='//www.tiktok.com/embed/']",
+            "blockquote[cite^='https://www.tiktok.com/@']"
+        ],
+        "scriptSelectors": [
+            "script[src^='https://www.tiktok.com/embed.js']"
         ],
         "replacementButton": {
             "unblockDomains": [
-                "www.tiktok.com"
+                "www.tiktok.com",
+                "*.tiktokcdn-us.com"
             ],
             "type": 3
         }

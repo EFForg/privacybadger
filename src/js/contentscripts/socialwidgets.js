@@ -536,6 +536,9 @@ function createReplacementWidget(widget, elToReplace) {
   } else if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src && !widget.noDirectLink) {
     // use the frame URL for framed widgets
     widget_url = elToReplace.src;
+  } else if (elToReplace.nodeName.toLowerCase() == 'blockquote' && elToReplace.cite && elToReplace.cite.startsWith('https://')) {
+    // special case for TikTok
+    widget_url = elToReplace.cite;
   }
 
   if (widget_url) {
