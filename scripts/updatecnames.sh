@@ -5,7 +5,7 @@
 set -eu
 
 CNAME_LIST_PATH=src/data/cname_domains.json
-CNAME_LIST_URL=https://raw.githubusercontent.com/AdguardTeam/cname-trackers/master/combined_disguised_trackers.json
+CNAME_LIST_URL=https://raw.githubusercontent.com/AdguardTeam/cname-trackers/master/data/combined_disguised_trackers.json
 TEMPFILE=$(mktemp)
 
 trap 'rm $TEMPFILE' EXIT
