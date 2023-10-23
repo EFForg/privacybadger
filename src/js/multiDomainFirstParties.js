@@ -715,6 +715,7 @@ let multiDomainFirstPartiesArray = [
     "bdimg.com",
     "bdstatic.com",
   ],
+  ["bahnhof.se", "bahnhof.cloud", "bahnhof.net"],
   ["balsamiq.com", "balsamiq.cloud"],
   ["bancomer.com", "bancomer.com.mx", "bbvanet.com.mx"],
   [
@@ -809,7 +810,7 @@ let multiDomainFirstPartiesArray = [
     "worldofwarcraft.com",
   ],
   ["bloomberg.com", "bbthat.com", "bwbx.io", "bloomberg.co.jp"],
-  ["bmwusa.com", "bmwfs.com"],
+  ["bmw.com", "bmw.de", "bmwgroup.com", "bmwusa.com", "mini.de", "bmwfs.com"],
   ["boardgamearena.com", "boardgamearena.net"],
   ["booking.com", "rentalcars.com", "bstatic.com"],
   ["bostonglobe.com", "boston.com", "statnews.com", "bostonglobemedia.com"],
@@ -975,7 +976,6 @@ let multiDomainFirstPartiesArray = [
   ["costco.com", "costco.ca"],
   ["cox.com", "cox.net"],
   ["cricketwireless.com", "aiowireless.com"],
-  ["ctrip.com", "c-ctrip.com", "trip.com"],
   ["datadoghq.eu", "datadoghq.com"],
   ["dcu.org", "dcu-online.org"],
   [
@@ -994,6 +994,7 @@ let multiDomainFirstPartiesArray = [
     "deliveroo.it",
     "deliveroo.nl",
   ],
+  ["dickssportinggoods.com", "goinggoinggone.com", "golfgalaxy.com", "publiclands.com", "vrst.com"],
   ["dictionary.com", "thesaurus.com", "sfdict.com"],
   [
     "digikey.com",
@@ -1144,6 +1145,7 @@ let multiDomainFirstPartiesArray = [
     "dmgmediaprivacy.co.uk",
   ],
   ["dmm.com", "dmm.co.jp"],
+  ["doctolib.fr", "doctolib.de", "doctolib.it", "doctolib.com"],
   [
     "dpgmediagroup.com",
 
@@ -1439,6 +1441,7 @@ let multiDomainFirstPartiesArray = [
     "evbuc.com",
     "eventbriteapi.com",
   ],
+  ["eventim.de", "eventim.com.br", "eventim.com", "ticketone.it"],
   [
     "expedia.com",
 
@@ -1831,6 +1834,7 @@ let multiDomainFirstPartiesArray = [
     "thinkstockphotos.com",
     "thinkstockphotos.ca",
   ],
+  ["gismeteo.com", "gismeteo.by", "gismeteo.kz", "gismeteo.lt", "gismeteo.ru", "gismeteo.net"],
   ["gitlab.com", "gitlab-static.net"],
   [
     "g-omedia.com",
@@ -4192,7 +4196,6 @@ let multiDomainFirstPartiesArray = [
     "rakuten-static.com",
   ],
   ["raygun.com", "raygun.io"],
-  ["dickssportinggoods.com", "goinggoinggone.com", "golfgalaxy.com", "publiclands.com", "vrst.com"],
   ["rbcroyalbank.com", "royalbank.com", "rbc.com"],
   [
     "reachplc.com",
@@ -5003,6 +5006,22 @@ let multiDomainFirstPartiesArray = [
     "thedailymeal.com",
   ],
   [
+    "trip.com",
+
+    "ctrip.com",
+    "c-ctrip.com",
+
+    "skyscanner.com",
+
+    "skyscanner.co.in",
+    "skyscanner.com.br",
+    "skyscanner.de",
+    "skyscanner.es",
+    "skyscanner.it",
+
+    "skyscanner.net",
+  ],
+  [
     "tripadvisor.com",
 
     "tripadvisor.at",
@@ -5412,8 +5431,10 @@ let multiDomainFirstPartiesArray = [
 
     "vinted.co.uk",
     "vinted.cz",
+    "vinted.de",
     "vinted.es",
     "vinted.fr",
+    "vinted.it",
     "vinted.lt",
     "vinted.nl",
     "vinted.pl",
@@ -5974,6 +5995,7 @@ let multiDomainFirstPartiesArray = [
     "zohostatic.com",
   ],
   ["zonealarm.com", "zonelabs.com"],
+  ["zoom.us", "zoom.com", "zoomgov.com"],
 ];
 
 /**
