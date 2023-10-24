@@ -87,7 +87,6 @@ pic.rmb.bdstatic.com
 static.beyondmenu.com
 www.beyondmenu.com
 bigcommerce.com
-bilibili.com
 r.bing.com
 www.bing.com
 bit.ly
@@ -258,7 +257,6 @@ fonts.google.com
 fundingchoicesmessages.google.com
 fusiontables.google.com
 groups.google.com
-inputtools.google.com
 kh.google.com
 khms0.google.com
 khms1.google.com
@@ -286,7 +284,6 @@ sites.google.com
 smartlock.google.com
 spreadsheets.google.com
 talkgadget.google.com
-tools.google.com
 translate.google.com
 trends.google.com
 video.google.com
@@ -452,7 +449,6 @@ noaa.gov
 nosto.com
 digital.nuance.com
 nytimes.com
-ocdn.eu
 okta.com
 olark.com
 amazoncustomerservice.d2.sc.omtrdc.net
@@ -607,7 +603,6 @@ js.stripe.com
 merchant-ui-api.stripe.com
 m.stripe.network
 stripecdn.com
-strpst.com
 substack.com
 hdr.sundaysky.com
 images.sundaysky.com
@@ -644,7 +639,6 @@ trumba.com
 trustarc.com
 trustpilot.com
 ttvnw.net
-ttwstatic.com
 tumblr.com
 turnto.com
 twimg.com
