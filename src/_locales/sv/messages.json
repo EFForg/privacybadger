@@ -230,7 +230,7 @@
         "description": "Success status message."
     },
     "report_fail": {
-        "message": "Hoppsan. Något gick snett.",
+        "message": "Hoppsan. Något gick fel.",
         "description": "Error status message."
     },
     "share_title": {
@@ -338,7 +338,7 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_disable_button": {
-        "message": "Om du tror att Privacy Badger bryter en sida (till exempel om en video spelar inte) kan du klicka på knappen \"Inaktivera\" för att stänga av Privacy Badger för den webbplatsen.",
+        "message": "Om du tror att Privacy Badger bryter en sida (till exempel om en video inte spelar) kan du klicka på knappen \"Inaktivera\" för att stänga av Privacy Badger för den webbplatsen.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
@@ -418,7 +418,7 @@
         "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
-        "message": "Avancerad",
+        "message": "Avancerat",
         "description": "Subheading in general settings."
     },
     "options_learn_setting": {
@@ -613,7 +613,7 @@
         "description": ""
     },
     "import_successful": {
-        "message": "Listan över spårare och inställningarna uppdaterades!",
+        "message": "Spårarlistan och inställningarna uppdaterades!",
         "description": ""
     },
     "sync_intro": {
