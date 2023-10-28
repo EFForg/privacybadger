@@ -619,7 +619,8 @@ BadgerStorage.prototype = {
    * @param {Object} mapData The storage object to merge into existing storage
    */
   merge: function (mapData) {
-    const self = this;
+    const self = this,
+      ignoredSiteBases = badger.getPrivateSettings().getItem('ignoredSiteBases');
 
     if (self.name == "settings_map") {
       for (let prop in mapData) {
@@ -684,8 +685,10 @@ BadgerStorage.prototype = {
       for (let tracker_base in mapData) {
         let siteBases = mapData[tracker_base];
         for (let site_base of siteBases) {
-          badger.heuristicBlocking.updateTrackerPrevalence(
-            tracker_base, tracker_base, site_base);
+          if (!ignoredSiteBases.includes(site_base)) {
+            badger.heuristicBlocking.updateTrackerPrevalence(
+              tracker_base, tracker_base, site_base);
+          }
         }
       }
 
@@ -718,7 +721,7 @@ BadgerStorage.prototype = {
           continue;
         }
         for (let site_base in mapData[tracker_base]) {
-          if (snitchItem.includes(site_base)) {
+          if (snitchItem.includes(site_base) || ignoredSiteBases.includes(site_base)) {
             continue;
           }
           for (let tracking_type of mapData[tracker_base][site_base]) {

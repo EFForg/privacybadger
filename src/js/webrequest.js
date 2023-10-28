@@ -1562,6 +1562,15 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // used by Badger Sett
+  case "setIgnoredSiteBases": {
+    if (request.value && Array.isArray(request.value)) {
+      badger.getPrivateSettings().setItem("ignoredSiteBases", request.value);
+    }
+    sendResponse();
+    break;
+  }
+
   case "seenLearningPrompt": {
     badger.getPrivateSettings().setItem("showLearningPrompt", false);
     sendResponse();

@@ -898,6 +898,7 @@ Badger.prototype = {
     let privateDefaultSettings = {
       blockThreshold: constants.TRACKING_THRESHOLD,
       firstRunTimerFinished: true,
+      ignoredSiteBases: [],
       nextDntHashesUpdateTime: 0,
       nextYellowlistUpdateTime: 0,
       showLearningPrompt: false,
