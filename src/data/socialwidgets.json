@@ -463,6 +463,25 @@
             "type": 3
         }
     },
+    "X (Twitter)": {
+        "domain": "platform.twitter.com",
+        "buttonSelectors": [
+            "blockquote[class*='twitter-tweet']",
+            "blockquote[class*='twitter-video']"
+        ],
+        "scriptSelectors": [
+            "script[src='https://platform.twitter.com/widgets.js']",
+            "script[src='//platform.twitter.com/widgets.js']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "platform.twitter.com",
+                "syndication.twitter.com",
+                "twitter.com"
+            ],
+            "type": 3
+        }
+    },
     "YouTube": {
         "domains": [
             "youtube.com",
