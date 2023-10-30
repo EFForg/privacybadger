@@ -434,17 +434,6 @@
             "type": 3
         }
     },
-    "Twitter": {
-        "domain": "platform.twitter.com",
-        "buttonSelectors": [
-            ".twitter-share-button"
-        ],
-        "replacementButton": {
-            "details": "https://twitter.com/intent/tweet?url=",
-            "imagePath": "Twitter.svg",
-            "type": 0
-        }
-    },
     "Vimeo": {
         "domains": [
             "player.vimeo.com",
