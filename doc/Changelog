@@ -1,6 +1,14 @@
 Privacy Badger Release Notes
 ============================
 
+2023.10.31
+* Added widget replacement for embedded Tweets.
+Privacy Badger replaces potentially useful widgets with placeholders.
+These replacements protect privacy while letting you restore the original
+widget whenever you want it or need it for the page to function.
+* Fixed various site breakages
+* Improved Brazilian Portuguese and Swedish translations
+
 2023.9.12
 * Improved link tracking protection ("link unwrapping") on Google sites.
 With this update Privacy Badger removes tracking from links in Google Docs,
