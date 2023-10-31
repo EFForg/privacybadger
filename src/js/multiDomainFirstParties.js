@@ -799,7 +799,7 @@ let multiDomainFirstPartiesArray = [
     "vrak.tv",
     "ztele.com",
   ],
-  ["betfair.com", "betfair.it", "betfair.se", "cdnbf.net"],
+  ["betfair.com", "betfair.com.au", "betfair.es", "betfair.it", "betfair.se", "cdnbf.net"],
   ["bhphotovideo.com", "bandh.com", "bhphoto.com", "bnh.com"],
   ["bilibili.com", "acgvideo.com", "biliapi.net", "biliapi.com", "bilibilicomics.com", "biligame.com", "hdslb.com"],
   ["binance.com", "binance.cloud", "binance.vision", "bnbstatic.com"],
@@ -2398,6 +2398,7 @@ let multiDomainFirstPartiesArray = [
     "huobi.me",
   ],
   ["hvfcu.org", "hvfcuonline.org"],
+  ["ibtimes.com", "ibtimes.co.uk", "myibtimes.com"],
   [
     "idealo.de",
 
@@ -2725,7 +2726,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["lbry.com", "odysee.com", "lbry.tv"],
   ["likee.video", "like-video.com", "like.video", "likee.com", "likeevideo.com"],
-  ["livesport.eu", "diretta.it", "flashscore.com", "flashscore.com.br", "flashscore.pl", "livescore.in", "rezultati.com"],
+  ["livesport.eu", "diretta.it", "flashscore.com", "flashscore.com.br", "flashscore.fr", "flashscore.pl", "livescore.in", "rezultati.com"],
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
   [
     "loveholidays.com",
