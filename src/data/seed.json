@@ -4,7 +4,9 @@
       "heuristicAction": "block"
     },
     "00px.net": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1699322826853
     },
     "01b4075d6c.com": {
       "heuristicAction": "block"
@@ -3735,11 +3737,21 @@
     "cdn-app.pathfactory.com": {
       "heuristicAction": "cookieblock"
     },
+    "cdn-client.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1698977448580
+    },
     "cdn-eu.dynamicyield.com": {
       "heuristicAction": "cookieblock"
     },
     "cdn-go.cn": {
       "heuristicAction": "allow"
+    },
+    "cdn-images-1.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1699072004801
     },
     "cdn-images.mailchimp.com": {
       "heuristicAction": "cookieblock"
@@ -3749,6 +3761,11 @@
     },
     "cdn-net.com": {
       "heuristicAction": "block"
+    },
+    "cdn-static-1.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1699120716662
     },
     "cdn.cohesionapps.com": {
       "heuristicAction": "cookieblock"
@@ -5126,6 +5143,11 @@
     },
     "dataunlocker.com": {
       "heuristicAction": "allow"
+    },
+    "datawrapper.dwcdn.net": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1698880921947
     },
     "datawrkz.com": {
       "heuristicAction": "block"
@@ -7509,6 +7531,11 @@
     },
     "gltrx.com": {
       "heuristicAction": "allow"
+    },
+    "glyph.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1699140213933
     },
     "gmarket.co.kr": {
       "heuristicAction": "allow"
@@ -11157,6 +11184,11 @@
     },
     "mircheigeshoa.com": {
       "heuristicAction": "block"
+    },
+    "miro.medium.com": {
+      "dnt": true,
+      "heuristicAction": "",
+      "nextUpdateTime": 1698975184522
     },
     "mirtesen.ru": {
       "heuristicAction": "allow"
