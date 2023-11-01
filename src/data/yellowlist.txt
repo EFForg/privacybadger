@@ -472,6 +472,7 @@ cdn.optimizely.com
 oraclecloud.com
 consent.api.osano.com
 cmp.osano.com
+ozone.ru
 paddle.com
 pandacommerce.net
 parastorage.com
