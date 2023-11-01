@@ -92,6 +92,8 @@ bigcommerce.com
 r.bing.com
 www.bing.com
 bit.ly
+cdn.bitmovin.com
+licensing.bitmovin.com
 bitsngo.net
 blockstack.org
 blogger.com
