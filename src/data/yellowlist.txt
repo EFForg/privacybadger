@@ -424,6 +424,7 @@ medallia.com
 mediawiki.org
 megaphone.fm
 ajax.microsoft.com
+appsforoffice.microsoft.com
 atlas.microsoft.com
 api.cognitive.microsoft.com
 docs.microsoft.com
