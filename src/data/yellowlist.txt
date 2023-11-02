@@ -304,6 +304,7 @@ googlevideo.com
 gravatar.com
 greenhouse.io
 rest.growinginteractive.com
+cdn.grupoelcorteingles.es
 gstatic.com
 widgets.guidestar.org
 guildwars2.com
