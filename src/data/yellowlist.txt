@@ -356,6 +356,7 @@ intercom.io
 intercomcdn.com
 script.ioam.de
 api.ipify.org
+iplsc.com
 issuu.com
 iubenda.com
 jotform.com
