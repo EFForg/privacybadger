@@ -72,6 +72,7 @@
     "Captivate Player": {
         "domain": "player.captivate.fm",
         "buttonSelectors": [
+            "iframe[src^='https://player.captivate.fm/']",
             "iframe[src^='//player.captivate.fm/']"
         ],
         "replacementButton": {
