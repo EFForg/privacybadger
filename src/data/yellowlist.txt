@@ -80,6 +80,7 @@ verifiedbyvisa.barclays.co.uk
 bazaarvoice.com
 fanyi-cdn.cdn.bcebos.com
 fanyiapp.cdn.bcebos.com
+ibaidu-static.cdn.bcebos.com
 maponline0.bdimg.com
 maponline1.bdimg.com
 maponline2.bdimg.com
