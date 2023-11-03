@@ -690,6 +690,7 @@ vimeocdn.com
 visa.com
 vox-cdn.com
 voxmedia.com
+io2.vtex.com
 wallst.com
 weather.com
 weatherzone.com.au
