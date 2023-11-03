@@ -385,6 +385,7 @@ www.kaltura.com
 ssl.kaptcha.com
 kickstarter.com
 kingfeatures.com
+kingfisher.com
 kinja.com
 klarna.com
 klarnacdn.net

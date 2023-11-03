@@ -2702,6 +2702,7 @@ let multiDomainFirstPartiesArray = [
 
     "r9cdn.net",
   ],
+  ["kingfisher.com", "diy.com", "castorama.fr", "castorama.pl"],
   ["kiwi.com", "skypicker.com"],
   [
     "kogan.com",
