@@ -753,6 +753,7 @@ youtube-nocookie.com
 ytimg.com
 zdassets.com
 zendesk.com
+zephr.com
 zoho.com
 zoho.eu
 zohopublic.com
