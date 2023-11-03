@@ -735,6 +735,7 @@ disk.yandex.ru
 forms.yandex.ru
 img-fotki.yandex.ru
 strm.yandex.ru
+captcha.yandex.net
 maps.yandex.net
 vtrans.s3-private.mds.yandex.net
 s3.yandex.net
