@@ -9,6 +9,7 @@ acrobat.adobe.com
 animate.adobe.com
 auth.adobe.com
 documentcloud.adobe.com
+documents.adobe.com
 express.adobe.com
 spark.adobe.com
 wwwimages.adobe.com
