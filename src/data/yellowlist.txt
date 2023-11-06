@@ -656,6 +656,7 @@ cookieblock.trackersimulate.org
 tradingview.com
 serviceschipotlecom.trafficmanager.net
 cdn.transcend.io
+sync.transcend.io
 trumba.com
 trustarc.com
 trustpilot.com
