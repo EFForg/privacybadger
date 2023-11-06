@@ -247,6 +247,7 @@ gitbook.com
 github.com
 gleam.io
 global-e.com
+player.glomex.com
 godaddy.com
 accounts.google.com
 apis.google.com
