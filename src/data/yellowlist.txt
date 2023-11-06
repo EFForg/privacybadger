@@ -359,6 +359,7 @@ api.ipify.org
 iplsc.com
 issuu.com
 iubenda.com
+jotfor.ms
 jotform.com
 jquery.com
 jsdelivr.net
