@@ -637,6 +637,7 @@ cdn.tagcommander.com
 taleo.net
 tarteaucitron.io
 tawk.to
+cdn.technolutions.net
 tegna-media.com
 telegram.org
 textalk.se
