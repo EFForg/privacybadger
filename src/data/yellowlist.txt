@@ -523,6 +523,7 @@ captcha.px-cdn.net
 client.px-cdn.net
 captcha.px-cloud.net
 client.px-cloud.net
+captcha.qcloud.com
 static.qiota.com
 www.qiota.com
 captcha.qq.com
