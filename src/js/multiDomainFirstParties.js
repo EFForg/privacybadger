@@ -2775,6 +2775,7 @@ let multiDomainFirstPartiesArray = [
     "vk.com",
     "vk.me",
     "vkontakte.ru",
+    "vkplay.live",
     "vk.ru",
   ],
   ["mandtbank.com", "mtb.com"],
