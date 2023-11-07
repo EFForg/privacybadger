@@ -653,6 +653,7 @@ tinypass.com
 cloud.tinymce.com
 tiqcdn.com
 townnews.com
+toyota.com
 cookieblock.trackersimulate.org
 tradingview.com
 serviceschipotlecom.trafficmanager.net
