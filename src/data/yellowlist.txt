@@ -65,6 +65,7 @@ awswaf.com
 api.axept.io
 client.axept.io
 static.axept.io
+dev.azure.com
 logic.azure.com
 azure-api.net
 azureedge.net
