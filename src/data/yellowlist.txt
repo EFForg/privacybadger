@@ -661,6 +661,7 @@ tradingview.com
 serviceschipotlecom.trafficmanager.net
 cdn.transcend.io
 sync.transcend.io
+www.tripadvisor.com
 trumba.com
 trustarc.com
 trustpilot.com
