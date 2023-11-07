@@ -235,6 +235,7 @@ futurecdn.net
 fwmrm.net
 dm-localsites-assets.dm.aws.gartner.com
 geetest.com
+media.gemini.media
 geotrust.com
 getpocket.com
 cdn.getshogun.com

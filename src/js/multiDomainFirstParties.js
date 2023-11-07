@@ -1825,6 +1825,7 @@ let multiDomainFirstPartiesArray = [
     "gedidigital.it",
     "repstatic.it",
   ],
+  ["gemini.media", "elconsolto.com", "masrawy.com", "shift-eg.com", "yallakora.com"],
   [
     "gettyimages.com",
 
