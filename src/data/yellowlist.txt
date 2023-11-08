@@ -587,6 +587,7 @@ securiti.ai
 shopify.com
 shopifycdn.com
 shopifycloud.com
+shopifysvc.com
 shop-pro.jp
 shoprunner.com
 sibforms.com
