@@ -143,6 +143,7 @@ connatix.com
 consentmanager.net
 imgssl.constantcontact.com
 securepay.constantcontact.com
+cdn.cookie-script.com
 consent.cookiebot.com
 consentcdn.cookiebot.com
 cookielaw.org
