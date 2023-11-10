@@ -120,6 +120,7 @@ artwork.captivate.fm
 podcasts.captivate.fm
 cardinalcommerce.com
 cbsi.com
+cbsivideo.com
 cdnvideo.ru
 cern.ch
 ceros.com
