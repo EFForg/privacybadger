@@ -414,6 +414,7 @@ lightboxcdn.com
 graphql-cdn-slplatform.liquidus.net
 platform.liquidus.net
 list-manage.com
+src.litix.io
 officeapps.live.com
 onedrive.live.com
 livechatinc.com
