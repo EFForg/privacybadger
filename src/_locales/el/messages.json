@@ -124,7 +124,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Blocked cookies and fingerprinting scripts from $DOMAIN$",
+        "message": "Αποκλεισμένα cookies και fingerprinting scripts από $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -174,7 +174,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "To enable logging into websites with your Google account, move this slider right, and reload the page",
+        "message": "Για να μπορείτε να συνδεθείτε σε άλλες ιστοσελίδες με τον λογαριασμό σας Google, μετακινήστε αυτό το σλάιντερ δεξιά και επαναφορτώστε τη σελίδα",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -284,7 +284,7 @@
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
     "popup_error_text_low_disk_space_issue": {
-        "message": "Failed to write to extension storage: $ERROR_TEXT$.<br><br>Is your disk low on space?",
+        "message": "Απέτυχε η καταχώριση δεδομένων στον αποθηκευτικό χώρο της επέκτασης: $ERROR_TEXT$.<br><br>Μήπως έχει εξαντληθεί ο ελεύθερος χώρος του σκληρού δίσκου σας;",
         "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
         "placeholders": {
             "error_text": {
@@ -414,7 +414,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's Topics API",
+        "message": "Να απενεργοποιηθεί το Topics API της Google",
         "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
@@ -470,7 +470,7 @@
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "Όταν αποκλείετε τα \"κοινωνικά κουμπιά\" ή άλλα πιθανότατα χρήσιμα (βίντεο, ήχος, σχόλια) widgets, το Privacy Badger μπορεί να τα αντικαταστήσει με άλλα κουμπιά που σας επιτρέπουν να τα εμφανίσετε.",
+        "message": "Πολλές φορές επιλέγετε να μην εμφανίζονται τα κουμπιά μέσων κοινωνικής δικτύωσης, ή άλλα πιθανότατα χρήσιμα widgets (που σχετίζονται π.χ. με βίντεο, ήχο, σχόλια) σε συγκεκριμένες ιστοσελίδες. Το Privacy Badger σας δίνει τη δυνατότητα να τα αντικαταστήσετε με άλλα κουμπιά· κάνοντας κλικ σε αυτά, μπορείτε να ενεργοποιήσετε τα αρχικώς αποκλεισμένα widgets.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_social_widgets_checkbox": {
@@ -482,7 +482,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Να μην αντικατασταθούν τα ακόλουθα widgets:",
+        "message": "Να μην αντικαθίστανται τα ακόλουθα widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
@@ -539,11 +539,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_user": {
-        "message": "ελεγχόμενες από τον χρήστη",
+        "message": "ελεγχόμενα από τον χρήστη",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
-        "message": "συνάδει με την πολιτική DNT της EFF",
+        "message": "συνάδουν με την πολιτική DNT της EFF",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_status_filter": {
@@ -567,7 +567,7 @@
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "options_domain_list_sites": {
-        "message": "$DOMAIN$ was seen tracking on the following sites:",
+        "message": "Εντοπίσαμε το domain $DOMAIN$ να σας ιχνηλατεί στις ακόλουθες ιστοσελίδες:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
@@ -585,7 +585,7 @@
         "description": "This is an options page tab heading."
     },
     "manage_data_intro": {
-        "message": "Η εισαγωγή των δεδομένων σας:<ul><li>αντικαθιστά τις γενικές ρυθμίσεις</li><li>συνδυάζει τις λίστες των απενεργοποιημένων ιστοσελίδων</li><li>συνδυάζει τις νέες πληροφορίες για ιχνηλάτες με αυτές που το Privacy Badger ήδη ξέρει</li><li>αντικαθιστά τις ρυθμίσεις slider</li></ul>",
+        "message": "Με την εισαγωγή δεδομένων:<ul><li>αντικαθίστανται οι γενικές ρυθμίσεις</li><li>συγχωνεύεται η νέα με την παλιά λίστα απενεργοποιημένων ιστοσελίδων</li><li>οι νέες πληροφορίες για ιχνηλάτες συγχωνεύονται με αυτές που το Privacy Badger ήδη γνώριζε</li><li>αντικαθίστανται οι ρυθμίσεις slider</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "export_user_data": {
