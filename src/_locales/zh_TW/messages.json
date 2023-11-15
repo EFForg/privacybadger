@@ -28,7 +28,7 @@
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger 在像這類的特殊頁面上無法運作。試著瀏覽其他的頁面看看。",
+        "message": "Privacy Badger 在這類特殊頁面上無法運作。試著瀏覽其他的頁面看看。",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
@@ -36,11 +36,11 @@
         "description": "Shown in the popup on disabled sites."
     },
     "popup_disable_for_site": {
-        "message": "於此網站停用",
+        "message": "在此網站停用",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "於此網站啟用",
+        "message": "在此網站啟用",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
@@ -114,7 +114,7 @@
         }
     },
     "badger_status_cookieblock": {
-        "message": "來自$DOMAIN$ 的已封鎖 cookie",
+        "message": "來自 $DOMAIN$ 的已封鎖 cookie",
         "description": "Tooltip shown over a domain name with a yellow slider in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -124,7 +124,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "來自 $DOMAIN$ 的被封鎖 cookie 與指紋識別手稿程式",
+        "message": "來自 $DOMAIN$ 的已封鎖 cookie 與指紋識別指令碼",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -154,7 +154,7 @@
         }
     },
     "dnt_tooltip": {
-        "message": "此網域承諾不會追蹤您",
+        "message": "該網域承諾不會追蹤您",
         "description": "Tooltip shown over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "domain_slider_block_tooltip": {
@@ -178,7 +178,7 @@
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
-        "message": "點擊以將此網域的控制權歸還 Privacy Badger",
+        "message": "點擊以將此網域的控制權歸還給 Privacy Badger",
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "not_yet_blocked_header": {
@@ -284,7 +284,7 @@
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
     "popup_error_text_low_disk_space_issue": {
-        "message": "寫入擴充功能儲存空間失敗：$ERROR_TEXT$。<br><br>您的磁碟空間不足嗎？",
+        "message": "寫入擴充功能儲存空間失敗：$ERROR_TEXT$。<br><br>您的磁碟是否只剩下少量空間？",
         "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
         "placeholders": {
             "error_text": {
