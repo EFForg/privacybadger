@@ -314,7 +314,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "No canto de ter listas do que ten que bloquear, Privacy Badger descubre automaticamente os rastrexadores en función do seu comportamento.",
+        "message": "Privacy Badger non ten listas de bloqueo, se non que aprende a descubrir rastrexadores a partir do seu propio comportamento mentras ti navegas.",
         "description": "Intro page paragraph."
     },
     "intro_beyond_ads": {
@@ -374,7 +374,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_twitter": {
-        "message": "Compartir na Twitter",
+        "message": "Compartir en Twitter",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
@@ -394,7 +394,7 @@
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
-        "message": "Comproba se <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>dominios de terceiras</a> cumpren coa <a target='_blank' href='https://www.eff.org/dnt-policy'>política de Non Rastrexo da EFF</a>",
+        "message": "Comproba se <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>dominios de terceiras partes</a> cumpren coa <a target='_blank' href='https://www.eff.org/dnt-policy'>política Do Not Track de EFF</a>",
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
@@ -567,7 +567,7 @@
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "options_domain_list_sites": {
-        "message": "Viuse que $DOMAIN$ dominios facía rastrexo nestas webs:",
+        "message": "Viuse que $DOMAIN$ facía rastrexo nestas webs:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
