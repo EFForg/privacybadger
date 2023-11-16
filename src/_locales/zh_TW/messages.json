@@ -210,7 +210,7 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "此行為會令下列資料自動傳送給 EFF：您目前瀏覽的頁面、瀏覽器版本、Privacy Badger 版本，以及此頁面所有滑桿的狀態。",
+        "message": "此行為會令下列資料自動傳送給電子前哨基金會：您目前瀏覽的頁面、瀏覽器版本、Privacy Badger 版本，以及此頁面所有滑桿的狀態。",
         "description": ""
     },
     "report_button": {
@@ -358,7 +358,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "donate_to_eff": {
-        "message": "捐款給 EFF",
+        "message": "捐款給電子前哨基金會",
         "description": "A button on the intro page, and a link in the popup footer."
     },
     "intro_donate_subheading": {
@@ -394,7 +394,7 @@
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
-        "message": "檢查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方網域</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'> EFF 的不要追蹤政策</a>",
+        "message": "檢查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方網域</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'> 電子前哨基金會的不要追蹤政策</a>",
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
@@ -486,7 +486,7 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "網站異常",
+        "message": "網站例外",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
@@ -543,7 +543,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
-        "message": "符合 EFF 的不要追蹤政策",
+        "message": "符合電子前哨基金會的不要追蹤政策",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_status_filter": {
