@@ -21,20 +21,20 @@
  * Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1330159
  */
 
-var hasPopupSupport = !!(
+const hasPopupSupport = !!(
   chrome.browserAction.setPopup &&
   chrome.browserAction.getPopup
 );
-var hasBadgeSupport = !!chrome.browserAction.setBadgeText;
+const hasBadgeSupport = !!chrome.browserAction.setBadgeText;
 
 // keeps track of popup id while one is open
-var openPopupId = false;
-var popup_url = chrome.runtime.getManifest().browser_action.default_popup;
+let openPopupId = false;
+const popup_url = chrome.runtime.getManifest().browser_action.default_popup;
 
 // fakes a popup
 function openPopup() {
   chrome.tabs.query({active: true, lastFocusedWindow: true}, (tabs) => {
-    var url = popup_url + "?tabId=" + tabs[0].id;
+    const url = popup_url + "?tabId=" + tabs[0].id;
     chrome.tabs.create({url, index: tabs[0].index + 1}, (tab) => {
       openPopupId = tab.id;
     });
@@ -53,7 +53,7 @@ function onActivated(activeInfo) {
 // forgets the popup when the url is overwritten by the user
 function onUpdated(tabId, changeInfo, tab) {
   if (tab.url && openPopupId == tabId) {
-    var new_url = new URL(tab.url);
+    const new_url = new URL(tab.url);
 
     if (new_url.origin + new_url.pathname != popup_url) {
       openPopupId = false;
@@ -73,7 +73,7 @@ function startListeners() {
 // Used in popup.js, figures out which tab opened the 'fake' popup
 function getParentOfPopup(callback) {
   chrome.tabs.query({active: true, currentWindow: true}, function(focusedTab) {
-    var parentId = parseInt(new URL(focusedTab[0].url).searchParams.get('tabId'));
+    const parentId = parseInt(new URL(focusedTab[0].url).searchParams.get('tabId'));
     chrome.tabs.get(parentId, callback);
   });
 }
