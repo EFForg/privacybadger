@@ -96,7 +96,7 @@
         "description": "Domain slider list header tooltip."
     },
     "tooltip_cookieblock": {
-        "message": "將滑桿滑到中間以封鎖 cookie",
+        "message": "將滑桿滑到中間以封鎖 cookies",
         "description": "Domain slider list header tooltip."
     },
     "tooltip_allow": {
@@ -114,7 +114,7 @@
         }
     },
     "badger_status_cookieblock": {
-        "message": "來自 $DOMAIN$ 的已封鎖 cookie",
+        "message": "來自 $DOMAIN$ 的已封鎖 cookies",
         "description": "Tooltip shown over a domain name with a yellow slider in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -124,7 +124,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "來自 $DOMAIN$ 的已封鎖 cookie 與指紋識別指令碼",
+        "message": "來自 $DOMAIN$ 的已封鎖 cookies 與指紋識別指令碼",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -162,7 +162,7 @@
         "description": "Tooltip shown over the leftmost part of a domain slider. This is an action (\"click here to ...\"), not a status."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "封鎖 cookie",
+        "message": "封鎖 cookies",
         "description": "Tooltip shown over the center part of a domain slider."
     },
     "domain_slider_allow_tooltip": {
@@ -190,7 +190,7 @@
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
     },
     "non_tracker_tip": {
-        "message": "目前 Privacy Badger 只檢查第三方是否使用了 cookie、HTML5 Local Storage 或 Canvas 指紋識別來追蹤您的瀏覽。有些網域可能使用了 Privacy Badger 無法偵測到的追蹤手法。",
+        "message": "目前 Privacy Badger 只檢查第三方是否使用了 cookies、HTML5 Local Storage 或 Canvas 指紋識別來追蹤您的瀏覽。有些網域可能使用了 Privacy Badger 無法偵測到的追蹤手法。",
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_title": {
@@ -394,7 +394,7 @@
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
-        "message": "檢查<a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方網域</a>是否遵守<a target='_blank' href='https://www.eff.org/dnt-policy'> 電子前哨基金會的不要追蹤政策</a>",
+        "message": "檢查 <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方網域</a> 是否遵守 <a target='_blank' href='https://www.eff.org/dnt-policy'>電子前哨基金會的不要追蹤政策</a>",
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
