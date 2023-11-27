@@ -2872,6 +2872,7 @@ let multiDomainFirstPartiesArray = [
     "ms-online.pl",
   ],
   ["meetup.com", "meetupstatic.com"],
+  ["megamedia.cl", "mega.cl", "meganoticias.cl", "mdstrm.com"],
   [
     "mercadolibre.com",
 
