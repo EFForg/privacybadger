@@ -422,6 +422,8 @@ officeapps.live.com
 onedrive.live.com
 livechatinc.com
 cdn.livechat-files.com
+parts.blog.livedoor.jp
+blogroll.livedoor.net
 livehelpnow.net
 liveperson.com
 liveperson.net
