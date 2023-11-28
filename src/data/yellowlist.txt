@@ -500,6 +500,7 @@ ozone.ru
 paddle.com
 pandacommerce.net
 parastorage.com
+storage.pardot.com
 cdn.pathfactory.com
 cdn-app.pathfactory.com
 payments-amazon.com
