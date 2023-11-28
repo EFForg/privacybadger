@@ -11,7 +11,10 @@
     window.twttr = {};
     window.twttr.widgets = {};
 
-    window.twttr.ready = function () {
+    window.twttr.ready = function (cb) {
+        if (cb) {
+            return cb(window.twttr);
+        }
         return new Promise(function (resolve) {
             setTimeout(function () {
                 resolve(window.twttr);
