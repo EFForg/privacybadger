@@ -457,7 +457,8 @@
         "domain": "platform.twitter.com",
         "buttonSelectors": [
             "blockquote[class*='twitter-tweet']",
-            "blockquote[class*='twitter-video']"
+            "blockquote[class*='twitter-video']",
+            "iframe[src^='https://platform.twitter.com/embed/Tweet.html']"
         ],
         "scriptSelectors": [
             "script[src='https://platform.twitter.com/widgets.js']",
