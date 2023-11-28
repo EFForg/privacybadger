@@ -1796,6 +1796,17 @@ function dispatcher(request, sender, sendResponse) {
       break;
     }
 
+    if (request.name == "X (Twitter)") {
+      // no need to build a custom widget,
+      // merely rescan the page for Twitter embeds
+      chrome.tabs.sendMessage(sender.tab.id, {
+        type: "replaceWidget",
+        trackerDomain: "platform.twitter.com",
+        frameId: sender.frameId
+      });
+      return;
+    }
+
     // NOTE: request.name and request.data are not to be trusted
     // https://github.com/w3c/webextensions/issues/57#issuecomment-914491167
     // https://github.com/w3c/webextensions/issues/78#issuecomment-921058071

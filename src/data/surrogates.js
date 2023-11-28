@@ -131,6 +131,13 @@ const hostnames = {
     ],
     widgetName: "Google reCAPTCHA"
   },
+  'platform.twitter.com': {
+    match: MATCH_PREFIX,
+    tokens: [
+      '/widgets.js',
+    ],
+    widgetName: "X (Twitter)"
+  },
   'www.youtube.com': {
     match: MATCH_PREFIX,
     tokens: [
@@ -195,6 +202,8 @@ const surrogates = {
   '/npm/@fingerprintjs/fingerprintjs@3/dist/fp.js': 'fingerprintjs3.js',
   '/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js': 'fingerprintjs3.js',
   '/npm/@fingerprintjs/fingerprintjs@3.3.2/dist/fp.js': 'fingerprintjs3.js',
+
+  '/widgets.js': 'twitter.js',
 
   '/omweb-v1.js': 'noop.js',
 
