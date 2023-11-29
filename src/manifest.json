@@ -8,7 +8,9 @@
       "id": "jid1-MnnxcxisBPnSXQ@jetpack",
       "strict_min_version": "78.0"
     },
-    "gecko_android": {}
+    "gecko_android": {
+      "strict_min_version": "78.0"
+    }
   },
   "incognito": "spanning",
   "permissions": [
