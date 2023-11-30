@@ -1877,7 +1877,7 @@ function startListeners() {
   if (utils.hasOwn(chrome.webRequest.OnBeforeRequestOptions, 'REQUESTBODY')) {
     chrome.webRequest.onBeforeRequest.addListener(blockMozCspReports, {
       types: ['csp_report'],
-      urls: ['<all_urls>']
+      urls: ["http://*/*", "https://*/*"]
     }, ['blocking', 'requestBody']);
   }
 
@@ -1921,7 +1921,7 @@ function startListeners() {
   if (utils.hasOwn(chrome.webRequest.OnHeadersReceivedOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
-  chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["<all_urls>"]}, extraInfoSpec);
+  chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
 
   chrome.tabs.onRemoved.addListener(onTabRemoved);
   chrome.tabs.onReplaced.addListener(onTabReplaced);

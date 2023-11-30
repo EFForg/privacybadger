@@ -14,10 +14,9 @@
   },
   "incognito": "spanning",
   "permissions": [
+    "<all_urls>",
     "alarms",
     "tabs",
-    "http://*/*",
-    "https://*/*",
     "webNavigation",
     "webRequest",
     "webRequestBlocking",

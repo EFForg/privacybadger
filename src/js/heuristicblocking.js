@@ -794,7 +794,7 @@ function startListeners() {
     if (badger.INITIALIZED) {
       badger.heuristicBlocking.checkForTrackingCookies(details);
     }
-  }, {urls: ["<all_urls>"]}, extraInfoSpec);
+  }, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
 
   // inspect cookies in incoming headers
   extraInfoSpec = ['responseHeaders'];
@@ -823,7 +823,7 @@ function startListeners() {
     // check for pixel cookie sharing if the response appears to be for an image pixel
     badger.heuristicBlocking.checkForPixelCookieSharing(details);
 
-  }, {urls: ["<all_urls>"]}, extraInfoSpec);
+  }, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
 }
 
 export default {
