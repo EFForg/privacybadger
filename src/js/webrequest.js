@@ -1866,7 +1866,9 @@ function dispatcher(request, sender, sendResponse) {
 function startListeners() {
   chrome.webNavigation.onCommitted.addListener(onNavigate);
 
-  chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
+  chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {
+    urls: ["http://*/*", "https://*/*", "ws://*/*", "wss://*/*"]
+  }, ["blocking"]);
 
   chrome.webRequest.onBeforeRequest.addListener(filterWarRequests, {
     urls: chrome.runtime.getManifest().web_accessible_resources.map(
@@ -1915,13 +1917,17 @@ function startListeners() {
   if (utils.hasOwn(chrome.webRequest.OnBeforeSendHeadersOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
-  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
+  chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders, {
+    urls: ["http://*/*", "https://*/*"]
+  }, extraInfoSpec);
 
   extraInfoSpec = ['responseHeaders', 'blocking'];
   if (utils.hasOwn(chrome.webRequest.OnHeadersReceivedOptions, 'EXTRA_HEADERS')) {
     extraInfoSpec.push('extraHeaders');
   }
-  chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {urls: ["http://*/*", "https://*/*"]}, extraInfoSpec);
+  chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {
+    urls: ["http://*/*", "https://*/*"]
+  }, extraInfoSpec);
 
   chrome.tabs.onRemoved.addListener(onTabRemoved);
   chrome.tabs.onReplaced.addListener(onTabReplaced);
