@@ -1,6 +1,13 @@
 Privacy Badger Release Notes
 ============================
 
+2023.12.1
+* Improved widget replacement for embedded Tweets
+* Fixed blocking WebSocket connections to blocked domains
+* Fixed various site breakages
+* Added Galician translations in Firefox
+* Improved translations (Traditional Chinese, Greek, Japanese)
+
 2023.10.31
 * Added widget replacement for embedded Tweets.
 Privacy Badger replaces potentially useful widgets with placeholders.
