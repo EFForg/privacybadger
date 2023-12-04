@@ -824,6 +824,7 @@ let multiDomainFirstPartiesArray = [
     "bytedance.com",
 
     "douyin.com",
+    "ixigua.com",
     "tiktok.com",
 
     "byteoversea.com",
