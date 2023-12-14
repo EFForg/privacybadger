@@ -110,7 +110,7 @@ function Badger(from_qunit) {
     await dntHashesPromise;
     await tabDataPromise;
 
-    if (badger.isFirstRun || badger.isUpdate) {
+    if (badger.isFirstRun || badger.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
       // block all widget domains
       // only need to do this when the widget list could have gotten updated
       self.blockWidgetDomains();
@@ -278,49 +278,71 @@ Badger.prototype = {
     let self = this;
 
     return new Promise(function (resolve, reject) {
-      if (!self.isFirstRun && !self.isUpdate) {
+      if (!self.isFirstRun && !self.isUpdate && self.getPrivateSettings().getItem('doneLoadingSeed')) {
         log("No need to load seed data (existing installation, no update)");
         return resolve();
       }
 
+      if (self.getSettings().getItem("learnLocally")) {
+        log("No need to load seed data (local learning is enabled)");
+        if (!badger.getPrivateSettings().getItem('doneLoadingSeed')) {
+          self.getPrivateSettings().setItem('doneLoadingSeed', true);
+        }
+        return resolve();
+      }
+
+      if (self.getPrivateSettings().getItem('doneLoadingSeed')) {
+        // unset and immediately persist doneness flag
+        // so that if we somehow interrupt seed loading, we can fix on restart
+        self.getPrivateSettings().setItem('doneLoadingSeed', false);
+        badger.storage.forceSync('private_storage');
+      }
+
       let userActions = [];
 
-      if (self.isUpdate) {
-        if (self.getSettings().getItem("learnLocally")) {
-          log("No need to load seed data (local learning is enabled)");
-          return resolve();
+      // this is an update, or we previously failed to finish loading seed data
+      if (!self.isFirstRun) {
+        let actions = Object.entries(
+          self.storage.getStore('action_map').getItemClones());
 
-        } else {
-          let actions = Object.entries(
-            self.storage.getStore('action_map').getItemClones());
+        log("Clearing tracker data ...");
 
-          log("Clearing tracker data ...");
-
-          // first save user slider modifications
-          for (const [domain, actionData] of actions) {
-            if (actionData.userAction != "") {
-              userActions.push({
-                domain,
-                action: actionData.userAction
-              });
-            }
+        // first save user slider modifications
+        for (const [domain, actionData] of actions) {
+          if (actionData.userAction != "") {
+            userActions.push({
+              domain,
+              action: actionData.userAction
+            });
           }
-
-          // clear existing data
-          self.storage.clearTrackerData();
         }
+
+        // clear existing data
+        self.storage.clearTrackerData();
       }
 
       log("Loading seed data ...");
+
       self.loadSeedData(err => {
-        log("Seed data loaded! (err=%o)", err);
+        if (err) {
+          console.error("Seed data failed to load:", err);
+          return reject(err);
+        }
+
+        log("Seed data loaded!");
 
         // reapply customized sliders if any
         for (const item of userActions) {
           self.storage.setupUserAction(item.domain, item.action);
         }
 
-        return (err ? reject(err) : resolve());
+        if (!badger.getPrivateSettings().getItem('doneLoadingSeed')) {
+          badger.storage.forceSync(null, function () {
+            self.getPrivateSettings().setItem('doneLoadingSeed', true);
+          });
+        }
+
+        return resolve();
       });
     });
   },
@@ -510,7 +532,7 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
 
-      if (self.storage.getStore('cookieblock_list').keys().length) {
+      if (self.getPrivateSettings().getItem('doneLoadingYellowlist')) {
         log("Yellowlist already initialized from disk");
         return resolve();
       }
@@ -633,7 +655,7 @@ Badger.prototype = {
 
     return new Promise(function (resolve, reject) {
 
-      if (self.storage.getStore('dnt_hashes').keys().length) {
+      if (self.getPrivateSettings().getItem('doneLoadingDntHashes')) {
         log("DNT hashes already initialized from disk");
         return resolve();
       }
@@ -871,6 +893,9 @@ Badger.prototype = {
     // initialize any other private store (not-for-export) settings
     let privateDefaultSettings = {
       blockThreshold: constants.TRACKING_THRESHOLD,
+      doneLoadingDntHashes: false,
+      doneLoadingSeed: false,
+      doneLoadingYellowlist: false,
       firstRunTimerFinished: true,
       ignoredSiteBases: [],
       nextDntHashesUpdateTime: 0,
