@@ -525,13 +525,22 @@ function updateDNTCheckboxClicked() {
 function updateCheckingDNTPolicy() {
   const enabled = $("#check_dnt_policy_checkbox").prop("checked");
 
-  // TODO toggling DNT checking should updateSliders() probably
-  // TODO as any DNT-declared domains will be shown incorrectly
   chrome.runtime.sendMessage({
     type: "updateSettings",
     data: {
       checkForDNTPolicy: enabled
     }
+  }, function () {
+    chrome.runtime.sendMessage({
+      type: "getOptionsData",
+    }, (response) => {
+      // update DNT-compliant domains
+      updateSliders(response.origins);
+      // update cached domain data
+      OPTIONS_DATA.origins = response.origins;
+      // update count of blocked domains
+      updateSummary();
+    });
   });
 }
 
@@ -917,6 +926,21 @@ function updateOrigin(origin, action, userset) {
     constants.COOKIEBLOCK,
     constants.ALLOW,
     constants.NO_TRACKING].join(" ")).addClass(action);
+
+  // update EFF's Do Not Track policy compliance declaration icon
+  if (action == constants.DNT) {
+    // create or, if previously created, show DNT icon
+    let $dntIcon = $clicker.find('div.dnt-compliant');
+    if ($dntIcon.length) {
+      $dntIcon.show();
+    } else {
+      let $domainName = $clicker.find('span.origin-inner');
+      $domainName.html(htmlUtils.getDntIconHtml() + $domainName.html());
+    }
+  } else {
+    // hide DNT icon if visible
+    $clicker.find('div.dnt-compliant').hide();
+  }
 
   let show_breakage_warning = (
     action == constants.BLOCK &&

@@ -124,7 +124,7 @@ QUnit.test("getOriginHtml", function (assert) {
     assert.ok(originDataExists, "Origin should be set");
 
     // Check for presence of DNT content.
-    var dntExists = htmlResult.indexOf('id="dnt-compliant"') > -1;
+    var dntExists = htmlResult.indexOf('class="dnt-compliant"') > -1;
     assert.equal(dntExists, action == constants.DNT,
       "DNT div should " + (dntExists ? "" : "not ") + "be present");
   }

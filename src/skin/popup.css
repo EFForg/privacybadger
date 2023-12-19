@@ -108,6 +108,12 @@ button {
     background-color: #339900;
 }
 
+.dnt-compliant {
+    float: left;
+    display: inline;
+    padding-right: 5px;
+}
+
 .honeybadgerPowered {
     display: none;
     margin-right: 10px;
@@ -431,11 +437,6 @@ a.overlay_close:hover {
   display: block;
   width: 98%;
   height: 60%;
-}
-#dnt-compliant {
-  float: left;
-  display: inline;
-  padding-right: 5px;
 }
 #overlay p {
   font-size: 12px;

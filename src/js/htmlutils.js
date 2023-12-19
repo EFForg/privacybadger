@@ -142,6 +142,21 @@ let htmlUtils = {
   }()),
 
   /**
+   * Returns the HTML for the EFF's Do Not Track policy compliance declaration icon.
+   * @returns {String}
+   */
+  getDntIconHtml: (function () {
+    let dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
+    return function () {
+      return `
+      <div class="dnt-compliant">
+        <a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me"><img src="${dnt_icon_url}"></a>
+      </div>
+      `.trim();
+    };
+  }()),
+
+  /**
    * Generates HTML for given FQDN.
    *
    * @param {String} fqdn the FQDN to get HTML for
@@ -156,8 +171,7 @@ let htmlUtils = {
   getOriginHtml: (function () {
 
     const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
-      undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title'),
-      dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
+      undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title');
 
     return function (fqdn, action, show_breakage_warning, show_breakage_note, blockedFpScripts) {
       action = escape_html(action);
@@ -182,11 +196,7 @@ let htmlUtils = {
       // show the DNT icon for DNT-compliant domains
       let dnt_html = '';
       if (action == constants.DNT) {
-        dnt_html = `
-<div id="dnt-compliant">
-  <a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me"><img src="${dnt_icon_url}"></a>
-</div>
-        `.trim();
+        dnt_html = htmlUtils.getDntIconHtml();
       }
 
       let shield_icon = '';
