@@ -408,7 +408,9 @@ BadgerPen.prototype = {
     }
     actionObj[actionType] = action;
 
-    if (window.DEBUG) { // to avoid needless JSON.stringify calls
+    if (window.DEBUG && badger.INITIALIZED) {
+      // to avoid (A) needless JSON.stringify calls
+      // and (B) thousands of messages from loading seed data
       log(msg, domain, actionType, JSON.stringify(action));
     }
     action_map.setItem(domain, actionObj);
