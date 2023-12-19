@@ -38,6 +38,7 @@ import utils from "./utils.js";
  * @param {Boolean} from_qunit don't intercept requests when run by unit tests
  */
 function Badger(from_qunit) {
+  log("Initializing Privacy Badger ...");
   let self = this;
 
   self.isFirstRun = false;
@@ -121,6 +122,7 @@ function Badger(from_qunit) {
       self.runMigrations();
     }
 
+    log("Privacy Badger initialization complete");
     console.log("Privacy Badger is ready to rock!");
     console.log("Set DEBUG=1 to view console messages.");
     self.INITIALIZED = true;

@@ -266,7 +266,6 @@ HeuristicBlocker.prototype = {
     // (cookie)block if domain was seen tracking on enough first party domains
     if (firstParties.length >=
         self.storage.getStore('private_storage').getItem('blockThreshold')) {
-      log("blocklisting", tracker_fqdn);
       self.blocklistOrigin(tracker_base, tracker_fqdn);
     }
   }
