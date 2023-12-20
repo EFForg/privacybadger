@@ -2903,6 +2903,9 @@ let multiDomainFirstPartiesArray = [
     "mercadopago.com.br",
     "mercadopago.com.co",
     "mercadopago.com.mx",
+    "mercadopago.com.pe",
+    "mercadopago.com.uy",
+    "mercadopago.cl",
 
     "mercadoshops.com",
     "mercadoshops.cl",
