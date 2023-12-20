@@ -540,6 +540,11 @@ function updateCheckingDNTPolicy() {
       OPTIONS_DATA.origins = response.origins;
       // update count of blocked domains
       updateSummary();
+      // toggle the "dnt" filter
+      if (!enabled && $('#tracking-domains-type-filter').val() == "dnt") {
+        $('#tracking-domains-type-filter').val("");
+      }
+      $('#tracking-domains-type-filter option[value="dnt"]').toggle(enabled);
     });
   });
 }
