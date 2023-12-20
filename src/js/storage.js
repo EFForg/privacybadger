@@ -461,9 +461,11 @@ BadgerPen.prototype = {
     this._setupDomainAction(domain, "", "userAction");
 
     // if Privacy Badger never recorded tracking for this domain,
+    // and it's not a DNT-compliant domain,
     // remove the domain's entry from Privacy Badger's database
-    const actionMap = this.getStore("action_map");
-    if (actionMap.getItem(domain).heuristicAction == "") {
+    const actionMap = this.getStore("action_map"),
+      actions = actionMap.getItem(domain);
+    if (actions.heuristicAction == "" && !actions.dnt) {
       log("Removing %s from action_map", domain);
       actionMap.deleteItem(domain);
     }
