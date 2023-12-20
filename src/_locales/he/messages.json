@@ -414,7 +414,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's Topics API",
+        "message": "השבת את Topics API של Google",
         "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
@@ -567,7 +567,7 @@
         "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
     },
     "options_domain_list_sites": {
-        "message": "$DOMAIN$ was seen tracking on the following sites:",
+        "message": "$DOMAIN$ נראה עוקב באתרים הבאים:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
