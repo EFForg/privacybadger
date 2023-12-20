@@ -440,6 +440,7 @@ cdn.mdstrm.com
 medallia.com
 mediawiki.org
 megaphone.fm
+api.mercadopago.com
 ajax.microsoft.com
 appsforoffice.microsoft.com
 atlas.microsoft.com
