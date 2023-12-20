@@ -439,6 +439,11 @@ matterport.com
 cdn.mdstrm.com
 medallia.com
 mediawiki.org
+cdn-client.medium.com
+cdn-images-1.medium.com
+cdn-static-1.medium.com
+glyph.medium.com
+miro.medium.com
 megaphone.fm
 api.mercadopago.com
 ajax.microsoft.com
