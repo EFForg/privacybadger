@@ -28,6 +28,8 @@ import { getBaseDomain } from "./basedomain.js";
  *   {String} [statusFilter] Status: blocked/cookieblocked/allowed
  *   {Boolean} [showNotYetBlocked] Whether to show domains your Badger
  *     hasn't yet learned to block.
+ *   {Boolean} [hideInSeed] Whether to hide domains found in seed list.
+ *   {Set} [seedBases] Required by hideInSeed.
  *
  * @return {Array} The array of domains.
  */
@@ -37,7 +39,9 @@ function filterDomains(domains, options) {
   let search_filter = options.searchFilter,
     type_filter = options.typeFilter,
     status_filter = options.statusFilter,
-    show_not_yet_blocked = options.showNotYetBlocked;
+    show_not_yet_blocked = options.showNotYetBlocked,
+    hide_in_seed = options.hideInSeed,
+    seedBases = options.seedBases;
 
   // lower case for case-insensitive matching
   if (search_filter) {
@@ -56,6 +60,12 @@ function filterDomains(domains, options) {
     if (!show_not_yet_blocked) {
       // hide the not-yet-seen-on-enough-sites potential trackers
       if (value == "allow") {
+        return false;
+      }
+    }
+
+    if (hide_in_seed && seedBases) {
+      if (seedBases.has(domain) || seedBases.has(getBaseDomain(domain))) {
         return false;
       }
     }

@@ -1401,7 +1401,7 @@ function dispatcher(request, sender, sendResponse) {
       cookieblocked = {};
 
     for (let fqdn in trackers) {
-      // see if fqdn would be cookieblocked if not for user override
+      // see if FQDN would be cookieblocked if not for user override
       if (badger.storage.wouldGetCookieblocked(fqdn)) {
         cookieblocked[fqdn] = true;
       }
@@ -1433,20 +1433,40 @@ function dispatcher(request, sender, sendResponse) {
 
     let cookieblocked = {};
     for (let fqdn in trackers) {
-      // see if fqdn would be cookieblocked if not for user override
+      // see if FQDN would be cookieblocked if not for user override
       if (badger.storage.wouldGetCookieblocked(fqdn)) {
         cookieblocked[fqdn] = true;
       }
     }
 
-    sendResponse({
-      cookieblocked,
-      origins: trackers,
-      settings: badger.getSettings().getItemClones(),
-      widgets: badger.widgetList.map(widget => widget.name),
+    utils.fetchResource(constants.SEED_DATA_LOCAL_URL, function (_, response) {
+      let seedBases = [];
+
+      try {
+        seedBases = new Set(
+          Object.keys(JSON.parse(response).action_map)
+            .map(d => getBaseDomain(d)));
+      } catch (e) { /* ignore */ }
+
+      // also add widget and Panopticlick domains
+      for (let domain of badger.getAllWidgetDomains()) {
+        seedBases.add(getBaseDomain(domain));
+      }
+      for (let domain of constants.PANOPTICLICK_DOMAINS) {
+        seedBases.add(getBaseDomain(domain));
+      }
+
+      sendResponse({
+        cookieblocked,
+        origins: trackers,
+        settings: badger.getSettings().getItemClones(),
+        widgets: badger.widgetList.map(widget => widget.name),
+        seedBases: Array.from(seedBases)
+      });
     });
 
-    break;
+    // indicate this is an async response to chrome.runtime.onMessage
+    return true;
   }
 
   case "getOptionsDomainTooltip": {

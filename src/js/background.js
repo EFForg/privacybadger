@@ -442,15 +442,11 @@ Badger.prototype = {
   },
 
   /**
-   * Blocks all widget domains
-   * to ensure that all widgets that could get replaced
-   * do get replaced by default for all users.
+   * @returns {Set}
    */
-  blockWidgetDomains() {
-    let self = this;
-
-    // compile set of widget domains
-    let domains = new Set();
+  getAllWidgetDomains() {
+    let self = this,
+      domains = new Set();
     for (let widget of self.widgetList) {
       for (let domain of widget.domains) {
         if (domain[0] == "*") {
@@ -459,6 +455,17 @@ Badger.prototype = {
         domains.add(domain);
       }
     }
+    return domains;
+  },
+
+  /**
+   * Blocks all widget domains
+   * to ensure that all widgets that could get replaced
+   * do get replaced by default for all users.
+   */
+  blockWidgetDomains() {
+    let self = this,
+      domains = self.getAllWidgetDomains();
 
     // block the domains
     for (let domain of domains) {
@@ -473,7 +480,7 @@ Badger.prototype = {
    * https://github.com/EFForg/privacybadger/issues/2712
    */
   blockPanopticlickDomains() {
-    for (let domain of ["trackersimulator.org", "eviltracker.net"]) {
+    for (let domain of constants.PANOPTICLICK_DOMAINS) {
       this.heuristicBlocking.blocklistOrigin(domain, domain);
     }
   },

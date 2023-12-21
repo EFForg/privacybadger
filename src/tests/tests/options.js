@@ -23,6 +23,12 @@ QUnit.test("filterDomains", (assert) => {
       ([, val]) => val != "dnt"
     )
   );
+  const seedBases = new Set([
+    "allowed.com",
+    "blocked.org",
+    "alsoblocked.org",
+    "cookieblocked.biz",
+  ]);
 
   const tests = [
     {
@@ -104,6 +110,20 @@ QUnit.test("filterDomains", (assert) => {
         showNotYetBlocked: true,
       }],
       expected: ["UserAllowed.net"]
+    },
+    {
+      msg: "Domains present in seed data can be hidden",
+      args: [domains, {
+        showNotYetBlocked: true,
+        hideInSeed: true,
+        seedBases,
+      }],
+      expected: [
+        "UserAllowed.net",
+        "uuuserblocked.nyc",
+        "dntDomain.co.uk",
+        "another.allowed.domain.example",
+      ]
     },
   ];
 

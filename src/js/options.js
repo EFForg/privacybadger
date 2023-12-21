@@ -69,6 +69,7 @@ function loadOptions() {
   $("#tracking-domains-type-filter").on("change", filterTrackingDomains);
   $("#tracking-domains-status-filter").on("change", filterTrackingDomains);
   $("#tracking-domains-show-not-yet-blocked").on("change", filterTrackingDomains);
+  $("#tracking-domains-hide-in-seed").on("change", filterTrackingDomains);
 
   // Add event listeners for origins container.
   $('#blockedResourcesContainer').on('change', 'input:radio', function () {
@@ -203,12 +204,34 @@ function loadOptions() {
           .prop("checked", (enabled ? OPTIONS_DATA.settings.showNonTrackingDomains : false));
 
         $("#learning-setting-divs").slideToggle(enabled);
+
+        if (!enabled) {
+          let rerender = false,
+            $showNotYetBlocked = $('#tracking-domains-show-not-yet-blocked'),
+            $hideInSeed = $('#tracking-domains-hide-in-seed');
+
+          if ($showNotYetBlocked.prop("checked")) {
+            $showNotYetBlocked.prop("checked", false);
+            rerender = true;
+          }
+          if ($hideInSeed.prop("checked")) {
+            $hideInSeed.prop("checked", false);
+            rerender = true;
+          }
+
+          if (rerender) {
+            filterTrackingDomains();
+          }
+        }
+
         $("#not-yet-blocked-filter").toggle(enabled);
+        $("#hide-in-seed-filter").toggle(enabled);
       });
     });
   if (OPTIONS_DATA.settings.learnLocally) {
     $("#learning-setting-divs").show();
     $("#not-yet-blocked-filter").show();
+    $("#hide-in-seed-filter").show();
   }
 
   $("#learn-in-incognito-checkbox")
@@ -711,7 +734,8 @@ function filterTrackingDomains() {
   const $searchFilter = $('#trackingDomainSearch'),
     $typeFilter = $('#tracking-domains-type-filter'),
     $statusFilter = $('#tracking-domains-status-filter'),
-    show_not_yet_blocked = $('#tracking-domains-show-not-yet-blocked').prop('checked');
+    show_not_yet_blocked = $('#tracking-domains-show-not-yet-blocked').prop('checked'),
+    hide_in_seed = $('#tracking-domains-hide-in-seed').prop('checked');
 
   if ($typeFilter.val() == "dnt") {
     $statusFilter.prop("disabled", true).val("");
@@ -734,6 +758,10 @@ function filterTrackingDomains() {
       sel: '#tracking-domains-show-not-yet-blocked',
       val: show_not_yet_blocked,
       type: 'checkbox'
+    }, {
+      sel: '#tracking-domains-hide-in-seed',
+      val: hide_in_seed,
+      type: 'checkbox'
     },
   ]));
 
@@ -749,7 +777,9 @@ function filterTrackingDomains() {
       searchFilter: $searchFilter.val().toLowerCase(),
       typeFilter: $typeFilter.val(),
       statusFilter: $statusFilter.val(),
-      showNotYetBlocked: show_not_yet_blocked
+      showNotYetBlocked: show_not_yet_blocked,
+      hideInSeed: hide_in_seed,
+      seedBases: OPTIONS_DATA.seedBases
     }),
     callback);
 }
@@ -1036,6 +1066,7 @@ $(function () {
     chrome.runtime.sendMessage({
       type: "getOptionsData",
     }, (response) => {
+      response.seedBases = new Set(response.seedBases);
       OPTIONS_DATA = response;
       loadOptions();
     });
