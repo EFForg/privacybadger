@@ -21,7 +21,7 @@
 /* eslint-env browser, jquery */
 
 import { getBaseDomain } from "../lib/basedomain.js";
-import { getOriginsArray } from "../lib/options.js";
+import { filterDomains } from "../lib/options.js";
 
 import constants from "./constants.js";
 import htmlUtils from "./htmlutils.js";
@@ -668,11 +668,12 @@ function updateSummary() {
   $("#tracking-domains-div").show();
 
   // count unique (cookie)blocked tracking base domains
-  let blockedDomains = getOriginsArray(OPTIONS_DATA.origins, null, "-dnt", null, false);
-  let baseDomains = new Set(blockedDomains.map(d => getBaseDomain(d)));
+  let blockedBases = new Set(
+    filterDomains(OPTIONS_DATA.origins, { typeFilter: '-dnt' })
+      .map(d => getBaseDomain(d)));
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [
-      baseDomains.size,
+      blockedBases.size,
       "<a target='_blank' title='" + htmlUtils.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
     ]
   )).show();
@@ -703,33 +704,19 @@ function reloadTrackingDomainsTab() {
 }
 
 /**
- * Displays filtered list of tracking domains based on user input.
+ * Handles tracking domain list filter changes,
+ * and calls the tracking domain list renderer.
  */
 function filterTrackingDomains() {
   const $searchFilter = $('#trackingDomainSearch'),
     $typeFilter = $('#tracking-domains-type-filter'),
     $statusFilter = $('#tracking-domains-status-filter'),
-    $notYetBlockedFilter = $('#tracking-domains-show-not-yet-blocked');
+    show_not_yet_blocked = $('#tracking-domains-show-not-yet-blocked').prop('checked');
 
   if ($typeFilter.val() == "dnt") {
     $statusFilter.prop("disabled", true).val("");
   } else {
     $statusFilter.prop("disabled", false);
-  }
-
-  let filteredOrigins = getOriginsArray(
-    OPTIONS_DATA.origins,
-    $searchFilter.val().toLowerCase(),
-    $typeFilter.val(),
-    $statusFilter.val(),
-    $notYetBlockedFilter.prop('checked')
-  );
-
-  let callback = function () {};
-  if (this == $searchFilter[0]) {
-    callback = function () {
-      $searchFilter.focus();
-    };
   }
 
   // reloading the page should reapply search filters
@@ -738,19 +725,33 @@ function filterTrackingDomains() {
       sel: '#trackingDomainSearch',
       val: $searchFilter.val()
     }, {
-      sel: '#tracking-domains-show-not-yet-blocked',
-      val: $notYetBlockedFilter.prop('checked'),
-      type: 'checkbox'
-    }, {
       sel: '#tracking-domains-status-filter',
       val: $statusFilter.val()
     }, {
       sel: '#tracking-domains-type-filter',
       val: $typeFilter.val()
+    }, {
+      sel: '#tracking-domains-show-not-yet-blocked',
+      val: show_not_yet_blocked,
+      type: 'checkbox'
     },
   ]));
 
-  showTrackingDomains(filteredOrigins, callback);
+  let callback = function () {};
+  if (this == $searchFilter[0]) {
+    callback = function () {
+      $searchFilter.focus();
+    };
+  }
+
+  renderTrackingDomains(
+    filterDomains(OPTIONS_DATA.origins, {
+      searchFilter: $searchFilter.val().toLowerCase(),
+      typeFilter: $typeFilter.val(),
+      statusFilter: $statusFilter.val(),
+      showNotYetBlocked: show_not_yet_blocked
+    }),
+    callback);
 }
 
 /**
@@ -759,7 +760,7 @@ function filterTrackingDomains() {
  * @param {Array} domains
  * @param {Function} [cb] callback
  */
-function showTrackingDomains(domains, cb) {
+function renderTrackingDomains(domains, cb) {
   if (!cb) {
     cb = function () {};
   }
@@ -783,7 +784,7 @@ function showTrackingDomains(domains, cb) {
     }
   }
 
-  function renderDomains() {
+  function _renderChunk() {
     const CHUNK = 100;
 
     let $printable = $(out.splice(0, CHUNK).join(""));
@@ -791,7 +792,7 @@ function showTrackingDomains(domains, cb) {
     $printable.appendTo('#blockedResourcesInner');
 
     if (out.length) {
-      requestAnimationFrame(renderDomains);
+      requestAnimationFrame(_renderChunk);
     } else {
       $('#tracking-domains-loader').hide();
       $('#tracking-domains-filters').show();
@@ -809,7 +810,7 @@ function showTrackingDomains(domains, cb) {
   $('#blockedResourcesInner').empty();
 
   if (out.length) {
-    requestAnimationFrame(renderDomains);
+    requestAnimationFrame(_renderChunk);
   } else {
     $('#tracking-domains-loader').hide();
     $('#tracking-domains-filters').show();
