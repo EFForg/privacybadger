@@ -2123,9 +2123,6 @@
     "arc.io": {
       "heuristicAction": "block"
     },
-    "arcade.software": {
-      "heuristicAction": "block"
-    },
     "arcamax.com": {
       "heuristicAction": "allow"
     },
@@ -24358,11 +24355,6 @@
       "apnetv.to",
       "manhwaindo.id",
       "mangaokutr.com"
-    ],
-    "arcade.software": [
-      "gitbook.com",
-      "copy.ai",
-      "seon.io"
     ],
     "arcamax.com": [
       "hollywoodlife.com"
