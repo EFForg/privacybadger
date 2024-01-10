@@ -44,6 +44,7 @@ interactives.ap.org
 appconsent.io
 apple.com
 appspot.com
+arcade.software
 arcgis.com
 arcgisonline.com
 archive.org
