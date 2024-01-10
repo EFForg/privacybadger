@@ -179,8 +179,7 @@ Privacy Badger aims to give the user access to the functionality when they want
 it, but protection against the tracking at all other times.
 
 To that end, Privacy Badger has incorporated code from the ShareMeNot project
-so that it is able to replace various types of widgets hosted
-by third party origins with local, static equivalents that either replace the
+so that it is able to [replace various types of third-party widgets with local equivalents](https://www.eff.org/deeplinks/2024/01/privacy-badger-puts-you-control-widgets) that either replace the
 original widget faithfully, or create a click-through step before the widget
 is loaded and tracks the user.
 
