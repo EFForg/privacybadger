@@ -176,6 +176,8 @@ digitalriver.com
 digitalrivercontent.net
 cdn.discordapp.com
 media.discordapp.net
+images-ext-1.discordapp.net
+images-ext-2.discordapp.net
 discoverevvnt.com
 pics.dmm.co.jp
 api.docodoco.jp
