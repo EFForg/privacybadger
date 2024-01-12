@@ -30,6 +30,7 @@ import { getBaseDomain } from "./basedomain.js";
  *     hasn't yet learned to block.
  *   {Boolean} [hideInSeed] Whether to hide domains found in seed list.
  *   {Set} [seedBases] Required by hideInSeed.
+ *   {Set} [seedNotYetBlocked] Required by hideInSeed.
  *
  * @return {Array} The array of domains.
  */
@@ -41,7 +42,8 @@ function filterDomains(domains, options) {
     status_filter = options.statusFilter,
     show_not_yet_blocked = options.showNotYetBlocked,
     hide_in_seed = options.hideInSeed,
-    seedBases = options.seedBases;
+    seedBases = options.seedBases,
+    seedNotYetBlocked = options.seedNotYetBlocked;
 
   // lower case for case-insensitive matching
   if (search_filter) {
@@ -64,9 +66,24 @@ function filterDomains(domains, options) {
       }
     }
 
-    if (hide_in_seed && seedBases) {
-      if (seedBases.has(domain) || seedBases.has(getBaseDomain(domain))) {
-        return false;
+    if (hide_in_seed && seedBases && seedNotYetBlocked) {
+      // if domain is not-yet-blocked, keep only if
+      // domain and its base are not in seed data
+      if (value == "allow") {
+        if (seedBases.has(domain) || seedBases.has(getBaseDomain(domain))) {
+          return false;
+        }
+      // otherwise, keep if domain and its base are either
+      // not in seed data, or they were not-yet-blocked in seed data
+      } else {
+        if (seedBases.has(domain) && !seedNotYetBlocked.has(domain)) {
+          return false;
+        } else {
+          let base = getBaseDomain(domain);
+          if (seedBases.has(base) && !seedNotYetBlocked.has(base)) {
+            return false;
+          }
+        }
       }
     }
 

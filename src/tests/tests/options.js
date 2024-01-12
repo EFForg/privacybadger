@@ -2,7 +2,7 @@ import { filterDomains } from "../../lib/options.js";
 
 QUnit.module("Options page utils");
 
-QUnit.test("filterDomains", (assert) => {
+QUnit.test("filterDomains()", (assert) => {
   const domains = {
     "allowed.com": "allow",
     "blocked.org": "block",
@@ -112,13 +112,38 @@ QUnit.test("filterDomains", (assert) => {
       expected: ["UserAllowed.net"]
     },
     {
-      msg: "Domains present in seed data can be hidden",
+      msg: "Hiding pre-trained domains",
       args: [domains, {
         showNotYetBlocked: true,
         hideInSeed: true,
         seedBases,
+        seedNotYetBlocked: new Set()
       }],
       expected: [
+        "UserAllowed.net",
+        "uuuserblocked.nyc",
+        "dntDomain.co.uk",
+        "another.allowed.domain.example",
+      ]
+    },
+    {
+      msg: "Hiding pre-trained domains requires seed data",
+      args: [domains, {
+        showNotYetBlocked: true,
+        hideInSeed: true,
+      }],
+      expected: Object.keys(domains)
+    },
+    {
+      msg: "Hiding pre-trained domains should keep domains that went from allowed to blocked",
+      args: [domains, {
+        showNotYetBlocked: true,
+        hideInSeed: true,
+        seedBases,
+        seedNotYetBlocked: new Set(["alsoblocked.org"])
+      }],
+      expected: [
+        "alsoblocked.org",
         "UserAllowed.net",
         "uuuserblocked.nyc",
         "dntDomain.co.uk",

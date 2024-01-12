@@ -1440,13 +1440,22 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     utils.fetchResource(constants.SEED_DATA_LOCAL_URL, function (_, response) {
-      let seedBases = [];
+      let seedActions,
+        seedBases = new Set(),
+        seedNotYetBlocked = new Set();
 
       try {
-        seedBases = new Set(
-          Object.keys(JSON.parse(response).action_map)
-            .map(d => getBaseDomain(d)));
+        seedActions = JSON.parse(response).action_map;
       } catch (e) { /* ignore */ }
+      if (seedActions) {
+        for (let domain of Object.keys(seedActions)) {
+          let base = getBaseDomain(domain);
+          seedBases.add(base);
+          if (utils.hasOwn(seedActions, base) && seedActions[base] == constants.ALLOW) {
+            seedNotYetBlocked.add(base);
+          }
+        }
+      }
 
       // also add widget and Panopticlick domains
       for (let domain of badger.getAllWidgetDomains()) {
@@ -1459,9 +1468,10 @@ function dispatcher(request, sender, sendResponse) {
       sendResponse({
         cookieblocked,
         origins: trackers,
+        seedBases: Array.from(seedBases),
+        seedNotYetBlocked: Array.from(seedNotYetBlocked),
         settings: badger.getSettings().getItemClones(),
         widgets: badger.widgetList.map(widget => widget.name),
-        seedBases: Array.from(seedBases)
       });
     });
 

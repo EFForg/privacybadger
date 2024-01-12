@@ -779,7 +779,8 @@ function filterTrackingDomains() {
       statusFilter: $statusFilter.val(),
       showNotYetBlocked: show_not_yet_blocked,
       hideInSeed: hide_in_seed,
-      seedBases: OPTIONS_DATA.seedBases
+      seedBases: OPTIONS_DATA.seedBases,
+      seedNotYetBlocked: OPTIONS_DATA.seedNotYetBlocked
     }),
     callback);
 }
@@ -1067,6 +1068,7 @@ $(function () {
       type: "getOptionsData",
     }, (response) => {
       response.seedBases = new Set(response.seedBases);
+      response.seedNotYetBlocked = new Set(response.seedNotYetBlocked);
       OPTIONS_DATA = response;
       loadOptions();
     });
