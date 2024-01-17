@@ -39,6 +39,8 @@ let exports = {
   MAX_COOKIE_ENTROPY: 12,
 
   DNT_POLICY_CHECK_INTERVAL: 1000, // one second
+
+  PANOPTICLICK_DOMAINS: ["trackersimulator.org", "eviltracker.net"],
 };
 
 exports.BLOCKED_ACTIONS = new Set([

@@ -21,7 +21,7 @@
 /* eslint-env browser, jquery */
 
 import { getBaseDomain } from "../lib/basedomain.js";
-import { getOriginsArray } from "../lib/options.js";
+import { filterDomains } from "../lib/options.js";
 
 import constants from "./constants.js";
 import htmlUtils from "./htmlutils.js";
@@ -69,6 +69,7 @@ function loadOptions() {
   $("#tracking-domains-type-filter").on("change", filterTrackingDomains);
   $("#tracking-domains-status-filter").on("change", filterTrackingDomains);
   $("#tracking-domains-show-not-yet-blocked").on("change", filterTrackingDomains);
+  $("#tracking-domains-hide-in-seed").on("change", filterTrackingDomains);
 
   // Add event listeners for origins container.
   $('#blockedResourcesContainer').on('change', 'input:radio', function () {
@@ -203,12 +204,34 @@ function loadOptions() {
           .prop("checked", (enabled ? OPTIONS_DATA.settings.showNonTrackingDomains : false));
 
         $("#learning-setting-divs").slideToggle(enabled);
+
+        if (!enabled) {
+          let rerender = false,
+            $showNotYetBlocked = $('#tracking-domains-show-not-yet-blocked'),
+            $hideInSeed = $('#tracking-domains-hide-in-seed');
+
+          if ($showNotYetBlocked.prop("checked")) {
+            $showNotYetBlocked.prop("checked", false);
+            rerender = true;
+          }
+          if ($hideInSeed.prop("checked")) {
+            $hideInSeed.prop("checked", false);
+            rerender = true;
+          }
+
+          if (rerender) {
+            filterTrackingDomains();
+          }
+        }
+
         $("#not-yet-blocked-filter").toggle(enabled);
+        $("#hide-in-seed-filter").toggle(enabled);
       });
     });
   if (OPTIONS_DATA.settings.learnLocally) {
     $("#learning-setting-divs").show();
     $("#not-yet-blocked-filter").show();
+    $("#hide-in-seed-filter").show();
   }
 
   $("#learn-in-incognito-checkbox")
@@ -668,11 +691,12 @@ function updateSummary() {
   $("#tracking-domains-div").show();
 
   // count unique (cookie)blocked tracking base domains
-  let blockedDomains = getOriginsArray(OPTIONS_DATA.origins, null, "-dnt", null, false);
-  let baseDomains = new Set(blockedDomains.map(d => getBaseDomain(d)));
+  let blockedBases = new Set(
+    filterDomains(OPTIONS_DATA.origins, { typeFilter: '-dnt' })
+      .map(d => getBaseDomain(d)));
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [
-      baseDomains.size,
+      blockedBases.size,
       "<a target='_blank' title='" + htmlUtils.escape(i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
     ]
   )).show();
@@ -703,55 +727,106 @@ function reloadTrackingDomainsTab() {
 }
 
 /**
- * Displays filtered list of tracking domains based on user input.
+ * Handles tracking domain list filter changes,
+ * and calls the tracking domain list renderer.
  */
-function filterTrackingDomains() {
-  const $searchFilter = $('#trackingDomainSearch'),
-    $typeFilter = $('#tracking-domains-type-filter'),
-    $statusFilter = $('#tracking-domains-status-filter'),
-    $notYetBlockedFilter = $('#tracking-domains-show-not-yet-blocked');
+let filterTrackingDomains = (function () {
+  let seedBases = new Set(),
+    seedNotYetBlocked = new Set();
 
-  if ($typeFilter.val() == "dnt") {
-    $statusFilter.prop("disabled", true).val("");
-  } else {
-    $statusFilter.prop("disabled", false);
+  function _maybeFetchSeed(skip, cb) {
+    // only fetch when necessary:
+    // hideInSeed is set and seed is not already loaded
+    if (skip || seedBases.size) {
+      return setTimeout(cb, 0);
+    }
+
+    utils.fetchResource(constants.SEED_DATA_LOCAL_URL, function (_, response) {
+      let seedActions;
+
+      try {
+        seedActions = JSON.parse(response).action_map;
+      } catch (e) {
+        return cb();
+      }
+
+      for (let domain of Object.keys(seedActions)) {
+        let base = getBaseDomain(domain);
+        seedBases.add(base);
+        if (utils.hasOwn(seedActions, base) && seedActions[base] == constants.ALLOW) {
+          seedNotYetBlocked.add(base);
+        }
+      }
+
+      // also add widget and Panopticlick domains
+      for (let domain of OPTIONS_DATA.widgetDomains) {
+        seedBases.add(getBaseDomain(domain));
+      }
+      for (let domain of constants.PANOPTICLICK_DOMAINS) {
+        seedBases.add(getBaseDomain(domain));
+      }
+
+      cb();
+    });
   }
 
-  let filteredOrigins = getOriginsArray(
-    OPTIONS_DATA.origins,
-    $searchFilter.val().toLowerCase(),
-    $typeFilter.val(),
-    $statusFilter.val(),
-    $notYetBlockedFilter.prop('checked')
-  );
+  return function () {
+    const $searchFilter = $('#trackingDomainSearch'),
+      $typeFilter = $('#tracking-domains-type-filter'),
+      $statusFilter = $('#tracking-domains-status-filter'),
+      show_not_yet_blocked = $('#tracking-domains-show-not-yet-blocked').prop('checked'),
+      hide_in_seed = $('#tracking-domains-hide-in-seed').prop('checked');
 
-  let callback = function () {};
-  if (this == $searchFilter[0]) {
-    callback = function () {
-      $searchFilter.focus();
-    };
-  }
+    if ($typeFilter.val() == "dnt") {
+      $statusFilter.prop("disabled", true).val("");
+    } else {
+      $statusFilter.prop("disabled", false);
+    }
 
-  // reloading the page should reapply search filters
-  sessionStorage.setItem('domain-list-filters', JSON.stringify([
-    {
-      sel: '#trackingDomainSearch',
-      val: $searchFilter.val()
-    }, {
-      sel: '#tracking-domains-show-not-yet-blocked',
-      val: $notYetBlockedFilter.prop('checked'),
-      type: 'checkbox'
-    }, {
-      sel: '#tracking-domains-status-filter',
-      val: $statusFilter.val()
-    }, {
-      sel: '#tracking-domains-type-filter',
-      val: $typeFilter.val()
-    },
-  ]));
+    // reloading the page should reapply search filters
+    sessionStorage.setItem('domain-list-filters', JSON.stringify([
+      {
+        sel: '#trackingDomainSearch',
+        val: $searchFilter.val()
+      }, {
+        sel: '#tracking-domains-status-filter',
+        val: $statusFilter.val()
+      }, {
+        sel: '#tracking-domains-type-filter',
+        val: $typeFilter.val()
+      }, {
+        sel: '#tracking-domains-show-not-yet-blocked',
+        val: show_not_yet_blocked,
+        type: 'checkbox'
+      }, {
+        sel: '#tracking-domains-hide-in-seed',
+        val: hide_in_seed,
+        type: 'checkbox'
+      },
+    ]));
 
-  showTrackingDomains(filteredOrigins, callback);
-}
+    let callback = function () {};
+    if (this == $searchFilter[0]) {
+      callback = function () {
+        $searchFilter.focus();
+      };
+    }
+
+    _maybeFetchSeed(!hide_in_seed, function () {
+      renderTrackingDomains(
+        filterDomains(OPTIONS_DATA.origins, {
+          searchFilter: $searchFilter.val().toLowerCase(),
+          typeFilter: $typeFilter.val(),
+          statusFilter: $statusFilter.val(),
+          showNotYetBlocked: show_not_yet_blocked,
+          hideInSeed: hide_in_seed,
+          seedBases,
+          seedNotYetBlocked
+        }),
+        callback);
+    });
+  };
+}());
 
 /**
  * Renders the list of tracking domains.
@@ -759,7 +834,7 @@ function filterTrackingDomains() {
  * @param {Array} domains
  * @param {Function} [cb] callback
  */
-function showTrackingDomains(domains, cb) {
+function renderTrackingDomains(domains, cb) {
   if (!cb) {
     cb = function () {};
   }
@@ -783,7 +858,7 @@ function showTrackingDomains(domains, cb) {
     }
   }
 
-  function renderDomains() {
+  function _renderChunk() {
     const CHUNK = 100;
 
     let $printable = $(out.splice(0, CHUNK).join(""));
@@ -791,7 +866,7 @@ function showTrackingDomains(domains, cb) {
     $printable.appendTo('#blockedResourcesInner');
 
     if (out.length) {
-      requestAnimationFrame(renderDomains);
+      requestAnimationFrame(_renderChunk);
     } else {
       $('#tracking-domains-loader').hide();
       $('#tracking-domains-filters').show();
@@ -809,7 +884,7 @@ function showTrackingDomains(domains, cb) {
   $('#blockedResourcesInner').empty();
 
   if (out.length) {
-    requestAnimationFrame(renderDomains);
+    requestAnimationFrame(_renderChunk);
   } else {
     $('#tracking-domains-loader').hide();
     $('#tracking-domains-filters').show();

@@ -1401,7 +1401,7 @@ function dispatcher(request, sender, sendResponse) {
       cookieblocked = {};
 
     for (let fqdn in trackers) {
-      // see if fqdn would be cookieblocked if not for user override
+      // see if FQDN would be cookieblocked if not for user override
       if (badger.storage.wouldGetCookieblocked(fqdn)) {
         cookieblocked[fqdn] = true;
       }
@@ -1433,7 +1433,7 @@ function dispatcher(request, sender, sendResponse) {
 
     let cookieblocked = {};
     for (let fqdn in trackers) {
-      // see if fqdn would be cookieblocked if not for user override
+      // see if FQDN would be cookieblocked if not for user override
       if (badger.storage.wouldGetCookieblocked(fqdn)) {
         cookieblocked[fqdn] = true;
       }
@@ -1444,6 +1444,7 @@ function dispatcher(request, sender, sendResponse) {
       origins: trackers,
       settings: badger.getSettings().getItemClones(),
       widgets: badger.widgetList.map(widget => widget.name),
+      widgetDomains: Array.from(badger.getAllWidgetDomains()),
     });
 
     break;
