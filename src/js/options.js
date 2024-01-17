@@ -730,60 +730,103 @@ function reloadTrackingDomainsTab() {
  * Handles tracking domain list filter changes,
  * and calls the tracking domain list renderer.
  */
-function filterTrackingDomains() {
-  const $searchFilter = $('#trackingDomainSearch'),
-    $typeFilter = $('#tracking-domains-type-filter'),
-    $statusFilter = $('#tracking-domains-status-filter'),
-    show_not_yet_blocked = $('#tracking-domains-show-not-yet-blocked').prop('checked'),
-    hide_in_seed = $('#tracking-domains-hide-in-seed').prop('checked');
+let filterTrackingDomains = (function () {
+  let seedBases = new Set(),
+    seedNotYetBlocked = new Set();
 
-  if ($typeFilter.val() == "dnt") {
-    $statusFilter.prop("disabled", true).val("");
-  } else {
-    $statusFilter.prop("disabled", false);
+  function _maybeFetchSeed(skip, cb) {
+    // only fetch when necessary:
+    // hideInSeed is set and seed is not already loaded
+    if (skip || seedBases.size) {
+      return setTimeout(cb, 0);
+    }
+
+    utils.fetchResource(constants.SEED_DATA_LOCAL_URL, function (_, response) {
+      let seedActions;
+
+      try {
+        seedActions = JSON.parse(response).action_map;
+      } catch (e) {
+        return cb();
+      }
+
+      for (let domain of Object.keys(seedActions)) {
+        let base = getBaseDomain(domain);
+        seedBases.add(base);
+        if (utils.hasOwn(seedActions, base) && seedActions[base] == constants.ALLOW) {
+          seedNotYetBlocked.add(base);
+        }
+      }
+
+      // also add widget and Panopticlick domains
+      for (let domain of OPTIONS_DATA.widgetDomains) {
+        seedBases.add(getBaseDomain(domain));
+      }
+      for (let domain of constants.PANOPTICLICK_DOMAINS) {
+        seedBases.add(getBaseDomain(domain));
+      }
+
+      cb();
+    });
   }
 
-  // reloading the page should reapply search filters
-  sessionStorage.setItem('domain-list-filters', JSON.stringify([
-    {
-      sel: '#trackingDomainSearch',
-      val: $searchFilter.val()
-    }, {
-      sel: '#tracking-domains-status-filter',
-      val: $statusFilter.val()
-    }, {
-      sel: '#tracking-domains-type-filter',
-      val: $typeFilter.val()
-    }, {
-      sel: '#tracking-domains-show-not-yet-blocked',
-      val: show_not_yet_blocked,
-      type: 'checkbox'
-    }, {
-      sel: '#tracking-domains-hide-in-seed',
-      val: hide_in_seed,
-      type: 'checkbox'
-    },
-  ]));
+  return function () {
+    const $searchFilter = $('#trackingDomainSearch'),
+      $typeFilter = $('#tracking-domains-type-filter'),
+      $statusFilter = $('#tracking-domains-status-filter'),
+      show_not_yet_blocked = $('#tracking-domains-show-not-yet-blocked').prop('checked'),
+      hide_in_seed = $('#tracking-domains-hide-in-seed').prop('checked');
 
-  let callback = function () {};
-  if (this == $searchFilter[0]) {
-    callback = function () {
-      $searchFilter.focus();
-    };
-  }
+    if ($typeFilter.val() == "dnt") {
+      $statusFilter.prop("disabled", true).val("");
+    } else {
+      $statusFilter.prop("disabled", false);
+    }
 
-  renderTrackingDomains(
-    filterDomains(OPTIONS_DATA.origins, {
-      searchFilter: $searchFilter.val().toLowerCase(),
-      typeFilter: $typeFilter.val(),
-      statusFilter: $statusFilter.val(),
-      showNotYetBlocked: show_not_yet_blocked,
-      hideInSeed: hide_in_seed,
-      seedBases: OPTIONS_DATA.seedBases,
-      seedNotYetBlocked: OPTIONS_DATA.seedNotYetBlocked
-    }),
-    callback);
-}
+    // reloading the page should reapply search filters
+    sessionStorage.setItem('domain-list-filters', JSON.stringify([
+      {
+        sel: '#trackingDomainSearch',
+        val: $searchFilter.val()
+      }, {
+        sel: '#tracking-domains-status-filter',
+        val: $statusFilter.val()
+      }, {
+        sel: '#tracking-domains-type-filter',
+        val: $typeFilter.val()
+      }, {
+        sel: '#tracking-domains-show-not-yet-blocked',
+        val: show_not_yet_blocked,
+        type: 'checkbox'
+      }, {
+        sel: '#tracking-domains-hide-in-seed',
+        val: hide_in_seed,
+        type: 'checkbox'
+      },
+    ]));
+
+    let callback = function () {};
+    if (this == $searchFilter[0]) {
+      callback = function () {
+        $searchFilter.focus();
+      };
+    }
+
+    _maybeFetchSeed(!hide_in_seed, function () {
+      renderTrackingDomains(
+        filterDomains(OPTIONS_DATA.origins, {
+          searchFilter: $searchFilter.val().toLowerCase(),
+          typeFilter: $typeFilter.val(),
+          statusFilter: $statusFilter.val(),
+          showNotYetBlocked: show_not_yet_blocked,
+          hideInSeed: hide_in_seed,
+          seedBases,
+          seedNotYetBlocked
+        }),
+        callback);
+    });
+  };
+}());
 
 /**
  * Renders the list of tracking domains.
@@ -1067,8 +1110,6 @@ $(function () {
     chrome.runtime.sendMessage({
       type: "getOptionsData",
     }, (response) => {
-      response.seedBases = new Set(response.seedBases);
-      response.seedNotYetBlocked = new Set(response.seedNotYetBlocked);
       OPTIONS_DATA = response;
       loadOptions();
     });
