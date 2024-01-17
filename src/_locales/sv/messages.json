@@ -210,11 +210,11 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "Detta skickar automatiskt följande information till EFF: sidan du för närvarande besöker, din webbläsarversion, versionen av Privacy Badger och lägen för alla skjutreglagen för denna sida.",
+        "message": "Detta kommer automatiskt att skicka följande information till EFF: sidan du för närvarande besöker, din webbläsarversion, versionen av Privacy Badger och statusen för alla skjutreglage på denna sidan.",
         "description": ""
     },
     "report_button": {
-        "message": "Skicka in fel",
+        "message": "Skicka in felet",
         "description": "Button text."
     },
     "report_cancel": {
