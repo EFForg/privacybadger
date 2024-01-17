@@ -563,8 +563,12 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
-        "message": "Mostrar domínios que o seu Badger ainda não se decidiu bloquear:",
-        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
+        "message": "Mostrar domínios que o seu Badger ainda não se decidiu bloquear",
+        "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
+    },
+    "options_hide_in_seed": {
+        "message": "Hide domains present in the latest pre-trained list",
+        "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
         "message": "$DOMAIN$ foi visto a rastrear os seguintes sites:",

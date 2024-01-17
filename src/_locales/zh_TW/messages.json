@@ -563,8 +563,12 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
-        "message": "顯示您的 Badger 尚未決定是否要封鎖的網域：",
-        "description": "Label for a checkbox on the Tracking Domains options page tab. Should match wording used in the 'not_yet_blocked_header' message."
+        "message": "顯示您的 Badger 尚未決定是否要封鎖的網域",
+        "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
+    },
+    "options_hide_in_seed": {
+        "message": "Hide domains present in the latest pre-trained list",
+        "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
         "message": "$DOMAIN$ 被發現在以下網站上進行追蹤：",
