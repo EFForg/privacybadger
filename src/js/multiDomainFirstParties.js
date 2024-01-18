@@ -6032,6 +6032,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["zonealarm.com", "zonelabs.com"],
   ["zoom.us", "zoom.com", "zoomgov.com"],
+  ["khanacademy.org", "kastatic.org"]
 ];
 
 /**
