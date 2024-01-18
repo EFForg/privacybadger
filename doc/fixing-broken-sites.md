@@ -24,7 +24,7 @@ Once the issue is confirmed (and the responsible domains have been identified), 
 | --- | :---: | :---: | :---: | --- |
 | Multi-domain first parties | [MDFP](https://github.com/EFForg/privacybadger/labels/MDFP) | [#781](https://github.com/EFForg/privacybadger/issues/781) | Easy | Narrowly applicable |
 | Script surrogates | [surrogates](https://github.com/EFForg/privacybadger/labels/surrogates) | [#400](https://github.com/EFForg/privacybadger/issues/400) | Hard | Should use uBlock Origin's surrogates ("neutered scripts") as much as possible |
-| Widget replacement | [widgets](https://github.com/EFForg/privacybadger/labels/widgets) | [#196](https://github.com/EFForg/privacybadger/issues/196), [#1467](https://github.com/EFForg/privacybadger/issues/1467) | Medium | Still needs review/improvements, although some progress being made ([#2262](https://github.com/EFForg/privacybadger/pull/2262)) |
+| [Widget replacement](https://www.eff.org/deeplinks/2024/01/privacy-badger-puts-you-control-widgets) | [widgets](https://github.com/EFForg/privacybadger/labels/widgets) | [#196](https://github.com/EFForg/privacybadger/issues/196), [#1467](https://github.com/EFForg/privacybadger/issues/1467) | Medium | Still needs review/improvements, although some progress being made ([#2262](https://github.com/EFForg/privacybadger/pull/2262)) |
 | EFF's Do Not Track policy | [DNT Policy](https://github.com/EFForg/privacybadger/labels/DNT%20policy)| - | n/a | Narrowly applicable |
 | Yellowlisting | [yellowlist](https://github.com/EFForg/privacybadger/labels/yellowlist)| - | Easy | Only protects against some types of tracking |
 
@@ -49,7 +49,7 @@ Does blocking the domain block a JavaScript analytics library that the site trie
 
 ### External services
 
-Is the missing comments section powered by a commenting service that Privacy Badger learned to block? Perhaps a new [widget replacement](https://github.com/EFForg/privacybadger/pull/196) should be added.
+Is the missing comments section powered by a commenting service that Privacy Badger learned to block? Perhaps a new [widget placeholder](https://www.eff.org/deeplinks/2024/01/privacy-badger-puts-you-control-widgets) should be added.
 
 We should also ask the service to to adopt the [EFF Do Not Track policy](https://www.eff.org/dnt-policy), which is a way for privacy-conscious companies to receive recognition for their good practices. If their service can and will abide by the policy's requirements, posting the policy on the service's domains will tell Privacy Badger to allow loading of resources from those domains.
 
