@@ -149,33 +149,47 @@ a.removeOrigin:hover {
 }
 
 #privacyBadgerHeader {
+    display: flex;
+    flex-wrap: wrap;
     color: #505050;
     font-size: 16px;
     margin-bottom: 5px;
 }
 
-#title {
+#privacyBadgerHeader h2 {
+    color: #000;
+    font-size: 24px;
+    font-weight: normal;
+    font-family: "Chunk-Five", serif;
+    margin: 0;
+}
+
+#badger-logo-div {
+    width: 48px;
+}
+
+#badger-logo-div, #title {
     padding-top: 4px;
 }
 
-#header-image-stack {
-    display: table;
+#title {
+    flex: 1;
     margin: 2px 10px 0 10px;
-    line-height: 1.0;
+    line-height: 0.8;
 }
 
-#badger-header-logo, #header-image-stack, #header-image-stack a, #header-image-stack img {
-    float: left;
+#corner-buttons {
+    margin-top: 7px;
 }
-
-#privacyBadgerHeader h2{
-  display: table-row;
-  color: #000;
-  font-size: 24px;
-  font-weight: normal;
-  clear: initial;
-  font-family: "Chunk-Five", serif;
-  margin-top: 5px;
+#corner-buttons a {
+    display: inline-block;
+}
+#share {
+    margin-left: 10px;
+    margin-right: 12px;
+}
+#options {
+    margin-inline-end: 3px;
 }
 
 /* body#main to avoid applying this to options page */
@@ -284,17 +298,6 @@ button.cta-button:hover, a.cta-button:hover {
 }
 #fittslaw {
     float: right;
-}
-#options, #share, #help {
-    float: right;
-    margin-top: 7px;
-}
-#share {
-    margin-left: 10px;
-    margin-right: 12px;
-}
-#options {
-    margin-inline-end: 3px;
 }
 #pbInstructions, #special-browser-page, #disabled-site-message, .toggle-header-title {
     color: #505050;
