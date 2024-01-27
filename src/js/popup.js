@@ -613,7 +613,7 @@ function refreshPopup() {
     $("#activate_site_btn").show();
     $("#deactivate_site_btn").hide();
     $("#disabled-site-message").show();
-    $("#title").addClass("faded-bw-color-scheme");
+    $("#badger-title-div").addClass("faded-bw-color-scheme");
   }
 
   // if there is any saved error text, fill the error input with it

@@ -148,34 +148,32 @@ a.removeOrigin:hover {
     display: inline-block;
 }
 
-#privacyBadgerHeader {
+#privacy-badger-header {
     display: flex;
-    flex-wrap: wrap;
     color: #505050;
     font-size: 16px;
     margin-bottom: 5px;
-}
-
-#privacyBadgerHeader h2 {
-    color: #000;
-    font-size: 24px;
-    font-weight: normal;
-    font-family: "Chunk-Five", serif;
-    margin: 0;
 }
 
 #badger-logo-div {
     width: 48px;
 }
 
-#badger-logo-div, #title {
+#badger-logo-div, #badger-title-div {
     padding-top: 4px;
 }
 
-#title {
+#badger-title-div {
     flex: 1;
     margin: 2px 10px 0 10px;
     line-height: 0.8;
+}
+#badger-title-div h2 {
+    color: #000;
+    font-size: 24px;
+    font-weight: normal;
+    font-family: "Chunk-Five", serif;
+    margin: 0;
 }
 
 #corner-buttons {
@@ -623,7 +621,7 @@ a.overlay_close:hover {
         filter: invert(0.85);
     }
 
-    #privacyBadgerHeader h2 {
+    #badger-title-div h2 {
         color: #f9f9f9;
     }
 
