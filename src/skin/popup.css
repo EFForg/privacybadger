@@ -148,34 +148,49 @@ a.removeOrigin:hover {
     display: inline-block;
 }
 
-#privacyBadgerHeader {
+#privacy-badger-header {
+    display: flex;
     color: #505050;
     font-size: 16px;
     margin-bottom: 5px;
 }
 
-#title {
+#badger-logo-div {
+    width: 48px;
+}
+
+#badger-logo-div, #badger-title-div {
     padding-top: 4px;
 }
 
-#header-image-stack {
-    display: table;
+#badger-title-div {
+    flex: 1;
     margin: 2px 10px 0 10px;
-    line-height: 1.0;
+    line-height: 0.9;
+    @supports (-moz-appearance:none) { /* Firefox */
+        line-height: 0.8;
+    }
+}
+#badger-title-div h2 {
+    color: #000;
+    font-size: 24px;
+    font-weight: normal;
+    font-family: "Chunk-Five", serif;
+    margin: 0;
 }
 
-#badger-header-logo, #header-image-stack, #header-image-stack a, #header-image-stack img {
-    float: left;
+#corner-buttons {
+    margin-top: 7px;
 }
-
-#privacyBadgerHeader h2{
-  display: table-row;
-  color: #000;
-  font-size: 24px;
-  font-weight: normal;
-  clear: initial;
-  font-family: "Chunk-Five", serif;
-  margin-top: 5px;
+#corner-buttons a {
+    display: inline-block;
+}
+#share {
+    margin-left: 10px;
+    margin-right: 12px;
+}
+#options {
+    margin-inline-end: 3px;
 }
 
 /* body#main to avoid applying this to options page */
@@ -284,17 +299,6 @@ button.cta-button:hover, a.cta-button:hover {
 }
 #fittslaw {
     float: right;
-}
-#options, #share, #help {
-    float: right;
-    margin-top: 7px;
-}
-#share {
-    margin-left: 10px;
-    margin-right: 12px;
-}
-#options {
-    margin-inline-end: 3px;
 }
 #pbInstructions, #special-browser-page, #disabled-site-message, .toggle-header-title {
     color: #505050;
@@ -620,7 +624,7 @@ a.overlay_close:hover {
         filter: invert(0.85);
     }
 
-    #privacyBadgerHeader h2 {
+    #badger-title-div h2 {
         color: #f9f9f9;
     }
 
