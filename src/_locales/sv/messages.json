@@ -665,7 +665,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Att återställa spårningsdomäner kommer att:\n\n  • Ta bort all data om spårare som Privacy Badger har lärt dig från din surfning\n  • Återställa spårningsdomänlistan till den senaste för-utbildade listan (besök www.eff.org/badger-pretraining för att lära dig mer)",
+        "message": "Att återställa spårningsdomäner kommer att:\n\n  • Ta bort all data om spårare som Privacy Badger har lärt dig från din surfning\n  • Återställa spårningsdomänlistan till den senaste förutbildade listan (besök www.eff.org/badger-pretraining för att lära dig mer)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
