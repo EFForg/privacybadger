@@ -817,7 +817,8 @@ let _syncStorage = (function () {
         return;
       }
       let err = chrome.runtime.lastError.message;
-      if (!err.startsWith("IO error:") && !err.startsWith("Corruption:") &&
+      if (err != "An unexpected error occurred" &&
+        !err.startsWith("IO error:") && !err.startsWith("Corruption:") &&
         !err.startsWith("InvalidStateError:") && !err.startsWith("AbortError:") &&
         !err.startsWith("QuotaExceededError:")) {
         badger.criticalError = err;
