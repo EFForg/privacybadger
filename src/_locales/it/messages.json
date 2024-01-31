@@ -283,16 +283,6 @@
         "message": "<a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>Scrivici</a> riguardo il seguente errore:",
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
-    "popup_error_text_low_disk_space_issue": {
-        "message": "Impossibile scrivere nell'archivio estensioni: $ERROR_TEXT$.<br><br>Il tuo disco ha poco spazio?",
-        "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
-        "placeholders": {
-            "error_text": {
-                "content": "$1",
-                "example": "An unexpected error occurred"
-            }
-        }
-    },
     "firstRun_title": {
         "message": "Grazie per aver installato Privacy Badger!",
         "description": "Title and header of the intro page."

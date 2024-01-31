@@ -283,16 +283,6 @@
         "message": "請<a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>告訴我們</a>有關下列錯誤的訊息：",
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
-    "popup_error_text_low_disk_space_issue": {
-        "message": "寫入擴充功能儲存空間失敗：$ERROR_TEXT$。<br><br>您的磁碟是否只剩下少量空間？",
-        "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
-        "placeholders": {
-            "error_text": {
-                "content": "$1",
-                "example": "An unexpected error occurred"
-            }
-        }
-    },
     "firstRun_title": {
         "message": "感謝您安裝 Privacy Badger！",
         "description": "Title and header of the intro page."

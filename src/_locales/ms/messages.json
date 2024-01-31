@@ -283,16 +283,6 @@
         "message": "Sila <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>beritahu kami</a> mengenai ralat berikut:",
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
-    "popup_error_text_low_disk_space_issue": {
-        "message": "Gagal menulis ke penyimpanan sambungan: $ERROR_TEXT$.<br><br>Adakah cakera anda kekurangan ruang?",
-        "description": "Special error message for the 'An unexpected error occurred' text that sometimes occurs on Firefox browsers with low disk space",
-        "placeholders": {
-            "error_text": {
-                "content": "$1",
-                "example": "An unexpected error occurred"
-            }
-        }
-    },
     "firstRun_title": {
         "message": "Terima kasih kerana memasang Privacy Badger!",
         "description": "Title and header of the intro page."
