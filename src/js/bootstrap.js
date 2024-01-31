@@ -15,7 +15,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-window.DEBUG = false;
+window.DEBUG = true;
 
 let time_prev = null,
   time_total = 0,
