@@ -473,16 +473,47 @@ BadgerPen.prototype = {
 
   /**
    * Forces a write of a Badger storage object's contents to extension storage.
+   *
+   * @param {?String} store_name storage object's name or null (sync all)
+   * @param {Function} callback
    */
   forceSync: function (store_name, callback) {
-    let self = this;
-    if (!self.KEYS.includes(store_name)) {
-      setTimeout(function () {
-        callback("Error: Unknown Badger storage name");
-      }, 0);
-      return;
+    let self = this,
+      stores = [],
+      num_done = 0;
+
+    if (!callback) {
+      callback = function () {};
     }
-    _syncStorage(self.getStore(store_name), true, callback);
+
+    if (store_name) {
+      if (!self.KEYS.includes(store_name)) {
+        setTimeout(function () {
+          callback("Error: Unknown Badger storage name");
+        }, 0);
+        return;
+      }
+      stores.push(store_name);
+    } else {
+      for (let name of self.KEYS) {
+        stores.push(name);
+      }
+    }
+
+    function done() {
+      num_done++;
+      if (num_done == stores.length) {
+        return callback();
+      }
+      sync(stores[num_done]);
+    }
+
+    function sync(name) {
+      log("Forcing storage sync for " + name);
+      _syncStorage(self.getStore(name), true, done);
+    }
+
+    sync(stores[0]);
   },
 
   /**

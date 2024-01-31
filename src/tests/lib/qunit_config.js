@@ -7,7 +7,13 @@
 
   // disable storage persistence
   // unit tests shouldn't be able to affect your Badger's storage
-  chrome.storage.local.set = () => {};
+  chrome.storage.local.set = (_, callback) => {
+    if (callback) {
+      setTimeout(function () {
+        callback(null);
+      }, 0);
+    }
+  };
 
   // make it seem like there is nothing in storage
   // unit tests shouldn't read from your Badger's storage either
@@ -18,6 +24,7 @@
         // don't open the new user intro page or load seed data
         private_storage: {
           badgerVersion: chrome.runtime.getManifest().version,
+          doneLoadingSeed: true,
         }
       });
     }, 0);
