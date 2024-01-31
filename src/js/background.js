@@ -110,7 +110,7 @@ function Badger(from_qunit) {
     await dntHashesPromise;
     await tabDataPromise;
 
-    if (badger.isFirstRun || badger.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
+    if (self.isFirstRun || self.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
       // block all widget domains
       // only need to do this when the widget list could have gotten updated
       self.blockWidgetDomains();
@@ -260,7 +260,7 @@ Badger.prototype = {
       }
 
       self.mergeUserData(data);
-      log("Loaded seed data successfully");
+
       return cb(null);
     });
   },
@@ -285,7 +285,7 @@ Badger.prototype = {
 
       if (self.getSettings().getItem("learnLocally")) {
         log("No need to load seed data (local learning is enabled)");
-        if (!badger.getPrivateSettings().getItem('doneLoadingSeed')) {
+        if (!self.getPrivateSettings().getItem('doneLoadingSeed')) {
           self.getPrivateSettings().setItem('doneLoadingSeed', true);
         }
         return resolve();
@@ -295,7 +295,7 @@ Badger.prototype = {
         // unset and immediately persist doneness flag
         // so that if we somehow interrupt seed loading, we can fix on restart
         self.getPrivateSettings().setItem('doneLoadingSeed', false);
-        badger.storage.forceSync('private_storage');
+        self.storage.forceSync('private_storage');
       }
 
       let userActions = [];
@@ -329,15 +329,15 @@ Badger.prototype = {
           return reject(err);
         }
 
-        log("Seed data loaded!");
+        log("Seed data loaded successfully");
 
         // reapply customized sliders if any
         for (const item of userActions) {
           self.storage.setupUserAction(item.domain, item.action);
         }
 
-        if (!badger.getPrivateSettings().getItem('doneLoadingSeed')) {
-          badger.storage.forceSync(null, function () {
+        if (!self.getPrivateSettings().getItem('doneLoadingSeed')) {
+          self.storage.forceSync(null, function () {
             self.getPrivateSettings().setItem('doneLoadingSeed', true);
           });
         }
@@ -546,6 +546,15 @@ Badger.prototype = {
         }
 
         self.storage.updateYellowlist(response.trim().split("\n"));
+
+        if (!self.getPrivateSettings().getItem('doneLoadingYellowlist')) {
+          self.storage.forceSync('action_map', function () {
+            self.storage.forceSync('cookieblock_list', function () {
+              self.getPrivateSettings().setItem('doneLoadingYellowlist', true);
+            });
+          });
+        }
+
         log("Initialized ylist from disk");
         return resolve();
       });
@@ -678,6 +687,13 @@ Badger.prototype = {
         }
 
         self.storage.updateDntHashes(hashes);
+
+        if (!self.getPrivateSettings().getItem('doneLoadingDntHashes')) {
+          self.storage.forceSync('dnt_hashes', function () {
+            self.getPrivateSettings().setItem('doneLoadingDntHashes', true);
+          });
+        }
+
         log("Initialized hashes from disk");
         return resolve();
 
@@ -911,7 +927,7 @@ Badger.prototype = {
     if (self.isFirstRun) {
       privateStore.setItem("firstRunTimerFinished", false);
     }
-    badger.initDeprecations();
+    self.initDeprecations();
 
     // remove obsolete settings
     if (self.isUpdate) {

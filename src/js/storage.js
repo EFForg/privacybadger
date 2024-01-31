@@ -274,14 +274,6 @@ BadgerPen.prototype = {
         }
       }
     });
-
-    if (!badger.getPrivateSettings().getItem('doneLoadingYellowlist')) {
-      badger.storage.forceSync('action_map', function () {
-        badger.storage.forceSync('cookieblock_list', function () {
-          badger.getPrivateSettings().setItem('doneLoadingYellowlist', true);
-        });
-      });
-    }
   },
 
   /**
@@ -293,12 +285,6 @@ BadgerPen.prototype = {
 
     for (let policy_name in hashes) {
       dntPolicyStore.setItem(hashes[policy_name], policy_name);
-    }
-
-    if (!badger.getPrivateSettings().getItem('doneLoadingDntHashes')) {
-      badger.storage.forceSync('dnt_hashes', function () {
-        badger.getPrivateSettings().setItem('doneLoadingDntHashes', true);
-      });
     }
   },
 
