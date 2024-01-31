@@ -655,7 +655,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Redefinir os domínios de rastreamento vai:\n\n • Excluir todos os dados sobre rastreadores que o Privacy Badger aprendeu com base em sua navegação\n • Restaurar a lista de domínios de rastreamento para a última lista pré-criada (acesse www.eff.org/badger-pretraining para saber mais)",
+        "message": "Redefinir os domínios de rastreamento vai:\n\n • Excluir todos os dados sobre rastreadores que o Privacy Badger aprendeu com base em sua navegação\n • Restaurar a lista de domínios de rastreamento para a última lista pré-treinada (acesse www.eff.org/badger-pretraining para saber mais)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
