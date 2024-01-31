@@ -15,7 +15,12 @@ if [ -n "$1" ]; then
   # clean up
   rm -rf src/tests # remove unit tests
   rm src/data/dnt-policy.txt # only used by unit tests
-  cp LICENSE src/ # include LICENSE in build
+
+  # include LICENSE in build
+  cp LICENSE src/
+
+  # disable debug output
+  sed -i -e 's/\.DEBUG = true/.DEBUG = false/' src/js/bootstrap.js
 
 else
   echo "Please supply a tag name for the release you are zipping"

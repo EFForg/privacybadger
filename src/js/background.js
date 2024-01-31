@@ -126,7 +126,6 @@ function Badger(from_qunit) {
 
     log("Privacy Badger initialization complete");
     console.log("Privacy Badger is ready to rock!");
-    console.log("Set DEBUG=1 to view console messages.");
     self.INITIALIZED = true;
 
     if (!from_qunit) {
