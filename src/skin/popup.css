@@ -580,6 +580,9 @@ a.overlay_close:hover {
     a:hover {
         color: #f06a0a;
     }
+    a.cta-button:hover {
+        color: #fff;
+    }
 
     body, #instruction, .key {
         background-color: #333;
