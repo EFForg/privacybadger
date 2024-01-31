@@ -610,7 +610,7 @@ function createReplacementWidget(widget, elToReplace) {
     "border-radius: 3px",
     "cursor: pointer",
     // systemfontstack.com
-    "font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif",
+    "font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
     "font-size: 14px",
     "font-weight: bold",
     // fix overly bold text on macOS
