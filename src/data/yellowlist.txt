@@ -70,6 +70,7 @@ client.axept.io
 static.axept.io
 dev.azure.com
 logic.azure.com
+webpubsub.azure.com
 azure-api.net
 azureedge.net
 azurefd.net
