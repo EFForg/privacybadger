@@ -1,6 +1,13 @@
 Privacy Badger Release Notes
 ============================
 
+2024.2.6
+* Fixed timing issue that could lead to incomplete or empty
+tracker data on installation in Firefox
+* Fixed various UI display issues
+* Fixed various site breakages
+* Improved translations (Hebrew, Brazilian Portuguese, Swedish, Ukrainian)
+
 2023.12.1
 * Improved widget replacement for embedded Tweets
 * Fixed blocking WebSocket connections to blocked domains
