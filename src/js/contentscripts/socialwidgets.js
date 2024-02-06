@@ -610,7 +610,7 @@ function createReplacementWidget(widget, elToReplace) {
     "border-radius: 3px",
     "cursor: pointer",
     // systemfontstack.com
-    "font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif",
+    "font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, liberation sans, Ubuntu, helvetica neue, helvetica, Cantarell, roboto, noto, arial, sans-serif",
     "font-size: 14px",
     "font-weight: bold",
     // fix overly bold text on macOS
@@ -721,7 +721,6 @@ html, body {
   position: absolute;
   ${TRANSLATIONS.rtl ? "left" : "right"}: 4px;
   top: 4px;
-  line-height: 12px;
   text-align: center;
   text-decoration: none;
 }
@@ -732,11 +731,16 @@ html, body {
 #${info_icon_id}:before, #${close_icon_id}:before {
   border: 2px solid;
   border-radius: 50%;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   color: #555;
   content: '?';
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, liberation sans, Ubuntu, helvetica neue, helvetica, Cantarell, roboto, noto, arial, sans-serif;
   font-size: 12px;
   font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   padding: 1px;
   height: 1em;
   width: 1em;

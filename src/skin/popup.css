@@ -338,7 +338,7 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #d
     border-radius: 3px;
     cursor: pointer;
     /* systemfontstack.com */
-    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, liberation sans, Ubuntu, helvetica neue, helvetica, Cantarell, roboto, noto, arial, sans-serif;
     font-size: 14px;
     font-weight: bold;
     /* fix overly bold text on macOS */
