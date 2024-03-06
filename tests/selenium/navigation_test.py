@@ -6,8 +6,6 @@ import pbtest
 
 from functools import partial
 
-from pbtest import retry_until
-
 
 class NavigationTest(pbtest.PBSeleniumTest):
     """Verifies navigation-related fixes and workarounds."""

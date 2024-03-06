@@ -214,7 +214,6 @@ class Shim:
                 opts.binary_location = self.browser_path
 
                 # make extension ID constant across runs
-                # pylint: disable-next=consider-using-f-string
                 opts.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' % (
                     self.info['extension_id'], self.info['uuid']))
 
