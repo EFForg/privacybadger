@@ -391,6 +391,21 @@ class PBSeleniumTest(unittest.TestCase):
         return WebDriverWait(self.driver, timeout).until(
             EC.visibility_of_element_located((By.XPATH, xpath)))
 
+    @contextmanager
+    def wait_for_reload(self, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        """Context manager that waits for the page to reload,
+        to be used with actions that reload the page."""
+        page = self.driver.find_element(By.TAG_NAME, 'html')
+        yield
+        try:
+            WebDriverWait(self.driver, timeout).until(EC.staleness_of(page))
+        except WebDriverException as e:
+            # work around Firefox nonsense
+            if str(e).startswith("Message: TypeError: can't access dead object"):
+                pass
+            else:
+                raise e
+
     def wait_for_script(self, script, *script_args,
         timeout=SEL_DEFAULT_WAIT_TIMEOUT, execute_async=False,
         message="Timed out waiting for execute_script to eval to True"):

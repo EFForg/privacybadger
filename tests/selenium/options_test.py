@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import time
 import unittest
 
 import pbtest
@@ -138,9 +137,9 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # Click on the "remove all data" button to empty the tracker lists, and
         # click "OK" in the popup that ensues
         self.select_manage_data_tab()
-        self.driver.find_element(By.ID, 'removeAllData').click()
-        self.driver.switch_to.alert.accept()
-        time.sleep(1)  # wait for page to reload
+        with self.wait_for_reload():
+            self.driver.find_element(By.ID, 'removeAllData').click()
+            self.driver.switch_to.alert.accept()
 
         # now make sure the tracker list is empty
         self.select_domain_list_tab()
@@ -165,9 +164,9 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # click the "reset data" button to restore seed data and get rid of the
         # domains we learned
         self.select_manage_data_tab()
-        self.driver.find_element(By.ID, 'resetData').click()
-        self.driver.switch_to.alert.accept()
-        time.sleep(1)
+        with self.wait_for_reload():
+            self.driver.find_element(By.ID, 'resetData').click()
+            self.driver.switch_to.alert.accept()
 
         # make sure the same number of trackers are displayed as by default
         self.select_domain_list_tab()
