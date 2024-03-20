@@ -286,7 +286,7 @@ Badger.prototype = {
         return cb(new Error("Failed to parse seed data JSON"));
       }
 
-      self.mergeUserData(data);
+      self.storage.mergeUserData(data);
 
       return cb(null);
     });
@@ -851,7 +851,6 @@ Badger.prototype = {
     });
   },
 
-
   /**
    * Asyncronously checks if the domain has /.well-known/dnt-policy.txt.
    *
@@ -1300,42 +1299,6 @@ Badger.prototype = {
     }
 
     chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});
-  },
-
-  /**
-   * Merges Privacy Badger user data.
-   *
-   * Used to load pre-trained/"seed" data on installation and updates.
-   * Also used to import user data from other Privacy Badger instances.
-   *
-   * @param {Object} data the user data to merge in
-   */
-  mergeUserData: function (data) {
-    let self = this;
-
-    // fix incoming snitch map entries with current MDFP data
-    if (utils.hasOwn(data, "snitch_map")) {
-      let correctedSites = {};
-
-      for (let domain in data.snitch_map) {
-        let newSnitches = data.snitch_map[domain].filter(
-          site => utils.isThirdPartyDomain(site, domain));
-
-        if (newSnitches.length) {
-          correctedSites[domain] = newSnitches;
-        }
-      }
-
-      data.snitch_map = correctedSites;
-    }
-
-    // The order of these keys is also the order in which they should be imported.
-    // It's important that snitch_map be imported before action_map (#1972)
-    for (let key of ["snitch_map", "action_map", "settings_map", "tracking_map", "fp_scripts"]) {
-      if (utils.hasOwn(data, key)) {
-        self.storage.getStore(key).merge(data[key]);
-      }
-    }
   }
 
 };

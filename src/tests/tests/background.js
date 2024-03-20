@@ -185,7 +185,7 @@ QUnit.test("mergeUserData does not unblock formerly blocked domains", (assert) =
       }
     };
 
-  badger.mergeUserData(USER_DATA);
+  badger.storage.mergeUserData(USER_DATA);
 
   assert.equal(
     badger.storage.action_map.getItem('foo.com').heuristicAction,
@@ -223,7 +223,7 @@ QUnit.test("user-blocked domains keep their tracking history", (assert) => {
       }
     };
 
-  badger.mergeUserData(USER_DATA);
+  badger.storage.mergeUserData(USER_DATA);
 
   assert.equal(
     badger.storage.getAction('foo.com'),
@@ -253,7 +253,7 @@ QUnit.test("merging snitch maps results in a blocked domain", (assert) => {
     snitch_map: {'foo.com': ['b.co', 'c.co']},
   };
 
-  badger.mergeUserData(USER_DATA);
+  badger.storage.mergeUserData(USER_DATA);
 
   assert.equal(
     badger.storage.action_map.getItem('foo.com').heuristicAction,
@@ -282,7 +282,7 @@ QUnit.test("subdomain that is not blocked does not override subdomain that is", 
     snitch_map: {'bar.com': ['a.co']}
   };
 
-  badger.mergeUserData(USER_DATA);
+  badger.storage.mergeUserData(USER_DATA);
 
   assert.equal(
     badger.storage.action_map.getItem('sub.bar.com').heuristicAction,
@@ -323,7 +323,7 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
     snitchMap = badger.storage.getStore('snitch_map');
 
   // merge in a blocked parent domain and a subdomain
-  badger.mergeUserData(USER_DATA);
+  badger.storage.mergeUserData(USER_DATA);
 
   assert.ok(actionMap.getItem(SUBDOMAIN),
     SUBDOMAIN + " should have been preserved during merge");
@@ -338,7 +338,7 @@ QUnit.test("subdomains on the yellowlist are preserved", (assert) => {
   badger.storage.getStore('cookieblock_list').setItem(SUBDOMAIN, true);
 
   // and do the merge again
-  badger.mergeUserData(USER_DATA);
+  badger.storage.mergeUserData(USER_DATA);
 
   assert.ok(actionMap.getItem(SUBDOMAIN),
     SUBDOMAIN + " should be present in action_map"
@@ -371,7 +371,7 @@ QUnit.test("mergeUserData() preserves snitch map data when no MDFP", (assert) =>
   assert.notOk(actionMap.getItem(TRACKER), "no data before test");
   assert.notOk(snitchMap.getItem(TRACKER), "no data before test");
 
-  badger.mergeUserData({ action_map, snitch_map });
+  badger.storage.mergeUserData({ action_map, snitch_map });
 
   assert.deepEqual(
     actionMap.getItem(TRACKER),
@@ -405,7 +405,7 @@ QUnit.test("mergeUserData() removes MDFP entries from snitch map", (assert) => {
   assert.notOk(actionMap.getItem(TRACKER), "no data before test");
   assert.notOk(snitchMap.getItem(TRACKER), "no data before test");
 
-  badger.mergeUserData({ action_map, snitch_map });
+  badger.storage.mergeUserData({ action_map, snitch_map });
 
   assert.equal(
     badger.storage.getAction(TRACKER),
@@ -447,7 +447,7 @@ QUnit.test("mergeUserData() clears snitch_map when all items are MDFP", (assert)
     );
   });
 
-  badger.mergeUserData({ action_map, snitch_map });
+  badger.storage.mergeUserData({ action_map, snitch_map });
 
   assert.equal(
     badger.storage.getAction(TRACKER),

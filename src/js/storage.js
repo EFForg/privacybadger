@@ -194,6 +194,42 @@ BadgerPen.prototype = {
   },
 
   /**
+   * Merges Privacy Badger user data.
+   *
+   * Used to load pre-trained/"seed" data on installation and updates.
+   * Also used to import user data from other Privacy Badger instances.
+   *
+   * @param {Object} data the user data to merge in
+   */
+  mergeUserData: function (data) {
+    let self = this;
+
+    // fix incoming snitch map entries with current MDFP data
+    if (utils.hasOwn(data, "snitch_map")) {
+      let correctedSites = {};
+
+      for (let domain in data.snitch_map) {
+        let newSnitches = data.snitch_map[domain].filter(
+          site => utils.isThirdPartyDomain(site, domain));
+
+        if (newSnitches.length) {
+          correctedSites[domain] = newSnitches;
+        }
+      }
+
+      data.snitch_map = correctedSites;
+    }
+
+    // The order of these keys is also the order in which they should be imported.
+    // It's important that snitch_map be imported before action_map (#1972)
+    for (let key of ["snitch_map", "action_map", "settings_map", "tracking_map", "fp_scripts"]) {
+      if (utils.hasOwn(data, key)) {
+        self.getStore(key).merge(data[key]);
+      }
+    }
+  },
+
+  /**
    * Get the current presumed action for a specific fully qualified domain name (FQDN),
    * ignoring any rules for subdomains below or above it
    *
@@ -373,17 +409,17 @@ BadgerPen.prototype = {
    * @return {Object} An object with domains as keys and actions as values.
    */
   getTrackingDomains: function () {
-    let action_map = this.getStore('action_map');
-    let origins = {};
+    let self = this,
+      domains = {};
 
-    for (let domain in action_map.getItemClones()) {
-      let action = badger.storage.getBestAction(domain);
+    for (let fqdn of self.getStore('action_map').keys()) {
+      let action = self.getBestAction(fqdn);
       if (action != constants.NO_TRACKING) {
-        origins[domain] = action;
+        domains[fqdn] = action;
       }
     }
 
-    return origins;
+    return domains;
   },
 
   /**
