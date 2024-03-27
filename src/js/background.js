@@ -41,6 +41,7 @@ function Badger(from_qunit) {
   log("Initializing Privacy Badger ...");
   let self = this;
 
+  self.startTime = new Date();
   self.isFirstRun = false;
   self.isUpdate = false;
 
