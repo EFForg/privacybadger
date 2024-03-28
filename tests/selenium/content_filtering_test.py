@@ -2,8 +2,6 @@
 
 import unittest
 
-import pytest
-
 import pbtest
 
 
@@ -62,13 +60,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.load_url(f"https://{self.COOKIE_DOMAIN}/")
-        try:
-            assert len(self.driver.get_cookies()) == 1, (
-                "Cookie fixture should have set a cookie")
-        except AssertionError:
-            if not self.is_firefox_nightly():
-                raise
-            pytest.xfail("Something changed in Nightly ...")
+        assert len(self.driver.get_cookies()) == 1, (
+            "Cookie fixture should have set a cookie")
 
         self.driver.delete_all_cookies()
         self.cookieblock_domain(self.COOKIE_DOMAIN)
@@ -88,14 +81,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
         self.wait_for_status_output('body')
-
-        try:
-            assert self.find_el_by_css('body').text == "cookies=1", (
-                "We should have sent a cookie at this point")
-        except AssertionError:
-            if not self.is_firefox_nightly():
-                raise
-            pytest.xfail("Something changed in Nightly ...")
+        assert self.find_el_by_css('body').text == "cookies=1", (
+            "We should have sent a cookie at this point")
 
         self.cookieblock_domain(self.COOKIE_DOMAIN)
 

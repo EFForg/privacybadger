@@ -221,6 +221,12 @@ class Shim:
                 # https://bugzilla.mozilla.org/show_bug.cgi?id=1720294
                 opts.set_preference('network.http.referer.disallowCrossSiteRelaxingDefault', False)
 
+                # disable tracker cookie blocking as it breaks cookie tests
+                # that use trackersimulator.org, a "known tracker",
+                # and disable cookie site isolation, as it breaks the cookie
+                # tracking detection test
+                opts.set_preference("network.cookie.cookieBehavior", 0)
+
                 # to produce a trace-level geckodriver.log,
                 # remove the log_output argument to FirefoxService()
                 # and uncomment the line below

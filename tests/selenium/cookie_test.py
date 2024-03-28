@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import pytest
 import unittest
 
 import pbtest
@@ -55,19 +54,7 @@ class CookieTest(pbtest.PBSeleniumTest):
         self.load_url(SITE2_URL)
         self.open_popup(SITE2_URL)
         sliders = self.get_tracker_state()
-        try:
-            assert THIRD_PARTY_DOMAIN in sliders['notYetBlocked']
-        # work around expected failure on Firefox Nightly
-        except AssertionError:
-            if not self.is_firefox_nightly():
-                raise
-
-            # https://developer.mozilla.org/en-US/docs/Web/Privacy/State_Partitioning#disable_dynamic_state_partitioning
-            # relevant network.cookie.cookieBehavior values:
-            # 5: Reject (known) trackers and partition third-party storage.
-            # 4: Only reject trackers (Storage partitioning disabled).
-            pytest.xfail("network.cookie.cookieBehavior is set to 5 in Firefox Nightly")
-
+        assert THIRD_PARTY_DOMAIN in sliders['notYetBlocked']
         self.close_window_with_url(SITE2_URL)
 
         # go to third site
