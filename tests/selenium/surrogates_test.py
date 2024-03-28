@@ -2,8 +2,6 @@
 
 import unittest
 
-import pytest
-
 import pbtest
 
 from selenium.common.exceptions import TimeoutException
@@ -28,9 +26,6 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         except TimeoutException:
             return False
 
-    @pytest.mark.xfail(pbtest.shim.browser_type == "firefox" and
-                       "nightly" in pbtest.shim.browser_path.lower(),
-                       reason="Firefox Nightly now blocks GA by default, apparently")
     def test_ga_js_surrogate(self):
         SURROGATE_HOST = "www.google-analytics.com"
 
