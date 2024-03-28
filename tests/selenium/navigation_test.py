@@ -47,6 +47,7 @@ class NavigationTest(pbtest.PBSeleniumTest):
         self.driver.refresh()
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
         domains = pbtest.retry_until(partial(self.get_trackers, FIXTURE_URL),
+                                     tester=lambda x: x == {THIRD_PARTY_HOST: "allow"},
                                      times=3)
         assert domains == {THIRD_PARTY_HOST: "allow"}, "beacon should have fired"
 
