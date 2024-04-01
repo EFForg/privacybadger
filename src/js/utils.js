@@ -426,8 +426,16 @@ function parseCookie(str, opts) {
   return parsed;
 }
 
+/**
+ * Validates and normalizes user input for a domain list form field.
+ *
+ * @param {String} input user form input text
+ *
+ * @returns {(String|Boolean)} `false` if the input fails URL parsing,
+ * otherwise the URL host
+ */
 function getHostFromDomainInput(input) {
-  if (!input.startsWith("http")) {
+  if (!input.startsWith("http://") && !input.startsWith("https://")) {
     input = "http://" + input;
   }
 
@@ -435,8 +443,10 @@ function getHostFromDomainInput(input) {
     input += "/";
   }
 
+  let uri;
+
   try {
-    var uri = new URI(input);
+    uri = new URI(input);
   } catch (err) {
     return false;
   }

@@ -798,29 +798,24 @@ QUnit.module("Utils", function (/*hooks*/) {
   });
 
   QUnit.test("getHostFromDomainInput", assert => {
-    assert.equal(
-      utils.getHostFromDomainInput("www.spiegel.de"),
+    assert.equal(utils.getHostFromDomainInput("www.spiegel.de"),
       "www.spiegel.de",
-      "Valid domains are accepted"
-    );
+      "Valid domains are accepted");
 
-    assert.equal(
-      utils.getHostFromDomainInput("http://www.spiegel.de/"),
+    assert.equal(utils.getHostFromDomainInput("http://www.spiegel.de/"),
       "www.spiegel.de",
-      "URLs get transformed into domains"
-    );
+      "URLs get transformed into domains");
 
-    assert.equal(
-      utils.getHostFromDomainInput("http://www.spiegel.de"),
+    assert.equal(utils.getHostFromDomainInput("http://www.spiegel.de"),
       "www.spiegel.de",
-      "Trailing slashes are not required"
-    );
+      "Trailing slashes are not required");
 
-    assert.equal(
-      utils.getHostFromDomainInput("@"),
-      false,
-      "Valid URIs with empty hosts are rejected."
-    );
+    assert.notOk(utils.getHostFromDomainInput("@"),
+      "Valid URIs with empty hosts are rejected");
+
+    assert.equal(utils.getHostFromDomainInput("httpbin.org"),
+      "httpbin.org",
+      "Domains that begin with http are valid entries");
   });
 
   // Tests algorithm used in the pixel tracking heuristic
