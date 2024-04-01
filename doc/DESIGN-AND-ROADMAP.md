@@ -142,7 +142,7 @@ For example:
 }
 ```
 
-[`tracking_map`](https://github.com/EFForg/privacybadger/pull/2839) maps tracker eTLD+1 (base) domains to specific [types of tracking](https://privacybadger.org/#How-does-Privacy-Badger-work) (such as canvas fingerprinting), as well as the sites those types of tracking was detected on. It is similar to `snitch_map`, but instead of tracker base domains pointing to arrays of site base domains, tracker base domains point to objects keyed by site base domains with arrays of detected tracking types for values. For example:
+[`tracking_map`](https://github.com/EFForg/privacybadger/pull/2839) maps tracker eTLD+1 (base) domains to specific [types of tracking](/#primary-mechanism) (such as canvas fingerprinting), as well as the sites those types of tracking were detected on. `tracking_map` is similar to `snitch_map`, but instead of tracker base domains pointing to arrays of site base domains, tracker base domains point to objects keyed by site base domains with arrays of detected tracking types for values. For example:
 
 ```json
 {
@@ -159,7 +159,7 @@ For example:
     }
 }
 ```
-`tracking_map` does not contain every tracker in `snitch_map` because for now it only stores "canvas" (fingerprinting) and "pixelcookieshare" tracking types.
+`tracking_map` does not contain every tracker in `snitch_map` because for now it only stores "canvas" (fingerprinting), "pixelcookieshare" and "beacon" tracking types.
 
 Finally, `fp_scripts` maps fingerprinter script paths to full-qualified domain names. We use it to [block known CDN-hosted fingerprinters](https://github.com/EFForg/privacybadger/pull/2891).
 
