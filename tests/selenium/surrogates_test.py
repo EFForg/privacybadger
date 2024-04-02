@@ -19,6 +19,14 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
 
     def load_ga_js_fixture(self, timeout=12):
         self.load_url(SurrogatesTest.FIXTURE_URL)
+
+        load_status_sel = '#third-party-load-result'
+        self.wait_for_script(
+            "return document.querySelector(arguments[0]).textContent",
+            load_status_sel, timeout=timeout)
+        if self.find_el_by_css(load_status_sel).text == "error":
+            return False
+
         try:
             self.wait_for_and_switch_to_frame('iframe', timeout=timeout)
             self.wait_for_text('h1', "It worked!", timeout=timeout)
