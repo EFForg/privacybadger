@@ -98,6 +98,15 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL + '?alt3p')
         self.assert_load()
 
+    def test_cookieblocking_base_overwrites_subdomain_block(self):
+        self.block_domain(self.THIRD_PARTY_SUBDOMAIN)
+        self.load_url(self.FIXTURE_URL + '?alt3p')
+        self.assert_block()
+
+        self.cookieblock_domain(self.THIRD_PARTY_DOMAIN)
+        self.load_url(self.FIXTURE_URL + '?alt3p')
+        self.assert_load()
+
     def test_blocking_fp_script_served_from_cookieblocked_cdn(self):
         self.cookieblock_domain("cdn.jsdelivr.net")
 
@@ -227,6 +236,20 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.open_popup(self.FIXTURE_URL)
         assert self.get_domain_slider_state(self.THIRD_PARTY_DOMAIN) == "block", (
             "DNT-compliant resource should now be blocked")
+
+    def test_reenabling_dnt_policy_checking(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.set_dnt(self.THIRD_PARTY_DOMAIN)
+
+        # toggle EFF's DNT policy checking
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#check_dnt_policy_checkbox').click()
+        self.driver.refresh()
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#check_dnt_policy_checkbox').click()
+
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
 
     def test_removing_dnt(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
