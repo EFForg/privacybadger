@@ -649,6 +649,17 @@ let multiDomainFirstPartiesArray = [
     "atl-paas.net",
   ],
   [
+    "atresmedia.com",
+
+    "atresplayer.com",
+    "europafm.com",
+    "lasexta.com",
+    "melodia-fm.com",
+    "ondacero.es",
+
+    "antena3.com"
+  ],
+  [
     "att.com",
 
     "att.tv",
