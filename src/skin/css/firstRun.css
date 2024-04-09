@@ -552,6 +552,12 @@ header .title-bar h1 {
 .share-links>a.share-facebook i:hover {
   opacity:0.7;
 }
+.share-links>a.share-mastodon i {
+  background:url("../images/mastodon.svg");
+}
+.share-links>a.share-mastodon i:hover {
+  opacity:0.7;
+}
 .share-links>a {
   display:inline-block;
   float:left;
@@ -616,6 +622,12 @@ header .title-bar h1 {
     background:url("../images/facebook.svg");
   }
   .share-links>a.share-facebook i:hover {
+    opacity:0.7;
+  }
+  .share-links>a.share-mastodon i {
+    background:url("../images/mastodon.svg");
+  }
+  .share-links>a.share-mastodon i:hover {
     opacity:0.7;
   }
   .share-links>a {
