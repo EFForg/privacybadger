@@ -367,6 +367,10 @@
         "message": "Dela på Twitter",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
+    "share_button_title_mastodon": {
+        "message": "Dela på Mastodon",
+        "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
     "options_title": {
         "message": "Privacy Badger-alternativ",
         "description": ""

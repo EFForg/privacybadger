@@ -367,6 +367,10 @@
         "message": "Kunhavigi per Twitter",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
+    "share_button_title_mastodon": {
+        "message": "Kunhavigi per Mastodon",
+        "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
     "options_title": {
         "message": "Agordoj pri Privata Melo",
         "description": ""

@@ -367,6 +367,10 @@
         "message": "Chia sẻ trên Twitter",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
+    "share_button_title_mastodon": {
+        "message": "Chia sẻ trên Mastodon",
+        "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
     "options_title": {
         "message": "Tùy chọn Privacy Badger",
         "description": ""

@@ -367,6 +367,10 @@
         "message": "Compartir en Twitter",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
+    "share_button_title_mastodon": {
+        "message": "Compartir en Mastodon",
+        "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
     "options_title": {
         "message": "Opciones de Privacy Badger",
         "description": ""

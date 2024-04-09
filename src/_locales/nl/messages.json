@@ -367,6 +367,10 @@
         "message": "Op Twitter delen",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
+    "share_button_title_mastodon": {
+        "message": "Op Mastodon delen",
+        "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
     "options_title": {
         "message": "Opties voor Privacy Badger",
         "description": ""

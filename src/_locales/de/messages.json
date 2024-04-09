@@ -367,6 +367,10 @@
         "message": "Auf Twitter teilen",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
+    "share_button_title_mastodon": {
+        "message": "Auf Mastodon teilen",
+        "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
     "options_title": {
         "message": "Optionen von Privacy Badger",
         "description": ""
