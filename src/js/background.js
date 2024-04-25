@@ -275,6 +275,7 @@ Badger.prototype = {
 
     utils.fetchResource(constants.SEED_DATA_LOCAL_URL, function (err, response) {
       if (err) {
+        console.error(err);
         return cb(new Error("Failed to fetch seed data"));
       }
 
@@ -352,7 +353,6 @@ Badger.prototype = {
 
       self.loadSeedData(err => {
         if (err) {
-          console.error("Seed data failed to load:", err);
           return reject(err);
         }
 
