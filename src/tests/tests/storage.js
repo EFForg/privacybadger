@@ -411,7 +411,7 @@ QUnit.test("snitch map merging", (assert) => {
   assert.equal(actionMap.getItem(DOMAIN).heuristicAction, "block");
 });
 
-QUnit.test("unknown domains are reported as non-tracking", (assert) => {
+QUnit.test("unknown domains are reported as non-tracking", async (assert) => {
   const UHOST = "thisdomainshouldnotbepresentinprivacybadgerstorage.com";
 
   let done = assert.async();
@@ -424,16 +424,16 @@ QUnit.test("unknown domains are reported as non-tracking", (assert) => {
     "best action for unknown domain is 'no tracking'"
   );
 
-  badger.loadSeedData(function () {
-    assert.notOk(actionMap.getItem(UHOST));
-    assert.notOk(snitchMap.getItem(UHOST));
-    assert.equal(
-      storage.getBestAction(UHOST),
-      constants.NO_TRACKING,
-      "best action for unknown domain is still 'no tracking'"
-    );
-    done();
-  });
+  await badger.loadSeedData();
+
+  assert.notOk(actionMap.getItem(UHOST));
+  assert.notOk(snitchMap.getItem(UHOST));
+  assert.equal(
+    storage.getBestAction(UHOST),
+    constants.NO_TRACKING,
+    "best action for unknown domain is still 'no tracking'"
+  );
+  done();
 });
 
 QUnit.test("blocking cascades", (assert) => {

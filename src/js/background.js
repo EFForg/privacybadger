@@ -267,30 +267,32 @@ Badger.prototype = {
   },
 
   /**
-   * Loads seed dataset with pre-trained action and snitch maps.
-   * @param {Function} cb callback
+   * Loads seed dataset.
+   *
+   * https://www.eff.org/deeplinks/2023/10/privacy-badger-learns-block-ever-more-trackers
+   *
+   * @returns {Promise}
    */
-  loadSeedData: function (cb) {
-    let self = this;
+  loadSeedData: async function () {
+    let self = this,
+      response,
+      data;
 
-    utils.fetchResource(constants.SEED_DATA_LOCAL_URL, function (err, response) {
-      if (err) {
-        console.error(err);
-        return cb(new Error("Failed to fetch seed data"));
-      }
+    try {
+      response = await fetch(constants.SEED_DATA_LOCAL_URL);
+    } catch (err) {
+      console.error(err);
+      throw new Error("Failed to fetch seed data");
+    }
 
-      let data;
-      try {
-        data = JSON.parse(response);
-      } catch (e) {
-        console.error(e);
-        return cb(new Error("Failed to parse seed data JSON"));
-      }
+    try {
+      data = await response.json();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Failed to parse seed data JSON");
+    }
 
-      self.storage.mergeUserData(data);
-
-      return cb(null);
-    });
+    self.storage.mergeUserData(data);
   },
 
   /**
@@ -302,76 +304,68 @@ Badger.prototype = {
    *
    * @returns {Promise}
    */
-  updateTrackerData: function () {
+  updateTrackerData: async function () {
     let self = this;
 
-    return new Promise(function (resolve, reject) {
-      if (!self.isFirstRun && !self.isUpdate && self.getPrivateSettings().getItem('doneLoadingSeed')) {
-        log("No need to load seed data (existing installation, no update)");
-        return resolve();
+    if (!self.isFirstRun && !self.isUpdate && self.getPrivateSettings().getItem('doneLoadingSeed')) {
+      log("No need to load seed data (existing installation, no update)");
+      return;
+    }
+
+    if (self.getSettings().getItem("learnLocally")) {
+      log("No need to load seed data (local learning is enabled)");
+      if (!self.getPrivateSettings().getItem('doneLoadingSeed')) {
+        self.getPrivateSettings().setItem('doneLoadingSeed', true);
       }
+      return;
+    }
 
-      if (self.getSettings().getItem("learnLocally")) {
-        log("No need to load seed data (local learning is enabled)");
-        if (!self.getPrivateSettings().getItem('doneLoadingSeed')) {
-          self.getPrivateSettings().setItem('doneLoadingSeed', true);
-        }
-        return resolve();
-      }
+    if (self.getPrivateSettings().getItem('doneLoadingSeed')) {
+      // unset and immediately persist doneness flag
+      // so that if we somehow interrupt seed loading, we can fix on restart
+      self.getPrivateSettings().setItem('doneLoadingSeed', false);
+      self.storage.forceSync('private_storage');
+    }
 
-      if (self.getPrivateSettings().getItem('doneLoadingSeed')) {
-        // unset and immediately persist doneness flag
-        // so that if we somehow interrupt seed loading, we can fix on restart
-        self.getPrivateSettings().setItem('doneLoadingSeed', false);
-        self.storage.forceSync('private_storage');
-      }
+    let userActions = [];
 
-      let userActions = [];
+    // this is an update, or we previously failed to finish loading seed data
+    if (!self.isFirstRun) {
+      let actions = Object.entries(
+        self.storage.getStore('action_map').getItemClones());
 
-      // this is an update, or we previously failed to finish loading seed data
-      if (!self.isFirstRun) {
-        let actions = Object.entries(
-          self.storage.getStore('action_map').getItemClones());
+      log("Clearing tracker data ...");
 
-        log("Clearing tracker data ...");
-
-        // first save user slider modifications
-        for (const [domain, actionData] of actions) {
-          if (actionData.userAction != "") {
-            userActions.push({
-              domain,
-              action: actionData.userAction
-            });
-          }
-        }
-
-        // clear existing data
-        self.storage.clearTrackerData();
-      }
-
-      log("Loading seed data ...");
-
-      self.loadSeedData(err => {
-        if (err) {
-          return reject(err);
-        }
-
-        log("Seed data loaded successfully");
-
-        // reapply customized sliders if any
-        for (const item of userActions) {
-          self.storage.setupUserAction(item.domain, item.action);
-        }
-
-        if (!self.getPrivateSettings().getItem('doneLoadingSeed')) {
-          self.storage.forceSync(null, function () {
-            self.getPrivateSettings().setItem('doneLoadingSeed', true);
+      // first save user slider modifications
+      for (const [domain, actionData] of actions) {
+        if (actionData.userAction != "") {
+          userActions.push({
+            domain,
+            action: actionData.userAction
           });
         }
+      }
 
-        return resolve();
+      // clear existing data
+      self.storage.clearTrackerData();
+    }
+
+    log("Loading seed data ...");
+
+    await self.loadSeedData();
+
+    log("Seed data loaded successfully");
+
+    // reapply customized sliders if any
+    for (const item of userActions) {
+      self.storage.setupUserAction(item.domain, item.action);
+    }
+
+    if (!self.getPrivateSettings().getItem('doneLoadingSeed')) {
+      self.storage.forceSync(null, function () {
+        self.getPrivateSettings().setItem('doneLoadingSeed', true);
       });
-    });
+    }
   },
 
   /**
