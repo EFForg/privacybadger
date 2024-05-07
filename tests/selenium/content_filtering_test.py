@@ -264,6 +264,21 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
 
+    def test_removing_domain(self):
+        # first block the domain
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+
+        # now remove it
+        self.js(
+            "chrome.runtime.sendMessage({"
+            "  type: 'removeOrigin',"
+            "  origin: arguments[0]"
+            "});", self.THIRD_PARTY_DOMAIN)
+
+        # the domain should now load
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+
 
 if __name__ == "__main__":
     unittest.main()
