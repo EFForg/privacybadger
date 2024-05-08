@@ -1,3 +1,12 @@
+# https://developer.chrome.com/docs/extensions/how-to/distribute/host-on-linux
+crx:
+	$(eval TMPFILE := $(shell mktemp))
+	cp src/manifest.json $(TMPFILE)
+	./scripts/patch_manifest.py src/manifest.json set update_url http://localhost:9999/updates.xml
+	google-chrome --pack-extension=./src --pack-extension-key=./release-utils/dummy-chromium.pem
+	mv src.crx release-utils/privacy-badger.crx
+	mv $(TMPFILE) src/manifest.json
+
 lint:
 	./node_modules/.bin/eslint .
 
@@ -42,4 +51,4 @@ runfn:
 test:
 	BROWSER=chrome ENABLE_XVFB=1 pytest -s tests/
 
-.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle updatecnames tx runch runfa runff runfn test
+.PHONY: crx lint updatepsl updateseed apply_effdntlist updategoogle updatecnames tx runch runfa runff runfn test
