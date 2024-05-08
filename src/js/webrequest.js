@@ -1464,8 +1464,10 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.clearTrackerData();
 
     badger.loadSeedData().then(function () {
+      window.DATA_LOAD_IN_PROGRESS = true;
       badger.blockWidgetDomains();
       badger.blockPanopticlickDomains();
+      window.DATA_LOAD_IN_PROGRESS = false;
       sendResponse();
     }).catch(function (err) {
       console.error(err);

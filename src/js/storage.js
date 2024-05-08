@@ -204,6 +204,8 @@ BadgerPen.prototype = {
   mergeUserData: function (data) {
     let self = this;
 
+    window.DATA_LOAD_IN_PROGRESS = true;
+
     // fix incoming snitch map entries with current MDFP data
     if (utils.hasOwn(data, "snitch_map")) {
       let correctedSites = {};
@@ -227,6 +229,8 @@ BadgerPen.prototype = {
         self.getStore(key).merge(data[key]);
       }
     }
+
+    window.DATA_LOAD_IN_PROGRESS = false;
   },
 
   /**
@@ -281,8 +285,10 @@ BadgerPen.prototype = {
     let addedDomains = utils.difference(newDomains, oldDomains),
       removedDomains = utils.difference(oldDomains, newDomains);
 
-    log('adding to cookie blocklist:', addedDomains);
-    addedDomains.forEach(function (domain) {
+    if (addedDomains.length) {
+      log("Adding to cookie blocklist:", addedDomains);
+    }
+    for (let domain of addedDomains) {
       ylistStorage.setItem(domain, true);
 
       const base = getBaseDomain(domain);
@@ -294,10 +300,12 @@ BadgerPen.prototype = {
           self.setupHeuristicAction(domain, constants.COOKIEBLOCK);
         }
       }
-    });
+    }
 
-    log('removing from cookie blocklist:', removedDomains);
-    removedDomains.forEach(function (domain) {
+    if (removedDomains.length) {
+      log("Removing from cookie blocklist:", removedDomains);
+    }
+    for (let domain of removedDomains) {
       ylistStorage.deleteItem(domain);
 
       const base = getBaseDomain(domain);
@@ -309,7 +317,7 @@ BadgerPen.prototype = {
           }
         }
       }
-    });
+    }
   },
 
   /**
@@ -427,29 +435,33 @@ BadgerPen.prototype = {
    *
    * @param {String} domain the domain to set the action for
    * @param {String} action the action to take e.g. BLOCK || COOKIEBLOCK || DNT
-   * @param {String} actionType the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
+   * @param {String} action_type the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
+   *
    * @private
    */
-  _setupDomainAction: function (domain, action, actionType) {
-    let msg = "action_map['%s'].%s = %s",
-      action_map = this.getStore("action_map"),
+  _setupDomainAction: function (domain, action, action_type) {
+    let actionStore = this.getStore("action_map"),
       actionObj = {};
 
-    if (action_map.hasItem(domain)) {
-      actionObj = action_map.getItem(domain);
-      msg = "Updating " + msg;
+    if (actionStore.hasItem(domain)) {
+      actionObj = actionStore.getItem(domain);
     } else {
       actionObj = _newActionMapObject();
-      msg = "Initializing " + msg;
     }
-    actionObj[actionType] = action;
+    actionObj[action_type] = action;
 
-    if (window.DEBUG && badger.INITIALIZED) {
-      // to avoid (A) needless JSON.stringify calls
-      // and (B) thousands of messages from loading seed data
-      log(msg, domain, actionType, JSON.stringify(action));
+    // avoid thousands of messages from loading seed/user data
+    if (window.DEBUG && !window.DATA_LOAD_IN_PROGRESS) {
+      let msg = "action_map['%s'].%s = %s";
+      if (actionStore.hasItem(domain)) {
+        msg = "Updating " + msg;
+      } else {
+        msg = "Initializing " + msg;
+      }
+      log(msg, domain, action_type, JSON.stringify(action));
     }
-    action_map.setItem(domain, actionObj);
+
+    actionStore.setItem(domain, actionObj);
   },
 
   /**
@@ -465,15 +477,16 @@ BadgerPen.prototype = {
   /**
    * Set up a domain for DNT
    *
-   * @param {String} domain Domain to add
+   * @param {String} domain
    */
   setupDNT: function (domain) {
     this._setupDomainAction(domain, true, "dnt");
   },
 
   /**
-   * Remove DNT setting from a domain*
-   * @param {String} domain FQDN string
+   * Remove DNT setting from a domain
+   *
+   * @param {String} domain
    */
   revertDNT: function (domain) {
     this._setupDomainAction(domain, false, "dnt");
@@ -545,7 +558,6 @@ BadgerPen.prototype = {
     }
 
     function sync(name) {
-      log("Forcing storage sync for " + name);
       _syncStorage(self.getStore(name), true, done);
     }
 

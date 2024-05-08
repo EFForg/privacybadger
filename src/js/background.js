@@ -116,8 +116,10 @@ function Badger(from_qunit) {
     if (self.isFirstRun || self.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
       // block all widget domains
       // only need to do this when the widget list could have gotten updated
+      window.DATA_LOAD_IN_PROGRESS = true;
       self.blockWidgetDomains();
       self.blockPanopticlickDomains();
+      window.DATA_LOAD_IN_PROGRESS = false;
     }
 
     if (self.isUpdate) {
@@ -234,8 +236,6 @@ Badger.prototype = {
         }, () => {
           if (chrome.runtime.lastError) {
             console.error("Failed setting override:", chrome.runtime.lastError);
-          } else {
-            console.log("Set override", name, "to", value);
           }
         });
       });
@@ -906,7 +906,6 @@ Badger.prototype = {
       if (!settings.hasItem(key)) {
         // set with default value
         let value = self.defaultSettings[key];
-        log("setting", key, "=", value);
         settings.setItem(key, value);
       }
     }
