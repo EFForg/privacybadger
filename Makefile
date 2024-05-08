@@ -16,9 +16,6 @@ updategoogle:
 updatecnames:
 	scripts/updatecnames.sh
 
-todo:
-	grep -rn 'TODO' src
-
 upload:
 	$(eval TMPFILE := $(shell mktemp))
 	scp src/data/yellowlist.txt $$YELLOWLIST_UPLOAD_PATH
@@ -45,4 +42,4 @@ runfn:
 test:
 	BROWSER=chrome ENABLE_XVFB=1 pytest -s tests/
 
-.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle updatecnames todo tx runch runfa runff runfn test
+.PHONY: lint updatepsl updateseed apply_effdntlist updategoogle updatecnames tx runch runfa runff runfn test
