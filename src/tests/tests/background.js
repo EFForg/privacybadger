@@ -179,9 +179,6 @@ QUnit.test("mergeUserData does not unblock formerly blocked domains", (assert) =
       },
       snitch_map: {
         'foo.com': SITE_DOMAINS
-      },
-      settings_map: {
-        migrationLevel: 0
       }
     };
 
@@ -196,14 +193,6 @@ QUnit.test("mergeUserData does not unblock formerly blocked domains", (assert) =
     badger.storage.snitch_map.getItem('foo.com'),
     SITE_DOMAINS,
     "snitch map was migrated"
-  );
-
-  badger.runMigrations();
-
-  assert.equal(
-    badger.storage.action_map.getItem('foo.com').heuristicAction,
-    constants.BLOCK,
-    "foo.com is still blocked after running migrations"
   );
 });
 

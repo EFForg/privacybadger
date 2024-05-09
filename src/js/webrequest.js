@@ -1691,11 +1691,6 @@ function dispatcher(request, sender, sendResponse) {
     badger.blockWidgetDomains();
     badger.setPrivacyOverrides();
     badger.initDeprecations();
-
-    // for exports from older Privacy Badger versions:
-    // fix yellowlist getting out of sync, remove non-tracking domains, etc.
-    badger.runMigrations();
-
     sendResponse();
     break;
   }

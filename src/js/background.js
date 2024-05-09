@@ -25,7 +25,6 @@ import constants from "./constants.js";
 import FirefoxAndroid from "./firefoxandroid.js";
 import HeuristicBlocking from "./heuristicblocking.js";
 import incognito from "./incognito.js";
-import { Migrations } from "./migrations.js";
 import widgetLoader from "./socialwidgetloader.js";
 import BadgerPen from "./storage.js";
 import TabData from "./tabdata.js";
@@ -120,10 +119,6 @@ function Badger(from_qunit) {
       self.blockWidgetDomains();
       self.blockPanopticlickDomains();
       window.DATA_LOAD_IN_PROGRESS = false;
-    }
-
-    if (self.isUpdate) {
-      self.runMigrations();
     }
 
     log("Privacy Badger initialization complete");
@@ -881,7 +876,6 @@ Badger.prototype = {
     hideBlockedElements: true,
     learnInIncognito: false,
     learnLocally: false,
-    migrationLevel: Migrations.length,
     seenComic: false,
     sendDNTSignal: true,
     showCounter: true,
@@ -959,6 +953,7 @@ Badger.prototype = {
     if (self.isUpdate) {
       [
         "disableFloc",
+        "migrationLevel",
         "preventWebRTCIPLeak",
         "showTrackingDomains",
         "webRTCIPProtection",
@@ -981,17 +976,6 @@ Badger.prototype = {
    * Called on Badger startup and user data import.
    */
   initDeprecations: function () {},
-
-  runMigrations: function () {
-    let self = this,
-      settings = self.getSettings(),
-      migrationLevel = settings.getItem('migrationLevel');
-
-    for (let i = migrationLevel; i < Migrations.length; i++) {
-      Migrations[i].call(self);
-      settings.setItem('migrationLevel', i+1);
-    }
-  },
 
   /**
    * Returns the count of tracking domains for a tab.
