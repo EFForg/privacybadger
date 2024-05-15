@@ -812,11 +812,8 @@ Badger.prototype = {
     }
 
     if (!self.isCheckingDNTPolicyEnabled()) {
-      // user has disabled this check
       return;
     }
-
-    log('Checking', domain, 'for DNT policy.');
 
     // update timestamp first;
     // avoids queuing the same domain multiple times
@@ -828,10 +825,9 @@ Badger.prototype = {
 
     self._checkPrivacyBadgerPolicy(domain, function (success) {
       if (success) {
-        log('It looks like', domain, 'has adopted Do Not Track! I am going to unblock them');
+        log(domain, "declared compliance with EFF's Do Not Track policy");
         self.storage.setupDNT(domain);
       } else {
-        log('It looks like', domain, 'has NOT adopted Do Not Track');
         self.storage.revertDNT(domain);
       }
       if (typeof cb == "function") {
@@ -841,26 +837,30 @@ Badger.prototype = {
   },
 
   /**
-   * Asyncronously checks if the domain has /.well-known/dnt-policy.txt.
+   * Checks for declarations of compliance with EFF's Do Not Track policy.
+   *
+   * https://www.eff.org/dnt-policy
    *
    * Rate-limited to at least one second apart.
    *
-   * @param {String} origin the host to check
+   * @param {String} domain the domain to check
    * @param {Function} callback the callback ({Boolean} success_status)
    */
-  _checkPrivacyBadgerPolicy: utils.rateLimit(function (origin, callback) {
-    const URL = "https://" + origin + "/.well-known/dnt-policy.txt";
-    const dntHashesStore = this.storage.getStore('dnt_hashes');
+  _checkPrivacyBadgerPolicy: utils.rateLimit(function (domain, callback) {
 
-    utils.fetchResource(URL, function (err, response) {
+    const policy_url = `https://${domain}/.well-known/dnt-policy.txt`,
+      dntHashStore = this.storage.getStore('dnt_hashes');
+
+    utils.fetchResource(policy_url, function (err, response) {
       if (err) {
         callback(false);
         return;
       }
-      utils.sha1(response, function(hash) {
-        callback(dntHashesStore.hasItem(hash));
+      utils.sha1(response, function (hash) {
+        callback(dntHashStore.hasItem(hash));
       });
     });
+
   }, constants.DNT_POLICY_CHECK_INTERVAL),
 
   /**

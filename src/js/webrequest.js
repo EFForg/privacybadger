@@ -398,22 +398,6 @@ function onBeforeSendHeaders(details) {
     from_current_tab = true;
 
   if (!frameData || tab_id < 0) {
-    // strip cookies from DNT policy requests
-    if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
-      // remove Cookie headers
-      let newHeaders = [];
-      for (let i = 0, count = details.requestHeaders.length; i < count; i++) {
-        let header = details.requestHeaders[i];
-        if (header.name.toLowerCase() != "cookie") {
-          newHeaders.push(header);
-        }
-      }
-      return {
-        requestHeaders: newHeaders
-      };
-    }
-
-    // ignore otherwise
     return;
   }
 
@@ -536,29 +520,6 @@ function onHeadersReceived(details) {
     from_current_tab = true;
 
   if (!frameData || tab_id < 0 || utils.isRestrictedUrl(url)) {
-    // strip cookies, reject redirects from DNT policy responses
-    if (details.type == "xmlhttprequest" && url.endsWith("/.well-known/dnt-policy.txt")) {
-      // if it's a redirect, cancel it
-      if (details.statusCode >= 300 && details.statusCode < 400) {
-        return {
-          cancel: true
-        };
-      }
-
-      // remove Set-Cookie headers
-      let headers = details.responseHeaders,
-        newHeaders = [];
-      for (let i = 0, count = headers.length; i < count; i++) {
-        if (headers[i].name.toLowerCase() != "set-cookie") {
-          newHeaders.push(headers[i]);
-        }
-      }
-      return {
-        responseHeaders: newHeaders
-      };
-    }
-
-    // ignore otherwise
     return;
   }
 

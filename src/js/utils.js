@@ -35,7 +35,12 @@ function hasOwn(obj, prop) {
  * @param {Function} callback the callback ({String?} error, {String?} response body text)
  */
 function fetchResource(url, callback) {
-  fetch(url).then(response => {
+  let options = {
+    credentials: "omit",
+    redirect: "error"
+  };
+
+  fetch(url, options).then(response => {
     if (!response.ok) {
       throw new Error("Non-2xx response status: " + response.status);
     }
