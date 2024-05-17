@@ -1,6 +1,12 @@
 Privacy Badger Release Notes
 ============================
 
+2024.5.17
+* Updated "share" buttons on the new user welcome page:
+Added button for Mastodon; fixed Facebook and X (Twitter) buttons
+* Unbroke X.com and a few other sites
+* Improved translations (Greek, Hebrew)
+
 2024.2.6
 * Fixed timing issue that could lead to incomplete or empty
 tracker data on installation in Firefox
