@@ -21,7 +21,6 @@
     "webRequest",
     "webRequestBlocking",
     "storage",
-    "cookies",
     "privacy"
   ],
   "background": {
