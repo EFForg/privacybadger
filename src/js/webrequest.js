@@ -1150,11 +1150,32 @@ function dispatcher(request, sender, sendResponse) {
   // process is not running; the getPopupData message from the popup causes
   // the background to start but the background is not yet ready to respond
   if (!badger.INITIALIZED) {
-    setTimeout(function () {
-      dispatcher(request, sender, sendResponse);
-    }, 50);
-    // indicate this is an async response to chrome.runtime.onMessage
-    return true;
+    if ((Date.now() - badger.startTime) > 10000) {
+      // too much time elapsed for this to be a normal initialization,
+      // give up to avoid an infinite loop
+      badger.criticalError = "Privacy Badger failed to initialize";
+      // update badge
+      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+        if (tabs[0]) {
+          badger.updateBadge(tabs[0].id);
+        }
+      });
+      // show error in popup
+      if (request.type == "getPopupData") {
+        return sendResponse({
+          criticalError: badger.criticalError,
+          noTabData: true,
+          settings: { seenComic: true },
+        });
+      }
+      return sendResponse();
+    } else {
+      setTimeout(function () {
+        dispatcher(request, sender, sendResponse);
+      }, 50);
+      // indicate this is an async response to chrome.runtime.onMessage
+      return true;
+    }
   }
 
   // messages from content scripts are to be treated with greater caution:
