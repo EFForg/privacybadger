@@ -6,7 +6,6 @@
 # Packages
 *.egg
 *.egg-info
-dist
 build
 eggs
 parts
@@ -25,10 +24,10 @@ __pycache__
 buildtools/jshydra/mozilla/js
 
 # Vim swap files
-*.sw*
+*.sw?
 
-# Mac DS_Store
-*.DS_Store
+# macOS cruft
+.DS_Store
 
 node_modules
 
@@ -36,16 +35,11 @@ tests/.cache
 tests/.pytest_cache
 .pytest_cache
 
-*.xpi
-.chrome-profile
-
 .idea
 
 #Eclipse project stuff
 .settings/
 .project
 
-web-ext-artifacts
 pkg
 release-utils/config.sh
-release-utils/xpi
