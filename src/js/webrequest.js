@@ -1321,8 +1321,6 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "detectFingerprinting": {
-    let tab_host = extractHostFromURL(sender.tab.url);
-
     if (sender.frameId > 0) {
       // do not modify the JS environment in Cloudflare CAPTCHA frames
       if (sender.url.startsWith("https://challenges.cloudflare.com/")) {
@@ -1331,9 +1329,8 @@ function dispatcher(request, sender, sendResponse) {
       }
     }
 
-    sendResponse(
-      badger.isLearningEnabled(sender.tab.id) &&
-      badger.isPrivacyBadgerEnabled(tab_host));
+    sendResponse(badger.isLearningEnabled(sender.tab.id) &&
+      badger.isPrivacyBadgerEnabled(extractHostFromURL(sender.tab.url)));
 
     break;
   }
