@@ -10,6 +10,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
     # for blocking tests
     FIXTURE_DOMAIN = "efforg.github.io"
+    FIXTURE_PARENT_DOMAIN = "github.io"
     FIXTURE_URL = (
         f"https://{FIXTURE_DOMAIN}/privacybadger-test-fixtures/html/"
         "3p_script_with_load_status.html"
@@ -202,6 +203,20 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
     def test_disabling_on_site(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
         self.disable_badger_on_site(self.FIXTURE_URL)
+
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+
+    def test_disabling_on_site_parent_domain(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.disable_badger_on_site(self.FIXTURE_PARENT_DOMAIN)
+
+        self.load_url(self.FIXTURE_URL)
+        self.assert_block()
+
+    def test_disabling_on_site_wildcard(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.disable_badger_on_site("*." + self.FIXTURE_PARENT_DOMAIN)
 
         self.load_url(self.FIXTURE_URL)
         self.assert_load()
