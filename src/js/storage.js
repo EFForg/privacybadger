@@ -850,6 +850,11 @@ BadgerStorage.prototype = {
       }
     }
 
+    // don't notify when there is no change
+    if (val === self.getItem(key)) {
+      return;
+    }
+
     // exact match subscribers
     _notify(name);
 
