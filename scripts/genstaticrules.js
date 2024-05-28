@@ -100,11 +100,26 @@ function make_google_redirect_rules(googleHosts) {
   let rules = [],
     id = 1;
 
-  for (let host of googleHosts) {
+  // a few patterns cover all googleHosts
+  let googlePatterns = [
+    "www\\.google\\.com",
+    "www\\.google\\.cat",
+    "www\\.google\\.com\\...",
+    "www\\.google\\...",
+    "www\\.google\\.co\\...",
+  ];
+
+  let unmatched = googleHosts.filter(host =>
+    !googlePatterns.some(p => new RegExp('^' + p + '$').test(host)));
+  if (unmatched.length) {
+    console.error("Failed to match some Google hostnames:", unmatched);
+  }
+
+  for (let pattern of googlePatterns) {
     for (let param of ['.+&q', 'q', '.+&url', 'url']) {
       rules.push({
         id,
-        priority: 1,
+        priority: 2,
         action: {
           type: "redirect",
           redirect: {
@@ -112,7 +127,10 @@ function make_google_redirect_rules(googleHosts) {
           }
         },
         condition: {
-          regexFilter: `^https://${host.replace(/\//g, '\\/')}/url\\?${param}=(https?://[^&]+).*$`,
+          // redirect to the URL in q/url parameters when URL is not %-encoded
+          // https://issues.chromium.org/issues/338071843#comment14
+          // %-encoded URLs are handled by registerGoogleRedirectBypassRule()
+          regexFilter: `^https://${pattern}/url\\?${param}=(https?://[^&%]+)(?:&.*|$)`,
           resourceTypes: [
             "main_frame"
           ]
@@ -120,19 +138,6 @@ function make_google_redirect_rules(googleHosts) {
       });
       id++;
     }
-    // TODO workaround for https://github.com/w3c/webextensions/issues/302
-    rules.push({
-      id,
-      priority: 2,
-      action: { type: "allow" },
-      condition: {
-        urlFilter: `|https://${host}/url?*%*|`,
-        resourceTypes: [
-          "main_frame"
-        ]
-      }
-    });
-    id++;
   }
 
   return rules;
