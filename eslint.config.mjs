@@ -87,6 +87,7 @@ export default defineConfig([
       globals: {
         ...globals.browser,
         ...globals.webextensions,
+        "globalThis": "readonly"
       },
       ecmaVersion: 2017
     }
