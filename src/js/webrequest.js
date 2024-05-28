@@ -1275,8 +1275,22 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     let action = checkAction(sender.tab.id, tab_host, frame_host);
-    sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK);
+    if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
+      chrome.scripting.executeScript({
+        target: {
+          tabId: sender.tab.id,
+          frameIds: [sender.frameId]
+        },
+        injectImmediately: true,
+        world: chrome.scripting.ExecutionWorld.MAIN,
+        files: ["js/contentscripts/clobbercookie.js",
+          "js/contentscripts/clobberlocalstorage.js"],
+      }).catch(function () {
+        // ignore "Frame with ID [NUM] was removed."
+      });
+    }
 
+    sendResponse();
     break;
   }
 
