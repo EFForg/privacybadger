@@ -56,6 +56,17 @@ let exports = {
   DNR_USER_COOKIEBLOCK_HEADERS: 60,
   DNR_USER_ALLOW: 70,
   DNR_SITE_ALLOW_ALL: 100,
+
+  CONTENT_SCRIPTS: [{
+    id: "dnt_signal",
+    js: ["js/contentscripts/dnt.js"],
+    matches: ["<all_urls>"],
+    allFrames: true,
+    matchOriginAsFallback: true, // crbug.com/55084
+    runAt: "document_start",
+    world: chrome.scripting.ExecutionWorld.MAIN,
+    persistAcrossSessions: false,
+  }]
 };
 
 exports.BLOCKED_ACTIONS = new Set([
