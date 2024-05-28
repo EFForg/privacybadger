@@ -244,6 +244,68 @@ function getDnrSurrogateRules(idFunc, domain) {
 }
 
 /**
+ * Constructs a DNR rule object for blocking CDN-hosted fingerprinter scripts.
+ *
+ * @param {Integer} id
+ * @param {String} domain
+ * @param {Array} fpScripts
+ *
+ * @returns {Object}
+ */
+function makeDnrFpScriptBlockRule(id, domain, fpScripts) {
+  // TODO is the leading .* needed?
+  let paths_pattern = ".*(?:" + fpScripts
+    .map(s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|") + ")(?:\\?.*)?$";
+
+  return {
+    id,
+    priority: constants.DNR_FP_SCRIPT_BLOCK,
+    action: { type: 'block' },
+    condition: {
+      requestDomains: [domain],
+      resourceTypes: ['script'],
+      // TODO can we use domainFilter patterns instead?
+      regexFilter: paths_pattern,
+      domainType: 'thirdParty',
+      excludedInitiatorDomains: mdfp.getEntityList(getBaseDomain(domain))
+    }
+  };
+}
+
+/**
+ * Constructs a DNR rule object for replacing CDN-hosted
+ * fingerprinter scripts with our surrogate scripts.
+ *
+ * @param {Integer} id
+ * @param {String} domain
+ * @param {String} match_token
+ * @param {String} surrogate_path
+ *
+ * @returns {Object}
+ */
+function makeDnrFpScriptSurrogateRule(id, domain, match_token, surrogate_path) {
+  return {
+    id,
+    priority: constants.DNR_FP_SCRIPT_SURROGATE_REDIRECT,
+    action: {
+      type: 'redirect',
+      redirect: { extensionPath: surrogate_path }
+    },
+    condition: {
+      requestDomains: [domain],
+      resourceTypes: ['script'],
+      // TODO fix for 15f68c5cfb2034a6ef5a9b72302a5ecf3d195032
+      // TODO don't need the leading .* right?
+      // TODO this is hardcoded to sdb.MATCH_SUFFIX only
+      regexFilter: `.*${match_token}(?:\\?.*)?$`,
+      domainType: 'thirdParty',
+      excludedInitiatorDomains: mdfp.getEntityList(getBaseDomain(domain))
+    }
+  };
+}
+
+/**
  * We use DNR session rules to allow user-activated widgets to load.
  */
 let updateSessionAllowRules = utils.debounce(async function (tempAllowlist) {
@@ -498,6 +560,8 @@ export default {
   makeDnrAllowRule,
   makeDnrBlockRule,
   makeDnrCookieblockRule,
+  makeDnrFpScriptBlockRule,
+  makeDnrFpScriptSurrogateRule,
   updateDisabledSitesRules,
   updateDynamicRules,
   updateEnabledRulesets,
