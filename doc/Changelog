@@ -1,6 +1,10 @@
 Privacy Badger Release Notes
 ============================
 
+2024.5.27
+Bug fix release to restore access to Cloudflare-protected sites
+for users who enabled local tracker learning
+
 2024.5.17
 * Updated "share" buttons on the new user welcome page:
 Added button for Mastodon; fixed Facebook and X (Twitter) buttons
