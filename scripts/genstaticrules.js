@@ -76,6 +76,26 @@ function make_dnt_signal_rules() {
   ];
 }
 
+function make_gen204_block_rules(googleHosts) {
+  let rules = [],
+    id = 1;
+
+  for (let host of googleHosts) {
+    rules.push({
+      id,
+      priority: 1,
+      action: { type: 'block' },
+      condition: {
+        resourceTypes: ['ping'],
+        urlFilter: `|https://${host}/gen_204^`
+      }
+    });
+    id++;
+  }
+
+  return rules;
+}
+
 function main() {
   let dntSignalRules = make_dnt_signal_rules();
   fs.writeFileSync("src/data/dnr/dnt_signal.json",
@@ -86,6 +106,18 @@ function main() {
   fs.writeFileSync("src/data/dnr/dnt_policy.json",
     JSON.stringify(dntPolicyRule, null, 2), 'utf8');
   console.log(`Generated 1 EFF's DNT policy rule`);
+
+  // generate rules to block Google gen204 beacons
+  let manifestJson = JSON.parse(fs.readFileSync("src/manifest.json", 'utf8'));
+  let googleHosts = manifestJson.content_scripts
+    .find(i => i.js.includes("js/firstparties/google.js"))
+    .matches.filter(i => i.startsWith("https://www.") && i.endsWith("/*"))
+    .map(i => i.slice(8).slice(0, -2));
+
+  let gen204Rules = make_gen204_block_rules(googleHosts);
+  fs.writeFileSync("src/data/dnr/gen204.json",
+    JSON.stringify(gen204Rules, null, 2), 'utf8');
+  console.log(`Generated ${gen204Rules.length} Google gen204 beacon block rules`);
 }
 
 main();
