@@ -22,6 +22,7 @@
 
 import { extractHostFromURL, getBaseDomain, isPrivateDomain } from "../lib/basedomain.js";
 import { getInitiatorUrl, guessTabIdFromInitiator } from "../lib/webrequestUtils.js";
+import dnrUtils from "../lib/dnr/utils.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -1267,9 +1268,38 @@ function dispatcher(request, sender, sendResponse) {
     if (!widgetDomains) {
       return sendResponse();
     }
+
     badger.tabData.allowOnTab(sender.tab.id, widgetDomains, request.widgetName);
-    sendResponse();
-    break;
+
+    dnrUtils.updateSessionAllowRules(badger.tabData.tempAllowlist);
+
+    let _checkRules = function () {
+      chrome.declarativeNetRequest.getSessionRules(rules => {
+        let found_all = widgetDomains.every(d => {
+          return rules.find(r => {
+            if (r.priority == constants.DNR_WIDGET_ALLOW_ALL) {
+              if (r.condition.tabIds.includes(sender.tab.id)) {
+                if (r.condition.requestDomains) {
+                  return r.condition.requestDomains.includes(d);
+                } else if (r.condition.urlFilter) {
+                  return r.condition.urlFilter == "||" + d.slice(2);
+                }
+              }
+            }
+            return false;
+          });
+        });
+        if (found_all) {
+          return sendResponse();
+        }
+        setTimeout(_checkRules, 50);
+      });
+    };
+
+    // poll for DNR to get updated
+    _checkRules();
+
+    return true; // async chrome.runtime.onMessage response
   }
 
   case "allowWidgetOnSite": {

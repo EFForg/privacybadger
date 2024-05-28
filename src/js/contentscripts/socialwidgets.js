@@ -332,22 +332,27 @@ function restoreWidget(widget) {
  * run on the page anyway, had Privacy Badger not blocked it.
  */
 function reloadScripts(selectors) {
-  let scripts = document.querySelectorAll(selectors.join(','));
+  // first inject the script creation function
+  // into page context to work around Chrome MV3 CSP
+  // TODO better injection, as injectScript() is subject to page CSPs
+  window.injectScript("(" + function (selector) {
+    let scripts = document.querySelectorAll(selector);
 
-  for (let scriptEl of scripts) {
-    // reinsert script elements only
-    if (!scriptEl.nodeName || scriptEl.nodeName.toLowerCase() != 'script') {
-      continue;
-    }
+    for (let scriptEl of scripts) {
+      // reinsert script elements only
+      if (!scriptEl.nodeName || scriptEl.nodeName.toLowerCase() != 'script') {
+        continue;
+      }
 
-    let replacement = document.createElement("script");
-    for (let attr of scriptEl.attributes) {
-      replacement.setAttribute(attr.nodeName, attr.value);
+      let replacement = document.createElement("script");
+      for (let attr of scriptEl.attributes) {
+        replacement.setAttribute(attr.nodeName, attr.value);
+      }
+      scriptEl.parentNode.replaceChild(replacement, scriptEl);
+      // reinsert one script and quit
+      break;
     }
-    scriptEl.parentNode.replaceChild(replacement, scriptEl);
-    // reinsert one script and quit
-    break;
-  }
+  } + '("' + selectors.join(',') + '"));');
 }
 
 /**
