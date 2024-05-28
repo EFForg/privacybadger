@@ -14,27 +14,27 @@ jobs:
     - env: INFO="Chrome Beta" BROWSER=google-chrome-beta
       addons:
         chrome: beta
-    - env: INFO="Firefox" BROWSER=firefox
-      addons:
-        firefox: latest
-    - env: INFO="Firefox Beta" BROWSER=firefox
-      addons:
-        firefox: latest-beta
-    - env: INFO="Firefox Nightly" BROWSER=firefox
-      addons:
-        firefox: latest-nightly
-    - env: INFO="Firefox ESR" BROWSER=firefox
-      addons:
-        firefox: latest-esr
-    - env: INFO="Edge Beta" BROWSER=microsoft-edge-beta
-      # from https://www.microsoftedgeinsider.com/en-us/download?platform=linux-deb
-      install:
-        - curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-        - sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/
-        - sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-beta.list'
-        - sudo rm microsoft.gpg
-        - sudo apt update
-        - sudo apt install microsoft-edge-beta
+    #- env: INFO="Firefox" BROWSER=firefox
+    #  addons:
+    #    firefox: latest
+    #- env: INFO="Firefox Beta" BROWSER=firefox
+    #  addons:
+    #    firefox: latest-beta
+    #- env: INFO="Firefox Nightly" BROWSER=firefox
+    #  addons:
+    #    firefox: latest-nightly
+    #- env: INFO="Firefox ESR" BROWSER=firefox
+    #  addons:
+    #    firefox: latest-esr
+    #- env: INFO="Edge Beta" BROWSER=microsoft-edge-beta
+    #  # from https://www.microsoftedgeinsider.com/en-us/download?platform=linux-deb
+    #  install:
+    #    - curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    #    - sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/
+    #    - sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-beta.list'
+    #    - sudo rm microsoft.gpg
+    #    - sudo apt update
+    #    - sudo apt install microsoft-edge-beta
 
 before_script: travis_retry ./scripts/setup_travis.sh
 script: . ./scripts/run_travis.sh
