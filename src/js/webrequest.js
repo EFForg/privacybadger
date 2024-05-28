@@ -201,6 +201,11 @@ function onBeforeRequest(details) {
       type: "replaceWidget",
       trackerDomain: request_host,
       frameId: (type == 'sub_frame' ? details.parentFrameId : frame_id)
+    }).catch(function () {
+      // ignore "Could not establish connection. Receiving end does not exist."
+      // socialwidgets.js is injected on document_idle; we don't care about
+      // it missing these messages since it will handle all previously-seen
+      // widgets once it is ready
     });
   }
 
@@ -1050,7 +1055,7 @@ function getSurrogateWidget(name, data, frame_url) {
     return {
       name,
       buttonSelectors: ["div#" + div],
-      scriptSelectors: [`script[src='${CSS.escape(script_url)}']`],
+      scriptSelectors: [`script[src='${utils.cssEscape(script_url)}']`],
       replacementButton: {
         "unblockDomains": ["rumble.com"],
         "type": 4
@@ -1080,7 +1085,7 @@ function getSurrogateWidget(name, data, frame_url) {
     return {
       name,
       buttonSelectors: ["#" + dom_id],
-      scriptSelectors: [`script[src='${CSS.escape(script_url)}']`],
+      scriptSelectors: [`script[src='${utils.cssEscape(script_url)}']`],
       replacementButton: {
         "unblockDomains": ["www.google.com"],
         "type": 4
@@ -1104,8 +1109,8 @@ function getSurrogateWidget(name, data, frame_url) {
       name,
       buttonSelectors: ["#" + dom_id],
       scriptSelectors: [
-        `script[src^='${CSS.escape("https://www.youtube.com/iframe_api")}']`,
-        `script[src^='${CSS.escape("https://www.youtube.com/player_api")}']`
+        `script[src^='${utils.cssEscape("https://www.youtube.com/iframe_api")}']`,
+        `script[src^='${utils.cssEscape("https://www.youtube.com/player_api")}']`
       ],
       replacementButton: {
         "unblockDomains": ["www.youtube.com"],
@@ -1428,10 +1433,10 @@ function dispatcher(request, sender, sendResponse) {
     badger.storage.clearTrackerData();
 
     badger.loadSeedData().then(function () {
-      window.DATA_LOAD_IN_PROGRESS = true;
+      globalThis.DATA_LOAD_IN_PROGRESS = true;
       badger.blockWidgetDomains();
       badger.blockPanopticlickDomains();
-      window.DATA_LOAD_IN_PROGRESS = false;
+      globalThis.DATA_LOAD_IN_PROGRESS = false;
       sendResponse();
     }).catch(function (err) {
       console.error(err);
@@ -1509,14 +1514,14 @@ function dispatcher(request, sender, sendResponse) {
 
   // used by tests
   case "disableSurrogates": {
-    window.SURROGATES_DISABLED = true;
+    globalThis.SURROGATES_DISABLED = true;
     sendResponse();
     break;
   }
 
   // used by tests
   case "restoreSurrogates": {
-    delete window.SURROGATES_DISABLED;
+    delete globalThis.SURROGATES_DISABLED;
     sendResponse();
     break;
   }
@@ -1849,6 +1854,16 @@ function dispatcher(request, sender, sendResponse) {
 function startListeners() {
   chrome.webNavigation.onCommitted.addListener(onNavigate);
 
+  chrome.tabs.onRemoved.addListener(onTabRemoved);
+  chrome.tabs.onReplaced.addListener(onTabReplaced);
+  chrome.runtime.onMessage.addListener(dispatcher);
+
+  if (chrome.declarativeNetRequest) {
+    chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {
+      urls: ["http://*/*", "https://*/*", "ws://*/*", "wss://*/*"]});
+    return;
+  }
+
   chrome.webRequest.onBeforeRequest.addListener(onBeforeRequest, {
     urls: ["http://*/*", "https://*/*", "ws://*/*", "wss://*/*"]
   }, ["blocking"]);
@@ -1911,10 +1926,6 @@ function startListeners() {
   chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, {
     urls: ["http://*/*", "https://*/*"]
   }, extraInfoSpec);
-
-  chrome.tabs.onRemoved.addListener(onTabRemoved);
-  chrome.tabs.onReplaced.addListener(onTabReplaced);
-  chrome.runtime.onMessage.addListener(dispatcher);
 }
 
 export default {

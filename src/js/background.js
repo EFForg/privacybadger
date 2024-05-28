@@ -19,7 +19,6 @@ import { extractHostFromURL, getBaseDomain } from "../lib/basedomain.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
-import FirefoxAndroid from "./firefoxandroid.js";
 import HeuristicBlocking from "./heuristicblocking.js";
 import incognito from "./incognito.js";
 import widgetLoader from "./socialwidgetloader.js";
@@ -64,7 +63,6 @@ function Badger(from_qunit) {
     incognito.startListeners();
     webrequest.startListeners();
     HeuristicBlocking.startListeners();
-    FirefoxAndroid.startListeners();
     startBackgroundListeners();
   }
 
@@ -90,12 +88,8 @@ function Badger(from_qunit) {
     await pbconfigPromise;
     let seedDataPromise = self.updateTrackerData().catch(console.error);
 
-    // set badge text color to white in Firefox 63+
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=1424620
-    if (utils.hasOwn(chrome.browserAction, 'setBadgeTextColor')) {
-      chrome.browserAction.setBadgeTextColor({ color: "#fff" });
-    }
+    // set badge text color to white
+    chrome.action.setBadgeTextColor({ color: "#fff" });
 
     // Show icon as page action for all tabs that already exist
     chrome.tabs.query({}, function (tabs) {
@@ -113,10 +107,10 @@ function Badger(from_qunit) {
     if (self.isFirstRun || self.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
       // block all widget domains
       // only need to do this when the widget list could have gotten updated
-      window.DATA_LOAD_IN_PROGRESS = true;
+      globalThis.DATA_LOAD_IN_PROGRESS = true;
       self.blockWidgetDomains();
       self.blockPanopticlickDomains();
-      window.DATA_LOAD_IN_PROGRESS = false;
+      globalThis.DATA_LOAD_IN_PROGRESS = false;
     }
 
     log("Initialization complete");
@@ -925,10 +919,6 @@ Badger.prototype = {
    * @param {Integer} tab_id browser tab ID
    */
   updateBadge: function (tab_id) {
-    if (!FirefoxAndroid.hasBadgeSupport) {
-      return;
-    }
-
     let self = this;
 
     chrome.tabs.get(tab_id, function (tab) {
@@ -943,8 +933,8 @@ Badger.prototype = {
       }
 
       if (self.criticalError) {
-        chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#cc0000"});
-        chrome.browserAction.setBadgeText({tabId: tab_id, text: "!"});
+        chrome.action.setBadgeBackgroundColor({ tabId: tab_id, color: "#cc0000" });
+        chrome.action.setBadgeText({ tabId: tab_id, text: "!" });
         return;
       }
 
@@ -956,19 +946,19 @@ Badger.prototype = {
         !self.getSettings().getItem("showCounter") ||
         !self.isPrivacyBadgerEnabled(self.tabData.getFrameData(tab_id).host)
       ) {
-        chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
+        chrome.action.setBadgeText({ tabId: tab_id, text: "" });
         return;
       }
 
       let count = self.getTrackerCount(tab_id);
 
       if (count === 0) {
-        chrome.browserAction.setBadgeText({tabId: tab_id, text: ""});
+        chrome.action.setBadgeText({ tabId: tab_id, text: "" });
         return;
       }
 
-      chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#ec9329"});
-      chrome.browserAction.setBadgeText({tabId: tab_id, text: count + ""});
+      chrome.action.setBadgeBackgroundColor({ tabId: tab_id, color: "#ec9329" });
+      chrome.action.setBadgeText({ tabId: tab_id, text: count + "" });
     });
   },
 
@@ -1167,7 +1157,7 @@ Badger.prototype = {
    * @param {String} tab_url The tab URL to set the badger icon for
    */
   updateIcon: function (tab_id, tab_url) {
-    if (!tab_id || !tab_url || !FirefoxAndroid.hasPopupSupport) {
+    if (!tab_id || !tab_url) {
       return;
     }
 
@@ -1187,7 +1177,7 @@ Badger.prototype = {
       };
     }
 
-    chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});
+    chrome.action.setIcon({ tabId: tab_id, path: iconFilename });
   }
 
 };
@@ -1218,4 +1208,4 @@ function startBackgroundListeners() {
   });
 }
 
-let badger = window.badger = new Badger(document.location.pathname == "/tests/index.html");
+let badger = globalThis.badger = new Badger(globalThis.document && globalThis.document.location.pathname == "/tests/index.html");

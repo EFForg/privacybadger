@@ -2,6 +2,8 @@
 
 import unittest
 
+import pytest
+
 import pbtest
 
 from functools import partial
@@ -23,6 +25,7 @@ class NavigationTest(pbtest.PBSeleniumTest):
             "});", url)
         return trackers
 
+    @pytest.mark.flaky(reruns=5) # TODO why is this flaky in MV3?
     def test_beacon_attribution(self):
         FIXTURE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"

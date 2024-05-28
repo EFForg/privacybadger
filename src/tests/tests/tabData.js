@@ -2,7 +2,6 @@ import { extractHostFromURL } from "../../lib/basedomain.js";
 
 import constants from "../../js/constants.js";
 
-
 QUnit.module("tabData", {
   beforeEach: function () {
 
@@ -18,9 +17,14 @@ QUnit.module("tabData", {
         active: true
       });
     };
+
+    // another Firefox workaround: setBadgeText gets stubbed fine but setBadgeBackgroundColor doesn't
+    this.setBadgeBackgroundColor = chrome.action.setBadgeBackgroundColor;
+    chrome.action.setBadgeBackgroundColor = () => {};
   },
 
   afterEach: function () {
+    chrome.action.setBadgeBackgroundColor = this.setBadgeBackgroundColor;
     chrome.tabs.get = this.chromeTabsGet;
     badger.tabData.forget(this.tabId);
   }
@@ -29,10 +33,10 @@ function() {
   QUnit.module("logThirdPartyOriginOnTab", {
     beforeEach: function () {
       this.clock = sinon.useFakeTimers();
-      sinon.stub(chrome.browserAction, "setBadgeText");
+      sinon.stub(chrome.action, "setBadgeText");
     },
     afterEach: function () {
-      chrome.browserAction.setBadgeText.restore();
+      chrome.action.setBadgeText.restore();
       this.clock.restore();
     },
   });
@@ -54,10 +58,10 @@ function() {
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
+      chrome.action.setBadgeText.calledOnce,
       "updateBadge gets called when we see a blocked domain"
     );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+    assert.ok(chrome.action.setBadgeText.calledWithExactly({
       tabId: this.tabId,
       text: "1"
     }), "setBadgeText was called with expected args");
@@ -70,7 +74,7 @@ function() {
       badger.getTrackerCount(this.tabId), 0, "count stays at zero"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.notCalled,
+      chrome.action.setBadgeText.notCalled,
       "updateBadge does not get called when we see a hasn't-decided-yet-to-block domain"
     );
   });
@@ -82,7 +86,7 @@ function() {
       badger.getTrackerCount(this.tabId), 0, "count stays at zero"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.notCalled,
+      chrome.action.setBadgeText.notCalled,
       "updateBadge does not get called when we see a DNT-compliant domain"
     );
   });
@@ -104,11 +108,11 @@ function() {
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
     assert.equal(
-      chrome.browserAction.setBadgeText.callCount,
+      chrome.action.setBadgeText.callCount,
       "1",
       "updateBadge gets called when we see a blocked domain"
     );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+    assert.ok(chrome.action.setBadgeText.calledWithExactly({
       tabId: this.tabId,
       text: "1"
     }), "setBadgeText was called with expected args");
@@ -127,10 +131,10 @@ function() {
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
+      chrome.action.setBadgeText.calledOnce,
       "updateBadge gets called when we see a blocked domain"
     );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+    assert.ok(chrome.action.setBadgeText.calledWithExactly({
       tabId: this.tabId,
       text: "1"
     }), "setBadgeText was called with expected args");
@@ -144,7 +148,7 @@ function() {
       "count does not get incremented"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
+      chrome.action.setBadgeText.calledOnce,
       "updateBadge not called when we see the same blocked domain again"
     );
   });
@@ -168,10 +172,10 @@ function() {
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
+      chrome.action.setBadgeText.calledOnce,
       "updateBadge gets called when we see a blocked domain"
     );
-    assert.deepEqual(chrome.browserAction.setBadgeText.getCall(0).args[0], {
+    assert.deepEqual(chrome.action.setBadgeText.getCall(0).args[0], {
       tabId: this.tabId,
       text: "1"
     }, "setBadgeText was called with expected args");
@@ -185,7 +189,7 @@ function() {
       "count does not get incremented"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
+      chrome.action.setBadgeText.calledOnce,
       "updateBadge not called when we see the same blocked domain again"
     );
   });
@@ -203,10 +207,10 @@ function() {
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
+      chrome.action.setBadgeText.calledOnce,
       "updateBadge gets called when we see a cookieblocked domain"
     );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+    assert.ok(chrome.action.setBadgeText.calledWithExactly({
       tabId: this.tabId,
       text: "1"
     }), "setBadgeText was called with expected args");
@@ -227,10 +231,10 @@ function() {
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
+      chrome.action.setBadgeText.calledOnce,
       "updateBadge gets called when we see a blocked domain"
     );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+    assert.ok(chrome.action.setBadgeText.calledWithExactly({
       tabId: this.tabId,
       text: "1"
     }), "setBadgeText was called with expected args");
@@ -242,10 +246,10 @@ function() {
       badger.getTrackerCount(this.tabId), 2, "count gets incremented again"
     );
     assert.ok(
-      chrome.browserAction.setBadgeText.calledTwice,
+      chrome.action.setBadgeText.calledTwice,
       "updateBadge gets called when we see a cookieblocked domain"
     );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+    assert.ok(chrome.action.setBadgeText.calledWithExactly({
       tabId: this.tabId,
       text: "2"
     }), "setBadgeText was called with expected args");
@@ -253,14 +257,10 @@ function() {
 
   QUnit.module('updateBadge', {
     beforeEach: function() {
-      this.setBadgeText = sinon.stub(chrome.browserAction, "setBadgeText");
-
-      // another Firefox workaround: setBadgeText gets stubbed fine but setBadgeBackgroundColor doesn't
-      this.setBadgeBackgroundColor = chrome.browserAction.setBadgeBackgroundColor;
+      this.setBadgeText = sinon.stub(chrome.action, "setBadgeText");
     },
     afterEach: function() {
       this.setBadgeText.restore();
-      chrome.browserAction.setBadgeBackgroundColor = this.setBadgeBackgroundColor;
     },
   });
 
@@ -274,7 +274,7 @@ function() {
       assert.deepEqual(obj, {tabId: this.tabId, text: ''});
       done();
     });
-    chrome.browserAction.setBadgeBackgroundColor = () => {called = true;};
+    chrome.action.setBadgeBackgroundColor = () => {called = true;};
 
     badger.updateBadge(this.tabId);
 
@@ -295,7 +295,7 @@ function() {
       );
       done();
     });
-    chrome.browserAction.setBadgeBackgroundColor = () => {called = true;};
+    chrome.action.setBadgeBackgroundColor = () => {called = true;};
 
     badger.updateBadge(this.tabId);
 
