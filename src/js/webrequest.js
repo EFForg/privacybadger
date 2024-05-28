@@ -344,32 +344,6 @@ function bypassGoogleRedirects(details) {
 }
 
 /**
- * Blocks Google's /gen_204 requests.
- *
- * @param {Object} details webRequest request details object
- *
- * @returns {Object|undefined} Can cancel requests
- */
-function blockGoogleGen204s(details) {
-  if (!badger.INITIALIZED) { return; }
-
-  let frameData = badger.tabData.getFrameData(details.tabId);
-  if (!frameData) {
-    return;
-  }
-  let tab_host = frameData.host,
-    initiator_url = getInitiatorUrl(frameData.url, details);
-  if (initiator_url) {
-    tab_host = extractHostFromURL(initiator_url);
-  }
-  if (!badger.isPrivacyBadgerEnabled(tab_host)) {
-    return;
-  }
-
-  return { cancel: true };
-}
-
-/**
  * Filters outgoing cookies and referer
  * Injects DNT
  *
@@ -1883,18 +1857,6 @@ function startListeners() {
       types: ["main_frame"],
       urls: googleHosts.map(d => `https://${d}/url?*`)
     }, ["blocking"]);
-
-    let gen204MatchPatterns = googleHosts.map(d => `https://${d}/gen_204?*`);
-    try {
-      chrome.webRequest.onBeforeRequest.addListener(blockGoogleGen204s, {
-        types: ["ping", "beacon"], urls: gen204MatchPatterns
-      }, ["blocking"]);
-    } catch (e) {
-      // must be Chrome where the "beacon" request type errors out
-      chrome.webRequest.onBeforeRequest.addListener(blockGoogleGen204s, {
-        types: ["ping"], urls: gen204MatchPatterns
-      }, ["blocking"]);
-    }
   } else {
     console.error("No Google hosts found!");
   }
