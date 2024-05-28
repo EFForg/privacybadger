@@ -476,6 +476,10 @@
         "id": "dnt_policy_ruleset",
         "enabled": true,
         "path": "data/dnr/dnt_policy.json"
+      }, {
+        "id": "google_gen204_ruleset",
+        "enabled": true,
+        "path": "data/dnr/gen204.json"
       }
     ]
   },
