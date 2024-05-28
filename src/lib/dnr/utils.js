@@ -26,6 +26,25 @@ import mdfp from "../../js/multiDomainFirstParties.js";
 import utils from "../../js/utils.js";
 
 /**
+ * https://developer.chrome.com/docs/extensions/develop/concepts/match-patterns
+ *
+ * See also updateDisabledSitesRules()
+ *
+ * @param {Array} disabledSites
+ */
+function convertSiteDomainsToMatchPatterns(disabledSites) {
+  return disabledSites.map(site => {
+    if (site.startsWith("*")) {
+      site = site.slice(1);
+      if (site.startsWith(".")) {
+        site = site.slice(1);
+      }
+    }
+    return `*://*.${site}/*`;
+  });
+}
+
+/**
  * Constructs a DNR rule object that blocks a domain and its subdomains.
  *
  * @param {Integer} id
@@ -290,6 +309,8 @@ let updateEnabledRulesets = (function () {
  * Updates registered "allow all" DNR rules for the given
  * list of Privacy Badger disabled site entries.
  *
+ * See also convertSiteDomainsToMatchPatterns()
+ *
  * @param {Array} disabledSites disabled site entries (may contain wildcards)
  */
 async function updateDisabledSitesRules(disabledSites) {
@@ -404,6 +425,7 @@ async function updateWidgetSiteAllowlistRules(widgetSiteAllowlist) {
 }
 
 export default {
+  convertSiteDomainsToMatchPatterns,
   getDnrSurrogateRules,
   makeDnrAllowRule,
   makeDnrBlockRule,
