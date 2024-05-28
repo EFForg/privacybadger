@@ -480,6 +480,10 @@
         "id": "google_gen204_ruleset",
         "enabled": true,
         "path": "data/dnr/gen204.json"
+      }, {
+        "id": "google_redirect_ruleset",
+        "enabled": true,
+        "path": "data/dnr/bypass_redirects.json"
       }
     ]
   },
