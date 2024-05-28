@@ -179,10 +179,10 @@ function make_seed_rules(badgerStorage) {
 Time to add support for ${sdb.hostnames[domain].match} matching`);
       }
     }
-
-    rules.push(utils.makeDnrFpScriptBlockRule(
-      id, domain, Object.keys(fpStore.getItem(domain))));
-    id++;
+    for (let path of Object.keys(fpStore.getItem(domain))) {
+      rules.push(utils.makeDnrFpScriptBlockRule(id, domain, path));
+      id++;
+    }
   }
 
   return rules;

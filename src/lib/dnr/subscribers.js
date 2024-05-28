@@ -270,8 +270,10 @@ function subscribeToActionMapUpdates() {
       }
     }
 
-    addRules.push(dnrUtils.makeDnrFpScriptBlockRule(
-      badger.getDynamicRuleId(), domain, Object.keys(fpScripts)));
+    for (let path of Object.keys(fpScripts)) {
+      addRules.push(dnrUtils.makeDnrFpScriptBlockRule(
+        badger.getDynamicRuleId(), domain, path));
+    }
 
     dnrUtils.updateDynamicRules({ addRules });
   });
