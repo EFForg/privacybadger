@@ -419,7 +419,7 @@ Badger.prototype = {
       return;
     }
 
-    if (self.getSettings().getItem("learnLocally")) {
+    if (self.manifestVersion == 2 && self.getSettings().getItem("learnLocally")) {
       log("No need to load seed data (local learning is enabled)");
       if (!self.getPrivateSettings().getItem('doneLoadingSeed')) {
         self.getPrivateSettings().setItem('doneLoadingSeed', true);
@@ -432,6 +432,28 @@ Badger.prototype = {
       // so that if we somehow interrupt seed loading, we can fix on restart
       self.getPrivateSettings().setItem('doneLoadingSeed', false);
       self.storage.forceSync('private_storage');
+    }
+
+    if (self.manifestVersion > 2 && self.getSettings().getItem("learnLocally")) {
+      let data = {};
+
+      // create DNR rules when migrating to MV3, or, more generally,
+      // regenerate DNR rules on extension updates
+      // to apply latest MDFP definitions
+
+      for (let name of ['action_map', 'snitch_map', 'tracking_map', 'fp_scripts']) {
+        data[name] = self.storage.getStore(name).getItemClones();
+      }
+
+      await self.storage.clearTrackerData();
+
+      self.storage.mergeUserData(data);
+
+      if (!self.getPrivateSettings().getItem('doneLoadingSeed')) {
+        self.getPrivateSettings().setItem('doneLoadingSeed', true);
+      }
+
+      return;
     }
 
     let userActions = [];
