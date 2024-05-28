@@ -47,20 +47,15 @@ function convertSiteDomainsToMatchPatterns(disabledSites) {
 /**
  * Constructs a DNR rule object that blocks a domain and its subdomains.
  *
- * @param {Integer} id
  * @param {String} domain
  * @param {Integer} [priority]
  *
  * @returns {Object}
  */
-function makeDnrBlockRule(id, domain, priority) {
-  let action = {};
+function makeDnrBlockRule(domain, priority) {
+  let id = badger.getDynamicRuleId();
 
-  if (!priority) {
-    priority = constants.DNR_BLOCK;
-  }
-
-  action = {
+  let action = {
     type: 'block'
   };
 
@@ -75,10 +70,9 @@ function makeDnrBlockRule(id, domain, priority) {
     condition.excludedInitiatorDomains = mdfpList;
   }
 
-  let rule = { id, action, condition };
-  if (priority != 1) { // TODO doublecheck there is no need to store 1
-    rule.priority = priority;
-  }
+  priority = priority || constants.DNR_BLOCK;
+
+  let rule = { id, action, condition, priority };
 
   return rule;
 }
@@ -86,20 +80,15 @@ function makeDnrBlockRule(id, domain, priority) {
 /**
  * Constructs a DNR rule object that cookieblocks a domain and its subdomains.
  *
- * @param {Integer} id
  * @param {String} domain
  * @param {Integer} [priority]
  *
  * @returns {Object}
  */
-function makeDnrCookieblockRule(id, domain, priority) {
-  let action = {};
+function makeDnrCookieblockRule(domain, priority) {
+  let id = badger.getDynamicRuleId();
 
-  if (!priority) {
-    priority = constants.DNR_COOKIEBLOCK_HEADERS;
-  }
-
-  action = {
+  let action = {
     type: 'modifyHeaders',
     requestHeaders: [{ header: "cookie", operation: "remove" }],
     responseHeaders: [{ header: "set-cookie", operation: "remove" }]
@@ -114,6 +103,10 @@ function makeDnrCookieblockRule(id, domain, priority) {
     condition.excludedInitiatorDomains = mdfpList;
   }
 
+  if (!priority) {
+    priority = constants.DNR_COOKIEBLOCK_HEADERS;
+  }
+
   let rule = { id, action, condition, priority };
 
   return rule;
@@ -125,13 +118,14 @@ function makeDnrCookieblockRule(id, domain, priority) {
  *
  * This is so that we can stack/layer (cookieblock over block) rules.
  *
- * @param {Integer} id
  * @param {String} domain
  * @param {Integer} [priority]
  *
  * @returns {Object}
  */
-function makeDnrAllowRule(id, domain, priority) {
+function makeDnrAllowRule(domain, priority) {
+  let id = badger.getDynamicRuleId();
+
   priority = priority || constants.DNR_COOKIEBLOCK_ALLOW;
 
   let action = {
@@ -143,7 +137,7 @@ function makeDnrAllowRule(id, domain, priority) {
     domainType: 'thirdParty'
   };
 
-  let rule = { id, priority, action, condition };
+  let rule = { id, action, condition, priority };
 
   return rule;
 }
@@ -190,24 +184,15 @@ function makeDnrSurrogateRule(id, script_host, path, extra_conditions) {
 }
 
 /**
- * A single hostname may have multiple associated surrogates.
- * This function generates all associated DNR rule objects.
- *
- * TODO add unit tests for generated rules, like verify regexFilter matches what we want it to match?
- * TODO regex escape?
- *
- * @param {Function} idFunc function to call to get rule IDs
- * @param {String} script_host
- *
- * @returns {Array} DNR rule objects for this domain
+ * XXX
  */
-function getDnrSurrogateRules(idFunc, domain) {
-  let rules = [];
-
-  let conf = sdb.hostnames[domain];
+function _getSurrogateRules(domain) {
+  let rules = [],
+    conf = sdb.hostnames[domain];
 
   if (conf.match == sdb.MATCH_ANY) {
-    rules.push(makeDnrSurrogateRule(idFunc(), domain, sdb.surrogates[conf.token]));
+    rules.push(makeDnrSurrogateRule(
+      badger.getDynamicRuleId(), domain, sdb.surrogates[conf.token]));
 
   } else if (conf.match == sdb.MATCH_SUFFIX) {
     for (let token of conf.tokens) {
@@ -217,26 +202,62 @@ function getDnrSurrogateRules(idFunc, domain) {
         // (?:) is an RE2 non-capturing group
         // TODO fix for 15f68c5cfb2034a6ef5a9b72302a5ecf3d195032
         // TODO don't need the leading .* right?
+        // TODO regex escape?
         regexFilter: `.*${token}(?:\\?.*)?$`
       };
-      rules.push(makeDnrSurrogateRule(idFunc(), domain, sdb.surrogates[token], extra));
+      rules.push(makeDnrSurrogateRule(
+        badger.getDynamicRuleId(), domain, sdb.surrogates[token], extra));
     }
 
   } else if (conf.match == sdb.MATCH_PREFIX) {
     for (let token of conf.tokens) {
+      // TODO replace with urlFilter, something like:
+      // urlFilter: '||' + domain + token + '^'
       let extra = {
         regexFilter: `//${domain}${token}`.replace(/\//g, '\\/')
       };
-      rules.push(makeDnrSurrogateRule(idFunc(), domain, sdb.surrogates[token], extra));
+      rules.push(makeDnrSurrogateRule(
+        badger.getDynamicRuleId(), domain, sdb.surrogates[token], extra));
     }
 
   } else if (conf.match == sdb.MATCH_PREFIX_WITH_PARAMS) {
     for (let token of conf.tokens) {
+      // TODO replace with urlFilter
       // TODO conf.params
       let extra = {
         regexFilter: `//${domain}${token}/?`.replace(/\//g, '\\/')
       };
-      rules.push(makeDnrSurrogateRule(idFunc(), domain, sdb.surrogates[token], extra));
+      rules.push(makeDnrSurrogateRule(
+        badger.getDynamicRuleId(), domain, sdb.surrogates[token], extra));
+    }
+  }
+
+  return rules;
+}
+
+/**
+ * A single hostname may have multiple associated surrogates.
+ * This function generates all associated DNR rule objects.
+ *
+ * @param {String} script_host
+ * @param {Array} existingRules already registered DNR rules
+ *
+ * @returns {Array} DNR rule objects for this domain
+ */
+function getDnrSurrogateRules(domain, existingRules) {
+  let rules = [];
+
+  for (let host of Object.keys(sdb.hostnames)) {
+    if (host == domain || host.endsWith('.' + domain)) {
+      let action = badger.storage.getBestAction(host);
+      if (action == constants.BLOCK || action == constants.USER_BLOCK) {
+        if (!existingRules.filter(r =>
+          r.priority == constants.DNR_SURROGATE_REDIRECT &&
+          r.condition.requestDomains.includes(host)).length
+        ) {
+          rules.push(..._getSurrogateRules(host));
+        }
+      }
     }
   }
 
@@ -279,6 +300,7 @@ function makeDnrFpScriptBlockRule(id, domain, path) {
  * @returns {Object}
  */
 function makeDnrFpScriptSurrogateRule(id, domain, match_token, surrogate_path) {
+  // TODO reuse makeDnrSurrogateRule()
   return {
     id,
     priority: constants.DNR_FP_SCRIPT_SURROGATE_REDIRECT,
@@ -392,10 +414,16 @@ let updateDynamicRules = (function () {
     chrome.declarativeNetRequest.updateDynamicRules(opts);
   }, 100);
 
-  return function (opts) {
+  let ret = function (opts) {
     queue.push(opts);
     _update();
   };
+
+  ret.clearQueue = function () {
+    queue = [];
+  };
+
+  return ret;
 }());
 
 /**
