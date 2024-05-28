@@ -8,6 +8,8 @@ import pbtest
 
 
 class ClobberingTest(pbtest.PBSeleniumTest):
+
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "edge")
     def test_localstorage_clobbering(self):
         LOCALSTORAGE_TESTS = [
             # (test result element ID, expected stored, expected empty)
@@ -20,7 +22,8 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             ('get-property-frames', "asdf", "undefined"),
         ]
         # page loads a frame that writes to and reads from localStorage
-        # TODO remove delays from fixture once race condition (https://crbug.com/478183) is fixed
+        # TODO remove delays from fixture once configurable main world
+        # TODO injection race conditions are fixed
         FIXTURE_URL = "https://privacybadger-tests.eff.org/html/clobbering.html"
         FRAME_DOMAIN = "efforg.github.io"
 
