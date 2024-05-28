@@ -21,6 +21,7 @@ import sdb from "../../data/surrogates.js";
 
 import dnrUtils from "./utils.js";
 
+import { log } from "../../js/bootstrap.js";
 import constants from "../../js/constants.js";
 import utils from "../../js/utils.js";
 
@@ -186,6 +187,8 @@ function subscribeToActionMapUpdates() {
 
     let existingRules = await chrome.declarativeNetRequest.getDynamicRules();
 
+    log("[DNR] Size of action_map rules queue:", Object.keys(actionMapUpdateQueue).length);
+
     for (let domain in actionMapUpdateQueue) {
       for (let values of actionMapUpdateQueue[domain]) {
         let { addRules, removeRuleIds } = _getDynamicRulesForDomain(
@@ -247,6 +250,8 @@ function subscribeToActionMapUpdates() {
     if (removeRuleIds.length) {
       opts.removeRuleIds = opts.removeRuleIds.concat(removeRuleIds);
     }
+
+    log("[DNR] Size of fp_scripts rules queue:", Object.keys(fpStoreUpdateQueue).length);
 
     for (let domain in fpStoreUpdateQueue) {
       // block rules
