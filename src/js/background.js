@@ -59,8 +59,7 @@ function Badger(from_qunit) {
   });
 
   // we need to get ready to create dynamic rules before initializing storage
-  getMaxDynamicRuleId(function (id) {
-    self.maxDynamicRuleId = id;
+  self.initMaxDynamicRuleId().then(function () {
     self.storage = new BadgerPen(onStorageReady);
   });
 
@@ -185,21 +184,6 @@ function Badger(from_qunit) {
     return true;
   }
 
-  /**
-   * Returns the maximum existing dynamic rule ID.
-   * @param {Function} callback
-   */
-  function getMaxDynamicRuleId(callback) {
-    let id = 0;
-
-    chrome.declarativeNetRequest.getDynamicRules(rules => {
-      if (rules.length) {
-        id = Math.max(...rules.map(rule => rule.id));
-      }
-      callback(id);
-    });
-  }
-
 } /* end of Badger constructor */
 
 Badger.prototype = {
@@ -217,6 +201,19 @@ Badger.prototype = {
   cnameDomains: {},
 
   // Methods
+
+  /**
+   * (Re)initializes the maximum existing dynamic rule ID.
+   * Required for dynamic rule generation.
+   */
+  initMaxDynamicRuleId: async function () {
+    let self = this;
+
+    let rules = await chrome.declarativeNetRequest.getDynamicRules();
+
+    self.maxDynamicRuleId = (rules.length ?
+      Math.max(...rules.map(r => r.id)) : 0);
+  },
 
   /**
    * Called on Badger startup to enforce static DNR ruleset state
@@ -476,7 +473,7 @@ Badger.prototype = {
       }
 
       // clear existing data
-      self.storage.clearTrackerData();
+      await self.storage.clearTrackerData();
     }
 
     log("Loading seed data ...");
