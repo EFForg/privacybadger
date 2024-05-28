@@ -117,7 +117,9 @@ function _getDynamicRulesForDomain(domain, newVal, oldVal, rules) {
 
   // first mark all existing rules for removal
   let existingRules = rules.filter(r =>
-    r.condition.requestDomains.includes(domain));
+    r.priority != constants.DNR_WIDGET_ALLOW_ALL &&
+      r.priority != constants.DNR_SITE_ALLOW_ALL &&
+      r.condition.requestDomains.includes(domain));
   if (existingRules.length) {
     opts.removeRuleIds = existingRules.map(r => r.id);
   }
