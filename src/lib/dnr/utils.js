@@ -558,6 +558,50 @@ async function updateWidgetSiteAllowlistRules(widgetSiteAllowlist) {
   }
 }
 
+/**
+ * Workaround for https://github.com/w3c/webextensions/issues/302
+ * See https://issues.chromium.org/issues/338071843#comment13
+ */
+function registerGoogleRedirectBypassRules() {
+  let addRules = [],
+    page = "data/web_accessible_resources/redirect.html",
+    interstitial_template = chrome.runtime.getURL(page) + "?url=\\1";
+
+  // a few patterns cover all Google hostnames
+  let googlePatterns = [
+    "www\\.google\\.com",
+    "www\\.google\\.cat",
+    "www\\.google\\.com\\...",
+    "www\\.google\\...",
+    "www\\.google\\.co\\...",
+  ];
+
+  for (let pattern of googlePatterns) {
+    for (let param of ['.+&q', 'q', '.+&url', 'url']) {
+      addRules.push({
+        id: addRules.length + 1,
+        priority: 1,
+        action: {
+          type: "redirect",
+          redirect: {
+            regexSubstitution: interstitial_template
+          }
+        },
+        condition: {
+          regexFilter: `^https://${pattern}/url\\?${param}=(https?://[^&]+).*`,
+          resourceTypes: [
+            "main_frame"
+          ]
+        }
+      });
+    }
+  }
+
+  chrome.declarativeNetRequest.updateSessionRules({ addRules }).then(function () {
+    log("[DNR] Registered Google redirect bypass session rules");
+  });
+}
+
 export default {
   convertSiteDomainsToMatchPatterns,
   getDnrSurrogateRules,
@@ -566,6 +610,7 @@ export default {
   makeDnrCookieblockRule,
   makeDnrFpScriptBlockRule,
   makeDnrFpScriptSurrogateRule,
+  registerGoogleRedirectBypassRules,
   updateDisabledSitesRules,
   updateDynamicRules,
   updateEnabledRulesets,
