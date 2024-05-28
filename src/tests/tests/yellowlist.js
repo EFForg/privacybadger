@@ -12,7 +12,7 @@ let stubbedFetch;
 
 QUnit.module("Yellowlist", (hooks) => {
   hooks.before((/*assert*/) => {
-    stubbedFetch = sinon.stub(window, 'fetch');
+    stubbedFetch = sinon.stub(globalThis, 'fetch');
   });
 
   hooks.after((/*assert*/) => {

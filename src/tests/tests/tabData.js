@@ -2,7 +2,6 @@ import { extractHostFromURL } from "../../lib/basedomain.js";
 
 import constants from "../../js/constants.js";
 
-
 QUnit.module("tabData", {
   beforeEach: function () {
 
@@ -21,12 +20,12 @@ QUnit.module("tabData", {
     };
 
     // Edge Beta and Firefox workaround for issues stubbing setBadgeBackgroundColor
-    this.setBadgeBackgroundColor = chrome.browserAction.setBadgeBackgroundColor;
-    chrome.browserAction.setBadgeBackgroundColor = () => {};
+    this.setBadgeBackgroundColor = chrome.action.setBadgeBackgroundColor;
+    chrome.action.setBadgeBackgroundColor = () => {};
   },
 
   afterEach: function () {
-    chrome.browserAction.setBadgeBackgroundColor = this.setBadgeBackgroundColor;
+    chrome.action.setBadgeBackgroundColor = this.setBadgeBackgroundColor;
     chrome.tabs.get = this.chromeTabsGet;
     badger.tabData.forget(this.tabId);
   }
@@ -37,16 +36,16 @@ function() {
       this.clock = sinon.useFakeTimers();
 
       // back up original
-      this.setBadgeText = chrome.browserAction.setBadgeText;
+      this.setBadgeText = chrome.action.setBadgeText;
       // stub
       this.setBadgeTextCalls = [];
-      chrome.browserAction.setBadgeText = function () {
+      chrome.action.setBadgeText = function () {
         this.setBadgeTextCalls.push(Array.from(arguments));
       }.bind(this);
     },
     afterEach: function () {
       // restore original
-      chrome.browserAction.setBadgeText = this.setBadgeText;
+      chrome.action.setBadgeText = this.setBadgeText;
       this.clock.restore();
     },
   });
@@ -242,7 +241,7 @@ function() {
 
   QUnit.module('updateBadge', {
     beforeEach: function() {
-      this.setBadgeText = sinon.stub(chrome.browserAction, "setBadgeText");
+      this.setBadgeText = sinon.stub(chrome.action, "setBadgeText");
     },
     afterEach: function() {
       this.setBadgeText.restore();
@@ -259,7 +258,7 @@ function() {
       assert.deepEqual(obj, {tabId: this.tabId, text: ''});
       done();
     });
-    chrome.browserAction.setBadgeBackgroundColor = () => {called = true;};
+    chrome.action.setBadgeBackgroundColor = () => {called = true;};
 
     badger.updateBadge(this.tabId);
 
@@ -280,7 +279,7 @@ function() {
       );
       done();
     });
-    chrome.browserAction.setBadgeBackgroundColor = () => {called = true;};
+    chrome.action.setBadgeBackgroundColor = () => {called = true;};
 
     badger.updateBadge(this.tabId);
 

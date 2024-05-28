@@ -29,15 +29,15 @@ function subscribeContentScriptsToStorageUpdates() {
     if (enabled) {
       let dntScript = constants.CONTENT_SCRIPTS.find(item => item.id == "dnt_signal");
       dntScript.excludeMatches = getDntScriptExcludeMatches();
-      browser.scripting.registerContentScripts([dntScript]);
+      chrome.scripting.registerContentScripts([dntScript]);
     } else {
-      browser.scripting.unregisterContentScripts({
+      chrome.scripting.unregisterContentScripts({
         ids: ["dnt_signal"]
       });
     }
   });
   settingsStore.subscribe("set:disabledSites", function (siteDomains) {
-    browser.scripting.updateContentScripts([{
+    chrome.scripting.updateContentScripts([{
       id: "dnt_signal",
       excludeMatches: getDntScriptExcludeMatches({
         disabledSites: siteDomains
@@ -48,7 +48,7 @@ function subscribeContentScriptsToStorageUpdates() {
   });
 
   privateStore.subscribe("set:gpcDisabledSites", function (gpcExceptions) {
-    browser.scripting.updateContentScripts([{
+    chrome.scripting.updateContentScripts([{
       id: "dnt_signal",
       excludeMatches: getDntScriptExcludeMatches({
         gpcDisabledHosts: Object.keys(gpcExceptions)

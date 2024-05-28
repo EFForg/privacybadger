@@ -97,7 +97,7 @@ function getPageScript(event_id) {
 
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
-// TODO race condition; fix waiting on https://crbug.com/478183
+// TODO switch to scripting API to fix race condition
 
 // TODO here we could also be injected too quickly
 // and miss localStorage setting upon initial page load

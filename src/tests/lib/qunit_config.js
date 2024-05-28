@@ -49,6 +49,10 @@
     });
   });
 
+  chrome.scripting.registerContentScripts = () => {};
+  chrome.scripting.unregisterContentScripts = () => {};
+  chrome.scripting.updateContentScripts = () => new Promise(() => {});
+
   // kick off tests when we have what we need from Badger
   (function () {
 
