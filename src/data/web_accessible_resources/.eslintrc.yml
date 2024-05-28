@@ -1,3 +1,6 @@
+env:
+  browser: true
+  serviceworker: false
 rules:
   indent:
     - error

@@ -255,7 +255,7 @@ BadgerPen.prototype = {
   mergeUserData: function (data) {
     let self = this;
 
-    window.DATA_LOAD_IN_PROGRESS = true;
+    globalThis.DATA_LOAD_IN_PROGRESS = true;
 
     // fix incoming snitch map entries with current MDFP data
     if (utils.hasOwn(data, "snitch_map")) {
@@ -281,7 +281,7 @@ BadgerPen.prototype = {
       }
     }
 
-    window.DATA_LOAD_IN_PROGRESS = false;
+    globalThis.DATA_LOAD_IN_PROGRESS = false;
   },
 
   /**
@@ -502,7 +502,7 @@ BadgerPen.prototype = {
     actionObj[action_type] = action;
 
     // avoid thousands of messages from loading seed/user data
-    if (window.DEBUG && !window.DATA_LOAD_IN_PROGRESS) {
+    if (globalThis.DEBUG && !globalThis.DATA_LOAD_IN_PROGRESS) {
       let msg = "action_map['%s'].%s = %s";
       if (actionStore.hasItem(domain)) {
         msg = "Updating " + msg;
@@ -981,6 +981,9 @@ let _syncStorage = (function () {
     // create debounced versions of _sync(), one per BadgerPen.prototype.KEYS
     if (!utils.hasOwn(debouncedFuncs, badgerStore.name)) {
       // call sync at most once every two seconds
+      // TODO will the service worker sometimes get shut down
+      // TODO before we had a chance to sync?
+      // TODO can we call forceSync before shutdown?
       debouncedFuncs[badgerStore.name] = utils.debounce(function () {
         _sync(badgerStore);
       }, 2000);
