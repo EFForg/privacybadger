@@ -18,6 +18,7 @@
 /* globals badger:false */
 
 import { getBaseDomain } from "../lib/basedomain.js";
+import { subscribeToStorageUpdates } from "../lib/dnr/subscribers.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -148,6 +149,7 @@ function BadgerPen(callback) {
     }
 
     badger.initSettings();
+    subscribeToStorageUpdates();
 
     if (!chrome.storage.managed) {
       setTimeout(function () {
@@ -232,16 +234,59 @@ BadgerPen.prototype = {
 
   /**
    * Empties tracking-related storage, forgetting all data learned from browsing.
+   *
+   * @param {Function} [callback] function to call when DNR is done updating
    */
-  clearTrackerData: function () {
-    let self = this;
+  clearTrackerData: function (callback) {
+    let self = this,
+      num_done = 0;
 
-    for (let store_name of ['action_map', 'snitch_map', 'tracking_map', 'fp_scripts']) {
-      let store = self.getStore(store_name);
+    callback = callback || function () {};
+
+    for (let name of ['action_map', 'snitch_map', 'tracking_map', 'fp_scripts']) {
+      let store = self.getStore(name),
+        subscribers;
+
+      // instead of letting delete subscriptions handle this,
+      // let's remove all dynamic rules in bulk below
+      // so that we can trigger the callback at the right time
+      if (name == 'action_map') {
+        subscribers = store.unsubscribe("delete:*");
+      }
+
       for (let key of store.keys()) {
         store.deleteItem(key);
       }
+
+      if (name == 'action_map') {
+        for (let sub of subscribers) {
+          store.subscribe("delete:*", sub);
+        }
+      }
     }
+
+    function done() {
+      num_done++;
+      if (num_done == 2) {
+        callback();
+      }
+    }
+
+    // remove all dynamic rules
+    chrome.declarativeNetRequest.getDynamicRules(rules => {
+      chrome.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: rules.map(r => r.id)
+      }, function () {
+        badger.maxDynamicRuleId = 0;
+        done();
+      });
+    });
+
+    // disable static rules
+    // TODO persist across restarts using an (exportable) setting and toggleEnabledDnrRulesets()
+    chrome.declarativeNetRequest.updateEnabledRulesets({
+      disableRulesetIds: ['seed_ruleset', 'surrogates_ruleset']
+    }, done);
   },
 
   /**
@@ -521,7 +566,7 @@ BadgerPen.prototype = {
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
-  setupHeuristicAction: function(domain, action) {
+  setupHeuristicAction: function (domain, action) {
     this._setupDomainAction(domain, action, "heuristicAction");
   },
 
@@ -549,7 +594,7 @@ BadgerPen.prototype = {
    * @param {String} domain Domain to add
    * @param {String} action The heuristic action to take
    */
-  setupUserAction: function(domain, action) {
+  setupUserAction: function (domain, action) {
     this._setupDomainAction(domain, action, "userAction");
   },
 
@@ -575,7 +620,7 @@ BadgerPen.prototype = {
    * Forces a write of a Badger storage object's contents to extension storage.
    *
    * @param {?String} store_name storage object's name or null (sync all)
-   * @param {Function} callback
+   * @param {Function} [callback]
    */
   forceSync: function (store_name, callback) {
     let self = this,

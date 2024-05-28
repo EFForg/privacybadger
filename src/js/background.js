@@ -16,6 +16,8 @@
  */
 
 import { extractHostFromURL, getBaseDomain } from "../lib/basedomain.js";
+import { subscribeToActionMapUpdates } from "../lib/dnr/subscribers.js";
+import dnrUtils from "../lib/dnr/utils.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -56,7 +58,11 @@ function Badger(from_qunit) {
     self.widgetList = widgets;
   });
 
-  self.storage = new BadgerPen(onStorageReady);
+  // we need to get ready to create dynamic rules before initializing storage
+  getMaxDynamicRuleId(function (id) {
+    self.maxDynamicRuleId = id;
+    self.storage = new BadgerPen(onStorageReady);
+  });
 
   // initialize all chrome.* API listeners on first turn of event loop
   if (!from_qunit) {
@@ -74,6 +80,8 @@ function Badger(from_qunit) {
     log("Storage is ready");
 
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(self.storage);
+
+    self.toggleEnabledDnrRulesets();
 
     self.setPrivacyOverrides();
 
@@ -99,10 +107,26 @@ function Badger(from_qunit) {
       }
     });
 
-    // wait for async functions (seed data, yellowlist, ...) to resolve
+    if (self.isUpdate && self.manifestVersion > 2) {
+      // TODO don't need to do disabled sites on every update, just the first one to MV3 ...
+      let disabledSites = self.getDisabledSites();
+      if (disabledSites.length) {
+        dnrUtils.updateDisabledSitesRules(disabledSites);
+      }
+
+      // register widget site allowlist DNR rules on update to MV3,
+      // and whenever unblockDomains in widgets.json could get updated
+      let widgetSiteAllowlist = self.getSettings().getItem("widgetSiteAllowlist");
+      if (Object.keys(widgetSiteAllowlist).length) {
+        dnrUtils.updateWidgetSiteAllowlistRules(widgetSiteAllowlist);
+      }
+    }
+
     await widgetListPromise;
     await seedDataPromise;
     await tabDataPromise;
+
+    subscribeToActionMapUpdates();
 
     if (self.isFirstRun || self.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
       // block all widget domains
@@ -155,6 +179,22 @@ function Badger(from_qunit) {
     }
     return true;
   }
+
+  /**
+   * Returns the maximum existing dynamic rule ID.
+   * @param {Function} callback
+   */
+  function getMaxDynamicRuleId(callback) {
+    let id = 0;
+
+    chrome.declarativeNetRequest.getDynamicRules(rules => {
+      if (rules.length) {
+        id = Math.max(...rules.map(rule => rule.id));
+      }
+      callback(id);
+    });
+  }
+
 } /* end of Badger constructor */
 
 Badger.prototype = {
@@ -172,6 +212,23 @@ Badger.prototype = {
   cnameDomains: {},
 
   // Methods
+
+  /**
+   * Called on Badger startup to enforce static DNR ruleset state
+   * according to user preferences and browser capabilities.
+   */
+  toggleEnabledDnrRulesets: function () {
+    let self = this,
+      prefs = self.getSettings();
+
+    if (!prefs.getItem("sendDNTSignal")) {
+      dnrUtils.updateEnabledRulesets({ disableRulesetIds: ['dnt_signal_ruleset'] });
+    }
+
+    if (!prefs.getItem("checkForDNTPolicy")) {
+      dnrUtils.updateEnabledRulesets({ disableRulesetIds: ['dnt_policy_ruleset'] });
+    }
+  },
 
   /**
    * Sets various browser privacy overrides.
@@ -304,6 +361,10 @@ Badger.prototype = {
     }
 
     self.storage.mergeUserData(data);
+
+    await chrome.declarativeNetRequest.updateEnabledRulesets({
+      enableRulesetIds: ['seed_ruleset', 'surrogates_ruleset']
+    });
   },
 
   /**
@@ -889,6 +950,15 @@ Badger.prototype = {
    * Called on Badger startup and user data import.
    */
   initDeprecations: function () {},
+
+  /**
+   * Returns the next available dynamic rule ID.
+   *
+   * @returns {Integer}
+   */
+  getDynamicRuleId: function () {
+    return ++this.maxDynamicRuleId;
+  },
 
   /**
    * Returns the count of tracking domains for a tab.
