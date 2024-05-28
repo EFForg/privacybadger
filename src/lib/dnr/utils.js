@@ -20,6 +20,7 @@
 import sdb from "../../data/surrogates.js";
 
 import { getBaseDomain } from "../../lib/basedomain.js";
+import { log } from "../../js/bootstrap.js";
 
 import constants from "../../js/constants.js";
 import mdfp from "../../js/multiDomainFirstParties.js";
@@ -389,6 +390,9 @@ let updateDynamicRules = (function () {
     }
     queue = [];
 
+    log("[DNR] updateDynamicRules: addRules=%s, removeRuleIds=%s",
+      opts.addRules.length, opts.removeRuleIds.length);
+
     chrome.declarativeNetRequest.updateDynamicRules(opts);
   }, 100);
 
@@ -425,6 +429,8 @@ let updateEnabledRulesets = (function () {
       }
     }
     queue = [];
+
+    log("[DNR] updateEnabledRulesets:", opts);
 
     chrome.declarativeNetRequest.updateEnabledRulesets(opts);
   }, 100);
