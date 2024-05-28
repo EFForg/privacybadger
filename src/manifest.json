@@ -6,25 +6,29 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "jid1-MnnxcxisBPnSXQ@jetpack",
-      "strict_min_version": "78.0"
+      "strict_min_version": "109.0"
     },
     "gecko_android": {
-      "strict_min_version": "78.0"
+      "strict_min_version": "109.0"
     }
   },
   "incognito": "spanning",
   "permissions": [
-    "<all_urls>",
     "alarms",
+    "declarativeNetRequest",
+    "privacy",
+    "storage",
     "tabs",
     "webNavigation",
     "webRequest",
-    "webRequestBlocking",
-    "storage",
-    "privacy"
+    "webRequestBlocking"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "background": {
-    "page": "background.html"
+    "service_worker": "js/background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -473,10 +477,10 @@
     "64": "icons/badger-64.png",
     "128": "icons/badger-128.png"
   },
-  "manifest_version": 2,
-  "minimum_chrome_version": "61.0",
+  "manifest_version": 3,
+  "minimum_chrome_version": "109.0",
   "name": "__MSG_name__",
-  "browser_action": {
+  "action": {
     "default_area": "navbar",
     "default_icon": {
       "19": "icons/badger-19-disabled.png",
@@ -493,7 +497,11 @@
     "managed_schema": "data/schema.json"
   },
   "update_url": "https://clients2.google.com/service/update2/crx",
-  "web_accessible_resources": [
-    "data/web_accessible_resources/*"
-  ]
+  "web_accessible_resources": [{
+    "resources": [
+      "data/web_accessible_resources/*"
+    ],
+    "use_dynamic_url": true,
+    "matches": ["<all_urls>"]
+  }]
 }

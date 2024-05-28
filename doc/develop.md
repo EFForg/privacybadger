@@ -31,7 +31,7 @@ const TRACKER_ENTROPY_THRESHOLD = 33;
 
 let tab_id = details.tabId;
 
-window.badger.getTrackerCount(tab_id);
+badger.getTrackerCount(tab_id);
 ```
 
 ### Catch errors early with static code analysis

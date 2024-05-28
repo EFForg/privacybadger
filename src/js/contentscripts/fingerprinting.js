@@ -344,7 +344,7 @@ function getPageScript(event_id) {
 
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
-// TODO race condition; fix waiting on https://crbug.com/478183
+// TODO switch to scripting API to fix race condition
 chrome.runtime.sendMessage({
   type: "detectFingerprinting"
 }, function (enabled) {
