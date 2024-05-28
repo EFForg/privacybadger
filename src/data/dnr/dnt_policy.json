@@ -1,2 +1,15 @@
 [
+  {
+    "id": 1,
+    "priority": 3,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "resourceTypes": [
+        "xmlhttprequest"
+      ],
+      "urlFilter": "|https://*/.well-known/dnt-policy.txt|"
+    }
+  }
 ]

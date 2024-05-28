@@ -1,2 +1,46 @@
 [
+  {
+    "id": 1,
+    "priority": 4,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "DNT",
+          "operation": "set",
+          "value": "1"
+        },
+        {
+          "header": "Sec-GPC",
+          "operation": "set",
+          "value": "1"
+        }
+      ]
+    },
+    "condition": {
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 4,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "DNT",
+          "operation": "set",
+          "value": "1"
+        },
+        {
+          "header": "Sec-GPC",
+          "operation": "set",
+          "value": "1"
+        }
+      ]
+    },
+    "condition": {}
+  }
 ]
