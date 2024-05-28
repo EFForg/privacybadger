@@ -16,6 +16,12 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         "https://efforg.github.io/privacybadger-test-fixtures/html/"
         "ga_surrogate.html"
     )
+    SURROGATE_HOST_BASE = "google-analytics.com"
+    SURROGATE_HOST = f"www.{SURROGATE_HOST_BASE}"
+
+    def setUp(self):
+        # clear pre-trained/seed tracker data before every test
+        self.clear_tracker_data()
 
     def load_ga_js_fixture(self, timeout=12):
         self.load_url(SurrogatesTest.FIXTURE_URL)
@@ -30,22 +36,18 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         try:
             self.wait_for_and_switch_to_frame('iframe', timeout=timeout)
             self.wait_for_text('h1', "It worked!", timeout=timeout)
+            self.driver.switch_to.default_content()
             return True
         except TimeoutException:
             return False
 
     def test_ga_js_surrogate(self):
-        SURROGATE_HOST = "www.google-analytics.com"
-
-        # clear pre-trained/seed tracker data
-        self.clear_tracker_data()
-
-        # verify site loads
+        # first verify site loads
         assert self.load_ga_js_fixture(), (
             "page failed to load even before we did anything")
 
         # block ga.js (should break the site)
-        self.block_domain(SURROGATE_HOST)
+        self.block_domain(SurrogatesTest.SURROGATE_HOST)
 
         # disable surrogates
         self.driver.execute_async_script(
@@ -53,13 +55,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             "chrome.runtime.sendMessage({"
             "  type: 'disableSurrogates'"
             "}, done);")
-        # disable static rulesets
-        self.driver.execute_async_script(
-            "let done = arguments[arguments.length - 1];"
-            "chrome.declarativeNetRequest.updateEnabledRulesets({"
-            "  disableRulesetIds: ['surrogates_ruleset']"
-            "}, done);")
-        # back up and disable dynamic rules
+        # back up and remove dynamic rules
         dynamic_surrogate_rules = self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"
             "(async function (domain) {"
@@ -67,7 +63,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
             "  done(rules.filter(r => r.priority == constants.DNR_SURROGATE_REDIRECT "
             "    && JSON.stringify(r.condition.requestDomains) == JSON.stringify([domain])));"
-            "}(arguments[0]));", SURROGATE_HOST)
+            "}(arguments[0]));", SurrogatesTest.SURROGATE_HOST)
         self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"
             "chrome.declarativeNetRequest.updateDynamicRules({"
@@ -87,11 +83,6 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             "}, done);")
         self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"
-            "chrome.declarativeNetRequest.updateEnabledRulesets({"
-            "  enableRulesetIds: ['surrogates_ruleset']"
-            "}, done);")
-        self.driver.execute_async_script(
-            "let done = arguments[arguments.length - 1];"
             "chrome.declarativeNetRequest.updateDynamicRules({"
             "  addRules: arguments[0]"
             "}, done);", dynamic_surrogate_rules)
@@ -99,6 +90,26 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         # verify site loads again
         assert retry_until(self.load_ga_js_fixture), (
             "page failed to load after surrogation")
+
+    def test_cookieblocking_base_overwrites_subdomain_surrogate(self):
+        SURROGATE_TOSTRING = "function() {\n    }"
+
+        def get_tracker_tostring():
+            return self.js("return _gat._getTrackers.toString();")
+
+        self.block_domain(SurrogatesTest.SURROGATE_HOST)
+
+        assert self.load_ga_js_fixture()
+        # verify we replaced SURROGATE_HOST with surrogate
+        assert get_tracker_tostring() == SURROGATE_TOSTRING, (
+            "tracker does not appear to have been replaced with surrogate")
+
+        self.cookieblock_domain(SurrogatesTest.SURROGATE_HOST_BASE)
+
+        assert self.load_ga_js_fixture()
+        # verify that we are no longer replacing SURROGATE_HOST with surrogate
+        assert get_tracker_tostring() != SURROGATE_TOSTRING, (
+            "surrogation took place when it shouldn't have")
 
 
 if __name__ == "__main__":

@@ -58,20 +58,6 @@ function Badger(from_qunit) {
     self.widgetList = widgets;
   });
 
-  let seedBlockedBasesPromise = new Promise(resolve => {
-    self.seedBlockedBases = new Set();
-    fetch(constants.SEED_DATA_LOCAL_URL)
-      .then(resp => resp.json())
-      .then(seed => {
-        for (let base of Object.keys(seed.snitch_map)) {
-          if (seed.snitch_map[base].length >= constants.TRACKING_THRESHOLD) {
-            self.seedBlockedBases.add(base);
-          }
-        }
-        resolve();
-      });
-  });
-
   // we need to get ready to create dynamic rules before initializing storage
   getMaxDynamicRuleId(function (id) {
     self.maxDynamicRuleId = id;
@@ -112,9 +98,7 @@ function Badger(from_qunit) {
 
     // seed data loading depends on the yellowlist
     await pbconfigPromise;
-    // also get ready to create dynamic DNR rules,
-    // for which we need the set of blocked domains in seed data
-    await seedBlockedBasesPromise;
+    // also get ready to create dynamic DNR rules
     subscribeToActionMapUpdates();
     // now async load seed data
     let seedDataPromise = self.updateTrackerData().catch(console.error);
@@ -414,10 +398,6 @@ Badger.prototype = {
       console.error(err);
       throw new Error("Failed to parse seed data JSON");
     }
-
-    await chrome.declarativeNetRequest.updateEnabledRulesets({
-      enableRulesetIds: ['seed_ruleset', 'surrogates_ruleset']
-    });
 
     self.storage.mergeUserData(data);
   },
