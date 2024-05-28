@@ -249,10 +249,7 @@ function subscribeToActionMapUpdates() {
       }
       for (let token of sdb.hostnames[domain].tokens) {
         opts.addRules.push(dnrUtils.makeDnrFpScriptSurrogateRule(
-          badger.getDynamicRuleId(),
-          domain,
-          token,
-          '/' + sdb.surrogates[token].slice(chrome.runtime.getURL('').length)));
+          badger.getDynamicRuleId(), domain, token, sdb.surrogates[token]));
       }
     }
 
