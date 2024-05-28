@@ -32,15 +32,15 @@ if (document instanceof HTMLDocument === false && (
  * @param {String} text The content of the script to insert.
  * @param {Object} data Data attributes to set on the inserted script tag.
  */
+// TODO fix for MV3
 window.injectScript = function (text) {
-  let parent = document.documentElement,
-    script = document.createElement('script');
-
-  script.text = text;
-  script.async = false;
-
-  parent.insertBefore(script, parent.firstChild);
-  parent.removeChild(script);
+  // TODO temp. workaround just to get going (not great because subject to page CSP):
+  // https://bugs.chromium.org/p/chromium/issues/detail?id=1207006#c4
+  let parent = document.documentElement, el = document.createElement('div');
+  el.setAttribute('onclick', text);
+  parent.appendChild(el);
+  el.click();
+  el.remove();
 };
 
 function getFrameUrl() {

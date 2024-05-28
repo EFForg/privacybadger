@@ -154,7 +154,7 @@ QUnit.test("filterDomains()", (assert) => {
 
   tests.forEach((test) => {
     assert.deepEqual(
-      filterDomains.apply(window, test.args),
+      filterDomains.apply(globalThis, test.args),
       test.expected,
       test.msg
     );
