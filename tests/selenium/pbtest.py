@@ -577,7 +577,7 @@ class PBSeleniumTest(unittest.TestCase):
             "  done(rules.find(r => {"
             "    if (action == 'block') {"
             "      if (r.action.type == 'block' &&"
-            "        !r.hasOwnProperty('priority') &&"
+            "        r.priority == constants.DNR_BLOCK &&"
             "        r.condition.requestDomains &&"
             "        r.condition.requestDomains.includes(domain)) {"
             "        return true;"
