@@ -19,7 +19,6 @@
 
 import { getBaseDomain } from "../lib/basedomain.js";
 import { subscribeToStorageUpdates } from "../lib/dnr/subscribers.js";
-import dnrUtils from "../lib/dnr/utils.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -263,14 +262,24 @@ BadgerPen.prototype = {
       }
     }
 
-    // remove all dynamic rules
-    const max_num_rules = chrome.declarativeNetRequest.MAX_NUMBER_OF_DYNAMIC_RULES ||
-      chrome.declarativeNetRequest.MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES;
-    dnrUtils.updateDynamicRules.clearQueue();
-    await chrome.declarativeNetRequest.updateDynamicRules({
-      removeRuleIds: Array(max_num_rules).fill(1).map((i, j) => i + j)
-    });
-    badger.maxDynamicRuleId = 0;
+    // remove all dynamic rules, except for the disabled sites rule
+    // and widget site exception rules
+    let rules = await chrome.declarativeNetRequest.getDynamicRules();
+    // first, find any rules we want to keep and deep copy them
+    let addRules = JSON.parse(JSON.stringify(rules
+      .filter(r =>
+        r.priority == constants.DNR_WIDGET_ALLOW_ALL ||
+          r.priority == constants.DNR_SITE_ALLOW_ALL)));
+    if (rules.length) {
+      await chrome.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: rules.map(r => r.id),
+        addRules: addRules.map(function (r, idx) {
+          r.id = idx + 1;
+          return r;
+        })
+      });
+      badger.maxDynamicRuleId = addRules.length;
+    }
   },
 
   /**

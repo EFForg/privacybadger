@@ -288,6 +288,14 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_load()
 
+    def test_clearing_tracker_data_keeps_disabled_sites(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.disable_badger_on_site(self.FIXTURE_URL)
+        self.clear_tracker_data()
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+
     def test_ignoring_dnt_compliance(self):
         """We should ignore DNT compliance when DNT policy checking is off."""
 
