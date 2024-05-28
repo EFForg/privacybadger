@@ -248,16 +248,11 @@ function getDnrSurrogateRules(idFunc, domain) {
  *
  * @param {Integer} id
  * @param {String} domain
- * @param {Array} fpScripts
+ * @param {String} path
  *
  * @returns {Object}
  */
-function makeDnrFpScriptBlockRule(id, domain, fpScripts) {
-  // TODO is the leading .* needed?
-  let paths_pattern = ".*(?:" + fpScripts
-    .map(s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-    .join("|") + ")(?:\\?.*)?$";
-
+function makeDnrFpScriptBlockRule(id, domain, path) {
   return {
     id,
     priority: constants.DNR_FP_SCRIPT_BLOCK,
@@ -265,8 +260,7 @@ function makeDnrFpScriptBlockRule(id, domain, fpScripts) {
     condition: {
       requestDomains: [domain],
       resourceTypes: ['script'],
-      // TODO can we use domainFilter patterns instead?
-      regexFilter: paths_pattern,
+      urlFilter: '||' + domain + path + '^',
       domainType: 'thirdParty',
       excludedInitiatorDomains: mdfp.getEntityList(getBaseDomain(domain))
     }
