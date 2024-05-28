@@ -96,6 +96,48 @@ function make_gen204_block_rules(googleHosts) {
   return rules;
 }
 
+function make_google_redirect_rules(googleHosts) {
+  let rules = [],
+    id = 1;
+
+  for (let host of googleHosts) {
+    for (let param of ['.+&q', 'q', '.+&url', 'url']) {
+      rules.push({
+        id,
+        priority: 1,
+        action: {
+          type: "redirect",
+          redirect: {
+            regexSubstitution: "\\1"
+          }
+        },
+        condition: {
+          regexFilter: `^https://${host.replace(/\//g, '\\/')}/url\\?${param}=(https?://[^&]+).*$`,
+          resourceTypes: [
+            "main_frame"
+          ]
+        }
+      });
+      id++;
+    }
+    // TODO workaround for https://github.com/w3c/webextensions/issues/302
+    rules.push({
+      id,
+      priority: 2,
+      action: { type: "allow" },
+      condition: {
+        urlFilter: `|https://${host}/url?*%*|`,
+        resourceTypes: [
+          "main_frame"
+        ]
+      }
+    });
+    id++;
+  }
+
+  return rules;
+}
+
 function main() {
   let dntSignalRules = make_dnt_signal_rules();
   fs.writeFileSync("src/data/dnr/dnt_signal.json",
@@ -107,17 +149,23 @@ function main() {
     JSON.stringify(dntPolicyRule, null, 2), 'utf8');
   console.log(`Generated 1 EFF's DNT policy rule`);
 
-  // generate rules to block Google gen204 beacons
   let manifestJson = JSON.parse(fs.readFileSync("src/manifest.json", 'utf8'));
   let googleHosts = manifestJson.content_scripts
     .find(i => i.js.includes("js/firstparties/google.js"))
     .matches.filter(i => i.startsWith("https://www.") && i.endsWith("/*"))
     .map(i => i.slice(8).slice(0, -2));
 
+  // generate rules to block Google gen204 beacons
   let gen204Rules = make_gen204_block_rules(googleHosts);
   fs.writeFileSync("src/data/dnr/gen204.json",
     JSON.stringify(gen204Rules, null, 2), 'utf8');
   console.log(`Generated ${gen204Rules.length} Google gen204 beacon block rules`);
+
+  // generate rules to bypass Google redirects
+  let googleRedirectRules = make_google_redirect_rules(googleHosts);
+  fs.writeFileSync("src/data/dnr/bypass_redirects.json",
+    JSON.stringify(googleRedirectRules, null, 2), 'utf8');
+  console.log(`Generated ${googleRedirectRules.length} Google redirect rules`);
 }
 
 main();
