@@ -209,6 +209,13 @@ class DntTest(pbtest.PBSeleniumTest):
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('#enable_dnt_checkbox').click()
 
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.declarativeNetRequest.getEnabledRulesets(rulesetIds => {"
+            "  done(!rulesetIds.includes('dnt_signal_ruleset'));"
+            "});", execute_async=True, timeout=3)
+
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
         assert headers is not None, "It seems we failed to get headers"
