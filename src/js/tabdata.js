@@ -50,10 +50,6 @@ function TabData() {
    *         host: {?String}
    *         widgetReplacementReady: {Boolean}
    *         widgetQueue: {Array} widget objects
-   *         warAccessTokens: {
-   *           <extension_resource_URL>: {String} access token
-   *           ...
-   *         }
    *       },
    *       ...
    *     },
