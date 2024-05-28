@@ -212,8 +212,7 @@ const surrogates = {
 
 // expand filenames to extension URLs
 Object.keys(surrogates).forEach(key => {
-  let path = '/data/web_accessible_resources/' + surrogates[key];
-  surrogates[key] = chrome.runtime.getURL(path);
+  surrogates[key] = '/data/web_accessible_resources/' + surrogates[key];
 });
 
 export default {
