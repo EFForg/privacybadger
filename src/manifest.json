@@ -21,8 +21,7 @@
     "storage",
     "tabs",
     "webNavigation",
-    "webRequest",
-    "webRequestBlocking"
+    "webRequest"
   ],
   "host_permissions": [
     "<all_urls>"
