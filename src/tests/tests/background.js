@@ -53,7 +53,7 @@ QUnit.module("Background", {
       dnt_policy_txt = data;
 
       // set up fake server to simulate fetch()
-      stubbedFetch = sinon.stub(window, 'fetch');
+      stubbedFetch = sinon.stub(globalThis, 'fetch');
       DNT_DOMAINS.forEach(domain => {
         stubbedFetch
           .withArgs("https://" + domain + "/.well-known/dnt-policy.txt")
@@ -62,7 +62,7 @@ QUnit.module("Background", {
       // all other URLs
       stubbedFetch.resolves(new Response("not the DNT policy"));
 
-      // set up fake timers to simulate window.setTimeout and co.
+      // set up fake timers to simulate setTimeout and co.
       clock = sinon.useFakeTimers(+new Date());
 
       done();
@@ -487,7 +487,7 @@ QUnit.test("mergeUserData() clears snitch_map when all items are MDFP", (assert)
       badger.isUpdate = true;
       badger.getSettings().setItem("learnLocally", false);
 
-      stubbedFetch = sinon.stub(window, 'fetch');
+      stubbedFetch = sinon.stub(globalThis, 'fetch');
     },
 
     after: (/*assert*/) => {
