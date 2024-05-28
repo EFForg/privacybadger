@@ -89,6 +89,18 @@ function Badger(from_qunit) {
   let widgetListPromise = widgetLoader.loadWidgetsFromFile(
     "data/socialwidgets.json").catch(console.error);
 
+  if (!from_qunit) {
+    // session DNR rules don't get removed when reloading the extension, apparently
+    chrome.declarativeNetRequest.getSessionRules(rules => {
+      chrome.declarativeNetRequest.updateSessionRules({
+        removeRuleIds: rules.map(r => r.id)
+      }).then(function () {
+        log("[DNR] Cleared session rules");
+        dnrUtils.registerGoogleRedirectBypassRules();
+      });
+    });
+  }
+
   // we need to get ready to create dynamic rules before initializing storage
   self.initMaxDynamicRuleId().then(function () {
     log("[DNR] Ready to generate dynamic rule IDs");
