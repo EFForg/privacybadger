@@ -12,6 +12,11 @@ globalThis.chrome = {
       return path;
     }
   },
+  scripting: {
+    ExecutionWorld: {
+      MAIN: "MAIN"
+    }
+  },
   storage: {
     local: {
       get: function (keys, callback) {

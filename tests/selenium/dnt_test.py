@@ -22,10 +22,8 @@ class DntTest(pbtest.PBSeleniumTest):
         self.FIXTURE_DOMAIN = "efforg.github.io"
         self.FIXTURE_PARENT_DOMAIN = "github.io"
         self.FIXTURE_URL = (
-            f"https://{self.FIXTURE_DOMAIN}/privacybadger-test-fixtures/html/")
-        # TODO switch to scripting in Firefox (MV2) to remove delay
-        # TODO https://github.com/EFForg/privacybadger/issues/2948
-        self.FIXTURE_URL += "navigator_donottrack_delayed.html"
+            f"https://{self.FIXTURE_DOMAIN}/privacybadger-test-fixtures/html/"
+            "navigator_donottrack.html")
 
     def get_first_party_headers(self, url):
         self.load_url(url)
@@ -276,6 +274,13 @@ return Object.getOwnPropertyDescriptor(
         self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#enable_dnt_checkbox').click()
 
+        # poll for dynamic content scripts to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.scripting.getRegisteredContentScripts(scripts => {"
+            "  done(!scripts.some(s => s.id == 'dnt_signal'));"
+            "});", execute_async=True, timeout=3)
+
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
@@ -295,6 +300,13 @@ return Object.getOwnPropertyDescriptor(
         self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#enable_dnt_checkbox').click()
 
+        # poll for dynamic content scripts to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.scripting.getRegisteredContentScripts(scripts => {"
+            "  done(!scripts.some(s => s.id == 'dnt_signal'));"
+            "});", execute_async=True, timeout=3)
+
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
         assert self.js("return navigator.doNotTrack") != "1", (
             "navigator.doNotTrack should not be set")
@@ -305,6 +317,13 @@ return Object.getOwnPropertyDescriptor(
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#enable_dnt_checkbox').click()
+
+        # poll for dynamic content scripts to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.scripting.getRegisteredContentScripts(scripts => {"
+            "  done(scripts.some(s => s.id == 'dnt_signal'));"
+            "});", execute_async=True, timeout=3)
 
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
         assert self.js("return navigator.doNotTrack") != "1", (
