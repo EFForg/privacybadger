@@ -80,6 +80,18 @@ function Badger(from_qunit) {
 
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(self.storage);
 
+    // work around https://issues.chromium.org/issues/40825583
+    if (self.isFirstRun && self.manifestVersion > 2 && self.maxDynamicRuleId) {
+      log("[DNR] Detected existing rules on first install, clearing ...");
+      let rules = await chrome.declarativeNetRequest.getDynamicRules();
+      if (rules.length) {
+        await chrome.declarativeNetRequest.updateDynamicRules({
+          removeRuleIds: rules.map(r => r.id)
+        });
+        self.maxDynamicRuleId = 0;
+      }
+    }
+
     self.toggleEnabledDnrRulesets();
 
     if (!from_qunit) {
