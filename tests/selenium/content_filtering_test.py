@@ -277,6 +277,17 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
 
+    def test_user_setting_for_domain_on_disabled_site_list(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.disable_badger_on_site(self.FIXTURE_URL)
+        self.set_user_action(self.FIXTURE_DOMAIN, "cookieblock")
+
+        # verify that privacy badger is still disabled for the site;
+        # moving the slider for the site domain should not break
+        # the DNR rule for disabled sites
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+
     def test_ignoring_dnt_compliance(self):
         """We should ignore DNT compliance when DNT policy checking is off."""
 
