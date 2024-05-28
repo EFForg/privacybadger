@@ -29,13 +29,6 @@ function TabData() {
    *       <script_fqdn>: {String} script URL,
    *       ...
    *     },
-   *     blockedFrameUrls: {
-   *       <parent_frame_id>: [
-   *         {String} blocked frame URL,
-   *         ...
-   *       ],
-   *       ...
-   *     },
    *     fpData: {
    *       <script_base>: {
    *         canvas: {
@@ -277,7 +270,6 @@ TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
   if (!self.has(tab_id)) {
     self._tabData[tab_id] = {
       blockedFpScripts: {},
-      blockedFrameUrls: {},
       fpData: {},
       frames: {},
       trackers: {},
