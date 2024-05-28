@@ -69,6 +69,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             )
 
     @pytest.mark.flaky(reruns=9)
+    @pytest.mark.xfail(pbtest.shim.browser_type == "chrome", reason="https://crbug.com/1149619")
     def test_referrer_header(self):
         FIXTURE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"

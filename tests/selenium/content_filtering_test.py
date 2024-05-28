@@ -190,8 +190,9 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         # click the undo arrow
         self.open_popup(self.FIXTURE_URL)
-        self.find_el_by_css(
-            f'div[data-origin="{self.THIRD_PARTY_DOMAIN}"] a.honeybadgerPowered').click()
+        with self.wait_for_window_close():
+            self.find_el_by_css(
+                f'div[data-origin="{self.THIRD_PARTY_DOMAIN}"] a.honeybadgerPowered').click()
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.open_window()
 
@@ -213,7 +214,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.disable_badger_on_site(self.FIXTURE_PARENT_DOMAIN)
 
         self.load_url(self.FIXTURE_URL)
-        self.assert_block()
+        self.assert_load()
 
     def test_disabling_on_site_wildcard(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
@@ -247,6 +248,17 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('#check_dnt_policy_checkbox').click()
 
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function () {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(!rules.some(r => {"
+            "    return (r.action.type == 'allow' && r.priority == constants.DNR_DNT_ALLOW);"
+            "  }));"
+            "}());", execute_async=True, timeout=3)
+
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
         self.open_popup(self.FIXTURE_URL)
@@ -264,6 +276,17 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('#check_dnt_policy_checkbox').click()
 
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function () {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(rules.some(r => {"
+            "    return (r.action.type == 'allow' && r.priority == constants.DNR_DNT_ALLOW);"
+            "  }));"
+            "}());", execute_async=True, timeout=3)
+
         self.load_url(self.FIXTURE_URL)
         self.assert_load()
 
@@ -276,6 +299,17 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         assert not self.check_dnt(self.THIRD_PARTY_DOMAIN), (
             "domain should not be DNT-compliant")
+
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function () {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(!rules.some(r => {"
+            "    return (r.action.type == 'allow' && r.priority == constants.DNR_DNT_ALLOW);"
+            "  }));"
+            "}());", execute_async=True, timeout=3)
 
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
@@ -292,7 +326,12 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
             "});", self.THIRD_PARTY_DOMAIN)
 
         # the domain should now load
-        self.load_url(self.FIXTURE_URL)
+        def domain_loads():
+            self.load_url(self.FIXTURE_URL)
+            self.wait_for_status_output()
+            return self.find_el_by_css(self.SELECTOR).text == "success"
+        # retry a few times as DNR takes a bit to update
+        pbtest.retry_until(domain_loads, times=3)
         self.assert_load()
 
 
