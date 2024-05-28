@@ -1401,27 +1401,19 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "resetData": {
-    let actionMap = badger.storage.getStore('action_map');
-
-    badger.storage.clearTrackerData();
-
-    let wildcardSubs = actionMap.unsubscribe("set:*");
-    badger.loadSeedData().then(function () {
-      for (let callback of wildcardSubs) {
-        actionMap.subscribe("set:*", callback);
-      }
-      globalThis.DATA_LOAD_IN_PROGRESS = true;
-      badger.blockWidgetDomains();
-      badger.blockPanopticlickDomains();
-      globalThis.DATA_LOAD_IN_PROGRESS = false;
-      sendResponse();
-    }).catch(function (err) {
-      console.error(err);
-      sendResponse();
+    badger.storage.clearTrackerData(function () {
+      badger.loadSeedData().then(function () {
+        globalThis.DATA_LOAD_IN_PROGRESS = true;
+        badger.blockWidgetDomains();
+        badger.blockPanopticlickDomains();
+        globalThis.DATA_LOAD_IN_PROGRESS = false;
+        sendResponse();
+      }).catch(function (err) {
+        console.error(err);
+        sendResponse();
+      });
     });
-
-    // indicate this is an async response to chrome.runtime.onMessage
-    return true;
+    return true; // async chrome.runtime.onMessage response
   }
 
   case "removeAllData": {
