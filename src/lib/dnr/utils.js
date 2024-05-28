@@ -184,9 +184,14 @@ function makeDnrSurrogateRule(id, script_host, path, extra_conditions) {
 }
 
 /**
- * XXX
+ * A single hostname may have multiple associated surrogates.
+ * This function generates all associated DNR rule objects.
+ *
+ * @param {String} domain
+ *
+ * @returns {Array} DNR rule objects for this domain
  */
-function _getSurrogateRules(domain) {
+function getDnrSurrogateRules(domain) {
   let rules = [],
     conf = sdb.hostnames[domain];
 
@@ -229,35 +234,6 @@ function _getSurrogateRules(domain) {
       };
       rules.push(makeDnrSurrogateRule(
         badger.getDynamicRuleId(), domain, sdb.surrogates[token], extra));
-    }
-  }
-
-  return rules;
-}
-
-/**
- * A single hostname may have multiple associated surrogates.
- * This function generates all associated DNR rule objects.
- *
- * @param {String} script_host
- * @param {Array} existingRules already registered DNR rules
- *
- * @returns {Array} DNR rule objects for this domain
- */
-function getDnrSurrogateRules(domain, existingRules) {
-  let rules = [];
-
-  for (let host of Object.keys(sdb.hostnames)) {
-    if (host == domain || host.endsWith('.' + domain)) {
-      let action = badger.storage.getBestAction(host);
-      if (action == constants.BLOCK || action == constants.USER_BLOCK) {
-        if (!existingRules.filter(r =>
-          r.priority == constants.DNR_SURROGATE_REDIRECT &&
-          r.condition.requestDomains.includes(host)).length
-        ) {
-          rules.push(..._getSurrogateRules(host));
-        }
-      }
     }
   }
 
