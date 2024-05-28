@@ -1,8 +1,11 @@
 env:
-  browser: true
   es6: true
+  serviceworker: true
   webextensions: true
 extends: 'eslint:recommended'
+globals:
+  # false to disallow overwriting
+  globalThis: false
 parserOptions:
   ecmaVersion: 2017
   # strict mode
