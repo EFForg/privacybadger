@@ -2,6 +2,8 @@
 
 import unittest
 
+import pytest
+
 import pbtest
 
 
@@ -29,18 +31,13 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
     def setUp(self):
         self.clear_tracker_data()
 
-    def wait_for_status_output(self, selector=SELECTOR):
-        self.wait_for_script(
-            "return document.querySelector(arguments[0]).textContent",
-            selector)
-
     def assert_block(self):
-        self.wait_for_status_output()
+        self.wait_for_any_text(self.SELECTOR)
         assert self.find_el_by_css(self.SELECTOR).text == "error", (
             "3rd-party should've gotten blocked")
 
     def assert_load(self):
-        self.wait_for_status_output()
+        self.wait_for_any_text(self.SELECTOR)
         assert self.find_el_by_css(self.SELECTOR).text == "success", (
             "3rd-party should've loaded successfully")
 
@@ -54,6 +51,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
 
+    # TODO sporadic "Cookie fixture should have set a cookie" failures
+    @pytest.mark.flaky(reruns=3)
     def test_cookieblocking_stops_saving(self):
         self.load_url(f"https://{self.COOKIE_DOMAIN}/")
         assert not self.driver.get_cookies(), (
@@ -72,16 +71,18 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         assert not self.driver.get_cookies(), (
             "Cookie fixture should have been blocked from setting a cookie")
 
+    # TODO sporadic "We should have sent a cookie at this point" failures
+    @pytest.mark.flaky(reruns=3)
     def test_cookieblocking_stops_sending(self):
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
-        self.wait_for_status_output('body')
+        self.wait_for_any_text('body')
         assert self.find_el_by_css('body').text == "cookies=0", (
             "No cookies should've been sent to start with")
 
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
-        self.wait_for_status_output('body')
+        self.wait_for_any_text('body')
         assert self.find_el_by_css('body').text == "cookies=1", (
             "We should have sent a cookie at this point")
 
@@ -89,7 +90,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
-        self.wait_for_status_output('body')
+        self.wait_for_any_text('body')
         assert self.find_el_by_css('body').text == "cookies=0", (
             "No cookies should have been sent by the cookieblocked domain")
 
@@ -393,7 +394,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         # the domain should now load
         def domain_loads():
             self.load_url(self.FIXTURE_URL)
-            self.wait_for_status_output()
+            self.wait_for_any_text(self.SELECTOR)
             return self.find_el_by_css(self.SELECTOR).text == "success"
         # retry a few times as DNR takes a bit to update
         pbtest.retry_until(domain_loads, times=3)
