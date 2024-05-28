@@ -46,12 +46,33 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
 
         # block ga.js (should break the site)
         self.block_domain(SURROGATE_HOST)
+
         # disable surrogates
         self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"
             "chrome.runtime.sendMessage({"
             "  type: 'disableSurrogates'"
             "}, done);")
+        # disable static rulesets
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.declarativeNetRequest.updateEnabledRulesets({"
+            "  disableRulesetIds: ['surrogates_ruleset']"
+            "}, done);")
+        # back up and disable dynamic rules
+        dynamic_surrogate_rules = self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function (domain) {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(rules.filter(r => r.priority == constants.DNR_SURROGATE_REDIRECT "
+            "    && JSON.stringify(r.condition.requestDomains) == JSON.stringify([domain])));"
+            "}(arguments[0]));", SURROGATE_HOST)
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.declarativeNetRequest.updateDynamicRules({"
+            "  removeRuleIds: arguments[0]"
+            "}, done);", [r['id'] for r in dynamic_surrogate_rules])
 
         # verify site breaks
         assert not self.load_ga_js_fixture(), (
@@ -64,6 +85,16 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             "chrome.runtime.sendMessage({"
             "  type: 'restoreSurrogates'"
             "}, done);")
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.declarativeNetRequest.updateEnabledRulesets({"
+            "  enableRulesetIds: ['surrogates_ruleset']"
+            "}, done);")
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.declarativeNetRequest.updateDynamicRules({"
+            "  addRules: arguments[0]"
+            "}, done);", dynamic_surrogate_rules)
 
         # verify site loads again
         assert retry_until(self.load_ga_js_fixture), (
