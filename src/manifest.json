@@ -455,7 +455,6 @@
     },
     {
       "js": [
-        "js/contentscripts/collapser.js",
         "js/contentscripts/socialwidgets.js",
         "js/contentscripts/supercookie.js"
       ],
