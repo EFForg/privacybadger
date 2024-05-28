@@ -18,11 +18,9 @@ genstaticrules:
 
 updateseed:
 	scripts/updateseeddata.sh
-	scripts/genstaticrules.js # TODO reference the Make target instead
 
 apply_effdntlist:
 	scripts/apply_effdntlist.py src/data/seed.json
-	scripts/genstaticrules.js # TODO
 
 updategoogle:
 	scripts/updategoogle.sh
