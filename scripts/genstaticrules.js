@@ -17,10 +17,9 @@ import utils from "../src/lib/dnr/utils.js";
 import "./lib/postImportOverrides.js";
 
 /**
- * Rule for ensuring EFF's DNT policy check requests/responses are allowed
- * as well as rules for allowing DNT-compliant domains.
+ * A rule for ensuring EFF's DNT policy check requests/responses are allowed.
  */
-function make_dnt_policy_rules(badgerStorage) {
+function make_dnt_policy_rule() {
   let rules = [
     // allow DNT policy check requests even when their domains would be blocked otherwise
     {
@@ -35,20 +34,6 @@ function make_dnt_policy_rules(badgerStorage) {
       }
     },
   ];
-
-  let id = rules.length + 1;
-
-  // handle DNT domains asa "layer"; any (cookie)block rules
-  // will get overwritten by these allow rules
-  for (let domain of badgerStorage.getStore('action_map').keys()) {
-    if (badgerStorage.getBestAction(domain) == constants.DNT) {
-      // the allow rules should overwrite cookieblocking too:
-      // > Within each extension, all modifyHeaders rules with a priority lower
-      // > than matching allow or allowAllRequests rules are ignored.
-      rules.push(utils.makeDnrAllowRule(id, domain, constants.DNR_DNT_ALLOW));
-      id++;
-    }
-  }
 
   return rules;
 }
@@ -127,30 +112,11 @@ function make_seed_rules(badgerStorage) {
       continue;
     }
 
+    // note: DNT is ignored as isCheckingDNTPolicyEnabled() is false
     let action = badgerStorage.getBestAction(domain);
-
-    if (action == constants.COOKIEBLOCK) {
-      rules.push(utils.makeDnrCookieblockRule(id, domain));
-      id++;
-      rules.push(utils.makeDnrAllowRule(id, domain));
-      id++;
-    } else if (action == constants.BLOCK || action == constants.DNT) {
+    if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
       rules.push(utils.makeDnrBlockRule(id, domain));
       id++;
-    }
-
-    // cookieblock any yellowlisted domains that end with this base domain
-    if (action == constants.ALLOW) {
-      continue;
-    }
-    let base_with_dot = '.' + base;
-    for (let entry of badgerStorage.getStore('cookieblock_list').keys()) {
-      if (base != entry && entry.endsWith(base_with_dot)) {
-        rules.push(utils.makeDnrCookieblockRule(id, entry));
-        id++;
-        rules.push(utils.makeDnrAllowRule(id, entry));
-        id++;
-      }
     }
   }
 
@@ -206,7 +172,7 @@ function main() {
     // TODO compare rule counts to verify.py
     fs.writeFileSync("src/data/dnr/seed.json",
       JSON.stringify(seedRules, null, 2), 'utf8');
-    console.log(`Generated ${seedRules.length} seed rules`);
+    console.log(`Generated ${seedRules.length} seed block rules`);
 
     let surrogatesRules = make_surrogates_rules();
     fs.writeFileSync("src/data/dnr/surrogates.json",
@@ -218,10 +184,10 @@ function main() {
       JSON.stringify(dntSignalRules, null, 2), 'utf8');
     console.log(`Generated ${dntSignalRules.length} DNT signal rules`);
 
-    let dntPolicyRules = make_dnt_policy_rules(badgerStorage);
+    let dntPolicyRule = make_dnt_policy_rule();
     fs.writeFileSync("src/data/dnr/dnt_policy.json",
-      JSON.stringify(dntPolicyRules, null, 2), 'utf8');
-    console.log(`Generated ${dntPolicyRules.length} EFF's DNT policy rules`);
+      JSON.stringify(dntPolicyRule, null, 2), 'utf8');
+    console.log(`Generated 1 EFF's DNT policy rule`);
   });
 }
 
