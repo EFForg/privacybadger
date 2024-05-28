@@ -133,10 +133,6 @@ function _getDynamicRulesForDomain(domain, newVal, oldVal, rules) {
   if (newVal.userAction == constants.USER_BLOCK) {
     addRules.push(dnrUtils.makeDnrBlockRule(
       domain, constants.DNR_USER_BLOCK));
-    let surrogateRules = dnrUtils.getDnrSurrogateRules(domain, rules);
-    if (surrogateRules.length) {
-      addRules.push(...surrogateRules);
-    }
 
   } else if (newVal.userAction == constants.USER_COOKIEBLOCK) {
     addRules.push(dnrUtils.makeDnrCookieblockRule(
@@ -154,7 +150,7 @@ function _getDynamicRulesForDomain(domain, newVal, oldVal, rules) {
     addRules.push(dnrUtils.makeDnrAllowRule(domain, constants.DNR_DNT_ALLOW));
   }
 
-  // finally, set the appropriate heuristic action
+  // now set the appropriate heuristic action
   if (newVal.heuristicAction == constants.COOKIEBLOCK) {
     addRules.push(dnrUtils.makeDnrCookieblockRule(domain));
     addRules.push(dnrUtils.makeDnrAllowRule(
@@ -162,22 +158,8 @@ function _getDynamicRulesForDomain(domain, newVal, oldVal, rules) {
     // TODO also add rule to make referrer header origin-only
     // https://bugs.chromium.org/p/chromium/issues/detail?id=1149619
 
-    // remove any surrogate rules for subdomains
-    existingRules = rules.filter(r =>
-      r.priority == constants.DNR_SURROGATE_REDIRECT &&
-      r.condition.requestDomains[0].endsWith('.' + domain));
-    if (existingRules.length) {
-      opts.removeRuleIds = (opts.removeRuleIds || []).concat(
-        existingRules.map(r => r.id));
-    }
-
   } else if (newVal.heuristicAction == constants.BLOCK) {
     addRules.push(dnrUtils.makeDnrBlockRule(domain));
-
-    let surrogateRules = dnrUtils.getDnrSurrogateRules(domain, rules);
-    if (surrogateRules.length) {
-      addRules.push(...surrogateRules);
-    }
   }
 
   if (addRules.length) {
@@ -228,17 +210,6 @@ function subscribeToActionMapUpdates() {
         }
 
         if (addRules && addRules.length) {
-          // remove duplicate surrogate rules
-          addRules = addRules.filter(newRule => {
-            if (newRule.priority != constants.DNR_SURROGATE_REDIRECT) {
-              return true;
-            }
-            return !opts.addRules.some(rule =>
-              rule.priority == constants.DNR_SURROGATE_REDIRECT &&
-              rule.condition.requestDomains[0] == newRule.condition.requestDomains[0] &&
-              rule.condition.regexFilter == rule.condition.regexFilter);
-          });
-
           // don't add cookieblock rules when followed by block rules (domain
           // is cookieblocked in seed data but is no longer on the yellowlist)
           for (let newRule of addRules) {
@@ -257,6 +228,24 @@ function subscribeToActionMapUpdates() {
           opts.removeRuleIds = opts.removeRuleIds.concat(removeRuleIds);
         }
       }
+    }
+
+    // now redo surrogate rules
+    let addRules = [],
+      removeRuleIds = existingRules
+        .filter(r => r.priority == constants.DNR_SURROGATE_REDIRECT)
+        .map(r => r.id);
+    for (let host of Object.keys(sdb.hostnames)) {
+      let action = badger.storage.getBestAction(host);
+      if (action == constants.BLOCK || action == constants.USER_BLOCK) {
+        addRules.push(...dnrUtils.getDnrSurrogateRules(host));
+      }
+    }
+    if (addRules.length) {
+      opts.addRules = opts.addRules.concat(addRules);
+    }
+    if (removeRuleIds.length) {
+      opts.removeRuleIds = opts.removeRuleIds.concat(removeRuleIds);
     }
 
     for (let domain in fpStoreUpdateQueue) {
