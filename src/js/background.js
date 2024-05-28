@@ -58,6 +58,20 @@ function Badger(from_qunit) {
     self.widgetList = widgets;
   });
 
+  let seedBlockedBasesPromise = new Promise(resolve => {
+    self.seedBlockedBases = new Set();
+    fetch(constants.SEED_DATA_LOCAL_URL)
+      .then(resp => resp.json())
+      .then(seed => {
+        for (let base of Object.keys(seed.snitch_map)) {
+          if (seed.snitch_map[base].length >= constants.TRACKING_THRESHOLD) {
+            self.seedBlockedBases.add(base);
+          }
+        }
+        resolve();
+      });
+  });
+
   // we need to get ready to create dynamic rules before initializing storage
   getMaxDynamicRuleId(function (id) {
     self.maxDynamicRuleId = id;
@@ -96,8 +110,13 @@ function Badger(from_qunit) {
     // async load known CNAME domain aliases (but don't wait on them)
     self.initializeCnames().catch(console.error);
 
-    // seed data depends on the yellowlist
+    // seed data loading depends on the yellowlist
     await pbconfigPromise;
+    // also get ready to create dynamic DNR rules,
+    // for which we need the set of blocked domains in seed data
+    await seedBlockedBasesPromise;
+    subscribeToActionMapUpdates();
+    // now async load seed data
     let seedDataPromise = self.updateTrackerData().catch(console.error);
 
     // set badge text color to white
@@ -129,8 +148,6 @@ function Badger(from_qunit) {
     await widgetListPromise;
     await seedDataPromise;
     await tabDataPromise;
-
-    subscribeToActionMapUpdates();
 
     if (self.isFirstRun || self.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
       // block all widget domains
@@ -398,11 +415,11 @@ Badger.prototype = {
       throw new Error("Failed to parse seed data JSON");
     }
 
-    self.storage.mergeUserData(data);
-
     await chrome.declarativeNetRequest.updateEnabledRulesets({
       enableRulesetIds: ['seed_ruleset', 'surrogates_ruleset']
     });
+
+    self.storage.mergeUserData(data);
   },
 
   /**
