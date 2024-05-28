@@ -244,6 +244,74 @@ function getDnrSurrogateRules(idFunc, domain) {
 }
 
 /**
+ * We use DNR session rules to allow user-activated widgets to load.
+ */
+let updateSessionAllowRules = utils.debounce(async function (tempAllowlist) {
+  let id = 0,
+    opts = {
+      addRules: [],
+      removeRuleIds: []
+    };
+
+  let rules = await chrome.declarativeNetRequest.getSessionRules();
+
+  if (rules.length) {
+    // remove all existing session widget rules
+    opts.removeRuleIds = rules.filter(r =>
+      r.priority == constants.DNR_WIDGET_ALLOW_ALL).map(r => r.id);
+
+    // get the largest session rule ID
+    id = Math.max(...rules.filter(r =>
+      r.priority != constants.DNR_WIDGET_ALLOW_ALL).map(r => r.id));
+  }
+
+  for (let tab_id in tempAllowlist) {
+    for (let domain of tempAllowlist[tab_id]) {
+      // allow all requests inside frames served by this domain
+      id++;
+      let rule = {
+        id,
+        priority: constants.DNR_WIDGET_ALLOW_ALL,
+        action: { type: 'allowAllRequests' },
+        condition: {
+          tabIds: [+tab_id],
+          requestDomains: [domain],
+          resourceTypes: ['sub_frame']
+        }
+      };
+      if (domain.startsWith("*.")) {
+        // support wildcard unblockDomains
+        delete rule.condition.requestDomains;
+        rule.condition.urlFilter = "||" + domain.slice(2);
+      }
+      opts.addRules.push(rule);
+
+      // allow requests to this domain
+      id++;
+      rule = {
+        id,
+        priority: constants.DNR_WIDGET_ALLOW_ALL,
+        action: { type: 'allow' },
+        condition: {
+          tabIds: [+tab_id],
+          requestDomains: [domain]
+        }
+      };
+      if (domain.startsWith("*.")) {
+        // support wildcard unblockDomains
+        delete rule.condition.requestDomains;
+        rule.condition.urlFilter = "||" + domain.slice(2);
+      }
+      opts.addRules.push(rule);
+    }
+  }
+
+  if (opts.addRules.length || opts.removeRuleIds.length) {
+    chrome.declarativeNetRequest.updateSessionRules(opts);
+  }
+}, 100);
+
+/**
  * Debounced version of chrome.declarativeNetRequest.updateDynamicRules()
  */
 let updateDynamicRules = (function () {
@@ -433,5 +501,6 @@ export default {
   updateDisabledSitesRules,
   updateDynamicRules,
   updateEnabledRulesets,
+  updateSessionAllowRules,
   updateWidgetSiteAllowlistRules,
 };
