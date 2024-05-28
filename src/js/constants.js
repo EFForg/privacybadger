@@ -42,6 +42,17 @@ let exports = {
 
   PANOPTICLICK_DOMAINS: ["trackersimulator.org", "eviltracker.net"],
 
+  FP_CDN_DOMAINS: new Set([
+    'd.alicdn.com',
+    'fp-cdn.azureedge.net',
+    'sdtagging.azureedge.net',
+    'cdnjs.cloudflare.com',
+    'd1af033869koo7.cloudfront.net',
+    'd38xvr37kwwhcm.cloudfront.net',
+    'cdn.jsdelivr.net',
+    'gadasource.storage.googleapis.com',
+  ]),
+
   // Declarative Net Request priorities
   DNR_BLOCK: 1,
   DNR_COOKIEBLOCK_ALLOW: 2,
@@ -54,6 +65,8 @@ let exports = {
   DNR_SURROGATE_REDIRECT: 50,
   DNR_USER_COOKIEBLOCK_ALLOW: 59,
   DNR_USER_COOKIEBLOCK_HEADERS: 60,
+  DNR_FP_SCRIPT_BLOCK: 65,
+  DNR_FP_SCRIPT_SURROGATE_REDIRECT: 66,
   DNR_USER_ALLOW: 70,
   DNR_WIDGET_ALLOW_ALL: 75,
   DNR_SITE_ALLOW_ALL: 100,
