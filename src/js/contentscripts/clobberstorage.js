@@ -1,6 +1,6 @@
 /*
  * This file is part of Privacy Badger <https://privacybadger.org/>
- * Copyright (C) 2014 Electronic Frontier Foundation
+ * Copyright (C) 2024 Electronic Frontier Foundation
  *
  * Privacy Badger is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -15,21 +15,27 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// NOTE: code below is not a content script: no chrome.* APIs
-
 (function () {
 
-document.__defineSetter__("cookie", function(/*value*/) { });
-document.__defineGetter__("cookie", function() { return ""; });
-
-// trim referrer down to origin
-let referrer = document.referrer;
-if (referrer) {
-  referrer = referrer.slice(
-    0,
-    referrer.indexOf('/', referrer.indexOf('://') + 3)
-  ) + '/';
+// don't inject into non-HTML documents (such as XML documents)
+// but do inject into XHTML documents
+if (document instanceof HTMLDocument === false && (
+  document instanceof XMLDocument === false ||
+  document.createElement('div') instanceof HTMLDivElement === false
+)) {
+  return;
 }
-document.__defineGetter__("referrer", function () { return referrer; });
+
+// don't bother asking to run when trivially in first-party context
+// proceed only if in a nested frame
+if (window.top == window) {
+  return;
+}
+
+// TODO race condition
+chrome.runtime.sendMessage({
+  type: "clobberStorage",
+  frameUrl: window.FRAME_URL,
+});
 
 }());
