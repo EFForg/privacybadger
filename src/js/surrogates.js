@@ -49,7 +49,7 @@ function _match_prefix(url, hostname, tokens) {
  * when there is a match; boolean false otherwise.
  */
 function getSurrogateUri(script_url, script_hostname) {
-  if (window.SURROGATES_DISABLED) {
+  if (globalThis.SURROGATES_DISABLED) {
     return false;
   }
 
