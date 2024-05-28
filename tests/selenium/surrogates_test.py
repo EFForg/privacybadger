@@ -20,6 +20,10 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
     SURROGATE_HOST_BASE = "google-analytics.com"
     SURROGATE_HOST = f"www.{SURROGATE_HOST_BASE}"
 
+    def setUp(self):
+        # clear pre-trained/seed tracker data before every test
+        self.clear_tracker_data()
+
     def load_ga_js_fixture(self, timeout=12):
         self.load_url(self.FIXTURE_URL)
 
@@ -39,10 +43,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             return False
 
     def test_ga_js_surrogate(self):
-        # clear pre-trained/seed tracker data
-        self.clear_tracker_data()
-
-        # verify site loads
+        # first verify site loads
         assert self.load_ga_js_fixture(), (
             "page failed to load even before we did anything")
 
@@ -55,13 +56,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             "chrome.runtime.sendMessage({"
             "  type: 'disableSurrogates'"
             "}, done);")
-        # disable static rulesets
-        self.driver.execute_async_script(
-            "let done = arguments[arguments.length - 1];"
-            "chrome.declarativeNetRequest.updateEnabledRulesets({"
-            "  disableRulesetIds: ['surrogates_ruleset']"
-            "}, done);")
-        # back up and disable dynamic rules
+        # back up and remove dynamic rules
         dynamic_surrogate_rules = self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"
             "(async function (domain) {"
@@ -86,11 +81,6 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             "let done = arguments[arguments.length - 1];"
             "chrome.runtime.sendMessage({"
             "  type: 'restoreSurrogates'"
-            "}, done);")
-        self.driver.execute_async_script(
-            "let done = arguments[arguments.length - 1];"
-            "chrome.declarativeNetRequest.updateEnabledRulesets({"
-            "  enableRulesetIds: ['surrogates_ruleset']"
             "}, done);")
         self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"

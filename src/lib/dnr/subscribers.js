@@ -19,7 +19,6 @@
 
 import sdb from "../../data/surrogates.js";
 
-import { getBaseDomain } from "../../lib/basedomain.js";
 import dnrUtils from "./utils.js";
 
 import constants from "../../js/constants.js";
@@ -55,7 +54,7 @@ function subscribeToStorageUpdates() {
       for (let domain of actionMap.keys()) {
         if (actionMap.getItem(domain).dnt) {
           addRules.push(dnrUtils.makeDnrAllowRule(
-            badger.getDynamicRuleId(), domain, constants.DNR_DNT_ALLOW));
+            domain, constants.DNR_DNT_ALLOW));
         }
       }
       if (addRules.length) {
@@ -65,9 +64,9 @@ function subscribeToStorageUpdates() {
     } else {
       // remove all dynamic DNT domain allow rules
       chrome.declarativeNetRequest.getDynamicRules(rules => {
-        let removeRuleIds = rules.filter(rule => {
-          return (rule.action.type == "allow" && rule.priority == constants.DNR_DNT_ALLOW);
-        }).map(rule => rule.id);
+        let removeRuleIds = rules.filter(rule =>
+          rule.action.type == "allow" &&
+          rule.priority == constants.DNR_DNT_ALLOW).map(rule => rule.id);
         if (removeRuleIds.length) {
           dnrUtils.updateDynamicRules({ removeRuleIds });
         }
@@ -106,121 +105,190 @@ function subscribeToStorageUpdates() {
 }
 
 /**
+ * @param {String} domain
+ * @param {?Object} newVal
+ * @param {?Object} oldVal
+ * @param {Array} rules existing dynamic rules
+ *
+ * @returns {Object}
+ */
+function _getDynamicRulesForDomain(domain, newVal, oldVal, rules) {
+  let opts = {}, addRules = [];
+
+  // first mark all existing rules for removal
+  let existingRules = rules.filter(r =>
+    r.condition.requestDomains.includes(domain));
+  if (existingRules.length) {
+    opts.removeRuleIds = existingRules.map(r => r.id);
+  }
+
+  // if this is a deletion, nothing else to do
+  if (!newVal) {
+    return opts;
+  }
+
+  // user actions and DNT stack on top of heuristic actions
+  if (newVal.userAction == constants.USER_BLOCK) {
+    addRules.push(dnrUtils.makeDnrBlockRule(
+      domain, constants.DNR_USER_BLOCK));
+    let surrogateRules = dnrUtils.getDnrSurrogateRules(domain, rules);
+    if (surrogateRules.length) {
+      addRules.push(...surrogateRules);
+    }
+
+  } else if (newVal.userAction == constants.USER_COOKIEBLOCK) {
+    addRules.push(dnrUtils.makeDnrCookieblockRule(
+      domain, constants.DNR_USER_COOKIEBLOCK_HEADERS));
+    addRules.push(dnrUtils.makeDnrAllowRule(
+      domain, constants.DNR_USER_COOKIEBLOCK_ALLOW));
+    // TODO also add rule to make referrer header origin-only
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=1149619
+
+  } else if (newVal.userAction == constants.USER_ALLOW) {
+    addRules.push(dnrUtils.makeDnrAllowRule(
+      domain, constants.DNR_USER_ALLOW));
+
+  } else if (badger.getSettings().getItem("checkForDNTPolicy") && newVal.dnt) {
+    addRules.push(dnrUtils.makeDnrAllowRule(domain, constants.DNR_DNT_ALLOW));
+  }
+
+  // finally, set the appropriate heuristic action
+  if (newVal.heuristicAction == constants.COOKIEBLOCK) {
+    addRules.push(dnrUtils.makeDnrCookieblockRule(domain));
+    addRules.push(dnrUtils.makeDnrAllowRule(
+      domain, constants.DNR_COOKIEBLOCK_ALLOW));
+    // TODO also add rule to make referrer header origin-only
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=1149619
+
+    // remove any surrogate rules for subdomains
+    existingRules = rules.filter(r =>
+      r.priority == constants.DNR_SURROGATE_REDIRECT &&
+      r.condition.requestDomains[0].endsWith('.' + domain));
+    if (existingRules.length) {
+      opts.removeRuleIds = (opts.removeRuleIds || []).concat(
+        existingRules.map(r => r.id));
+    }
+
+  } else if (newVal.heuristicAction == constants.BLOCK) {
+    addRules.push(dnrUtils.makeDnrBlockRule(domain));
+
+    let surrogateRules = dnrUtils.getDnrSurrogateRules(domain, rules);
+    if (surrogateRules.length) {
+      addRules.push(...surrogateRules);
+    }
+  }
+
+  if (addRules.length) {
+    opts.addRules = addRules;
+  }
+
+  return opts;
+}
+
+/**
  * Updates dynamic DNR rules in response to changes in domain status.
  */
 function subscribeToActionMapUpdates() {
   let actionMap = badger.storage.getStore('action_map'),
     fpStore = badger.storage.getStore('fp_scripts'),
-    queue = {};
-
-  /**
-   * @param {String} domain
-   * @param {?Object} newVal
-   * @param {?Object} oldVal
-   * @param {Array} rules existing dynamic rules
-   * @param {Array} enabledRulesetIds currently enabled static ruleset IDs
-   */
-  function _updateDynamicRulesForDomain(domain, newVal, oldVal, rules, enabledRulesetIds) {
-    let opts = {}, addRules = [];
-
-    // first see if this is a deletion
-    if (!newVal) {
-      // remove any existing dynamic rules for this domain
-      let existingRules = rules.filter(r => r.condition.requestDomains.includes(domain));
-      if (existingRules.length) {
-        opts.removeRuleIds = existingRules.map(r => r.id);
-        dnrUtils.updateDynamicRules(opts);
-      }
-      return;
-    }
-
-    // are we removing or updating a user action?
-    if (oldVal && oldVal.userAction && newVal.userAction != oldVal.userAction) {
-      let existingRules = rules.filter(
-        r => r.condition.requestDomains.includes(domain)
-          && constants.DNR_USER_ACTIONS.has(r.priority));
-      if (existingRules.length) {
-        opts.removeRuleIds = existingRules.map(r => r.id);
-        dnrUtils.updateDynamicRules(opts);
-      }
-      // removing user action, nothing else to do
-      if (!newVal.userAction) {
-        return;
-      }
-    }
-
-    // is the domain no longer DNT compliant?
-    if (oldVal && oldVal.dnt && !newVal.dnt) {
-      let existingRules = rules.filter(r => {
-        return (r.condition.requestDomains.includes(domain) &&
-          r.priority == constants.DNR_DNT_ALLOW);
-      });
-      if (existingRules.length) {
-        opts.removeRuleIds = existingRules.map(r => r.id);
-      }
-      // TODO short circuit?
-    }
-
-    // (A) user actions take top priority
-    if (newVal.userAction == constants.USER_BLOCK) {
-      addRules.push(dnrUtils.makeDnrBlockRule(
-        badger.getDynamicRuleId(), domain, constants.DNR_USER_BLOCK));
-      if (utils.hasOwn(sdb.hostnames, domain)) {
-        // don't add dynamic surrogate rule if it already exists in static rulesets
-        if (!enabledRulesetIds.includes('seed_ruleset')
-          || !badger.seedBlockedBases.has(getBaseDomain(domain))) {
-          addRules.push(...dnrUtils.getDnrSurrogateRules(badger.getDynamicRuleId.bind(badger), domain));
-        }
-      }
-    } else if (newVal.userAction == constants.USER_COOKIEBLOCK) {
-      addRules.push(dnrUtils.makeDnrCookieblockRule(
-        badger.getDynamicRuleId(), domain, constants.DNR_USER_COOKIEBLOCK_HEADERS));
-      addRules.push(dnrUtils.makeDnrAllowRule(
-        badger.getDynamicRuleId(), domain, constants.DNR_USER_COOKIEBLOCK_ALLOW));
-    } else if (newVal.userAction == constants.USER_ALLOW) {
-      addRules.push(dnrUtils.makeDnrAllowRule(
-        badger.getDynamicRuleId(), domain, constants.DNR_USER_ALLOW));
-
-    // (B) then DNT
-    } else if (badger.getSettings().getItem("checkForDNTPolicy") && newVal.dnt) {
-      addRules.push(dnrUtils.makeDnrAllowRule(
-        badger.getDynamicRuleId(), domain, constants.DNR_DNT_ALLOW));
-
-    // (C) and finally heuristic actions
-    } else if (newVal.heuristicAction == constants.COOKIEBLOCK) {
-      addRules.push(dnrUtils.makeDnrCookieblockRule(badger.getDynamicRuleId(), domain));
-      addRules.push(dnrUtils.makeDnrAllowRule(
-        badger.getDynamicRuleId(), domain, constants.DNR_COOKIEBLOCK_ALLOW));
-    } else if (newVal.heuristicAction == constants.BLOCK) {
-      // don't add dynamic block/surrogate rules if they already exist in static rulesets
-      if (!enabledRulesetIds.includes('seed_ruleset')
-        || !badger.seedBlockedBases.has(getBaseDomain(domain))) {
-        addRules.push(dnrUtils.makeDnrBlockRule(badger.getDynamicRuleId(), domain));
-        if (utils.hasOwn(sdb.hostnames, domain)) {
-          addRules.push(...dnrUtils.getDnrSurrogateRules(badger.getDynamicRuleId.bind(badger), domain));
-        }
-      }
-    }
-
-    if (addRules.length) {
-      opts.addRules = addRules;
-    }
-
-    if (opts.addRules || opts.removeRuleIds) {
-      dnrUtils.updateDynamicRules(opts);
-    }
-  }
+    actionMapUpdateQueue = {},
+    fpStoreUpdateQueue = {};
 
   let _updateDynamicRules = utils.debounce(async function () {
-    let dynamicRules = await chrome.declarativeNetRequest.getDynamicRules(),
-      enabledIds = await chrome.declarativeNetRequest.getEnabledRulesets();
-    for (let domain in queue) {
-      for (let values of queue[domain]) {
-        _updateDynamicRulesForDomain(
-          domain, values.newVal, values.oldVal, dynamicRules, enabledIds);
+    let opts = {
+      addRules: [],
+      removeRuleIds: []
+    };
+
+    let existingRules = await chrome.declarativeNetRequest.getDynamicRules();
+
+    for (let domain in actionMapUpdateQueue) {
+      for (let values of actionMapUpdateQueue[domain]) {
+        let { addRules, removeRuleIds } = _getDynamicRulesForDomain(
+          domain, values.newVal, values.oldVal, existingRules);
+
+        if (values.newVal) {
+          if (values.newVal.userAction == constants.USER_COOKIEBLOCK ||
+            values.newVal.heuristicAction == constants.COOKIEBLOCK) {
+            for (let host of fpStore.keys()) {
+              if (constants.FP_CDN_DOMAINS.has(host)) {
+                if (host == domain || host.endsWith('.' + domain)) {
+                  if (!utils.hasOwn(fpStoreUpdateQueue, host)) {
+                    fpStoreUpdateQueue[host] = new Set();
+                  }
+                  for (let path of Object.keys(fpStore.getItem(host))) {
+                    fpStoreUpdateQueue[host].add(path);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        if (addRules && addRules.length) {
+          // remove duplicate surrogate rules
+          addRules = addRules.filter(newRule => {
+            if (newRule.priority != constants.DNR_SURROGATE_REDIRECT) {
+              return true;
+            }
+            return !opts.addRules.some(rule =>
+              rule.priority == constants.DNR_SURROGATE_REDIRECT &&
+              rule.condition.requestDomains[0] == newRule.condition.requestDomains[0] &&
+              rule.condition.regexFilter == rule.condition.regexFilter);
+          });
+
+          // don't add cookieblock rules when followed by block rules (domain
+          // is cookieblocked in seed data but is no longer on the yellowlist)
+          for (let newRule of addRules) {
+            if (newRule.priority == constants.DNR_BLOCK) {
+              opts.addRules = opts.addRules.filter(rule =>
+                !(rule.condition.requestDomains.includes(domain) &&
+                (rule.priority == constants.DNR_COOKIEBLOCK_HEADERS ||
+                  rule.priority == constants.DNR_COOKIEBLOCK_ALLOW)));
+            }
+          }
+
+          opts.addRules = opts.addRules.concat(addRules);
+        }
+
+        if (removeRuleIds && removeRuleIds.length) {
+          opts.removeRuleIds = opts.removeRuleIds.concat(removeRuleIds);
+        }
       }
     }
-    queue = {};
+
+    for (let domain in fpStoreUpdateQueue) {
+      // block rules
+      for (let path of fpStoreUpdateQueue[domain]) {
+        opts.addRules.push(dnrUtils.makeDnrFpScriptBlockRule(
+          badger.getDynamicRuleId(), domain, path));
+      }
+
+      // surrogate rules
+      if (!sdb.hostnames[domain]) {
+        continue;
+      }
+      if (sdb.hostnames[domain].match != sdb.MATCH_SUFFIX) {
+        console.error(`Failed to create script surrogate rule for ${domain}:
+  Time to add support for ${sdb.hostnames[domain].match} matching`);
+        continue;
+      }
+      for (let token of sdb.hostnames[domain].tokens) {
+        opts.addRules.push(dnrUtils.makeDnrFpScriptSurrogateRule(
+          badger.getDynamicRuleId(),
+          domain,
+          token,
+          '/' + sdb.surrogates[token].slice(chrome.runtime.getURL('').length)));
+      }
+    }
+
+    if (opts.addRules.length || opts.removeRuleIds.length) {
+      dnrUtils.updateDynamicRules(opts);
+    }
+
+    actionMapUpdateQueue = {};
+    fpStoreUpdateQueue = {};
+
   }, 100);
 
   actionMap.subscribe("set:*", function (actionObj, domain) {
@@ -247,10 +315,10 @@ function subscribeToActionMapUpdates() {
       }
     }
 
-    if (!utils.hasOwn(queue, domain)) {
-      queue[domain] = [];
+    if (!utils.hasOwn(actionMapUpdateQueue, domain)) {
+      actionMapUpdateQueue[domain] = [];
     }
-    queue[domain].push({
+    actionMapUpdateQueue[domain].push({
       newVal: actionObj,
       oldVal: oldAction
     });
@@ -259,52 +327,37 @@ function subscribeToActionMapUpdates() {
   });
 
   actionMap.subscribe("delete:*", function (_, domain) {
-    if (!utils.hasOwn(queue, domain)) {
-      queue[domain] = [];
+    if (!utils.hasOwn(actionMapUpdateQueue, domain)) {
+      actionMapUpdateQueue[domain] = [];
     }
-    queue[domain].push({
+    actionMapUpdateQueue[domain].push({
       newVal: null
     });
 
     _updateDynamicRules();
   });
 
-  // block known CDN-hosted fingerprinters
+  // update dynamic DNR rules in response to changes in fp_scripts
+  // so that we block known CDN-hosted fingerprinters
   // https://github.com/EFForg/privacybadger/pull/2891
-  fpStore.subscribe("set:*", async function (fpScripts, domain) {
-    let addRules = [];
-
+  badger.storage.getStore('fp_scripts').subscribe("set:*", function (fpScripts, domain) {
     if (!constants.FP_CDN_DOMAINS.has(domain)) {
       return;
     }
 
-    // don't add dynamic block/surrogate rules
-    // if they already exist in static rulesets
-    let enabledIds = await chrome.declarativeNetRequest.getEnabledRulesets();
-    if (enabledIds.includes('seed_ruleset')) {
-      if (badger.seedBlockedBases.has(getBaseDomain(domain))) {
-        return;
-      }
+    let action = badger.storage.getBestAction(domain);
+    if (action != constants.COOKIEBLOCK && action != constants.USER_COOKIEBLOCK) {
+      return;
     }
 
-    if (sdb.hostnames[domain]) {
-      if (sdb.hostnames[domain].match == sdb.MATCH_SUFFIX) {
-        for (let token of sdb.hostnames[domain].tokens) {
-          addRules.push(dnrUtils.makeDnrFpScriptSurrogateRule(
-            badger.getDynamicRuleId(),
-            domain,
-            token,
-            '/' + sdb.surrogates[token].slice(chrome.runtime.getURL('').length)));
-        }
-      }
+    if (!utils.hasOwn(fpStoreUpdateQueue, domain)) {
+      fpStoreUpdateQueue[domain] = new Set();
     }
-
     for (let path of Object.keys(fpScripts)) {
-      addRules.push(dnrUtils.makeDnrFpScriptBlockRule(
-        badger.getDynamicRuleId(), domain, path));
+      fpStoreUpdateQueue[domain].add(path);
     }
 
-    dnrUtils.updateDynamicRules({ addRules });
+    _updateDynamicRules();
   });
 }
 
