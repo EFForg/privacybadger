@@ -58,6 +58,7 @@ function Badger(from_qunit) {
 
   // we need to get ready to create dynamic rules before initializing storage
   self.initMaxDynamicRuleId().then(function () {
+    log("[DNR] Ready to generate dynamic rule IDs");
     self.storage = new BadgerPen(onStorageReady);
   });
 
