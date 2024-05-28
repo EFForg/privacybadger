@@ -109,27 +109,59 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.assert_load()
 
     def test_blocking_fp_script_served_from_cookieblocked_cdn(self):
+        """Since we have a surrogate script for FingerprintJS served from
+        cdn.jsdelivr.net, we need to test surrogation rather than blocking."""
+
+        def get_visitor_id():
+            return self.driver.execute_async_script(
+                "let done = arguments[arguments.length - 1];"
+                "FingerprintJS.load().then(fp => {"
+                "  fp.get().then(res => {"
+                "    done(res.visitorId);"
+                "  });"
+                "});")
+
         self.cookieblock_domain("cdn.jsdelivr.net")
 
-        # disable surrogates
-        self.driver.execute_async_script(
-            "let done = arguments[arguments.length - 1];"
-            "chrome.runtime.sendMessage({"
-            "  type: 'disableSurrogates'"
-            "}, done);")
+        # first get a visitor ID from FingerprintJS, before enabling learning
+        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
+        self.assert_load()
+        visitor_id = get_visitor_id()
 
         # enable local learning
+        self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('#local-learning-checkbox').click()
 
+        # assert the original script still loads
         self.load_url(self.FIXTURE_URL + '?fingerprintjs')
         self.assert_load()
+        assert get_visitor_id() == visitor_id, (
+            "Visitor ID should be consistent between page loads")
 
-        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
-        # navigate elsewhere and back to work around the third-party getting served from cache
+        # poll for DNR to get updated
+        self.open_window()
         self.load_url(self.options_url)
-        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
-        self.assert_block()
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function () {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(rules.some(r => {"
+            "    return (r.action.type == 'redirect' && r.priority == constants.DNR_FP_SCRIPT_SURROGATE_REDIRECT);"
+            "  }));"
+            "}());", execute_async=True, timeout=3)
+
+        # now assert the surrogate script loads
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.driver.refresh()
+        self.assert_load()
+        assert get_visitor_id() != visitor_id, (
+            "Visitor ID should change between page loads")
+        self.driver.refresh()
+        self.assert_load()
+        assert get_visitor_id() != visitor_id, (
+            "Visitor ID should change between page loads")
 
     def test_userblock(self):
         self.set_user_action(self.THIRD_PARTY_DOMAIN, "block")
