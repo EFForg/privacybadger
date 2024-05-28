@@ -194,15 +194,6 @@ function _createButtonReplacement(widget, callback) {
       if (!e.isTrusted) { return; }
       replaceButtonWithIframeAndUnblockTracker(button, widget.name, iframe_url);
     }, { once: true });
-
-  // in place button type; replace the existing button with code
-  // specified in the widgets JSON
-  // TODO only AddThis uses this code path, replace with a type 4 probably
-  } else if (button_type == 2) {
-    button.addEventListener("click", function (e) {
-      if (!e.isTrusted) { return; }
-      replaceButtonWithHtmlCodeAndUnblockTracker(button, widget.name, buttonData.details);
-    }, { once: true });
   }
 
   callback(button);
@@ -246,30 +237,6 @@ function replaceButtonWithIframeAndUnblockTracker(button, widget_name, iframeUrl
       iframe.setAttribute("style", "border: none !important; height: 1.5em !important;");
 
       button.parentNode.replaceChild(iframe, button);
-    }
-  });
-}
-
-/**
- * Unblocks the given widget and replaces the given button with the
- * HTML code defined in the provided SocialWidget object.
- *
- * @param {Element} button the DOM element of the button to replace
- * @param {String} widget_name the name of the replacement widget
- * @param {String} html the HTML string that should replace the button
- */
-function replaceButtonWithHtmlCodeAndUnblockTracker(button, widget_name, html) {
-  unblockTracker(widget_name, function () {
-    // check is needed as for an unknown reason this callback function is
-    // executed for buttons that have already been removed; we are trying
-    // to prevent replacing an already removed button
-    if (button.parentNode !== null) {
-      let codeContainer = document.createElement("div");
-      codeContainer.innerHTML = html;
-
-      button.parentNode.replaceChild(codeContainer, button);
-
-      replaceScriptsRecurse(codeContainer);
     }
   });
 }
@@ -367,34 +334,6 @@ function reloadScripts(selectors) {
     break;
   }
 }
-
-/**
- * Dumping scripts into innerHTML won't execute them, so replace them
- * with executable scripts.
- *
- * This is code for re-activating a previously blocked third-party widget.
- *
- * Any script reinserted here is a script that would have
- * run on the page anyway, had Privacy Badger not blocked it.
- */
-function replaceScriptsRecurse(node) {
-  if (node.nodeName && node.nodeName.toLowerCase() == 'script' &&
-      node.getAttribute && node.getAttribute("type") == "text/javascript") {
-    let script = document.createElement("script");
-    script.text = node.innerHTML;
-    script.src = node.src;
-    node.parentNode.replaceChild(script, node);
-  } else {
-    let i = 0,
-      children = node.childNodes;
-    while (i < children.length) {
-      replaceScriptsRecurse(children[i]);
-      i++;
-    }
-  }
-  return node;
-}
-
 
 /**
  * Replaces all tracker buttons on the current web page with the internal
