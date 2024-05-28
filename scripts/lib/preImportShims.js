@@ -54,6 +54,6 @@ globalThis.badger = {
     };
   },
   initSettings: () => {},
-  isCheckingDNTPolicyEnabled: () => true,
+  isCheckingDNTPolicyEnabled: () => false,
   initWelcomePage: () => {},
 };
