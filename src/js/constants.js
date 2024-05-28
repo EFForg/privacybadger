@@ -52,6 +52,21 @@ let exports = {
     'cdn.jsdelivr.net',
     'gadasource.storage.googleapis.com',
   ]),
+
+  // Declarative Net Request priorities
+  DNR_BLOCK: 1,
+  DNR_COOKIEBLOCK_ALLOW: 2,
+  DNR_COOKIEBLOCK_HEADERS: 3,
+  DNR_DNT_CHECK_ALLOW: 3,
+  DNR_DNT_CHECK_HEADERS: 4,
+  DNR_DNT_HEADER: 4,
+  DNR_DNT_ALLOW: 25,
+  DNR_USER_BLOCK: 40,
+  DNR_SURROGATE_REDIRECT: 50,
+  DNR_USER_COOKIEBLOCK_ALLOW: 59,
+  DNR_USER_COOKIEBLOCK_HEADERS: 60,
+  DNR_USER_ALLOW: 70,
+  DNR_SITE_ALLOW_ALL: 100,
 };
 
 exports.BLOCKED_ACTIONS = new Set([
@@ -59,6 +74,13 @@ exports.BLOCKED_ACTIONS = new Set([
   exports.USER_BLOCK,
   exports.COOKIEBLOCK,
   exports.USER_COOKIEBLOCK,
+]);
+
+exports.DNR_USER_ACTIONS = new Set([
+  exports.DNR_USER_BLOCK,
+  exports.DNR_USER_COOKIEBLOCK_ALLOW,
+  exports.DNR_USER_COOKIEBLOCK_HEADERS,
+  exports.DNR_USER_ALLOW
 ]);
 
 export default exports;
