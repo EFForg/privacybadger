@@ -67,7 +67,7 @@ function cleanLink(el) {
   el.addEventListener("mouseover", stopPropagation, true);
 }
 
-// TODO race condition; fix waiting on https://crbug.com/478183
+// TODO switch to registerContentScripts to fix race condition
 chrome.runtime.sendMessage({
   type: "checkEnabled"
 }, function (enabled) {

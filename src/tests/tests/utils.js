@@ -95,7 +95,7 @@ QUnit.module("Utils", function (/*hooks*/) {
         notFoundResp = new Response(null, {status: 404});
 
       // set up fake server to simulate fetch()
-      let stubbedFetch = sinon.stub(window, 'fetch');
+      let stubbedFetch = sinon.stub(globalThis, 'fetch');
 
       stubbedFetch
         .withArgs("https://www.eff.org/files/badgertest.txt")

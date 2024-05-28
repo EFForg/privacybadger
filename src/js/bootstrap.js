@@ -15,7 +15,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-window.DEBUG = true;
+globalThis.DEBUG = true;
 
 let time_prev = null,
   time_total = 0,
@@ -33,7 +33,7 @@ function float_fmt(num) {
  * Log a message to the console if debugging is enabled
  */
 function log(/*...*/) {
-  if (!window.DEBUG) {
+  if (!globalThis.DEBUG) {
     return;
   }
 
