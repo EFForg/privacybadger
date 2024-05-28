@@ -148,19 +148,20 @@ function makeDnrAllowRule(domain, priority) {
  *
  * @param {Integer} id
  * @param {String} script_host
- * @param {String} path
- * @param {Object} extra_conditions
+ * @param {String} surrogate_path
+ * @param {Object} extraConditions
+ * @param {Integer?} priority
  *
  * @returns {Object}
  */
-function makeDnrSurrogateRule(id, script_host, path, extra_conditions) {
+function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions, priority) {
   let rule = {
     id,
-    priority: constants.DNR_SURROGATE_REDIRECT,
+    priority: priority || constants.DNR_SURROGATE_REDIRECT,
     action: {
       type: 'redirect',
       redirect: {
-        extensionPath: '/' + path.slice(chrome.runtime.getURL('').length)
+        extensionPath: surrogate_path
       }
     },
     condition: {
@@ -171,9 +172,9 @@ function makeDnrSurrogateRule(id, script_host, path, extra_conditions) {
     }
   };
 
-  if (extra_conditions) {
-    for (let key in extra_conditions) {
-      rule.condition[key] = extra_conditions[key];
+  if (extraConditions) {
+    for (let key in extraConditions) {
+      rule.condition[key] = extraConditions[key];
     }
   }
 
@@ -197,44 +198,40 @@ function getDnrSurrogateRules(domain) {
     conf = sdb.hostnames[domain];
 
   if (conf.match == sdb.MATCH_ANY) {
-    rules.push(makeDnrSurrogateRule(
-      badger.getDynamicRuleId(), domain, sdb.surrogates[conf.token]));
+    rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
+      domain, sdb.surrogates[conf.token]));
 
   } else if (conf.match == sdb.MATCH_SUFFIX) {
     for (let token of conf.tokens) {
       let extra = {
-        // URL either ends with token, or with token followed by ?
-        // followed by any number of characters
+        // URL ends with:
+        // - token
+        // - token followed by ? followed by any number of characters
+        // - token followed by # followed by any number of characters
         // (?:) is an RE2 non-capturing group
-        // TODO fix for 15f68c5cfb2034a6ef5a9b72302a5ecf3d195032
-        // TODO don't need the leading .* right?
-        // TODO regex escape?
-        regexFilter: `.*${token}(?:\\?.*)?$`
+        regexFilter: utils.regexEscape(token) + '(?:\\?.*|#.*|$)'
       };
-      rules.push(makeDnrSurrogateRule(
-        badger.getDynamicRuleId(), domain, sdb.surrogates[token], extra));
+      rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
+        domain, sdb.surrogates[token], extra));
     }
 
   } else if (conf.match == sdb.MATCH_PREFIX) {
     for (let token of conf.tokens) {
-      // TODO replace with urlFilter, something like:
-      // urlFilter: '||' + domain + token + '^'
       let extra = {
-        regexFilter: `//${domain}${token}`.replace(/\//g, '\\/')
+        urlFilter: '||' + domain + token + '^'
       };
-      rules.push(makeDnrSurrogateRule(
-        badger.getDynamicRuleId(), domain, sdb.surrogates[token], extra));
+      rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
+        domain, sdb.surrogates[token], extra));
     }
 
   } else if (conf.match == sdb.MATCH_PREFIX_WITH_PARAMS) {
     for (let token of conf.tokens) {
-      // TODO replace with urlFilter
-      // TODO conf.params
+      // TODO fix matching on conf.params
       let extra = {
-        regexFilter: `//${domain}${token}/?`.replace(/\//g, '\\/')
+        urlFilter: '||' + domain + token + '?*' + Object.keys(conf.params).join('^*^')
       };
-      rules.push(makeDnrSurrogateRule(
-        badger.getDynamicRuleId(), domain, sdb.surrogates[token], extra));
+      rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
+        domain, sdb.surrogates[token], extra));
     }
   }
 
@@ -277,25 +274,12 @@ function makeDnrFpScriptBlockRule(id, domain, path) {
  * @returns {Object}
  */
 function makeDnrFpScriptSurrogateRule(id, domain, match_token, surrogate_path) {
-  // TODO reuse makeDnrSurrogateRule()
-  return {
-    id,
-    priority: constants.DNR_FP_SCRIPT_SURROGATE_REDIRECT,
-    action: {
-      type: 'redirect',
-      redirect: { extensionPath: surrogate_path }
-    },
-    condition: {
-      requestDomains: [domain],
-      resourceTypes: ['script'],
-      // TODO fix for 15f68c5cfb2034a6ef5a9b72302a5ecf3d195032
-      // TODO don't need the leading .* right?
-      // TODO this is hardcoded to sdb.MATCH_SUFFIX only
-      regexFilter: `.*${match_token}(?:\\?.*)?$`,
-      domainType: 'thirdParty',
-      excludedInitiatorDomains: mdfp.getEntityList(getBaseDomain(domain))
-    }
+  let extraConditions = {
+    // TODO this is hardcoded to sdb.MATCH_SUFFIX only
+    regexFilter: utils.regexEscape(match_token) + '(?:\\?.*|#.*|$)',
   };
+  return makeDnrSurrogateRule(id, domain, surrogate_path, extraConditions,
+    constants.DNR_FP_SCRIPT_SURROGATE_REDIRECT);
 }
 
 /**
