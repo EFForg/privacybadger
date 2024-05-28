@@ -19,6 +19,7 @@
 
 import { getBaseDomain } from "../lib/basedomain.js";
 import { subscribeToStorageUpdates } from "../lib/dnr/subscribers.js";
+import dnrUtils from "../lib/dnr/utils.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -235,13 +236,10 @@ BadgerPen.prototype = {
   /**
    * Empties tracking-related storage, forgetting all data learned from browsing.
    *
-   * @param {Function} [callback] function to call when DNR is done updating
+   * @returns {Promise}
    */
-  clearTrackerData: function (callback) {
-    let self = this,
-      num_done = 0;
-
-    callback = callback || function () {};
+  clearTrackerData: async function () {
+    let self = this;
 
     for (let name of ['action_map', 'snitch_map', 'tracking_map', 'fp_scripts']) {
       let store = self.getStore(name),
@@ -265,28 +263,14 @@ BadgerPen.prototype = {
       }
     }
 
-    function done() {
-      num_done++;
-      if (num_done == 2) {
-        callback();
-      }
-    }
-
     // remove all dynamic rules
-    chrome.declarativeNetRequest.getDynamicRules(rules => {
-      chrome.declarativeNetRequest.updateDynamicRules({
-        removeRuleIds: rules.map(r => r.id)
-      }, function () {
-        badger.maxDynamicRuleId = 0;
-        done();
-      });
+    const max_num_rules = chrome.declarativeNetRequest.MAX_NUMBER_OF_DYNAMIC_RULES ||
+      chrome.declarativeNetRequest.MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES;
+    dnrUtils.updateDynamicRules.clearQueue();
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      removeRuleIds: Array(max_num_rules).fill(1).map((i, j) => i + j)
     });
-
-    // disable static rules
-    // TODO persist across restarts using an (exportable) setting and toggleEnabledDnrRulesets()
-    chrome.declarativeNetRequest.updateEnabledRulesets({
-      disableRulesetIds: ['seed_ruleset', 'surrogates_ruleset']
-    }, done);
+    badger.maxDynamicRuleId = 0;
   },
 
   /**
