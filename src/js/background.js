@@ -83,6 +83,10 @@ function Badger(from_qunit) {
 
     self.toggleEnabledDnrRulesets();
 
+    if (!from_qunit) {
+      self.registerContentScripts();
+    }
+
     self.setPrivacyOverrides();
 
     // kick off async initialization steps
@@ -227,6 +231,43 @@ Badger.prototype = {
 
     if (!prefs.getItem("checkForDNTPolicy")) {
       dnrUtils.updateEnabledRulesets({ disableRulesetIds: ['dnt_policy_ruleset'] });
+    }
+  },
+
+  /**
+   * Registers content scripts on startup.
+   */
+  registerContentScripts: function () {
+    let self = this,
+      prefs = self.getSettings();
+
+    let excludeMatches = dnrUtils.convertSiteDomainsToMatchPatterns(
+      prefs.getItem("disabledSites"));
+
+    // TODO "matchOriginAsFallback" and "world" are not supported in Firefox
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1853411
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+    let scripts = constants.CONTENT_SCRIPTS
+      .filter(item => {
+        switch (item.id) {
+        case "dnt_signal":
+          return prefs.getItem('sendDNTSignal');
+        default:
+          return true;
+        }
+      })
+      .map(item => {
+        // TODO we want top-level frame (site) domains only
+        // TODO but the API doesn't limit frames to top-level:
+        // https://crbug.com/1261768
+        item.excludeMatches = excludeMatches;
+        return item;
+      });
+
+    if (scripts.length) {
+      chrome.scripting.registerContentScripts(scripts).catch(function () {
+        // ignore "Duplicate script ID" error on restart after an inactivity termination
+      });
     }
   },
 
