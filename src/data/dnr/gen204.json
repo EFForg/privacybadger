@@ -1,0 +1,2472 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com/gen_204^"
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ad/gen_204^"
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ae/gen_204^"
+    }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.af/gen_204^"
+    }
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.ag/gen_204^"
+    }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.ai/gen_204^"
+    }
+  },
+  {
+    "id": 7,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.al/gen_204^"
+    }
+  },
+  {
+    "id": 8,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.am/gen_204^"
+    }
+  },
+  {
+    "id": 9,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.ao/gen_204^"
+    }
+  },
+  {
+    "id": 10,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.ar/gen_204^"
+    }
+  },
+  {
+    "id": 11,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.as/gen_204^"
+    }
+  },
+  {
+    "id": 12,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.at/gen_204^"
+    }
+  },
+  {
+    "id": 13,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.au/gen_204^"
+    }
+  },
+  {
+    "id": 14,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.az/gen_204^"
+    }
+  },
+  {
+    "id": 15,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ba/gen_204^"
+    }
+  },
+  {
+    "id": 16,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.bd/gen_204^"
+    }
+  },
+  {
+    "id": 17,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.be/gen_204^"
+    }
+  },
+  {
+    "id": 18,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.bf/gen_204^"
+    }
+  },
+  {
+    "id": 19,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.bg/gen_204^"
+    }
+  },
+  {
+    "id": 20,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.bh/gen_204^"
+    }
+  },
+  {
+    "id": 21,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.bi/gen_204^"
+    }
+  },
+  {
+    "id": 22,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.bj/gen_204^"
+    }
+  },
+  {
+    "id": 23,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.bn/gen_204^"
+    }
+  },
+  {
+    "id": 24,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.bo/gen_204^"
+    }
+  },
+  {
+    "id": 25,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.br/gen_204^"
+    }
+  },
+  {
+    "id": 26,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.bs/gen_204^"
+    }
+  },
+  {
+    "id": 27,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.bt/gen_204^"
+    }
+  },
+  {
+    "id": 28,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.bw/gen_204^"
+    }
+  },
+  {
+    "id": 29,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.by/gen_204^"
+    }
+  },
+  {
+    "id": 30,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.bz/gen_204^"
+    }
+  },
+  {
+    "id": 31,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ca/gen_204^"
+    }
+  },
+  {
+    "id": 32,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.cd/gen_204^"
+    }
+  },
+  {
+    "id": 33,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.cf/gen_204^"
+    }
+  },
+  {
+    "id": 34,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.cg/gen_204^"
+    }
+  },
+  {
+    "id": 35,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ch/gen_204^"
+    }
+  },
+  {
+    "id": 36,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ci/gen_204^"
+    }
+  },
+  {
+    "id": 37,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.ck/gen_204^"
+    }
+  },
+  {
+    "id": 38,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.cl/gen_204^"
+    }
+  },
+  {
+    "id": 39,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.cm/gen_204^"
+    }
+  },
+  {
+    "id": 40,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.cn/gen_204^"
+    }
+  },
+  {
+    "id": 41,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.co/gen_204^"
+    }
+  },
+  {
+    "id": 42,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.cr/gen_204^"
+    }
+  },
+  {
+    "id": 43,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.cu/gen_204^"
+    }
+  },
+  {
+    "id": 44,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.cv/gen_204^"
+    }
+  },
+  {
+    "id": 45,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.cy/gen_204^"
+    }
+  },
+  {
+    "id": 46,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.cz/gen_204^"
+    }
+  },
+  {
+    "id": 47,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.de/gen_204^"
+    }
+  },
+  {
+    "id": 48,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.dj/gen_204^"
+    }
+  },
+  {
+    "id": 49,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.dk/gen_204^"
+    }
+  },
+  {
+    "id": 50,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.dm/gen_204^"
+    }
+  },
+  {
+    "id": 51,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.do/gen_204^"
+    }
+  },
+  {
+    "id": 52,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.dz/gen_204^"
+    }
+  },
+  {
+    "id": 53,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.ec/gen_204^"
+    }
+  },
+  {
+    "id": 54,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ee/gen_204^"
+    }
+  },
+  {
+    "id": 55,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.eg/gen_204^"
+    }
+  },
+  {
+    "id": 56,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.es/gen_204^"
+    }
+  },
+  {
+    "id": 57,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.et/gen_204^"
+    }
+  },
+  {
+    "id": 58,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.fi/gen_204^"
+    }
+  },
+  {
+    "id": 59,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.fj/gen_204^"
+    }
+  },
+  {
+    "id": 60,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.fm/gen_204^"
+    }
+  },
+  {
+    "id": 61,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.fr/gen_204^"
+    }
+  },
+  {
+    "id": 62,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ga/gen_204^"
+    }
+  },
+  {
+    "id": 63,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ge/gen_204^"
+    }
+  },
+  {
+    "id": 64,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.gg/gen_204^"
+    }
+  },
+  {
+    "id": 65,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.gh/gen_204^"
+    }
+  },
+  {
+    "id": 66,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.gi/gen_204^"
+    }
+  },
+  {
+    "id": 67,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.gl/gen_204^"
+    }
+  },
+  {
+    "id": 68,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.gm/gen_204^"
+    }
+  },
+  {
+    "id": 69,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.gr/gen_204^"
+    }
+  },
+  {
+    "id": 70,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.gt/gen_204^"
+    }
+  },
+  {
+    "id": 71,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.gy/gen_204^"
+    }
+  },
+  {
+    "id": 72,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.hk/gen_204^"
+    }
+  },
+  {
+    "id": 73,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.hn/gen_204^"
+    }
+  },
+  {
+    "id": 74,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.hr/gen_204^"
+    }
+  },
+  {
+    "id": 75,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ht/gen_204^"
+    }
+  },
+  {
+    "id": 76,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.hu/gen_204^"
+    }
+  },
+  {
+    "id": 77,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.id/gen_204^"
+    }
+  },
+  {
+    "id": 78,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ie/gen_204^"
+    }
+  },
+  {
+    "id": 79,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.il/gen_204^"
+    }
+  },
+  {
+    "id": 80,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.im/gen_204^"
+    }
+  },
+  {
+    "id": 81,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.in/gen_204^"
+    }
+  },
+  {
+    "id": 82,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.iq/gen_204^"
+    }
+  },
+  {
+    "id": 83,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.is/gen_204^"
+    }
+  },
+  {
+    "id": 84,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.it/gen_204^"
+    }
+  },
+  {
+    "id": 85,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.je/gen_204^"
+    }
+  },
+  {
+    "id": 86,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.jm/gen_204^"
+    }
+  },
+  {
+    "id": 87,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.jo/gen_204^"
+    }
+  },
+  {
+    "id": 88,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.jp/gen_204^"
+    }
+  },
+  {
+    "id": 89,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.ke/gen_204^"
+    }
+  },
+  {
+    "id": 90,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.kh/gen_204^"
+    }
+  },
+  {
+    "id": 91,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ki/gen_204^"
+    }
+  },
+  {
+    "id": 92,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.kg/gen_204^"
+    }
+  },
+  {
+    "id": 93,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.kr/gen_204^"
+    }
+  },
+  {
+    "id": 94,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.kw/gen_204^"
+    }
+  },
+  {
+    "id": 95,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.kz/gen_204^"
+    }
+  },
+  {
+    "id": 96,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.la/gen_204^"
+    }
+  },
+  {
+    "id": 97,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.lb/gen_204^"
+    }
+  },
+  {
+    "id": 98,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.li/gen_204^"
+    }
+  },
+  {
+    "id": 99,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.lk/gen_204^"
+    }
+  },
+  {
+    "id": 100,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.ls/gen_204^"
+    }
+  },
+  {
+    "id": 101,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.lt/gen_204^"
+    }
+  },
+  {
+    "id": 102,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.lu/gen_204^"
+    }
+  },
+  {
+    "id": 103,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.lv/gen_204^"
+    }
+  },
+  {
+    "id": 104,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.ly/gen_204^"
+    }
+  },
+  {
+    "id": 105,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.ma/gen_204^"
+    }
+  },
+  {
+    "id": 106,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.md/gen_204^"
+    }
+  },
+  {
+    "id": 107,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.me/gen_204^"
+    }
+  },
+  {
+    "id": 108,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.mg/gen_204^"
+    }
+  },
+  {
+    "id": 109,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.mk/gen_204^"
+    }
+  },
+  {
+    "id": 110,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ml/gen_204^"
+    }
+  },
+  {
+    "id": 111,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.mm/gen_204^"
+    }
+  },
+  {
+    "id": 112,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.mn/gen_204^"
+    }
+  },
+  {
+    "id": 113,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ms/gen_204^"
+    }
+  },
+  {
+    "id": 114,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.mt/gen_204^"
+    }
+  },
+  {
+    "id": 115,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.mu/gen_204^"
+    }
+  },
+  {
+    "id": 116,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.mv/gen_204^"
+    }
+  },
+  {
+    "id": 117,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.mw/gen_204^"
+    }
+  },
+  {
+    "id": 118,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.mx/gen_204^"
+    }
+  },
+  {
+    "id": 119,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.my/gen_204^"
+    }
+  },
+  {
+    "id": 120,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.mz/gen_204^"
+    }
+  },
+  {
+    "id": 121,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.na/gen_204^"
+    }
+  },
+  {
+    "id": 122,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.ng/gen_204^"
+    }
+  },
+  {
+    "id": 123,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.ni/gen_204^"
+    }
+  },
+  {
+    "id": 124,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ne/gen_204^"
+    }
+  },
+  {
+    "id": 125,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.nl/gen_204^"
+    }
+  },
+  {
+    "id": 126,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.no/gen_204^"
+    }
+  },
+  {
+    "id": 127,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.np/gen_204^"
+    }
+  },
+  {
+    "id": 128,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.nr/gen_204^"
+    }
+  },
+  {
+    "id": 129,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.nu/gen_204^"
+    }
+  },
+  {
+    "id": 130,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.nz/gen_204^"
+    }
+  },
+  {
+    "id": 131,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.om/gen_204^"
+    }
+  },
+  {
+    "id": 132,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.pa/gen_204^"
+    }
+  },
+  {
+    "id": 133,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.pe/gen_204^"
+    }
+  },
+  {
+    "id": 134,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.pg/gen_204^"
+    }
+  },
+  {
+    "id": 135,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.ph/gen_204^"
+    }
+  },
+  {
+    "id": 136,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.pk/gen_204^"
+    }
+  },
+  {
+    "id": 137,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.pl/gen_204^"
+    }
+  },
+  {
+    "id": 138,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.pn/gen_204^"
+    }
+  },
+  {
+    "id": 139,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.pr/gen_204^"
+    }
+  },
+  {
+    "id": 140,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ps/gen_204^"
+    }
+  },
+  {
+    "id": 141,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.pt/gen_204^"
+    }
+  },
+  {
+    "id": 142,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.py/gen_204^"
+    }
+  },
+  {
+    "id": 143,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.qa/gen_204^"
+    }
+  },
+  {
+    "id": 144,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ro/gen_204^"
+    }
+  },
+  {
+    "id": 145,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ru/gen_204^"
+    }
+  },
+  {
+    "id": 146,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.rw/gen_204^"
+    }
+  },
+  {
+    "id": 147,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.sa/gen_204^"
+    }
+  },
+  {
+    "id": 148,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.sb/gen_204^"
+    }
+  },
+  {
+    "id": 149,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.sc/gen_204^"
+    }
+  },
+  {
+    "id": 150,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.se/gen_204^"
+    }
+  },
+  {
+    "id": 151,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.sg/gen_204^"
+    }
+  },
+  {
+    "id": 152,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.sh/gen_204^"
+    }
+  },
+  {
+    "id": 153,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.si/gen_204^"
+    }
+  },
+  {
+    "id": 154,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.sk/gen_204^"
+    }
+  },
+  {
+    "id": 155,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.sl/gen_204^"
+    }
+  },
+  {
+    "id": 156,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.sn/gen_204^"
+    }
+  },
+  {
+    "id": 157,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.so/gen_204^"
+    }
+  },
+  {
+    "id": 158,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.sm/gen_204^"
+    }
+  },
+  {
+    "id": 159,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.sr/gen_204^"
+    }
+  },
+  {
+    "id": 160,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.st/gen_204^"
+    }
+  },
+  {
+    "id": 161,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.sv/gen_204^"
+    }
+  },
+  {
+    "id": 162,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.td/gen_204^"
+    }
+  },
+  {
+    "id": 163,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.tg/gen_204^"
+    }
+  },
+  {
+    "id": 164,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.th/gen_204^"
+    }
+  },
+  {
+    "id": 165,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.tj/gen_204^"
+    }
+  },
+  {
+    "id": 166,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.tl/gen_204^"
+    }
+  },
+  {
+    "id": 167,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.tm/gen_204^"
+    }
+  },
+  {
+    "id": 168,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.tn/gen_204^"
+    }
+  },
+  {
+    "id": 169,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.to/gen_204^"
+    }
+  },
+  {
+    "id": 170,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.tr/gen_204^"
+    }
+  },
+  {
+    "id": 171,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.tt/gen_204^"
+    }
+  },
+  {
+    "id": 172,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.tw/gen_204^"
+    }
+  },
+  {
+    "id": 173,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.tz/gen_204^"
+    }
+  },
+  {
+    "id": 174,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.ua/gen_204^"
+    }
+  },
+  {
+    "id": 175,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.ug/gen_204^"
+    }
+  },
+  {
+    "id": 176,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.uk/gen_204^"
+    }
+  },
+  {
+    "id": 177,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.uy/gen_204^"
+    }
+  },
+  {
+    "id": 178,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.uz/gen_204^"
+    }
+  },
+  {
+    "id": 179,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.vc/gen_204^"
+    }
+  },
+  {
+    "id": 180,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.ve/gen_204^"
+    }
+  },
+  {
+    "id": 181,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.vg/gen_204^"
+    }
+  },
+  {
+    "id": 182,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.vi/gen_204^"
+    }
+  },
+  {
+    "id": 183,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.com.vn/gen_204^"
+    }
+  },
+  {
+    "id": 184,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.vu/gen_204^"
+    }
+  },
+  {
+    "id": 185,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.ws/gen_204^"
+    }
+  },
+  {
+    "id": 186,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.rs/gen_204^"
+    }
+  },
+  {
+    "id": 187,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.za/gen_204^"
+    }
+  },
+  {
+    "id": 188,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.zm/gen_204^"
+    }
+  },
+  {
+    "id": 189,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.co.zw/gen_204^"
+    }
+  },
+  {
+    "id": 190,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "resourceTypes": [
+        "ping"
+      ],
+      "urlFilter": "|https://www.google.cat/gen_204^"
+    }
+  }
+]
