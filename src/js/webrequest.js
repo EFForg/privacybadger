@@ -769,6 +769,7 @@ function dispatcher(request, sender, sendResponse) {
       "fpReport",
       "getReplacementButton",
       "inspectLocalStorage",
+      "reloadWidgetScripts",
       "supercookieReport",
       "unblockWidget",
       "widgetFromSurrogate",
@@ -889,6 +890,62 @@ function dispatcher(request, sender, sendResponse) {
     if (!allowedWidgets[tab_host].includes(request.widgetName)) {
       allowedWidgets[tab_host].push(request.widgetName);
       badger.getSettings().setItem('widgetSiteAllowlist', allowedWidgets);
+    }
+    sendResponse();
+    break;
+  }
+
+  case "reloadWidgetScripts": {
+    if (request.selectors) {
+      chrome.scripting.executeScript({
+        target: {
+          tabId: sender.tab.id,
+          frameIds: [sender.frameId]
+        },
+        injectImmediately: true,
+        world: chrome.scripting.ExecutionWorld.MAIN,
+        /**
+         * Find and replace script elements with their copies to trigger re-running.
+         *
+         * This is code for re-activating a previously blocked third-party widget
+         * (such as Google reCAPTCHA or Disqus comments).
+         *
+         * The scripts being run are third-party widget scripts that Privacy Badger
+         * previously blocked and the user chose to activate.
+         *
+         * For example:
+         *
+         * 1. The user visits a page with comments powered by Disqus.
+         * 2. Privacy Badger blocks the Disqus script and inserts a placeholder
+         * where the Disqus widget would have appeared.
+         * 3. If the user chooses to click "Allow" in the placeholder, Privacy Badger
+         * removes the placeholder and reinserts the Disqus script.
+         *
+         * Any script reinserted here is a script that would have
+         * run on the page anyway, had Privacy Badger not blocked it.
+         */
+        func: function (selectors) {
+          // eslint-disable-next-line no-undef
+          let scripts = document.querySelectorAll(selectors.join(','));
+
+          for (let scriptEl of scripts) {
+            // reinsert script elements only
+            if (!scriptEl.nodeName || scriptEl.nodeName.toLowerCase() != 'script') {
+              continue;
+            }
+
+            // eslint-disable-next-line no-undef
+            let replacement = document.createElement("script");
+            for (let attr of scriptEl.attributes) {
+              replacement.setAttribute(attr.nodeName, attr.value);
+            }
+            scriptEl.parentNode.replaceChild(replacement, scriptEl);
+            // reinsert one script and quit
+            break;
+          }
+        },
+        args: [request.selectors],
+      });
     }
     sendResponse();
     break;
