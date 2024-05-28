@@ -432,6 +432,10 @@ class PBSeleniumTest(unittest.TestCase):
 
         return WebDriverWait(self.driver, timeout).until(execute_script, message)
 
+    def wait_for_any_text(self, selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
+            lambda d: d.find_element(By.CSS_SELECTOR, selector).text.strip())
+
     def wait_for_text(self, selector, text, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
             EC.text_to_be_present_in_element(
