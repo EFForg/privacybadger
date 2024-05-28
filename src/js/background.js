@@ -918,7 +918,6 @@ Badger.prototype = {
     disableHyperlinkAuditing: true,
     disableNetworkPrediction: true,
     disableTopics: true,
-    hideBlockedElements: true,
     learnInIncognito: false,
     learnLocally: false,
     seenComic: false,
@@ -1002,6 +1001,7 @@ Badger.prototype = {
     if (self.isUpdate) {
       [
         "disableFloc",
+        "hideBlockedElements",
         "migrationLevel",
         "preventWebRTCIPLeak",
         "showTrackingDomains",
