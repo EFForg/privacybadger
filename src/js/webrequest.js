@@ -1209,7 +1209,6 @@ function dispatcher(request, sender, sendResponse) {
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
       "checkClobberingEnabled",
-      "checkDNT",
       "checkEnabled",
       "checkWidgetReplacementEnabled",
       "detectFingerprinting",
@@ -1879,16 +1878,6 @@ function dispatcher(request, sender, sendResponse) {
   case "removeErrorText": {
     let activeTab = badger.tabData._tabData[request.tabId];
     delete activeTab.errorText;
-    break;
-  }
-
-  // called from contentscripts/dnt.js
-  // to check if it should set DNT on Navigator
-  case "checkDNT": {
-    let tab_host = extractHostFromURL(sender.tab.url);
-    sendResponse(
-      badger.isDntSignalEnabled(tab_host) &&
-      badger.isPrivacyBadgerEnabled(tab_host));
     break;
   }
 

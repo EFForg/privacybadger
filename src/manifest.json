@@ -18,6 +18,7 @@
     "cookies",
     "declarativeNetRequest",
     "privacy",
+    "scripting",
     "storage",
     "tabs",
     "webNavigation",
@@ -444,7 +445,6 @@
         "js/contentscripts/utils.js",
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
-        "js/contentscripts/dnt.js",
         "js/contentscripts/fingerprinting.js"
       ],
       "matches": [
