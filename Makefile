@@ -52,6 +52,9 @@ tx:
 	tx pull -f
 	scripts/fix_placeholders.py
 
+runch:
+	./node_modules/.bin/web-ext run --target chromium --arg="--disable-component-update" --arg="--disable-blink-features=AutomationControlled" --start-url "chrome://extensions" -s src/ --watch-ignored=**/_metadata
+
 runfa:
 	./node_modules/.bin/web-ext run -s src/ --target firefox-android --adb-bin $$ADB_BIN --android-device $$ANDROID_DEVICE_ID --firefox-apk org.mozilla.firefox --verbose
 
@@ -64,4 +67,4 @@ runfn:
 test:
 	BROWSER=chrome ENABLE_XVFB=1 pytest -s tests/
 
-.PHONY: crx lint minimages updatepsl updateseed apply_effdntlist updategoogle updatecnames tx runfa runff runfn test
+.PHONY: crx lint minimages updatepsl updateseed apply_effdntlist updategoogle updatecnames tx runch runfa runff runfn test

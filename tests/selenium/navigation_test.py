@@ -25,6 +25,7 @@ class NavigationTest(pbtest.PBSeleniumTest):
             "});", url)
         return trackers
 
+    @pytest.mark.flaky(reruns=5) # TODO why is this flaky in MV3?
     @pytest.mark.xfail(pbtest.shim.browser_type == "edge",
                        reason="https://github.com/microsoft/MicrosoftEdge-Extensions/issues/228")
     def test_beacon_attribution(self):

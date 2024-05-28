@@ -37,6 +37,7 @@ SEL_DEFAULT_WAIT_TIMEOUT = 30
 
 BROWSER_TYPES = ['chrome', 'firefox', 'edge']
 BROWSER_NAMES = ['google-chrome', 'google-chrome-stable', 'google-chrome-beta',
+                 'google-chrome-dev', 'google-chrome-unstable',
                  'firefox', 'microsoft-edge', 'microsoft-edge-beta']
 
 
@@ -164,9 +165,6 @@ class Shim:
     @contextmanager
     def chrome_manager(self):
         opts = ChromeOptions()
-
-        # support tests in Chrome with MV2 PB while this flag remains available
-        opts.add_argument("--enable-features=AllowLegacyMV2Extensions")
 
         opts.binary_location = self.browser_path
         opts.enable_bidi = True

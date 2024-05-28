@@ -5,9 +5,14 @@
 TEMPDIR=$(mktemp -d)
 trap 'rm -rf $TEMPDIR' EXIT
 
-# one of google-chrome, google-chrome-stable,
-# google-chrome-beta, or google-chrome-unstable
 CHROME="${1:-google-chrome}"
+
+case "$CHROME" in
+    google-chrome|google-chrome-stable|google-chrome-beta|google-chrome-unstable) ;;
+    *)
+      echo "Usage: $0 [google-chrome|google-chrome-stable|google-chrome-beta|google-chrome-unstable]"
+      exit 1 ;;
+esac
 
 major_version=$("$CHROME" --product-version | cut -d . -f 1)
 
@@ -32,15 +37,15 @@ case "$CHROME" in
 esac
 json_url=https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json
 json=$(wget "$json_url" -q -O -)
-chromedriver_version=$(echo "$json" | python3 -c "import sys, json; print(json.load(sys.stdin)['channels']['$channel']['version'])")
+channel_version=$(echo "$json" | python3 -c "import sys, json; print(json.load(sys.stdin)['channels']['$channel']['version'])")
 chromedriver_url=$(echo "$json" | python3 -c "import sys, json; print(next(i['url'] for i in json.load(sys.stdin)['channels']['$channel']['downloads']['chromedriver'] if i['platform'] == 'linux64'))")
 
-if [ -z "$chromedriver_version" ]; then
-  echo "Failed to retrieve ChromeDriver version"
+if [ -z "$channel_version" ] || [ -z "$chromedriver_url" ]; then
+  echo "Failed to retrieve channel version and/or download URL from $json_url"
   exit 1
 fi
 
-echo "Setting up ChromeDriver version $chromedriver_version ..."
+echo "Setting up ChromeDriver version $channel_version ..."
 
 wget -q -O "$TEMPDIR/chromedriver.zip" "$chromedriver_url" \
   && unzip -q -o "$TEMPDIR/chromedriver.zip" chromedriver-linux64/chromedriver -d "$TEMPDIR" \

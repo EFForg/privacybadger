@@ -41,7 +41,7 @@ let exports = {
   PANOPTICLICK_DOMAINS: ["trackersimulator.org", "eviltracker.net"],
 
   // Browser (modified during the build process)
-  BROWSER: "firefox",
+  BROWSER: "chrome",
 
   REVIEW_LINKS: {
     chrome: "https://chromewebstore.google.com/detail/privacy-badger/pkehgijcmpdhfbdbbnkijodmdjhbjlgp/reviews",

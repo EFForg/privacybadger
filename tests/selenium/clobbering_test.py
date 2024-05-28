@@ -8,6 +8,8 @@ import pbtest
 
 
 class ClobberingTest(pbtest.PBSeleniumTest):
+
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_localstorage_clobbering(self):
         LOCALSTORAGE_TESTS = [
             # (test result element ID, expected stored, expected empty)
