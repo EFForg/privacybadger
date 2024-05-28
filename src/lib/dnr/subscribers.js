@@ -26,7 +26,7 @@ import utils from "../../js/utils.js";
 
 /**
  * Updates Declarative Net Request rules(ets)
- * in response to settings updates.
+ * and registered content scripts in response to settings updates.
  */
 function subscribeToStorageUpdates() {
   let settingsStore = badger.getSettings();
@@ -80,6 +80,29 @@ function subscribeToStorageUpdates() {
 
   settingsStore.subscribe("set:widgetSiteAllowlist",
     utils.debounce(dnrUtils.updateWidgetSiteAllowlistRules, 100));
+
+  // update content scripts
+
+  settingsStore.subscribe("set:sendDNTSignal", function (enabled) {
+    if (enabled) {
+      let dntScript = constants.CONTENT_SCRIPTS.find(item => item.id == "dnt_signal");
+      dntScript.excludeMatches = dnrUtils.convertSiteDomainsToMatchPatterns(
+        this.getItem("disabledSites"));
+      chrome.scripting.registerContentScripts([dntScript]);
+    } else {
+      chrome.scripting.unregisterContentScripts({
+        ids: ["dnt_signal"]
+      });
+    }
+  });
+  settingsStore.subscribe("set:disabledSites", function (siteDomains) {
+    chrome.scripting.updateContentScripts([{
+      id: "dnt_signal",
+      excludeMatches: dnrUtils.convertSiteDomainsToMatchPatterns(siteDomains)
+    }]).catch(function () {
+      // ignore "Content script with ID 'foo' does not exist or is not fully registered"
+    });
+  });
 }
 
 /**
