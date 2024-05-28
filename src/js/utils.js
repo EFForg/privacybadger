@@ -386,6 +386,16 @@ function cssEscape(value) {
   return result;
 }
 
+/**
+ * Escapes a string literal for use in regular expressions.
+ *
+ * https://stackoverflow.com/questions/5663987/how-to-properly-escape-characters-in-regexp/5664273#5664273
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions#escaping
+ */
+function regexEscape(str) {
+  return str.replace(/([()[{*+.$^\\|?])/g, '\\$1');
+}
+
 function parseCookie(str, opts) {
   if (!str) {
     return {};
@@ -628,6 +638,7 @@ let utils = {
   parseCookie,
   random,
   rateLimit,
+  regexEscape,
   sha1,
 };
 
