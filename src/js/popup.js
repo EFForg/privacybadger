@@ -21,7 +21,6 @@ window.POPUP_INITIALIZED = false;
 window.SLIDERS_DONE = false;
 
 import constants from "./constants.js";
-import FirefoxAndroid from "./firefoxandroid.js";
 import htmlUtils from "./htmlutils.js";
 import utils from "./utils.js";
 
@@ -849,12 +848,6 @@ function saveToggle(origin, action) {
 }
 
 function getTab(callback) {
-  // Temporary fix for Firefox Android
-  if (!FirefoxAndroid.hasPopupSupport) {
-    FirefoxAndroid.getParentOfPopup(callback);
-    return;
-  }
-
   chrome.tabs.query({active: true, lastFocusedWindow: true}, function(t) { callback(t[0]); });
 }
 
@@ -874,6 +867,13 @@ $(function () {
       tabId: tab.id,
       tabUrl: tab.url
     }, (response) => {
+      if (!response) {
+        // bg service worker is waking up and is not yet ready, retry
+        if (chrome.runtime.lastError) { /* ignore receiving end error */ }
+        return setTimeout(function () {
+          getPopupData(tab);
+        }, 10);
+      }
       setPopupData(response);
       refreshPopup();
       init();
