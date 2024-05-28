@@ -1483,7 +1483,7 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "resetData": {
-    badger.storage.clearTrackerData(function () {
+    badger.storage.clearTrackerData().then(function () {
       badger.loadSeedData().then(function () {
         globalThis.DATA_LOAD_IN_PROGRESS = true;
         badger.blockWidgetDomains();
@@ -1499,9 +1499,8 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "removeAllData": {
-    badger.storage.clearTrackerData(sendResponse);
-    // indicate this is an async response to chrome.runtime.onMessage
-    return true;
+    badger.storage.clearTrackerData().then(sendResponse);
+    return true; // async chrome.runtime.onMessage response
   }
 
   // used by tests

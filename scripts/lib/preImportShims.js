@@ -16,44 +16,5 @@ globalThis.chrome = {
     ExecutionWorld: {
       MAIN: "MAIN"
     }
-  },
-  storage: {
-    local: {
-      get: function (keys, callback) {
-        setTimeout(function () {
-          callback({
-            private_storage: {
-              blockThreshold: 3,
-              ignoredSiteBases: [],
-            }
-          });
-        }, 0);
-      },
-      set: (_, callback) => {
-        if (callback) {
-          setTimeout(function () {
-            callback(null);
-          }, 0);
-        }
-      }
-    }
-  },
-  tabs: {
-    query: function (opts, callback) {
-      setTimeout(function () {
-        callback([]);
-      }, 0);
-    }
   }
-};
-
-globalThis.badger = {
-  getSettings: () => {
-    return {
-      subscribe: () => {}
-    };
-  },
-  initSettings: () => {},
-  isCheckingDNTPolicyEnabled: () => false,
-  initWelcomePage: () => {},
 };
