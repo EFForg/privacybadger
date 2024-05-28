@@ -26,7 +26,7 @@ let exports = {
   USER_BLOCK: "user_block",
   USER_COOKIEBLOCK: "user_cookieblock",
 
-  // URLS
+  // URLs
   CNAME_DOMAINS_LOCAL_URL: chrome.runtime.getURL('data/cname_domains.json'),
   DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
   DNT_POLICIES_LOCAL_URL: chrome.runtime.getURL('data/dnt-policies.json'),
@@ -41,6 +41,21 @@ let exports = {
   DNT_POLICY_CHECK_INTERVAL: 1000, // one second
 
   PANOPTICLICK_DOMAINS: ["trackersimulator.org", "eviltracker.net"],
+
+  // Declarative Net Request priorities
+  DNR_BLOCK: 1,
+  DNR_COOKIEBLOCK_ALLOW: 2,
+  DNR_COOKIEBLOCK_HEADERS: 3,
+  DNR_DNT_CHECK_ALLOW: 3,
+  DNR_DNT_CHECK_HEADERS: 4,
+  DNR_DNT_HEADER: 4,
+  DNR_DNT_ALLOW: 25,
+  DNR_USER_BLOCK: 40,
+  DNR_SURROGATE_REDIRECT: 50,
+  DNR_USER_COOKIEBLOCK_ALLOW: 59,
+  DNR_USER_COOKIEBLOCK_HEADERS: 60,
+  DNR_USER_ALLOW: 70,
+  DNR_SITE_ALLOW_ALL: 100,
 };
 
 exports.BLOCKED_ACTIONS = new Set([
@@ -48,6 +63,13 @@ exports.BLOCKED_ACTIONS = new Set([
   exports.USER_BLOCK,
   exports.COOKIEBLOCK,
   exports.USER_COOKIEBLOCK,
+]);
+
+exports.DNR_USER_ACTIONS = new Set([
+  exports.DNR_USER_BLOCK,
+  exports.DNR_USER_COOKIEBLOCK_ALLOW,
+  exports.DNR_USER_COOKIEBLOCK_HEADERS,
+  exports.DNR_USER_ALLOW
 ]);
 
 export default exports;

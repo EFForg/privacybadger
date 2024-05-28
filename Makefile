@@ -13,11 +13,16 @@ lint:
 updatepsl:
 	scripts/updatepsl.sh
 
+genstaticrules:
+	scripts/genstaticrules.js
+
 updateseed:
 	scripts/updateseeddata.sh
+	scripts/genstaticrules.js # TODO reference the Make target instead
 
 apply_effdntlist:
 	scripts/apply_effdntlist.py src/data/seed.json
+	scripts/genstaticrules.js # TODO
 
 updategoogle:
 	scripts/updategoogle.sh
@@ -51,4 +56,4 @@ runfn:
 test:
 	BROWSER=chrome ENABLE_XVFB=1 pytest -s tests/
 
-.PHONY: crx lint updatepsl updateseed apply_effdntlist updategoogle updatecnames tx runch runfa runff runfn test
+.PHONY: crx lint updatepsl genstaticrules updateseed apply_effdntlist updategoogle updatecnames tx runch runfa runff runfn test
