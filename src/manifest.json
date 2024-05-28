@@ -442,8 +442,7 @@
     {
       "js": [
         "js/contentscripts/utils.js",
-        "js/contentscripts/clobbercookie.js",
-        "js/contentscripts/clobberlocalstorage.js",
+        "js/contentscripts/clobberstorage.js",
         "js/contentscripts/fingerprinting.js"
       ],
       "matches": [
