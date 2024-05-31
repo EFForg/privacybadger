@@ -50,5 +50,5 @@ $PATCHER ../checkout/src/manifest.json 'set' 'browser_specific_settings.gecko.up
 $WEB_EXT lint -s ../checkout/src --self-hosted
 
 echo "Making self-hosted XPI package with 'web-ext sign'"
-$WEB_EXT sign -s ../checkout/src --channel unlisted --api-key "$AMO_API_KEY" --api-secret "$AMO_API_SECRET" -a ../pkg
+$WEB_EXT sign -s ../checkout/src --channel unlisted --approval-timeout 0 --api-key "$AMO_API_KEY" --api-secret "$AMO_API_SECRET" -a ../pkg
 mv "../pkg/$PRE_XPI_NAME" "../pkg/$XPI_NAME"
