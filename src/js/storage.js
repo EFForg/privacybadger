@@ -84,8 +84,13 @@ function BadgerPen(callback) {
 
   // initialize from extension local storage
   chrome.storage.local.get(self.KEYS, function (store) {
+    let storage_err;
+    if (chrome.runtime.lastError) {
+      storage_err = chrome.runtime.lastError.message;
+    }
+
     self.KEYS.forEach(key => {
-      if (utils.hasOwn(store, key)) {
+      if (store && utils.hasOwn(store, key)) {
         self[key] = new BadgerStorage(key, store[key]);
       } else {
         let storageObj = new BadgerStorage(key, {});
@@ -93,6 +98,14 @@ function BadgerPen(callback) {
         _syncStorage(storageObj);
       }
     });
+
+    if (!store || storage_err) {
+      console.error("Error reading from extension storage:", storage_err);
+      if (!store) {
+        self.settings_map.setItem("showIntroPage", false);
+        self.settings_map.setItem("seenComic", true);
+      }
+    }
 
     badger.initSettings();
 
