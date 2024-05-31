@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-LATEST_SDK_VERSION=7.11.0
+LATEST_SDK_VERSION=8.0.0
 WEB_EXT=../node_modules/.bin/web-ext
 PATCHER=../scripts/patch_manifest.py
 
@@ -50,5 +50,5 @@ $PATCHER ../checkout/src/manifest.json 'set' 'browser_specific_settings.gecko.up
 $WEB_EXT lint -s ../checkout/src --self-hosted
 
 echo "Making self-hosted XPI package with 'web-ext sign'"
-$WEB_EXT sign -s ../checkout/src --api-key "$AMO_API_KEY" --api-secret "$AMO_API_SECRET" -a ../pkg
+$WEB_EXT sign -s ../checkout/src --channel unlisted --api-key "$AMO_API_KEY" --api-secret "$AMO_API_SECRET" -a ../pkg
 mv "../pkg/$PRE_XPI_NAME" "../pkg/$XPI_NAME"
