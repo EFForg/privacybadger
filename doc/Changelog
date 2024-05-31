@@ -1,6 +1,10 @@
 Privacy Badger Release Notes
 ============================
 
+2024.5.31
+Bug fix release to work around when Privacy Badger fails to read
+from extension storage for whatever reason
+
 2024.5.27
 Bug fix release to restore access to Cloudflare-protected sites
 for users who enabled local tracker learning
