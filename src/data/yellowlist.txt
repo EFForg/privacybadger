@@ -524,6 +524,7 @@ pendo.io
 piano.io
 pico.tools
 pinimg.com
+api.pinterest.com
 plex.tv
 pling.com
 plot.ly
