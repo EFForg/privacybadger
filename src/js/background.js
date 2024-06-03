@@ -124,6 +124,15 @@ function Badger(from_qunit) {
     console.log("Privacy Badger is ready to rock!");
     self.INITIALIZED = true;
 
+    if (self.criticalError == "Privacy Badger failed to initialize") {
+      delete self.criticalError;
+      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+        if (tabs[0]) {
+          self.updateBadge(tabs[0].id);
+        }
+      });
+    }
+
     if (!from_qunit) {
       self.initYellowlistUpdates();
       self.initDntPolicyUpdates();
