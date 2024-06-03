@@ -1,12 +1,16 @@
 Privacy Badger Release Notes
 ============================
 
+2024.6.3
+Bug fix update to hide the "Privacy Badger failed to initialize"
+error when it no longer applies
+
 2024.5.31
-Bug fix release to work around when Privacy Badger fails to read
-from extension storage for whatever reason
+Bug fix update to work around Privacy Badger failing to read
+from extension storage on startup for whatever reason
 
 2024.5.27
-Bug fix release to restore access to Cloudflare-protected sites
+Bug fix update to restore access to Cloudflare-protected sites
 for users who enabled local tracker learning
 
 2024.5.17
