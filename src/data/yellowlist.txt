@@ -612,6 +612,7 @@ shopify.com
 shopifycdn.com
 shopifycloud.com
 shopifysvc.com
+shoplineapp.com
 shop-pro.jp
 shoprunner.com
 sibforms.com
