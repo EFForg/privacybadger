@@ -634,6 +634,7 @@ avplayer-cdn.sportradar.com
 ls.fn.sportradar.com
 scoreboard.itfmp.sportradar.com
 spot.im
+api.spotify.com
 api.spreaker.com
 widget.spreaker.com
 sprinklr.com
