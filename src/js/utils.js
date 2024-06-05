@@ -486,6 +486,7 @@ let firstPartyProtectionsEnabled = (function () {
  * @return {Boolean}
  */
 let isYouTubeHost = (function () {
+  // TO DO: add other possible YouTube hostnames if necessary
   return function (tab_host) {
     if (tab_host.startsWith("www.youtube.")) {
       return true;
