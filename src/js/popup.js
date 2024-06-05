@@ -216,7 +216,7 @@ function init() {
   }
 
   // show firstparty protections message if current tab is in our content scripts
-  if (POPUP_DATA.enabled && POPUP_DATA.isOnYouTube) {
+  if (POPUP_DATA.enabled && POPUP_DATA.tabHost === "www.youtube.com") {
     $("#youTubeMessageContainer").show();
   }
 

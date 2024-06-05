@@ -480,23 +480,6 @@ let firstPartyProtectionsEnabled = (function () {
 })();
 
 /**
- * Checks whether a given site hostname matches YouTube
- *
- * @param {String} tab_host
- * @return {Boolean}
- */
-let isYouTubeHost = (function () {
-  // TO DO: add other possible YouTube hostnames if necessary
-  return function (tab_host) {
-    if (tab_host.startsWith("www.youtube.")) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-})();
-
-/**
  * Checks whether a given URL is a special browser page.
  * TODO account for browser-specific pages:
  * https://github.com/hackademix/noscript/blob/a8b35486571933043bb62e90076436dff2a34cd2/src/lib/restricted.js
@@ -558,7 +541,6 @@ let utils = {
   hasOwn,
   isRestrictedUrl,
   isThirdPartyDomain,
-  isYouTubeHost,
   nDaysFromNow,
   oneDay,
   oneDayFromNow,
