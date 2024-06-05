@@ -279,6 +279,10 @@
             }
         }
     },
+    "popup_info_youtube": {
+        "message": "Is YouTube not working? It's probably not Privacy Badger's fault, but try disabling Privacy Badger for YouTube. If that helps but re-enabling breaks YouTube again, please <a target='_blank' href='https://privacybadger.org/#I-found-a-bug%21-What-do-I-do-now'>reach out to us directly</a>.",
+        "description": "Message displayed to users on YouTube to clarify misconceptions that lead to high error reports."
+    },
     "extension_error_text": {
         "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."

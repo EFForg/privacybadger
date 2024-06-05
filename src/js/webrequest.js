@@ -1401,6 +1401,7 @@ function dispatcher(request, sender, sendResponse) {
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
       errorText: badger.tabData._tabData[tab_id].errorText,
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
+      isOnYouTube:  utils.isYouTubeHost(tab_host),
       noTabData: false,
       origins: trackers,
       settings: badger.getSettings().getItemClones(),

@@ -215,6 +215,11 @@ function init() {
     $('#expand-firstparty-popup').show();
   }
 
+  // show firstparty protections message if current tab is in our content scripts
+  if (POPUP_DATA.enabled && POPUP_DATA.isOnYouTube) {
+    $("#youTubeMessageContainer").show();
+  }
+
   // improve on Firefox's built-in options opening logic
   if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function") {
     browser.runtime.getBrowserInfo().then(function (info) {
