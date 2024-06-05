@@ -8,7 +8,7 @@
         "description": "Extension description sometimes used by extension stores. See also 'intro_welcome', 'share_base_message' and 'intro_learns' messages."
     },
     "canvas_fingerprinting": {
-        "message": "canvas fingerprinting",
+        "message": "kanvasa fingrospurado",
         "description": "Canvas fingerprinting is the tracking method described in https://en.wikipedia.org/wiki/Canvas_fingerprinting"
     },
     "popup_help_button": {
@@ -124,7 +124,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Blocked cookies and fingerprinting scripts from $DOMAIN$",
+        "message": "Blokitaj kuketoj kaj fingrospurantaj skriptoj el $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -174,7 +174,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "To enable logging into websites with your Google account, move this slider right, and reload the page",
+        "message": "Por povi ensaluti al retejoj per via konto Google, movu tiun ĉi ŝovilon dekstren kaj reŝargu la retpaĝon",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -408,7 +408,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's Topics API",
+        "message": "Malaktivigi Topics API de Google",
         "description": "Checkbox label in general settings. For what this disables, see https://brave.com/web-standards-at-brave/7-googles-topics-api/"
     },
     "options_advanced_settings": {
@@ -561,11 +561,11 @@
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
-        "message": "Hide domains present in the latest pre-trained list",
+        "message": "Kaŝi nomregnojn ampleksatajn en la plej aktuala antaŭlernita listo",
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
-        "message": "$DOMAIN$ was seen tracking on the following sites:",
+        "message": "$DOMAIN$ estis observita en la jenaj retejoj:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
