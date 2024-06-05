@@ -314,7 +314,7 @@ body#main #pbInstructions a, #firstparty-protections-container a, #donate a {
 body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #donate a:hover {
     color: #ec9329;
 }
-#instructions-firstparty-description {
+#instructions-firstparty-description, #youtube-message {
     font-size: 14px;
     background-color: #e8e9ea;
     color: #555;
@@ -492,7 +492,7 @@ a.overlay_close:hover {
     cursor: pointer;
 }
 
-#firstparty-protections-container {
+#firstparty-protections-container, #youtube-message-container {
     border-bottom: 1px solid #d3d3d3;
     margin: 10px 0;
     padding-bottom: 5px;
@@ -652,7 +652,7 @@ a.overlay_close:hover {
         background-color: #3a3a3a;
      }
 
-    #instructions-firstparty-description {
+    #instructions-firstparty-description, #youtube-message {
         background-color: #3a3a3a;
         color: #ddd;
     }
