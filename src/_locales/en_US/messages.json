@@ -280,7 +280,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Experiencing issues with YouTube? Are ads still playing? It's unlikely that Privacy Badger is the cause. ",
+        "message": "Experiencing issues with YouTube? Are ads playing? It's unlikely that Privacy Badger is the problem. ",
         "description": "Message displayed to users on YouTube to clarify misconceptions that lead to high numbers of YouTube error reports."
     },
     "extension_error_text": {
