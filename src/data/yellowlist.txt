@@ -99,6 +99,7 @@ www.beyondmenu.com
 bigcommerce.com
 api.bilibili.com
 www.bilibili.com
+speech.platform.bing.com
 r.bing.com
 www.bing.com
 bit.ly
