@@ -2999,7 +2999,6 @@ let multiDomainFirstPartiesArray = [
     "azurerms.com",
     "azuresynapse.net",
     "bing.com",
-    "platform.bing.com",
     "bing.net",
     "cloudappsecurity.com",
     "dynamics.com",
