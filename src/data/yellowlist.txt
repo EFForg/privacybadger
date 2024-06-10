@@ -167,6 +167,8 @@ static.cloud.coveo.com
 cloudplatform.coveo.com
 org.coveo.com
 code.createjs.com
+i.creativecommons.org
+mirrors.creativecommons.org
 embed.crowdriff.com
 starling.crowdriff.com
 custhelp.com
