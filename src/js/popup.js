@@ -217,7 +217,7 @@ function init() {
 
   // show YouTube message if the current tab is YouTube
   if (POPUP_DATA.enabled && POPUP_DATA.tabHost === "www.youtube.com") {
-    $('#youtube-message').html(chrome.i18n.getMessage("popup_info_youtube") + chrome.i18n.getMessage('learn_more_link', ['<a target=_blank href="https://privacybadger.org/#Is-Privacy-Badger-breaking-YouTube">privacybadger.org</a>']));
+    $('#youtube-message').html(chrome.i18n.getMessage("popup_info_youtube") + " " + chrome.i18n.getMessage('learn_more_link', ['<a target=_blank href="https://privacybadger.org/#Is-Privacy-Badger-breaking-YouTube">privacybadger.org</a>']));
     $("#youtube-message-container").show();
   }
 

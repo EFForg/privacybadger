@@ -280,8 +280,8 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Experiencing issues with YouTube? Are ads playing? It's unlikely that Privacy Badger is the problem. ",
-        "description": "Message displayed to users on YouTube to clarify misconceptions that lead to high numbers of YouTube error reports."
+        "message": "Experiencing issues with YouTube? It's probably not because of Privacy Badger.",
+        "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
         "message": "Please <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>tell us</a> about the following error:",
