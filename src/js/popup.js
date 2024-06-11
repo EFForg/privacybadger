@@ -215,6 +215,12 @@ function init() {
     $('#expand-firstparty-popup').show();
   }
 
+  // show YouTube message if the current tab is YouTube
+  if (POPUP_DATA.enabled && POPUP_DATA.tabHost === "www.youtube.com") {
+    $('#youtube-message').html(chrome.i18n.getMessage("popup_info_youtube") + " " + chrome.i18n.getMessage('learn_more_link', ['<a target=_blank href="https://privacybadger.org/#Is-Privacy-Badger-breaking-YouTube">privacybadger.org</a>']));
+    $("#youtube-message-container").show();
+  }
+
   // improve on Firefox's built-in options opening logic
   if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function") {
     browser.runtime.getBrowserInfo().then(function (info) {
