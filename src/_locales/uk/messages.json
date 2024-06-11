@@ -279,6 +279,10 @@
             }
         }
     },
+    "popup_info_youtube": {
+        "message": "YouTube not working? It's probably not because of Privacy Badger.",
+        "description": "Message in the popup when users visit YouTube.com"
+    },
     "extension_error_text": {
         "message": "Будь ласка, <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>розкажіть нам</a> про наступну помилку:",
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
