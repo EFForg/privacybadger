@@ -74,6 +74,8 @@ function Badger(from_qunit) {
    * once Badger storage is ready.
    */
   async function onStorageReady() {
+    log("Storage is ready");
+
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(self.storage);
 
     self.setPrivacyOverrides();
@@ -120,7 +122,7 @@ function Badger(from_qunit) {
       window.DATA_LOAD_IN_PROGRESS = false;
     }
 
-    log("Privacy Badger initialization complete");
+    log("Initialization complete");
     console.log("Privacy Badger is ready to rock!");
     self.INITIALIZED = true;
 
