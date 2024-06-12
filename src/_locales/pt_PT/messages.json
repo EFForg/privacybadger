@@ -280,7 +280,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "O YouTube não está a funcionar? Provavelmente não é devido ao Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
