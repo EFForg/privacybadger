@@ -117,36 +117,34 @@ function BadgerPen(callback) {
     }
 
     // see if we have any enterprise/admin/group policy overrides
-    getManagedStorage(function (managedStore) {
-      if (utils.isObject(managedStore)) {
-        // there are values in managed storage
-        if (Object.keys(managedStore).length) {
-          ingestManagedStorage(managedStore);
-          setTimeout(function () {
+    // but do it async; don't wait on it to finish initializing
+    setTimeout(function () {
+      getManagedStorage(function (managedStore) {
+        if (utils.isObject(managedStore)) {
+          // there are values in managed storage
+          if (Object.keys(managedStore).length) {
+            ingestManagedStorage(managedStore);
             badger.initWelcomePage();
-          }, 0);
-          return callback();
+            return;
+          }
+
+          // managed storage is an empty object and we just got installed
+          if (badger.isFirstRun) {
+            // poll for managed storage to work around Chromium bug
+            pollForManagedStorage(0, function () {
+              badger.initWelcomePage();
+            });
+            return;
+          }
         }
 
-        // managed storage is an empty object and we just got installed
-        if (badger.isFirstRun) {
-          // poll for managed storage to work around Chromium bug
-          pollForManagedStorage(0, function () {
-            badger.initWelcomePage();
-          });
-          return callback();
-        }
-      }
-
-      // managed storage is not an object,
-      // or it is an empty object but this isn't the first run
-
-      setTimeout(function () {
+        // managed storage is not an object,
+        // or it is an empty object but this isn't the first run
         badger.initWelcomePage();
-      }, 0);
+      });
+    }, 0);
 
-      callback();
-    });
+    callback();
   });
 }
 
