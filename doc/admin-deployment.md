@@ -63,6 +63,10 @@ This policy also prevents the new user welcome page from launching upon Privacy 
 }
 ```
 
+### Chrome on Mac
+
+Follow instructions [here](https://www.chromium.org/administrators/configuring-policy-for-extensions/#mac) to add an extension policy via plist file. Depending on your shell environment, you may need to change the syntax of some commands. Use [this plist file](/doc/configuration.plist) as a template, subtituting the extension ID for the ID of your locally installed Privacy Badger. Add keys in the format of `showCounter` to apply additional settings.
+
 
 ## Edge
 
