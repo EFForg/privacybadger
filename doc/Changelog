@@ -1,6 +1,17 @@
 Privacy Badger Release Notes
 ============================
 
+2024.6.14
+* Added a note to Privacy Badger's popup on YouTube.
+YouTube not loading? Ads not blocked? Visit the FAQ at
+https://privacybadger.org/#Is-Privacy-Badger-breaking-YouTube
+* Drastically improved Privacy Badger's loading on Chrome startup
+when Chrome is set to reopen previously opened tabs
+* Fixed Privacy Badger forgetting your settings on startup (by retrying
+reading from extension storage when reading fails for whatever reason)
+* Fixed various site breakages
+* Improved translations (Traditional Chinese, Esperanto, Polish)
+
 2024.6.3
 Bug fix update to hide the "Privacy Badger failed to initialize"
 error when it no longer applies

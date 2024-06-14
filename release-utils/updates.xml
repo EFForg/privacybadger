@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
 	<app appid='pndeehedbocjngdnjjahhbinfdpnjpbn'>
-		<updatecheck codebase='http://localhost:9999/privacy-badger.crx' version='2024.6.3' />
+		<updatecheck codebase='http://localhost:9999/privacy-badger.crx' version='2024.6.14' />
 	</app>
 </gupdate>
