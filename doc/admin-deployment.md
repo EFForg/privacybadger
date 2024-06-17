@@ -10,7 +10,7 @@ You can find the full list of available settings in [Privacy Badger's managed st
 ## Firefox
 
 1. Locate and if necessary create the [managed storage manifests folder](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_manifests#Manifest_location). Note that on Windows you need to create a registry key that points to the manifest's location.
-2. Copy the [sample managed storage manifest for Firefox](/doc/jid1-MnnxcxisBPnSXQ@jetpack.json) to this folder.
+2. Copy the [sample managed storage manifest for Firefox](/doc/sample-admin-policies/jid1-MnnxcxisBPnSXQ@jetpack.json) to this folder.
 
 If your Privacy Badgers were installed from [Privacy Badger's homepage](https://privacybadger.org) (not from [AMO](https://addons.mozilla.org/en-US/firefox/addon/privacy-badger17/)):
 
@@ -40,7 +40,7 @@ For example, to prevent the new user welcome page from launching upon Privacy Ba
 ### Chrome on Linux
 
 1. Locate and if necessary create the [managed policies folder for Chrome or Chromium](http://www.chromium.org/administrators/configuring-policy-for-extensions).
-2. Copy the [sample managed storage manifest for Chrome](/doc/sample-managed-storage-manifest-chrome.json) to this folder.
+2. Copy the [sample managed storage manifest for Chrome](/doc/sample-admin-policies/sample-managed-storage-manifest-chrome.json) to this folder.
 3. Rename the manifest file to whatever you like (perhaps `privacy-badger-admin-settings.json`).
 4. Update the extension ID inside the manifest if you are not using official Privacy Badger releases from Chrome Web Store.
 
@@ -62,6 +62,10 @@ This policy also prevents the new user welcome page from launching upon Privacy 
     }
 }
 ```
+
+### Chrome on Mac
+
+Follow instructions [here](https://www.chromium.org/administrators/configuring-policy-for-extensions/#mac) to add an extension policy via plist file. Use [this plist file](/doc/sample-admin-policies/configuration.plist) as a template, subtituting the extension ID for the ID of your locally installed Privacy Badger.
 
 
 ## Edge
