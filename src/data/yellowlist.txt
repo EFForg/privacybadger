@@ -287,6 +287,7 @@ feedproxy.google.com
 fonts.google.com
 fundingchoicesmessages.google.com
 fusiontables.google.com
+gemini.google.com
 groups.google.com
 kh.google.com
 khms0.google.com
@@ -464,6 +465,7 @@ ajax.microsoft.com
 appsforoffice.microsoft.com
 atlas.microsoft.com
 api.cognitive.microsoft.com
+copilot.microsoft.com
 docs.microsoft.com
 graph.microsoft.com
 wcpstatic.microsoft.com
