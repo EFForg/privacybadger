@@ -174,7 +174,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Aby móc się logować do stron za pomocą konta Google, przesuń ten suwak w prawo i odśwież stronę",
+        "message": "Aby móc logować się do witryn za pomocą konta Google, przesuń ten suwak w prawo i odśwież stronę",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -280,7 +280,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Czy YouTube nie działa? Przyczyną tego prawdopodobnie nie jest Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
