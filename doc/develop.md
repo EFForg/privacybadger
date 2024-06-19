@@ -40,6 +40,15 @@ First, install the exact expected version of [ESLint](https://eslint.org) by run
 
 You can review our set of ESLint rules in [`.eslintrc.yml`](/.eslintrc.yml). Files we want ESLint to ignore are specified in [`.eslintignore`](/.eslintignore).
 
+### User interface considerations
+
+If your PR updates Privacy Badger's user interface (UI):
+
+- If there are new UI elements, are they keyboard accessible? Do they have sensible [focus order](https://www.w3.org/WAI/WCAG21/Understanding/focus-order)?
+- Do we need to update dark mode styles?
+- Do we need to make any fixes for right-to-left (RTL) locales?
+- Do the changes look and work OK on smaller (mobile) displays?
+
 ### Commit messages
 
 Please review the suggestions in this excellent [guide to writing commit messages](https://chris.beams.io/posts/git-commit/).
