@@ -2568,6 +2568,7 @@ let multiDomainFirstPartiesArray = [
     "kaspersky.gr",
     "kaspersky.it",
     "kaspersky.nl",
+    "kaspersky.rs",
     "kaspersky.ru",
 
     "kaspersky-labs.com",
