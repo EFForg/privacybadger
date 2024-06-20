@@ -429,6 +429,7 @@ ddragon.leagueoflegends.com
 libsyn.com
 addon.lidl.de
 lightboxcdn.com
+line-apps.com
 graphql-cdn-slplatform.liquidus.net
 platform.liquidus.net
 list-manage.com
