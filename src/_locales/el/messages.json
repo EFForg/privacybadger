@@ -280,7 +280,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Δε λειτουργεί το YouTube; Το Privacy Badger πιθανότατα δεν ευθύνεται για αυτό.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -300,7 +300,7 @@
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
-        "message": "Περιηγηθείτε",
+        "message": "Περιηγηθειτε",
         "description": "Intro page welcome button."
     },
     "intro_learns": {
@@ -308,7 +308,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Αντί να διατηρείτε λίστες αποκλεισμού, το Privacy Badger ανακαλύπτει αυτόματα ιχνηλάτες βασιζόμενο στη συμπεριφορά τους.",
+        "message": "Αντί να διατηρείτε λίστες αποκλεισμού ιχνηλατών, το Privacy Badger ανακαλύπτει αυτόματα ιχνηλάτες βασιζόμενο στη συμπεριφορά τους.",
         "description": "Intro page paragraph."
     },
     "intro_beyond_ads": {
@@ -316,7 +316,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Η \"αόρατη\" ιχνηλάτηση συμβαίνει με πολλούς τρόπους και οι διαφημίσεις είναι μόνο ένας από τους ορατούς. Το Privacy Badger στέλνει το σήμα <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a> για να απενεργοποιήσει τη δυνατότητα διαμοιρασμού και πώλησης δεδομένων και το σήμα <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a> για να ενημερώσει τις εταιρίες πως δεν επιθυμείτε να σας ιχνηλατούν. Εάν όμως αυτοί αγνοούν τις επιθυμίες σας, τότε το Privacy Badger θα μάθει αυτόματα να αποκλείει τους ιχνηλάτες ανεξάρτητα από το είδος τους.",
+        "message": "Η \"αόρατη\" ιχνηλάτηση συμβαίνει με πολλούς τρόπους και οι διαφημίσεις είναι μόνο ένας από τους ορατούς. Το Privacy Badger στέλνει το σήμα <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a> για να απενεργοποιήσει τη δυνατότητα διαμοιρασμού και πώλησης δεδομένων και το σήμα <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a> για να ενημερώσει τις εταιρίες πως δεν επιθυμείτε να σας ιχνηλατούν. Εάν παρόλα αυτά οι ιστοσελίδες αγνοήσουν τις επιθυμίες σας, τότε το Privacy Badger θα μάθει αυτόματα να αποκλείει τους ιχνηλάτες ανεξάρτητα από το είδος τους.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker": {
@@ -332,7 +332,7 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_disable_button": {
-        "message": "Εάν νομίζετε πως το Privacy Badger κάνει μια σελίδα να υπολειτουργεί (ένα βίντεο δε λειτουργεί, για παράδειγμα), μπορείτε να πατήσετε το κουμπί 'Απενεργοποίηση' και το Privacy Badger δε θα έχει πλέον πρόσβαση σε αυτήν.",
+        "message": "Εάν νομίζετε πως το Privacy Badger είναι υπεύθυνο για την υπολειτουργία μιας ιστοσελίδας (αν για παράδειγμα ένα βίντεο δε λειτουργεί), μπορείτε να πατήσετε το κουμπί 'Απενεργοποίηση' ώστε η επέκταση να μην έχει πρόσβαση στην ιστοσελίδα αυτή.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
@@ -352,11 +352,11 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "donate_to_eff": {
-        "message": "Κάντε μια δωρεά στο EFF",
+        "message": "Καντε μια δωρεα στο EFF",
         "description": "A button on the intro page, and a link in the popup footer."
     },
     "intro_donate_subheading": {
-        "message": "Βοηθήστε μας κάνοντας μια δωρεά και μοιράζοντας την υποστήριξή σας για τα εργαλεία μας",
+        "message": "Βοηθηστε μας κανοντας μια δωρεα και μοιραζοντας την υποστηριξη σας για τα εργαλεια μας",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_link_policy": {
@@ -679,7 +679,7 @@
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
-        "message": "Είστε πλέον προστατευμένοι από το Privacy Badger.",
+        "message": "Το Privacy Badger σας προστατεύει.",
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
