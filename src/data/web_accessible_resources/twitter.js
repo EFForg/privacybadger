@@ -39,6 +39,8 @@
     // alias
     window.twttr.widgets.createTweetEmbed = window.twttr.widgets.createTweet;
 
+    window.twttr.widgets.createTimeline = async function () {}; // returns a Promise
+
     // to support simple blockquote/iframe embeds
     // that won't call any API methods here
     requestReplacement();
