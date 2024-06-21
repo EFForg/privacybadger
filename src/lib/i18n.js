@@ -20,7 +20,7 @@
 
 /* eslint-env browser, jquery */
 
-const LOCALE = chrome.i18n.getMessage('@@ui_locale'),
+const LOCALE = chrome.i18n.getMessage('@@ui_locale').replace('-', '_'),
   ON_POPUP = (document.location.pathname == "/skin/popup.html");
 
 function localizeFaqLink() {

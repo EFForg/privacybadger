@@ -883,7 +883,7 @@ let getWidgetList = (function () {
 
       // TODO duplicated in src/lib/i18n.js
       const RTL_LOCALES = ['ar', 'he', 'fa'],
-        UI_LOCALE = chrome.i18n.getMessage('@@ui_locale');
+        UI_LOCALE = chrome.i18n.getMessage('@@ui_locale').replace('-', '_');
       translations.rtl = RTL_LOCALES.indexOf(UI_LOCALE) > -1;
     }
 
