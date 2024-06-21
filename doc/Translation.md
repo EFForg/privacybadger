@@ -92,6 +92,6 @@ A quick/hacky way to change Privacy Badger's locale is to temporarily copy the l
 
 The proper way would be to launch the browser in your desired locale.
 
-For Chrome, it might be as simple as [launching it from the command line with `LANGUAGE=fr` (for example) in front of the executable](https://stackoverflow.com/questions/24992240/start-google-chrome-with-a-specific-locale-using-a-command-line-argument).
+Firefox requires [downloading a language pack](https://addons.mozilla.org/en-US/firefox/language-tools/) and [switching to it in settings](https://support.mozilla.org/en-US/kb/use-firefox-another-language). See also: MDN docs for [testing localized extensions in Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization#testing_out_your_extension).
 
-Firefox requires [downloading a language pack](https://addons.mozilla.org/en-US/firefox/language-tools/) and [setting it as your locale from about:config](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization#Testing_out_your_extension).
+For Chrome, see Chrome developer docs for [setting the browser's locale](https://developer.chrome.com/docs/extensions/reference/api/i18n#how-to-set-browsers-locale). On Linux, it's as simple as launching Chrome from the command line with `LANGUAGE=fr` (for example) prepended to the command.
