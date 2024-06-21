@@ -102,6 +102,7 @@ api.bilibili.com
 www.bilibili.com
 speech.platform.bing.com
 r.bing.com
+sydney.bing.com
 www.bing.com
 bit.ly
 cdn.bitmovin.com
