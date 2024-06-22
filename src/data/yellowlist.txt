@@ -428,6 +428,7 @@ kustomerapp.com
 kxcdn.com
 ddragon.leagueoflegends.com
 libsyn.com
+licensebuttons.net
 addon.lidl.de
 lightboxcdn.com
 line-apps.com
