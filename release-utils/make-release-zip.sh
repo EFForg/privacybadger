@@ -6,6 +6,9 @@
 # The fact that the package is marked immutable means that it has been built
 # for release.
 
+PREPKG=pkg/privacy_badger-"$TARGET".zip
+PREPKGCWS=pkg/privacy_badger-"$TARGET".zip
+
 if ! lsattr "$PREPKG" | cut -f 1 -d" " | grep -q i ; then
 
   if [ -f "$PREPKG" ] ; then
@@ -19,7 +22,7 @@ if ! lsattr "$PREPKG" | cut -f 1 -d" " | grep -q i ; then
     exit 1
   fi
 
-  if ! [ -f "$PREPKG" -a -f "$PREPKGCWS" ] ; then
+  if ! [ -f "$PREPKG" ] && [ -f "$PREPKGCWS" ]; then
     echo "Failed to find package $PREPKG after build"
     exit 1
   fi
@@ -36,7 +39,7 @@ if ! lsattr "$PREPKG" | cut -f 1 -d" " | grep -q i ; then
     echo "WARNING: FAILED TO MARK $PREPKG or $PREPKGCWS IMMUTABLE."
     echo "DO NOT RERUN THIS SCRIPT AFTER SIGNING"
     echo ""
-    read -p "(Press Enter to acknowledge)"
+    read -r -p "(Press Enter to acknowledge)"
   fi
 else
   echo "$PREPKG is immutable; good, not rebuilding it..."
