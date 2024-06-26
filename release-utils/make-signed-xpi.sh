@@ -8,9 +8,6 @@ LATEST_SDK_VERSION=8.2.0
 WEB_EXT=../node_modules/.bin/web-ext
 PATCHER=../scripts/patch_manifest.py
 
-# Auto-generated XPI name from 'web-ext sign'
-PRE_XPI_NAME=privacy_badger-$1.xpi
-XPI_NAME="privacy-badger-eff-$1.xpi"
 AMO_ZIP_NAME="privacy_badger-$1.amo.zip"
 
 if ! type $WEB_EXT > /dev/null; then
@@ -45,10 +42,9 @@ echo "Inserting self-hosted package ID"
 $PATCHER ../checkout/src/manifest.json 'set' 'browser_specific_settings.gecko.id' 'jid1-MnnxcxisBPnSXQ-eff@jetpack'
 $PATCHER ../checkout/src/manifest.json 'set' 'browser_specific_settings.gecko.update_url' 'https://www.eff.org/files/privacy-badger-updates.json'
 
-# lint checkout again as our modification above could have broken something
+# re-lint as our modifications above could have broken something;
 # disable AMO-specific checks to allow browser_specific_settings.gecko.update_url
 $WEB_EXT lint -s ../checkout/src --self-hosted
 
 echo "Making self-hosted XPI package with 'web-ext sign'"
 $WEB_EXT sign -s ../checkout/src --channel unlisted --approval-timeout 0 --api-key "$AMO_API_KEY" --api-secret "$AMO_API_SECRET" -a ../pkg
-mv "../pkg/$PRE_XPI_NAME" "../pkg/$XPI_NAME"
