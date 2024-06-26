@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-LATEST_SDK_VERSION=8.0.0
+LATEST_SDK_VERSION=8.2.0
 WEB_EXT=../node_modules/.bin/web-ext
 PATCHER=../scripts/patch_manifest.py
 
