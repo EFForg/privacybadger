@@ -22,6 +22,9 @@ if [ -n "$1" ]; then
   # disable debug output
   sed -i -e 's/\.DEBUG = true/.DEBUG = false/' src/js/bootstrap.js
 
+  # blank out locale descriptions to reduce package size
+  ../scripts/min_locales.py
+
 else
   echo "Please supply a tag name for the release you are zipping"
   exit 1
