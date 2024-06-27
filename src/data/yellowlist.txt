@@ -635,6 +635,7 @@ smugmug.com
 snapengage.com
 snipcart.com
 api.soundcloud.com
+api-v2.soundcloud.com
 feeds.soundcloud.com
 sp-prod.net
 cdn.split.io
