@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-# make a release zip for Chrome, Opera and Firefox
+# make a release zip for Chrome and Opera
+#
+# elsewhere, we make another zip for AMO Firefox (and Edge),
+# as well as request a signed self-hosted XPI with `web-ext sign`,
+# but we reuse the checkout folder when making the AMO zip
+# and when requesting the self-hosted XPI, so any checkout folder
+# changes below will make it to the Firefox/Edge packages
 
 # this script takes a mandatory argument which is the git tag to build
 

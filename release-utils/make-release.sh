@@ -28,10 +28,6 @@ if ! git show "$GITTAG" > /dev/null 2> /dev/null ; then
   exit 1
 fi
 
-export PREPKG=pkg/privacy_badger-$TARGET.zip
-export PREPKGCWS=pkg/privacy_badger-$TARGET.zip
-
-
 echo "Making Chrome/Opera zip"
 if ! release-utils/make-release-zip.sh "$TARGET"; then
   echo "Failed to build target $TARGET for Chrome/Opera"
