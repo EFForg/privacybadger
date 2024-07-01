@@ -421,67 +421,21 @@ function uploadCloud() {
  */
 function exportUserData() {
   chrome.storage.local.get(USER_DATA_EXPORT_KEYS, function (maps) {
-    let mapJSON = JSON.stringify(maps);
-
-    // Append the formatted date to the exported file name
-    let currDate = new Date().toLocaleString();
-    let escapedDate = currDate
+    // append the formatted date to the exported file name
+    let escaped_date = (new Date().toLocaleString())
       // illegal filename charset regex from
       // https://github.com/parshap/node-sanitize-filename/blob/ef1e8ad58e95eb90f8a01f209edf55cd4176e9c8/index.js
       .replace(/[\/\?<>\\:\*\|"]/g, '_') /* eslint no-useless-escape:off */
       // also collapse-replace commas and spaces
       .replace(/[, ]+/g, '_');
-    let filename = 'PrivacyBadger_user_data-' + escapedDate + '.json';
+    let filename = 'PrivacyBadger_user_data-' + escaped_date + '.json';
 
-    // Download workaround taken from uBlock Origin
-    // https://github.com/gorhill/uBlock/blob/40a85f8c04840ae5f5875c1e8b5fa17578c5bd1a/platform/chromium/vapi-common.js
-    let a = document.createElement('a');
-    a.setAttribute('download', filename || '');
-
-    let blob = new Blob([mapJSON], { type: 'application/json' }); // pass a useful mime type here
-    a.href = URL.createObjectURL(blob);
-
-    function clickBlobLink() {
-      a.dispatchEvent(new MouseEvent('click'));
-      URL.revokeObjectURL(blob);
-    }
-
-    /**
-     * Firefox workaround to insert the blob link in an iFrame
-     * https://bugzilla.mozilla.org/show_bug.cgi?id=1420419#c18
-     */
-    function addBlobWorkAroundForFirefox() {
-      // Create or use existing iframe for the blob 'a' element
-      let iframe = document.getElementById('exportUserDataIframe');
-      if (!iframe) {
-        iframe = document.createElement('iframe');
-        iframe.id = "exportUserDataIframe";
-        iframe.setAttribute("style", "visibility: hidden; height: 0; width: 0");
-        document.getElementById('export').appendChild(iframe);
-
-        iframe.contentWindow.document.open();
-        iframe.contentWindow.document.write('<html><head></head><body></body></html>');
-        iframe.contentWindow.document.close();
-      } else {
-        // Remove the old 'a' element from the iframe
-        let oldElement = iframe.contentWindow.document.body.lastChild;
-        iframe.contentWindow.document.body.removeChild(oldElement);
-      }
-      iframe.contentWindow.document.body.appendChild(a);
-    }
-
-    // TODO remove browser check and simplify code once Firefox 58 goes away
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=1420419
-    if (chrome.runtime.getBrowserInfo) {
-      chrome.runtime.getBrowserInfo((info) => {
-        if (info.name == "Firefox" || info.name == "Waterfox") {
-          addBlobWorkAroundForFirefox();
-        }
-        clickBlobLink();
-      });
-    } else {
-      clickBlobLink();
-    }
+    let link = document.createElement('a'),
+      blob = new Blob([JSON.stringify(maps)], { type: 'application/json' });
+    link.setAttribute('download', filename || '');
+    link.href = URL.createObjectURL(blob);
+    link.dispatchEvent(new MouseEvent('click'));
+    URL.revokeObjectURL(blob);
   });
 }
 
