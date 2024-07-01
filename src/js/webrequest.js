@@ -2,9 +2,6 @@
  * This file is part of Privacy Badger <https://privacybadger.org/>
  * Copyright (C) 2016 Electronic Frontier Foundation
  *
- * Derived from Adblock Plus
- * Copyright (C) 2006-2013 Eyeo GmbH
- *
  * Derived from Chameleon <https://github.com/ghostwords/chameleon>
  * Copyright (C) 2015 ghostwords
  *
