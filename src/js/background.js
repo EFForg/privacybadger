@@ -193,8 +193,6 @@ Badger.prototype = {
           }, () => {
             if (chrome.runtime.lastError) {
               console.error("Failed clearing override:", chrome.runtime.lastError);
-            } else {
-              console.log("Cleared override", name);
             }
           });
 
@@ -240,6 +238,12 @@ Badger.prototype = {
         "hyperlinkAuditingEnabled",
         chrome.privacy.websites.hyperlinkAuditingEnabled,
         (self.getSettings().getItem("disableHyperlinkAuditing") ? false : null)
+      );
+
+      _set_override(
+        "topicsEnabled",
+        chrome.privacy.websites.topicsEnabled,
+        (self.getSettings().getItem("disableTopics") ? false : null)
       );
     }
   },
@@ -1106,13 +1110,6 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
-  },
-
-  isTopicsOverwriteEnabled: function () {
-    if (document.browsingTopics) {
-      return this.getSettings().getItem("disableTopics");
-    }
-    return false;
   },
 
   /**

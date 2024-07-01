@@ -121,7 +121,6 @@ function loadOptions() {
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
   $("#check_dnt_policy_checkbox").prop("checked", OPTIONS_DATA.settings.checkForDNTPolicy).prop("disabled", !OPTIONS_DATA.settings.sendDNTSignal);
 
-  // only show the networkPredictionEnabled override when the browser supports it
   if (chrome.privacy && chrome.privacy.network && chrome.privacy.network.networkPredictionEnabled) {
     $("#privacy-settings-header").show();
     $("#disable-network-prediction").show();
@@ -143,7 +142,6 @@ function loadOptions() {
     }
   }
 
-  // only show the alternateErrorPagesEnabled override if browser supports it
   if (chrome.privacy && chrome.privacy.services && chrome.privacy.services.alternateErrorPagesEnabled) {
     $("#privacy-settings-header").show();
     $("#disable-google-nav-error-service").show();
@@ -157,7 +155,6 @@ function loadOptions() {
       });
   }
 
-  // only show the hyperlinkAuditingEnabled override if browser supports it
   if (chrome.privacy && chrome.privacy.websites && chrome.privacy.websites.hyperlinkAuditingEnabled) {
     $("#privacy-settings-header").show();
     $("#disable-hyperlink-auditing").show();
@@ -171,18 +168,13 @@ function loadOptions() {
       });
   }
 
-  // only show the Topics API override if browser supports it
-  if (document.browsingTopics) {
+  if (chrome.privacy && chrome.privacy.websites && chrome.privacy.websites.topicsEnabled) {
     $("#disable-topics").show();
     $("#disable-topics-checkbox")
       .prop("checked", OPTIONS_DATA.settings.disableTopics)
       .on("click", function () {
-        const disableTopics = $("#disable-topics-checkbox").prop("checked");
-
-        chrome.runtime.sendMessage({
-          type: "updateSettings",
-          data: { disableTopics }
-        });
+        updatePrivacyOverride(
+          "disableTopics", $("#disable-topics-checkbox").prop("checked"));
       });
   }
 
