@@ -30,7 +30,7 @@
         return new Promise(function (resolve) {
             setTimeout(function () {
                 let safe_tweet_id = tweet_id.replace(/[^0-9]/g, ''); // digits only
-                targetEl.innerHTML = `<blockquote class="twitter-tweet"><a href="https://twitter.com/x/status/${safe_tweet_id}">Loading Tweet ID ${safe_tweet_id} ...</a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`; // TODO i18n "loading" message
+                targetEl.innerHTML = `<blockquote class="twitter-tweet"><a href="https://twitter.com/x/status/${safe_tweet_id}">Loading Tweet ID ${safe_tweet_id} ...</a></blockquote>`; // TODO i18n "loading" message
                 requestReplacement();
                 resolve(targetEl.children[0]);
             }, 0);
