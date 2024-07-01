@@ -325,6 +325,19 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #d
     font-size: 14px;
 }
 
+#report-youtube-message-container {
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+#report-youtube-message a, #report-youtube-message {
+    color: #F06A0A;
+}
+
+#report-youtube-message a:hover {
+    color: #ec9329
+}
+
 #no-third-parties {
     display: block;
     font-size: 12px;
