@@ -498,7 +498,6 @@ header .title-bar h1 {
   display:block;
   margin:2.5rem auto 2rem;
   padding-bottom:3rem;
-  width:94px;
   z-index:3;
 }
 .share-links>a {
@@ -649,6 +648,12 @@ header .title-bar h1 {
   }
 }
 
+@media screen and (max-width: 40em){
+  .share-links {
+    display: flex;
+    justify-content: center;
+  }
+}
 /* fonts */
 @font-face {
   font-family:'ChunkFive';
