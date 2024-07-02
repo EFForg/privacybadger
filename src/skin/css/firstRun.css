@@ -410,7 +410,7 @@ header img {
 @media print, screen and (min-width: 40em) {
   header img {
     margin:1rem 0 0;
-    width:15rem;
+    width:12rem;
   }
 }
 header .title-bar h1 {
@@ -498,8 +498,8 @@ header .title-bar h1 {
   display:block;
   margin:2.5rem auto 2rem;
   padding-bottom:3rem;
-  width:94px;
   z-index:3;
+  width: 146px;
 }
 .share-links>a {
   position:relative;
@@ -648,6 +648,7 @@ header .title-bar h1 {
     visibility:visible;
   }
 }
+
 /* fonts */
 @font-face {
   font-family:'ChunkFive';
@@ -789,6 +790,72 @@ body {
   background-image:linear-gradient(#DFDFE6, #DFDFE6 30%, #fff 30%);
   padding:4rem 0;
 }
+
+#overlay {
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: #1f171769;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+	40% {transform: translateY(-20px);}
+	60% {transform: translateY(-5px);}
+}
+
+#dismiss-nudge {
+  float: right;
+  padding-bottom: 5px;
+  margin: 5px;
+  position: relative;
+  top: -5px;
+  right: -5px;
+}
+
+#dismiss-nudge img {
+  height: 20px;
+}
+
+#dismiss-nudge:hover img, #dismiss-nudge:focus img {
+  /* Calculated with https://codepen.io/sosuke/pen/Pjoqqp to match #F06A0A */
+  filter: invert(63%) sepia(46%) saturate(6632%) hue-rotate(356deg) brightness(95%) contrast(98%);
+}
+
+#pin-nudge-text {
+  line-height: 1.5;
+  width: 275px;
+  font-size: 17px;
+}
+
+#pin-nudge-cta {
+  font-family:"OpenSans-Bold",sans-serif;
+}
+
+#pin-image {
+  width: 275px;
+  border-radius: 8px;
+}
+
+#pin-nudge {
+  background-color: #DFDFE6;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  padding: 25px;
+  z-index: 1000;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 20px, rgba(0, 0, 0, 0.35) 0px 25px 30px;
+  animation: bounce 2s ease 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
 #pb-privacy-policy, #pb-privacy-policy a {
   color:#707070;
   font-family:"OpenSans-Light",sans-serif;
@@ -840,5 +907,18 @@ body {
     background-color: #555;
     border-left: 0.4275rem solid #555;
     color: #fff;
+  }
+
+  #pin-nudge {
+    background-color: #555;
+  }
+
+  #dismiss-nudge img {
+    filter: invert(0.85);
+  }
+  
+  #dismiss-nudge:hover img, #dismiss-nudge:focus img {
+    /* Calculated with https://codepen.io/sosuke/pen/Pjoqqp to match #F06A0A */
+    filter: invert(63%) sepia(46%) saturate(6632%) hue-rotate(356deg) brightness(95%) contrast(98%);;
   }
 }

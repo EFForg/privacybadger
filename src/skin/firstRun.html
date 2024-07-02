@@ -28,6 +28,18 @@
       </div>
     </header>
 
+    <!-- Overlay nudging users to pin their extension (only shown on chromium browsers) -->
+    <div id="overlay" style="display:none;"></div>
+    <div id="pin-nudge" style="display:none;" role="dialog">
+      <div>
+        <a href="" id="dismiss-nudge" role="button" aria-label="i18n_report_close">
+          <img src="../icons/close.svg" alt="">
+        </a>
+        <p id="pin-nudge-text"></p>
+      </div>
+      <img id="pin-image" src="images/pinning-instructions.png" alt="i18n_intro_pin_instructions">
+    </div>
+
     <!-- intro -->
     <div id="intro" class="grid-x grid-padding-x align-center">
       <div class="small-12 medium-10 text-center cell">
