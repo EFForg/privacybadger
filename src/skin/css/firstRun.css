@@ -498,8 +498,8 @@ header .title-bar h1 {
   display:block;
   margin:2.5rem auto 2rem;
   padding-bottom:3rem;
-  width:94px;
   z-index:3;
+  width: 146px;
 }
 .share-links>a {
   position:relative;
