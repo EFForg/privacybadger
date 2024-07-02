@@ -78,6 +78,17 @@ function setTextDirection() {
     ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div', '#widget-site-exceptions-select-div', '#widget-site-exceptions-remove-button'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
+  } else if (document.location.pathname == "/skin/firstRun.html") {
+    $('#pin-nudge').css({
+      right: 'unset',
+      left: '15px'
+    });
+    $('#pin-image').css("transform", "scaleX(-1)");
+    $('#dismiss-nudge').css({
+      float: 'left',
+      right: 'unset',
+      left: '-5px'
+    });
   }
 }
 
