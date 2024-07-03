@@ -280,7 +280,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "YouTube 无法正常工作？这可能不是因为 Privacy Badger。",
+        "message": "YouTube 无法正常工作？这可能不是因为隐私獾。",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -364,7 +364,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "首先，将 $START_SPAN_TAG$隐私獾固定到你的工具栏$END_SPAN_TAG$，以便轻松访问 “$DISABLE_FOR_SITE$”按钮。",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -380,7 +380,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "message": "要固定隐私獾的图标，单击浏览器工具栏中的 “扩展”按钮。接着，单击隐私獾边上的大头针图标。",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
