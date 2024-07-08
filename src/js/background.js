@@ -245,6 +245,18 @@ Badger.prototype = {
         chrome.privacy.websites.topicsEnabled,
         (self.getSettings().getItem("disableTopics") ? false : null)
       );
+
+      _set_override(
+        "adMeasurementEnabled",
+        chrome.privacy.websites.adMeasurementEnabled,
+        (self.getSettings().getItem("disableTopics") ? false : null)
+      );
+
+      _set_override(
+        "fledgeEnabled",
+        chrome.privacy.websites.fledgeEnabled,
+        (self.getSettings().getItem("disableTopics") ? false : null)
+      );
     }
   },
 
