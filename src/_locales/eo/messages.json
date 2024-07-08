@@ -364,7 +364,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Unue $START_SPAN_TAG$alpinglu Privatan Melon al via ilarstrio$END_SPAN_TAG$ por rapide aliri la butonon “$DISABLE_FOR_SITE$”.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -380,7 +380,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "message": "Por alpingli bildsimbolon de Privata Melo, alklaku la bildsimbolon de puzlero sur la retumila ilaro. Sekve alklaku la bildsimbolon de prempinglo sekve de Privata Melo.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {

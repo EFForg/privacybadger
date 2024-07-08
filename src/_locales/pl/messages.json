@@ -364,7 +364,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Najpierw $START_SPAN_TAG$przypnij Privacy Badgera do paska narzędzi$END_SPAN_TAG$, aby uzyskać dostęp do przycisku „$DISABLE_FOR_SITE$”.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -380,7 +380,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "message": "Aby przypiąć ikonę Privacy Badgera, kliknij w ikonę puzzla na pasku przeglądarki. Następnie kliknij w ikonę pinezki obok Privacy Badgera.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
