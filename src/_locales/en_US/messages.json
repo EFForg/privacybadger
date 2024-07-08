@@ -45,7 +45,7 @@
     },
     "report_broken_site": {
         "message": "Report broken site",
-        "description": "Button in the popup."
+        "description": "Button in the popup and title of the error reporting form overlay."
     },
     "version": {
         "message": "version $VERSION_STRING$",
@@ -193,20 +193,12 @@
         "message": "Currently Privacy Badger only checks if third parties are using cookies, HTML5 local storage, or canvas fingerprinting to track your browsing. Some of these domains may be using tracking methods that Privacy Badger can't detect.",
         "description": "Tooltip for the 'non_tracker' message."
     },
-    "report_title": {
-        "message": "Report an Error",
-        "description": "Title of the 'Report broken site' popup overlay."
-    },
-    "report_text": {
-        "message": "Briefly describe the error below.",
-        "description": "The 'below' refers to a text input located below this text. This asks the user to describe what problem the user experienced."
-    },
     "report_input_label": {
-        "message": "Description",
+        "message": "Briefly describe the problem",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
-        "message": "What's Wrong?",
+        "message": "What's wrong?",
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
@@ -214,7 +206,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Submit Error",
+        "message": "Send report",
         "description": "Button text."
     },
     "report_cancel": {
