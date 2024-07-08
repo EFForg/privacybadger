@@ -66,7 +66,9 @@ window.FRAME_URL = getFrameUrl();
 // investigate implications of third-party scripts in nested frames
 // generating pbSurrogateMessage events
 if (window.top != window) {
-  return;
+  if (!window.FRAME_URL.startsWith('https://cdn.embedly.com/')) {
+    return;
+  }
 }
 
 document.addEventListener("pbSurrogateMessage", function (e) {
