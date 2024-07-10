@@ -415,7 +415,6 @@ div.overlay.active {
     width: 98%;
 }
 .overlay_title {
-  display: inline-block;
   padding: 0;
   margin: 0 0 10px;
 }
@@ -439,13 +438,13 @@ div.overlay.active {
     margin: 10px 0 !important;
 }
 a.overlay_close {
-  display: inline-block;
   float: right;
   background: none;
   border: 0;
   font-size: 1.4em;
   color: #ccc;
   text-decoration: none;
+  margin-left: 10px;
 }
 a.overlay_close:before {
   content: '\2716';
