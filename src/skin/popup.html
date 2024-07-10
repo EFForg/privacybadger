@@ -73,9 +73,11 @@
   </div><!-- end of div#instruction -->
 
   <div id="overlay" class="overlay">
-    <h1 id="report_title" class="i18n_report_title overlay_title"></h1>
+    <h1 id="report_title" class="i18n_report_broken_site overlay_title"></h1>
     <a href="" id="report_close" class="i18n_report_close overlay_close" role="button"></a>
-    <p id="report_text" class="i18n_report_text"></p>
+    <div id="report-youtube-message-container" style="display:none">
+      <div id="report-youtube-message"></div>
+    </div>
     <label id="report_label" for="error_input" class="i18n_report_input_label"></label>
     <textarea id="error_input" name="error_input" maxlength="300" rows=3 placeholder="i18n_error_input"></textarea>
     <div id="report-controls">
