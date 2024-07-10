@@ -45,7 +45,7 @@
     },
     "report_broken_site": {
         "message": "Laporkan laman rosak",
-        "description": "Button in the popup."
+        "description": "Button in the popup and title of the error reporting form overlay."
     },
     "version": {
         "message": "versi $VERSION_STRING$",
@@ -193,16 +193,8 @@
         "message": "Pada masa ini, Privacy Badger hanya menyemak sama ada pihak ketiga menggunakan kuki, storan lokal HTML5 atau kecapan jari kanvas untuk menjejaki pelayaran anda. Sesetengah domain ini mungkin menggunakan kaedah penjejakan yang tidak boleh dikesan oleh Privacy Badger.",
         "description": "Tooltip for the 'non_tracker' message."
     },
-    "report_title": {
-        "message": "Laporkan ralat",
-        "description": "Title of the 'Report broken site' popup overlay."
-    },
-    "report_text": {
-        "message": "Huraikan secara ringkas ralat tersebut di bawah.",
-        "description": "The 'below' refers to a text input located below this text. This asks the user to describe what problem the user experienced."
-    },
     "report_input_label": {
-        "message": "Penghuraian",
+        "message": "Briefly describe the problem:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -214,7 +206,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Hantar ralat",
+        "message": "Send report",
         "description": "Button text."
     },
     "report_cancel": {
@@ -280,7 +272,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {

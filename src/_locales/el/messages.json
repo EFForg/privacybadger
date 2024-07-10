@@ -45,7 +45,7 @@
     },
     "report_broken_site": {
         "message": "Αναφορά ιστοσελίδας που υπολειτουργεί",
-        "description": "Button in the popup."
+        "description": "Button in the popup and title of the error reporting form overlay."
     },
     "version": {
         "message": "έκδοση $VERSION_STRING$",
@@ -193,16 +193,8 @@
         "message": "Προς το παρόν, το Privacy Badger ελέγχει μόνο αν τρίτοι χρησιμοποιούν cookies, τον τοπικό χώρο αποθήκευσης στην HTML5 ή canvas fingerprinting. Μερικά domains ενδέχεται να χρησιμοποιούν μεθόδους που το Privacy Badger δεν μπορεί να εντοπίσει.",
         "description": "Tooltip for the 'non_tracker' message."
     },
-    "report_title": {
-        "message": "Αναφορά προβλήματος",
-        "description": "Title of the 'Report broken site' popup overlay."
-    },
-    "report_text": {
-        "message": "Αναφέρετε συνοπτικά το πρόβλημά σας παρακάτω.",
-        "description": "The 'below' refers to a text input located below this text. This asks the user to describe what problem the user experienced."
-    },
     "report_input_label": {
-        "message": "Περιγραφή",
+        "message": "Briefly describe the problem:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -214,7 +206,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Αποστολή αναφοράς προβλήματος",
+        "message": "Send report",
         "description": "Button text."
     },
     "report_cancel": {
@@ -280,7 +272,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Δε λειτουργεί το YouTube; Το Privacy Badger πιθανότατα δεν ευθύνεται για αυτό.",
+        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {

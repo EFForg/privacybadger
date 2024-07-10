@@ -45,7 +45,7 @@
     },
     "report_broken_site": {
         "message": "Bozuk siteyi rapor et",
-        "description": "Button in the popup."
+        "description": "Button in the popup and title of the error reporting form overlay."
     },
     "version": {
         "message": "versiyon $VERSION_STRING$",
@@ -193,20 +193,12 @@
         "message": "Şu an Privacy Badger sadece 3. partilerin çerez, yerel HTML5 depolaması, veya tuval parmak izi kullanarak taramanızı takip edip etmediğini kontrol ediyor. Bazı adresler Privacy Badger tarafından algılanmayan yöntemler kullanıyor olabilir.",
         "description": "Tooltip for the 'non_tracker' message."
     },
-    "report_title": {
-        "message": "Hata Rapor Et",
-        "description": "Title of the 'Report broken site' popup overlay."
-    },
-    "report_text": {
-        "message": "Hatayı aşağıda kısaca özetleyin.",
-        "description": "The 'below' refers to a text input located below this text. This asks the user to describe what problem the user experienced."
-    },
     "report_input_label": {
-        "message": "Açıklama",
+        "message": "Briefly describe the problem:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
-        "message": "Sorun Nedir?",
+        "message": "Sorun nedir?",
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
@@ -214,7 +206,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Hata Gönder",
+        "message": "Send report",
         "description": "Button text."
     },
     "report_cancel": {
@@ -280,7 +272,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
