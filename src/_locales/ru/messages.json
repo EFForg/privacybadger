@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger отключен на этом сайте",
+        "message": "Privacy Badger отключён на этом сайте",
         "description": "Shown in the popup on disabled sites."
     },
     "popup_disable_for_site": {
@@ -280,7 +280,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "YouTube не работает? Вероятно что, дело не в Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -336,7 +336,7 @@
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
-        "message": "Пожалуйста, не забывайте нажимать на кнопку 'Сообщить о неполадках на сайте'. Мы уважаем вашу приватность, поэтому не отправляем отчеты автоматически.",
+        "message": "Пожалуйста, не забывайте нажимать на кнопку «Сообщить о неполадках на сайте». Мы уважаем вашу приватность, поэтому не отправляем отчеты автоматически.",
         "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
     },
     "intro_privacy_note": {
@@ -364,7 +364,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Сначала $START_SPAN_TAG$прикрепите Privacy Badger к панели браузера$END_SPAN_TAG$, чтобы получить доступ к кнопке «$DISABLE_FOR_SITE$».",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -380,7 +380,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "message": "Чтобы закрепить иконку Privacy Badger, щелкните иконку головоломки на панели браузера. Затем щелкните иконку булавки рядом с надписью Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -432,7 +432,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's \"Privacy Sandbox\" ad tracking",
+        "message": "Отключить механизм рекламного отслеживания «Privacy Sandbox» от Google",
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2023/09/how-turn-googles-privacy-sandbox-ad-tracking-and-why-you-should"
     },
     "options_advanced_settings": {
@@ -460,11 +460,11 @@
         "description": "Tooltip in general settings."
     },
     "disabled_sites": {
-        "message": "Отключенные сайты",
+        "message": "Отключённые сайты",
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger отключен для данных сайтов. Это означает, что Privacy Badger не будет ничего блокировать на сайтах, находящихся в данном списке. Privacy Badger также не будет отправлять этим сайтам сигналы Do Not Track и Global Privacy Control.</p><p>Если вы считаете, что Privacy Badger вызывает неполадки на странице, или вы хотите позволить какой-то сайте разпростровлять или продавать ваши данные, вы можете напечатать домен данной страницы в поле ниже и нажать кнопку «Добавить домен».</p>",
+        "message": "<p>Privacy Badger отключён для данных сайтов. Это означает, что Privacy Badger не будет ничего блокировать на сайтах, находящихся в данном списке. Privacy Badger также не будет отправлять этим сайтам сигналы Do Not Track и Global Privacy Control.</p><p>Если вы считаете, что Privacy Badger вызывает неполадки на странице, или вы хотите позволить какой-то сайте разпростровлять или продавать ваши данные, вы можете напечатать домен данной страницы в поле ниже и нажать кнопку «Добавить домен».</p>",
         "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
     },
     "allowlist_domain_input_placeholder": {
@@ -512,7 +512,7 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_domain_list_tab": {
-        "message": "Домены с трекерами",
+        "message": "Трекеры",
         "description": "This is an options page tab heading."
     },
     "options_domain_list_trackers": {
@@ -585,7 +585,7 @@
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
-        "message": "Hide domains present in the latest pre-trained list",
+        "message": "Скрыть домены, находящиеся в последнем стандартном списке",
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
@@ -607,7 +607,7 @@
         "description": "This is an options page tab heading."
     },
     "manage_data_intro": {
-        "message": "Импорт пользовательских данных:<ul><li>Перезапишет общие настройки</li><li>Объединит списки отключенных сайтов</li><li>Объединит информацию о том, какие трекеры Privacy Badger встретил</li><li>Перезапишет настройки переключателей</li></ul>",
+        "message": "Импорт пользовательских данных:<ul><li>Перезапишет общие настройки</li><li>Объединит списки отключённых сайтов</li><li>Объединит информацию о том, какие трекеры Privacy Badger встретил</li><li>Перезапишет настройки переключателей</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "export_user_data": {
@@ -639,11 +639,11 @@
         "description": ""
     },
     "sync_intro": {
-        "message": "Облачная синхронизация:<ul><li>Требуется Firefox/Chrome Sync</li><li>При загрузке все находящиеся в облаке данные Privacy Badger перезаписываются</li><li>При скачивании списки сайтов с отключенным Privacy Badger объединяются</li></ul>",
+        "message": "Облачная синхронизация:<ul><li>Требуется Firefox/Chrome Sync</li><li>При загрузке все находящиеся в облаке данные Privacy Badger перезаписываются</li><li>При скачивании списки сайтов с отключённым Privacy Badger объединяются</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Экспорт отключенных сайтов в облако",
+        "message": "Экспорт отключённых сайтов в облако",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "upload": {
@@ -651,7 +651,7 @@
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Импорт отключенных сайтов из облака",
+        "message": "Импорт отключённых сайтов из облака",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
@@ -683,7 +683,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Сброс доменов с трекерами:\n\n  • удалит все данные о трекерах, полученные Privacy Badger в процессе вашего пользования Интернетом\n  • восстановит список доменов с трекерами до последней версии перед началом обучения (для получения более подробной информации посетите www.eff.org/badger-pretraining)",
+        "message": "Сброс доменов с трекерами:\n\n  • удалит все данные о трекерах, полученные Privacy Badger в процессе вашего пользования Интернетом\n  • восстановит список доменов с трекерами до последней стандартной версии (для получения более подробной информации посетите www.eff.org/badger-pretraining)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
