@@ -444,7 +444,7 @@ a.overlay_close {
   font-size: 1.4em;
   color: #ccc;
   text-decoration: none;
-  margin-left: 10px;
+  margin-inline-start: 10px;
 }
 a.overlay_close:before {
   content: '\2716';
