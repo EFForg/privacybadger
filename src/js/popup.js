@@ -166,12 +166,12 @@ function init() {
   $("#activate_site_btn").on("click", activateOnSite);
   $("#deactivate_site_btn").on("click", deactivateOnSite);
 
-  $('#error_input').on('input propertychange', function() {
+  $('#error-input').on('input propertychange', function() {
     // No easy way of sending message on popup close, send message for every change
     chrome.runtime.sendMessage({
       type: 'saveErrorText',
       tabId: POPUP_DATA.tabId,
-      errorText: $("#error_input").val()
+      errorText: $("#error-input").val()
     });
   });
 
@@ -190,9 +190,9 @@ function init() {
   $("#report-button").on("click", function() {
     $(this).prop("disabled", true);
     $("#report-cancel").prop("disabled", true);
-    send_error($("#error_input").val());
+    send_error($("#error-input").val());
   });
-  $("#report_close").on("click", function (e) {
+  $("#report-close").on("click", function (e) {
     e.preventDefault();
     clearSavedErrorText();
     closeOverlay();
@@ -243,12 +243,12 @@ function init() {
     e.preventDefault();
     share();
   });
-  $("#share_close").on("click", function (e) {
+  $("#share-close").on("click", function (e) {
     e.preventDefault();
-    $("#share_overlay").toggleClass('active', false);
+    $("#share-overlay").toggleClass('active', false);
   });
   $("#copy-button").on("click", function() {
-    $("#share_output").select();
+    $("#share-output").select();
     document.execCommand('copy');
     $(this).text(chrome.i18n.getMessage("copy_button_copied"));
   });
@@ -300,7 +300,7 @@ function closeOverlay() {
   $('#overlay').toggleClass('active', false);
   $("#report-success").hide();
   $("#report-fail").hide();
-  $("#error_input").val("");
+  $("#error-input").val("");
 }
 
 /**
@@ -362,7 +362,7 @@ function send_error(message) {
     });
 
     sendReport.done(function() {
-      $("#error_input").val("");
+      $("#error-input").val("");
       $("#report-success").slideDown();
 
       clearSavedErrorText();
@@ -426,13 +426,13 @@ function deactivateOnSite() {
  * Open the share overlay
  */
 function share() {
-  $("#share_overlay").toggleClass('active');
+  $("#share-overlay").toggleClass('active');
   let share_msg = chrome.i18n.getMessage("share_base_message");
 
   // only add language about found trackers if we actually found trackers
   // (but regardless of whether we are actually blocking them)
   if (POPUP_DATA.noTabData) {
-    $("#share_output").val(share_msg);
+    $("#share-output").val(share_msg);
     return;
   }
 
@@ -443,7 +443,7 @@ function share() {
   }
 
   if (!originsArr.length) {
-    $("#share_output").val(share_msg);
+    $("#share-output").val(share_msg);
     return;
   }
 
@@ -465,7 +465,7 @@ function share() {
     share_msg += "\n\n";
     share_msg += tracking.join("\n");
   }
-  $("#share_output").val(share_msg);
+  $("#share-output").val(share_msg);
 }
 
 /**
@@ -616,7 +616,7 @@ function refreshPopup() {
 
   // if there is any saved error text, fill the error input with it
   if (utils.hasOwn(POPUP_DATA, 'errorText')) {
-    $("#error_input").val(POPUP_DATA.errorText);
+    $("#error-input").val(POPUP_DATA.errorText);
   }
   // show error layout if the user was writing an error report
   if (utils.hasOwn(POPUP_DATA, 'errorText') && POPUP_DATA.errorText) {

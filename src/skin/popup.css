@@ -410,15 +410,15 @@ div.overlay.active {
   z-index: 31;
   opacity: 1;
 }
-#error_input {
+#error-input {
     display: block;
     width: 98%;
 }
-.overlay_title {
+.overlay-title {
   padding: 0;
   margin: 0 0 10px;
 }
-#report_label {
+#report-label {
   display: block;
   margin: 1% 0;
   font-weight: bold;
@@ -437,7 +437,7 @@ div.overlay.active {
 #report-terms {
     margin: 10px 0 !important;
 }
-a.overlay_close {
+a.overlay-close {
   float: right;
   background: none;
   border: 0;
@@ -446,14 +446,14 @@ a.overlay_close {
   text-decoration: none;
   margin-inline-start: 10px;
 }
-a.overlay_close:before {
+a.overlay-close:before {
   content: '\2716';
   margin: 4px;
 }
-a.overlay_close:hover {
+a.overlay-close:hover {
     color: #f06a0a;
 }
-#share_output {
+#share-output {
   display: block;
   width: 98%;
   height: 60%;
@@ -647,7 +647,7 @@ a.overlay_close:hover {
         color: #f9f9f9;
     }
 
-    textarea, #share_output {
+    textarea, #share-output {
         background-color: #333;
         border: solid 1px #555;
         color: #ddd;

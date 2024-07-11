@@ -260,7 +260,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.load_url(DUMMY_PAGE_URL)
         self.open_popup(DUMMY_PAGE_URL)
 
-        report_input = self.driver.find_element(By.ID, "error_input")
+        report_input = self.driver.find_element(By.ID, "error-input")
         assert not report_input.is_displayed(), (
             "Error reporting should be closed by default")
 
@@ -270,7 +270,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         assert report_input.is_displayed(), (
             "Error reporting should be open")
 
-        self.driver.find_element(By.ID, "report_close").click()
+        self.driver.find_element(By.ID, "report-close").click()
         time.sleep(1)
         assert not report_input.is_displayed(), (
             "Error reporting should have gotten closed")
@@ -284,7 +284,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.open_popup(DUMMY_PAGE_URL)
         time.sleep(1)
-        report_input = self.driver.find_element(By.ID, "error_input")
+        report_input = self.driver.find_element(By.ID, "error-input")
         assert report_input.is_displayed(), "Error reporting should be open"
         assert report_input.get_attribute('value') == ERROR_REPORT_TEXT, (
             "Previously entered text should be displayed")

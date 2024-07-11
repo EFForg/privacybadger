@@ -56,7 +56,7 @@ function setTextDirection() {
   // popup page
   if (ON_POPUP) {
     // fix floats
-    ['#fittslaw', '.overlay_close'].forEach((selector) => {
+    ['#fittslaw', '.overlay-close'].forEach((selector) => {
       toggle_css_value(selector, "float", "right", "left");
     });
 
