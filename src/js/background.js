@@ -244,9 +244,6 @@ Badger.prototype = {
     let excludeMatches = dnrUtils.convertSiteDomainsToMatchPatterns(
       prefs.getItem("disabledSites"));
 
-    // TODO "matchOriginAsFallback" and "world" are not supported in Firefox
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=1853411
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
     let scripts = constants.CONTENT_SCRIPTS
       .filter(item => {
         switch (item.id) {
