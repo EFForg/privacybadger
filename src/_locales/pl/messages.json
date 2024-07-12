@@ -194,7 +194,7 @@
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
-        "message": "Briefly describe the problem:",
+        "message": "Zwięźle opisz problem:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -206,7 +206,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Send report",
+        "message": "Wyślij raport",
         "description": "Button text."
     },
     "report_cancel": {
@@ -272,7 +272,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Czy reklamy nie są blokowane? Czy YouTube nie działa? Przyczyną tego prawdopodobnie nie jest Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
