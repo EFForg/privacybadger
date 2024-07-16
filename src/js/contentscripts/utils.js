@@ -61,16 +61,6 @@ window.FRAME_URL = getFrameUrl();
 
 // END FUNCTION DEFINITIONS ///////////////////////////////////////////////////
 
-// register listener in top-level frames only for now
-// NOTE: before removing this restriction,
-// investigate implications of third-party scripts in nested frames
-// generating pbSurrogateMessage events
-if (window.top != window) {
-  if (!window.FRAME_URL.startsWith('https://cdn.embedly.com/')) {
-    return;
-  }
-}
-
 document.addEventListener("pbSurrogateMessage", function (e) {
   if (e.detail && e.detail.type == "widgetFromSurrogate") {
     chrome.runtime.sendMessage({

@@ -1768,6 +1768,23 @@ function dispatcher(request, sender, sendResponse) {
       break;
     }
 
+    // accept widget surrogate messages only from top-level,
+    // first-party, and Embedly frames
+    //
+    // NOTE: before removing this restriction, investigate
+    // implications of accepting pbSurrogateMessage events
+    // from third-party scripts in nested frames
+    if (!request.frameUrl.startsWith('https://cdn.embedly.com/')) {
+      let frame_host = extractHostFromURL(request.frameUrl);
+      // CNAME uncloaking
+      if (utils.hasOwn(badger.cnameDomains, frame_host)) {
+        frame_host = badger.cnameDomains[frame_host];
+      }
+      if (!frame_host || utils.isThirdPartyDomain(frame_host, tab_host)) {
+        break;
+      }
+    }
+
     if (request.name == "X (Twitter)") {
       // no need to build a custom widget,
       // merely rescan the page for Twitter embeds
@@ -1776,7 +1793,7 @@ function dispatcher(request, sender, sendResponse) {
         trackerDomain: "platform.twitter.com",
         frameId: sender.frameId
       });
-      return;
+      break;
     }
 
     // NOTE: request.name and request.data are not to be trusted
