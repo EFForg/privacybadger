@@ -1780,10 +1780,6 @@ function dispatcher(request, sender, sendResponse) {
         let tab_scheme = tab_url.slice(0, tab_url.indexOf(tab_host));
         if (!request.frameUrl.startsWith(tab_scheme + tab_host)) {
           let frame_host = extractHostFromURL(request.frameUrl);
-          // CNAME uncloaking
-          if (utils.hasOwn(badger.cnameDomains, frame_host)) {
-            frame_host = badger.cnameDomains[frame_host];
-          }
           if (!frame_host || utils.isThirdPartyDomain(frame_host, tab_host)) {
             break;
           }
