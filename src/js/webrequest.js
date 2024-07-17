@@ -1763,7 +1763,8 @@ function dispatcher(request, sender, sendResponse) {
   // proxies surrogate script-initiated widget replacement messages
   // from one content script to another
   case "widgetFromSurrogate": {
-    let tab_host = extractHostFromURL(sender.tab.url);
+    let tab_url = sender.tab.url,
+      tab_host = extractHostFromURL(tab_url);
     if (!badger.isPrivacyBadgerEnabled(tab_host)) {
       break;
     }
@@ -1774,14 +1775,19 @@ function dispatcher(request, sender, sendResponse) {
     // NOTE: before removing this restriction, investigate
     // implications of accepting pbSurrogateMessage events
     // from third-party scripts in nested frames
-    if (!request.frameUrl.startsWith('https://cdn.embedly.com/')) {
-      let frame_host = extractHostFromURL(request.frameUrl);
-      // CNAME uncloaking
-      if (utils.hasOwn(badger.cnameDomains, frame_host)) {
-        frame_host = badger.cnameDomains[frame_host];
-      }
-      if (!frame_host || utils.isThirdPartyDomain(frame_host, tab_host)) {
-        break;
+    if (sender.frameId > 0) {
+      if (!request.frameUrl.startsWith('https://cdn.embedly.com/')) {
+        let tab_scheme = tab_url.slice(0, tab_url.indexOf(tab_host));
+        if (!request.frameUrl.startsWith(tab_scheme + tab_host)) {
+          let frame_host = extractHostFromURL(request.frameUrl);
+          // CNAME uncloaking
+          if (utils.hasOwn(badger.cnameDomains, frame_host)) {
+            frame_host = badger.cnameDomains[frame_host];
+          }
+          if (!frame_host || utils.isThirdPartyDomain(frame_host, tab_host)) {
+            break;
+          }
+        }
       }
     }
 
