@@ -1,5 +1,19 @@
-Privacy Badger Release Notes
-============================
+Privacy Badger changelog
+========================
+
+2024.7.17
+* Disabled Google's "Privacy Sandbox" ad tracking by default.
+We previously disabled Google's Topics API; we now also disable
+"site-suggested ads" (ad targeting) and "ad measurement"
+(ad attribution reporting) APIs.
+* Improved widget replacement for Spotify, SoundCloud, Twitch and YouTube
+embeds. To try out our widget replacement for YouTube embeds,
+move the toggle for youtube.com to red (full blocking).
+* Updated the new user welcome page to ask Chrome users to pin
+Privacy Badger to the browser toolbar
+* Fixed various site breakages
+* Improved Esperanto, Greek, Polish, Russian and Swedish translations.
+Removed Arabic and Bulgarian translations due to lack of updates.
 
 2024.6.14
 * Added a note to Privacy Badger's popup on YouTube.
