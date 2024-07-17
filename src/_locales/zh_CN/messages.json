@@ -272,7 +272,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "广告未拦截？YouTube 没有正常工作? 这或许并非因为 Privacy Badger。",
+        "message": "广告未拦截？YouTube 没有正常工作？这或许并非因为隐私獾。",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
