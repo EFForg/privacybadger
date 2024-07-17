@@ -70,6 +70,13 @@ const WIDGET_ELS = {};
 
 let doNotReplace = new WeakSet();
 
+// if the widget element lacks a src property,
+// try to use the following dataset properties instead
+const lazyLoadDatasetSrcProps = [
+  "src",
+  "ezsrc"
+];
+
 /**
  * @param {Object} response response to checkWidgetReplacementEnabled
  */
@@ -274,7 +281,15 @@ function restoreWidget(widget) {
   unblockTracker(name, function () {
     // restore all widgets of this type
     WIDGET_ELS[name].forEach(data => {
-      data.parent.replaceChild(data.widget, data.replacement);
+      if (!data.origWidgetElem.src) {
+        for (let prop of lazyLoadDatasetSrcProps) {
+          if (data.origWidgetElem.dataset[prop]) {
+            data.origWidgetElem.src = data.origWidgetElem.dataset[prop];
+            break;
+          }
+        }
+      }
+      data.parentNode.replaceChild(data.origWidgetElem, data.replacement);
       if (data.scriptSelectors) {
         // This is part of "click-to-play" for third-party page widgets:
         // https://privacybadger.org/#How-does-Privacy-Badger-handle-social-media-widgets
@@ -472,9 +487,18 @@ function createReplacementWidget(widget, elToReplace) {
   let widget_url;
   if (widget.directLinkUrl) {
     widget_url = widget.directLinkUrl;
-  } else if (elToReplace.nodeName.toLowerCase() == 'iframe' && elToReplace.src && !widget.noDirectLink) {
+  } else if (elToReplace.nodeName.toLowerCase() == 'iframe' && !widget.noDirectLink) {
     // use the frame URL for framed widgets
-    widget_url = elToReplace.src;
+    if (elToReplace.src) {
+      widget_url = elToReplace.src;
+    } else {
+      for (let prop of lazyLoadDatasetSrcProps) {
+        if (elToReplace.dataset[prop]) {
+          widget_url = elToReplace.dataset[prop];
+          break;
+        }
+      }
+    }
   } else if (elToReplace.nodeName.toLowerCase() == 'blockquote') {
     if (elToReplace.cite && elToReplace.cite.startsWith('https://')) {
       // special case for TikTok
@@ -582,9 +606,9 @@ function createReplacementWidget(widget, elToReplace) {
     WIDGET_ELS[name] = [];
   }
   let data = {
-    parent: elToReplace.parentNode,
-    widget: elToReplace,
-    replacement: widgetFrame
+    parentNode: elToReplace.parentNode,
+    replacement: widgetFrame,
+    origWidgetElem: elToReplace
   };
   if (widget.scriptSelectors) {
     data.scriptSelectors = widget.scriptSelectors;
@@ -737,8 +761,22 @@ a:hover {
  * Replaces buttons/widgets in the DOM.
  */
 function replaceIndividualButton(widget) {
-  let selector = widget.buttonSelectors.join(','),
-    elsToReplace = document.querySelectorAll(selector);
+  let elsToReplace = [];
+
+  if (widget.buttonSelectors) {
+    elsToReplace = document.querySelectorAll(widget.buttonSelectors.join(','));
+  } else if (widget.selectors) {
+    let selectors = [];
+    for (let item of widget.selectors) {
+      for (let url of item.urls) {
+        selectors.push(`${item.elm}[src^='${url}']`);
+        for (let prop of lazyLoadDatasetSrcProps) {
+          selectors.push(`${item.elm}[data-${prop}^='${url}']`);
+        }
+      }
+    }
+    elsToReplace = document.querySelectorAll(selectors.join(','));
+  }
 
   for (let el of elsToReplace) {
     if (doNotReplace.has(el)) {
@@ -747,7 +785,7 @@ function replaceIndividualButton(widget) {
     // also don't replace if we think we currently have a placeholder
     // for this widget type attached to the same parent element
     if (hasOwn(WIDGET_ELS, widget.name)) {
-      if (WIDGET_ELS[widget.name].some(d => d.parent == el.parentNode)) {
+      if (WIDGET_ELS[widget.name].some(d => d.parentNode == el.parentNode)) {
         // something went wrong, give up
         continue;
       }

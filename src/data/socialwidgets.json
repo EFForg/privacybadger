@@ -342,8 +342,13 @@
     },
     "SoundCloud": {
         "domain": "w.soundcloud.com",
-        "buttonSelectors": [
-            "iframe[src^='https://w.soundcloud.com/player']"
+        "selectors": [
+            {
+                "elm": "iframe",
+                "urls": [
+                    "https://w.soundcloud.com/player"
+                ]
+            }
         ],
         "replacementButton": {
             "unblockDomains": [
@@ -358,10 +363,15 @@
             "open.spotify.com",
             "podcasters.spotify.com"
         ],
-        "buttonSelectors": [
-            "iframe[src^='https://embed.spotify.com/']",
-            "iframe[src^='https://open.spotify.com/embed']",
-            "iframe[src^='https://podcasters.spotify.com/pod/']"
+        "selectors": [
+            {
+                "elm": "iframe",
+                "urls": [
+                    "https://embed.spotify.com/",
+                    "https://open.spotify.com/embed",
+                    "https://podcasters.spotify.com/pod/"
+                ]
+            }
         ],
         "replacementButton": {
             "unblockDomains": [
@@ -472,15 +482,20 @@
             "www.youtube.com",
             "www.youtube-nocookie.com"
         ],
-        "buttonSelectors": [
-            "iframe[src^='//youtube.com/embed']",
-            "iframe[src^='//www.youtube.com/embed']",
-            "iframe[src^='http://www.youtube.com/embed']",
-            "iframe[src^='https://www.youtube.com/embed']",
-            "iframe[src^='https://youtube.com/embed']",
-            "iframe[src^='https://www.youtube.com/v/']",
-            "iframe[src^='//www.youtube-nocookie.com/embed']",
-            "iframe[src^='https://www.youtube-nocookie.com/embed']"
+        "selectors": [
+            {
+                "elm": "iframe",
+                "urls": [
+                    "//youtube.com/embed",
+                    "//www.youtube.com/embed",
+                    "http://www.youtube.com/embed",
+                    "https://www.youtube.com/embed",
+                    "https://youtube.com/embed",
+                    "https://www.youtube.com/v/",
+                    "//www.youtube-nocookie.com/embed",
+                    "https://www.youtube-nocookie.com/embed"
+                ]
+            }
         ],
         "replacementButton": {
             "unblockDomains": [
