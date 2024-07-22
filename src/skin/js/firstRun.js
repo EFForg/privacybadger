@@ -42,25 +42,6 @@ $(function () {
     }
   }
 
-  // Don't show the pin nudge in Firefox because extensions are pinned automatically
-  // chrome.action is only available in MV3 and chrome.browserAction is only available in <= MV2
-  // chrome.browserAction.getUserSettings doesn't exist in MV2 but does in Firefox
-  let is_chromium_mv3 = !!chrome.action;
-  let is_chromium_mv2 = chrome.browserAction && !chrome.browserAction.getUserSettings;
-  if (is_chromium_mv2 || is_chromium_mv3) {
-    $("#pin-nudge-text").html(chrome.i18n.getMessage("intro_pin_nudge", [chrome.i18n.getMessage("popup_disable_for_site")]));
-    $("#pin-nudge").show();
-    $("#overlay").show();
-    $("body").css('overflow', 'hidden');
-    document.addEventListener("click", clickHandler);
-    document.addEventListener("keydown", keydownHandler);
-  }
-
-  $("#dismiss-nudge").on("click", function (e) {
-    e.preventDefault();
-    hideNudgeOverlay();
-  });
-
   let interval_id;
   // Auto-dismiss the nudge once user pins Privacy Badger
   async function checkIsPinned() {
@@ -71,8 +52,39 @@ $(function () {
     }
   }
 
-  // For Chromium, we can only check if PB is pinned in MV3
-  if (is_chromium_mv3) {
-    interval_id = setInterval(() => checkIsPinned(), 1000);
+  function renderNudge() {
+    $("#pin-nudge-text").html(
+      chrome.i18n.getMessage("intro_pin_nudge",
+        [chrome.i18n.getMessage("popup_disable_for_site")]));
+    $("#pin-nudge").show();
+
+    $("#overlay").show();
+    $("body").css('overflow', 'hidden');
+
+    document.addEventListener("click", clickHandler);
+    document.addEventListener("keydown", keydownHandler);
+
+    $("#dismiss-nudge").on("click", function (e) {
+      e.preventDefault();
+      hideNudgeOverlay();
+    });
+  }
+
+  // Don't show the pin nudge in Firefox because extensions are pinned automatically
+  // chrome.action is only available in MV3 and chrome.browserAction is only available in <= MV2
+  // chrome.browserAction.getUserSettings doesn't exist in MV2 but does in Firefox
+  let is_chromium_mv3 = !!chrome.action;
+  let is_chromium_mv2 = chrome.browserAction && !chrome.browserAction.getUserSettings;
+  if (is_chromium_mv2) {
+    renderNudge();
+  } else if (is_chromium_mv3) {
+    chrome.action.getUserSettings(userSettings => {
+      if (!userSettings.isOnToolbar) {
+        renderNudge();
+
+        // For Chromium, we can only check if PB is pinned in MV3
+        interval_id = setInterval(() => checkIsPinned(), 1000);
+      }
+    });
   }
 });
