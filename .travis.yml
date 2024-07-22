@@ -1,7 +1,7 @@
 sudo: required
 language: python
 os: linux
-dist: focal
+dist: jammy
 python: 3.11
 jobs:
   fast_finish: true
