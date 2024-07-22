@@ -3131,6 +3131,7 @@ let multiDomainFirstPartiesArray = [
     "cloud.githubusercontent.com",
     "raw.githubusercontent.com",
   ],
+  ["miraheze.org", "wikitide.net"],
   ["mobilism.org.in", "mobilism.org"],
   ["morganstanley.com", "morganstanleyclientserv.com", "stockplanconnect.com", "ms.com"],
   [
