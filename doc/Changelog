@@ -5,7 +5,8 @@ Privacy Badger changelog
 * Disabled Google's "Privacy Sandbox" ad tracking by default.
 We previously disabled Google's Topics API; we now also disable
 "site-suggested ads" (ad targeting) and "ad measurement"
-(ad attribution reporting) APIs.
+(ad attribution reporting) APIs. To learn more, visit
+https://www.eff.org/deeplinks/2024/07/why-privacy-badger-opts-you-out-googles-privacy-sandbox
 * Improved widget replacement for Spotify, SoundCloud, Twitch and YouTube
 embeds. To try out our widget replacement for YouTube embeds,
 move the toggle for youtube.com to red (full blocking).
