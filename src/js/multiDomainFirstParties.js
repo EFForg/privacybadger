@@ -2543,7 +2543,7 @@ let multiDomainFirstPartiesArray = [
     "ktor.io",
     "talkingkotlin.com",
   ],
-  ["jpmorganchase.com", "jpmorgan.com", "chase.com"],
+  ["jpmorganchase.com", "jpmorgan.com", "chase.com", "chasecdn.com"],
   ["jobware.de", "jobware.com", "jobware.net"],
   ["jotform.com", "jotfor.ms"],
   [
