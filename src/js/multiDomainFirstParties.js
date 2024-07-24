@@ -2251,7 +2251,7 @@ let multiDomainFirstPartiesArray = [
   [
     "hatena.ne.jp",
 
-    "hatenablog.com",
+    "hatena.blog",
     "hatena.com",
 
     "st-hatena.com",
@@ -3002,7 +3002,6 @@ let multiDomainFirstPartiesArray = [
     "aspnetcdn.com",
     "assets-yammer.com",
     "azure.com",
-    "azureedge.net",
     "azure.net",
     "azurerms.com",
     "azuresynapse.net",
@@ -3094,7 +3093,6 @@ let multiDomainFirstPartiesArray = [
     "sway.com",
     "sway-extensions.com",
     "tealsk12.org",
-    "trafficmanager.net",
     "virtualearth.net",
     "visualstudio.com",
     "vsallin.net",
