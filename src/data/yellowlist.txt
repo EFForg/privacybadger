@@ -721,7 +721,6 @@ twimg.com
 api.twisto.cz
 static.twisto.cz
 api.twisto.pl
-twitch.tv
 typeform.com
 use.typekit.com
 use.typekit.net
