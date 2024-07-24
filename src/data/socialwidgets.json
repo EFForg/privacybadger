@@ -145,6 +145,21 @@
             "type": 1
         }
     },
+    "AMP Facebook Like": {
+        "domain": "connect.facebook.net",
+        "buttonSelectors": [
+            "amp-facebook-like"
+        ],
+        "replacementButton": {
+            "details": "https://www.facebook.com/plugins/like.php?href=",
+            "unblockDomains": [
+                "connect.facebook.net",
+                "www.facebook.com"
+            ],
+            "imagePath": "FacebookLike.svg",
+            "type": 1
+        }
+    },
     "Facebook Page": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
@@ -157,6 +172,19 @@
             "type": 3
         }
     },
+    "AMP Facebook Page": {
+        "domain": "connect.facebook.net",
+        "buttonSelectors": [
+            "amp-facebook-page"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "connect.facebook.net",
+                "www.facebook.com"
+            ],
+            "type": 3
+        }
+    },
     "Facebook Post": {
         "domain": "www.facebook.com",
         "buttonSelectors": [
@@ -164,6 +192,19 @@
         ],
         "replacementButton": {
             "unblockDomains": [
+                "www.facebook.com"
+            ],
+            "type": 3
+        }
+    },
+    "AMP Facebook Post": {
+        "domain": "connect.facebook.net",
+        "buttonSelectors": [
+            "amp-facebook"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "connect.facebook.net",
                 "www.facebook.com"
             ],
             "type": 3
