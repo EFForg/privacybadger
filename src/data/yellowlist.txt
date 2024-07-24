@@ -11,6 +11,7 @@ imagesrv.adition.com
 acrobat.adobe.com
 animate.adobe.com
 auth.adobe.com
+cdn-prod-ccv.adobe.com
 documentcloud.adobe.com
 documents.adobe.com
 documentservices.adobe.com
