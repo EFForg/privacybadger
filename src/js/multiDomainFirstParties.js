@@ -4597,8 +4597,12 @@ let multiDomainFirstPartiesArray = [
     "schwab.com",
 
     "schwab.com.hk",
+
     "schwabassetmanagement.com",
     "schwabcharitable.org",
+    "schwabinstitutional.com",
+    "schwabplan.com",
+
     "schwabcdn.com",
 
     "tdameritrade.com",
