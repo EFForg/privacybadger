@@ -376,6 +376,7 @@ images-amazon.com
 imbox.io
 imgur.com
 imgix.net
+cdn-gl.imrworldwide.com
 e.infogram.com
 inq.com
 inscloudgate.net
@@ -614,6 +615,7 @@ schibsted.com
 schibsted.io
 schibsted.no
 schibsted.tech
+sb.scorecardresearch.com
 scribblelive.com
 scribd.com
 assets.scrippsdigital.com
