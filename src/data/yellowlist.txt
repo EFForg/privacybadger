@@ -725,6 +725,7 @@ api.twisto.cz
 static.twisto.cz
 api.twisto.pl
 api.twitch.tv
+id.twitch.tv
 typeform.com
 use.typekit.com
 use.typekit.net
