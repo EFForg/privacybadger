@@ -568,6 +568,7 @@ client.px-cloud.net
 captcha.qcloud.com
 static.qiota.com
 www.qiota.com
+iapi.campus.qq.com
 captcha.qq.com
 docs.qq.com
 photo.store.qq.com
