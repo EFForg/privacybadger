@@ -708,6 +708,8 @@ townnews.com
 toyota.com
 cookieblock.trackersimulate.org
 tradingview.com
+widget-sheriff.tradingview-widget.com
+www.tradingview-widget.com
 serviceschipotlecom.trafficmanager.net
 cdn.transcend.io
 sync.transcend.io
