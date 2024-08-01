@@ -55,11 +55,12 @@ arcot.com
 arcpublishing.com
 arkoselabs.com
 art19.com
+arttrk.com
 asapp.com
 aspnetcdn.com
 assets-cdk.com
 assetsadobe.com
-arttrk.com
+api.attentivemobile.com
 auth0.com
 authorize.net
 cmsembed.avplayer.com
