@@ -418,14 +418,17 @@
     },
     "Twitch Player": {
         "domains": [
+            "clips.twitch.tv",
             "embed.twitch.tv",
             "player.twitch.tv",
             "www.twitch.tv",
             "twitch.tv"
         ],
         "buttonSelectors": [
+            "iframe[src^='https://clips.twitch.tv/embed?']",
             "iframe[src^='https://embed.twitch.tv?']",
             "iframe[src^='https://player.twitch.tv/']",
+            "iframe[src^='https://player.twitch.tv?']",
             "iframe[src^='//player.twitch.tv/']",
             "iframe[src^='https://www.twitch.tv/embed/']",
             "iframe[src^='https://twitch.tv/embed/']"
