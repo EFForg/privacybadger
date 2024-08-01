@@ -129,57 +129,42 @@
         }
     },
     "Facebook Like": {
-        "domains": [
-            "www.facebook.com",
-            "connect.facebook.net"
-        ],
+        "domain": "www.facebook.com",
         "buttonSelectors": [
             "fb\\:like",
             "iframe[src*='://www.facebook.com/plugins/like.php']",
             "iframe[src*='://www.facebook.com/v2.0/plugins/like.php']",
-            ".fb-like",
-            "amp-facebook-like"
+            ".fb-like"
         ],
         "replacementButton": {
             "details": "https://www.facebook.com/plugins/like.php?href=",
             "unblockDomains": [
-                "www.facebook.com",
-                "connect.facebook.net"
+                "www.facebook.com"
             ],
             "imagePath": "FacebookLike.svg",
             "type": 1
         }
     },
     "Facebook Page": {
-        "domains": [
-            "www.facebook.com",
-            "connect.facebook.net"
-        ],
+        "domain": "www.facebook.com",
         "buttonSelectors": [
-            "iframe[src^='https://www.facebook.com/plugins/page.php?']",
-            "amp-facebook-page"
+            "iframe[src^='https://www.facebook.com/plugins/page.php?']"
         ],
         "replacementButton": {
             "unblockDomains": [
-                "www.facebook.com",
-                "connect.facebook.net"
+                "www.facebook.com"
             ],
             "type": 3
         }
     },
     "Facebook Post": {
-        "domains": [
-            "www.facebook.com",
-            "connect.facebook.net"
-        ],
+        "domain": "www.facebook.com",
         "buttonSelectors": [
-            "iframe[src^='https://www.facebook.com/plugins/post.php?']",
-            "amp-facebook"
+            "iframe[src^='https://www.facebook.com/plugins/post.php?']"
         ],
         "replacementButton": {
             "unblockDomains": [
-                "www.facebook.com",
-                "connect.facebook.net"
+                "www.facebook.com"
             ],
             "type": 3
         }
