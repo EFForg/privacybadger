@@ -500,7 +500,7 @@ function createReplacementWidget(widget, elToReplace) {
       }
     }
   } else if (elToReplace.nodeName.toLowerCase() == 'blockquote') {
-    if (elToReplace.cite && elToReplace.cite.startsWith('https://')) {
+    if (elToReplace.cite && elToReplace.cite.startsWith('https://www.tiktok.com/@')) {
       // TikTok
       widget_url = elToReplace.cite;
     } else if (elToReplace.className.includes("twitter-tweet") || elToReplace.className.includes("twitter-video")) {
