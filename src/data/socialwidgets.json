@@ -396,6 +396,21 @@
             "type": 3
         }
     },
+    "Threads": {
+        "domain": "www.threads.net",
+        "buttonSelectors": [
+            "blockquote.text-post-media[data-text-post-permalink^='https://www.threads.net/']"
+        ],
+        "scriptSelectors": [
+            "script[src^='https://www.threads.net/embed.js']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.threads.net"
+            ],
+            "type": 3
+        }
+    },
     "TikTok": {
         "domains": [
             "www.tiktok.com"

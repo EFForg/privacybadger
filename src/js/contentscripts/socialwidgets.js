@@ -501,14 +501,17 @@ function createReplacementWidget(widget, elToReplace) {
     }
   } else if (elToReplace.nodeName.toLowerCase() == 'blockquote') {
     if (elToReplace.cite && elToReplace.cite.startsWith('https://')) {
-      // special case for TikTok
+      // TikTok
       widget_url = elToReplace.cite;
     } else if (elToReplace.className.includes("twitter-tweet") || elToReplace.className.includes("twitter-video")) {
-      // special case for Twitter
+      // Twitter
       let lastLink = Array.from(elToReplace.querySelectorAll("a[href^='https://twitter.com/']")).slice(-1)[0];
       if (lastLink) {
         widget_url = lastLink.href;
       }
+    } else if (elToReplace.dataset && elToReplace.dataset.textPostPermalink && elToReplace.dataset.textPostPermalink.startsWith('https://www.threads.net/')) {
+      // Threads
+      widget_url = elToReplace.dataset.textPostPermalink;
     }
   }
 
