@@ -657,6 +657,7 @@ api.spotify.com
 api.spreaker.com
 widget.spreaker.com
 sprinklr.com
+squarecdn.com
 squarespace.com
 squareup.com
 ssl-images-amazon.com
