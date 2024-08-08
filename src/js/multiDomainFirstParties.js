@@ -5469,6 +5469,8 @@ let multiDomainFirstPartiesArray = [
     "nick.com",
     "paramountnetwork.com",
     "paramountplus.com",
+    "paramountpluswithshowtime.com",
+    "pluto.tv",
     "popculture.com",
     "scout.com",
     "search.com",
