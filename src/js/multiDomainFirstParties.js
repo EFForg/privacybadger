@@ -3458,6 +3458,7 @@ let multiDomainFirstPartiesArray = [
     "newsxtend.com.au",
     "nlm.io",
     "ntnews.com.au",
+    "skynews.com.au",
     "supercoach.com.au",
     "taste.com.au",
     "theaustralian.com.au",
