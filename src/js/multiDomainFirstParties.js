@@ -2159,6 +2159,7 @@ let multiDomainFirstPartiesArray = [
     "lmiutil.com",
   ],
   ["www.gov.uk", "cabinet-office.gov.uk", "publishing.service.gov.uk"],
+  ["government.nl", "knmi.nl", "rijksoverheid.nl", "rivm.nl"],
   [
     "gray.tv",
 
