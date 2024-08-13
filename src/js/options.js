@@ -295,6 +295,12 @@ function loadOptions() {
   $widgetExceptions.on('select2:unselect', updateWidgetReplacementExceptions);
   $widgetExceptions.on('select2:clear', updateWidgetReplacementExceptions);
 
+  // hide the deprecated widget replacement toggle
+  // unless the user previously checked it
+  if (!OPTIONS_DATA.settings.socialWidgetReplacementEnabled) {
+    $('#widget-replacement-toggle').show();
+  }
+
   reloadDisabledSites();
   reloadTrackingDomainsTab();
   reloadWidgetSiteExceptions();
