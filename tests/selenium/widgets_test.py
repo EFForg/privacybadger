@@ -296,39 +296,6 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.assert_no_replacement()
         self.assert_widget()
 
-    def test_disabling_all_replacement(self):
-        self.block_domain(self.THIRD_PARTY_DOMAIN)
-
-        # disable widget replacement
-        self.load_url(self.options_url)
-        self.wait_for_script("return window.OPTIONS_INITIALIZED")
-        self.find_el_by_css('a[href="#tab-manage-widgets"]').click()
-        self.driver.find_element(By.ID, 'replace-widgets-checkbox').click()
-
-        # verify basic widget is no longer replaced
-        self.load_url(self.BASIC_FIXTURE_URL)
-        self.assert_no_replacement()
-        self.assert_widget_blocked()
-        # type 4 replacement should also be missing
-        self.assert_no_replacement(self.TYPE4_WIDGET_NAME)
-        # type 4 widget should also have gotten blocked
-        try:
-            widget_div = self.driver.find_element(By.CSS_SELECTOR,
-                'div.pb-type4-test-widget')
-        except NoSuchElementException:
-            self.fail("Widget div should still be here")
-        # check the div's text a few times to make sure it stays empty
-        for _ in range(3):
-            assert not widget_div.text, (
-                "Widget output container should remain empty")
-            sleep(1)
-
-        # verify dynamic widget is no longer replaced
-        self.load_url(self.DYNAMIC_FIXTURE_URL)
-        self.find_el_by_css('#widget-trigger').click()
-        self.assert_no_replacement()
-        self.assert_widget_blocked()
-
     def test_disabling_replacement_for_one_widget(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
 

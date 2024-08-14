@@ -38,11 +38,6 @@
             "title": "Show intro page",
             "description": "If set to false then do not open the new user intro page upon install.",
             "type": "boolean"
-        },
-        "socialWidgetReplacementEnabled": {
-            "title": "Replace social widgets",
-            "description": "Toggles social widget replacement.",
-            "type": "boolean"
         }
     }
 }
