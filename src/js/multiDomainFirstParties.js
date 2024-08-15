@@ -6026,6 +6026,7 @@ let multiDomainFirstPartiesArray = [
     "kinopoisk.ru",
     "mykp.ru",
     "yadi.sk",
+    "yandex-team.ru",
 
     "yandex.net",
     "yastatic.net",
