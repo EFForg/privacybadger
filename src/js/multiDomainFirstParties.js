@@ -3805,7 +3805,7 @@ let multiDomainFirstPartiesArray = [
 
     "ovh.net",
   ],
-  ["ozon.ru", "ozon.by", "ozon.kz", "ozone.ru"],
+  ["ozon.ru", "ozon.by", "ozon.kz", "ozone.ru", "ozonusercontent.com"],
   ["paypal.com", "paypal-search.com", "paypalobjects.com"],
   ["pbs.org", "pbskids.org", "whyy.org", "wttw.com"],
   [
