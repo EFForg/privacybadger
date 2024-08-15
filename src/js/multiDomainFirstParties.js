@@ -836,7 +836,7 @@ let multiDomainFirstPartiesArray = [
     "ztele.com",
   ],
   ["betfair.com", "betfair.com.au", "betfair.es", "betfair.it", "betfair.se", "cdnbf.net"],
-  ["betterhelp.com", "betterhelporg.com", "regain.us", "teencounseling.com"],
+  ["betterhelp.com", "betterhelporg.com", "mytherapist.com", "regain.us", "teencounseling.com"],
   ["bhphotovideo.com", "bandh.com", "bhphoto.com", "bnh.com"],
   ["bilibili.com", "acgvideo.com", "biliapi.net", "biliapi.com", "bilibilicomics.com", "biligame.com", "hdslb.com"],
   ["binance.com", "binance.cloud", "binance.vision", "bnbstatic.com"],
