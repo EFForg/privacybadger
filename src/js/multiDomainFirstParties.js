@@ -3255,6 +3255,17 @@ let multiDomainFirstPartiesArray = [
   ["mysmartedu.com", "mysmartabc.com"],
   ["myuv.com", "uvvu.com"],
   [
+    "nationalworld.com",
+
+    "lep.co.uk",
+    "portsmouth.co.uk",
+    "scotsman.com",
+    "sussexexpress.co.uk",
+    "thestar.co.uk",
+    "yorkshireeveningpost.co.uk",
+    "yorkshirepost.co.uk",
+  ],
+  [
     "naver.com",
 
     "grafolio.com",
