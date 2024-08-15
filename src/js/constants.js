@@ -41,6 +41,17 @@ let exports = {
   DNT_POLICY_CHECK_INTERVAL: 1000, // one second
 
   PANOPTICLICK_DOMAINS: ["trackersimulator.org", "eviltracker.net"],
+
+  FP_CDN_DOMAINS: new Set([
+    'd.alicdn.com',
+    'fp-cdn.azureedge.net',
+    'sdtagging.azureedge.net',
+    'cdnjs.cloudflare.com',
+    'd1af033869koo7.cloudfront.net',
+    'd38xvr37kwwhcm.cloudfront.net',
+    'cdn.jsdelivr.net',
+    'gadasource.storage.googleapis.com',
+  ]),
 };
 
 exports.BLOCKED_ACTIONS = new Set([
