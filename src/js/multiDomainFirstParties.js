@@ -107,6 +107,27 @@ let multiDomainFirstPartiesArray = [
     "typekit.com",
   ],
   [
+    "agora.pl",
+
+    "avanti24.pl",
+    "czterykaty.pl",
+    "edziecko.pl",
+    "gazeta.pl",
+    "g.pl",
+    "haps.pl",
+    "moto.pl",
+    "plotek.pl",
+    "radiozet.pl",
+    "sport.pl",
+    "tokfm.pl",
+    "tuba.pl",
+    "wyborcza.pl",
+    "wysokieobcasy.pl",
+    "zloteprzeboje.pl",
+
+    "im-g.pl",
+  ],
+  [
     "airbnb.com",
 
     "airbnb.ae",
@@ -1804,23 +1825,6 @@ let multiDomainFirstPartiesArray = [
     "oldnavy.ca",
 
     "assets-gap.com",
-  ],
-  [
-    "gazeta.pl",
-
-    "avanti24.pl",
-    "czterykaty.pl",
-    "edziecko.pl",
-    "haps.pl",
-    "moto.pl",
-    "plotek.pl",
-    "sport.pl",
-    "tokfm.pl",
-    "tuba.pl",
-    "wyborcza.pl",
-    "wysokieobcasy.pl",
-
-    "im-g.pl",
   ],
   [
     "gedi.it",
