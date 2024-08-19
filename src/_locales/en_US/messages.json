@@ -324,12 +324,22 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
+        "message": "If a website isn’t working like it should, you can disable Privacy Badger just for that site, leaving Privacy Badger enabled and protecting you everywhere else: Click on Privacy Badger’s icon in your browser toolbar and click the $DISABLE_ICON$ <span style='font-weight:bold'>'Disable for this site'</span> button in the popup.",
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message.",
+        "placeholders": {
+            "disable_icon": {
+                "content": "<span class=\"ui-icon ui-icon-power\"></span>"
+            }
+        }
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
+        "message": "To help other Privacy Badger users, please click $REPORT_ICON$ <span style='font-weight:bold'>'Report broken site'</span> when you encounter a site that's not working. We respect your privacy so we don't send automatic reports.",
+        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message.",
+        "placeholders": {
+            "report_icon": {
+                "content": "<span class=\"ui-icon ui-icon-mail-send\"></span>"
+            }
+        }
     },
     "intro_privacy_note": {
         "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",

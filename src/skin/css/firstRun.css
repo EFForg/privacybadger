@@ -696,7 +696,7 @@ body {
 }
 @media print, screen and (min-width: 40em) {
   #intro {
-    padding:4rem 0rem 14rem;
+    padding:4rem 0rem 4rem;
   }
 }
 [id*="pb-features-"],#pb-settings {
@@ -801,7 +801,7 @@ body {
   left: 0;
 }
 
-@keyframes bounce {
+@keyframes custom-bounce {
 	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
 	40% {transform: translateY(-20px);}
 	60% {transform: translateY(-5px);}
@@ -849,7 +849,7 @@ body {
   z-index: 1000;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 20px, rgba(0, 0, 0, 0.35) 0px 25px 30px;
-  animation: bounce 2s ease 1;
+  animation: custom-bounce 2s ease 1;
   display: flex;
   flex-direction: column;
   align-items: center;
