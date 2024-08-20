@@ -293,6 +293,7 @@ ul,ol,dl {
 }
 li {
   font-size:inherit;
+  padding-bottom: 1rem;
 }
 ul {
   margin-left:1.25rem;
@@ -300,6 +301,7 @@ ul {
 }
 ol {
   margin-left:1.25rem;
+  text-align:left;
 }
 ul ul,ol ul,ul ol,ol ol {
   margin-left:1.25rem;
@@ -698,6 +700,44 @@ body {
   #intro {
     padding:4rem 0rem 4rem;
   }
+}
+#popup-buttons-wrapper {
+  display: flex; 
+  justify-content: center;
+}
+#popup-buttons {
+  width: 350px;
+  padding: 0 1rem;
+}
+@media print, screen and (min-width: 40em) {
+  #popup-buttons {
+    width:450px;
+  }
+}
+#intro-pb-features {
+  padding-top: 5rem;
+}
+#button-instructions-wrapper {
+  width: 60%;
+}
+#button-instructions-wrapper > h3 {
+  padding: 1rem 0;
+}
+ol {
+  list-style-type: none;
+}
+li::before {
+  content: counter(list-item);
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  margin-right: 10px;
 }
 [id*="pb-features-"],#pb-settings {
   display:-ms-flexbox;

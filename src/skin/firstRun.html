@@ -41,33 +41,36 @@
       <img id="pin-image" src="images/pinning-instructions.png" alt="i18n_intro_pin_instructions">
     </div>
 
-    <!-- intro -->
     <div id="intro" class="grid-x grid-padding-x align-center">
       <div class="small-12 medium-10 text-center cell">
-        <h3>Thanks for installing!</h3>
-        <p>Privacy Badger is ready to protect your privacy.</p>
+        <h3 class="i18n_firstRun_title"></h3>
+      </div>
+      <div class="small-12 medium-10 large-4 text text-center cell">
+        <p class="i18n_intro_welcome"></p>
       </div>
     </div>
 
-    <div style="display:flex; justify-content: center;">
-        <img style="width: 35%;" src="images/popup-buttons.png" alt="">
+    <div id="popup-buttons-wrapper">
+      <img src="images/popup-buttons.png" alt="" id="popup-buttons">
     </div>
 
-    <div id="intro" class="grid-x grid-padding-x align-center" style="padding-top: 1rem;">
-      <div class="small-12 medium-10 text-center cell"  style="width: 60%;">
-        <h3>Learn how to browse smoothly and stay protected</h3>
-        <p class="i18n_intro_disable_button" style="text-align: left;"></p>
-        <p class="i18n_intro_report_button" style="text-align: left;"></p>
-      </div>
-    </div>
-
-    <div id="intro" class="grid-x grid-padding-x align-center">
-      <div class="small-12 medium-10 text-center cell">
-        <h3>Check out what Privacy Badger can do</h3>
+    <div class="grid-x align-center">
+      <div class="small-12 medium-10 text-center cell" id="button-instructions-wrapper">
+        <h3 class="i18n_intro_two_buttons"></h3>
+        <ol>
+          <li class="i18n_intro_broken_website"></li>
+          <li class="i18n_intro_disable_button"></li>
+          <li class="i18n_intro_report_button"></li>
+        </ol>
       </div>
     </div>
 
     <!-- privacy badger features -->
+    <div class="grid-x align-center" id="intro-pb-features">
+      <div class="small-12 medium-10 text-center cell">
+        <h3 class="i18n_intro_features_heading"></h3>
+      </div>
+    </div>
     <div id="pb-features-1" class="align-center">
       <div>
         <img src="images/learns-trackers.png" alt="">

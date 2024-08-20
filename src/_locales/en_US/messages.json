@@ -323,9 +323,13 @@
         "message": "next section",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_broken_website": {
+        "message": "If a website isn’t working like it should, you can disable Privacy Badger for just that site, leaving Privacy Badger enabled to protect you everywhere else.",
+        "description": "First item in the list below the popup buttons image."
+    },
     "intro_disable_button": {
-        "message": "If a website isn’t working like it should, you can disable Privacy Badger just for that site, leaving Privacy Badger enabled and protecting you everywhere else: Click on Privacy Badger’s icon in your browser toolbar and click the $DISABLE_ICON$ <span style='font-weight:bold'>'Disable for this site'</span> button in the popup.",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message.",
+        "message": "Click on Privacy Badger’s icon in your browser toolbar then click the $DISABLE_ICON$ <span style='font-weight:bold'>'Disable for this site'</span> button in the popup.",
+        "description": "Second item in the list below the popup buttons image. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message.",
         "placeholders": {
             "disable_icon": {
                 "content": "<span class=\"ui-icon ui-icon-power\"></span>"
@@ -334,12 +338,20 @@
     },
     "intro_report_button": {
         "message": "To help other Privacy Badger users, please click $REPORT_ICON$ <span style='font-weight:bold'>'Report broken site'</span> when you encounter a site that's not working. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message.",
+        "description": "Third item in the list below the popup buttons image. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message.",
         "placeholders": {
             "report_icon": {
                 "content": "<span class=\"ui-icon ui-icon-mail-send\"></span>"
             }
         }
+    },
+    "intro_two_buttons": {
+        "message": "Two handy buttons to keep your browsing smooth and secure",
+        "description": "Shown below a photo of two popup buttons."
+    },
+    "intro_features_heading": {
+        "message": "Check out what Privacy Badger can do",
+        "description": "Heading for the 'three features' section of the intro page."
     },
     "intro_privacy_note": {
         "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
