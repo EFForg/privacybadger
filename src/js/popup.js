@@ -582,16 +582,24 @@ function refreshPopup() {
 
   // must be a special browser page,
   if (POPUP_DATA.noTabData) {
-    // show the "nothing to do here" message
     $('#blockedResourcesContainer').hide();
-    $('#special-browser-page').show();
-
-    // hide inapplicable buttons
-    $('#deactivate_site_btn').hide();
-    $('#error').hide();
-
     // activate tooltips
     $('.tooltip').tooltipster();
+
+    getTab((tab) => {
+      console.log(tab);
+      if (tab.url && tab.url.endsWith('/skin/firstRun.html')) {
+        $('#first-run-page').show();
+        $('#deactivate_site_btn').prop('disabled', true);
+        $('#error').prop('disabled', true);
+      } else {
+        // show the "nothing to do here" message
+        $('#special-browser-page').show();
+        // hide inapplicable buttons
+        $('#deactivate_site_btn').hide();
+        $('#error').hide();
+      }
+    });
 
     window.SLIDERS_DONE = true;
 

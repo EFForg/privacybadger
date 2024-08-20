@@ -23,6 +23,14 @@
         "message": "Options",
         "description": ""
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading for popup_first_run_header, shown in the popup on the first run page."
+    },
+    "popup_first_run_paragraph": {
+        "message": "On a regular page, this is where you'll see a list of trackers that Privacy Badger blocked and be able to click the buttons below",
+        "description": "Shown in the popup on the first run page."
+    },
     "popup_special_page_header": {
         "message": "Nothing to do on this page",
         "description": "Heading for popup_special_page_paragraph"
