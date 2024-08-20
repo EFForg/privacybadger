@@ -89,6 +89,7 @@ function setTextDirection() {
       right: 'unset',
       left: '-5px'
     });
+    $('#popup-buttons').css("transform", "scaleX(-1)");
   }
 }
 

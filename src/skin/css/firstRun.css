@@ -961,4 +961,9 @@ li::before {
     /* Calculated with https://codepen.io/sosuke/pen/Pjoqqp to match #F06A0A */
     filter: invert(63%) sepia(46%) saturate(6632%) hue-rotate(356deg) brightness(95%) contrast(98%);;
   }
+
+  li::before {
+    background-color: #DDDDDD;
+    color: black;
+  }
 }
