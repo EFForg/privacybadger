@@ -464,16 +464,16 @@
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Add domain",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "Remove selected",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "Please add a valid domain or URL",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Widget Replacement",
