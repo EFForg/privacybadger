@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger je isključen na sledećim sajtovima. To znači da Privacy badger neće blokirati ništa kada posetite sajtove navedene ovde, a takođe neće slati ni \"Do Not Track\" ili \"Global Policy Control\" signale.</p><p>Ako mislite da Privacy Badger kvari stranicu, ili biste želeli da određeni sajt prikuplja, deli ili prodaje vaše podatke, možete uneti domen te stranice u polje ispod i kliknuti na dugme \"Dodaj domen\".</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "Privacy Badger je isključen na sledećim sajtovima. To znači da Privacy badger neće blokirati ništa kada posetite sajtove navedene ovde, a takođe neće slati ni \"Do Not Track\" ili \"Global Policy Control\" signale.",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "npr. www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Dodaj domen",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "Ukloni odabrano",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "Molimo vas da dodate validan domen ili URL",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Zamena vidžeta",

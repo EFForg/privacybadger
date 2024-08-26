@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn kaj ne sendos al ili la signalojn “Global Privacy Control” kaj “Ne Spuri Min” (DNT).</p><p>Se viaopinie Privata Melo difektas iun retpaĝon aŭ volas permesi al ĝi kunhavigi aŭ vendi viajn datumojn, vi povas enigu ĝian nomregnon en la kampon sube kaj alklaku “aldoni nomregnon”.</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "Privata Melo estas malaktivigita por la subaj nomregnoj. Tio ĉi signifas, ke Privata Melo blokos nenion, kiam vi vizitos la jenajn retejojn kaj ne sendos al ili la signalojn “Global Privacy Control” kaj “Ne Spuri Min” (DNT).",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "ekz. www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Aldoni nomregnon",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "Forigi elektitajn",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "Bonvolu aldoni ĝustan nomregnon aŭ URL-n",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Anstataŭigi ret‑aplikaĵetojn",

@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger は次のサイトで無効になっています。つまり、Privacy Badger はここにリストされたサイトにアクセスしても何もブロックせず、Do Not Track や Global Privacy Control のシグナルを送信しません。</p><p>Privacy Badgerがページを壊していると思う場合、または特定のサイトがデータを共有または販売することを許可したい場合は、下のボックスにそのページのドメインを入力して、「ドメインを追加」ボタンをクリックしてください。</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "Privacy Badger は次のサイトで無効になっています。つまり、Privacy Badger はここにリストされたサイトにアクセスしても何もブロックせず、Do Not Track や Global Privacy Control のシグナルを送信しません。",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "例: www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "ドメインを追加",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "選択したドメインを削除",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "有効なドメインまたはURLを追加してください",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "ウィジェットの置き換え",

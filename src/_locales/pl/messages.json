@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger jest wyłączony dla następujących domen. Oznacza to, że nic będzie blokowane podczas wizyty na stronach wpisanych poniżej i nie zostaną wysłane żądania „Nie Śledź Mnie” (DNT) i „Global Privacy Control”.</p><p>Jeżeli uważasz, że Privacy Badger psuje jakąś stronę lub chciał(a)byś tej stronie umożliwić udostępnianie lub sprzedaż Twoich danych, wpisz domenę tej strony w pole poniżej i kliknij w przycisk „dodaj domenę”.</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "Privacy Badger jest wyłączony dla następujących domen. Oznacza to, że nic będzie blokowane podczas wizyty na stronach wpisanych poniżej i nie zostaną wysłane żądania „Nie Śledź Mnie” (DNT) i „Global Privacy Control”.",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "np. www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Dodaj domenę",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "Usuń zaznaczone",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "Wprowadź poprawną domenę lub URL",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Zastępowanie widżetów",

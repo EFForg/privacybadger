@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger dinyahaktifkan di lelaman berikut. Ini bermakna Privacy Badger tidak akan menyekat apa-apa apabila anda melawati lelaman yang tersenarai di sini, dan ia tidak akan menghantar isyarat Do Not Track atau Global Privacy Control.</p><p>Jika anda fikir Privasi Badger memecahkan laman atau anda ingin membenarkan laman tertentu untuk berkongsi atau menjual data anda, anda boleh menaip domain laman tersebut dalam kotak di bawah dan klik butang \"Tambah domain\".</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "Privacy Badger dinyahaktifkan di lelaman berikut. Ini bermakna Privacy Badger tidak akan menyekat apa-apa apabila anda melawati lelaman yang tersenarai di sini, dan ia tidak akan menghantar isyarat Do Not Track atau Global Privacy Control.",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "cth. www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Tambah domain",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "Buang pilihan",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "Sila tambah domain atau URL yang sah",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Penggantian Widget",

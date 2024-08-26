@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Το Privacy Badger είναι απενεργοποιημένο στις ακόλουθες ιστοσελίδες. Αυτό σημαίνει ότι δε θα αποκλείσει τίποτα όταν επισκέπτεστε μία από αυτές και δε θα στείλει κανένα από τα σήματα Do Not Track ή Global Privacy Control.</p><p>Εάν νομίζετε ότι το Privacy Badger κάνει μία σελίδα να υπολειτουργεί ή θέλετε να επιτρέψετε σε μία συγκεκριμένη ιστοσελίδα να μοιράζεται ή να πουλάει τα δεδομένα σας, μπορείτε να πληκτρολογήσετε το domain στη παρακάτω φόρμα και να πατήσετε το κουμπί \"Προσθήκη domain\".</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "Το Privacy Badger είναι απενεργοποιημένο στις ακόλουθες ιστοσελίδες. Αυτό σημαίνει ότι δε θα αποκλείσει τίποτα όταν επισκέπτεστε μία από αυτές και δε θα στείλει κανένα από τα σήματα Do Not Track ή Global Privacy Control.",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "π.χ. www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Προσθήκη domain",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "Διαγραφή επιλεγμένων",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "Προσθέστε μία έγκυρη domain ή διεύθυνση URL",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Αντικατάσταση widget",

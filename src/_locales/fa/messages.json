@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>پرایوسی بجر بر روی پایگاه‌های زیر از کار افتاده است. این به این معناست که پرایوسی بجر، هنگامی که پایگاه‌هایی که این‌جا فهرست شده‌اند را بازدید می‌کنید، هیچ‌چیزی را مسدود نخواهد کرد، و نشانک ردیابی نکن یا واپایش حریم خصوصی جهانی را هم نخواهد فرستاد.</p><p>اگر فکر می‌کنید پرایوسی بجر این صفحه را خراب می‌کند، یا می‌خواهید پایگاهی خاص را مجاز به اشتراک‌گذاری و فروش داده‌هایتان کنید، می‌توانید دامنهٔ آن صفحه را در جعبهٔ زیر بنویسید و روی دکمهٔ «افزودن دامنه» کلیک کنید.</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "پرایوسی بجر بر روی پایگاه‌های زیر از کار افتاده است. این به این معناست که پرایوسی بجر، هنگامی که پایگاه‌هایی که این‌جا فهرست شده‌اند را بازدید می‌کنید، هیچ‌چیزی را مسدود نخواهد کرد، و نشانک ردیابی نکن یا واپایش حریم خصوصی جهانی را هم نخواهد فرستاد.",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "مثلاً www.example.com‏، ‎*.‎example.net‏،‌ example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "افزودن دامنه",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "حذف گزینه (های) انتخاب شده",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "لطفا یک دامنه یا URL معتبر اضافه کنید",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "جایگزینی ابزارک",

@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>O Privacy Badger está desativado nos seguintes sites. Isto significa que o Privacy Badger não irá bloquear nada ao visitar os sites apresentados aqui e não irá ser enviado o sinal de não rastrear (Do Not Track) nem o sinal de controlo da privacidade global (Global Privacy Control).</p><p>Se acha que o Privacy Badger está a perturbar o funcionamento normal de uma página ou pretende que um site partilhe e venda os seus dados, pode introduzir o site na caixa abaixo e clicar no botão \"Adicionar domínio\".</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "O Privacy Badger está desativado nos seguintes sites. Isto significa que o Privacy Badger não irá bloquear nada ao visitar os sites apresentados aqui e não irá ser enviado o sinal de não rastrear (Do Not Track) nem o sinal de controlo da privacidade global (Global Privacy Control).",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "por ex. www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Adicionar domínio",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "Remover selecionados",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "Por favor, adicione um URL ou um domínio válido",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Substituição de widgets",

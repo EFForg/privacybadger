@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger 已在下列網站中停用。這代表 Privacy Badger 將不會在您瀏覽它們時封鎖任何東西，也不會傳送「不要追蹤」或「全域隱私控制」信號。</p><p>如果您覺得 Privacy Badger 導致了某個頁面出現問題，或希望允許特定網站分享或銷售您的資料，則可以在下方的框格中輸入網域名稱並點選「新增網域」按鈕。</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "Privacy Badger 已在下列網站中停用。這代表 Privacy Badger 將不會在您瀏覽它們時封鎖任何東西，也不會傳送「不要追蹤」或「全域隱私控制」信號。",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "範例：www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "新增網域",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "刪除所選網域",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "請新增有效的網域或網址",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "小工具取代",

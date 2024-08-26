@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>A Privacy Badger le van tiltva a következő oldalakon. Ez azt jelenti, hogy a Privacy Badger semmit sem fog tiltani, ha meglátogatja az itt felsorolt oldalakat, és nem fog „ne kövessen” vagy „globális adatvédelmi szabályozás” jelzéseket küldeni.</p><p>Ha úgy gondolja, hogy a Privacy Badger elront egy oldalt, vagy engedélyezni szeretne egy bizonyos oldalt, hogy megossza vagy eladja az Ön adatait, akkor írja be annak az oldalnak a tartományát a lenti szövegdobozba, majd kattintson a „Tartomány hozzáadása” gombra.</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "A Privacy Badger le van tiltva a következő oldalakon. Ez azt jelenti, hogy a Privacy Badger semmit sem fog tiltani, ha meglátogatja az itt felsorolt oldalakat, és nem fog „ne kövessen” vagy „globális adatvédelmi szabályozás” jelzéseket küldeni.",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "például www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Tartomány hozzáadása",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "Kijelöltek eltávolítása",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "Adjon meg egy érvényes tartományt vagy URL-t",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Felületi elem cseréje",

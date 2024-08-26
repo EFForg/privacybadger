@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger ohittaa seuraavat sivustot, eli Privacy Badger ei estä mitään käyttäessäsi näitä sivustoja, eikä se lähetä \"Do Not Track\" tai \"Global Privacy Control\" -signaaleja.</p><p>Jos epäilet Privacy Badgerin rikkovan verkkosivun tai haluat sallia tietyn sivuston jakaa tai myydä tietojasi, kirjoita sivuston verkkotunnus alla olevaan ja paina \"Lisää verkkotunnus\" -painiketta.</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "Privacy Badger ohittaa seuraavat sivustot, eli Privacy Badger ei estä mitään käyttäessäsi näitä sivustoja, eikä se lähetä \"Do Not Track\" tai \"Global Privacy Control\" -signaaleja.",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "esim. www.esimerkki.fi, *.esimerkki.net, esimerkki.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Lisää verkkotunnus",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "Poista valitut",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "Lisää kelvollinen verkkotunnus tai URL",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Widgettien korvaus",

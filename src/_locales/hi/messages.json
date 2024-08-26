@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>प्राइवेसी बैजर बैजर निम्न साइटों पर अक्षम है। इसका मतलब यह है कि जब आप यहां सूचीबद्ध साइटों पर जाते हैं तो प्राइवेसी बैजर बैजर कुछ भी अवरुद्ध नहीं करेगा,और यह Do Not Track या Global Privacy Control signals नहीं भेजेगा।</p><p>अगर आपको लगता है कि प्राइवेसी बैजर किसी पेज को तोड़ रहा है, या आप किसी विशेष साइट को अपना डेटा साझा करने या बेचने की अनुमति देना चाहते हैं, तो आप नीचे बॉक्स में उस पेज का डोमेन टाइप कर सकते हैं और \"डोमेन जोड़ें\" बटन पर क्लिक कर सकते हैं।</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "प्राइवेसी बैजर बैजर निम्न साइटों पर अक्षम है। इसका मतलब यह है कि जब आप यहां सूचीबद्ध साइटों पर जाते हैं तो प्राइवेसी बैजर बैजर कुछ भी अवरुद्ध नहीं करेगा,और यह Do Not Track या Global Privacy Control signals नहीं भेजेगा।",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "उदाहरण www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "डोमेन जोड़ें",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "चयनित हटाएं",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "कृपया कोई मान्य डोमेन या URL जोड़ें",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "विजेट प्रतिस्थापन",
