@@ -80,15 +80,14 @@ function Badger(from_qunit) {
     self.setPrivacyOverrides();
 
     // kick off async initialization steps
-    let ylistPromise = self.initYellowlist().catch(console.error),
-      dntHashesPromise = self.initDntPolicyHashes().catch(console.error),
+    let pbconfigPromise = self.initPbconfig().catch(console.error),
       tabDataPromise = self.tabData.initialize().catch(console.error);
 
     // async load known CNAME domain aliases (but don't wait on them)
     self.initializeCnames().catch(console.error);
 
     // seed data depends on the yellowlist
-    await ylistPromise;
+    await pbconfigPromise;
     let seedDataPromise = self.updateTrackerData().catch(console.error);
 
     // set badge text color to white in Firefox 63+
@@ -109,7 +108,6 @@ function Badger(from_qunit) {
     // wait for async functions (seed data, yellowlist, ...) to resolve
     await widgetListPromise;
     await seedDataPromise;
-    await dntHashesPromise;
     await tabDataPromise;
 
     if (self.isFirstRun || self.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
@@ -571,43 +569,53 @@ Badger.prototype = {
   },
 
   /**
-   * Initializes the yellowlist from disk.
+   * Initializes PB's remotely configurable settings from local copy on disk.
    *
    * @returns {Promise}
    */
-  initYellowlist: function () {
+  initPbconfig: async function () {
     let self = this;
 
-    return new Promise(function (resolve, reject) {
+    if (self.getPrivateSettings().getItem('doneLoadingYellowlist') &&
+      self.getPrivateSettings().getItem('doneLoadingDntHashes')) {
+      log("pbconfig already initialized from disk");
+      return;
+    }
 
-      if (self.getPrivateSettings().getItem('doneLoadingYellowlist')) {
-        log("Yellowlist already initialized from disk");
-        return resolve();
-      }
+    let response, data;
 
-      // we don't have the yellowlist initialized yet
-      // initialize from disk
-      utils.fetchResource(constants.YELLOWLIST_LOCAL_URL, (error, response) => {
-        if (error) {
-          console.error(error);
-          return reject(new Error("Failed to fetch local yellowlist"));
-        }
+    try {
+      response = await fetch(constants.PBCONFIG_LOCAL_URL);
+    } catch (err) {
+      console.error(err);
+      throw new Error("Failed to fetch local pbconfig");
+    }
 
-        self.storage.updateYellowlist(response.trim().split("\n"));
+    try {
+      data = await response.json();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Failed to parse local pbconfig JSON");
+    }
 
-        if (!self.getPrivateSettings().getItem('doneLoadingYellowlist')) {
-          self.storage.forceSync('action_map', function () {
-            self.storage.forceSync('cookieblock_list', function () {
-              self.getPrivateSettings().setItem('doneLoadingYellowlist', true);
-            });
-          });
-        }
+    self.storage.updateYellowlist(data.yellowlist);
+    self.storage.updateDntHashes(data.dnt_policy_hashes);
 
-        log("Initialized ylist from disk");
-        return resolve();
+    if (!self.getPrivateSettings().getItem('doneLoadingYellowlist')) {
+      self.storage.forceSync('action_map', function () {
+        self.storage.forceSync('cookieblock_list', function () {
+          self.getPrivateSettings().setItem('doneLoadingYellowlist', true);
+        });
       });
+    }
 
-    });
+    if (!self.getPrivateSettings().getItem('doneLoadingDntHashes')) {
+      self.storage.forceSync('dnt_hashes', function () {
+        self.getPrivateSettings().setItem('doneLoadingDntHashes', true);
+      });
+    }
+
+    log("Initialized pbconfig from disk");
   },
 
   /**
@@ -699,54 +707,6 @@ Badger.prototype = {
       self.getPrivateSettings().setItem('nextYellowlistUpdateTime', utils.oneDayFromNow());
 
       return callback(null);
-    });
-  },
-
-  /**
-   * Initializes DNT policy hashes from disk.
-   *
-   * @returns {Promise}
-   */
-  initDntPolicyHashes: function () {
-    let self = this;
-
-    return new Promise(function (resolve, reject) {
-
-      if (self.getPrivateSettings().getItem('doneLoadingDntHashes')) {
-        log("DNT hashes already initialized from disk");
-        return resolve();
-      }
-
-      // we don't have DNT hashes initialized yet
-      // initialize from disk
-      utils.fetchResource(constants.DNT_POLICIES_LOCAL_URL, (error, response) => {
-        let hashes;
-
-        if (error) {
-          console.error(error);
-          return reject(new Error("Failed to fetch local DNT hashes"));
-        }
-
-        try {
-          hashes = JSON.parse(response);
-        } catch (e) {
-          console.error(e);
-          return reject(new Error("Failed to parse DNT hashes JSON"));
-        }
-
-        self.storage.updateDntHashes(hashes);
-
-        if (!self.getPrivateSettings().getItem('doneLoadingDntHashes')) {
-          self.storage.forceSync('dnt_hashes', function () {
-            self.getPrivateSettings().setItem('doneLoadingDntHashes', true);
-          });
-        }
-
-        log("Initialized hashes from disk");
-        return resolve();
-
-      });
-
     });
   },
 
