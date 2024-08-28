@@ -52,7 +52,7 @@ Privacy Badger:
    which case resources from the site are loaded, but without access to their
    (third party) cookies or local storage, and with the referer header either
    trimmed down to the origin (for GET requests) or removed outright (all other
-   requests). The yellow list is routinely fetched from [an EFF URL](https://www.eff.org/files/cookieblocklist_new.txt)
+   requests). The yellow list is routinely fetched from the [remote config URL]
    to allow prompt fixes for breakage.
 
    Until methods for blocking them have been implemented, domains that perform
@@ -70,10 +70,8 @@ Privacy Badger:
    embedded on that domain.
    Sites post the policy at [a well-known URL](https://example.com/.well-known/dnt-policy.txt)
    on their domains. The contents must match those of a file from the list of
-   acceptable policies exactly; the policy file is [maintained on github](https://github.com/EFForg/dnt-policy/),
-   but Privacy Badger fetches a list of known-good hashes periodically [from EFF](https://www.eff.org/files/dnt-policies.json)
-   (version  1.0 of the policy file will be added to that list when Privacy Badger
-   reaches version 1.0)
+   acceptable policies exactly; the policy file is [maintained on GitHub](https://github.com/EFForg/dnt-policy/),
+   and Privacy Badger fetches a list of known-good hashes periodically from the [remote config URL].
 
 #### Further Details
 
@@ -265,3 +263,4 @@ Please see our ["high priority"-labeled issues](https://github.com/EFForg/privac
 
 
 [Beacon API]: https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API
+[remote config URL]: https://www.eff.org/files/pbconfig.json

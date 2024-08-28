@@ -133,8 +133,7 @@ function Badger(from_qunit) {
     }
 
     if (!from_qunit) {
-      self.initYellowlistUpdates();
-      self.initDntPolicyUpdates();
+      self.initPbconfigUpdates();
     }
   }
 
@@ -619,166 +618,95 @@ Badger.prototype = {
   },
 
   /**
-   * Checks if it's time to fetch the latest yellowlist from eff.org.
+   * Checks if it's time to fetch the latest pbconfig from eff.org.
    * If it isn't yet time, schedules the next update for when it is.
    */
-  initYellowlistUpdates: function () {
+  initPbconfigUpdates: function () {
     let self = this,
-      next_update_time = self.getPrivateSettings().getItem('nextYellowlistUpdateTime'),
+      next_update_time = self.getPrivateSettings().getItem('nextPbconfigUpdateTime'),
       time_now = Date.now();
 
     if (time_now < next_update_time) {
       let msec_remaining = next_update_time - time_now;
-      log("Not yet time to update yellowlist; next update in %s mins",
+      log("Not yet time to update pbconfig; next update in %s mins",
         Math.round(msec_remaining / 1000 / 60));
       // schedule an update for when the extension remains running that long
-      setTimeout(self.updateYellowlist.bind(self), msec_remaining);
+      setTimeout(self.updatePbconfig.bind(self), msec_remaining);
       return;
     }
 
-    self.updateYellowlist(err => {
-      if (err) {
-        console.error(err);
-      }
-    });
+    self.updatePbconfig().catch(console.error);
   },
 
   /**
-   * Updates to the latest yellowlist from eff.org.
-   * @param {Function} [callback] optional callback
+   * Fetches the latest pbconfig from eff.org, and updates
+   * the yellowlist and DNT policy hashes.
+   *
+   * @returns {Promise}
    */
-  updateYellowlist: function (callback) {
+  updatePbconfig: async function () {
     let self = this;
 
-    if (!callback) {
-      callback = function () {};
-    }
-
     // schedule the next update for long-running extension environments
-    setTimeout(self.updateYellowlist.bind(self), utils.oneDay());
+    setTimeout(self.updatePbconfig.bind(self), utils.oneDay());
 
-    utils.fetchResource(constants.YELLOWLIST_URL, function (err, response) {
-      if (err) {
-        console.error(
-          "Problem fetching yellowlist at",
-          constants.YELLOWLIST_URL,
-          err
-        );
-        return callback(new Error("Failed to fetch remote yellowlist"));
-      }
+    let response, data;
 
-      // handle empty response
-      if (!response.trim()) {
-        return callback(new Error("Empty yellowlist response"));
-      }
-
-      let domains = response.trim().split("\n").map(domain => domain.trim());
-
-      // validate the response
-      if (!domains.every(domain => {
-        // all domains must contain at least one dot
-        if (domain.indexOf('.') == -1) {
-          return false;
-        }
-
-        // validate character set
-        //
-        // regex says:
-        // - domain starts with lowercase English letter or Arabic numeral
-        // - following that, it contains one or more
-        // letter/numeral/dot/dash characters
-        // - following the previous two requirements, domain ends with a letter
-        //
-        // TODO both overly restrictive and inaccurate
-        // but that's OK for now, we manage the list
-        if (!/^[a-z0-9][a-z0-9.-]+[a-z]$/.test(domain)) {
-          return false;
-        }
-
-        return true;
-      })) {
-        return callback(new Error("Invalid yellowlist response"));
-      }
-
-      self.storage.updateYellowlist(domains);
-      log("Updated yellowlist from remote");
-
-      // refresh next update time to help avoid updating on every restart
-      self.getPrivateSettings().setItem('nextYellowlistUpdateTime', utils.oneDayFromNow());
-
-      return callback(null);
-    });
-  },
-
-  /**
-   * Checks if it's time to get the latest EFF DNT policy hashes from eff.org.
-   * If it isn't yet time, schedules the next update for when it is.
-   */
-  initDntPolicyUpdates: function () {
-    let self = this,
-      next_update_time = self.getPrivateSettings().getItem('nextDntHashesUpdateTime'),
-      time_now = Date.now();
-
-    if (time_now < next_update_time) {
-      let msec_remaining = next_update_time - time_now;
-      log("Not yet time to update DNT hashes; next update in %s mins",
-        Math.round(msec_remaining / 1000 / 60));
-      // schedule an update for when the extension remains running that long
-      setTimeout(self.updateDntPolicyHashes.bind(self), msec_remaining);
-      return;
+    try {
+      response = await fetch(constants.PBCONFIG_REMOTE_URL);
+    } catch (err) {
+      console.error("Problem fetching pbconfig:", err);
+      throw new Error("Failed to fetch remote pbconfig");
+    }
+    if (!response.ok) {
+      console.error("Problem fetching pbconfig: %s response", response.status);
+      throw new Error("Failed to fetch remote pbconfig");
     }
 
-    self.updateDntPolicyHashes(err => {
-      if (err) {
-        console.error(err);
-      }
-    });
-  },
-
-  /**
-   * Fetch acceptable DNT policy hashes from the EFF server
-   * @param {Function} [cb] optional callback
-   */
-  updateDntPolicyHashes: function (cb) {
-    let self = this;
-
-    if (!cb) {
-      cb = function () {};
+    try {
+      data = await response.json();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Failed to parse pbconfig JSON");
     }
 
-    // schedule the next update for long-running extension environments
-    setTimeout(self.updateDntPolicyHashes.bind(self), utils.oneDay() * 4);
+    // validate the response
+    if (!data.yellowlist || !data.yellowlist.length || !data.yellowlist.every || !data.yellowlist.every(domain => {
+      // all domains must contain at least one dot
+      if (domain.indexOf('.') == -1) {
+        return false;
+      }
 
-    if (!self.isCheckingDNTPolicyEnabled()) {
-      // user has disabled this, we can check when they re-enable
-      setTimeout(function () {
-        return cb(null);
-      }, 0);
+      // validate character set
+      //
+      // regex says:
+      // - domain starts with lowercase English letter or Arabic numeral
+      // - following that, it contains one or more
+      // letter/numeral/dot/dash characters
+      // - following the previous two requirements, domain ends with a letter
+      //
+      // TODO both overly restrictive and inaccurate
+      // but that's OK for now, we manage the list
+      if (!/^[a-z0-9][a-z0-9.-]+[a-z]$/.test(domain)) {
+        return false;
+      }
+
+      return true;
+    })) {
+      throw new Error("Invalid yellowlist response");
     }
 
-    utils.fetchResource(constants.DNT_POLICIES_URL, function (err, response) {
-      if (err) {
-        console.error("Problem fetching DNT policy hash list at",
-          constants.DNT_POLICIES_URL, err);
-        return cb(new Error("Failed to fetch remote DNT hashes"));
-      }
+    self.storage.updateYellowlist(data.yellowlist);
+    log("Updated yellowlist from remote");
 
-      let hashes;
-      try {
-        hashes = JSON.parse(response);
-      } catch (e) {
-        console.error(e);
-        return cb(new Error("Failed to parse DNT hashes JSON"));
-      }
+    if (self.isCheckingDNTPolicyEnabled()) {
+      self.storage.updateDntHashes(data.dnt_policy_hashes);
+      log("Updated DNT policy hashes from remote");
+    }
 
-      self.storage.updateDntHashes(hashes);
-      log("Updated hashes from remote");
-
-      // refresh next update time to help avoid updating on every restart
-      self.getPrivateSettings().setItem('nextDntHashesUpdateTime', utils.nDaysFromNow(4));
-
-      return cb(null);
-    });
+    // refresh next update time to help avoid updating on every restart
+    self.getPrivateSettings().setItem('nextPbconfigUpdateTime',
+      utils.oneDayFromNow());
   },
 
   /**
@@ -919,8 +847,7 @@ Badger.prototype = {
       doneLoadingYellowlist: false,
       firstRunTimerFinished: true,
       ignoredSiteBases: [],
-      nextDntHashesUpdateTime: 0,
-      nextYellowlistUpdateTime: 0,
+      nextPbconfigUpdateTime: 0,
       showLearningPrompt: false,
       shownBreakageNotes: [],
     };
@@ -931,6 +858,11 @@ Badger.prototype = {
     }
     if (self.isFirstRun) {
       privateStore.setItem("firstRunTimerFinished", false);
+    } else if (self.isUpdate) {
+      let next_update_time = privateStore.getItem("nextYellowlistUpdateTime");
+      if (next_update_time) {
+        privateStore.setItem("nextPbconfigUpdateTime", next_update_time);
+      }
     }
     self.initDeprecations();
 
@@ -948,6 +880,8 @@ Badger.prototype = {
 
       [
         "legacyWebRtcProtectionUser",
+        "nextDntHashesUpdateTime",
+        "nextYellowlistUpdateTime",
         "showWebRtcDeprecation",
       ].forEach(item => {
         if (privateStore.hasItem(item)) { privateStore.deleteItem(item); }
