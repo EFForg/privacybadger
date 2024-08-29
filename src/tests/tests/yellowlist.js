@@ -19,9 +19,9 @@ QUnit.module("Yellowlist", (hooks) => {
     fetch.restore();
   });
 
-  QUnit.test("Updating to a valid list", (assert) => {
+  QUnit.test("Updating to a valid list", async (assert) => {
     let done = assert.async();
-    assert.expect(3);
+    assert.expect(2);
 
     let ylist = get_ylist();
     assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
@@ -36,36 +36,39 @@ QUnit.module("Yellowlist", (hooks) => {
 
     // respond with the modified list
     stubbedFetch
-      .withArgs(constants.YELLOWLIST_URL)
-      .resolves(new Response(Object.keys(ylist).join("\n")));
+      .withArgs(constants.PBCONFIG_REMOTE_URL)
+      .resolves(new Response(JSON.stringify({
+        yellowlist: Object.keys(ylist)
+      })));
 
-    badger.updateYellowlist(function (err) {
-      assert.notOk(err, "callback status indicates success");
-      assert.deepEqual(get_ylist(), ylist, "list got updated");
-      done();
-    });
+    await badger.updatePbconfig();
+    assert.deepEqual(get_ylist(), ylist, "yellowlist got updated");
+    done();
   });
 
-  QUnit.test("Updating receives a blank response", (assert) => {
+  QUnit.test("Updating receives a blank response", async (assert) => {
     let done = assert.async();
-    assert.expect(3);
 
     let ylist = get_ylist();
     assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
 
     // respond with no content
     stubbedFetch
-      .withArgs(constants.YELLOWLIST_URL)
-      .resolves(new Response("", {status: 200}));
+      .withArgs(constants.PBCONFIG_REMOTE_URL)
+      .resolves(new Response(""), {status: 200});
 
-    badger.updateYellowlist(function (err) {
-      assert.ok(err, "callback status indicates failure");
+    try {
+      await badger.updatePbconfig();
+      assert.ok(false, "unexpected valid response");
+      done();
+    } catch (ex) {
+      assert.ok(ex, "error handler was triggered: " + ex);
       assert.deepEqual(get_ylist(), ylist, "list did not get updated");
       done();
-    });
+    }
   });
 
-  QUnit.test("Updating receives an invalid response", (assert) => {
+  QUnit.test("Updating receives an invalid response", async (assert) => {
     let BAD_RESPONSES = [
       "page not found",
       "page\nnot\nfound",
@@ -81,45 +84,45 @@ QUnit.module("Yellowlist", (hooks) => {
     let ylist = get_ylist();
     assert.ok(!!Object.keys(ylist).length, "yellowlist is not empty");
 
-    BAD_RESPONSES.forEach(response => {
+    for (let response of BAD_RESPONSES) {
       // respond with stuff that may look like the yellowlist but is not
       stubbedFetch
-        .withArgs(constants.YELLOWLIST_URL)
+        .withArgs(constants.PBCONFIG_REMOTE_URL)
         .resolves(new Response(response, {status: 200}));
 
-      badger.updateYellowlist(function (err) {
-        assert.ok(err,
-          "callback status indicates failure for " + JSON.stringify(response));
+      try {
+        await badger.updatePbconfig();
+      } catch (ex) {
+        assert.ok(ex, "exception thrown for " + JSON.stringify(response));
         assert.deepEqual(get_ylist(), ylist,
           "list did not get updated for " + JSON.stringify(response));
         done();
-      });
-    });
+      }
+    }
   });
 
-  QUnit.test("Updating gets a server error", (assert) => {
+  QUnit.test("Updating gets a server error", async (assert) => {
     let done = assert.async();
 
     // respond with a 404 error
     stubbedFetch
-      .withArgs(constants.YELLOWLIST_URL)
+      .withArgs(constants.PBCONFIG_REMOTE_URL)
       .resolves(new Response("page not found", {status: 404}));
 
-    badger.updateYellowlist(function (err) {
-      assert.ok(err, "callback status indicates failure");
-      if (err) {
-        assert.equal(err, "Error: Failed to fetch remote yellowlist",
-          "error matches expectation");
-      }
+    try {
+      await badger.updatePbconfig();
+    } catch (ex) {
+      assert.ok(ex, "exception was thrown, as expected");
+      assert.equal(ex, "Error: Failed to fetch remote pbconfig",
+        "exception matches expectation");
       done();
-    });
+    }
   });
 
-  QUnit.test("added domains get cookieblocked", (assert) => {
+  QUnit.test("added domains get cookieblocked", async (assert) => {
     const DOMAIN = "example.com";
 
     let done = assert.async();
-    assert.expect(2);
 
     // mark domain for blocking
     badger.storage.setupHeuristicAction(DOMAIN, constants.BLOCK);
@@ -128,22 +131,22 @@ QUnit.module("Yellowlist", (hooks) => {
     let ylist = get_ylist();
     ylist[DOMAIN] = true;
     stubbedFetch
-      .withArgs(constants.YELLOWLIST_URL)
-      .resolves(new Response(Object.keys(ylist).join("\n")));
+      .withArgs(constants.PBCONFIG_REMOTE_URL)
+      .resolves(new Response(JSON.stringify({
+        yellowlist: Object.keys(ylist)
+      })));
 
     // update yellowlist
-    badger.updateYellowlist(function (err) {
-      assert.notOk(err, "callback status indicates success");
+    await badger.updatePbconfig();
 
-      // check that the domain got cookieblocked
-      assert.equal(
-        badger.storage.getAction(DOMAIN),
-        constants.COOKIEBLOCK,
-        "domain is marked for cookieblocking"
-      );
+    // check that the domain got cookieblocked
+    assert.equal(
+      badger.storage.getAction(DOMAIN),
+      constants.COOKIEBLOCK,
+      "domain is marked for cookieblocking"
+    );
 
-      done();
-    });
+    done();
   });
 
   QUnit.module("Removing domains", () => {
@@ -357,13 +360,12 @@ QUnit.module("Yellowlist", (hooks) => {
     });
 
     TESTS.forEach(test => {
-      QUnit.test(test.name, (assert) => {
+      QUnit.test(test.name, async (assert) => {
 
         let done = assert.async();
 
-        // to get num. of assertions, tally the expected/expectedBest props,
-        // and add one for the yellowlist update assertion
-        assert.expect(1 + Object.keys(test.domains).reduce((memo, domain) => {
+        // to get num. of assertions, tally the expected/expectedBest props
+        assert.expect(Object.keys(test.domains).reduce((memo, domain) => {
           let data = test.domains[domain];
           if (utils.hasOwn(data, 'expected')) {
             memo++;
@@ -397,36 +399,36 @@ QUnit.module("Yellowlist", (hooks) => {
           }
         }
         stubbedFetch
-          .withArgs(constants.YELLOWLIST_URL)
-          .resolves(new Response(Object.keys(ylist).join("\n")));
+          .withArgs(constants.PBCONFIG_REMOTE_URL)
+          .resolves(new Response(JSON.stringify({
+            yellowlist: Object.keys(ylist)
+          })));
 
-        badger.updateYellowlist(err => {
-          assert.notOk(err, "callback status indicates success");
+        await badger.updatePbconfig();
 
-          for (let domain in test.domains) {
-            let expected, data = test.domains[domain];
+        for (let domain in test.domains) {
+          let expected, data = test.domains[domain];
 
-            if (utils.hasOwn(data, 'expected')) {
-              expected = data.expected;
-              assert.equal(
-                badger.storage.getAction(domain),
-                expected,
-                `action on ${domain} should be "${expected}"`
-              );
-            }
-
-            if (utils.hasOwn(data, 'expectedBest')) {
-              expected = data.expectedBest;
-              assert.equal(
-                badger.storage.getBestAction(domain),
-                expected,
-                `best action for ${domain} should be "${expected}"`
-              );
-            }
+          if (utils.hasOwn(data, 'expected')) {
+            expected = data.expected;
+            assert.equal(
+              badger.storage.getAction(domain),
+              expected,
+              `action on ${domain} should be "${expected}"`
+            );
           }
 
-          done();
-        });
+          if (utils.hasOwn(data, 'expectedBest')) {
+            expected = data.expectedBest;
+            assert.equal(
+              badger.storage.getBestAction(domain),
+              expected,
+              `best action for ${domain} should be "${expected}"`
+            );
+          }
+        }
+
+        done();
 
       });
     });

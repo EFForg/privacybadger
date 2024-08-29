@@ -1,1 +1,1 @@
-sed -e "s/^\([^\!].*\)$/@@||\1^\$third-party/g" src/data/yellowlist.txt
+sed -e "s/^\([^\!].*\)$/@@||\1^\$third-party/g" "$1"

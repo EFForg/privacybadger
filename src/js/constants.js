@@ -26,12 +26,10 @@ let exports = {
   USER_BLOCK: "user_block",
   USER_COOKIEBLOCK: "user_cookieblock",
 
-  // URLS
+  // URLs
   CNAME_DOMAINS_LOCAL_URL: chrome.runtime.getURL('data/cname_domains.json'),
-  DNT_POLICIES_URL: "https://www.eff.org/files/dnt-policies.json",
-  DNT_POLICIES_LOCAL_URL: chrome.runtime.getURL('data/dnt-policies.json'),
-  YELLOWLIST_URL: "https://www.eff.org/files/cookieblocklist_new.txt",
-  YELLOWLIST_LOCAL_URL: chrome.runtime.getURL('data/yellowlist.txt'),
+  PBCONFIG_LOCAL_URL: chrome.runtime.getURL('data/pbconfig.json'),
+  PBCONFIG_REMOTE_URL: "https://www.eff.org/files/pbconfig.json",
   SEED_DATA_LOCAL_URL: chrome.runtime.getURL('data/seed.json'),
 
   // The number of 1st parties a 3rd party can be seen on

@@ -26,10 +26,23 @@ updatecnames:
 	scripts/updatecnames.sh
 
 upload:
-	$(eval TMPFILE := $(shell mktemp))
-	scp src/data/yellowlist.txt $$YELLOWLIST_UPLOAD_PATH
-	scripts/generate-legacy-yellowlist.sh > $(TMPFILE) && scp $(TMPFILE) $$YELLOWLIST_LEGACY_UPLOAD_PATH && rm $(TMPFILE)
-	scp src/data/dnt-policies.json $$DNT_POLICIES_UPLOAD_PATH
+	# pbconfig
+	scp src/data/pbconfig.json $$PBCONFIG_UPLOAD_PATH
+	# DNT policy hashes (legacy)
+	$(eval HASHES_TMP := $(shell mktemp))
+	python -c 'import json,sys; print(json.dumps(json.load(sys.stdin)["dnt_policy_hashes"]))' < src/data/pbconfig.json > $(HASHES_TMP)
+	scp $(HASHES_TMP) $$DNT_POLICIES_UPLOAD_PATH
+	rm $(HASHES_TMP)
+	# yellowlist (legacy)
+	$(eval YLIST_TMP := $(shell mktemp))
+	python -c 'import json,sys; print("\n".join(json.load(sys.stdin)["yellowlist"]))' < src/data/pbconfig.json > $(YLIST_TMP)
+	scp $(YLIST_TMP) $$YELLOWLIST_UPLOAD_PATH
+	# yellowlist (very legacy)
+	$(eval OLD_YLIST_TMP := $(shell mktemp))
+	scripts/generate-legacy-yellowlist.sh $(YLIST_TMP) > $(OLD_YLIST_TMP)
+	scp $(OLD_YLIST_TMP) $$YELLOWLIST_LEGACY_UPLOAD_PATH
+	rm $(OLD_YLIST_TMP)
+	rm $(YLIST_TMP)
 
 # get the Transifex CLI client from https://github.com/transifex/cli/releases/latest
 tx:
