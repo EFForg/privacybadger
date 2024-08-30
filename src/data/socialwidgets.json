@@ -330,7 +330,9 @@
             "iframe[src^='https://rutube.ru/pl/']",
             "iframe[src^='https://rutube.ru/embed/']",
             "iframe[src^='https://rutube.ru/play/embed/']",
-            "iframe[src^='https://www.rutube.ru/play/embed/']"
+            "iframe[src^='//rutube.ru/play/embed/']",
+            "iframe[src^='https://www.rutube.ru/play/embed/']",
+            "iframe[src^='https://rutube.ru/video/embed/']"
         ],
         "replacementButton": {
             "unblockDomains": [
