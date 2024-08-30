@@ -793,6 +793,12 @@ function replaceIndividualButton(widget) {
         continue;
       }
     }
+    // also don't replace if we're in an AMP frame,
+    // as our placeholder sizing doesn't work inside AMP frames,
+    // and we can instead replace higher-level <amp-*> elements
+    if (document.location.hostname.endsWith(".ampproject.net")) {
+      continue;
+    }
     createReplacementElement(widget, el, function (replacementEl) {
       if (replacementEl) {
         el.parentNode.replaceChild(replacementEl, el);
