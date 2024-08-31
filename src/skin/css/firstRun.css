@@ -696,6 +696,16 @@ body {
 #intro {
   padding:2rem 0rem 4rem;
 }
+#intro-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+#disable_instructions_header {
+  max-width: 650px;
+  margin-top: 2rem;
+}
 @media print, screen and (min-width: 40em) {
   #intro {
     padding:4rem 0rem 4rem;
@@ -705,17 +715,17 @@ body {
   display: flex; 
   justify-content: center;
 }
-#popup-buttons {
+#popup-buttons, #disable_instructions {
   width: 350px;
   padding: 0 1rem;
 }
 @media print, screen and (min-width: 40em) {
-  #popup-buttons {
-    width:450px;
+  #popup-buttons, #disable_instructions {
+    width:400px;
   }
 }
 #intro-pb-features {
-  padding-top: 5rem;
+  padding-top: 1rem;
 }
 #button-instructions-wrapper {
   width: 60%;
