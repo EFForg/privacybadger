@@ -272,7 +272,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Wird Werbung nicht geblockt? Funktioniert Youtube nicht? Vermutlich liegt dies nicht an Privacy Badger."
+        "message": "Wird Werbung nicht geblockt? Funktioniert Youtube nicht? Vermutlich liegt dies nicht an Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -372,7 +372,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "Um das Privacy Badger Icon anzupinnen, klicken Sie auf das Puzzelteil Icon in der Browser Toolbar. Danach klicken Sie auf das Pin Icon direkt neben Privacy Badger."
+        "message": "Um das Privacy Badger Icon anzupinnen, klicken Sie auf das Puzzelteil Icon in der Browser Toolbar. Danach klicken Sie auf das Pin Icon direkt neben Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
