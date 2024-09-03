@@ -44,7 +44,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "Defekte Webseite melden",
+        "message": "Defekte Seite melden",
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "version": {
@@ -320,7 +320,7 @@
         "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
     },
     "next_section": {
-        "message": "Nächster Abschnitt",
+        "message": "nächster Abschnitt",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_disable_button": {
@@ -412,7 +412,7 @@
         "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Webseiten daran hindern, angeklickte Links nachzuverfolgen (»Hyperlink Auditing«)",
+        "message": "Seiten daran hindern, angeklickte Links nachzuverfolgen (»Hyperlink Auditing«)",
         "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
@@ -456,7 +456,7 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist auf den folgenden Webseiten deaktiviert. Das heißt, Privacy Badger wird nichts blockieren, wenn Sie die hier aufgeführten Webseiten besuchen, und wird weder »Do Not Track« noch »Global Privacy Control« signalisieren.",
+        "message": "Privacy Badger ist auf den folgenden Webseiten deaktiviert. Das heißt, Privacy Badger wird nichts blocken, wenn Sie die hier aufgeführten Seiten besuchen, und wird weder »Do Not Track« noch »Global Privacy Control« signalisieren.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
@@ -496,11 +496,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Ausnahmen für Webseiten",
+        "message": "Ausnahmen für Seiten",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Widgets für diese Webseiten immer erlauben:",
+        "message": "Widgets für diese Seiten immer erlauben:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_domain_list_tab": {
@@ -599,7 +599,7 @@
         "description": "This is an options page tab heading."
     },
     "manage_data_intro": {
-        "message": "Importieren von Benutzerdaten:<ul><li>Überschreibt allgemeine Einstellungen</li><li>Kombiniert Listen deaktivierter Webseiten</li><li>Kombiniert Informationen über die bereits erkannten Tracker</li><li>Überschreibt Veränderungen der Schieberegler</li></ul>",
+        "message": "Importieren von Benutzerdaten:<ul><li>Überschreibt allgemeine Einstellungen</li><li>Kombiniert Listen deaktivierter Seiten</li><li>Kombiniert Informationen über die bereits erkannten Tracker</li><li>Überschreibt Veränderungen der Schieberegler</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "export_user_data": {
@@ -631,11 +631,11 @@
         "description": ""
     },
     "sync_intro": {
-        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Listen der Webseiten, auf denen Privacy Badger deaktiviert ist</li></ul>",
+        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Listen der Seiten, auf denen Privacy Badger deaktiviert ist</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Deaktivierte Webseiten zu Cloud exportieren",
+        "message": "Deaktivierte Seiten zu Cloud exportieren",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "upload": {
@@ -643,7 +643,7 @@
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Deaktivierte Webseiten von Cloud importieren",
+        "message": "Deaktivierte Seiten von Cloud importieren",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
@@ -687,7 +687,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data_confirm": {
-        "message": "Entfernen aller Tracking-Domains wird:\n\n  • Alles löschen, was Privacy Badger über Tracker weiß\n  • Privacy Badger veranlassen, solange nichts zu blockieren, bis er Gelegenheit hatte, von Ihrer Browsernutzung neu zu lernen",
+        "message": "Entfernen aller Tracking-Domains wird:\n\n  • Alles löschen, was Privacy Badger über Tracker weiß\n  • Privacy Badger veranlassen, solange nichts zu blocken, bis er Gelegenheit hatte, von Ihrer Browsernutzung neu zu lernen",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
