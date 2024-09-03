@@ -464,7 +464,7 @@
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Add site",
+        "message": "Aldoni retejon",
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
