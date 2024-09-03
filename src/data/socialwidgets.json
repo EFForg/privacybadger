@@ -481,7 +481,8 @@
         "buttonSelectors": [
             "blockquote[class*='twitter-tweet']",
             "blockquote[class*='twitter-video']",
-            "iframe[src^='https://platform.twitter.com/embed/Tweet.html']"
+            "iframe[src^='https://platform.twitter.com/embed/Tweet.html']",
+            "amp-twitter"
         ],
         "scriptSelectors": [
             "script[src='https://platform.twitter.com/widgets.js']",

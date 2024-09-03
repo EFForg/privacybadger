@@ -484,10 +484,11 @@ function createReplacementWidget(widget, elToReplace) {
     link_end = "ZZZ";
 
   // get a direct link to widget content when available
-  let widget_url;
+  let widget_url,
+    node_name = elToReplace.nodeName.toLowerCase();
   if (widget.directLinkUrl) {
     widget_url = widget.directLinkUrl;
-  } else if (elToReplace.nodeName.toLowerCase() == 'iframe' && !widget.noDirectLink) {
+  } else if (node_name == 'iframe' && !widget.noDirectLink) {
     // use the frame URL for framed widgets
     if (elToReplace.src) {
       widget_url = elToReplace.src;
@@ -499,7 +500,7 @@ function createReplacementWidget(widget, elToReplace) {
         }
       }
     }
-  } else if (elToReplace.nodeName.toLowerCase() == 'blockquote') {
+  } else if (node_name == 'blockquote') {
     if (elToReplace.cite && elToReplace.cite.startsWith('https://www.tiktok.com/@')) {
       // TikTok
       widget_url = elToReplace.cite;
@@ -512,6 +513,12 @@ function createReplacementWidget(widget, elToReplace) {
     } else if (elToReplace.dataset && elToReplace.dataset.textPostPermalink && elToReplace.dataset.textPostPermalink.startsWith('https://www.threads.net/')) {
       // Threads
       widget_url = elToReplace.dataset.textPostPermalink;
+    }
+  } else if (node_name == 'amp-twitter') {
+    // AMP Twitter
+    let tweet_id = elToReplace.dataset.tweetid.replace(/[^0-9]/g, '');
+    if (tweet_id) {
+      widget_url = "https://twitter.com/x/status/" + tweet_id;
     }
   }
 
@@ -792,6 +799,12 @@ function replaceIndividualButton(widget) {
         // something went wrong, give up
         continue;
       }
+    }
+    // also don't replace if we're in an AMP frame,
+    // as our placeholder sizing doesn't work inside AMP frames,
+    // and we can instead replace higher-level <amp-*> elements
+    if (document.location.hostname.endsWith(".ampproject.net")) {
+      continue;
     }
     createReplacementElement(widget, el, function (replacementEl) {
       if (replacementEl) {
