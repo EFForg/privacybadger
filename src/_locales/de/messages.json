@@ -36,15 +36,15 @@
         "description": "Shown in the popup on disabled sites."
     },
     "popup_disable_for_site": {
-        "message": "Für diese Seite deaktivieren",
+        "message": "Für diese Site deaktivieren",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "Für diese Seite aktivieren",
+        "message": "Für diese Site aktivieren",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "Defekte Seite melden",
+        "message": "Defekte Site melden",
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "version": {
@@ -88,7 +88,7 @@
         }
     },
     "popup_blocked": {
-        "message": "Auf dieser Webseite sind keine Elemente von Drittparteien vorhanden. Ein Hoch auf die Privatsphäre!",
+        "message": "Auf dieser Seite sind keine Elemente von Drittparteien vorhanden. Ein Hoch auf die Privatsphäre!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "tooltip_block": {
@@ -174,7 +174,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Um die Anmeldung bei Webseiten mit Ihrem Google Account zu aktivieren, bewegen Sie den Schieberegler nach rechts, und laden Sie die Seite neu",
+        "message": "Um die Anmeldung bei Websites mit Ihrem Google Account zu aktivieren, bewegen Sie den Schieberegler nach rechts, und laden Sie die Seite neu",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -202,7 +202,7 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "Dies wird folgende Informationen automatisch an die EFF senden: Die von Ihnen derzeit besuchte Webseite, Ihre Browserversion, die Version von Privacy Badger und den Status aller Schieberegler auf dieser Webseite.",
+        "message": "Dies wird folgende Informationen automatisch an die EFF senden: Die von Ihnen derzeit besuchte Seite, Ihre Browserversion, die Version von Privacy Badger und den Status aller Schieberegler auf dieser Seite.",
         "description": ""
     },
     "report_button": {
@@ -272,7 +272,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Wird Werbung nicht geblockt? Funktioniert Youtube nicht? Vermutlich liegt dies nicht an Privacy Badger.",
+        "message": "Wird Werbung nicht geblockt? Funktioniert YouTube nicht? Vermutlich liegt dies nicht an Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -300,7 +300,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Anstatt vorgefertigte Listen zu blockender Domains zu verwenden, entdeckt Privacy Badger Tracker aufgrund ihres Verhaltens diese automatisch.",
+        "message": "Anstatt vorgefertigte Listen zu blockender Domains zu verwenden, entdeckt Privacy Badger Tracker aufgrund ihres Verhaltens automatisch.",
         "description": "Intro page paragraph."
     },
     "intro_beyond_ads": {
@@ -324,7 +324,7 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_disable_button": {
-        "message": "Falls Sie annehmen, dass Privacy Badger bei einer Webseite Probleme verursacht (z. B. ein Video wird nicht wiedergegeben), so können Sie auf die Schaltfläche »Deaktivieren« klicken, um Privacy Badger für diese Website auszuschalten.",
+        "message": "Falls Sie annehmen, dass Privacy Badger bei einer Seite Probleme verursacht (z. B. ein Video wird nicht wiedergegeben), so können Sie auf die Schaltfläche »Deaktivieren« klicken, um Privacy Badger für diese Website auszuschalten.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
@@ -356,7 +356,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "$START_SPAN_TAG$Pinnen Sie Privacy Badger an ihre Toolbar an $END_SPAN_TAG$, um einfacher auf den \"$DISABLE_FOR_SITE$\" button zugreifen zu können.",
+        "message": "$START_SPAN_TAG$Pinnen Sie Privacy Badger an ihre Toolbar an$END_SPAN_TAG$, um einfacher auf den »$DISABLE_FOR_SITE$« button zugreifen zu können.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -372,7 +372,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "Um das Privacy Badger Icon anzupinnen, klicken Sie auf das Puzzelteil Icon in der Browser Toolbar. Danach klicken Sie auf das Pin Icon direkt neben Privacy Badger.",
+        "message": "Um das Privacy Badger Icon anzupinnen, klicken Sie auf das Puzzleteil Icon in der Browser Toolbar. Danach klicken Sie auf das Pin Icon direkt neben Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -400,7 +400,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
-        "message": "Webseiten »<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>« und »<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>« signalisieren",
+        "message": "Websites »<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>« und »<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>« signalisieren",
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
@@ -412,7 +412,7 @@
         "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Seiten daran hindern, angeklickte Links nachzuverfolgen (»Hyperlink Auditing«)",
+        "message": "Sites daran hindern, angeklickte Links nachzuverfolgen (»Hyperlink Auditing«)",
         "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
@@ -448,23 +448,23 @@
         "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
-        "message": "Die Aktivierung des Lernens in privaten bzw. Inkognito-Fenstern hinterlässt eventuell Spuren Ihres privaten Surfverlaufs auf Ihrem Computer. In privaten/Inkognito-Fenstern blockiert Privacy Badger standardmäßig bereits bekannte Tracker, erlernt aber keine neuen. Falls Sie oft private/Inkognito-Fenster verwenden, kann die Aktivierung dieser Option Sinn machen.",
+        "message": "Die Aktivierung des Lernens in privaten bzw. Inkognito-Fenstern hinterlässt eventuell Spuren Ihres privaten Surfverlaufs auf Ihrem Computer. In privaten/Inkognito-Fenstern blockt Privacy Badger standardmäßig bereits bekannte Tracker, erlernt aber keine neuen. Falls Sie oft private/Inkognito-Fenster verwenden, kann die Aktivierung dieser Option Sinn machen.",
         "description": "Tooltip in general settings."
     },
     "disabled_sites": {
-        "message": "Deaktivierte Webseiten",
+        "message": "Deaktivierte Websites",
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger ist auf den folgenden Webseiten deaktiviert. Das heißt, Privacy Badger wird nichts blocken, wenn Sie die hier aufgeführten Seiten besuchen, und wird weder »Do Not Track« noch »Global Privacy Control« signalisieren.",
+        "message": "Privacy Badger ist auf den folgenden Websites deaktiviert. Das heißt, Privacy Badger wird nichts blocken, wenn Sie die hier aufgeführten Sites besuchen, und wird weder »Do Not Track« noch »Global Privacy Control« signalisieren.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
-        "message": "z.B. www.example.com, *.example.net, example.org",
+        "message": "z. B. www.example.com, *.example.net, example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Seite hinzufügen",
+        "message": "Site hinzufügen",
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
@@ -496,11 +496,11 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Ausnahmen für Seiten",
+        "message": "Ausnahmen für Sites",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "Widgets für diese Seiten immer erlauben:",
+        "message": "Widgets für diese Sites immer erlauben:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_domain_list_tab": {
@@ -581,7 +581,7 @@
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
-        "message": "$DOMAIN$ wurde beim Tracken auf den folgenden Webseiten beobachtet:",
+        "message": "$DOMAIN$ wurde beim Tracken auf den folgenden Sites beobachtet:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
@@ -599,7 +599,7 @@
         "description": "This is an options page tab heading."
     },
     "manage_data_intro": {
-        "message": "Importieren von Benutzerdaten:<ul><li>Überschreibt allgemeine Einstellungen</li><li>Kombiniert Listen deaktivierter Seiten</li><li>Kombiniert Informationen über die bereits erkannten Tracker</li><li>Überschreibt Veränderungen der Schieberegler</li></ul>",
+        "message": "Importieren von Benutzerdaten:<ul><li>Überschreibt allgemeine Einstellungen</li><li>Kombiniert Listen deaktivierter Sites</li><li>Kombiniert Informationen über die bereits erkannten Tracker</li><li>Überschreibt Veränderungen der Schieberegler</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "export_user_data": {
@@ -631,11 +631,11 @@
         "description": ""
     },
     "sync_intro": {
-        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Listen der Seiten, auf denen Privacy Badger deaktiviert ist</li></ul>",
+        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Listen der Sites, auf denen Privacy Badger deaktiviert ist</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Deaktivierte Seiten zu Cloud exportieren",
+        "message": "Deaktivierte Sites zu Cloud exportieren",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "upload": {
@@ -643,7 +643,7 @@
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Deaktivierte Seiten von Cloud importieren",
+        "message": "Deaktivierte Sites von Cloud importieren",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
