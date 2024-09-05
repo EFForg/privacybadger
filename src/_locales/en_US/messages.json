@@ -370,7 +370,7 @@
         }
     },
     "intro_two_buttons": {
-        "message": "Get to know Privacy Badger by clicking its icon in your browser toolbar",
+        "message": "Try clicking the Privacy Badger icon:",
         "description": "Shown below a photo of two popup buttons."
     },
     "intro_features_heading": {

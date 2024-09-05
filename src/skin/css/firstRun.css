@@ -246,7 +246,7 @@ h3 {
 
 @media print, screen and (min-width: 40em) {
   h1 {
-    font-size:3.5rem;
+    font-size:3rem;
   }
   h2 {
     font-size:2.5rem;
@@ -412,7 +412,7 @@ header img {
 @media print, screen and (min-width: 40em) {
   header img {
     margin:1rem 0 0;
-    width:12rem;
+    width:9rem;
   }
 }
 header .title-bar h1 {
@@ -704,7 +704,6 @@ body {
 }
 #disable_instructions_header {
   max-width: 650px;
-  margin-top: 2rem;
 }
 @media print, screen and (min-width: 40em) {
   #intro {
@@ -716,14 +715,14 @@ body {
   justify-content: center;
 }
 #popup-buttons, #disable_instructions {
-  width: 350px;
-  padding: 0 1rem;
+  max-width: 550px;
+  width: 90%;
 }
-@media print, screen and (min-width: 40em) {
+/* @media print, screen and (min-width: 40em) {
   #popup-buttons, #disable_instructions {
-    width:400px;
+    width:500px;
   }
-}
+} */
 #intro-pb-features {
   padding-top: 1rem;
 }
