@@ -246,7 +246,7 @@ h3 {
 
 @media print, screen and (min-width: 40em) {
   h1 {
-    font-size:3rem;
+    font-size:2.75rem;
   }
   h2 {
     font-size:2.5rem;
@@ -407,17 +407,30 @@ header {
 }
 header img {
   margin:1rem 0 0;
-  width:7rem;
+  width:3rem;
 }
 @media print, screen and (min-width: 40em) {
   header img {
     margin:1rem 0 0;
-    width:9rem;
+    width:5rem;
   }
 }
 header .title-bar h1 {
   color:white;
   font-family:"ChunkFive",serif;
+}
+
+#header-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 2rem 0rem;
+}
+
+#header-bar img, h1 {
+  margin: 0;
 }
 
 /* visibility classes */
@@ -685,7 +698,7 @@ body {
   display:flex;
   -ms-flex-flow:row wrap;
   flex-flow:row wrap;
-  padding:3rem 0 5rem;
+  padding:1rem 0 5rem;
 }
 .caret-down img {
   width:5rem;
@@ -701,6 +714,11 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+  background-color: #DFDFE6;
+  border-radius: 10px;
+  padding: 1rem;
+  max-width: 80%;
+  margin-top: 1rem;
 }
 #disable_instructions_header {
   max-width: 650px;
@@ -958,7 +976,7 @@ li::before {
     color: #fff;
   }
 
-  #pin-nudge {
+  #pin-nudge, #intro-wrapper {
     background-color: #555;
   }
 

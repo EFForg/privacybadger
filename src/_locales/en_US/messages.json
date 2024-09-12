@@ -288,7 +288,7 @@
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
     "firstRun_title": {
-        "message": "Thank you for installing Privacy Badger!",
+        "message": "Thank you for installing!",
         "description": "Title and header of the intro page."
     },
     "intro_by_eff": {
@@ -346,19 +346,8 @@
         "description": "First item in the list below the popup buttons image."
     },
     "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the $DISABLE_ICON$ $OPEN_SPAN$'Disable for this site'$CLOSE_SPAN$ button in the popup.",
-        "description": "Second item in the list below the popup buttons image. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message.",
-        "placeholders": {
-            "disable_icon": {
-                "content": "<span class=\"ui-icon ui-icon-power\"></span>"
-            },
-            "open_span": {
-                "content": "<span style='font-weight:bold'>"
-            },
-            "close_span": {
-                "content": "</span>"
-            }
-        }
+        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
+        "description": "Second item in the list below the popup buttons image. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
         "message": "To help other Privacy Badger users, please click $REPORT_ICON$ <span style='font-weight:bold'>'Report broken site'</span> when you encounter a site that's not working. We respect your privacy so we don't send automatic reports.",
@@ -369,9 +358,13 @@
             }
         }
     },
-    "intro_two_buttons": {
-        "message": "Try clicking the Privacy Badger icon:",
-        "description": "Shown below a photo of two popup buttons."
+    "intro_open_popup": {
+        "message": "Now, try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_features_heading": {
         "message": "Privacy Badger is ready to protect your privacy!",

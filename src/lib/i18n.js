@@ -83,7 +83,8 @@ function setTextDirection() {
       right: 'unset',
       left: '15px'
     });
-    $('#pin-image').css("transform", "scaleX(-1)");
+    $('#pin-image').attr("src", "images/pinning-instructions-rtl.png");
+    // $('#pin-image').css("transform", "scaleX(-1)");
     $('#dismiss-nudge').css({
       float: 'left',
       right: 'unset',

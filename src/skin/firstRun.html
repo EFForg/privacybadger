@@ -21,15 +21,9 @@
     </div>
 
     <header class="grid-padding-y align-center">
-      <div class="title-bar small-12 text-center cell">
-        <h1 style="margin-bottom: 0px; margin-top: 1rem;" class="i18n_name"></h1>
-      </div>
-      <div class="small-12 text-center cell">
-        <img style="margin-top: 0.5rem; margin-bottom: 0.5rem;" src="../icons/badger-bw-noborder.svg" alt="">
-      </div>
-      <div class="title-bar small-12 text-center cell">
-        <!-- <h1 class="i18n_name"></h1> -->
-         <h1 style="font-size: 30px; margin-bottom: 1rem;">Thanks for installing!</h1>
+      <div class="title-bar small-12 text-center cell" id="header-bar">
+        <img src="../icons/badger-bw-noborder.svg" alt="">
+        <h1 class="i18n_firstRun_title"></h1>
       </div>
     </header>
 
@@ -42,25 +36,19 @@
         </a>
         <p id="pin-nudge-text"></p>
       </div>
-      <img id="pin-image" src="images/pinning-instructions.png" alt="i18n_intro_pin_instructions">
+      <img id="pin-image" src="images/pinning-instructions-numbered.png" alt="i18n_intro_pin_instructions">
     </div>
 
     <div id="intro" class="grid-x grid-padding-x align-center">
       <div class="small-12 medium-10 text-center cell" id="intro-wrapper">
-        <h3 class="i18n_intro_two_buttons" id="disable_instructions_header"></h3>
-        <img src="images/browser-toolbar-icon.png" alt="" id="popup-buttons">
+        <h3 class="i18n_intro_open_popup" id="disable_instructions_header"></h3>
+        <img src="images/browser-toolbar-icon.png" alt="i18n_intro_open_popup_alt" id="popup-buttons">
         <p class="i18n_intro_disable_button" id="disable_instructions"></p>
       </div>
-      <!-- <img src="images/popup-buttons-circled.png" alt="" id="popup-buttons"> -->
-      <!-- <div class="grid-x align-center">
-        <div class="small-12 medium-10 text-center cell" id="button-instructions-wrapper">
-          <p class="i18n_intro_disable_button"></p>
-        </div>
-      </div> -->
     </div>
 
     <div class="caret-down align-center">
-      <a href="#pb-settings" class="scroll-it"><img src="images/carrot-down.svg" alt="i18n_next_section"></a>
+      <a href="#intro-pb-features" class="scroll-it"><img src="images/carrot-down.svg" alt="i18n_next_section"></a>
     </div>
 
     <!-- privacy badger features -->
@@ -71,7 +59,7 @@
     </div>
     <div id="pb-features-1" class="align-center">
       <div>
-        <img src="images/badger-student-organge.png" alt="">
+        <img src="images/badger-student-orange.png" alt="">
       </div>
       <div>
         <h3 class="i18n_intro_beyond_ads"></h3>
@@ -93,7 +81,7 @@
     </div>
 
     <div class="caret-down align-center">
-      <a href="#pb-settings" class="scroll-it"><img src="images/carrot-down.svg" alt="i18n_next_section"></a>
+      <a href="#pb-donate" class="scroll-it"><img src="images/carrot-down.svg" alt="i18n_next_section"></a>
     </div>
 
     <!-- donate ask -->
