@@ -587,7 +587,6 @@ function refreshPopup() {
     $('.tooltip').tooltipster();
 
     getTab((tab) => {
-      console.log(tab);
       if (tab.url && tab.url.endsWith('/skin/firstRun.html')) {
         $('#first-run-page').show();
         $('#deactivate_site_btn').prop('disabled', true);

@@ -736,35 +736,8 @@ body {
   max-width: 550px;
   width: 90%;
 }
-/* @media print, screen and (min-width: 40em) {
-  #popup-buttons, #disable_instructions {
-    width:500px;
-  }
-} */
 #intro-pb-features {
   padding-top: 1rem;
-}
-#button-instructions-wrapper {
-  width: 60%;
-}
-#button-instructions-wrapper > h3 {
-  padding: 1rem 0;
-}
-ol {
-  list-style-type: none;
-}
-li::before {
-  content: counter(list-item);
-  display: inline-block;
-  width: 2em;
-  height: 2em;
-  line-height: 2em;
-  text-align: center;
-  border-radius: 50%;
-  background-color: black;
-  color: white;
-  font-weight: bold;
-  margin-right: 10px;
 }
 [id*="pb-features-"],#pb-settings {
   display:-ms-flexbox;
@@ -987,10 +960,5 @@ li::before {
   #dismiss-nudge:hover img, #dismiss-nudge:focus img {
     /* Calculated with https://codepen.io/sosuke/pen/Pjoqqp to match #F06A0A */
     filter: invert(63%) sepia(46%) saturate(6632%) hue-rotate(356deg) brightness(95%) contrast(98%);;
-  }
-
-  li::before {
-    background-color: #DDDDDD;
-    color: black;
   }
 }
