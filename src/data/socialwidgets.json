@@ -259,6 +259,19 @@
             "type": 3
         }
     },
+    "Kick Player": {
+        "domain": "player.kick.com",
+        "buttonSelectors": [
+            "iframe[src^='https://player.kick.com/']",
+            "iframe[src^='//player.kick.com/']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "player.kick.com"
+            ],
+            "type": 3
+        }
+    },
     "LinkedIn": {
         "domain": "platform.linkedin.com",
         "buttonSelectors": [
