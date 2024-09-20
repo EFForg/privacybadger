@@ -6,6 +6,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link type="text/css" href="css/firstRun.css" rel="stylesheet" />
+  <link type="text/css" href="/lib/vendor/jquery-ui-iconfont-2.3.2/jquery-ui-1.12.icon-font.css" rel="stylesheet" />
   <script type="text/javascript" src="/lib/vendor/jquery-3.7.0.js"></script>
   <script type="text/javascript" src="/lib/vendor/jquery.smooth-scroll.js"></script>
   <script type="module" src="/lib/i18n.js"></script>
@@ -20,11 +21,9 @@
     </div>
 
     <header class="grid-padding-y align-center">
-      <div class="small-12 text-center cell">
+      <div class="title-bar small-12 text-center cell" id="header-bar">
         <img src="../icons/badger-bw-noborder.svg" alt="">
-      </div>
-      <div class="title-bar small-12 text-center cell">
-        <h1 class="i18n_name"></h1>
+        <h1 class="i18n_firstRun_title"></h1>
       </div>
     </header>
 
@@ -37,67 +36,50 @@
         </a>
         <p id="pin-nudge-text"></p>
       </div>
-      <img id="pin-image" src="images/pinning-instructions.png" alt="i18n_intro_pin_instructions">
+      <img id="pin-image" src="images/pinning-instructions-numbered.png" alt="i18n_intro_pin_instructions">
     </div>
 
-    <!-- intro -->
     <div id="intro" class="grid-x grid-padding-x align-center">
-      <div class="small-12 medium-10 text-center cell">
-        <h3 class="i18n_firstRun_title"></h3>
+      <div class="small-12 medium-10 text-center cell" id="intro-wrapper">
+        <h3 class="i18n_intro_open_popup" id="disable_instructions_header"></h3>
+        <img src="images/toolbar-icon-circled.png" alt="i18n_intro_open_popup_alt" id="toolbar-icon">
+        <p class="i18n_intro_disable_button" id="disable_instructions"></p>
       </div>
-      <div class="small-12 medium-10 large-4 text cell">
-        <p class="i18n_intro_welcome"></p>
-      </div>
-      <div class="small-12 text-center cell">
-        <a href="#pb-features-1" class="i18n_intro_next_button button large scroll-it"></a>
-      </div>
+    </div>
+
+    <div class="caret-down align-center">
+      <a href="#intro-pb-features" class="scroll-it"><img src="images/carrot-down.svg" alt="i18n_next_section"></a>
     </div>
 
     <!-- privacy badger features -->
-    <div id="pb-features-1" class="align-center">
-      <div>
-        <img src="images/learns-trackers.png" alt="">
+    <div class="grid-x align-center" id="intro-pb-features">
+      <div class="small-12 medium-10 text-center cell">
+        <h3 class="i18n_intro_features_heading"></h3>
       </div>
-      <div>
-        <h3 class="i18n_intro_learns"></h3>
-        <p class="i18n_intro_learns_paragraph"></p>
+    </div>
+    <div id="pb-features-1" class="align-center">
+      <div class="small-12 large-3 cell">
+        <img src="images/popup-screenshot.png" alt="">
+      </div>
+      <div class="cell">
+        <h3 class="i18n_intro_beyond_ads"></h3>
+        <p class="i18n_intro_beyond_ads_paragraph"></p>
       </div>
     </div>
     <div id="pb-features-2" class="align-center">
       <div class="cell hide-for-small-only">
-        <h3 class="i18n_intro_beyond_ads"></h3>
-        <p class="i18n_intro_beyond_ads_paragraph"></p>
+        <h3 class="i18n_intro_not_an_adblocker"></h3>
+        <p class="i18n_intro_not_an_adblocker_paragraph"></p>
       </div>
       <div class="small-12 large-3 cell">
-        <img src="images/catches-trackers.png" alt="">
-      </div>
-      <div class="cell hide-for-large hide-for-medium">
-        <h3 class="i18n_intro_beyond_ads"></h3>
-        <p class="i18n_intro_beyond_ads_paragraph"></p>
-      </div>
-    </div>
-    <div id="pb-features-3" class="align-center">
-      <div class="cell">
         <img src="images/not-ad-blocker.png" alt="">
       </div>
-      <div class="cell">
+      <div class="cell hide-for-large hide-for-medium">
         <h3 class="i18n_intro_not_an_adblocker"></h3>
         <p class="i18n_intro_not_an_adblocker_paragraph"></p>
       </div>
     </div>
-    <div class="caret-down align-center">
-      <a href="#pb-settings" class="scroll-it"><img src="images/carrot-down.svg" alt="i18n_next_section"></a>
-    </div>
 
-    <!-- privacy badger settings -->
-    <div id="pb-settings" class="align-center">
-      <div class="text">
-        <img src="images/disable-badger.png" alt="">
-        <p class="i18n_intro_disable_button text"></p>
-        <p class="i18n_intro_report_button"></p>
-        <p class="i18n_intro_privacy_note"></p>
-      </div>
-    </div>
     <div class="caret-down align-center">
       <a href="#pb-donate" class="scroll-it"><img src="images/carrot-down.svg" alt="i18n_next_section"></a>
     </div>
