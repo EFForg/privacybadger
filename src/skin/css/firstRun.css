@@ -428,6 +428,14 @@ header .title-bar h1 {
   gap: 15px;
   padding: 2rem 0rem;
 }
+@media print, screen and (max-width: 28em) {
+  #header-bar {
+    flex-direction: column;
+  }
+  header img {
+    width: 7rem;
+  }
+}
 
 #header-bar img, h1 {
   margin: 0;
@@ -670,6 +678,7 @@ header .title-bar h1 {
   src:url("../fonts/Chunk.ttf") format("truetype");
   font-weight:900;
   font-style:normal;
+  ascent-override: 105%;
 }
 @font-face {
   font-family:'OpenSans-Light';
@@ -728,11 +737,7 @@ body {
     padding:4rem 0rem 4rem;
   }
 }
-#popup-buttons-wrapper {
-  display: flex; 
-  justify-content: center;
-}
-#popup-buttons, #disable_instructions {
+#toolbar-icon, #disable_instructions {
   max-width: 550px;
   width: 90%;
 }
@@ -745,6 +750,9 @@ body {
   -ms-flex-flow:row wrap;
   flex-flow:row wrap;
   padding:3rem 0 2rem;
+}
+[id*="pb-features-"] img {
+  max-width: min(100%, 425px);
 }
 @media print, screen and (min-width: 40em) {
   [id*="pb-features-"],#pb-settings {
@@ -835,7 +843,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: 999;
-  background-color: #1f171769;
+  background-color: #1f171782;
   position: fixed;
   top: 0;
   left: 0;
@@ -888,7 +896,7 @@ body {
   padding: 25px;
   z-index: 1000;
   border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 20px, rgba(0, 0, 0, 0.35) 0px 25px 30px;
+  box-shadow: rgba(0, 0, 0, 0.30) 0px 0px 20px, rgba(0, 0, 0, 0.40) 0px 25px 30px;
   animation: custom-bounce 2s ease 1;
   display: flex;
   flex-direction: column;
