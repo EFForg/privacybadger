@@ -431,6 +431,7 @@ header .title-bar h1 {
 @media print, screen and (max-width: 28em) {
   #header-bar {
     flex-direction: column;
+    padding: 1rem 0rem;
   }
   header img {
     width: 7rem;
