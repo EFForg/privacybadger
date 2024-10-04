@@ -8,7 +8,7 @@
         "description": "Extension description sometimes used by extension stores. See also 'intro_welcome', 'share_base_message' and 'intro_learns' messages."
     },
     "canvas_fingerprinting": {
-        "message": "canvas fingerprinting",
+        "message": "نسيج البصمة الرقمية",
         "description": "Canvas fingerprinting is the tracking method described in https://en.wikipedia.org/wiki/Canvas_fingerprinting"
     },
     "popup_help_button": {
@@ -24,15 +24,15 @@
         "description": ""
     },
     "popup_special_page_header": {
-        "message": "Nothing to do on this page",
+        "message": "لا شيء للقيام به في هذه الصفحة",
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger doesn't work on special pages like this one. Try browsing somewhere else.",
+        "message": "لا يعمل «غرير الخصوصية» على صفحات خاصة مثل هذه. حاول التصفح في مكان آخر.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger is disabled on this site",
+        "message": "«غرير الخصوصية» غير مفعل على هذا الموقع",
         "description": "Shown in the popup on disabled sites."
     },
     "popup_disable_for_site": {
@@ -44,7 +44,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "Report broken site",
+        "message": "بلغّ عن موقع معطل",
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "version": {
@@ -88,7 +88,7 @@
         }
     },
     "popup_blocked": {
-        "message": "There are no third party resources on this page. Hooray for privacy!",
+        "message": "لا توجد مصادر خارجية على هذه الصفحة. يا هلا بالخصوصية!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "tooltip_block": {
@@ -158,31 +158,31 @@
         "description": "Tooltip shown over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "domain_slider_block_tooltip": {
-        "message": "Block entirely",
+        "message": "حظر كامل",
         "description": "Tooltip shown over the leftmost part of a domain slider. This is an action (\"click here to ...\"), not a status."
     },
     "domain_slider_cookieblock_tooltip": {
-        "message": "Block cookies",
+        "message": "حظر ملفات تعريف الارتباط",
         "description": "Tooltip shown over the center part of a domain slider."
     },
     "domain_slider_allow_tooltip": {
-        "message": "Allow",
+        "message": "السماح",
         "description": "Tooltip shown over the rightmost part of a domain slider."
     },
     "breakage_warning_tooltip": {
-        "message": "Blocking this domain is known to break websites",
+        "message": "من المعروف أن حظر هذا الموقع يؤثر على عمل مواقع آخرى",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "To enable logging into websites with your Google account, move this slider right, and reload the page",
+        "message": "لتمكين تسجيل الدخول إلى مواقع الويب باستخدام حساب \"غوغل\" الخاص بك، حرك شريط التمرير هذا إلى اليمين، وأعد تحميل الصفحة",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
-        "message": "Click to return control of this domain to Privacy Badger",
+        "message": "انقر هنا لإعادة التحكم في هذا الموقع إلى «غرير الخصوصية»",
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "not_yet_blocked_header": {
-        "message": "Your Badger hasn't decided yet if these domains should get blocked",
+        "message": "لم يقرر «الغرير» الخاص بك بعد ما إذا كان ينبغي حظر هذه المواقع",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
     "non_tracker": {
@@ -194,7 +194,7 @@
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
-        "message": "Briefly describe the problem:",
+        "message": "اوصف المشكلة بشكل موجز:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -202,11 +202,11 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "This will automatically send the following information to EFF: the page you're currently visiting, your browser version, the version of Privacy Badger, and the state of all of the sliders on this page.",
+        "message": "سيرسل هذا تلقائيًا المعلومات التالية إلى منظمة EFF: الصفحة التي تزورها حاليًا، إصدار المتصفح المستخدم لديك، إصدار «غرير الخصوصية»، وحالة جميع الخيارات الموجودة على هذه الصفحة.",
         "description": ""
     },
     "report_button": {
-        "message": "Send report",
+        "message": "ارسل التقرير",
         "description": "Button text."
     },
     "report_cancel": {
@@ -256,7 +256,7 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_info_firstparty_protections": {
-        "message": "Link tracking protection active",
+        "message": "حماية رابط التتبع مفعّل",
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
@@ -272,7 +272,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "الإعلانات غير محجوبة؟ يوتيوب لا يعمل؟ ربما لا يكون ذلك بسبب «غرير الخصوصية».",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -296,11 +296,11 @@
         "description": "Intro page welcome button."
     },
     "intro_learns": {
-        "message": "Learns automatically",
+        "message": "يتعلم تلقائيا",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "بدلاً من الاحتفاظ بقوائم بما يجب حظره، «غرير الخصوصية» يكتشف تلقائيًا أدوات التتبع استنادًا إلى سلوكها.",
         "description": "Intro page paragraph."
     },
     "intro_beyond_ads": {
@@ -372,7 +372,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "message": "لتثبيت أيقونة «غرير الخصوصية»، انقر على أيقونة قطعة اللغز في شريط أدوات المتصفح لديك. ثم انقر على أيقونة التثبيت بجوار «غرير الخصوصية».",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -384,7 +384,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_mastodon": {
-        "message": "Share on Mastodon",
+        "message": "شارك على ماستودون",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
@@ -396,7 +396,7 @@
         "description": "This is an options page tab heading."
     },
     "show_counter_checkbox": {
-        "message": "Show count of trackers",
+        "message": "إظهار عدد المتتبعين",
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
@@ -408,19 +408,19 @@
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "الخصوصية",
         "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Prevent sites from tracking which links you click (\"hyperlink auditing\")",
+        "message": "منع المواقع من تتبع الروابط التي تنقر عليها (\"تدقيق الروابط\")",
         "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
-        "message": "Disable prefetching",
+        "message": "تعطيل الجلب المسبق",
         "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
-        "message": "Disable sending web addresses you visit to Google. This disables suggestions for similar pages when a page can't be found.",
+        "message": "تعطيل إرسال عناوين المواقع التي تزورها إلى غوغل. يؤدي هذا إلى تعطيل الاقتراحات الخاصة بالصفحات المشابهة عندما لا يمكن العثور على الصفحة.",
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
@@ -428,19 +428,19 @@
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2023/09/how-turn-googles-privacy-sandbox-ad-tracking-and-why-you-should"
     },
     "options_advanced_settings": {
-        "message": "Advanced",
+        "message": "متقدم",
         "description": "Subheading in general settings."
     },
     "options_learn_setting": {
-        "message": "Learn to block new trackers from your browsing",
+        "message": "تعلم كيفية حظر أدوات التتبع الجديدة خلال تصفحك",
         "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
-        "message": "Enabling learning may make you more identifiable to websites",
+        "message": "قد يؤدي تفعيل التعلم إلى زيادة إمكانية تعرف المواقع عليك",
         "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
-        "message": "Show domains that don't appear to be tracking you",
+        "message": "إظهار المواقع التي لا يبدو أنها تتبعك",
         "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
@@ -456,24 +456,24 @@
         "description": "Options page tab heading"
     },
     "disabled_for_these_domains": {
-        "message": "<p>Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.</p><p>If you think Privacy Badger is breaking a page, or you would like to allow a particular site to share or sell your data, you can type that page's domain in the box below and click the \"Add domain\" button.</p>",
-        "description": "Shown on the options page under the Disabled Sites tab. 'Add domain' should match the 'add_domain_button' message."
+        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.",
+        "description": "Intro text on the Disabled Sites options page tab"
     },
     "allowlist_domain_input_placeholder": {
         "message": "مثلا: www.example.com، أو ‪*.example.net‬، أو example.org",
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "أضف النطاق",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "message": "إضافة الموقع",
+        "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
         "message": "أزل المحدد",
-        "description": "Button found under the Disabled Sites tab on the options page"
+        "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
         "message": "رجاء أضف مسارا أو نطاقا صحيحا",
-        "description": "Error shown when attempting to add an invalid domain to the list of disabled sites"
+        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Widget Replacement",
@@ -496,7 +496,7 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Site Exceptions",
+        "message": "استثناءات المواقع",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
@@ -553,7 +553,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
-        "message": "compliant with EFF's DNT policy",
+        "message": "متوافق مع سياسة DNT الخاصة بـ EFF",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_status_filter": {
@@ -573,15 +573,15 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
-        "message": "Show domains your Badger hasn't decided yet to block",
+        "message": "أظهر المواقع التي لم يقرر «الغرير» الخاص بك حظرها",
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
-        "message": "Hide domains present in the latest pre-trained list",
+        "message": "إخفاء المواقع الموجودة في أحدث قائمة مدربة مسبقًاً",
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
-        "message": "$DOMAIN$ was seen tracking on the following sites:",
+        "message": "$DOMAIN$تم رصده وهو يتتبع المواقع التالية:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
@@ -703,19 +703,19 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
+        "message": "لن يتعلم «غرير الخصوصية» بعد الآن من تصفحك بشكل افتراضي.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Click below to learn more.",
+        "message": "انقر أدناه لمعرفة المزيد.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
+        "message": "تعرّف على تحديثات «غرير الخصوصية»",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "deprecated_setting": {
-        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
+        "message": "لقد تم إيقاف هذه الخاصية وسيتم إزالتها في تحديث «غرير الخصوصية» المستقبلي:",
         "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
@@ -743,7 +743,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "Privacy Badger has replaced $START_ANCHOR_TAG$this $WIDGET$ widget$END_ANCHOR_TAG$",
+        "message": "«غرير الخصوصية» إستبدل $START_ANCHOR_TAG$ هذه $WIDGET$ Widget $END_ANCHOR_TAG$",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
@@ -761,11 +761,11 @@
         }
     },
     "allow_once": {
-        "message": "Allow once",
+        "message": "السماح مرة واحدة",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking it will allow the third-party widget to load this one time only."
     },
     "allow_on_site": {
-        "message": "Always allow on this site",
+        "message": "السماح دائماً على هذا الموقع",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     }
 }
