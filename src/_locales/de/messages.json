@@ -174,7 +174,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Um die Anmeldung bei Websites mit Ihrem Google Account zu aktivieren, bewegen Sie den Schieberegler nach rechts, und laden Sie die Seite neu",
+        "message": "Um die Anmeldung bei Websites mit Ihrem Google-Account zu aktivieren, bewegen Sie den Schieberegler nach rechts, und laden Sie die Seite neu",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -260,7 +260,7 @@
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Manche Websites $LINK_START$verwenden Link-Tracking, um dich zu verfolgen$LINK_END$, sobald du auf eine Link zum Verlassen der Website klickst. Privacy Badger entfernt auf dieser Website das Tracking solcher Links.",
+        "message": "Manche Websites $LINK_START$verwenden Link-Tracking, um Sie zu verfolgen$LINK_END$, sobald Sie auf einen Link zum Verlassen der Website klicken. Privacy Badger entfernt auf dieser Website das Tracking solcher Links.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
@@ -288,7 +288,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger lernt automatisch, unsichtbare Tracker zu blocken. Nehmen Sie sich eine Minute Zeit, um zu erfahren wie.",
+        "message": "Privacy Badger lernt automatisch, unsichtbare Tracker zu blocken. Nehmen Sie sich eine Minute Zeit, um zu erfahren, wie.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -356,7 +356,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "$START_SPAN_TAG$Pinnen Sie Privacy Badger an ihre Toolbar an$END_SPAN_TAG$, um einfacher auf den »$DISABLE_FOR_SITE$« button zugreifen zu können.",
+        "message": "$START_SPAN_TAG$Pinnen Sie Privacy Badger an Ihre Toolbar an$END_SPAN_TAG$, um einfacher auf die Schaltfläche »$DISABLE_FOR_SITE$« zugreifen zu können.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -372,7 +372,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "Um das Privacy Badger Icon anzupinnen, klicken Sie auf das Puzzleteil Icon in der Browser Toolbar. Danach klicken Sie auf das Pin Icon direkt neben Privacy Badger.",
+        "message": "Um das Icon von Privacy Badger anzupinnen, klicken Sie auf das Puzzleteil-Icon in der Browser-Toolbar. Danach klicken Sie auf das Pin-Icon direkt neben Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -436,7 +436,7 @@
         "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
-        "message": "Aktiviertes Lernen macht dich für Websites möglicherweise leichter identifizierbar",
+        "message": "Aktiviertes Lernen macht Sie für Websites möglicherweise leichter identifizierbar",
         "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
@@ -448,7 +448,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
-        "message": "Die Aktivierung des Lernens in privaten bzw. Inkognito-Fenstern hinterlässt eventuell Spuren Ihres privaten Surfverlaufs auf Ihrem Computer. In privaten/Inkognito-Fenstern blockt Privacy Badger standardmäßig bereits bekannte Tracker, erlernt aber keine neuen. Falls Sie oft private/Inkognito-Fenster verwenden, kann die Aktivierung dieser Option Sinn machen.",
+        "message": "Die Aktivierung des Lernens in privaten bzw. Inkognito-Fenstern hinterlässt eventuell Spuren Ihres privaten Surfverlaufs auf Ihrem Computer. In privaten bzw. Inkognito-Fenstern blockt Privacy Badger standardmäßig bereits bekannte Tracker, erlernt aber keine neuen. Falls Sie oft private bzw. Inkognito-Fenster verwenden, kann die Aktivierung dieser Option Sinn machen.",
         "description": "Tooltip in general settings."
     },
     "disabled_sites": {
@@ -577,7 +577,7 @@
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
-        "message": "Verberge Domains, welche in der neuesten vorgegebenen Liste vorkommen",
+        "message": "Domains verbergen, die in der neuesten vorgegebenen Liste vorkommen",
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
@@ -631,7 +631,7 @@
         "description": ""
     },
     "sync_intro": {
-        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy-Badger-Daten</li><li>»Herunterladen« kombiniert die Listen der Sites, auf denen Privacy Badger deaktiviert ist</li></ul>",
+        "message": "Cloud-Sync:<ul><li>Erfordert Firefox-/Chrome-Sync</li><li>»Hochladen« überschreibt alle in der Cloud gespeicherten Privacy Badger-Daten</li><li>»Herunterladen« kombiniert die Listen der Sites, auf denen Privacy Badger deaktiviert ist</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload_cloud": {
