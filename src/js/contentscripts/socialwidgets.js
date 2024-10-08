@@ -700,6 +700,7 @@ html, body {
 #${close_icon_id} {
   ${TRANSLATIONS.rtl ? "right" : "left"}: 4px;
   width: 20px;
+  ${TRANSLATIONS.rtl ? "left" : "right"}: unset;
 }
 #${info_icon_id}:before, #${close_icon_id}:before {
   border: 2px solid;
