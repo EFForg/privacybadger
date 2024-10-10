@@ -476,6 +476,25 @@
             "type": 3
         }
     },
+    "Viqeo Player": {
+        "domains": [
+            "cdn.viqeo.tv"
+        ],
+        "selectors": [
+            {
+                "elm": "iframe",
+                "urls": [
+                    "https://cdn.viqeo.tv/embed/?"
+                ]
+            }
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "cdn.viqeo.tv"
+            ],
+            "type": 3
+        }
+    },
     "X (Twitter)": {
         "domain": "platform.twitter.com",
         "buttonSelectors": [
