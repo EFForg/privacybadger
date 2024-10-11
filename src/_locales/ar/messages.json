@@ -400,7 +400,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
-        "message": "ارسل الى المواقع إشارات <a href='https://globalprivacycontrol.org/' target='_blank'> \"التحكم العالمي في الخصوصية\" </a> و<a href='https://www.eff.org/issues/do-not-track' target='_blank'> \"عدم التتبع\"",
+        "message": "ارسل الى المواقع إشارات <a href='https://globalprivacycontrol.org/' target='_blank'>\"التحكم العالمي في الخصوصية\"</a> و<a href='https://www.eff.org/issues/do-not-track' target='_blank'>\"عدم التتبع\"</a>",
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
