@@ -23,6 +23,14 @@
         "message": "Options",
         "description": ""
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading for popup_first_run_header, shown in the popup on the first run page."
+    },
+    "popup_first_run_paragraph": {
+        "message": "On a regular page, you'll see a list of trackers that Privacy Badger blocked and be able to click the buttons below.",
+        "description": "Shown in the popup on the first run page."
+    },
     "popup_special_page_header": {
         "message": "Nothing to do on this page",
         "description": "Heading for popup_special_page_paragraph"
@@ -280,7 +288,7 @@
         "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
     },
     "firstRun_title": {
-        "message": "Thank you for installing Privacy Badger!",
+        "message": "Thank you for installing!",
         "description": "Title and header of the intro page."
     },
     "intro_by_eff": {
@@ -300,7 +308,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "",
         "description": "Intro page paragraph."
     },
     "intro_beyond_ads": {
@@ -308,28 +316,59 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
-        "description": "Intro page paragraph."
+        "message": "Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. $NEW_LINE$If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph.",
+        "placeholders": {
+            "new_line": {
+                "content": "<br/><br/>"
+            }
+        }
     },
     "intro_not_an_adblocker": {
-        "message": "Not an ad blocker, I'm different",
+        "message": "Not an ad blocker",
         "description": "Intro page paragraph heading."
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn’t block ads unless they happen to be tracking you.$NEW_LINE$Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
+        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message.",
+        "placeholders": {
+            "new_line": {
+                "content": "<br/><br/>"
+            }
+        }
     },
     "next_section": {
         "message": "next section",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_broken_website": {
+        "message": "If a website isn’t working like it should, you can disable Privacy Badger for just that site, leaving Privacy Badger enabled to protect you everywhere else.",
+        "description": "First item in the list below the popup buttons image."
+    },
     "intro_disable_button": {
         "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
+        "description": "Second item in the list below the popup buttons image. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
+        "message": "To help other Privacy Badger users, please click $REPORT_ICON$ <span style='font-weight:bold'>'Report broken site'</span> when you encounter a site that's not working. We respect your privacy so we don't send automatic reports.",
+        "description": "Third item in the list below the popup buttons image. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message.",
+        "placeholders": {
+            "report_icon": {
+                "content": "<span class=\"ui-icon ui-icon-mail-send\"></span>"
+            }
+        }
+    },
+    "intro_open_popup": {
+        "message": "Now, try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
+    "intro_features_heading": {
+        "message": "Privacy Badger is ready to protect your privacy!",
+        "description": "Heading for the 'three features' section of the intro page."
     },
     "intro_privacy_note": {
         "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
