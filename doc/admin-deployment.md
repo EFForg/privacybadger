@@ -4,7 +4,8 @@ System administrators can configure Privacy Badger on managed devices by setting
 
 You can find the full list of available settings in [Privacy Badger's managed storage schema](/src/data/schema.json). Please [let us know](https://privacybadger.org/#I-found-a-bug%21-What-do-I-do-now) if you'd like to set something that isn't yet supported.
 
-:warning: Note that Privacy Badger currently reads and applies settings from [managed storage](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/managed) on startup. To see your policy take effect on a managed device, **first restart that device's browser**. :warning:
+> [!WARNING]
+> Note that Privacy Badger currently reads and applies settings from [managed storage](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/managed) on startup. To see your policy take effect on a managed device, **first restart that device's browser**.
 
 
 ## Firefox
