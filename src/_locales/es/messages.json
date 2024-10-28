@@ -194,7 +194,7 @@
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
-        "message": "Describa brevemente el problema:",
+        "message": "Describe brevemente el problema:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -206,7 +206,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Enviar informe",
+        "message": "Enviar reportes",
         "description": "Button text."
     },
     "report_cancel": {
@@ -424,7 +424,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Desactive el seguimiento de anuncios \"Privacy Sandbox\" de Google",
+        "message": "Deshabilitar el rastreador de anuncios \"Privacy Sandbox\" de Google",
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2023/09/how-turn-googles-privacy-sandbox-ad-tracking-and-why-you-should"
     },
     "options_advanced_settings": {
@@ -577,7 +577,7 @@
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
-        "message": "Oculta dominios presentes en la última lista preentrenada",
+        "message": "Oculta los dominios presentes en la última lista pre-entrenada",
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {

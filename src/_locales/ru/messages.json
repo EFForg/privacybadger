@@ -396,7 +396,7 @@
         "description": "This is an options page tab heading."
     },
     "show_counter_checkbox": {
-        "message": "Отображать счетчик трекеров",
+        "message": "Отображать счётчик трекеров",
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
@@ -683,7 +683,7 @@
         "description": "Caption above remove_all button"
     },
     "remove_all": {
-        "message": "Удалить все",
+        "message": "Удалить всё",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data_confirm": {
