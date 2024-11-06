@@ -182,11 +182,11 @@
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "not_yet_blocked_header": {
-        "message": "Ваш Badger еще не решил, нужно ли заблокировать этих домен",
+        "message": "Ваш Badger ещё не решил, нужно ли заблокировать этих домен",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
     "non_tracker": {
-        "message": "У приведенных ниже доменов отслеживающая активность не обнаружена",
+        "message": "У приведённых ниже доменов отслеживающая активность не обнаружена",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
     },
     "non_tracker_tip": {
@@ -316,7 +316,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger начинает блокировать трекер после того, как обнаруживает его на трёх разных веб-сайтах. Три удара — и все!",
+        "message": "Privacy Badger начинает блокировать трекер после того, как обнаруживает его на трёх разных веб-сайтах. Три удара — и всё!",
         "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
     },
     "next_section": {
@@ -488,7 +488,7 @@
         "description": "Checkbox label on the Widget Replacement tab"
     },
     "options_widget_exceptions_header": {
-        "message": "Исключенные виджеты",
+        "message": "Исключённые виджеты",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
@@ -496,7 +496,7 @@
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
-        "message": "Исключенные сайты",
+        "message": "Исключённые сайты",
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
@@ -573,7 +573,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
-        "message": "Отображать домены, которые ваш Badger еще не решил заблокировать",
+        "message": "Отображать домены, которые ваш Badger ещё не решил заблокировать",
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
@@ -683,7 +683,7 @@
         "description": "Caption above remove_all button"
     },
     "remove_all": {
-        "message": "Удалить всё",
+        "message": "Удалить все",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data_confirm": {

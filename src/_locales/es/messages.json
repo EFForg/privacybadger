@@ -206,7 +206,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Enviar reportes",
+        "message": "Enviar reporte",
         "description": "Button text."
     },
     "report_cancel": {
