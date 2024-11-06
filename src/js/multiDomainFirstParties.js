@@ -3752,7 +3752,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["oneindia.com", "gizbot.com", "mykhel.com", "nativeplanet.com"],
   ["onlineatnsb.com", "norwaysavingsbank.com"],
-  ["openai.com", "chatgpt.com", "oaiusercontent.com"],
+  ["openai.com", "chatgpt.com", "oaistatic.com", "oaiusercontent.com"],
   ["openstreetmap.org", "osmfoundation.org"],
   [
     "oracle.com",
