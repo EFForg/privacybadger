@@ -28,7 +28,7 @@
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger не работает на специальных страницах, как эта. Попробуйте где-нибудь еще.",
+        "message": "Privacy Badger не работает на специальных страницах, как эта. Попробуйте где-нибудь ещё.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_disabled_site_header": {
@@ -134,7 +134,7 @@
         }
     },
     "badger_status_allow": {
-        "message": "Разрешен $DOMAIN$",
+        "message": "Разрешён $DOMAIN$",
         "description": "Tooltip shown over a tracking but still allowed (green slider) domain name in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -178,7 +178,7 @@
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
-        "message": "Щелкните, чтобы вернуть этот домен под контроль Privacy Badger",
+        "message": "Щёлкните, чтобы вернуть этот домен под контроль Privacy Badger",
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "not_yet_blocked_header": {
@@ -202,7 +202,7 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "Это действие автоматически отправит в EFF следующую информацию: адрес страници, на которой вы находитесь в данный момент, версию вашего браузера, версию Privacy Badger и состояние всех переключателей на этой страницe.",
+        "message": "Это действие автоматически отправит в EFF следующую информацию: адрес страницы, на которой вы находитесь в данный момент, версию вашего браузера, версию Privacy Badger и состояние всех переключателей на этой странице.",
         "description": ""
     },
     "report_button": {
@@ -348,7 +348,7 @@
         "description": "A button on the intro page, and a link in the popup footer."
     },
     "intro_donate_subheading": {
-        "message": "Помогите нам пожертвованиями и вашей поддержкой нашево программного обеспечения",
+        "message": "Помогите нам пожертвованиями и вашей поддержкой нашего программного обеспечения",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_link_policy": {
@@ -372,7 +372,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "Чтобы закрепить иконку Privacy Badger, щелкните иконку головоломки на панели браузера. Затем щелкните иконку булавки рядом с надписью Privacy Badger.",
+        "message": "Чтобы закрепить иконку Privacy Badger, щёлкните иконку головоломки на панели браузера. Затем щёлкните иконку булавки рядом с надписью Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -695,7 +695,7 @@
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
-        "message": "Щелкните ниже, чтобы узнать, как работает Privacy Badger.",
+        "message": "Щёлкните ниже, чтобы узнать, как работает Privacy Badger.",
         "description": "Second part of a reminder to visit the intro page"
     },
     "first_run_text": {
@@ -707,7 +707,7 @@
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "Щелкните ниже, чтобы узнать больше.",
+        "message": "Щёлкните ниже, чтобы узнать больше.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
