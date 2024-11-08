@@ -295,22 +295,6 @@
         "message": "A project of the Electronic Frontier Foundation",
         "description": "Message in the header of the intro page."
     },
-    "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block invisible trackers. Take a minute to see how.",
-        "description": "Intro page welcome paragraph."
-    },
-    "intro_next_button": {
-        "message": "Take the tour",
-        "description": "Intro page welcome button."
-    },
-    "intro_learns": {
-        "message": "Learns automatically",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_learns_paragraph": {
-        "message": "",
-        "description": "Intro page paragraph."
-    },
     "intro_beyond_ads": {
         "message": "Catches sneaky trackers",
         "description": "Intro page paragraph heading."
@@ -341,22 +325,9 @@
         "message": "next section",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
-    "intro_broken_website": {
-        "message": "If a website isn’t working like it should, you can disable Privacy Badger for just that site, leaving Privacy Badger enabled to protect you everywhere else.",
-        "description": "First item in the list below the popup buttons image."
-    },
     "intro_disable_button": {
         "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
         "description": "Second item in the list below the popup buttons image. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "To help other Privacy Badger users, please click $REPORT_ICON$ <span style='font-weight:bold'>'Report broken site'</span> when you encounter a site that's not working. We respect your privacy so we don't send automatic reports.",
-        "description": "Third item in the list below the popup buttons image. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message.",
-        "placeholders": {
-            "report_icon": {
-                "content": "<span class=\"ui-icon ui-icon-mail-send\"></span>"
-            }
-        }
     },
     "intro_open_popup": {
         "message": "Now, try opening Privacy Badger's popup",
@@ -369,10 +340,6 @@
     "intro_features_heading": {
         "message": "Privacy Badger is ready to protect your privacy!",
         "description": "Heading for the 'three features' section of the intro page."
-    },
-    "intro_privacy_note": {
-        "message": "Privacy Badger will NEVER share data about your browsing unless you choose to share it.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "Privacy is a team sport!",
