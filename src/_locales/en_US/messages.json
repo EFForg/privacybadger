@@ -33,11 +33,7 @@
     },
     "popup_first_run_header": {
         "message": "Great job opening the popup!",
-        "description": "Heading for popup_first_run_paragraph"
-    },
-    "popup_first_run_paragraph": {
-        "message": "On a regular page, you'll see what Privacy Badger blocked, and be able to click the buttons below.",
-        "description": "Shown in the popup when opened from the intro page."
+        "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
         "message": "Privacy Badger is disabled on this site",
