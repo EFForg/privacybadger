@@ -1673,6 +1673,7 @@ let multiDomainFirstPartiesArray = [
     "foxsports.com",
     "foxtv.com",
     "foxweather.com",
+    "outkick.com",
 
     "fox10phoenix.com",
     "fox13news.com",
