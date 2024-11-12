@@ -20,9 +20,11 @@
     </div>
 
     <header class="grid-padding-y align-center">
-      <div class="title-bar small-12 text-center cell" id="header-bar">
+      <div class="small-12 text-center cell">
         <img src="../icons/badger-bw-noborder.svg" alt="">
-        <h1 class="i18n_firstRun_title"></h1>
+      </div>
+      <div class="title-bar small-12 text-center cell">
+        <h1 class="i18n_name"></h1>
       </div>
     </header>
 
@@ -38,24 +40,20 @@
       <img id="pin-image" src="images/pinning-instructions-numbered.png" alt="i18n_intro_pin_instructions">
     </div>
 
+    <!-- intro -->
     <div id="intro" class="grid-x grid-padding-x align-center">
-      <div class="small-12 medium-10 text-center cell" id="intro-wrapper">
-        <h3 class="i18n_intro_open_popup" id="disable_instructions_header"></h3>
-        <img src="images/toolbar-icon-circled.png" alt="i18n_intro_open_popup_alt" id="toolbar-icon">
-        <p class="i18n_intro_disable_button" id="disable_instructions"></p>
+      <div class="small-12 medium-10 text-center cell">
+        <h3 class="i18n_firstRun_title"></h3>
       </div>
-    </div>
-
-    <div class="caret-down align-center">
-      <a href="#intro-pb-features" class="scroll-it"><img src="images/carrot-down.svg" alt="i18n_next_section"></a>
+      <div class="small-12 medium-10 large-4 text cell">
+        <p class="i18n_intro_welcome"></p>
+      </div>
+      <div class="small-12 text-center cell">
+        <a href="#pb-features-1" class="i18n_intro_next_button button large scroll-it"></a>
+      </div>
     </div>
 
     <!-- privacy badger features -->
-    <div class="grid-x align-center" id="intro-pb-features">
-      <div class="small-12 medium-10 text-center cell">
-        <h3 class="i18n_intro_features_heading"></h3>
-      </div>
-    </div>
     <div id="pb-features-1" class="align-center">
       <div class="small-12 large-3 cell">
         <img src="images/popup-screenshot.png" alt="">
@@ -69,16 +67,29 @@
     <div id="pb-features-2" class="align-center">
       <div class="cell hide-for-small-only">
         <h3 class="i18n_intro_not_an_adblocker"></h3>
-        <p class="i18n_intro_not_an_adblocker_paragraph"></p>
         <p class="i18n_intro_learns_paragraph"></p>
+        <p class="i18n_intro_not_an_adblocker_paragraph2"></p>
       </div>
       <div class="small-12 large-3 cell">
         <img src="images/not-ad-blocker.png" alt="">
       </div>
       <div class="cell hide-for-large hide-for-medium">
         <h3 class="i18n_intro_not_an_adblocker"></h3>
-        <p class="i18n_intro_not_an_adblocker_paragraph"></p>
         <p class="i18n_intro_learns_paragraph"></p>
+        <p class="i18n_intro_not_an_adblocker_paragraph2"></p>
+      </div>
+    </div>
+
+    <div class="caret-down align-center">
+      <a href="#pb-settings" class="scroll-it"><img src="images/carrot-down.svg" alt="i18n_next_section"></a>
+    </div>
+
+    <!-- privacy badger settings -->
+    <div id="pb-settings" class="small-12 medium-10 align-center text-center cell">
+      <div>
+        <h3 class="i18n_intro_open_popup"></h3>
+        <img src="images/toolbar-icon-circled.png" alt="i18n_intro_open_popup_alt" id="toolbar-icon">
+        <p class="i18n_intro_disable_button" id="disable-instructions"></p>
       </div>
     </div>
 
