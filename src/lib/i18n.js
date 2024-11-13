@@ -83,12 +83,13 @@ function setTextDirection() {
       right: 'unset',
       left: '15px'
     });
-    $('#pin-image').css("transform", "scaleX(-1)");
+    $('#pin-image').attr("src", "images/pinning-instructions-rtl.png");
     $('#dismiss-nudge').css({
       float: 'left',
       right: 'unset',
       left: '-5px'
     });
+    $('#toolbar-icon').css("transform", "scaleX(-1)");
   }
 }
 

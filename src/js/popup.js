@@ -158,7 +158,7 @@ function showNagMaybe() {
 }
 
 /**
- * Init function. Showing/hiding popup.html elements and setting up event handler
+ * Sets up event handlers. Should be called once only!
  */
 function init() {
   showNagMaybe();
@@ -573,22 +573,33 @@ function createBreakageNote(domain, i18n_message_key) {
 }
 
 /**
- * Refresh the content of the popup window
+ * Populates the contents of popup.
  *
- * @param {Integer} tabId The id of the tab
+ * Could get called more than once (by tests).
+ *
+ * To attach event listeners, see init()
  */
 function refreshPopup() {
   window.SLIDERS_DONE = false;
 
   // must be a special browser page,
   if (POPUP_DATA.noTabData) {
-    // show the "nothing to do here" message
     $('#blockedResourcesContainer').hide();
-    $('#special-browser-page').show();
 
-    // hide inapplicable buttons
-    $('#deactivate_site_btn').hide();
-    $('#error').hide();
+    if (POPUP_DATA.fromWelcomePage) {
+      $('#first-run-page').show();
+
+      // disable Disable/Report buttons
+      $('#deactivate_site_btn').prop('disabled', true);
+      $('#error').prop('disabled', true);
+    } else {
+      // show the "nothing to do here" message
+      $('#special-browser-page').show();
+
+      // hide inapplicable Disable/Report buttons
+      $('#deactivate_site_btn').hide();
+      $('#error').hide();
+    }
 
     // activate tooltips
     $('.tooltip').tooltipster();
@@ -880,6 +891,9 @@ $(function () {
       tabUrl: tab.url
     }, (response) => {
       setPopupData(response);
+      if (tab.url == chrome.runtime.getURL('/skin/firstRun.html')) {
+        POPUP_DATA.fromWelcomePage = true;
+      }
       refreshPopup();
       init();
     });
