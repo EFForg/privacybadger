@@ -31,6 +31,10 @@
         "message": "Auf besonderen Seiten wie dieser funktioniert Privacy Badger nicht. Versuchen Sie eine andere.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "Für diese Website ist Privacy Badger deaktiviert",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Ihr Badger hat noch nicht entschieden, ob diese Domains geblockt werden sollen",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger beginnt mit dem Blocken, sobald er denselben Tracker auf drei verschiedenen Websites erkennt.",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "Die nachfolgenden Domains scheinen Ihre Internetaktivitäten nicht zu verfolgen",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Rundgang machen",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Lernt automatisch",
+    "intro_beyond_ads": {
+        "message": "Fängt hinterlistige Tracker",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Privacy Badger signalisiert Websites durch <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>, dass Ihre Daten nicht geteilt und verkauft werden sollen, und durch <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>, dass Sie nicht verfolgt werden wollen.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Kein Adblocker",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Anstatt vorgefertigte Listen zu blockender Domains zu verwenden, entdeckt Privacy Badger Tracker aufgrund ihres Verhaltens automatisch.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Fängt hinterlistige Tracker",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Unsichtbares Tracking wird auf unterschiedlichen Wegen realisiert; Werbeanzeigen sind hierbei nur die sichtbare Spitze des Eisbergs. Privacy Badger signalisiert Websites durch <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>, dass Ihre Daten nicht geteilt und verkauft werden sollen, und durch <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>, dass Sie nicht verfolgt werden wollen. Falls diese Ihren Wunsch ignorieren, lernt Privacy Badger, sie zu blocken — egal, ob es sich dabei um Werbung oder andere Arten von Tracking handelt.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Kein Adblocker: Ich bin anders",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger beginnt mit dem Blocken, sobald er denselben Tracker auf drei verschiedenen Websites erkennt.",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Unsichtbares Tracking wird auf unterschiedlichen Wegen realisiert; Werbeanzeigen sind hierbei nur die sichtbare Spitze des Eisbergs. Privacy Badger wird keine Werbung blockieren, ausser sie zeichnet dein Verhalten auf.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "nächster Abschnitt",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Falls Sie annehmen, dass Privacy Badger bei einer Seite Probleme verursacht (z. B. ein Video wird nicht wiedergegeben), so können Sie auf die Schaltfläche »Deaktivieren« klicken, um Privacy Badger für diese Website auszuschalten.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Bitte vergessen Sie nicht, auf »Defekte Site melden« zu klicken. Da wir Ihre Privatsphäre respektieren, senden wir keine automatisierten Berichte.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Privacy Badger wird NIEMALS Daten über Ihre Internetaktivitäten weitergeben, solange Sie sich selbst nicht dazu entscheiden.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "Datenschutz ist ein Teamsport!",

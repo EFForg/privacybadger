@@ -31,6 +31,10 @@
         "message": "پرایوسی بجر روی صفحات خاصی مثل این کار نمی‌کند. سعی کنید جای دیگری وبگردی کنید.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "پرایوسی بجر روی این پایگاه از کار افتاده است",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "بجر شما تاکنون تصمیمی برای مسدود کردن این دامنه‌ها نگرفته است",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "زمانی که پرایوسی بجر یک ردیاب را در سه وبگاه مختلف ببیند، شروع به مسدود کردن آن می‌کند. سه برخود و تمام!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "دامنه‌های زیر به‌نظر شما را ردیابی نمی‌کنند",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "انجام سفر",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "به‌طور خودکار می‌آموزد",
+    "intro_beyond_ads": {
+        "message": "ردیاب‌های موذی را می‌گیرد",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "پرایوسی بجر <a href='https://globalprivacycontrol.org/' target='_blank'>نشانک واپایش حریم خصوصی جهانی</a> را برای کنار گذاشتن شما از اشتراک و فروش داده، و <a href='https://www.eff.org/issues/do-not-track' target='_blank'>نشانک ردیابی نکن</a> را برای گفتن این که شرکت‌ها شما را ردیابی نکنند، می‌فرستد.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Not an ad blocker",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "پرایوسی بجر به‌جای نگه داشتن فهرستی از چیزهایی که باید مسدود کند، به‌طور خودکار ردیاب‌ها را بر پایهٔ رفتارشان کشف می‌کند.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "ردیاب‌های موذی را می‌گیرد",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "ردیابیِ نامرئی تمام حالت‌های ممکن را شامل می‌شود؛ تبلیغات فقط قلهٔ قابل مشاهدهٔ این کوه یخی هستند. پرایوسی بجر <a href='https://globalprivacycontrol.org/' target='_blank'>نشانک واپایش حریم خصوصی جهانی</a> را برای کنار گذاشتن شما از اشتراک و فروش داده، و <a href='https://www.eff.org/issues/do-not-track' target='_blank'>نشانک ردیابی نکن</a> را برای گفتن این که شرکت‌ها شما را ردیابی نکنند، می‌فرستد. اگر آن‌ها خواسته‌های شما را رد کنند، پرایوسی بجر یاد می‌گیرد که آن‌ها را مسدود کند—چه آن‌ها تبلیغ‌کننده باشند و چه هر نوعی از ردیاب‌ها.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "تبلیغ‌مسدودکن نیستم، من فرق دارم",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "زمانی که پرایوسی بجر یک ردیاب را در سه وبگاه مختلف ببیند، شروع به مسدود کردن آن می‌کند. سه برخود و تمام!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "بخش بعدی",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "اگر فکر می‌کنید پرایوسی بجر باعث از کار افتادن وبگاهی شده است (مثلاً، یک ویدیو پخش نمی‌شود)، می‌توانید روی دکمهٔ «از کار انداختن» کلیک کنید تا پرایوسی بجر برای آن پایگاه خاموش شود.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "فراموش نکنید تا روی «گزارش پایگاه خراب شده» کلیک کنید. ما به حریم خصوصی شما احترام می‌گذاریم برای همین به‌صورت خودکار گزارش نمی‌فرستیم.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "پرایوسی بجر هرگز داده‌ای دربارهٔ وبگردی شما به اشتراک نمی‌گذارد، مگر این‌که بخواهید آن را به اشتراک بگذارید.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "حریم خصوصی یک ورزش گروهی است!",

@@ -31,6 +31,10 @@
         "message": "隐私獾不在特殊页面工作——比如这一个。试着浏览一下别的网页。",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "隐私獾在此站点被禁用",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "隐私獾尚未决定是否屏蔽这些域名",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "隐私獾会在三个网站发现同一个追踪器后开始屏蔽。三振出局！",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "以下域名看起来不在追踪你",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "了解一下",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "自动学习",
+    "intro_beyond_ads": {
+        "message": "发现鬼鬼祟祟的追踪器",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "隐私獾向追踪器发送<a href='https://globalprivacycontrol.org/' target='_blank'>“全局隐私控制”信号</a>以让您拒绝数据分享和贩卖，同时发送<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿追踪”信号</a>，告诉公司以停止追踪您。",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "不是广告拦截器",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "隐私獾不会保存一个屏蔽列表，而是根据追踪器的行为自动发现它们。",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "发现鬼鬼祟祟的追踪器",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾向追踪器发送<a href='https://globalprivacycontrol.org/' target='_blank'>“全局隐私控制”信号</a>以让您拒绝数据分享和贩卖，同时发送<a href='https://www.eff.org/issues/do-not-track' target='_blank'>“请勿追踪”信号</a>，告诉公司以停止追踪您。如果它们拒绝您的意愿，您的隐私獾将会学着阻止它们——无论它们是广告、追踪器或是其他的东西。",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "不是广告拦截器，我不一样",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "隐私獾会在三个网站发现同一个追踪器后开始屏蔽。三振出局！",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾不会阻止广告，除非它们碰巧在追踪您。",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "下一节",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "如果您认为隐私獾使得网站显示异常（例如无法播放视频），您可以点击“禁用”按钮来在此网站关闭隐私獾。",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "请不要忘记点击“报告隐私獾导致的显示异常的网站”。我们尊重您的隐私，因此我们不自动发送报告。",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "除非你主动分享，否则隐私獾永远都不会上传你的浏览记录。",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "保护隐私人人有责！",

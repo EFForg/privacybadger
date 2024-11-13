@@ -31,6 +31,10 @@
         "message": "Privata Melo ne funkcias sur specialaj paĝoj kiel tiu ĉi. Provu malfermi alian paĝon.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "Privata Melo estas malaktivigita por tiu ĉi retejo",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Via Melĉjo ankoraŭ ne decidiĝis ĉu tiuj ĉi nomregnoj estu blokitaj",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privata Melo komencas bloki kiam ĝi rimarkas la saman spurilon ĉe tri diversaj retejoj. Tri aperoj kaj ĝi malaperas!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "La subaj nomregnoj verŝajne ne spuras vin",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Enkonduko",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Aŭtomate lernas",
+    "intro_beyond_ads": {
+        "message": "Kaptas trompajn spurilojn",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Privata Melo sendas la <a href='https://globalprivacycontrol.org/' target='_blank'>signalon Global Privacy Control</a> por peti pri ne kunhavigi kaj vendi viajn datumojn, kaj la <a href='https://www.eff.org/issues/do-not-track' target='_blank'>signalon “Ne Spuri Min” (DNT)</a> por peti firmaojn pri ne spuri vin.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Malsama ol reklam-spuriloj",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Anstataŭ prizorgi liston de blokataj elementoj, Privata Melo aŭtomate malkovras spurilojn surbaze de ilia sinteno.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Kaptas trompajn spurilojn",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Nevidebla spurado okazas plurmaniere; reklamoj estas nur videbla parteto de tutaĵo. Privata Melo sendas la <a href='https://globalprivacycontrol.org/' target='_blank'>signalon Global Privacy Control</a> por peti pri ne kunhavigi kaj vendi viajn datumojn, kaj la <a href='https://www.eff.org/issues/do-not-track' target='_blank'>signalon “Ne Spuri Min” (DNT)</a> por peti firmaojn pri ne spuri vin. Se ili ignoros vian peton, Privata Melo lernos pri bloki ilin – ĉu ili estas reklamoj aŭ spuriloj aŭ aliaj aĉaĵoj.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Malsama ol reklam-spuriloj",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privata Melo komencas bloki kiam ĝi rimarkas la saman spurilon ĉe tri diversaj retejoj. Tri aperoj kaj ĝi malaperas!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "antaŭen",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Se viaopinie Privata Melo difektas retpaĝon (ekzemple filmeto ne ludas), vi povas alklaki la butonon “Malaktivigi” por malaktivigi Privatan Melon por tiu retejo.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Bonvolu ne forgesi alklaki “Raporti probleman retejon”. Ni estimas vian privatecon, do ni ne sendas aŭtomatajn raportojn.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Privata Melo NENIAM diskonigos datumojn pri via retumado escepte se vi decidos alie.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "Privateco estas kunlaboro!",

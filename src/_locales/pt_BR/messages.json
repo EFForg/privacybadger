@@ -31,6 +31,10 @@
         "message": "O Privacy Badger não funciona em páginas especiais como esta. Tente navegar em outro lugar.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "O Privacy Badger está desativado neste site",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "O seu Badger ainda não se decidiu quanto ao bloqueio destes domínios",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "O Privacy Badger começa a bloquear uma vez que vê o mesmo rastreador em três sites diferentes. Três strikes e está fora!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "Os domínios abaixo não parecem estar rastreando você",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Saber como funciona",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Aprende automaticamente",
+    "intro_beyond_ads": {
+        "message": "Detecta rastreadores ocultos",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "O Privacy Badger envia o sinal \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\", para cancelar o compartilhamento e venda de dados, e o sinal \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Não rastrear</a>\" para avisar às empresas para não rastreá-lo.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Não um bloqueador de anúncios",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Em vez de manter listas do que bloquear, o Privacy Badger descobre automaticamente rastreadores com base no comportamento deles.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Detecta rastreadores ocultos",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "O rastreamento invisível acontece de todas as maneiras; os anúncios são apenas a ponta visível do iceberg. O Privacy Badger envia o sinal \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\", para cancelar o compartilhamento e venda de dados, e o sinal \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Não rastrear</a>\" para avisar às empresas para não rastreá-lo. Se eles ignorarem as suas solicitações, o Privacy Badger aprenderá a bloqueá-los — sejam eles anunciantes ou rastreadores de outros tipos.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Não sou um bloqueador de anúncios, sou diferente",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "O Privacy Badger começa a bloquear uma vez que vê o mesmo rastreador em três sites diferentes. Três strikes e está fora!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "próxima seção",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Se você acha que o Privacy Badger está fazendo uma página não funcionar (por exemplo, um vídeo não reproduz), você pode clicar no botão \"Desativar\" para desativar o Privacy Badger para tal site.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Não se esqueça de clicar em \"Relatar site com problemas\". Respeitamos a sua privacidade e, portanto, não enviamos relatórios automáticos.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "O Privacy Badger NUNCA compartilhará dados sobre a sua navegação, a menos que você escolha compartilhá-los.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "A privacidade é um esporte de equipe!",

@@ -31,6 +31,10 @@
         "message": "Το Privacy Badger δε λειτουργεί σε ειδικές σελίδες όπως αυτή. Προσπαθήστε να σερφάρετε κάπου αλλού.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "Το Privacy Badger είναι απενεργοποιημένο σε αυτήν την ιστοσελίδα",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Το Privacy Badger δεν έχει αποφασίσει ακόμα εάν τα ακόλουθα domains πρέπει να αποκλειστούν",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Το Privacy Badger αρχίζει να αποκλείει όταν δει τον ίδιο ιχνηλάτη σε τρεις διαφορετικές ιστοσελίδες. Τρεις παραβάσεις κι έξω!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "Τα domains παρακάτω δε φαίνεται πως σας ιχνηλατούν",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Περιηγηθειτε",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Μαθαίνει αυτόματα",
+    "intro_beyond_ads": {
+        "message": "Εντοπίζει τους πονηρούς ιχνηλάτες",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Το Privacy Badger στέλνει το σήμα <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a> για να απενεργοποιήσει τη δυνατότητα διαμοιρασμού και πώλησης δεδομένων και το σήμα <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a> για να ενημερώσει τις εταιρίες πως δεν επιθυμείτε να σας ιχνηλατούν.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Δεν ad blocker",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Αντί να διατηρείτε λίστες αποκλεισμού ιχνηλατών, το Privacy Badger ανακαλύπτει αυτόματα ιχνηλάτες βασιζόμενο στη συμπεριφορά τους.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Εντοπίζει τους πονηρούς ιχνηλάτες",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Η \"αόρατη\" ιχνηλάτηση συμβαίνει με πολλούς τρόπους και οι διαφημίσεις είναι μόνο ένας από τους ορατούς. Το Privacy Badger στέλνει το σήμα <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a> για να απενεργοποιήσει τη δυνατότητα διαμοιρασμού και πώλησης δεδομένων και το σήμα <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a> για να ενημερώσει τις εταιρίες πως δεν επιθυμείτε να σας ιχνηλατούν. Εάν παρόλα αυτά οι ιστοσελίδες αγνοήσουν τις επιθυμίες σας, τότε το Privacy Badger θα μάθει αυτόματα να αποκλείει τους ιχνηλάτες ανεξάρτητα από το είδος τους.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Δεν είμαι ad blocker, είμαι κάτι διαφορετικό",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Το Privacy Badger αρχίζει να αποκλείει όταν δει τον ίδιο ιχνηλάτη σε τρεις διαφορετικές ιστοσελίδες. Τρεις παραβάσεις κι έξω!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "επόμενη ενότητα",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Εάν νομίζετε πως το Privacy Badger είναι υπεύθυνο για την υπολειτουργία μιας ιστοσελίδας (αν για παράδειγμα ένα βίντεο δε λειτουργεί), μπορείτε να πατήσετε το κουμπί 'Απενεργοποίηση' ώστε η επέκταση να μην έχει πρόσβαση στην ιστοσελίδα αυτή.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Μην ξεχάσετε να κάνετε κλικ στο κουμπί «Αναφορά ιστοσελίδας που υπολειτουργεί». Σεβόμαστε την ιδιωτικότητά σας, οπότε δε στέλνουμε αναφορές αυτόματα.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Το Privacy Badger ΠΟΤΕ δε θα διαμοιραστεί το ιστορικό σας χωρίς την άδειά σας.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "Το απόρρητό σας είναι ομαδικό άθλημα!",

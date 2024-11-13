@@ -31,6 +31,10 @@
         "message": "Privacy Badger ne fonctionne pas sur les pages spéciales telles que celle-ci. Essayez de naviguer ailleurs.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "Privacy Badger est désactivée pour ce site",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Votre Privacy Badger n’a pas encore décidé si ces domaines devaient être bloqués",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger commence le blocage si elle détecte le même traqueur sur trois sites Web différents. Trois fautes et c’est fini.",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "Les domaines ci-dessous ne semblent pas vous suivre à la trace",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Commencer la visite",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Apprentissage automatique",
+    "intro_beyond_ads": {
+        "message": "Intercepte les traqueurs sournois",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Privacy Badger envoie le <a href='https://globalprivacycontrol.org/' target='_blank'>signal Contrôle global de la protection des données</a> pour indiquer votre refus de partager ou de vendre vos données, ainsi que le <a href='https://www.eff.org/issues/do-not-track' target='_blank'>signal Ne pas me pister</a> pour indiquer aux sociétés de ne pas vous suivre à la trace.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Ne pas un bloqueur de publicités",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Au lieu de tenir des listes de ce qu’il faut bloquer, Privacy Badger découvre automatiquement les traqueurs d’après leur comportement.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Intercepte les traqueurs sournois",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Le traçage invisible a lieu de bien des façons ; les publicités ne sont que la pointe de l’iceberg. Privacy Badger envoie le <a href='https://globalprivacycontrol.org/' target='_blank'>signal Contrôle global de la protection des données</a> pour indiquer votre refus de partager ou de vendre vos données, ainsi que le <a href='https://www.eff.org/issues/do-not-track' target='_blank'>signal Ne pas me pister</a> pour indiquer aux sociétés de ne pas vous suivre à la trace. Si elles ignorent votre volonté, Privacy Badger apprendra à les bloquer, qu’il s’agisse d’annonceurs ou d’autres sortes de traqueurs.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Je ne suis pas un bloqueur de publicités, je suis différent",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger commence le blocage si elle détecte le même traqueur sur trois sites Web différents. Trois fautes et c’est fini.",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Le traçage invisible a lieu de bien des façons ; les publicités ne sont que la pointe de l’iceberg. Privacy Badger ne bloque pas les publicités à moins qu’elles ne vous suivent.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "section suivante",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Si vous pensez que Privacy Badger perturbe une page (par exemple, une vidéo n’est pas lue), vous pouvez cliquer sur le bouton « Désactiver » pour désactiver Privacy Badger pour ce site.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Veuillez ne pas oublier de cliquer sur « Signaler un site perturbé ». Nous respectons votre vie privée et nous n’envoyons donc aucun rapport automatiquement.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Privacy Badger ne partagera JAMAIS aucune donnée sur votre navigation, sauf si vous choisissez de les partager.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "La protection des données privées est un sport d’équipe",

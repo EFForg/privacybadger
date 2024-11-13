@@ -31,6 +31,10 @@
         "message": "A Privacy Badger nem működik az olyan különleges oldalakon, mint amelyen ez is. Próbáljon meg máshol böngészni.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "A Privacy Badger le van tiltva ezen az oldalon",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "A Privacy Badger még nem döntötte el, hogy ezeket a tartományokat tiltani kell-e",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "A Privacy Badger akkor kezd el tiltani, ha meglátja ugyanazt a követőt három különböző weboldalon. Három csapás és vége!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "Az alábbi tartományokról úgy tűnik, hogy nem követik Önt",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Bemutató megtekintése",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Automatikusan tanul",
+    "intro_beyond_ads": {
+        "message": "Elkapja az alattomos követőket",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "A Privacy Badger elküldi a <a href='https://globalprivacycontrol.org/' target='_blank'>globális adatvédelmi szabályozás jelzést</a>, hogy lemondjon az Ön nevében az adatmegosztásról és az adateladásról, valamint a <a href='https://www.eff.org/issues/do-not-track' target='_blank'>ne kövessen jelzést</a>, hogy közölje a vállalatokkal, hogy ne kövessék Önt.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Nem reklámblokkoló",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Ahelyett, hogy listát tartana fent arról, hogy mit kell tiltani, a Privacy Badger automatikusan felfedezi a követőket a viselkedésük alapján.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Elkapja az alattomos követőket",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "A láthatatlan követés mindenféle módon történhet, a reklámok csak a jéghegy csúcsát jelentik. A Privacy Badger elküldi a <a href='https://globalprivacycontrol.org/' target='_blank'>globális adatvédelmi szabályozás jelzést</a>, hogy lemondjon az Ön nevében az adatmegosztásról és az adateladásról, valamint a <a href='https://www.eff.org/issues/do-not-track' target='_blank'>ne kövessen jelzést</a>, hogy közölje a vállalatokkal, hogy ne kövessék Önt. Ha azok figyelmen kívül hagyják a kéréseit, akkor a Privacy Badger meg fogja tanulni tiltani azokat – legyenek azok hirdetők vagy bármilyen fajta követők.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Nem reklámblokkoló, és más vagyok",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "A Privacy Badger akkor kezd el tiltani, ha meglátja ugyanazt a követőt három különböző weboldalon. Három csapás és vége!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "következő szakasz",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Ha úgy gondolja, hogy a Privacy Badger elront egy oldalt (például egy videó nem játszható le), akkor rákattinthat a „Letiltás” gombra a Privacy Badger azon az oldalon való kikapcsolásához.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "A Privacy Badger SOHA nem fog megosztani adatokat a böngészéséről, hacsak nem választja azt, hogy megossza.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "Az adatvédelem csapatsport!",

@@ -31,6 +31,10 @@
         "message": "प्राइवेसी बैजर इस तरह के विशेष पृष्ठों पर काम नहीं करता। कहीं और ब्राउज़ करने का प्रयास करें।",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "इस साइट पर प्राइवेसी बैजर अक्षम है",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "आपके बैजर ने अभी तक यह निर्णय नहीं लिया है कि इन डोमेन को अवरुद्ध किया जाना चाहिए या नहीं",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "प्राइवेसी बैजर तीन अलग-अलग वेबसाइटों पर एक ही ट्रैकर को देखते ही ब्लॉक करना शुरू कर देता है। तीन स्ट्राइक और यह बाहर!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "ऐसा लगता है कि नीचे दिए गए डोमेन आपको ट्रैक नहीं कर रहे हैं",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "टूर पर जाएं",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "स्वतः सीखता है",
+    "intro_beyond_ads": {
+        "message": " गुप्त ट्रैकर्स को पकड़ता है",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "प्राइवेसी बैजर <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a> भेजता है, आपको डेटा शेयरिंग और बिक्री से बाहर करने के लिए, और कंपनियों को आपको ट्रैक न करने के लिए <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> भेजता है ।",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "एड ब्लॉकर नहीं",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "क्या ब्लॉक करना है इसकी सूची रखने के बजाय, प्राइवेसी बैजर ट्रैकर्स को उनके व्यवहार के आधार पर स्वचालित रूप से खोजता है।",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": " गुप्त ट्रैकर्स को पकड़ता है",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "अदृश्य ट्रैकिंग हर तरह से होती है; विज्ञापन केवल हिमशैल का दृश्यमान सिरा है। प्राइवेसी बैजर <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a> भेजता है, आपको डेटा शेयरिंग और बिक्री से बाहर करने के लिए, और कंपनियों को आपको ट्रैक न करने के लिए <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> भेजता है । अगर वे आपकी इच्छाओं को नज़रअंदाज़ करते हैं, तो प्राइवेसी बैजर उन्हें ब्लॉक करना सीख जाएगा—चाहे वे विज्ञापनदाता हों या अन्य प्रकार के ट्रैकर्स।",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "एड ब्लॉकर नहीं, मैं अलग हूं",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "प्राइवेसी बैजर तीन अलग-अलग वेबसाइटों पर एक ही ट्रैकर को देखते ही ब्लॉक करना शुरू कर देता है। तीन स्ट्राइक और यह बाहर!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "अगला खंड",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "अगर आपको लगता है कि प्राइवेसी बैजर पेज तोड़ रहा है (उदाहरण के लिए कोई वीडियो नहीं चलता है), तो आप उस साइट के लिए प्राइवेसी बैजर को बंद करने के लिए 'अक्षम करें' बटन पर क्लिक कर सकते हैं।",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "कृपया 'टूटी साइट की सूचना दें' पर क्लिक करना न भूलें। हम आपकी निजता का सम्मान करते हैं इसलिए हम स्वचालित रिपोर्ट नहीं भेजते हैं।",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "प्राइवेसी बैजर आपके ब्राउज़िंग के बारे में डेटा तब तक साझा नहीं करेगा जब तक कि आप इसे साझा करना नहीं चुनते।",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "निजता एक टीम स्पोर्ट है!",

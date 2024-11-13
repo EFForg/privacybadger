@@ -31,6 +31,10 @@
         "message": "Privacy Badger ne radi na specijalnim stranicama poput ove. Pokušajte posetiti neku drugu stranicu.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "Privacy Badger je onemogućen na ovom web sajtu",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Vaš Badger nije još odlučio da li ovi domeni trebaju da budu blokirani",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger kreće sa blokiranjem kada vidi iste trekere na tri ražličita sajta.",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "Domeni ispod vas izgleda ne prate",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Krenite u obilazak",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Uči automatski",
+    "intro_beyond_ads": {
+        "message": "Hvata podmukle trekere",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Privacy Badger šalje <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a> kako bi odustao od deljenja i prodaje podataka, kao i <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> kako bi rekao kompanijama da vas ne prate.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Nisam adbloker",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Umesto da ima spisak stavki za blokiranje Privacy Badger automatski otkriva trekere prema njihovom ponašanju.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Hvata podmukle trekere",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Nevidljivo praćenje se dešava na najrazličitije načine: reklame su samo vidljivi vrh ledenog brega. Privacy Badger šalje <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a> kako bi odustao od deljenja i prodaje podataka, kao i <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> kako bi rekao kompanijama da vas ne prate. Ako budu ignorisali vaše želje Privacy Badger će naučiti da ih blokira - bilo da su oglašivači ili drugi vidovi trekera.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Nisam adbloker, ja sam drugačiji",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger kreće sa blokiranjem kada vidi iste trekere na tri ražličita sajta.",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "sledeća sekcija",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Ako mnislite da Privacy Badger utiče na funkcionalnost stranice (video ne može da se pusti, npr), možete kliknuti na dugme \"Onemogući\" kako biste isključili Privacy Badger na toj stranici.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Molimo vas da ne zaboravite da kliknete na \"Prijavi pokvaren sajt\". Poštujemo vašu privatnost i ne šaljemo automatske izveštaje.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Privacy Badger NIKADA neće podeliti podatke o vašem pregledanju osim ukoliko ne pristanete da ih podelite.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "Privatnost je timski sport!",

@@ -31,6 +31,10 @@
         "message": "Privacy Badger tidak berfungsi pada laman istimewa seperti ini. Cuba layari di tempat lain.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "Privacy Badger dinyahaktifkan di laman web ini",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Badger anda belum memutuskan sama ada domain ini harus disekat",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger mula menyekat sebaik sahaja ia melihat penjejak yang sama pada tiga laman web berbeza. Tiga serangan dan ianya terkeluar!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "Domain di bawah kelihatan tidak menjejaki anda",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Ikuti lawatan",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Belajar secara automatik",
+    "intro_beyond_ads": {
+        "message": "Menangkap penjejak-penjejak yang licik",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Privacy Badger menghantar <a href='https://globalprivacycontrol.org/' target='_blank'>isyarat Global Privacy Control</a>, untuk mengeluarkan anda dari perkongsian dan penjualan data, dan <a href='https://www.eff.org/issues/do-not-track' target='_blank'>isyarat Do Not Track</a> untuk memberitahu syarikat-syarikat untuk tidak menjejaki anda.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Bukan penyekat iklan",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Daripada menyimpan senarai apa yang hendak disekat, Privacy Badger menemui secara automatik penjejak-penjejak berdasarkan tingkah laku mereka.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Menangkap penjejak-penjejak yang licik",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Penjejakan ghaib berlaku dalam pelbagai cara; iklan-iklan hanyalah permulaan sahaja. Privacy Badger menghantar <a href='https://globalprivacycontrol.org/' target='_blank'>isyarat Global Privacy Control</a>, untuk mengeluarkan anda dari perkongsian dan penjualan data, dan <a href='https://www.eff.org/issues/do-not-track' target='_blank'>isyarat Do Not Track</a> untuk memberitahu syarikat-syarikat untuk tidak menjejaki anda. Jika mereka mengabaikan kehendak anda, Privacy Badger akan belajar untuk menyekat mereka—sama ada mereka adalah pengiklan mahupun penjejak sejenis lain.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Bukan penyekat iklan, saya berbeza",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger mula menyekat sebaik sahaja ia melihat penjejak yang sama pada tiga laman web berbeza. Tiga serangan dan ianya terkeluar!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "bahagian seterusnya",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Jika anda fikir Privacy Badger memecahkan laman (contohnya, video tidak dapat dimainkan), anda boleh mengklik butang 'Nyahaktifkan' bagi menyahaktifkan Privacy Badger bagi laman tersebut.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Jangan lupa untuk klik pada 'Laporkan laman rosak'. Kami menghormati privasi anda, jadi kami tidak menghantar laporan-laporan automatik.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Privacy Badger TIDAK AKAN SESEKALI berkongsi data tentang pelayaran anda melainkan anda memilih untuk berkongsinya.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "Privasi ialah sukan berpasukan!",

@@ -31,6 +31,10 @@
         "message": "Privacy Badger ei toimi tämänkaltaisilla erikoissivuilla. Kokeile avata muita sivuja.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "Privacy Badger on poistettu käytöstä tällä sivustolla",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Badgerisi ei ole vielä päättänyt, estetäänkö nämä verkkotunnukset",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger käynnistää eston havaittuaan saman seurannan kolmella eri sivustolla. Kolmesta poikki!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "Alla olevat verkkotunnukset eivät näytä seuraavan sinua",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Esittelykierros",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Oppii automaattisesti",
+    "intro_beyond_ads": {
+        "message": "Nappaa katalat seurannat",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Privacy Badger lähettää \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" -signaaleita, jolla palveluille ilmoitetaan, ettet halua tietojasi jaettavan ja myytävän, sekä \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" -signaaleita, jolla ilmoitetaan, ettet halua palveluiden seuraavan sinua.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "En ole mainosten estäjä",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Estolistaan käyttöön pohjautuvan eston sijaan Privacy Badger tunnistaa seurannat automaattisesti niiden toiminnan perusteella.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Nappaa katalat seurannat",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Näkymätöntä seurantaa tapahtuu monin tavoin ja mainokset ovat vain pinnalla näkyvä jäävuoren huippu. Privacy Badger lähettää \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" -signaaleita, jolla palveluille ilmoitetaan, ettet halua tietojasi jaettavan ja myytävän, sekä \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" -signaaleita, jolla ilmoitetaan, ettet halua palveluiden seuraavan sinua. Mikäli pyyntöjäsi ei noudateta, Privacy Badger oppii estämään ne — ovatpa ne sitten mainostajia, seurantoja tai jotakin muuta.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "En ole mainosten estäjä, olen erilainen",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger käynnistää eston havaittuaan saman seurannan kolmella eri sivustolla. Kolmesta poikki!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "seuraava osio",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Jos epäilet Privacy Badgerin rikkovan verkkosivun (esim. video ei toistu), voit painaa \"Poista käytöstä\" -painiketta kytkeäksesi Privacy Badgerin pois käytöstä kyseisellä sivustolla.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Älä unohda painaa \"Ilmoita rikkoutuneesta sivustosta\". Kunnioitamme tietosuojaasi, joten emme lähetä ilmoituksia automaattisesti.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Privacy Badger ei koskaan jaa tietoa nettiselaamisestasi, ellet itse halua.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "Yksityisyys on tiimipeliä!",

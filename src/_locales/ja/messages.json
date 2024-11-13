@@ -31,6 +31,10 @@
         "message": "Privacy Badgerは、このような特殊なページでは機能しません。他の場所でブラウズしてみてください。",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "Privacy Badgerはこのサイトでは無効になっています",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Privacy Badgerは、これらのドメインがブロックされるべきかどうか、まだ決定していません。",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badgerは、3つの異なるウェブサイトで同じトラッカーが見つかるとブロックを開始します。スリーストライクでアウト!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "以下のドメインは、あなたを追跡していないように見えます。",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "ツアーを開始",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "目に見えないトラッカーを自動的に学習してブロックします",
+    "intro_beyond_ads": {
+        "message": "卑劣なトラッカーを検出",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Privacy Badgerは、データの共有と販売を拒否するための<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control信号</a>と、あなたを追跡しないようにウェブサイトに指示するための<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track信号</a>を送信します。",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Privacy Badgerは広告ブロッカーではありません。",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Privacy Badgerはリストに基づいてブロックする代わりに、ウェブサイトの挙動を監視し自動的にトラッカーを発見します。",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "卑劣なトラッカーを検出",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "目に見えない追跡は、さまざまな方法で行われます。 広告は氷山の一角にすぎません。 Privacy Badgerは、データの共有と販売を拒否するための<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control信号</a>と、あなたを追跡しないようにウェブサイトに指示するための<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track信号</a>を送信します。ウェブサイトがあなたの希望を無視した場合、Privacy Badgerは広告主や他の種類のトラッカーであるかに関係なく、それらの卑劣なトラッカーをブロックすることを学習します。",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Privacy Badgerは広告ブロッカーではありません。",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badgerは、3つの異なるウェブサイトで同じトラッカーが見つかるとブロックを開始します。スリーストライクでアウト!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "次へ",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Privacy Badgerがページを壊していると思われる場合（ビデオが再生されないなど）、「このサイトでは保護を無効にする」をクリックすると、そのサイトのPrivacy Badgerをオフにすることができます。",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "「サイトが動作しないことを報告」をクリックするのを忘れないでください。私たちはお客様のプライバシーを尊重し、自動的にレポートを送信することはありません。",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Privacy Badgerは、ユーザーが共有することを選択しない限り、ユーザーのブラウジングに関するデータを共有することは絶対にありません。",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "プライバシーはチームスポーツです!",

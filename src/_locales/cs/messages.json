@@ -31,6 +31,10 @@
         "message": "Privacy Badger doesn't work on special pages like this one. Try browsing somewhere else.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "Privacy Badger is disabled on this site",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Your Badger hasn't decided yet if these domains should get blocked",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger začne blokovat prvek teprve ve chvíli, kdy jej najde na třech různých webových stránkách. Tři zářezy a jde ze hry!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "Domény níže nevypadají, že Vás sledují",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "Spustit prohlídku",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "Automatické učení",
+    "intro_beyond_ads": {
+        "message": "Chytá zákeřné sledovací prvky",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Není to prostý program na blokování reklam",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Místo udržování seznamu prvků, které se mají blokovat, bude Privacy Badger automaticky rozpoznávat sledovací prvky podle jejich chování.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "Chytá zákeřné sledovací prvky",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "Není to prostý program na blokování reklam",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger začne blokovat prvek teprve ve chvíli, kdy jej najde na třech různých webových stránkách. Tři zářezy a jde ze hry!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "další sekce",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Pokud si myslíte, že Privacy Badger rozbil nějakou webovou stránku (například se nezobrazí video), můžete kliknout na tlačítko \"Vypnout Privacy Badger pro tuto stránku\", díky čemuž nebude Privacy Badger na této stránce aktivní.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Privacy Badger NIKDY nesdílí žádná data o Vašem procházení, jestliže se k tomu sami nerozhodnete.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "Snaha o soukromí je týmový sport!",

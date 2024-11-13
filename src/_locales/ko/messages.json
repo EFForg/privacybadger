@@ -31,6 +31,10 @@
         "message": "Privacy Badger는 이러한 특수 페이지에서는 동작하지 않습니다. 다른 곳을 찾아보세요.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
+    "popup_first_run_header": {
+        "message": "Great job opening the popup!",
+        "description": "Heading in the popup when opened from the intro page."
+    },
     "popup_disabled_site_header": {
         "message": "이 사이트에서 Privacy Badger를 사용하지 않도록 설정했습니다.",
         "description": "Shown in the popup on disabled sites."
@@ -185,6 +189,10 @@
         "message": "Your Badger hasn't decided yet if these domains should get blocked",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
+    "intro_not_an_adblocker_paragraph": {
+        "message": "Privacy Badger는 세 개의 다른 웹 사이트에서 동일한 추적기를 보면 차단하기 시작합니다. 삼진 아웃이에요!",
+        "description": "Tooltip for the 'not_yet_blocked_header' message"
+    },
     "non_tracker": {
         "message": "아래 도메인은 사용자를 추적하는 것 같지 않습니다.",
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
@@ -295,45 +303,45 @@
         "message": "알아보기",
         "description": "Intro page welcome button."
     },
-    "intro_learns": {
-        "message": "자동으로 학습합니다.",
+    "intro_beyond_ads": {
+        "message": "은밀한 추적기를 잡습니다.",
+        "description": "Intro page paragraph heading."
+    },
+    "intro_beyond_ads_paragraph": {
+        "message": "Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you.",
+        "description": "Intro page paragraph"
+    },
+    "intro_beyond_ads_paragraph2": {
+        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "description": "Intro page paragraph"
+    },
+    "intro_not_an_adblocker": {
+        "message": "Privacy Badger는 ad blocker와는 다릅니다.",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
         "message": "Instead of keeping lists of what to block, Privacy Badger automatically discovers trackers based on their behavior.",
         "description": "Intro page paragraph."
     },
-    "intro_beyond_ads": {
-        "message": "은밀한 추적기를 잡습니다.",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_beyond_ads_paragraph": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you. If they ignore your wishes, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
-        "description": "Intro page paragraph."
-    },
-    "intro_not_an_adblocker": {
-        "message": "저는 ad blocker와는 다릅니다.",
-        "description": "Intro page paragraph heading."
-    },
-    "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger는 세 개의 다른 웹 사이트에서 동일한 추적기를 보면 차단하기 시작합니다. 삼진 아웃이에요!",
-        "description": "Intro page paragraph. Also a tooltip for the 'not_yet_blocked_header' message."
+    "intro_not_an_adblocker_paragraph2": {
+        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "description": "Intro page paragraph"
     },
     "next_section": {
         "message": "다음 섹션",
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
+    "intro_open_popup": {
+        "message": "Try opening Privacy Badger's popup",
+        "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
+    },
+    "intro_open_popup_alt": {
+        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
+    },
     "intro_disable_button": {
         "message": "Privacy Badger가 페이지를 파손하고 있다고 생각되면 (예를 들어 비디오가 재생되지 않는 등) ‘이 사이트에 대해 Privacy Badger를 사용하지 않도록 설정’ 버튼을 클릭하여 해당 사이트에 대한 Privacy Badger를 해제할 수 있습니다.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
-    },
-    "intro_report_button": {
-        "message": "Please don't forget to click on 'Report broken site'. We respect your privacy so we don't send automatic reports.",
-        "description": "Intro page paragraph. The quoted message ('Report broken site') should match the translation for the 'report_broken_site' message."
-    },
-    "intro_privacy_note": {
-        "message": "Privacy Badger는 사용자가 검색을 공유하도록 선택하지 않는 한 검색에 대한 데이터를 절대 공유하지 않습니다.",
-        "description": "Intro page paragraph."
     },
     "intro_donate_heading": {
         "message": "프라이버시는 팀 활동입니다!",
