@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "打开得好啊！",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -312,7 +312,7 @@
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
-        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "如它们无视这些信号，隐私獾会学着拦截它们，无论它们是广告商还是其他类型的跟踪器。",
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
@@ -332,11 +332,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "试着打开隐私獾的弹窗",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "隐私獾图标被环绕的浏览器工具栏",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
