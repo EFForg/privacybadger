@@ -174,11 +174,11 @@
         "description": "Tooltip shown over the rightmost part of a domain slider."
     },
     "breakage_warning_tooltip": {
-        "message": "Das Blocken dieser Domain ist dafür bekannt, bei Websites Probleme zu verursachen",
+        "message": "Das Blocken dieser Domain ist dafür bekannt, Probleme bei Websites zu verursachen",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Um die Anmeldung bei Websites mit Ihrem Google-Account zu aktivieren, bewegen Sie den Schieberegler nach rechts, und laden Sie die Seite neu",
+        "message": "Um die Anmeldung bei Websites mit Ihrem Google-Account zu aktivieren, bewegen Sie den Schieberegler nach rechts und laden Sie die Seite neu",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -364,7 +364,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "$START_SPAN_TAG$Pinnen Sie Privacy Badger an Ihre Toolbar an$END_SPAN_TAG$, um einfacher auf die Schaltfläche »$DISABLE_FOR_SITE$« zugreifen zu können.",
+        "message": "$START_SPAN_TAG$Pinnen Sie Privacy Badger an Ihre Symbolleiste an$END_SPAN_TAG$, um einfacher auf die Schaltfläche »$DISABLE_FOR_SITE$« zugreifen zu können.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -380,7 +380,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "Um das Icon von Privacy Badger anzupinnen, klicken Sie auf das Puzzleteil-Icon in der Browser-Toolbar. Danach klicken Sie auf das Pin-Icon direkt neben Privacy Badger.",
+        "message": "Um das Symbol von Privacy Badger anzupinnen, klicken Sie auf das Puzzleteil-Symbol in Ihrer Browser-Symbolleiste. Klicken Sie dann auf das Pinsymbol neben Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -428,7 +428,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
-        "message": "Senden besuchter Web-Adressen an Google deaktivieren. Dies deaktiviert Vorschläge für ähnliche Seiten, wenn eine Seite nicht gefunden werden kann.",
+        "message": "Senden besuchter Webadressen an Google deaktivieren. Dies deaktiviert Vorschläge für ähnliche Seiten, wenn eine Seite nicht gefunden werden kann.",
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
