@@ -2244,6 +2244,7 @@ let multiDomainFirstPartiesArray = [
 
     "graytvinc.com",
   ],
+  ["groupon.com", "groupon.co.uk", "groupon.de", "groupon.fr", "groupon.pl", "livingsocial.com", "groupondata.com"],
   ["grubhub.com", "seamless.com"],
   ["guardian.co.uk", "guim.co.uk", "guardianapps.co.uk", "theguardian.com", "gu-web.net"],
   [
@@ -2496,6 +2497,8 @@ let multiDomainFirstPartiesArray = [
   ],
   ["immobilienscout24.de", "static-immobilienscout24.de"],
   ["independent.co.uk", "indy100.com", "the-independent.com"],
+  ["infor.pl", "gazetaprawna.pl", "forsal.pl", "dziennik.pl"],
+  ["innogames.com", "elvenar.com", "forgeofempires.com", "grepolis.com", "innogamescdn.com"],
   ["intercom.com", "intercom.io", "intercomassets.com", "intercomcdn.com"],
   ["interia.pl", "pomponik.pl", "smaker.pl", "iplsc.com"],
   ["itmedia.co.jp", "itmedia.jp"],
@@ -4900,7 +4903,7 @@ let multiDomainFirstPartiesArray = [
   ["telegraaf.nl", "tcdn.nl", "tmgonlinemedia.nl", "tnet.nl"],
   ["telegram.org", "telegram.me", "t.me"],
   ["telekom.com", "t-online.de"],
-  ["terabox.com", "1024tera.com", "4funbox.com", "freeterabox.com", "mirrobox.com", "terabox.app", "teraboxcdn.app", "teraboxcdn.com", "teraboxshare.com", "terafileshare.com"],
+  ["terabox.com", "1024tera.com", "1024terabox.com", "4funbox.com", "freeterabox.com", "mirrobox.com", "terabox.app", "terabox1024.com", "teraboxcdn.app", "teraboxcdn.com", "teraboxlink.com", "teraboxshare.com", "terafileshare.com", "terasharelink.com"],
   ["tesla.com", "teslamotors.com"],
   ["thegioididong.com", "dienmayxanh.com", "tgdd.vn"],
   ["thelocal.com", "thelocal.de", "thelocal.fr", "thelocal.se"],
