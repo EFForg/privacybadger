@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "Gute Arbeit beim Öffnen des Pop-ups!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -312,7 +312,7 @@
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
-        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Wenn Sie diese Anzeichen ignorieren, wird Privacy Badger lernen, sie zu blockieren - egal, ob es sich um Werbung oder Tracker anderer Art handelt.",
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
@@ -324,7 +324,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Unsichtbares Tracking wird auf unterschiedlichen Wegen realisiert; Werbeanzeigen sind hierbei nur die sichtbare Spitze des Eisbergs. Privacy Badger wird keine Werbung blockieren, ausser sie zeichnet dein Verhalten auf.",
+        "message": "Unsichtbares Tracking geschieht auf alle möglichen Arten; Werbung ist nur die sichtbare Spitze des Eisbergs. Privacy Badger blockiert keine Werbung, es sei denn, diese verfolgt Sie tatsächlich.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -332,11 +332,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "Versuchen Sie, das Pop-up von Privacy Badger zu öffnen",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "Browser-Symbolleiste mit dem eingekreisten Privacy Badger-Symbol",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
