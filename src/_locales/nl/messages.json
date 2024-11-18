@@ -128,7 +128,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Blocked cookies and fingerprinting scripts from $DOMAIN$",
+        "message": "Geblokkeerde cookies en fingerprintingscripts van $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -178,7 +178,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "To enable logging into websites with your Google account, move this slider right, and reload the page",
+        "message": "Schuif deze regelaar naar rechts en herlaad de pagina om aanmelden bij websites met je Google-account te activeren",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -202,7 +202,7 @@
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
-        "message": "Briefly describe the problem:",
+        "message": "Beschrijf kort het probleem:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -214,7 +214,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Send report",
+        "message": "Rapport verzenden",
         "description": "Button text."
     },
     "report_cancel": {

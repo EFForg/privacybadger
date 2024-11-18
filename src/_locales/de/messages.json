@@ -336,7 +336,7 @@
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser-Symbolleiste mit dem eingekreisten Privacy Badger-Symbol",
+        "message": "Browser-Symbolleiste mit dem eingekreisten Icon von Privacy Badger",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
@@ -364,7 +364,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "$START_SPAN_TAG$Pinnen Sie Privacy Badger an Ihre Symbolleiste an$END_SPAN_TAG$, um einfacher auf die Schaltfläche »$DISABLE_FOR_SITE$« zugreifen zu können.",
+        "message": "$START_SPAN_TAG$Pinnen Sie zunächst Privacy Badger an Ihre Symbolleiste an$END_SPAN_TAG$, um einfacher auf die Schaltfläche »$DISABLE_FOR_SITE$« zugreifen zu können.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -380,7 +380,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "Um das Symbol von Privacy Badger anzupinnen, klicken Sie auf das Puzzleteil-Symbol in Ihrer Browser-Symbolleiste. Klicken Sie dann auf das Pinsymbol neben Privacy Badger.",
+        "message": "Um das Icon von Privacy Badger anzupinnen, klicken Sie auf das Puzzleteil-Icon in Ihrer Browser-Symbolleiste. Klicken Sie dann auf das Pin-Icon neben Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {

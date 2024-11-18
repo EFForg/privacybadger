@@ -48,7 +48,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "Reportar site estragado",
+        "message": "Reportar site com problemas",
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "version": {
@@ -178,7 +178,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Para permitir o login em sites com a sua conta Google, mova este controlo deslizante para a direita, e recarregue a página",
+        "message": "Para permitir o início de sessão em sites com a sua conta Google, desloque este controlo deslizante para a direita e volte a carregar a página",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -198,11 +198,11 @@
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
     },
     "non_tracker_tip": {
-        "message": "Atualmente, o Privacy Badger apenas verifica se terceiros estão a usar cookies, armazenamento local em HTML5, ou impressão digital canvas para rastrear a sua navegação. Alguns desses domínios podem estar a usar métodos de rastreamento que o Privacy Badger não consegue detetar.",
+        "message": "Atualmente, o Privacy Badger apenas verifica se terceiros estão a usar cookies, armazenamento local em HTML5 ou impressão digital canvas para rastrear a sua navegação. Alguns destes domínios podem estar a usar métodos de rastreamento que o Privacy Badger não consegue detetar.",
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
-        "message": "Descrever brevemente o problema:",
+        "message": "Descreva resumidamente o problema:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -432,7 +432,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Desativar o seguimento de anúncios \"Privacy Sandbox\" da Google",
+        "message": "Desativar o rastreador de anúncios \"Privacy Sandbox\" da Google",
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2023/09/how-turn-googles-privacy-sandbox-ad-tracking-and-why-you-should"
     },
     "options_advanced_settings": {
@@ -581,7 +581,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
-        "message": "Mostrar domínios que o seu Badger ainda não se decidiu bloquear",
+        "message": "Mostrar domínios que o seu Badger ainda não decidiu bloquear",
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
@@ -683,7 +683,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Repor os domínios de rastreamento irá:\n\n  • Eliminar todos os dados sobre rastreadores que o Privacy Badger aprendeu com sua navegação\n  • Restaurar a lista de domínios de rastreamento para a última lista pré-criada (visite www.eff.org/badger-pretraining para saber mais)",
+        "message": "A reposição dos domínios de rastreio irá:\n\n  • Eliminar todos os dados sobre os rastreadores que o Privacy Badger obteve a partir da sua navegação\n  • Restaurar a lista de domínios de rastreamento para a lista pré-treinada mais recente (visite www.eff.org/badger-pretraining para saber mais)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
