@@ -1382,7 +1382,6 @@ function dispatcher(request, sender, sendResponse) {
       origins: trackers,
       settings: badger.getSettings().getItemClones(),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
-      shownBreakageNotes: badger.getPrivateSettings().getItem("shownBreakageNotes"),
       tabHost: tab_host,
       tabId: tab_id,
       tabUrl: request.tabUrl,
@@ -1542,19 +1541,6 @@ function dispatcher(request, sender, sendResponse) {
 
   case "seenLearningPrompt": {
     badger.getPrivateSettings().setItem("showLearningPrompt", false);
-    sendResponse();
-    break;
-  }
-
-  case "seenBreakageNote": {
-    if (request.domain) {
-      let privateStore = badger.getPrivateSettings(),
-        shownBreakageNotes = privateStore.getItem("shownBreakageNotes");
-      if (!shownBreakageNotes.includes(request.domain)) {
-        shownBreakageNotes.push(request.domain);
-      }
-      badger.getPrivateSettings().setItem("shownBreakageNotes", shownBreakageNotes);
-    }
     sendResponse();
     break;
   }
