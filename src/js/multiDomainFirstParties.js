@@ -1857,6 +1857,7 @@ let multiDomainFirstPartiesArray = [
     "gettyimages.co.uk",
     "gettyimages.dk",
     "gettyimages.fi",
+    "gettyimages.fr",
     "gettyimages.nl",
 
     "istockphoto.com",
@@ -4707,6 +4708,8 @@ let multiDomainFirstPartiesArray = [
     "shopify.in",
     "shopify.nl",
 
+    "shop.app",
+
     "shopifysvc.com",
     "shopifycdn.com",
     "shopifyapps.com",
@@ -5780,6 +5783,7 @@ let multiDomainFirstPartiesArray = [
     "eurosport.it",
     "extratv.com",
     "filmstruck.com",
+    "golfdigest.com",
     "greatbig.com",
     "greatbigstory.com",
     "hbo.com",
@@ -5860,6 +5864,8 @@ let multiDomainFirstPartiesArray = [
     "sciencechannel.com",
     "tlc.com",
     "travelchannel.com",
+
+    "sndimg.com",
   ],
   ["wayfair.com", "wayfair.ca", "wayfair.co.uk"],
   [
@@ -5972,8 +5978,10 @@ let multiDomainFirstPartiesArray = [
   [
     "williams-sonomainc.com",
 
+    "pbteen.com",
     "potterybarn.com",
     "potterybarnkids.com",
+    "rejuvenation.com",
     "westelm.com",
     "williams-sonoma.com",
   ],
@@ -5989,6 +5997,7 @@ let multiDomainFirstPartiesArray = [
     "wixapps.net",
     "wix-code.com",
     "wixmp.com",
+    "wixpress.com",
     "wixstatic.com",
   ],
   [
