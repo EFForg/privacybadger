@@ -53,6 +53,23 @@
             "type": 3
         }
     },
+    "Bluesky": {
+        "domain": "embed.bsky.app",
+        "buttonSelectors": [
+            "blockquote.bluesky-embed[data-bluesky-cid]"
+        ],
+        "scriptSelectors": [
+            "script[src^='https://embed.bsky.app/static/embed.js']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "public.api.bsky.app",
+                "cdn.bsky.app",
+                "embed.bsky.app"
+            ],
+            "type": 3
+        }
+    },
     "Captivate Player": {
         "domain": "player.captivate.fm",
         "buttonSelectors": [

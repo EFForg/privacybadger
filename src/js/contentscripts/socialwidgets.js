@@ -513,6 +513,12 @@ function createReplacementWidget(widget, elToReplace) {
     } else if (elToReplace.dataset && elToReplace.dataset.textPostPermalink && elToReplace.dataset.textPostPermalink.startsWith('https://www.threads.net/')) {
       // Threads
       widget_url = elToReplace.dataset.textPostPermalink;
+    } else if (elToReplace.dataset && elToReplace.dataset.blueskyUri) {
+      // Bluesky
+      let buri = elToReplace.dataset.blueskyUri.split('/');
+      if (buri[0] && buri[0] == "at:" && buri[2] && buri[2].startsWith("did:") && buri[4]) {
+        widget_url = "https://bsky.app/profile/" + buri[2] + "/post/" + buri[4];
+      }
     }
   } else if (node_name == 'amp-twitter') {
     // AMP Twitter
