@@ -308,11 +308,11 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Privacy Badger signalisiert Websites durch <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>, dass Ihre Daten nicht geteilt und verkauft werden sollen, und durch <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>, dass Sie nicht verfolgt werden wollen.",
+        "message": "Privacy Badger signalisiert Unternehmen durch <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>, dass Ihre Daten nicht geteilt und verkauft werden sollen, und durch <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>, dass Sie nicht verfolgt werden wollen.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
-        "message": "Wenn sie diese Signale ignorieren, wird Privacy Badger lernen, sie zu blockieren - egal, ob es sich um Werbung oder Tracker anderer Art handelt.",
+        "message": "Wenn sie diese Signale ignorieren, wird Privacy Badger lernen, sie zu blocken - egal, ob es sich um Werbung oder Tracker anderer Art handelt.",
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
@@ -324,7 +324,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Unsichtbares Tracking geschieht auf alle möglichen Arten; Werbung ist nur die sichtbare Spitze des Eisbergs. Privacy Badger blockiert keine Werbung, es sei denn, diese verfolgt Sie tatsächlich.",
+        "message": "Unsichtbares Tracking geschieht auf alle möglichen Arten; Werbung ist nur die sichtbare Spitze des Eisbergs. Privacy Badger blockt keine Werbung, es sei denn, diese verfolgt Sie tatsächlich.",
         "description": "Intro page paragraph"
     },
     "next_section": {
