@@ -178,7 +178,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Schuif deze regelaar naar rechts en herlaad de pagina om aanmelden bij websites met je Google-account te activeren",
+        "message": "Schuif deze balk naar rechts en herlaad de pagina om aanmelden bij websites met je Google-account te activeren",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
@@ -210,7 +210,7 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "Dit zal automatisch de volgende gegevens naar het EFF verzenden: de webpagina die u momenteel bezoekt, de versie van uw webbrowser, de versie van Privacy Badger en de instelling van alle schuifknoppen voor deze webpagina.",
+        "message": "Dit zal automatisch de volgende gegevens naar het EFF verzenden: de webpagina die u momenteel bezoekt, de versie van uw webbrowser, de versie van Privacy Badger en de instelling van alle schuifbalkjes voor deze webpagina.",
         "description": ""
     },
     "report_button": {
