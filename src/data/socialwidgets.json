@@ -56,7 +56,8 @@
     "Bluesky": {
         "domain": "embed.bsky.app",
         "buttonSelectors": [
-            "blockquote.bluesky-embed[data-bluesky-cid]"
+            "blockquote.bluesky-embed[data-bluesky-cid]",
+            "iframe[src^='https://embed.bsky.app/embed/']"
         ],
         "scriptSelectors": [
             "script[src^='https://embed.bsky.app/static/embed.js']"

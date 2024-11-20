@@ -492,6 +492,13 @@ function createReplacementWidget(widget, elToReplace) {
     // use the frame URL for framed widgets
     if (elToReplace.src) {
       widget_url = elToReplace.src;
+      if (widget_url.startsWith("https://embed.bsky.app/embed/")) {
+        // Bluesky
+        let buri = (new URL(widget_url)).pathname.split("/");
+        if (buri[2] && buri[2].startsWith("did:") && buri[4]) {
+          widget_url = "https://bsky.app/profile/" + buri[2] + "/post/" + buri[4];
+        }
+      }
     } else {
       for (let prop of lazyLoadDatasetSrcProps) {
         if (elToReplace.dataset[prop]) {
