@@ -280,7 +280,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Advertenties niet geblokkeerd?  YouTube werkt niet?  Dat is waarschijnlijk niet door Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
