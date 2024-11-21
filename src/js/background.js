@@ -849,7 +849,6 @@ Badger.prototype = {
       ignoredSiteBases: [],
       nextPbconfigUpdateTime: 0,
       showLearningPrompt: false,
-      shownBreakageNotes: [],
     };
     for (let key of Object.keys(privateDefaultSettings)) {
       if (!privateStore.hasItem(key)) {
@@ -882,6 +881,7 @@ Badger.prototype = {
         "legacyWebRtcProtectionUser",
         "nextDntHashesUpdateTime",
         "nextYellowlistUpdateTime",
+        "shownBreakageNotes",
         "showWebRtcDeprecation",
       ].forEach(item => {
         if (privateStore.hasItem(item)) { privateStore.deleteItem(item); }

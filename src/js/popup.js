@@ -539,12 +539,6 @@ function createBreakageNote(domain, i18n_message_key) {
     autoClose: false,
     content: chrome.i18n.getMessage(i18n_message_key),
     functionReady: function (tooltip) {
-      // record that this breakage note was shown
-      chrome.runtime.sendMessage({
-        type: "seenBreakageNote",
-        domain
-      });
-
       // close on tooltip click/tap
       $(tooltip.elementTooltip()).on('click', function (e) {
         e.preventDefault();
@@ -639,10 +633,9 @@ function refreshPopup() {
   // or when there is at least one breakage warning
   if (POPUP_DATA.settings.showExpandedTrackingSection || (
     (POPUP_DATA.settings.seenComic && !POPUP_DATA.showLearningPrompt && !POPUP_DATA.criticalError) &&
-    Object.keys(BREAKAGE_NOTE_DOMAINS).some(d => (
-      (POPUP_DATA.origins[d] == constants.BLOCK ||
-        POPUP_DATA.origins[d] == constants.COOKIEBLOCK) &&
-      !POPUP_DATA.shownBreakageNotes.includes(d)))
+    Object.keys(BREAKAGE_NOTE_DOMAINS).some(d =>
+      POPUP_DATA.origins[d] == constants.BLOCK ||
+        POPUP_DATA.origins[d] == constants.COOKIEBLOCK)
   ) || (
     POPUP_DATA.cookieblocked && Object.keys(POPUP_DATA.cookieblocked).some(
       d => POPUP_DATA.origins[d] == constants.USER_BLOCK)
@@ -702,7 +695,6 @@ function refreshPopup() {
       let show_breakage_note = false;
       if (!show_breakage_warning) {
         show_breakage_note = (utils.hasOwn(BREAKAGE_NOTE_DOMAINS, fqdn) &&
-          !POPUP_DATA.shownBreakageNotes.includes(fqdn) &&
           (action == constants.BLOCK || action == constants.COOKIEBLOCK));
       }
       let slider_html = htmlUtils.getOriginHtml(fqdn, action,
@@ -793,9 +785,7 @@ function refreshPopup() {
     $printable.find('.tooltip:not(.tooltipstered)').tooltipster(DOMAIN_TOOLTIP_CONF);
     if ($printable.hasClass('breakage-note')) {
       let domain = $printable[0].dataset.origin;
-      if (!POPUP_DATA.shownBreakageNotes.includes(domain)) {
-        createBreakageNote(domain, BREAKAGE_NOTE_DOMAINS[domain]);
-      }
+      createBreakageNote(domain, BREAKAGE_NOTE_DOMAINS[domain]);
     }
 
     if (printable.length) {
