@@ -934,6 +934,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["capitalone.com", "capitalone360.com"],
   ["carousell.com", "carousell.com.hk", "carousell.com.my", "carousell.sg", "karousell.com"],
+  ["casasbahia.com.br", "extra.com.br", "pontofrio.com.br", "casasbahia-imagens.com.br"],
   ["cb2.com", "crateandbarrel.com"],
   [
     "ccmbenchmark.com",
