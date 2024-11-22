@@ -963,6 +963,7 @@ let multiDomainFirstPartiesArray = [
 
     "static-cisco.com",
   ],
+  ["citynews.it", "ilpost.it", "milanotoday.it", "palermotoday.it", "romatoday.it", "today.it", "stgy.ovh"],
   [
     "cloud.com",
 
