@@ -526,12 +526,23 @@ function createReplacementWidget(widget, elToReplace) {
       if (buri[0] && buri[0] == "at:" && buri[2] && buri[2].startsWith("did:") && buri[4]) {
         widget_url = "https://bsky.app/profile/" + buri[2] + "/post/" + buri[4];
       }
+    } else if (elToReplace.dataset && elToReplace.dataset.instgrmPermalink && elToReplace.dataset.instgrmPermalink.startsWith('https://www.instagram.com/')) {
+      // Instagram
+      widget_url = elToReplace.dataset.instgrmPermalink;
     }
   } else if (node_name == 'amp-twitter') {
     // AMP Twitter
-    let tweet_id = elToReplace.dataset.tweetid.replace(/[^0-9]/g, '');
+    let tweet_id = elToReplace.dataset && elToReplace.dataset.tweetid &&
+      elToReplace.dataset.tweetid.replace(/[^0-9]/g, '');
     if (tweet_id) {
       widget_url = "https://twitter.com/x/status/" + tweet_id;
+    }
+  } else if (node_name == 'amp-instagram') {
+    // AMP Instagram
+    let shortcode = elToReplace.dataset && elToReplace.dataset.shortcode &&
+      elToReplace.dataset.shortcode.replace(/^0-9A-Za-z/g, '');
+    if (shortcode) {
+      widget_url = "https://www.instagram.com/p/" + shortcode;
     }
   }
 

@@ -277,6 +277,29 @@
             "type": 3
         }
     },
+    "Instagram": {
+        "domains": [
+            "www.instagram.com",
+            "platform.instagram.com"
+        ],
+        "buttonSelectors": [
+            "blockquote.instagram-media[data-instgrm-permalink]",
+            "blockquote.instagram-media-registered[data-instgrm-permalink]",
+            "amp-instagram"
+        ],
+        "scriptSelectors": [
+            "script[src^='//www.instagram.com/embed.js']",
+            "script[src^='https://www.instagram.com/embed.js']",
+            "script[src^='//platform.instagram.com/en_US/embeds.js']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "www.instagram.com",
+                "platform.instagram.com"
+            ],
+            "type": 3
+        }
+    },
     "LinkedIn": {
         "domain": "platform.linkedin.com",
         "buttonSelectors": [
