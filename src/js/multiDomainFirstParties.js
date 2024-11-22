@@ -2368,6 +2368,7 @@ let multiDomainFirstPartiesArray = [
     "hearstmobile.com",
     "hearstnp.com",
   ],
+  ["hh.ru", "hh.kz", "rabota.by", "zarplata.ru", "hhcdn.ru"],
   ["himss.org", "healthcarefinancenews.com", "healthcareitnews.com", "mobihealthnews.com"],
   ["hmgroup.com", "hm.com", "cos.com", "weekday.com", "monki.com", "stories.com", "arket.com", "afound.com"],
   ["hostinger.com", "hosting24.com", "hostinger.in", "hostinger.co.id", "hostinger.co.uk", "hostinger.com.br"],
