@@ -364,7 +364,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "$START_SPAN_TAG$Zet Privacy Badger eerst vast op je werkbalk$END_SPAN_TAG$ voor gemakkelijke toegang tot de “$DISABLE_FOR_SITE$” button.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
