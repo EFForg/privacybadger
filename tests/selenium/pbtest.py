@@ -537,7 +537,7 @@ class PBSeleniumTest(unittest.TestCase):
     def get_domain_slider_state(self, domain):
         label = self.driver.find_element(
             By.CSS_SELECTOR, f'input[name="{domain}"][checked]')
-        return label.get_attribute('value')
+        return label.get_dom_attribute('value')
 
     def clear_tracker_data(self):
         self.load_url(self.options_url)
@@ -625,7 +625,7 @@ class PBSeleniumTest(unittest.TestCase):
         domain_divs = self.driver.find_elements(By.CSS_SELECTOR,
             "#blockedResourcesInner > div.clicker[data-origin]")
         for div in domain_divs:
-            domain = div.get_attribute('data-origin')
+            domain = div.get_dom_attribute('data-origin')
 
             # assert that this domain is never duplicated in the UI
             self.assertNotIn(domain, notYetBlocked)
