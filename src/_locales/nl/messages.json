@@ -332,11 +332,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "Probeer de pop-up van Privacy Badger te openen",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "Browserwerkbalk met het icoon van Privacy Badger omcirkeld",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
