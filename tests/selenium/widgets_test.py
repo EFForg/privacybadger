@@ -226,8 +226,8 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         # assert all script attributes were copied
         script_el = self.driver.find_element(By.CSS_SELECTOR,
             'script.' + self.TYPE4_WIDGET_CLASS)
-        assert script_el.get_attribute('async') == "true"
-        assert script_el.get_attribute('data-foo') == "bar"
+        assert script_el.get_dom_attribute('async') == "true"
+        assert script_el.get_dom_attribute('data-foo') == "bar"
 
         self.assert_widget("type4")
 

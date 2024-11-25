@@ -286,7 +286,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         time.sleep(1)
         report_input = self.driver.find_element(By.ID, "error-input")
         assert report_input.is_displayed(), "Error reporting should be open"
-        assert report_input.get_attribute('value') == ERROR_REPORT_TEXT, (
+        assert report_input.get_property('value') == ERROR_REPORT_TEXT, (
             "Previously entered text should be displayed")
 
     def test_donate_button(self):
@@ -349,12 +349,12 @@ class PopupTest(pbtest.PBSeleniumTest):
         def assert_hidden(sliders):
             for slider in sliders:
                 assert not slider.is_displayed(), (
-                    "{slider.get_attribute('data-origin')} is visible but should be hidden")
+                    "{slider.get_dom_attribute('data-origin')} is visible but should be hidden")
 
         def assert_visible(sliders):
             for slider in sliders:
                 assert slider.is_displayed(), (
-                    f"{slider.get_attribute('data-origin')} is hidden but should be visible")
+                    f"{slider.get_dom_attribute('data-origin')} is hidden but should be visible")
 
         self.cookieblock_domain(YLIST_DOMAIN)
         self.block_domain(BLOCKED_DOMAIN)
@@ -385,7 +385,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         assert_visible(sliders)
 
         # verify domain is shown second in the list
-        assert sliders[1].get_attribute('data-origin') == YLIST_DOMAIN
+        assert sliders[1].get_dom_attribute('data-origin') == YLIST_DOMAIN
 
         # manually block the yellowlisted domain
         self.js(f'$("#block-{YLIST_DOMAIN.replace(".", "-")}").click()')
@@ -406,7 +406,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         assert_visible(sliders)
 
         # verify breakage warning slider is at the top
-        assert sliders[0].get_attribute('data-origin') == YLIST_DOMAIN
+        assert sliders[0].get_dom_attribute('data-origin') == YLIST_DOMAIN
 
         # restore the user-set slider to default action
         self.driver.find_element(By.CSS_SELECTOR,

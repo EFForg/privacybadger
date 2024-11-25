@@ -537,7 +537,7 @@ class PBSeleniumTest(unittest.TestCase):
     def get_domain_slider_state(self, domain):
         label = self.driver.find_element(
             By.CSS_SELECTOR, f'input[name="{domain}"][checked]')
-        return label.get_dom_attribute('value')
+        return label.get_property('value')
 
     def clear_tracker_data(self):
         self.load_url(self.options_url)

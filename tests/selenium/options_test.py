@@ -20,10 +20,10 @@ class OptionsTest(pbtest.PBSeleniumTest):
     def assert_slider_state(self, origin, action, failure_msg):
         clicker = self.driver.find_element(By.CSS_SELECTOR,
             f'div[data-origin="{origin}"]')
-        assert clicker.get_attribute("class") == "clicker userset", failure_msg
+        assert clicker.get_dom_attribute("class") == "clicker userset", failure_msg
 
         switches_div = clicker.find_element(By.CSS_SELECTOR, ".switch-container")
-        assert switches_div.get_attribute("class") == f"switch-container {action}", failure_msg
+        assert switches_div.get_dom_attribute("class") == f"switch-container {action}", failure_msg
 
     def find_origin_by_xpath(self, origin):
         origins = self.driver.find_element(By.ID, "blockedResourcesInner")
@@ -57,14 +57,14 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # reload page and assert filters are set
         self.driver.refresh()
         sel = Select(self.find_el_by_css('#tracking-domains-type-filter'))
-        assert sel.first_selected_option.get_attribute('value') == FILTERVAL
+        assert sel.first_selected_option.get_property('value') == FILTERVAL
 
         # open options page in a new window and assert filters are not set
         self.open_window()
         self.load_options_page()
         self.select_domain_list_tab()
         sel = Select(self.find_el_by_css('#tracking-domains-type-filter'))
-        assert not sel.first_selected_option.get_attribute('value')
+        assert not sel.first_selected_option.get_property('value')
 
     def test_added_origin_display(self):
         """Ensure origin and tracker count are displayed."""
