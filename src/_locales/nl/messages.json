@@ -324,7 +324,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Onzichtbaar volgen gebeurt op allerhande manieren; advertenties zijn slechts de zichtbare top van de ijsberg.  Privacy Badger blokkeert geen advertenties behalve als ze je volgen.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -380,7 +380,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "message": "Om het icoon van Privacy Badger vast te zetten, klik je op het puzzelstuk-icoon in de werkbalk van je browser.  Klik daarna op het duimspijkericoon naast Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -432,7 +432,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's \"Privacy Sandbox\" ad tracking",
+        "message": "“Privacy-zandbak”-advertentieblokkade van Google uitschakelen",
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2023/09/how-turn-googles-privacy-sandbox-ad-tracking-and-why-you-should"
     },
     "options_advanced_settings": {
@@ -472,7 +472,7 @@
         "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
     },
     "add_domain_button": {
-        "message": "Add site",
+        "message": "Site toevoegen",
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
@@ -585,11 +585,11 @@
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
-        "message": "Hide domains present in the latest pre-trained list",
+        "message": "Domeinen in de laatste voorgetrainde lijst verbergen",
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
-        "message": "$DOMAIN$ was seen tracking on the following sites:",
+        "message": "We hebben gezien dat $DOMAIN$ trackt op de volgende sites:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
