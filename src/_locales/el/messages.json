@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "Πολύ καλά!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -312,7 +312,7 @@
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
-        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Εάν αγνοήσουν αυτά τα σήματα, το Privacy Badger θα μάθει να τις αποκλείει — είτε είναι διαφημιστές είτε ιχνηλάτες άλλου είδους.",
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
@@ -324,7 +324,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Η αόρατη ιχνηλάτηση μπορεί να συμβεί με πολλούς τρόπους, με τις διαφημίσεις να αποτελούν απλά την κορυφή του παγόβουνου. Το Privacy Badger δεν αποκλείει γενικά διαφημίσεις, εκτός εάν αυτές σας ιχνηλατούν.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -332,11 +332,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "Προσπαθήστε να ανοίξετε το αναδυόμενο παράθυρο του Privacy Badger",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "Η γραμμή εργαλείων του προγράμματος περιήγησης με το εικονίδιο του Privacy Badger κυκλωμένο",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
