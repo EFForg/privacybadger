@@ -320,7 +320,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Αντί να διατηρείτε λίστες αποκλεισμού ιχνηλατών, το Privacy Badger ανακαλύπτει αυτόματα ιχνηλάτες βασιζόμενο στη συμπεριφορά τους.",
+        "message": "Το Privacy Badger ανακαλύπτει αυτόματα ιχνηλάτες βασιζόμενο στη συμπεριφορά τους.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {

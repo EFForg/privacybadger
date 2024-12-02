@@ -320,7 +320,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Istället för att hålla listor över vad som ska blockeras upptäcker Privacy Badger automatiskt spårare baserat på deras beteende.",
+        "message": "Privacy Badger upptäcker automatiskt spårare baserat på deras beteende.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {

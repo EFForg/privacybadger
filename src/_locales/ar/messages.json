@@ -320,7 +320,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "بدلاً من الاحتفاظ بقوائم بما يجب حظره، «غرير الخصوصية» يكتشف تلقائيًا أدوات التتبع استنادًا إلى سلوكها.",
+        "message": "«غرير الخصوصية» يكتشف تلقائيًا أدوات التتبع استنادًا إلى سلوكها.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {

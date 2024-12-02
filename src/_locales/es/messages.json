@@ -320,7 +320,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "En lugar de mantener listas de qué bloquear, Privacy Badger descubre automáticamente los rastreadores según su comportamiento.",
+        "message": "Privacy Badger descubre automáticamente los rastreadores según su comportamiento.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {

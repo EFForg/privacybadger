@@ -320,7 +320,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Privacy Badger non ten listas de bloqueo, se non que aprende a descubrir rastrexadores a partir do seu propio comportamento mentras ti navegas.",
+        "message": "Privacy Badger automatically discovers trackers based on their behavior.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {

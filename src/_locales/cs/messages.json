@@ -320,7 +320,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Místo udržování seznamu prvků, které se mají blokovat, bude Privacy Badger automaticky rozpoznávat sledovací prvky podle jejich chování.",
+        "message": "Privacy Badger automaticky rozpoznávat sledovací prvky podle jejich chování.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {

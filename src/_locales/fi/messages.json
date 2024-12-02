@@ -320,7 +320,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Estolistaan käyttöön pohjautuvan eston sijaan Privacy Badger tunnistaa seurannat automaattisesti niiden toiminnan perusteella.",
+        "message": "Privacy Badger tunnistaa seurannat automaattisesti niiden toiminnan perusteella.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {

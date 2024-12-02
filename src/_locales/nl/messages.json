@@ -320,7 +320,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "In plaats van lijsten bij te houden over wat u wilt blokkeren, zal Privacy Badger automatisch volgers ontdekken op basis van hun gedrag.",
+        "message": "Privacy Badger automatisch volgers ontdekken op basis van hun gedrag.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
