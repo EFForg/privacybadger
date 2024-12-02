@@ -432,7 +432,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "“Privacy-zandbak”-advertentieblokkade van Google uitschakelen",
+        "message": "“Privacy-zandbak”-advertentievolgen van Google uitschakelen",
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2023/09/how-turn-googles-privacy-sandbox-ad-tracking-and-why-you-should"
     },
     "options_advanced_settings": {
@@ -683,7 +683,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Het herstellen van volgerdomeinen zal:\n\n  • De gegevens van alle volgers verwijderen die Privacy Badger op basis van uw surfgedrag kent.\n  • De lijst met volgerdomeinen terugzetten naar de laatste standaardlijst (bezoek www.eff.org/badger-pretraining voor meer informatie).",
+        "message": "Het herstellen van volgerdomeinen zal:\n\n  • De gegevens van alle volgers verwijderen die Privacy Badger op basis van uw surfgedrag kent.\n  • De lijst met volgerdomeinen terugzetten naar de laatste voorgetrainde lijst (bezoek www.eff.org/badger-pretraining voor meer informatie).",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
