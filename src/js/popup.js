@@ -537,7 +537,12 @@ function createBreakageNote(domain, i18n_message_key) {
   // return the tooltip we want (the breakage note, not Allow)
   $slider_allow.tooltipster('destroy').tooltipster({
     autoClose: false,
-    content: chrome.i18n.getMessage(i18n_message_key),
+    content: $(`<div>
+                    <a href="" id="dismiss-tooltip" role="button" aria-label="i18n_report_close">
+                      <img src="../icons/close.svg" alt="">
+                    </a>
+                  <div>${chrome.i18n.getMessage(i18n_message_key)}</div>
+                </div>`),
     functionReady: function (tooltip) {
       // close on tooltip click/tap
       $(tooltip.elementTooltip()).on('click', function (e) {
