@@ -1854,13 +1854,22 @@ let multiDomainFirstPartiesArray = [
   [
     "gettyimages.com",
 
+    "gettyimages.ae",
     "gettyimages.ca",
     "gettyimages.com.au",
+    "gettyimages.com.br",
+    "gettyimages.com.mx",
+    "gettyimages.co.nz",
     "gettyimages.co.uk",
+    "gettyimages.de",
     "gettyimages.dk",
+    "gettyimages.es",
     "gettyimages.fi",
     "gettyimages.fr",
+    "gettyimages.in",
+    "gettyimages.it",
     "gettyimages.nl",
+    "gettyimages.no",
 
     "istockphoto.com",
 
