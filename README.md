@@ -22,7 +22,7 @@ We're glad you want to help! Please see [our contributor guide](/CONTRIBUTING.md
 
 ## Getting in touch
 
-Besides using the [issue tracker](https://github.com/EFForg/privacybadger/issues) or the [discussions forum](https://github.com/EFForg/privacybadger/discussions) right here on GitHub, you could [send us an email](mailto:extension-devs@eff.org) or follow [@privacybadger](https://mastodon.social/@privacybadger) on Mastodon.
+Besides using the [issue tracker](https://github.com/EFForg/privacybadger/issues) or the [discussions forum](https://github.com/EFForg/privacybadger/discussions) right here on GitHub, you could [send us an email](mailto:extension-devs@eff.org) or follow us on [Mastodon](https://mastodon.social/@privacybadger) or [Bluesky](https://bsky.app/profile/privacybadger.org).
 
 We also hold public meetings using [Jitsi audio conferencing](https://meet.jit.si/PoliteBadgersSingEuphoricly):
 - Mondays at 10:30 AM [Pacific Time](https://en.wikipedia.org/wiki/Pacific_Time_Zone)
