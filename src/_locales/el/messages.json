@@ -444,7 +444,7 @@
         "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
-        "message": "Αν ενεργοποιήσετε τη λειτουργία μάθησης, μπορεί να είστε περισσότερο αναγνωρίσιμοι σε ιστοσελίδες",
+        "message": "Με την ενεργοποίηση της λειτουργίας μάθησης, ενδέχεται να γίνετε περισσότερο αναγνωρίσιμος/η σε ιστοσελίδες",
         "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
@@ -456,7 +456,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
-        "message": "Ενεργοποιώντας τη μάθηση στην Ανώνυμη περιήγηση ενδέχεται να αφήσει ίχνη ιστορικού στον υπολογιστή σας. Αυτόματα, το Privacy Badger θα αποκλείσει domains που ήδη ξέρει στην Ανώνυμη περιήγηση, αλλά δε θα μάθει για νέους ιχνηλάτες. Μπορείτε να ενεργοποιήσετε αυτήν την επιλογή εάν σερφάρετε συχνά ανώνυμα.",
+        "message": "Η ενεργοποίηση της μάθησης στην ανώνυμη περιήγηση ενδέχεται να αφήσει ίχνη ιστορικού στον υπολογιστή σας. Αυτόματα, το Privacy Badger θα αποκλείσει domains που ήδη ξέρει στην Ανώνυμη περιήγηση, αλλά δε θα μάθει για νέους ιχνηλάτες. Η ενεργοποίηση αυτής της επιλογής συνίσταται εάν σερφάρετε συχνά ανώνυμα.",
         "description": "Tooltip in general settings."
     },
     "disabled_sites": {
@@ -581,7 +581,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
-        "message": "Να δω και τα domains που το Privacy Badger δεν έχει αποφασίσει ακόμα να αποκλείσει",
+        "message": "Προβολή domains που το Privacy Badger δεν έχει αποφασίσει ακόμα να αποκλείσει",
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
