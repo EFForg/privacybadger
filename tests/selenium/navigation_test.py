@@ -2,6 +2,8 @@
 
 import unittest
 
+import pytest
+
 import pbtest
 
 from functools import partial
@@ -23,6 +25,8 @@ class NavigationTest(pbtest.PBSeleniumTest):
             "});", url)
         return trackers
 
+    @pytest.mark.xfail(pbtest.shim.browser_type == "edge",
+                       reason="https://github.com/microsoft/MicrosoftEdge-Extensions/issues/228")
     def test_beacon_attribution(self):
         FIXTURE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
