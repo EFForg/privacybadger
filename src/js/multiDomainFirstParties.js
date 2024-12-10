@@ -2739,7 +2739,7 @@ let multiDomainFirstPartiesArray = [
   ["lbry.com", "odysee.com", "lbry.tv"],
   ["likee.video", "like-video.com", "like.video", "likee.com", "likeevideo.com"],
   ["livesport.eu", "diretta.it", "flashscore.com", "flashscore.com.br", "flashscore.fr", "flashscore.pl", "livescore.in", "rezultati.com"],
-  ["lloydsbankinggroup", "bankofscotland.co.uk", "halifax.co.uk", "halifax-online.co.uk", "lloydsbank.com", "dashboard.co.uk"],
+  ["lloydsbankinggroup.com", "bankofscotland.co.uk", "halifax.co.uk", "halifax-online.co.uk", "lloydsbank.com", "dashboard.co.uk"],
   ["lnk.to", "tix.to", "tck.to", "ticket.to", "linkfire.com", "assetlab.io", "linkfire.co", "lnkfi.re"],
   [
     "loveholidays.com",
