@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "Bra jobbat med att öppna popupen!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -308,11 +308,11 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Privacy Badger skickar <a href='https://globalprivacycontrol.org/' target='_blank'>Global sekretesstyrningssignal</a>, för att välja bort datadelning och försäljning, och <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte-signal</a> att berätta för företagen att inte spåra dig.",
+        "message": "Privacy Badger skickar <a href='https://globalprivacycontrol.org/' target='_blank'>Global sekretesstyrningssignal</a>, för att välja bort datadelning och försäljning, och <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte-signal</a> för att tala om för företag att inte spåra dig.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
-        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Om de ignorerar dessa signaler kommer Privacy Badger att lära sig att blockera dem—oavsett om de är annonsörer eller spårare av andra slag.",
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
@@ -324,7 +324,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Invisible tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Osynlig spårning sker på alla möjliga sätt; annonser är bara den synliga toppen av isberget. Privacy Badger blockerar inte annonser om de inte råkar spåra dig.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -332,11 +332,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "Testa att öppna Privacy Badgers popup",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "Webbläsarens verktygsfält med Privacy Badger-ikonen inringad",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
