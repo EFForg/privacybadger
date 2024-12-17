@@ -1131,7 +1131,7 @@ Badger.prototype = {
    * @param {String} fqdn the third party origin to add
    * @param {String} action the action we are taking
    */
-  logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
+  logThirdParty: function (tab_id, fqdn, action) {
     let self = this,
       is_blocked = (
         action == constants.BLOCK ||

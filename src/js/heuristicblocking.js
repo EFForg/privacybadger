@@ -179,7 +179,7 @@ HeuristicBlocker.prototype = {
       badger.storage.recordTrackingDetails(request_base, tab_base, 'beacon');
       // log in popup
       if (from_current_tab) {
-        badger.logThirdPartyOriginOnTab(
+        badger.logThirdParty(
           tab_id, request_host, badger.storage.getBestAction(request_host));
       }
       // don't bother checking for tracking cookies

@@ -128,7 +128,7 @@ function onBeforeRequest(details) {
   }
 
   if (from_current_tab) {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
+    badger.logThirdParty(tab_id, request_host, action);
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -427,7 +427,7 @@ function onBeforeSendHeaders(details) {
   let action = checkAction(tab_id, request_host, frame_id);
 
   if (action && from_current_tab) {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
+    badger.logThirdParty(tab_id, request_host, action);
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -524,7 +524,7 @@ function onHeadersReceived(details) {
   }
 
   if (from_current_tab) {
-    badger.logThirdPartyOriginOnTab(tab_id, response_host, action);
+    badger.logThirdParty(tab_id, response_host, action);
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -686,7 +686,7 @@ function recordSupercookie(tab_id, frame_host) {
   // log for popup
   let action = checkAction(tab_id, frame_host);
   if (action) {
-    badger.logThirdPartyOriginOnTab(tab_id, frame_host, action);
+    badger.logThirdParty(tab_id, frame_host, action);
   }
 }
 
@@ -765,7 +765,7 @@ function recordFingerprinting(tab_id, msg) {
           // log for popup
           let action = checkAction(tab_id, script_host);
           if (action) {
-            badger.logThirdPartyOriginOnTab(tab_id, script_host, action);
+            badger.logThirdParty(tab_id, script_host, action);
           }
 
           // record canvas fingerprinting
