@@ -672,11 +672,10 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
  * Record "supercookie" tracking
  *
  * @param {Integer} tab_id browser tab ID
- * @param {String} frame_url URL of the frame with supercookie
+ * @param {String} frame_host hostname of the frame with supercookie
  */
-function recordSupercookie(tab_id, frame_url) {
-  const frame_host = extractHostFromURL(frame_url),
-    page_host = badger.tabData.getFrameData(tab_id).host;
+function recordSupercookie(tab_id, frame_host) {
+  const page_host = badger.tabData.getFrameData(tab_id).host;
 
   badger.heuristicBlocking.updateTrackerPrevalence(
     frame_host,
@@ -1222,7 +1221,8 @@ function dispatcher(request, sender, sendResponse) {
       return sendResponse();
     }
 
-    let frame_host = extractHostFromURL(request.frameUrl);
+    let frame_host = extractHostFromURL(
+      utils.hasOwn(sender, "origin") ? sender.origin + '/' : request.frameUrl);
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, frame_host)) {
@@ -1308,15 +1308,22 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "supercookieReport": {
-    if (request.frameUrl && badger.hasSupercookie(request.data)) {
-      recordSupercookie(sender.tab.id, request.frameUrl);
+    if (badger.hasSupercookie(request.data)) {
+      let frame_host = extractHostFromURL(
+        utils.hasOwn(sender, "origin") ?
+          sender.origin + '/' : request.frameUrl);
+      if (frame_host) {
+        recordSupercookie(sender.tab.id, frame_host);
+      }
     }
     break;
   }
 
   case "inspectLocalStorage": {
     let tab_host = extractHostFromURL(sender.tab.url),
-      frame_host = extractHostFromURL(request.frameUrl);
+      frame_host = extractHostFromURL(
+        utils.hasOwn(sender, "origin") ?
+          sender.origin + '/' : request.frameUrl);
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, frame_host)) {
@@ -1770,11 +1777,25 @@ function dispatcher(request, sender, sendResponse) {
     // implications of accepting pbSurrogateMessage events
     // from third-party scripts in nested frames
     if (sender.frameId > 0) {
-      if (!request.frameUrl.startsWith('https://cdn.embedly.com/')) {
+      let frame_origin = sender.origin;
+
+      if (!utils.hasOwn(sender, "origin")) {
+        if (request.frameUrl) {
+          let path = (new URL(request.frameUrl)).pathname,
+            path_idx = request.frameUrl.indexOf(path);
+          frame_origin = request.frameUrl.slice(0, path_idx);
+        }
+      }
+
+      if (!frame_origin) {
+        break;
+      }
+
+      if (frame_origin !== "https://cdn.embedly.com") {
         let tab_scheme = tab_url.slice(0, tab_url.indexOf(tab_host));
-        if (!request.frameUrl.startsWith(tab_scheme + tab_host)) {
-          let frame_host = extractHostFromURL(request.frameUrl);
-          if (!frame_host || utils.isThirdPartyDomain(frame_host, tab_host)) {
+        if (frame_origin !== tab_scheme + tab_host) {
+          let frame_host = extractHostFromURL(frame_origin + '/');
+          if (utils.isThirdPartyDomain(frame_host, tab_host)) {
             break;
           }
         }
@@ -1795,6 +1816,7 @@ function dispatcher(request, sender, sendResponse) {
     // NOTE: request.name and request.data are not to be trusted
     // https://github.com/w3c/webextensions/issues/57#issuecomment-914491167
     // https://github.com/w3c/webextensions/issues/78#issuecomment-921058071
+    // TODO request.frameUrl could be undefined or tampered with
     let widget = getSurrogateWidget(request.name, request.data, request.frameUrl);
 
     if (!widget) {
