@@ -1156,8 +1156,19 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   // messages from content scripts are to be treated with greater caution:
-  // https://groups.google.com/a/chromium.org/d/msg/chromium-extensions/0ei-UCHNm34/lDaXwQhzBAAJ
-  if (!sender.url.startsWith(chrome.runtime.getURL(""))) {
+  // https://groups.google.com/a/chromium.org/g/chromium-extensions/c/0ei-UCHNm34/m/lDaXwQhzBAAJ
+  //
+  // prefer sender.origin when available
+  // https://issues.chromium.org/issues/40095810
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=1787379
+  // https://github.com/uBlockOrigin/uBlock-issues/issues/1992#issuecomment-1058056302
+  //
+  // TODO remove all sender.origin fallbacks once minimum supported versions
+  // TODO equal or exceed 80 (Chromium) and 126 (Firefox) in all builds
+  if (utils.hasOwn(sender, "origin") ?
+    sender.origin + '/' !== chrome.runtime.getURL('') :
+    !sender.url.startsWith(chrome.runtime.getURL(''))) {
+
     // reject unless it's a known content script message
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
@@ -1177,11 +1188,13 @@ function dispatcher(request, sender, sendResponse) {
     ];
     if (KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
       if (!sender.tab) {
-        console.error("Dropping malformed content script message %o from %s", request, sender.url);
+        console.error("Dropping malformed content script message %o from %s",
+          request, (utils.hasOwn(sender, "origin") ? sender.origin : sender.url));
         return sendResponse();
       }
     } else {
-      console.error("Rejected unknown message %o from %s", request, sender.url);
+      console.error("Rejected unknown message %o from %s",
+        request, (utils.hasOwn(sender, "origin") ? sender.origin : sender.url));
       return sendResponse();
     }
 
@@ -1321,7 +1334,10 @@ function dispatcher(request, sender, sendResponse) {
   case "detectFingerprinting": {
     if (sender.frameId > 0) {
       // do not modify the JS environment in Cloudflare CAPTCHA frames
-      if (sender.url.startsWith("https://challenges.cloudflare.com/")) {
+      if (utils.hasOwn(sender, "origin") ?
+        sender.origin === "https://challenges.cloudflare.com" :
+        sender.url.startsWith("https://challenges.cloudflare.com/")) {
+
         sendResponse(false);
         break;
       }
