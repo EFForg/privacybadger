@@ -606,10 +606,10 @@ function onNavigate(details) {
   // when there is no "main_frame" webRequest callback
   // (such as on Service Worker pages)
   //
-  // see the tabOrigins TODO in heuristicblocking.js
+  // see the tabBases TODO in heuristicblocking.js
   // as to why we don't just use tabData
   let base = getBaseDomain(tab_host);
-  badger.heuristicBlocking.tabOrigins[tab_id] = base;
+  badger.heuristicBlocking.tabBases[tab_id] = base;
   badger.heuristicBlocking.tabUrls[tab_id] = url;
 }
 
