@@ -113,7 +113,7 @@ function getPageScript(event_id) {
 // TODO sometimes contentscripts/utils.js isn't here?!
 // TODO window.FRAME_URL / window.injectScript are undefined ...
 chrome.runtime.sendMessage({
-  type: "inspectLocalStorage",
+  type: "detectSupercookies",
   frameUrl: window.FRAME_URL
 }, function (enabledAndThirdParty) {
   if (!enabledAndThirdParty) {

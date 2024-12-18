@@ -782,7 +782,7 @@ function checkCookieblocking(assert) {
   );
 
   // block the subdomain
-  badger.heuristicBlocking.blocklistOrigin(DOMAIN, SUBDOMAIN);
+  badger.heuristicBlocking.blocklistDomain(DOMAIN, SUBDOMAIN);
 
   assert.equal(
     storage.getBestAction(SUBDOMAIN),

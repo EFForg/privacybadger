@@ -17,23 +17,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 class OptionsTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
 
-    def assert_slider_state(self, origin, action, failure_msg):
+    def assert_domain_toggle_state(self, domain, action, failure_msg):
         clicker = self.driver.find_element(By.CSS_SELECTOR,
-            f'div[data-origin="{origin}"]')
+            f'div[data-origin="{domain}"]')
         assert clicker.get_dom_attribute("class") == "clicker userset", failure_msg
 
         switches_div = clicker.find_element(By.CSS_SELECTOR, ".switch-container")
         assert switches_div.get_dom_attribute("class") == f"switch-container {action}", failure_msg
 
-    def find_origin_by_xpath(self, origin):
-        origins = self.driver.find_element(By.ID, "blockedResourcesInner")
-        return origins.find_element(By.XPATH, (
-            './/div[@data-origin="{origin}"]'
+    def find_domain_toggle_by_xpath(self, domain):
+        toggles_div = self.driver.find_element(By.ID, "blockedResourcesInner")
+        return toggles_div.find_element(By.XPATH, (
+            './/div[@data-origin="{domain}"]'
             # test that "origin" is one of the classes on the element:
             # https://stackoverflow.com/a/1390680
             '//div[contains(concat(" ", normalize-space(@class), " "), " origin ")]'
-            '//span[text()="{origin}"]'
-        ).format(origin=origin))
+            '//span[text()="{domain}"]'
+        ).format(domain=domain))
 
     def select_domain_list_tab(self):
         self.find_el_by_css('a[href="#tab-tracking-domains"]').click()
@@ -66,8 +66,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
         sel = Select(self.find_el_by_css('#tracking-domains-type-filter'))
         assert not sel.first_selected_option.get_property('value')
 
-    def test_added_origin_display(self):
-        """Ensure origin and tracker count are displayed."""
+    def test_adding_domain(self):
+        """Ensure domain and tracker count are displayed."""
         self.clear_tracker_data()
 
         self.add_domain("pbtest.org", "block")
@@ -75,17 +75,17 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         self.select_domain_list_tab()
 
-        error_message = "The 'multiple tracker' message should be displayed after adding an origin"
+        error_message = "The 'multiple tracker' message should be displayed after adding a domain"
         assert self.driver.find_element(By.ID, "options_domain_list_trackers").is_displayed(), error_message
         assert not self.driver.find_element(By.ID, "options_domain_list_no_trackers").is_displayed(), error_message
 
         try:
-            self.find_origin_by_xpath("pbtest.org")
+            self.find_domain_toggle_by_xpath("pbtest.org")
         except NoSuchElementException:
-            self.fail("Tracking origin is not displayed")
+            self.fail("Tracking domain is not displayed")
 
     def test_removing_domain(self):
-        """Ensure origin is removed properly."""
+        """Ensure domain is removed properly."""
         self.clear_tracker_data()
         self.add_domain("pbtest.org", "block")
 
@@ -174,7 +174,9 @@ class OptionsTest(pbtest.PBSeleniumTest):
         assert self.driver.find_element(By.ID, "options_domain_list_trackers").text == default_summary_text, error_message
 
     def tracking_user_overwrite(self, original_action, overwrite_action):
-        """Ensure preferences are persisted when a user overwrites pb's default behaviour for an origin."""
+        """Ensure preferences are persisted when a user overwrites
+        PB's default behaviour for a domain."""
+
         DOMAIN = "pbtest.org"
 
         self.clear_tracker_data()
@@ -186,7 +188,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('#local-learning-checkbox').click()
         self.select_domain_list_tab()
         self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
-        # wait for sliders to finish rendering
+        # wait for toggles to finish rendering
         self.wait_for_script("return window.SLIDERS_DONE")
 
         # Change user preferences
@@ -197,14 +199,14 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.load_options_page()
         self.select_domain_list_tab()
         self.find_el_by_css('#tracking-domains-show-not-yet-blocked').click()
-        # wait for sliders to finish rendering
+        # wait for toggles to finish rendering
         self.wait_for_script("return window.SLIDERS_DONE")
 
-        # Check the user preferences for the origins are still displayed
+        # Check the user preferences for the domains are still displayed
         failure_msg = (
-            f"Origin should be displayed as {overwrite_action} "
+            f"Domain should be displayed as {overwrite_action} "
             f"after user overwrite of PB's decision to {original_action}")
-        self.assert_slider_state(DOMAIN, overwrite_action, failure_msg)
+        self.assert_domain_toggle_state(DOMAIN, overwrite_action, failure_msg)
 
     def test_tracking_user_overwrite_allowed_block(self):
         self.tracking_user_overwrite('allow', 'block')

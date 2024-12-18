@@ -32,12 +32,12 @@ function HeuristicBlocker(pbStorage) {
   self.storage = pbStorage;
 
   // TODO roll into tabData? -- 6/10/2019 not for now, since tabData is populated
-  // by the synchronous listeners in webrequests.js and tabOrigins is used by the
+  // by the synchronous listeners in webrequests.js and tabBases is used by the
   // async listeners here; there's no way to enforce ordering of requests among
   // those two. Also, tabData is cleaned up every time a tab is closed, so
   // dangling requests that don't trigger listeners until after the tab closes are
   // impossible to attribute to a tab.
-  self.tabOrigins = {};
+  self.tabBases = {};
   self.tabUrls = {};
 
   // initialize tab bases and URLs for already-open tabs
@@ -46,7 +46,7 @@ function HeuristicBlocker(pbStorage) {
       if (utils.isRestrictedUrl(tab.url)) {
         continue;
       }
-      self.tabOrigins[tab.id] = getBaseDomain((new URI(tab.url)).host);
+      self.tabBases[tab.id] = getBaseDomain((new URI(tab.url)).host);
       self.tabUrls[tab.id] = tab.url;
     }
   });
@@ -55,16 +55,17 @@ function HeuristicBlocker(pbStorage) {
 HeuristicBlocker.prototype = {
 
   /**
-   * Blocklists a domain.
+   * Blocklists a domain:
    *
-   * - Blocks or cookieblocks an FQDN.
-   * - Blocks or cookieblocks its base domain (eTLD+1).
-   * - Cookieblocks any yellowlisted subdomains that share the base domain with the FQDN.
+   * - Blocks or cookieblocks the given domain.
+   * - Blocks or cookieblocks its eTLD+1 ("base" domain).
+   * - Cookieblocks any yellowlisted subdomains that
+   *   share the base domain with the given domain.
    *
    * @param {String} base The base domain (eTLD+1) to blocklist
-   * @param {String} fqdn The FQDN
+   * @param {String} fqdn The domain to blocklist
    */
-  blocklistOrigin: function (base, fqdn) {
+  blocklistDomain: function (base, fqdn) {
     let self = this,
       ylistStorage = self.storage.getStore("cookieblock_list");
 
@@ -132,12 +133,12 @@ HeuristicBlocker.prototype = {
     // if this is a main window request, update tab data and quit
     if (details.type == "main_frame") {
       let tab_host = (new URI(details.url)).host;
-      self.tabOrigins[tab_id] = getBaseDomain(tab_host);
+      self.tabBases[tab_id] = getBaseDomain(tab_host);
       self.tabUrls[tab_id] = details.url;
       return;
     }
 
-    let tab_base = self.tabOrigins[tab_id];
+    let tab_base = self.tabBases[tab_id];
     if (!tab_base) {
       return;
     }
@@ -179,7 +180,7 @@ HeuristicBlocker.prototype = {
       badger.storage.recordTrackingDetails(request_base, tab_base, 'beacon');
       // log in popup
       if (from_current_tab) {
-        badger.logThirdPartyOriginOnTab(
+        badger.logThirdParty(
           tab_id, request_host, badger.storage.getBestAction(request_host));
       }
       // don't bother checking for tracking cookies
@@ -209,7 +210,7 @@ HeuristicBlocker.prototype = {
     }
 
     let self = this,
-      tab_base = self.tabOrigins[details.tabId];
+      tab_base = self.tabBases[details.tabId];
     if (!tab_base) {
       return;
     }
@@ -438,7 +439,7 @@ HeuristicBlocker.prototype = {
     // (cookie)block if domain was seen tracking on enough first party domains
     if (firstParties.length >=
         self.storage.getStore('private_storage').getItem('blockThreshold')) {
-      self.blocklistOrigin(tracker_base, tracker_fqdn);
+      self.blocklistDomain(tracker_base, tracker_fqdn);
     }
   }
 };
