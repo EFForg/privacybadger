@@ -988,12 +988,12 @@ function updateOrigin(domain, action, userset) {
  * For example, moving the slider for example.com should move the sliders
  * for www.example.com and cdn.example.com
  */
-function updateSliders(updatedOriginData) {
-  let updated_domains = Object.keys(updatedOriginData);
+function updateSliders(updatedTrackerData) {
+  let updated_domains = Object.keys(updatedTrackerData);
 
   // update any sliders that changed
   for (let domain of updated_domains) {
-    let action = updatedOriginData[domain];
+    let action = updatedTrackerData[domain];
     if (action == OPTIONS_DATA.trackers[domain]) {
       continue;
     }
