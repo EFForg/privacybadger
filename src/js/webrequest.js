@@ -1171,15 +1171,15 @@ function dispatcher(request, sender, sendResponse) {
     // reject unless it's a known content script message
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
+      "checkClobberingEnabled",
       "checkDNT",
       "checkEnabled",
-      "checkLocation",
       "checkWidgetReplacementEnabled",
       "detectFingerprinting",
+      "detectSupercookies",
       "fpReport",
       "getBlockedFrameUrls",
       "getReplacementButton",
-      "inspectLocalStorage",
       "supercookieReport",
       "unblockWidget",
       "widgetFromSurrogate",
@@ -1214,7 +1214,7 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  case "checkLocation": {
+  case "checkClobberingEnabled": {
     let tab_host = extractHostFromURL(sender.tab.url);
 
     if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -1319,7 +1319,7 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  case "inspectLocalStorage": {
+  case "detectSupercookies": {
     let tab_host = extractHostFromURL(sender.tab.url),
       frame_host = extractHostFromURL(
         utils.hasOwn(sender, "origin") ?

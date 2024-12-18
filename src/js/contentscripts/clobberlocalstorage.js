@@ -33,7 +33,7 @@ if (window.top == window) {
 
 // TODO race condition; fix waiting on https://crbug.com/478183
 chrome.runtime.sendMessage({
-  type: "checkLocation",
+  type: "checkClobberingEnabled",
   frameUrl: window.FRAME_URL
 }, function (blocked) {
   if (blocked) {
