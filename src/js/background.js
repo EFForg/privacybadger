@@ -527,8 +527,7 @@ Badger.prototype = {
 
     // block the domains
     for (let domain of domains) {
-      self.heuristicBlocking.blocklistOrigin(
-        getBaseDomain(domain), domain);
+      self.heuristicBlocking.blocklistDomain(getBaseDomain(domain), domain);
     }
   },
 
@@ -539,7 +538,7 @@ Badger.prototype = {
    */
   blockPanopticlickDomains() {
     for (let domain of constants.PANOPTICLICK_DOMAINS) {
-      this.heuristicBlocking.blocklistOrigin(domain, domain);
+      this.heuristicBlocking.blocklistDomain(domain, domain);
     }
   },
 

@@ -55,16 +55,17 @@ function HeuristicBlocker(pbStorage) {
 HeuristicBlocker.prototype = {
 
   /**
-   * Blocklists a domain.
+   * Blocklists a domain:
    *
-   * - Blocks or cookieblocks an FQDN.
-   * - Blocks or cookieblocks its base domain (eTLD+1).
-   * - Cookieblocks any yellowlisted subdomains that share the base domain with the FQDN.
+   * - Blocks or cookieblocks the given domain.
+   * - Blocks or cookieblocks its eTLD+1 ("base" domain).
+   * - Cookieblocks any yellowlisted subdomains that
+   *   share the base domain with the given domain.
    *
    * @param {String} base The base domain (eTLD+1) to blocklist
-   * @param {String} fqdn The FQDN
+   * @param {String} fqdn The domain to blocklist
    */
-  blocklistOrigin: function (base, fqdn) {
+  blocklistDomain: function (base, fqdn) {
     let self = this,
       ylistStorage = self.storage.getStore("cookieblock_list");
 
@@ -438,7 +439,7 @@ HeuristicBlocker.prototype = {
     // (cookie)block if domain was seen tracking on enough first party domains
     if (firstParties.length >=
         self.storage.getStore('private_storage').getItem('blockThreshold')) {
-      self.blocklistOrigin(tracker_base, tracker_fqdn);
+      self.blocklistDomain(tracker_base, tracker_fqdn);
     }
   }
 };
