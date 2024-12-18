@@ -510,9 +510,9 @@ function updateCheckingDNTPolicy() {
       type: "getOptionsData",
     }, (response) => {
       // update DNT-compliant domains
-      updateSliders(response.origins);
+      updateSliders(response.trackers);
       // update cached domain data
-      OPTIONS_DATA.origins = response.origins;
+      OPTIONS_DATA.trackers = response.trackers;
       // update count of blocked domains
       updateSummary();
       // toggle the "dnt" filter
@@ -613,7 +613,7 @@ function removeWidgetSiteExceptions(event) {
  * @param {String} origin - Origin to get action for.
  */
 function getOriginAction(origin) {
-  return OPTIONS_DATA.origins[origin];
+  return OPTIONS_DATA.trackers[origin];
 }
 
 function revertDomainControl(event) {
@@ -626,9 +626,9 @@ function revertDomainControl(event) {
     origin
   }, (response) => {
     // update any sliders that changed as a result
-    updateSliders(response.origins);
+    updateSliders(response.trackers);
     // update cached domain data
-    OPTIONS_DATA.origins = response.origins;
+    OPTIONS_DATA.trackers = response.trackers;
   });
 }
 
@@ -637,7 +637,7 @@ function revertDomainControl(event) {
  */
 function updateSummary() {
   // if there are no tracking domains
-  let allTrackingDomains = Object.keys(OPTIONS_DATA.origins);
+  let allTrackingDomains = Object.keys(OPTIONS_DATA.trackers);
   if (!allTrackingDomains || !allTrackingDomains.length) {
     // hide the number of trackers message
     $("#options_domain_list_trackers").hide();
@@ -658,7 +658,7 @@ function updateSummary() {
 
   // count unique (cookie)blocked tracking base domains
   let blockedBases = new Set(
-    filterDomains(OPTIONS_DATA.origins, { typeFilter: '-dnt' })
+    filterDomains(OPTIONS_DATA.trackers, { typeFilter: '-dnt' })
       .map(d => getBaseDomain(d)));
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [
@@ -780,7 +780,7 @@ let filterTrackingDomains = (function () {
 
     _maybeFetchSeed(!hide_in_seed, function () {
       renderTrackingDomains(
-        filterDomains(OPTIONS_DATA.origins, {
+        filterDomains(OPTIONS_DATA.trackers, {
           searchFilter: $searchFilter.val().toLowerCase(),
           typeFilter: $typeFilter.val(),
           statusFilter: $statusFilter.val(),
@@ -994,7 +994,7 @@ function updateSliders(updatedOriginData) {
   // update any sliders that changed
   for (let domain of updated_domains) {
     let action = updatedOriginData[domain];
-    if (action == OPTIONS_DATA.origins[domain]) {
+    if (action == OPTIONS_DATA.trackers[domain]) {
       continue;
     }
 
@@ -1016,7 +1016,7 @@ function updateSliders(updatedOriginData) {
   }
 
   // remove sliders that are no longer present
-  let removed = Object.keys(OPTIONS_DATA.origins).filter(
+  let removed = Object.keys(OPTIONS_DATA.trackers).filter(
     x => !updated_domains.includes(x));
   for (let domain of removed) {
     let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"]');
@@ -1036,11 +1036,11 @@ function saveToggle(origin, action) {
     // first update the cache for the slider
     // that was just changed by the user
     // to avoid redundantly updating it below
-    OPTIONS_DATA.origins[origin] = response.origins[origin];
+    OPTIONS_DATA.trackers[origin] = response.trackers[origin];
     // update any sliders that changed as a result
-    updateSliders(response.origins);
+    updateSliders(response.trackers);
     // update cached domain data
-    OPTIONS_DATA.origins = response.origins;
+    OPTIONS_DATA.trackers = response.trackers;
   });
 }
 
@@ -1063,9 +1063,9 @@ function removeOrigin(event) {
     origin
   }, (response) => {
     // remove rows that are no longer here
-    updateSliders(response.origins);
+    updateSliders(response.trackers);
     // update cached domain data
-    OPTIONS_DATA.origins = response.origins;
+    OPTIONS_DATA.trackers = response.trackers;
     // if we removed domains, the summary text may have changed
     updateSummary();
     // and we probably now have new visible rows in the tracking domains list

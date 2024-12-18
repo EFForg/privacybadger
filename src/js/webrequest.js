@@ -1402,7 +1402,7 @@ function dispatcher(request, sender, sendResponse) {
       errorText: badger.tabData._tabData[tab_id].errorText,
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
       noTabData: false,
-      origins: trackers,
+      trackers,
       settings: badger.getSettings().getItemClones(),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
       tabHost: tab_host,
@@ -1427,7 +1427,7 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse({
       cookieblocked,
-      origins: trackers,
+      trackers,
       settings: badger.getSettings().getItemClones(),
       widgets: badger.widgetList.map(widget => widget.name),
       widgetDomains: Array.from(badger.getAllWidgetDomains()),
@@ -1585,7 +1585,7 @@ function dispatcher(request, sender, sendResponse) {
   case "revertDomainControl": {
     badger.storage.revertUserAction(request.origin);
     sendResponse({
-      origins: badger.storage.getTrackingDomains()
+      trackers: badger.storage.getTrackingDomains()
     });
     break;
   }
@@ -1646,7 +1646,7 @@ function dispatcher(request, sender, sendResponse) {
   case "saveOptionsToggle": {
     badger.saveAction(request.action, request.origin);
     sendResponse({
-      origins: badger.storage.getTrackingDomains()
+      trackers: badger.storage.getTrackingDomains()
     });
     break;
   }
@@ -1734,7 +1734,7 @@ function dispatcher(request, sender, sendResponse) {
       badger.storage.getStore(name).deleteItem(request.origin);
     }
     sendResponse({
-      origins: badger.storage.getTrackingDomains()
+      trackers: badger.storage.getTrackingDomains()
     });
     break;
   }

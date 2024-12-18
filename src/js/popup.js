@@ -315,7 +315,7 @@ function send_error(message) {
     tabId: POPUP_DATA.tabId,
     tabUrl: POPUP_DATA.tabUrl
   }, (response) => {
-    const origins = response.origins;
+    const origins = response.trackers;
 
     if (!origins) {
       return;
@@ -436,7 +436,7 @@ function share() {
     return;
   }
 
-  let origins = POPUP_DATA.origins;
+  let origins = POPUP_DATA.trackers;
   let originsArr = [];
   if (origins) {
     originsArr = Object.keys(origins);
@@ -634,11 +634,11 @@ function refreshPopup() {
   if (POPUP_DATA.settings.showExpandedTrackingSection || (
     (POPUP_DATA.settings.seenComic && !POPUP_DATA.showLearningPrompt && !POPUP_DATA.criticalError) &&
     Object.keys(BREAKAGE_NOTE_DOMAINS).some(d =>
-      POPUP_DATA.origins[d] == constants.BLOCK ||
-        POPUP_DATA.origins[d] == constants.COOKIEBLOCK)
+      POPUP_DATA.trackers[d] == constants.BLOCK ||
+        POPUP_DATA.trackers[d] == constants.COOKIEBLOCK)
   ) || (
     POPUP_DATA.cookieblocked && Object.keys(POPUP_DATA.cookieblocked).some(
-      d => POPUP_DATA.origins[d] == constants.USER_BLOCK)
+      d => POPUP_DATA.trackers[d] == constants.USER_BLOCK)
   )) {
     $('#expand-blocked-resources').hide();
     $('#collapse-blocked-resources').show();
@@ -650,7 +650,7 @@ function refreshPopup() {
     $('#blockedResources').hide();
   }
 
-  let origins = POPUP_DATA.origins;
+  let origins = POPUP_DATA.trackers;
   let originsArr = [];
   if (origins) {
     originsArr = Object.keys(origins);
