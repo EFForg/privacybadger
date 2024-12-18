@@ -85,7 +85,7 @@ function loadOptions() {
     saveToggle(domain, action);
   });
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
-  $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
+  $('#blockedResourcesContainer').on('click', '.removeOrigin', removeDomain);
   $('#blockedResourcesInner').on('scroll', function () {
     activateDomainListTooltips();
   });
@@ -623,7 +623,7 @@ function revertDomainControl(event) {
 
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
-    origin: domain
+    domain
   }, (response) => {
     // update any sliders that changed as a result
     updateSliders(response.trackers);
@@ -1030,7 +1030,7 @@ function updateSliders(updatedOriginData) {
 function saveToggle(domain, action) {
   chrome.runtime.sendMessage({
     type: "saveOptionsToggle",
-    origin: domain,
+    domain,
     action
   }, (response) => {
     // first update the cache for the slider
@@ -1048,7 +1048,7 @@ function saveToggle(domain, action) {
  * Remove domain from Privacy Badger.
  * @param {Event} event Click event triggered by user.
  */
-function removeOrigin(event) {
+function removeDomain(event) {
   event.preventDefault();
 
   // confirm removal before proceeding
@@ -1059,8 +1059,8 @@ function removeOrigin(event) {
   let domain = $(event.target).parent().data('origin');
 
   chrome.runtime.sendMessage({
-    type: "removeOrigin",
-    origin: domain
+    type: "removeDomain",
+    domain
   }, (response) => {
     // remove rows that are no longer here
     updateSliders(response.trackers);

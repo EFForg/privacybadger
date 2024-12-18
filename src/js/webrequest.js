@@ -1583,7 +1583,7 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "revertDomainControl": {
-    badger.storage.revertUserAction(request.origin);
+    badger.storage.revertUserAction(request.domain);
     sendResponse({
       trackers: badger.storage.getTrackingDomains()
     });
@@ -1631,7 +1631,7 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "savePopupToggle": {
-    let domain = request.origin,
+    let domain = request.domain,
       action = request.action;
 
     badger.saveAction(action, domain);
@@ -1644,7 +1644,7 @@ function dispatcher(request, sender, sendResponse) {
 
   // called when the user manually sets a slider on the options page
   case "saveOptionsToggle": {
-    badger.saveAction(request.action, request.origin);
+    badger.saveAction(request.action, request.domain);
     sendResponse({
       trackers: badger.storage.getTrackingDomains()
     });
@@ -1729,9 +1729,9 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  case "removeOrigin": {
+  case "removeDomain": {
     for (let name of ['snitch_map', 'action_map', 'tracking_map', 'fp_scripts']) {
-      badger.storage.getStore(name).deleteItem(request.origin);
+      badger.storage.getStore(name).deleteItem(request.domain);
     }
     sendResponse({
       trackers: badger.storage.getTrackingDomains()

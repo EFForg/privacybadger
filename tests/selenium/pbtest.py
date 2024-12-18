@@ -496,7 +496,7 @@ class PBSeleniumTest(unittest.TestCase):
             "let done = arguments[arguments.length - 1];"
             "chrome.runtime.sendMessage({"
             "  type: 'saveOptionsToggle',"
-            "  origin: arguments[0],"
+            "  domain: arguments[0],"
             "  action: arguments[1]"
             "}, done);", domain, action)
 

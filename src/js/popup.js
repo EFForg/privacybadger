@@ -519,7 +519,7 @@ function revertDomainControl(event) {
 
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
-    origin: domain
+    domain
   }, () => {
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
@@ -846,7 +846,7 @@ function updateOrigin() {
 function saveToggle(domain, action) {
   chrome.runtime.sendMessage({
     type: "savePopupToggle",
-    origin: domain,
+    domain,
     action,
     tabId: POPUP_DATA.tabId
   });
