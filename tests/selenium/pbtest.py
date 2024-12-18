@@ -616,7 +616,7 @@ class PBSeleniumTest(unittest.TestCase):
         self.wait_for_script("return window.DONE_REFRESHING && window.SLIDERS_DONE")
 
     def get_tracker_state(self):
-        """Parse the UI to group all third party origins into their respective action states."""
+        """Parse the UI to group all third party domains into their respective action states."""
 
         notYetBlocked = {}
         cookieBlocked = {}

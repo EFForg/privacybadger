@@ -194,7 +194,7 @@ QUnit.module("Utils", function (/*hooks*/) {
       "PSL TLDs work with wildcards as expected.");
   });
 
-  QUnit.test("disable/enable privacy badger for origin", function (assert) {
+  QUnit.test("disable/enable privacy badger for domain", function (assert) {
     function parsed() {
       return badger.storage.getStore('settings_map').getItem('disabledSites');
     }
