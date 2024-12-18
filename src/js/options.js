@@ -71,18 +71,18 @@ function loadOptions() {
   $("#tracking-domains-show-not-yet-blocked").on("change", filterTrackingDomains);
   $("#tracking-domains-hide-in-seed").on("change", filterTrackingDomains);
 
-  // Add event listeners for origins container.
+  // Add event listeners for domain toggles container.
   $('#blockedResourcesContainer').on('change', 'input:radio', function () {
     let $radio = $(this),
       $clicker = $radio.parents('.clicker').first(),
-      origin = $clicker.data('origin'),
+      domain = $clicker.data('origin'),
       action = $radio.val();
 
     // update domain slider row tooltip/status indicators
-    updateOrigin(origin, action, true);
+    updateOrigin(domain, action, true);
 
     // persist the change
-    saveToggle(origin, action);
+    saveToggle(domain, action);
   });
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
@@ -609,21 +609,21 @@ function removeWidgetSiteExceptions(event) {
 // Tracking Domains slider functions
 
 /**
- * Gets action for given origin.
- * @param {String} origin - Origin to get action for.
+ * Gets action for given domain.
+ * @param {String} domain - Domain to get action for.
  */
-function getOriginAction(origin) {
-  return OPTIONS_DATA.trackers[origin];
+function getOriginAction(domain) {
+  return OPTIONS_DATA.trackers[domain];
 }
 
 function revertDomainControl(event) {
   event.preventDefault();
 
-  let origin = $(event.target).parent().data('origin');
+  let domain = $(event.target).parent().data('origin');
 
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
-    origin
+    origin: domain
   }, (response) => {
     // update any sliders that changed as a result
     updateSliders(response.trackers);
@@ -948,8 +948,8 @@ function updatePrivacyOverride(setting_name, setting_value) {
  * Updates domain tooltip, slider color.
  * Also toggles status indicators like breakage warnings.
  */
-function updateOrigin(origin, action, userset) {
-  let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + origin + '"]'),
+function updateOrigin(domain, action, userset) {
+  let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"]'),
     $switchContainer = $clicker.find('.switch-container').first();
 
   // update slider color via CSS
@@ -976,7 +976,7 @@ function updateOrigin(origin, action, userset) {
 
   let show_breakage_warning = (
     action == constants.BLOCK &&
-    utils.hasOwn(OPTIONS_DATA.cookieblocked, origin)
+    utils.hasOwn(OPTIONS_DATA.cookieblocked, domain)
   );
 
   htmlUtils.toggleBlockedStatus($clicker, userset, show_breakage_warning);
@@ -1027,16 +1027,16 @@ function updateSliders(updatedOriginData) {
 /**
  * Save the user setting for a domain by messaging the background page.
  */
-function saveToggle(origin, action) {
+function saveToggle(domain, action) {
   chrome.runtime.sendMessage({
     type: "saveOptionsToggle",
-    origin,
+    origin: domain,
     action
   }, (response) => {
     // first update the cache for the slider
     // that was just changed by the user
     // to avoid redundantly updating it below
-    OPTIONS_DATA.trackers[origin] = response.trackers[origin];
+    OPTIONS_DATA.trackers[domain] = response.trackers[domain];
     // update any sliders that changed as a result
     updateSliders(response.trackers);
     // update cached domain data
@@ -1045,7 +1045,7 @@ function saveToggle(origin, action) {
 }
 
 /**
- * Remove origin from Privacy Badger.
+ * Remove domain from Privacy Badger.
  * @param {Event} event Click event triggered by user.
  */
 function removeOrigin(event) {
@@ -1056,11 +1056,11 @@ function removeOrigin(event) {
     return;
   }
 
-  let origin = $(event.target).parent().data('origin');
+  let domain = $(event.target).parent().data('origin');
 
   chrome.runtime.sendMessage({
     type: "removeOrigin",
-    origin
+    origin: domain
   }, (response) => {
     // remove rows that are no longer here
     updateSliders(response.trackers);

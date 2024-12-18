@@ -315,9 +315,9 @@ function send_error(message) {
     tabId: POPUP_DATA.tabId,
     tabUrl: POPUP_DATA.tabUrl
   }, (response) => {
-    const origins = response.trackers;
+    const domains = response.trackers;
 
-    if (!origins) {
+    if (!domains) {
       return;
     }
 
@@ -329,8 +329,8 @@ function send_error(message) {
       version: chrome.runtime.getManifest().version
     };
 
-    for (let origin in origins) {
-      let action = origins[origin];
+    for (let domain in domains) {
+      let action = domains[domain];
 
       // adjust action names for error reporting
       if (action == constants.USER_ALLOW) {
@@ -348,9 +348,9 @@ function send_error(message) {
       }
 
       if (out[action]) {
-        out[action] += ","+origin;
+        out[action] += ","+domain;
       } else {
-        out[action] = origin;
+        out[action] = domain;
       }
     }
 
@@ -436,25 +436,24 @@ function share() {
     return;
   }
 
-  let origins = POPUP_DATA.trackers;
-  let originsArr = [];
-  if (origins) {
-    originsArr = Object.keys(origins);
+  let domainsArr = [];
+  if (POPUP_DATA.trackers) {
+    domainsArr = Object.keys(POPUP_DATA.trackers);
   }
 
-  if (!originsArr.length) {
+  if (!domainsArr.length) {
     $("#share-output").val(share_msg);
     return;
   }
 
-  originsArr = htmlUtils.sortDomains(originsArr);
+  domainsArr = htmlUtils.sortDomains(domainsArr);
   let tracking = [];
 
-  for (let origin of originsArr) {
-    let action = origins[origin];
+  for (let domain of domainsArr) {
+    let action = POPUP_DATA.trackers[domain];
 
     if (action == constants.BLOCK || action == constants.COOKIEBLOCK) {
-      tracking.push(origin);
+      tracking.push(domain);
     }
   }
 
@@ -511,16 +510,16 @@ function toggleFirstPartyInfoHandler() {
 }
 
 /**
- * Handler to undo user selection for a tracker
+ * Handler to undo user selection for a domain
  */
 function revertDomainControl(event) {
   event.preventDefault();
 
-  let origin = $(event.target).parent().data('origin');
+  let domain = $(event.target).parent().data('origin');
 
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
-    origin: origin
+    origin: domain
   }, () => {
     chrome.tabs.reload(POPUP_DATA.tabId);
     window.close();
@@ -650,13 +649,12 @@ function refreshPopup() {
     $('#blockedResources').hide();
   }
 
-  let origins = POPUP_DATA.trackers;
-  let originsArr = [];
-  if (origins) {
-    originsArr = Object.keys(origins);
+  let domainsArr = [];
+  if (POPUP_DATA.trackers) {
+    domainsArr = Object.keys(POPUP_DATA.trackers);
   }
 
-  if (!originsArr.length) {
+  if (!domainsArr.length) {
     // show "no trackers" message
     $('#blockedResources').hide();
     $("#instructions-no-trackers").show();
@@ -678,10 +676,10 @@ function refreshPopup() {
     printableWarningSliders = [];
   let unblockedTrackers = [];
   let nonTracking = [];
-  originsArr = htmlUtils.sortDomains(originsArr);
+  domainsArr = htmlUtils.sortDomains(domainsArr);
 
-  for (let fqdn of originsArr) {
-    let action = origins[fqdn];
+  for (let fqdn of domainsArr) {
+    let action = POPUP_DATA.trackers[fqdn];
 
     if (action == constants.NO_TRACKING) {
       nonTracking.push(fqdn);
@@ -774,7 +772,7 @@ function refreshPopup() {
 
     let $printable = $(printable.splice(0, CHUNK).join(""));
 
-    // Hide elements for removing origins (controlled from the options page).
+    // Hide elements for removing domains (controlled from the options page).
     // Popup shows what's loaded for the current page so it doesn't make sense
     // to have removal ability here.
     $printable.find('.removeOrigin').hide();
@@ -805,13 +803,13 @@ function refreshPopup() {
 }
 
 /**
- * Update the user preferences displayed in the domain list for this origin.
+ * Update the user preferences displayed in the domain list for this domain.
  * These UI changes will later be used to update user preferences data.
  *
  * @param {Event} event Click event triggered by user.
  */
 function updateOrigin() {
-  // get the origin and new action for it
+  // get the domain and new action for it
   let $radio = $(this),
     action = $radio.val(),
     $switchContainer = $radio.parents('.switch-container').first();
@@ -824,10 +822,10 @@ function updateOrigin() {
     constants.NO_TRACKING].join(" ")).addClass(action);
 
   let $clicker = $radio.parents('.clicker').first(),
-    origin = $clicker.data('origin'),
+    domain = $clicker.data('origin'),
     show_breakage_warning = (
       action == constants.BLOCK &&
-      utils.hasOwn(POPUP_DATA.cookieblocked, origin)
+      utils.hasOwn(POPUP_DATA.cookieblocked, domain)
     );
 
   htmlUtils.toggleBlockedStatus($clicker, true, show_breakage_warning);
@@ -835,20 +833,20 @@ function updateOrigin() {
   // reinitialize the domain tooltip
   $clicker.find('.origin-inner').tooltipster('destroy');
   $clicker.find('.origin-inner').attr(
-    'title', htmlUtils.getActionDescription(action, origin));
+    'title', htmlUtils.getActionDescription(action, domain));
   $clicker.find('.origin-inner').tooltipster(DOMAIN_TOOLTIP_CONF);
 
   // persist the change
-  saveToggle(origin, action);
+  saveToggle(domain, action);
 }
 
 /**
  * Save the user setting for a domain by messaging the background page.
  */
-function saveToggle(origin, action) {
+function saveToggle(domain, action) {
   chrome.runtime.sendMessage({
     type: "savePopupToggle",
-    origin,
+    origin: domain,
     action,
     tabId: POPUP_DATA.tabId
   });
