@@ -286,8 +286,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         # now remove it
         self.js(
             "chrome.runtime.sendMessage({"
-            "  type: 'removeOrigin',"
-            "  origin: arguments[0]"
+            "  type: 'removeDomain',"
+            "  domain: arguments[0]"
             "});", self.THIRD_PARTY_DOMAIN)
 
         # the domain should now load

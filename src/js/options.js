@@ -71,21 +71,21 @@ function loadOptions() {
   $("#tracking-domains-show-not-yet-blocked").on("change", filterTrackingDomains);
   $("#tracking-domains-hide-in-seed").on("change", filterTrackingDomains);
 
-  // Add event listeners for origins container.
+  // Add event listeners for domain toggles container.
   $('#blockedResourcesContainer').on('change', 'input:radio', function () {
     let $radio = $(this),
       $clicker = $radio.parents('.clicker').first(),
-      origin = $clicker.data('origin'),
+      domain = $clicker.data('origin'),
       action = $radio.val();
 
     // update domain slider row tooltip/status indicators
-    updateOrigin(origin, action, true);
+    updateOrigin(domain, action, true);
 
     // persist the change
-    saveToggle(origin, action);
+    saveToggle(domain, action);
   });
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
-  $('#blockedResourcesContainer').on('click', '.removeOrigin', removeOrigin);
+  $('#blockedResourcesContainer').on('click', '.removeOrigin', removeDomain);
   $('#blockedResourcesInner').on('scroll', function () {
     activateDomainListTooltips();
   });
@@ -510,9 +510,9 @@ function updateCheckingDNTPolicy() {
       type: "getOptionsData",
     }, (response) => {
       // update DNT-compliant domains
-      updateSliders(response.origins);
+      updateSliders(response.trackers);
       // update cached domain data
-      OPTIONS_DATA.origins = response.origins;
+      OPTIONS_DATA.trackers = response.trackers;
       // update count of blocked domains
       updateSummary();
       // toggle the "dnt" filter
@@ -609,26 +609,26 @@ function removeWidgetSiteExceptions(event) {
 // Tracking Domains slider functions
 
 /**
- * Gets action for given origin.
- * @param {String} origin - Origin to get action for.
+ * Gets action for given domain.
+ * @param {String} domain - Domain to get action for.
  */
-function getOriginAction(origin) {
-  return OPTIONS_DATA.origins[origin];
+function getOriginAction(domain) {
+  return OPTIONS_DATA.trackers[domain];
 }
 
 function revertDomainControl(event) {
   event.preventDefault();
 
-  let origin = $(event.target).parent().data('origin');
+  let domain = $(event.target).parent().data('origin');
 
   chrome.runtime.sendMessage({
     type: "revertDomainControl",
-    origin
+    domain
   }, (response) => {
     // update any sliders that changed as a result
-    updateSliders(response.origins);
+    updateSliders(response.trackers);
     // update cached domain data
-    OPTIONS_DATA.origins = response.origins;
+    OPTIONS_DATA.trackers = response.trackers;
   });
 }
 
@@ -637,7 +637,7 @@ function revertDomainControl(event) {
  */
 function updateSummary() {
   // if there are no tracking domains
-  let allTrackingDomains = Object.keys(OPTIONS_DATA.origins);
+  let allTrackingDomains = Object.keys(OPTIONS_DATA.trackers);
   if (!allTrackingDomains || !allTrackingDomains.length) {
     // hide the number of trackers message
     $("#options_domain_list_trackers").hide();
@@ -658,7 +658,7 @@ function updateSummary() {
 
   // count unique (cookie)blocked tracking base domains
   let blockedBases = new Set(
-    filterDomains(OPTIONS_DATA.origins, { typeFilter: '-dnt' })
+    filterDomains(OPTIONS_DATA.trackers, { typeFilter: '-dnt' })
       .map(d => getBaseDomain(d)));
   $("#options_domain_list_trackers").html(i18n.getMessage(
     "options_domain_list_trackers", [
@@ -780,7 +780,7 @@ let filterTrackingDomains = (function () {
 
     _maybeFetchSeed(!hide_in_seed, function () {
       renderTrackingDomains(
-        filterDomains(OPTIONS_DATA.origins, {
+        filterDomains(OPTIONS_DATA.trackers, {
           searchFilter: $searchFilter.val().toLowerCase(),
           typeFilter: $typeFilter.val(),
           statusFilter: $statusFilter.val(),
@@ -948,8 +948,8 @@ function updatePrivacyOverride(setting_name, setting_value) {
  * Updates domain tooltip, slider color.
  * Also toggles status indicators like breakage warnings.
  */
-function updateOrigin(origin, action, userset) {
-  let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + origin + '"]'),
+function updateOrigin(domain, action, userset) {
+  let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"]'),
     $switchContainer = $clicker.find('.switch-container').first();
 
   // update slider color via CSS
@@ -976,7 +976,7 @@ function updateOrigin(origin, action, userset) {
 
   let show_breakage_warning = (
     action == constants.BLOCK &&
-    utils.hasOwn(OPTIONS_DATA.cookieblocked, origin)
+    utils.hasOwn(OPTIONS_DATA.cookieblocked, domain)
   );
 
   htmlUtils.toggleBlockedStatus($clicker, userset, show_breakage_warning);
@@ -988,13 +988,13 @@ function updateOrigin(origin, action, userset) {
  * For example, moving the slider for example.com should move the sliders
  * for www.example.com and cdn.example.com
  */
-function updateSliders(updatedOriginData) {
-  let updated_domains = Object.keys(updatedOriginData);
+function updateSliders(updatedTrackerData) {
+  let updated_domains = Object.keys(updatedTrackerData);
 
   // update any sliders that changed
   for (let domain of updated_domains) {
-    let action = updatedOriginData[domain];
-    if (action == OPTIONS_DATA.origins[domain]) {
+    let action = updatedTrackerData[domain];
+    if (action == OPTIONS_DATA.trackers[domain]) {
       continue;
     }
 
@@ -1016,7 +1016,7 @@ function updateSliders(updatedOriginData) {
   }
 
   // remove sliders that are no longer present
-  let removed = Object.keys(OPTIONS_DATA.origins).filter(
+  let removed = Object.keys(OPTIONS_DATA.trackers).filter(
     x => !updated_domains.includes(x));
   for (let domain of removed) {
     let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"]');
@@ -1027,28 +1027,28 @@ function updateSliders(updatedOriginData) {
 /**
  * Save the user setting for a domain by messaging the background page.
  */
-function saveToggle(origin, action) {
+function saveToggle(domain, action) {
   chrome.runtime.sendMessage({
     type: "saveOptionsToggle",
-    origin,
+    domain,
     action
   }, (response) => {
     // first update the cache for the slider
     // that was just changed by the user
     // to avoid redundantly updating it below
-    OPTIONS_DATA.origins[origin] = response.origins[origin];
+    OPTIONS_DATA.trackers[domain] = response.trackers[domain];
     // update any sliders that changed as a result
-    updateSliders(response.origins);
+    updateSliders(response.trackers);
     // update cached domain data
-    OPTIONS_DATA.origins = response.origins;
+    OPTIONS_DATA.trackers = response.trackers;
   });
 }
 
 /**
- * Remove origin from Privacy Badger.
+ * Remove domain from Privacy Badger.
  * @param {Event} event Click event triggered by user.
  */
-function removeOrigin(event) {
+function removeDomain(event) {
   event.preventDefault();
 
   // confirm removal before proceeding
@@ -1056,16 +1056,16 @@ function removeOrigin(event) {
     return;
   }
 
-  let origin = $(event.target).parent().data('origin');
+  let domain = $(event.target).parent().data('origin');
 
   chrome.runtime.sendMessage({
-    type: "removeOrigin",
-    origin
+    type: "removeDomain",
+    domain
   }, (response) => {
     // remove rows that are no longer here
-    updateSliders(response.origins);
+    updateSliders(response.trackers);
     // update cached domain data
-    OPTIONS_DATA.origins = response.origins;
+    OPTIONS_DATA.trackers = response.trackers;
     // if we removed domains, the summary text may have changed
     updateSummary();
     // and we probably now have new visible rows in the tracking domains list

@@ -63,7 +63,7 @@ QUnit.test("getActionDescription", (assert) => {
 
 QUnit.test("getToggleHtml", function (assert) {
   // Test parameters
-  const origin = "pbtest.org";
+  const domain = "pbtest.org";
   const tests = [
     {
       action: constants.BLOCK,
@@ -85,9 +85,9 @@ QUnit.test("getToggleHtml", function (assert) {
 
   // Run each test.
   for (let test of tests) {
-    let message = `Inputs: '${origin}' and '${test.action}'`;
-    let html = htmlUtils.getToggleHtml(origin, test.action);
-    let input_val = $('input[name="' + origin + '"]:checked', html).val();
+    let message = `Inputs: '${domain}' and '${test.action}'`;
+    let html = htmlUtils.getToggleHtml(domain, test.action);
+    let input_val = $('input[name="' + domain + '"]:checked', html).val();
     assert.equal(input_val, test.expectedResult, message);
   }
 });
@@ -97,36 +97,36 @@ QUnit.test("getOriginHtml", function (assert) {
   var tests = [
     {
       existingHtml: '<div id="existinghtml"></div>',
-      origin: "pbtest.org",
+      domain: "pbtest.org",
       action: constants.ALLOW,
     },
     {
       existingHtml: '<div id="existinghtml"></div>',
-      origin: "pbtest.org",
+      domain: "pbtest.org",
       action: constants.DNT,
     },
   ];
 
   // Run each test.
-  for (var i = 0; i < tests.length; i++) {
-    var existingHtml = tests[i].existingHtml;
-    var origin = tests[i].origin;
-    var action = tests[i].action;
+  for (let test of tests) {
+    let existing_html = test.existingHtml,
+      domain = test.domain,
+      action = test.action;
 
-    var htmlResult = existingHtml + htmlUtils.getOriginHtml(origin, action);
+    let result_html = existing_html + htmlUtils.getOriginHtml(domain, action);
 
     // Make sure existing HTML is present.
-    var existingHtmlExists = htmlResult.indexOf(existingHtml) > -1;
-    assert.ok(existingHtmlExists, "Existing HTML should be present");
+    let html_found = result_html.includes(existing_html);
+    assert.ok(html_found, "Existing HTML should be present");
 
-    // Make sure origin is set.
-    var originDataExists = htmlResult.indexOf('data-origin="' + origin + '"') > -1;
-    assert.ok(originDataExists, "Origin should be set");
+    // Make sure domain is set.
+    let dataset_prop_found = result_html.includes('data-origin="' + domain + '"');
+    assert.ok(dataset_prop_found, "Domain should be set");
 
     // Check for presence of DNT content.
-    var dntExists = htmlResult.indexOf('class="dnt-compliant"') > -1;
-    assert.equal(dntExists, action == constants.DNT,
-      "DNT div should " + (dntExists ? "" : "not ") + "be present");
+    let dnt_found = result_html.includes('class="dnt-compliant"');
+    assert.equal(dnt_found, action == constants.DNT,
+      "DNT div should " + (dnt_found ? "" : "not ") + "be present");
   }
 });
 

@@ -128,7 +128,7 @@ function onBeforeRequest(details) {
   }
 
   if (from_current_tab) {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
+    badger.logThirdParty(tab_id, request_host, action);
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -427,7 +427,7 @@ function onBeforeSendHeaders(details) {
   let action = checkAction(tab_id, request_host, frame_id);
 
   if (action && from_current_tab) {
-    badger.logThirdPartyOriginOnTab(tab_id, request_host, action);
+    badger.logThirdParty(tab_id, request_host, action);
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -524,7 +524,7 @@ function onHeadersReceived(details) {
   }
 
   if (from_current_tab) {
-    badger.logThirdPartyOriginOnTab(tab_id, response_host, action);
+    badger.logThirdParty(tab_id, response_host, action);
   }
 
   if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -606,10 +606,10 @@ function onNavigate(details) {
   // when there is no "main_frame" webRequest callback
   // (such as on Service Worker pages)
   //
-  // see the tabOrigins TODO in heuristicblocking.js
+  // see the tabBases TODO in heuristicblocking.js
   // as to why we don't just use tabData
   let base = getBaseDomain(tab_host);
-  badger.heuristicBlocking.tabOrigins[tab_id] = base;
+  badger.heuristicBlocking.tabBases[tab_id] = base;
   badger.heuristicBlocking.tabUrls[tab_id] = url;
 }
 
@@ -672,11 +672,10 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
  * Record "supercookie" tracking
  *
  * @param {Integer} tab_id browser tab ID
- * @param {String} frame_url URL of the frame with supercookie
+ * @param {String} frame_host hostname of the frame with supercookie
  */
-function recordSupercookie(tab_id, frame_url) {
-  const frame_host = extractHostFromURL(frame_url),
-    page_host = badger.tabData.getFrameData(tab_id).host;
+function recordSupercookie(tab_id, frame_host) {
+  const page_host = badger.tabData.getFrameData(tab_id).host;
 
   badger.heuristicBlocking.updateTrackerPrevalence(
     frame_host,
@@ -687,7 +686,7 @@ function recordSupercookie(tab_id, frame_url) {
   // log for popup
   let action = checkAction(tab_id, frame_host);
   if (action) {
-    badger.logThirdPartyOriginOnTab(tab_id, frame_host, action);
+    badger.logThirdParty(tab_id, frame_host, action);
   }
 }
 
@@ -766,7 +765,7 @@ function recordFingerprinting(tab_id, msg) {
           // log for popup
           let action = checkAction(tab_id, script_host);
           if (action) {
-            badger.logThirdPartyOriginOnTab(tab_id, script_host, action);
+            badger.logThirdParty(tab_id, script_host, action);
           }
 
           // record canvas fingerprinting
@@ -1156,20 +1155,31 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   // messages from content scripts are to be treated with greater caution:
-  // https://groups.google.com/a/chromium.org/d/msg/chromium-extensions/0ei-UCHNm34/lDaXwQhzBAAJ
-  if (!sender.url.startsWith(chrome.runtime.getURL(""))) {
+  // https://groups.google.com/a/chromium.org/g/chromium-extensions/c/0ei-UCHNm34/m/lDaXwQhzBAAJ
+  //
+  // prefer sender.origin when available
+  // https://issues.chromium.org/issues/40095810
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=1787379
+  // https://github.com/uBlockOrigin/uBlock-issues/issues/1992#issuecomment-1058056302
+  //
+  // TODO remove all sender.origin fallbacks once minimum supported versions
+  // TODO equal or exceed 80 (Chromium) and 126 (Firefox) in all builds
+  if (utils.hasOwn(sender, "origin") ?
+    sender.origin + '/' !== chrome.runtime.getURL('') :
+    !sender.url.startsWith(chrome.runtime.getURL(''))) {
+
     // reject unless it's a known content script message
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
+      "checkClobberingEnabled",
       "checkDNT",
       "checkEnabled",
-      "checkLocation",
       "checkWidgetReplacementEnabled",
       "detectFingerprinting",
+      "detectSupercookies",
       "fpReport",
       "getBlockedFrameUrls",
       "getReplacementButton",
-      "inspectLocalStorage",
       "supercookieReport",
       "unblockWidget",
       "widgetFromSurrogate",
@@ -1177,11 +1187,13 @@ function dispatcher(request, sender, sendResponse) {
     ];
     if (KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
       if (!sender.tab) {
-        console.error("Dropping malformed content script message %o from %s", request, sender.url);
+        console.error("Dropping malformed content script message %o from %s",
+          request, (utils.hasOwn(sender, "origin") ? sender.origin : sender.url));
         return sendResponse();
       }
     } else {
-      console.error("Rejected unknown message %o from %s", request, sender.url);
+      console.error("Rejected unknown message %o from %s",
+        request, (utils.hasOwn(sender, "origin") ? sender.origin : sender.url));
       return sendResponse();
     }
 
@@ -1202,14 +1214,15 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  case "checkLocation": {
+  case "checkClobberingEnabled": {
     let tab_host = extractHostFromURL(sender.tab.url);
 
     if (!badger.isPrivacyBadgerEnabled(tab_host)) {
       return sendResponse();
     }
 
-    let frame_host = extractHostFromURL(request.frameUrl);
+    let frame_host = extractHostFromURL(
+      utils.hasOwn(sender, "origin") ? sender.origin + '/' : request.frameUrl);
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, frame_host)) {
@@ -1295,15 +1308,22 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "supercookieReport": {
-    if (request.frameUrl && badger.hasSupercookie(request.data)) {
-      recordSupercookie(sender.tab.id, request.frameUrl);
+    if (badger.hasSupercookie(request.data)) {
+      let frame_host = extractHostFromURL(
+        utils.hasOwn(sender, "origin") ?
+          sender.origin + '/' : request.frameUrl);
+      if (frame_host) {
+        recordSupercookie(sender.tab.id, frame_host);
+      }
     }
     break;
   }
 
-  case "inspectLocalStorage": {
+  case "detectSupercookies": {
     let tab_host = extractHostFromURL(sender.tab.url),
-      frame_host = extractHostFromURL(request.frameUrl);
+      frame_host = extractHostFromURL(
+        utils.hasOwn(sender, "origin") ?
+          sender.origin + '/' : request.frameUrl);
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, frame_host)) {
@@ -1321,7 +1341,10 @@ function dispatcher(request, sender, sendResponse) {
   case "detectFingerprinting": {
     if (sender.frameId > 0) {
       // do not modify the JS environment in Cloudflare CAPTCHA frames
-      if (sender.url.startsWith("https://challenges.cloudflare.com/")) {
+      if (utils.hasOwn(sender, "origin") ?
+        sender.origin === "https://challenges.cloudflare.com" :
+        sender.url.startsWith("https://challenges.cloudflare.com/")) {
+
         sendResponse(false);
         break;
       }
@@ -1379,7 +1402,7 @@ function dispatcher(request, sender, sendResponse) {
       errorText: badger.tabData._tabData[tab_id].errorText,
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
       noTabData: false,
-      origins: trackers,
+      trackers,
       settings: badger.getSettings().getItemClones(),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
       tabHost: tab_host,
@@ -1404,7 +1427,7 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse({
       cookieblocked,
-      origins: trackers,
+      trackers,
       settings: badger.getSettings().getItemClones(),
       widgets: badger.widgetList.map(widget => widget.name),
       widgetDomains: Array.from(badger.getAllWidgetDomains()),
@@ -1560,9 +1583,9 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "revertDomainControl": {
-    badger.storage.revertUserAction(request.origin);
+    badger.storage.revertUserAction(request.domain);
     sendResponse({
-      origins: badger.storage.getTrackingDomains()
+      trackers: badger.storage.getTrackingDomains()
     });
     break;
   }
@@ -1608,7 +1631,7 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "savePopupToggle": {
-    let domain = request.origin,
+    let domain = request.domain,
       action = request.action;
 
     badger.saveAction(action, domain);
@@ -1621,9 +1644,9 @@ function dispatcher(request, sender, sendResponse) {
 
   // called when the user manually sets a slider on the options page
   case "saveOptionsToggle": {
-    badger.saveAction(request.action, request.origin);
+    badger.saveAction(request.action, request.domain);
     sendResponse({
-      origins: badger.storage.getTrackingDomains()
+      trackers: badger.storage.getTrackingDomains()
     });
     break;
   }
@@ -1706,12 +1729,12 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  case "removeOrigin": {
+  case "removeDomain": {
     for (let name of ['snitch_map', 'action_map', 'tracking_map', 'fp_scripts']) {
-      badger.storage.getStore(name).deleteItem(request.origin);
+      badger.storage.getStore(name).deleteItem(request.domain);
     }
     sendResponse({
-      origins: badger.storage.getTrackingDomains()
+      trackers: badger.storage.getTrackingDomains()
     });
     break;
   }
@@ -1754,11 +1777,19 @@ function dispatcher(request, sender, sendResponse) {
     // implications of accepting pbSurrogateMessage events
     // from third-party scripts in nested frames
     if (sender.frameId > 0) {
-      if (!request.frameUrl.startsWith('https://cdn.embedly.com/')) {
+      let frame_origin = utils.hasOwn(sender, "origin") ?
+        sender.origin :
+        request.frameUrl && (new URL(request.frameUrl)).origin;
+
+      if (!frame_origin) {
+        break;
+      }
+
+      if (frame_origin !== "https://cdn.embedly.com") {
         let tab_scheme = tab_url.slice(0, tab_url.indexOf(tab_host));
-        if (!request.frameUrl.startsWith(tab_scheme + tab_host)) {
-          let frame_host = extractHostFromURL(request.frameUrl);
-          if (!frame_host || utils.isThirdPartyDomain(frame_host, tab_host)) {
+        if (frame_origin !== tab_scheme + tab_host) {
+          let frame_host = extractHostFromURL(frame_origin + '/');
+          if (utils.isThirdPartyDomain(frame_host, tab_host)) {
             break;
           }
         }
@@ -1779,6 +1810,7 @@ function dispatcher(request, sender, sendResponse) {
     // NOTE: request.name and request.data are not to be trusted
     // https://github.com/w3c/webextensions/issues/57#issuecomment-914491167
     // https://github.com/w3c/webextensions/issues/78#issuecomment-921058071
+    // TODO request.frameUrl could be undefined or tampered with
     let widget = getSurrogateWidget(request.name, request.data, request.frameUrl);
 
     if (!widget) {

@@ -364,7 +364,7 @@ BadgerPen.prototype = {
       for (const subdomain of actionMap.keys()) {
         if (getBaseDomain(subdomain) == base) {
           if (self.getAction(subdomain) != constants.NO_TRACKING) {
-            badger.heuristicBlocking.blocklistOrigin(base, subdomain);
+            badger.heuristicBlocking.blocklistDomain(base, subdomain);
           }
         }
       }

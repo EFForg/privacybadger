@@ -527,8 +527,7 @@ Badger.prototype = {
 
     // block the domains
     for (let domain of domains) {
-      self.heuristicBlocking.blocklistOrigin(
-        getBaseDomain(domain), domain);
+      self.heuristicBlocking.blocklistDomain(getBaseDomain(domain), domain);
     }
   },
 
@@ -539,24 +538,24 @@ Badger.prototype = {
    */
   blockPanopticlickDomains() {
     for (let domain of constants.PANOPTICLICK_DOMAINS) {
-      this.heuristicBlocking.blocklistOrigin(domain, domain);
+      this.heuristicBlocking.blocklistDomain(domain, domain);
     }
   },
 
   /**
-   * Saves a user preference for an origin, overriding the default setting.
+   * Saves a user preference for a domain, overriding the default setting.
    *
    * @param {String} userAction enum of block, cookieblock, noaction
-   * @param {String} origin the third party origin to take action on
+   * @param {String} domain the third party domain to take action on
    */
-  saveAction: function(userAction, origin) {
-    var allUserActions = {
+  saveAction: function(userAction, domain) {
+    let allUserActions = {
       block: constants.USER_BLOCK,
       cookieblock: constants.USER_COOKIEBLOCK,
       allow: constants.USER_ALLOW
     };
-    this.storage.setupUserAction(origin, allUserActions[userAction]);
-    log("Finished saving action " + userAction + " for " + origin);
+    this.storage.setupUserAction(domain, allUserActions[userAction]);
+    log(`Finished saving action ${userAction} for ${domain}`);
   },
 
   initializeCnames: function () {
@@ -1128,10 +1127,10 @@ Badger.prototype = {
    * and if necessary updates the badge.
    *
    * @param {Integer} tab_id the tab we are on
-   * @param {String} fqdn the third party origin to add
+   * @param {String} fqdn the third party domain to add
    * @param {String} action the action we are taking
    */
-  logThirdPartyOriginOnTab: function (tab_id, fqdn, action) {
+  logThirdParty: function (tab_id, fqdn, action) {
     let self = this,
       is_blocked = (
         action == constants.BLOCK ||
