@@ -1777,15 +1777,9 @@ function dispatcher(request, sender, sendResponse) {
     // implications of accepting pbSurrogateMessage events
     // from third-party scripts in nested frames
     if (sender.frameId > 0) {
-      let frame_origin = sender.origin;
-
-      if (!utils.hasOwn(sender, "origin")) {
-        if (request.frameUrl) {
-          let path = (new URL(request.frameUrl)).pathname,
-            path_idx = request.frameUrl.indexOf(path);
-          frame_origin = request.frameUrl.slice(0, path_idx);
-        }
-      }
+      let frame_origin = utils.hasOwn(sender, "origin") ?
+        sender.origin :
+        request.frameUrl && (new URL(request.frameUrl)).origin;
 
       if (!frame_origin) {
         break;
