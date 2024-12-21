@@ -1162,10 +1162,11 @@ function dispatcher(request, sender, sendResponse) {
   // https://bugzilla.mozilla.org/show_bug.cgi?id=1787379
   // https://github.com/uBlockOrigin/uBlock-issues/issues/1992#issuecomment-1058056302
   //
-  // TODO remove all sender.origin fallbacks once minimum supported versions
-  // TODO equal or exceed 80 (Chromium) and 126 (Firefox) in all builds
+  // TODO remove sender.origin sender.url/request.frameUrl fallbacks
+  // TODO once minimum supported versions equal or exceed
+  // TODO 80 (Chromium) and 126 (Firefox) in all builds
   if (utils.hasOwn(sender, "origin") ?
-    sender.origin + '/' !== chrome.runtime.getURL('') :
+    sender.origin == "null" || sender.origin + '/' !== chrome.runtime.getURL('') :
     !sender.url.startsWith(chrome.runtime.getURL(''))) {
 
     // reject unless it's a known content script message
@@ -1187,13 +1188,12 @@ function dispatcher(request, sender, sendResponse) {
     ];
     if (KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
       if (!sender.tab) {
-        console.error("Dropping malformed content script message %o from %s",
-          request, (utils.hasOwn(sender, "origin") ? sender.origin : sender.url));
+        console.error("Dropping malformed content script message %o from %o",
+          request, sender);
         return sendResponse();
       }
     } else {
-      console.error("Rejected unknown message %o from %s",
-        request, (utils.hasOwn(sender, "origin") ? sender.origin : sender.url));
+      console.error("Rejected unknown message %o from %o", request, sender);
       return sendResponse();
     }
 
@@ -1215,6 +1215,11 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkClobberingEnabled": {
+    if (utils.hasOwn(sender, "origin") ?
+      sender.origin == "null" : request.frameUrl == "about:blank") {
+      return sendResponse();
+    }
+
     let tab_host = extractHostFromURL(sender.tab.url);
 
     if (!badger.isPrivacyBadgerEnabled(tab_host)) {
@@ -1320,6 +1325,11 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "detectSupercookies": {
+    if (utils.hasOwn(sender, "origin") ?
+      sender.origin == "null" : request.frameUrl == "about:blank") {
+      return sendResponse();
+    }
+
     let tab_host = extractHostFromURL(sender.tab.url),
       frame_host = extractHostFromURL(
         utils.hasOwn(sender, "origin") ?
@@ -1778,7 +1788,7 @@ function dispatcher(request, sender, sendResponse) {
     // from third-party scripts in nested frames
     if (sender.frameId > 0) {
       let frame_origin = utils.hasOwn(sender, "origin") ?
-        sender.origin :
+        sender.origin != "null" && sender.origin :
         request.frameUrl && (new URL(request.frameUrl)).origin;
 
       if (!frame_origin) {
