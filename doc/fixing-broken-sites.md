@@ -51,7 +51,7 @@ Does blocking the domain block a JavaScript analytics library that the site trie
 
 Is the missing comments section powered by a commenting service that Privacy Badger learned to block? Perhaps a new [widget placeholder](https://www.eff.org/deeplinks/2024/01/privacy-badger-puts-you-control-widgets) should be added.
 
-We should also ask the service to to adopt the [EFF Do Not Track policy](https://www.eff.org/dnt-policy), which is a way for privacy-conscious companies to receive recognition for their good practices. If their service can and will abide by the policy's requirements, posting the policy on the service's domains will tell Privacy Badger to allow loading of resources from those domains.
+We should also ask the service to adopt the [EFF Do Not Track policy](https://www.eff.org/dnt-policy), which is a way for privacy-conscious companies to receive recognition for their good practices. If their service can and will abide by the policy's requirements, posting the policy on the service's domains will tell Privacy Badger to allow loading of resources from those domains.
 
 
 ### External domains too complex to surrogate or replace with placeholders
