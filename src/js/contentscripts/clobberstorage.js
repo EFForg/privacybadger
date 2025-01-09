@@ -34,8 +34,7 @@ if (window.top == window) {
 
 // TODO race condition
 chrome.runtime.sendMessage({
-  type: "checkClobberingEnabled",
-  frameUrl: window.FRAME_URL,
+  type: "checkClobberingEnabled"
 });
 
 }());
