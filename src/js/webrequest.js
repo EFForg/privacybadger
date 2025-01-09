@@ -758,18 +758,11 @@ function dispatcher(request, sender, sendResponse) {
   // messages from content scripts are to be treated with greater caution:
   // https://groups.google.com/a/chromium.org/g/chromium-extensions/c/0ei-UCHNm34/m/lDaXwQhzBAAJ
   //
-  // prefer sender.origin when available
+  // use sender.origin, not sender.url:
   // https://issues.chromium.org/issues/40095810
   // https://bugzilla.mozilla.org/show_bug.cgi?id=1787379
   // https://github.com/uBlockOrigin/uBlock-issues/issues/1992#issuecomment-1058056302
-  //
-  // TODO remove sender.origin sender.url/request.frameUrl fallbacks
-  // TODO once minimum supported versions equal or exceed
-  // TODO 80 (Chromium) and 126 (Firefox) in all builds
-  if (utils.hasOwn(sender, "origin") ?
-    sender.origin == "null" || sender.origin + '/' !== chrome.runtime.getURL('') :
-    !sender.url.startsWith(chrome.runtime.getURL(''))) {
-
+  if (sender.origin == "null" || sender.origin + '/' !== chrome.runtime.getURL('')) {
     // reject unless it's a known content script message
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
@@ -815,8 +808,7 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkClobberingEnabled": {
-    if (utils.hasOwn(sender, "origin") ?
-      sender.origin == "null" : request.frameUrl == "about:blank") {
+    if (sender.origin == "null") {
       return sendResponse();
     }
 
@@ -826,8 +818,7 @@ function dispatcher(request, sender, sendResponse) {
       return sendResponse();
     }
 
-    let frame_host = extractHostFromURL(
-      utils.hasOwn(sender, "origin") ? sender.origin + '/' : request.frameUrl);
+    let frame_host = extractHostFromURL(sender.origin + '/');
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, frame_host)) {
@@ -999,26 +990,19 @@ function dispatcher(request, sender, sendResponse) {
 
   case "supercookieReport": {
     if (badger.hasSupercookie(request.data)) {
-      let frame_host = extractHostFromURL(
-        utils.hasOwn(sender, "origin") ?
-          sender.origin + '/' : request.frameUrl);
-      if (frame_host) {
-        recordSupercookie(sender.tab.id, frame_host);
-      }
+      let frame_host = extractHostFromURL(sender.origin + '/');
+      recordSupercookie(sender.tab.id, frame_host);
     }
     break;
   }
 
   case "detectSupercookies": {
-    if (utils.hasOwn(sender, "origin") ?
-      sender.origin == "null" : request.frameUrl == "about:blank") {
+    if (sender.origin == "null") {
       return sendResponse();
     }
 
     let tab_host = extractHostFromURL(sender.tab.url),
-      frame_host = extractHostFromURL(
-        utils.hasOwn(sender, "origin") ?
-          sender.origin + '/' : request.frameUrl);
+      frame_host = extractHostFromURL(sender.origin + '/');
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, frame_host)) {
@@ -1036,10 +1020,7 @@ function dispatcher(request, sender, sendResponse) {
   case "detectFingerprinting": {
     if (sender.frameId > 0) {
       // do not modify the JS environment in Cloudflare CAPTCHA frames
-      if (utils.hasOwn(sender, "origin") ?
-        sender.origin === "https://challenges.cloudflare.com" :
-        sender.url.startsWith("https://challenges.cloudflare.com/")) {
-
+      if (sender.origin === "https://challenges.cloudflare.com") {
         sendResponse(false);
         break;
       }
@@ -1505,9 +1486,7 @@ function dispatcher(request, sender, sendResponse) {
     // implications of accepting pbSurrogateMessage events
     // from third-party scripts in nested frames
     if (sender.frameId > 0) {
-      let frame_origin = utils.hasOwn(sender, "origin") ?
-        sender.origin != "null" && sender.origin :
-        request.frameUrl && (new URL(request.frameUrl)).origin;
+      let frame_origin = sender.origin != "null" && sender.origin;
 
       if (!frame_origin) {
         break;
