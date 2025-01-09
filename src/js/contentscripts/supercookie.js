@@ -109,12 +109,8 @@ function getPageScript(event_id) {
 //
 // could then remove test workarounds like
 // https://github.com/EFForg/privacybadger/commit/39d5d0899e22d1c451d429e44553c5f9cad7fc46
-
-// TODO sometimes contentscripts/utils.js isn't here?!
-// TODO window.FRAME_URL / window.injectScript are undefined ...
 chrome.runtime.sendMessage({
-  type: "detectSupercookies",
-  frameUrl: window.FRAME_URL
+  type: "detectSupercookies"
 }, function (enabledAndThirdParty) {
   if (!enabledAndThirdParty) {
     return;
@@ -127,11 +123,13 @@ chrome.runtime.sendMessage({
     // pass these on to the background page (handled by webrequest.js)
     chrome.runtime.sendMessage({
       type: "supercookieReport",
-      data: e.detail,
-      frameUrl: window.FRAME_URL
+      data: e.detail
     });
   });
 
+  // TODO sometimes contentscripts/utils.js isn't here?!
+  // TODO window.injectScript is undefined ...
+  // TODO probably https://github.com/w3c/webextensions/issues/872
   window.injectScript(getPageScript(event_id));
 
 });
