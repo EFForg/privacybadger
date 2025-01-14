@@ -508,6 +508,24 @@ a.overlay-close:hover {
     cursor: pointer;
 }
 
+#dismiss-tooltip {
+    float: right;
+    margin: 5px;
+    position: relative;
+    top: -5px;
+    right: -5px;
+}
+  
+#dismiss-tooltip img {
+    height: 18px;
+    filter: invert(100%) sepia(0%) saturate(7489%) hue-rotate(126deg) brightness(106%) contrast(100%);
+}
+  
+#dismiss-tooltip:hover img, #dismiss-tooltip:focus img {
+    /* Calculated with https://codepen.io/sosuke/pen/Pjoqqp to match #fff */
+    filter: invert(93%) sepia(8%) saturate(30%) hue-rotate(203deg) brightness(99%) contrast(94%);
+}
+
 #firstparty-protections-container, #youtube-message-container {
     border-bottom: 1px solid #d3d3d3;
     margin: 10px 0;
