@@ -528,6 +528,9 @@ let firstPartyProtectionsEnabled = (function () {
  * @return {Boolean} whether the URL is restricted
  */
 function isRestrictedUrl(url) {
+  if (!url) {
+    return true;
+  }
   // permitted schemes from
   // https://developer.chrome.com/extensions/match_patterns
   return !(
