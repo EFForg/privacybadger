@@ -948,6 +948,7 @@ let multiDomainFirstPartiesArray = [
 
     "ccmbg.com",
   ],
+  ["cctv.com", "cctv.cn", "cctvpic.com"],
   ["century21.com", "21online.com"],
   ["chart.io", "chartio.com"],
   ["chaturbate.com", "highwebmedia.com"],
@@ -1222,6 +1223,7 @@ let multiDomainFirstPartiesArray = [
     "persgroep.nl",
     "pzc.nl",
     "tijd.be",
+    "tijdschrift.nl",
     "topics.be",
     "topics.nl",
     "trouw.nl",
@@ -2748,6 +2750,7 @@ let multiDomainFirstPartiesArray = [
     "kompas.tv",
     "tribunnews.com",
   ],
+  ["kwai.com", "kwai.net"],
   ["lbry.com", "odysee.com", "lbry.tv"],
   ["likee.video", "like-video.com", "like.video", "likee.com", "likeevideo.com"],
   ["livesport.eu", "diretta.it", "flashscore.com", "flashscore.com.br", "flashscore.fr", "flashscore.pl", "livescore.in", "rezultati.com"],
@@ -2804,6 +2807,7 @@ let multiDomainFirstPartiesArray = [
   ["mandtbank.com", "mtb.com"],
   ["marriott.com", "marriott.co.jp", "marriott.co.uk", "marriott.de"],
   ["marugroup.net", "maruhub.com", "marupanels.com", "maru-cdn.com"],
+  ["mastercard.us", "mastercard.co.uk", "mastercard.com"],
   ["matchtv.ru", "sportbox.ru"],
   ["mathletics.com", "mathletics.com.au", "mathletics.co.uk"],
   [
@@ -4182,6 +4186,7 @@ let multiDomainFirstPartiesArray = [
     "aitangyou.com",
     "cdntips.com",
     "dnspod.cn",
+    "dnspod.com",
     "extqq.com",
     "gdtimg.com",
     "gtimg.cn",
@@ -4560,6 +4565,7 @@ let multiDomainFirstPartiesArray = [
     "videoland.com",
     "vtbl.nl",
   ],
+  ["rtx.com", "collinsaerospace.com", "rockwellcollins.com", "rtxapps.com"],
   [
     "s-kanava.fi",
 
@@ -4645,6 +4651,7 @@ let multiDomainFirstPartiesArray = [
     "championat.com",
     "ferra.ru",
     "gazeta.ru",
+    "giga.chat",
     "indicator.ru",
     "lenta.ru",
     "letidor.ru",
@@ -4761,6 +4768,7 @@ let multiDomainFirstPartiesArray = [
 
     "smithsonian.museum",
   ],
+  ["signetjewelers.com", "jared.com", "kay.com", "zales.com", "jewels.com"],
   ["siriusxm.com", "sirius.com"],
   ["skygo.co.nz", "skytv.co.nz"],
   ["skysports.com", "skybet.com", "skyvegas.com"],
@@ -5269,6 +5277,7 @@ let multiDomainFirstPartiesArray = [
     "cdntvn.pl",
   ],
   ["tvp.pl", "tvp.info"],
+  ["twinkl.co.uk", "twinkl.com", "twinkl.com.au", "twinkl.co.in", "twinkl.de"],
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
   ["ubisoft.com", "ubi.com", "anno-union.com", "thesettlers-alliance.com", "ubisoftconnect.com"],
   ["ui.com", "ubnt.com"],
