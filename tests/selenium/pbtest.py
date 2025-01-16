@@ -469,6 +469,7 @@ class PBSeleniumTest(unittest.TestCase):
 
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
+        self.open_window()
 
     def set_dnt(self, domain):
         self.load_url(self.options_url)

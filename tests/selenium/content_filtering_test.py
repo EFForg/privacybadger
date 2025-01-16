@@ -193,6 +193,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.find_el_by_css(
             f'div[data-origin="{self.THIRD_PARTY_DOMAIN}"] a.honeybadgerPowered').click()
         self.driver.switch_to.window(self.driver.window_handles[0])
+        self.open_window()
 
         self.load_url(self.FIXTURE_URL)
         # navigate elsewhere and back to work around the third-party getting served from cache

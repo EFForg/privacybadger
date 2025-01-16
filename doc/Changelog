@@ -1,6 +1,17 @@
 Privacy Badger changelog
 ========================
 
+2025.1.17
+* Added widget replacement for Bluesky, Instagram and Threads embeds.
+Privacy Badger replaces potentially useful widgets with placeholders.
+These replacements protect privacy while letting you restore the original
+widget whenever you want it or need it for the page to function.
+* Fixed various site breakages
+* Restored Arabic translations
+* Improved Danish, Dutch, Esperanto, French, German, Greek,
+Brazilian Portuguese, Russian, Spanish and Swedish translations
+* Removed Catalan translations due to lack of updates
+
 2024.7.17
 * Disabled Google's "Privacy Sandbox" ad tracking by default.
 We previously disabled Google's Topics API; we now also disable

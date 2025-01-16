@@ -202,6 +202,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # get back to a valid window handle as the window just got closed
         self.driver.switch_to.window(self.driver.window_handles[0])
+        self.open_window()
 
         # verify the domain is no longer user controlled
         self.load_url(self.options_url)
