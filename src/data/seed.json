@@ -1,7 +1,9 @@
 {
   "action_map": {
     "00px.net": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1737448850278
     },
     "013d5342d9.com": {
       "heuristicAction": "allow"
@@ -4784,7 +4786,9 @@
       "heuristicAction": "cookieblock"
     },
     "cdn-client.medium.com": {
-      "heuristicAction": "cookieblock"
+      "dnt": true,
+      "heuristicAction": "cookieblock",
+      "nextUpdateTime": 1737498132032
     },
     "cdn-eu.dynamicyield.com": {
       "heuristicAction": "cookieblock"
@@ -4802,7 +4806,9 @@
       "heuristicAction": "allow"
     },
     "cdn-images-1.medium.com": {
-      "heuristicAction": "cookieblock"
+      "dnt": true,
+      "heuristicAction": "cookieblock",
+      "nextUpdateTime": 1737279307638
     },
     "cdn-net.com": {
       "heuristicAction": "block"
@@ -4817,7 +4823,9 @@
       "heuristicAction": "cookieblock"
     },
     "cdn-static-1.medium.com": {
-      "heuristicAction": "cookieblock"
+      "dnt": true,
+      "heuristicAction": "cookieblock",
+      "nextUpdateTime": 1737412013765
     },
     "cdn.bitmovin.com": {
       "heuristicAction": "cookieblock"
@@ -10218,7 +10226,9 @@
       "heuristicAction": "allow"
     },
     "glyph.medium.com": {
-      "heuristicAction": "cookieblock"
+      "dnt": true,
+      "heuristicAction": "cookieblock",
+      "nextUpdateTime": 1737322030616
     },
     "gm.com": {
       "heuristicAction": "allow"
@@ -15219,7 +15229,9 @@
       "heuristicAction": "allow"
     },
     "miro.medium.com": {
-      "heuristicAction": "cookieblock"
+      "dnt": true,
+      "heuristicAction": "cookieblock",
+      "nextUpdateTime": 1737343911006
     },
     "mirror.co.uk": {
       "heuristicAction": "allow"
