@@ -888,6 +888,7 @@ let multiDomainFirstPartiesArray = [
     "romper.com",
     "thezoereport.com",
   ],
+  ["calvinklein.us", "calvinklein.co.uk", "calvinklein.de", "calvinklein.com"],
   [
     "canada.ca",
 
@@ -1239,6 +1240,7 @@ let multiDomainFirstPartiesArray = [
     "fashionchick.nl",
     "kieskeurig.nl",
     "kijk.nl",
+    "libelle.nl",
     "lindanieuws.nl",
     "linda.nl",
     "magazine.nl",
@@ -1246,7 +1248,9 @@ let multiDomainFirstPartiesArray = [
     "oudersvannu.nl",
     "sbs6.nl",
     "schoolbank.nl",
+    "sportnieuws.nl",
     "startpagina.nl",
+    "tweakers.net",
     "veronicatv.nl",
     "vtwonen.nl",
     "wtf.nl",
