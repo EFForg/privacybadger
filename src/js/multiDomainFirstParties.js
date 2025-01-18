@@ -2806,6 +2806,7 @@ let multiDomainFirstPartiesArray = [
     "vkplay.ru",
     "vkvideo.ru",
 
+    "okcdn.ru",
     "vkuser.net",
   ],
   ["mandtbank.com", "mtb.com"],
