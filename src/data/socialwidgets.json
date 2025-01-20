@@ -300,6 +300,25 @@
             "type": 3
         }
     },
+    "Wayin Form": {
+        "domains": [
+            "xd.wayin.com"
+        ],
+        "buttonSelectors": [
+            "iframe[data-src^='//xd.wayin.com/display/container/']",
+            "iframe[data-src^='https://xd.wayin.com/display/container/']"
+        ],
+        "noDirectLink": true,
+        "scriptSelectors": [
+            "script[src^='JUSTRELOADFORNOWhttps://xd.wayin.com/ui/ngx.embed.min.js']"
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "xd.wayin.com"
+            ],
+            "type": 4
+        }
+    },
     "LinkedIn": {
         "domain": "platform.linkedin.com",
         "buttonSelectors": [
