@@ -5029,6 +5029,7 @@ let multiDomainFirstPartiesArray = [
     "toiimg.com",
     "tvid.in",
   ],
+  ["townhall.com", "bearingarms.com", "hotair.com", "pjmedia.com", "redstate.com", "twitchy.com"],
   [
     "townsquaremedia.com",
 
