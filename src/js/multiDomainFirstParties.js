@@ -1262,6 +1262,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["dropbox.com", "dropboxstatic.com", "dropboxusercontent.com", "getdropbox.com"],
   ["d.rip", "kickstarter.com"],
+  ["dsmgrup.com", "trendyol.com", "trendyol-milla.com", "dsmcdn.com"],
   ["duba.com", "91duba.com", "iduba.com", "newduba.cn"],
   [
     "dyson.com",
