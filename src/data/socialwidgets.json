@@ -309,14 +309,12 @@
             "iframe[data-src^='https://xd.wayin.com/display/container/']"
         ],
         "noDirectLink": true,
-        "scriptSelectors": [
-            "script[src^='JUSTRELOADFORNOWhttps://xd.wayin.com/ui/ngx.embed.min.js']"
-        ],
+        "reloadOnActivation": true,
         "replacementButton": {
             "unblockDomains": [
                 "xd.wayin.com"
             ],
-            "type": 4
+            "type": 3
         }
     },
     "LinkedIn": {

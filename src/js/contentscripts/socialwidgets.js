@@ -259,6 +259,13 @@ function replaceButtonWithIframeAndUnblockTracker(button, widget_name, iframeUrl
 function restoreWidget(widget) {
   let name = widget.name;
 
+  if (widget.reloadOnActivation) {
+    unblockTracker(name, function () {
+      location.reload();
+    });
+    return;
+  }
+
   if (widget.scriptSelectors) {
     if (widget.scriptSelectors.some(i => i.includes("onload\\=vueRecaptchaApiLoaded"))) {
       // we can't do "in-place" activation; reload the page instead
