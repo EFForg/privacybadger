@@ -138,6 +138,10 @@ function Badger(from_qunit) {
       }
     });
 
+    await widgetListPromise;
+    await seedDataPromise;
+    await tabDataPromise;
+
     if (self.isUpdate && self.manifestVersion > 2) {
       // TODO don't need to do disabled sites on every update, just the first one to MV3 ...
       let disabledSites = self.getDisabledSites();
@@ -152,10 +156,6 @@ function Badger(from_qunit) {
         dnrUtils.updateWidgetSiteAllowlistRules(widgetSiteAllowlist);
       }
     }
-
-    await widgetListPromise;
-    await seedDataPromise;
-    await tabDataPromise;
 
     if (self.isFirstRun || self.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
       // block all widget domains
