@@ -3817,6 +3817,7 @@ let multiDomainFirstPartiesArray = [
     "java.com",
     "mysql.com",
     "oraclefoundation.org",
+    "texturacorp.com",
 
     "oraclecloud.com",
     "oracleimg.com",
