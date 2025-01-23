@@ -20,7 +20,7 @@ PKGDIR=pkg
 CHROME_PKG=$PKGDIR/privacy_badger-"$TARGET".crx
 CHROME_ALT=$PKGDIR/privacy_badger-chrome.crx
 
-curl -L "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=31.0.1609.0&acceptformat=crx2,crx3&x=id%3Dpkehgijcmpdhfbdbbnkijodmdjhbjlgp%26uc" > "$CHROME_PKG"
+curl -L "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=131.0.6778.204&acceptformat=crx2,crx3&x=id%3Dpkehgijcmpdhfbdbbnkijodmdjhbjlgp%26uc" > "$CHROME_PKG"
 
 if [ ! -s "$CHROME_PKG" ]; then
   echo "Failed to download CRX from Chrome Web Store"
