@@ -1265,6 +1265,7 @@ let multiDomainFirstPartiesArray = [
   ["d.rip", "kickstarter.com"],
   ["dsmgrup.com", "trendyol.com", "trendyol-milla.com", "dsmcdn.com"],
   ["duba.com", "91duba.com", "iduba.com", "newduba.cn"],
+  ["dunamsz.hu", "hirado.hu", "m4sport.hu", "mediaklikk.hu", "mtv.hu"],
   [
     "dyson.com",
 
