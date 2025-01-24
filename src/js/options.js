@@ -113,9 +113,6 @@ function loadOptions() {
   $("#removeAllData").button("option", "icons", {primary: "ui-icon-closethick"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
   $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.settings.showCounter);
-  $("#replace-widgets-checkbox")
-    .on("click", updateWidgetReplacement)
-    .prop("checked", OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
   $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.settings.sendDNTSignal);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
@@ -264,23 +261,6 @@ function loadOptions() {
 
   const $widgetExceptions = $("#hide-widgets-select");
 
-  // disable Widget Replacement form elements when widget replacement is off
-  function _disable_widget_forms(enable) {
-    if (enable) {
-      $widgetExceptions.prop("disabled", false);
-      $("#widget-site-exceptions-select").prop("disabled", false);
-      $('#widget-site-exceptions-remove-button').button("option", "disabled", false);
-    } else {
-      $widgetExceptions.prop("disabled", "disabled");
-      $("#widget-site-exceptions-select").prop("disabled", "disabled");
-      $('#widget-site-exceptions-remove-button').button("option", "disabled", true);
-    }
-  }
-  _disable_widget_forms(OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
-  $("#replace-widgets-checkbox").on("change", function () {
-    _disable_widget_forms($(this).is(":checked"));
-  });
-
   // Initialize Select2 and populate options
   $widgetExceptions.select2({
     width: '100%'
@@ -294,12 +274,6 @@ function loadOptions() {
   $widgetExceptions.on('select2:select', updateWidgetReplacementExceptions);
   $widgetExceptions.on('select2:unselect', updateWidgetReplacementExceptions);
   $widgetExceptions.on('select2:clear', updateWidgetReplacementExceptions);
-
-  // hide the deprecated widget replacement toggle
-  // unless the user previously checked it
-  if (!OPTIONS_DATA.settings.socialWidgetReplacementEnabled) {
-    $('#widget-replacement-toggle').show();
-  }
 
   reloadDisabledSites();
   reloadTrackingDomainsTab();
@@ -464,19 +438,6 @@ function updateShowCounter() {
         });
       });
     });
-  });
-}
-
-/**
- * Update setting for whether or not to replace
- * social buttons/video players/commenting widgets.
- */
-function updateWidgetReplacement() {
-  const socialWidgetReplacementEnabled = $("#replace-widgets-checkbox").prop("checked");
-
-  chrome.runtime.sendMessage({
-    type: "updateSettings",
-    data: { socialWidgetReplacementEnabled }
   });
 }
 
