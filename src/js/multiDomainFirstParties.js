@@ -864,6 +864,7 @@ let multiDomainFirstPartiesArray = [
     "tiktok.com",
     "tiktokglobalshop.com",
     "tiktokshop.com",
+    "toutiao.com",
 
     "byteoversea.com",
     "douyinstatic.com",
@@ -875,6 +876,7 @@ let multiDomainFirstPartiesArray = [
     "tiktokv.us",
     "tiktokw.us",
     "ttwstatic.com",
+    "zijieapi.com",
   ],
   [
     "bustle.company",
