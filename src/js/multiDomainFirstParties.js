@@ -3332,6 +3332,7 @@ let multiDomainFirstPartiesArray = [
     "naver.net",
     "pstatic.net",
 
+    "2chblog.jp",
     "blog.jp",
     "blogos.com",
     "doorblog.jp",
