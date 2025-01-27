@@ -4704,6 +4704,7 @@ let multiDomainFirstPartiesArray = [
     "thinkorswim.com",
     "thinkorswim.com.sg",
   ],
+  ["schibsted.com", "finn.no", "tori.fi"],
   ["scmp.com", "i-scmp.com"],
   ["sears.com", "shld.net"],
   [
