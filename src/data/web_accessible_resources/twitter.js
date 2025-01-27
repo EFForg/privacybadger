@@ -8,6 +8,11 @@
         }));
     }
 
+    let _e = [];
+    if (window.twttr && window.twttr._e && Array.isArray(window.twttr._e)) {
+        _e = window.twttr._e;
+    }
+
     window.twttr = {};
     window.twttr.widgets = {};
 
@@ -40,6 +45,13 @@
     window.twttr.widgets.createTweetEmbed = window.twttr.widgets.createTweet;
 
     window.twttr.widgets.createTimeline = async function () {}; // returns a Promise
+
+    // "an asynchronous function queue storing functions
+    // to be executed in an array accessible at window.twttr._e"
+    // https://developer.x.com/en/docs/x-for-websites/embedded-tweets/guides/cms-best-practices
+    for (let fn of _e) {
+        fn();
+    }
 
     // to support simple blockquote/iframe embeds
     // that won't call any API methods here
