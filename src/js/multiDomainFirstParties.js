@@ -7,6 +7,7 @@ let multiDomainFirstPartiesArray = [
   ["2gis.ru", "2gis.ae", "2gis.kg", "2gis.kz", "2gis.com"],
   ["360.cn", "360.com", "360kuai.com", "360safe.com", "qhimg.com", "qhupdate.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
+  ["888.com", "888casino.com", "888slots.de", "888sport.com", "safe-iplay.com"],
   ["9gag.com", "9cache.com"],
   ["accountonline.com", "citi.com", "citibank.com", "citicards.com", "citibankonline.com"],
   [
