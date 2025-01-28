@@ -113,9 +113,6 @@ function loadOptions() {
   $("#removeAllData").button("option", "icons", {primary: "ui-icon-closethick"});
   $("#show_counter_checkbox").on("click", updateShowCounter);
   $("#show_counter_checkbox").prop("checked", OPTIONS_DATA.settings.showCounter);
-  $("#replace-widgets-checkbox")
-    .on("click", updateWidgetReplacement)
-    .prop("checked", OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
   $("#enable_dnt_checkbox").on("click", updateDNTCheckboxClicked);
   $("#enable_dnt_checkbox").prop("checked", OPTIONS_DATA.settings.sendDNTSignal);
   $("#check_dnt_policy_checkbox").on("click", updateCheckingDNTPolicy);
@@ -262,44 +259,23 @@ function loadOptions() {
       });
     });
 
-  const $widgetExceptions = $("#hide-widgets-select");
-
-  // disable Widget Replacement form elements when widget replacement is off
-  function _disable_widget_forms(enable) {
-    if (enable) {
-      $widgetExceptions.prop("disabled", false);
-      $("#widget-site-exceptions-select").prop("disabled", false);
-      $('#widget-site-exceptions-remove-button').button("option", "disabled", false);
-    } else {
-      $widgetExceptions.prop("disabled", "disabled");
-      $("#widget-site-exceptions-select").prop("disabled", "disabled");
-      $('#widget-site-exceptions-remove-button').button("option", "disabled", true);
-    }
-  }
-  _disable_widget_forms(OPTIONS_DATA.settings.socialWidgetReplacementEnabled);
-  $("#replace-widgets-checkbox").on("change", function () {
-    _disable_widget_forms($(this).is(":checked"));
-  });
+  const $widgetExceptions = $("#always-activate-select");
 
   // Initialize Select2 and populate options
   $widgetExceptions.select2({
     width: '100%'
   });
-  OPTIONS_DATA.widgets.forEach(function (key) {
-    const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions && OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
-    const option = new Option(key, key, false, isSelected);
-    $widgetExceptions.append(option).trigger("change");
-  });
-
-  $widgetExceptions.on('select2:select', updateWidgetReplacementExceptions);
-  $widgetExceptions.on('select2:unselect', updateWidgetReplacementExceptions);
-  $widgetExceptions.on('select2:clear', updateWidgetReplacementExceptions);
-
-  // hide the deprecated widget replacement toggle
-  // unless the user previously checked it
-  if (!OPTIONS_DATA.settings.socialWidgetReplacementEnabled) {
-    $('#widget-replacement-toggle').show();
+  for (let widget_name of OPTIONS_DATA.widgets) {
+    let is_selected = OPTIONS_DATA.settings.widgetAllowlist &&
+      OPTIONS_DATA.settings.widgetAllowlist.includes(widget_name);
+    $widgetExceptions
+      .append(new Option(widget_name, widget_name, false, is_selected))
+      .trigger("change");
   }
+
+  $widgetExceptions.on('select2:select', updateWidgetExceptions);
+  $widgetExceptions.on('select2:unselect', updateWidgetExceptions);
+  $widgetExceptions.on('select2:clear', updateWidgetExceptions);
 
   reloadDisabledSites();
   reloadTrackingDomainsTab();
@@ -464,19 +440,6 @@ function updateShowCounter() {
         });
       });
     });
-  });
-}
-
-/**
- * Update setting for whether or not to replace
- * social buttons/video players/commenting widgets.
- */
-function updateWidgetReplacement() {
-  const socialWidgetReplacementEnabled = $("#replace-widgets-checkbox").prop("checked");
-
-  chrome.runtime.sendMessage({
-    type: "updateSettings",
-    data: { socialWidgetReplacementEnabled }
   });
 }
 
@@ -1074,13 +1037,15 @@ function removeDomain(event) {
 }
 
 /**
- * Update which widgets should not get replaced
+ * Update which widgets should always get activated.
  */
-function updateWidgetReplacementExceptions() {
-  const widgetReplacementExceptions = $('#hide-widgets-select').select2('data').map(({ id }) => id);
+function updateWidgetExceptions() {
+  let $el = $('#always-activate-select'),
+    widgetAllowlist = $el.select2('data').map(({ id }) => id);
+
   chrome.runtime.sendMessage({
     type: "updateSettings",
-    data: { widgetReplacementExceptions }
+    data: { widgetAllowlist }
   });
 }
 
