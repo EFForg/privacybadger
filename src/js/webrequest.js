@@ -175,17 +175,7 @@ function onBeforeRequest(details) {
   }
 
   if ((type == 'script' || sw_request) && from_current_tab) {
-    let surrogate;
-
-    if (utils.hasOwn(surrogates.WIDGET_SURROGATES, request_host)) {
-      let settings = badger.getSettings();
-      if (!settings.getItem('widgetReplacementExceptions').includes(surrogates.WIDGET_SURROGATES[request_host].widgetName)) {
-        surrogate = surrogates.getSurrogateUri(url, request_host);
-      }
-
-    } else {
-      surrogate = surrogates.getSurrogateUri(url, request_host);
-    }
+    let surrogate = surrogates.getSurrogateUri(url, request_host);
 
     if (surrogate) {
       let secret = getWarSecret(tab_id, frame_id, surrogate);
@@ -625,11 +615,7 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
   }
 
   // don't hide widget frames
-  let exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
   for (let widget of badger.widgetList) {
-    if (exceptions.includes(widget.name)) {
-      continue;
-    }
     for (let domain of widget.domains) {
       if (domain == frame_host) {
         return;
@@ -844,8 +830,7 @@ let getWidgetList = (function () {
     let widgetsToReplace = {},
       widgetList = [],
       trackers = badger.tabData.getTrackers(tab_id),
-      trackerDomains = Object.keys(trackers),
-      exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
+      trackerDomains = Object.keys(trackers);
 
     // optimize translation lookups by doing them just once,
     // the first time they are needed
@@ -862,12 +847,6 @@ let getWidgetList = (function () {
     }
 
     for (let widget of badger.widgetList) {
-      // replace only if the widget is not on the 'do not replace' list
-      // also don't send widget data used later for dynamic replacement
-      if (exceptions.includes(widget.name)) {
-        continue;
-      }
-
       widgetList.push(widget);
 
       // replace only if we haven't already allowed this widget for the tab/site
@@ -1004,13 +983,24 @@ function getWidgetDomains(widget_name) {
  * with domains for widgets marked as always allowed on a given site.
  */
 function initAllowedWidgets(tab_id, tab_host) {
-  let allowedWidgets = badger.getSettings().getItem('widgetSiteAllowlist');
-  if (utils.hasOwn(allowedWidgets, tab_host)) {
-    for (let widget_name of allowedWidgets[tab_host]) {
-      let widgetDomains = getWidgetDomains(widget_name);
-      if (widgetDomains) {
-        badger.tabData.allowOnTab(tab_id, widgetDomains, widget_name);
-      }
+  let allowedWidgets = {},
+    conf = badger.getSettings();
+
+  for (let widget_name of conf.getItem('widgetAllowlist')) {
+    allowedWidgets[widget_name] = true;
+  }
+
+  let siteExceptions = conf.getItem('widgetSiteAllowlist');
+  if (utils.hasOwn(siteExceptions, tab_host)) {
+    for (let widget_name of siteExceptions[tab_host]) {
+      allowedWidgets[widget_name] = true;
+    }
+  }
+
+  for (let name of Object.keys(allowedWidgets)) {
+    let widgetDomains = getWidgetDomains(name);
+    if (widgetDomains) {
+      badger.tabData.allowOnTab(tab_id, widgetDomains, name);
     }
   }
 }
