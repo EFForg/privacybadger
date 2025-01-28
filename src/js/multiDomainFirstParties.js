@@ -2536,7 +2536,7 @@ let multiDomainFirstPartiesArray = [
     "volantesic.pt",
   ],
   ["immobilienscout24.de", "static-immobilienscout24.de"],
-  ["indamedia.hu", "divany.hu", "femina.hu", "index.hu", "port.hu", "totalcar.hu"],
+  ["indamedia.hu", "divany.hu", "femina.hu", "index.hu", "port.hu", "totalbike.hu", "totalcar.hu"],
   ["independent.co.uk", "indy100.com", "the-independent.com"],
   ["infor.pl", "gazetaprawna.pl", "forsal.pl", "dziennik.pl"],
   ["innogames.com", "elvenar.com", "forgeofempires.com", "grepolis.com", "innogamescdn.com"],
