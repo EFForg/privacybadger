@@ -1,6 +1,9 @@
 Privacy Badger changelog
 ========================
 
+2025.1.29
+Bug fix update to fix fetching the latest fixes from EFF's CDN
+
 2025.1.17
 * Added widget replacement for Bluesky, Instagram and Threads embeds.
 Privacy Badger replaces potentially useful widgets with placeholders.
