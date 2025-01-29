@@ -626,7 +626,7 @@ Badger.prototype = {
     let response, data;
 
     try {
-      response = await fetch(constants.PBCONFIG_REMOTE_URL);
+      response = await fetch(constants.PBCONFIG_REMOTE_URL, { cache: "no-store" });
     } catch (err) {
       console.error("Problem fetching pbconfig:", err);
       throw new Error("Failed to fetch remote pbconfig");
