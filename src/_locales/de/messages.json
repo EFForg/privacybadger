@@ -320,7 +320,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Privacy Badger automatisch entdeckt Tracker aufgrund ihres Verhaltens.",
+        "message": "Privacy Badger entdeckt Tracker automatisch anhand ihres Verhaltens.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
