@@ -13,6 +13,7 @@ from shutil import copytree, which
 
 from selenium import webdriver
 from selenium.common.exceptions import (
+    InvalidArgumentException,
     NoSuchWindowException,
     TimeoutException,
     WebDriverException,
@@ -444,7 +445,7 @@ class PBSeleniumTest(unittest.TestCase):
                     self.driver.switch_to.window(w)
                     if self.driver.current_url != url:
                         continue
-                except NoSuchWindowException:
+                except (InvalidArgumentException, NoSuchWindowException):
                     pass
                 except WebDriverException as e:
                     if "cannot determine loading status" in str(e):

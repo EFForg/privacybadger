@@ -3,8 +3,6 @@
 import time
 import unittest
 
-import pytest
-
 import pbtest
 
 from selenium.common.exceptions import TimeoutException
@@ -33,7 +31,6 @@ class PopupTest(pbtest.PBSeleniumTest):
 
             self.fail(f"Timed out waiting for {url} to start loading")
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_welcome_page_reminder_overlay(self):
         """Ensure overlay links to new user welcome page."""
 
@@ -47,9 +44,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.driver.find_element(By.ID, "intro-reminder-btn").click()
 
         # switch to the welcome page or fail
-        if pbtest.shim.browser_type in ("chrome", "edge"):
-            # work around some kind of Chromium race condition bug
-            time.sleep(1)
         self.switch_to_window_with_url(self.first_run_url)
 
     def test_help_button(self):
