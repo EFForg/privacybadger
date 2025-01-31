@@ -13,7 +13,7 @@ You can find the full list of available settings in [Privacy Badger's managed st
 1. Locate and if necessary create the [managed storage manifests folder](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_manifests#Manifest_location). Note that on Windows you need to create a registry key that points to the manifest's location.
 2. Copy the [sample managed storage manifest for Firefox](/doc/sample-admin-policies/jid1-MnnxcxisBPnSXQ@jetpack.json) to this folder.
 
-If your Privacy Badgers were installed from [Privacy Badger's homepage](https://privacybadger.org) (not from [AMO](https://addons.mozilla.org/en-US/firefox/addon/privacy-badger17/)):
+If your Privacy Badgers were [installed from eff.org](https://privacybadger.org/#Can-I-download-Privacy-Badger-directly-from-eff.org) (not from [AMO](https://addons.mozilla.org/en-US/firefox/addon/privacy-badger17/)):
 
 3. Rename the manifest to `jid1-MnnxcxisBPnSXQ-eff@jetpack.json`.
 4. Similarly, update the `"name"` property in the manifest to `"jid1-MnnxcxisBPnSXQ-eff@jetpack"`.
