@@ -1506,7 +1506,20 @@ let multiDomainFirstPartiesArray = [
     "evbuc.com",
     "eventbriteapi.com",
   ],
-  ["eventim.de", "eventim.com.br", "eventim.com", "ticketone.it"],
+  [
+    "eventim.de",
+
+    "eventim.bg",
+    "eventim.com.br",
+    "eventim.hr",
+    "eventim.hu",
+    "eventim.ro",
+    "eventim.si",
+
+    "ticketone.it",
+
+    "eventim.com",
+  ],
   [
     "expedia.com",
 
