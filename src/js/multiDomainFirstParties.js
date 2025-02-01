@@ -3159,6 +3159,7 @@ let multiDomainFirstPartiesArray = [
     "powerapps.com",
     "powerautomate.com",
     "powerbi.com",
+    "powerplatform.com",
     "roiservice.com",
     "sfbassets.com",
     "sfx.ms",
