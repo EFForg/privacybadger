@@ -1116,6 +1116,35 @@ function getSurrogateWidget(name, data, frame_url) {
     return widget;
   }
 
+  if (name == "Twitch Player") {
+    if (!data || !data.domId || !data.videoId) {
+      return false;
+    }
+
+    let video_id = data.videoId,
+      dom_id = data.domId;
+
+    if (!OK.test(video_id) || !OK.test(dom_id)) {
+      return false;
+    }
+
+    let widget = {
+      name,
+      buttonSelectors: ["#" + dom_id],
+      scriptSelectors: [
+        `script[src^='${CSS.escape("https://embed.twitch.tv/embed/v1.js")}']`
+      ],
+      replacementButton: {
+        "unblockDomains": ["twitch.tv", "*.twitch.tv"],
+        "type": 4
+      },
+      directLinkUrl: `https://www.twitch.tv/${video_id}`,
+      reloadOnActivation: true
+    };
+
+    return widget;
+  }
+
   return false;
 }
 
