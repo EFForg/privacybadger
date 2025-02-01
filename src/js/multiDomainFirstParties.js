@@ -9,6 +9,7 @@ let multiDomainFirstPartiesArray = [
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
   ["888.com", "888casino.com", "888slots.de", "888sport.com", "safe-iplay.com"],
   ["9gag.com", "9cache.com"],
+  ["aenetworks.com", "aetv.com", "history.com", "mylifetime.com", "aetnd.com"],
   ["accountonline.com", "citi.com", "citibank.com", "citicards.com", "citibankonline.com"],
   [
     "action.group",
