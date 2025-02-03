@@ -8,7 +8,7 @@
         },
         "disabledSites": {
             "title": "Websites to disable Privacy Badger on",
-            "description": "This is a list of website domains where Privacy Badger will be disabled. This means that Privacy Badger will not block anything or send DNT/GPC signals to anything when you visit a website on this list. This is NOT a list of tracker domains for Privacy Badger to always allow to load.",
+            "description": "This is a list of website domains where Privacy Badger will be disabled. This means that Privacy Badger will not block anything or send DNT/GPC signals to anything when you visit a website on this list. If you want to customize tracking domain settings, use trackingDomains, not disabledSites.",
             "type": "array",
             "items": {
                 "type": "string"
@@ -38,6 +38,23 @@
             "title": "Show intro page",
             "description": "If set to false then do not open the new user intro page upon install.",
             "type": "boolean"
+        },
+        "trackingDomains": {
+            "title": "Tracking Domains",
+            "description": "This list lets you specify actions for tracking domains.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                     "domain": {
+                         "type": "string"
+                     },
+                     "action": {
+                         "type": "string",
+                         "enum": ["block", "cookieblock", "allow"]
+                     }
+                }
+            }
         }
     }
 }
