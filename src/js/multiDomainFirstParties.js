@@ -5303,6 +5303,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["trsretire.com", "divinvest.com"],
   ["turbotax.com", "intuit.com"],
+  ["turkuvazyayin.com.tr", "aspor.com.tr", "atv.com.tr", "dailysabah.com", "sabah.com.tr", "tmgrup.com.tr"],
   [
     "tvn.pl",
 
