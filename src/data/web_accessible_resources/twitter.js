@@ -14,6 +14,9 @@
     }
 
     window.twttr = {};
+    window.twttr.events = {
+        bind: function () {}
+    };
     window.twttr.widgets = {};
 
     window.twttr.ready = function (cb) {
