@@ -5,6 +5,12 @@
                 "showIntroPage": false,
                 "disabledSites": [
                     "example.com"
+                ],
+                "trackingDomains": [
+                    {
+                        "domain": "youtube.com",
+                        "action": "block"
+                    }
                 ]
             }
         }

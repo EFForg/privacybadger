@@ -87,6 +87,18 @@ function ingestManagedStorage(managedStore) {
     }
   }
   badger.getSettings().merge(settings);
+
+  if (managedStore.trackingDomains) {
+    let knownActions = new Set([
+      constants.BLOCK,
+      constants.COOKIEBLOCK,
+      constants.ALLOW]);
+    for (let item of managedStore.trackingDomains) {
+      if (knownActions.has(item.action)) {
+        badger.saveAction(item.action, item.domain);
+      }
+    }
+  }
 }
 
 let pollForManagedStorage = (function () {
