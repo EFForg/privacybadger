@@ -276,6 +276,27 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.load_url(self.BASIC_FIXTURE_URL)
         self.assert_replacement()
 
+    def test_activation_global(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+
+        # add the widget to the list of exceptions
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-manage-widgets"]').click()
+        self.find_el_by_css('input[type="search"]').send_keys(
+            self.TYPE3_WIDGET_NAME, Keys.ENTER)
+
+        # verify basic widget is neither replaced nor blocked
+        self.load_url(self.BASIC_FIXTURE_URL)
+        self.assert_no_replacement()
+        self.assert_widget()
+
+        # verify dynamic widget is no longer replaced
+        self.load_url(self.DYNAMIC_FIXTURE_URL)
+        self.find_el_by_css('#widget-trigger').click()
+        self.assert_no_replacement()
+        self.assert_widget()
+
     def test_disabling_site(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
 
@@ -295,29 +316,6 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('#widget-trigger').click()
         self.assert_no_replacement()
         self.assert_widget()
-
-    def test_disabling_replacement_for_one_widget(self):
-        self.block_domain(self.THIRD_PARTY_DOMAIN)
-
-        # add the widget to the list of exceptions
-        self.load_url(self.options_url)
-        self.wait_for_script("return window.OPTIONS_INITIALIZED")
-        self.find_el_by_css('a[href="#tab-manage-widgets"]').click()
-        self.find_el_by_css('input[type="search"]').send_keys(
-            self.TYPE3_WIDGET_NAME, Keys.ENTER)
-
-        # verify basic widget is no longer replaced
-        self.load_url(self.BASIC_FIXTURE_URL)
-        self.assert_no_replacement()
-        self.assert_widget_blocked()
-        # verify the type 4 widget is still replaced
-        self.assert_replacement(self.TYPE4_WIDGET_NAME)
-
-        # verify dynamic widget is no longer replaced
-        self.load_url(self.DYNAMIC_FIXTURE_URL)
-        self.find_el_by_css('#widget-trigger').click()
-        self.assert_no_replacement()
-        self.assert_widget_blocked()
 
     def test_no_replacement_when_cookieblocked(self):
         self.cookieblock_domain(self.THIRD_PARTY_DOMAIN)

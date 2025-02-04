@@ -210,7 +210,7 @@ p, #settingsForm {
     padding-inline-start: 25px;
 }
 
-label[for=hide-widgets-select] {
+label[for=always-activate-select] {
     display: block;
 }
 
