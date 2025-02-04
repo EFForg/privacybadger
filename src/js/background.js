@@ -768,7 +768,6 @@ Badger.prototype = {
     showExpandedTrackingSection: false,
     showIntroPage: true,
     showNonTrackingDomains: false,
-    socialWidgetReplacementEnabled: true,
     widgetReplacementExceptions: [],
     widgetSiteAllowlist: {},
   },
@@ -845,6 +844,7 @@ Badger.prototype = {
         "migrationLevel",
         "preventWebRTCIPLeak",
         "showTrackingDomains",
+        "socialWidgetReplacementEnabled",
         "webRTCIPProtection",
       ].forEach(item => {
         if (settings.hasItem(item)) { settings.deleteItem(item); }

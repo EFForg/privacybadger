@@ -179,7 +179,7 @@ function onBeforeRequest(details) {
 
     if (utils.hasOwn(surrogates.WIDGET_SURROGATES, request_host)) {
       let settings = badger.getSettings();
-      if (settings.getItem("socialWidgetReplacementEnabled") && !settings.getItem('widgetReplacementExceptions').includes(surrogates.WIDGET_SURROGATES[request_host].widgetName)) {
+      if (!settings.getItem('widgetReplacementExceptions').includes(surrogates.WIDGET_SURROGATES[request_host].widgetName)) {
         surrogate = surrogates.getSurrogateUri(url, request_host);
       }
 
@@ -625,19 +625,17 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
   }
 
   // don't hide widget frames
-  if (badger.getSettings().getItem("socialWidgetReplacementEnabled")) {
-    let exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
-    for (let widget of badger.widgetList) {
-      if (exceptions.includes(widget.name)) {
-        continue;
-      }
-      for (let domain of widget.domains) {
-        if (domain == frame_host) {
+  let exceptions = badger.getSettings().getItem('widgetReplacementExceptions');
+  for (let widget of badger.widgetList) {
+    if (exceptions.includes(widget.name)) {
+      continue;
+    }
+    for (let domain of widget.domains) {
+      if (domain == frame_host) {
+        return;
+      } else if (domain[0] == "*") { // leading wildcard domain
+        if (frame_host.endsWith(domain.slice(1))) {
           return;
-        } else if (domain[0] == "*") { // leading wildcard domain
-          if (frame_host.endsWith(domain.slice(1))) {
-            return;
-          }
         }
       }
     }
@@ -1370,8 +1368,7 @@ function dispatcher(request, sender, sendResponse) {
     let response = false,
       tab_host = extractHostFromURL(sender.tab.url);
 
-    if (badger.isPrivacyBadgerEnabled(tab_host) &&
-        badger.getSettings().getItem("socialWidgetReplacementEnabled")) {
+    if (badger.isPrivacyBadgerEnabled(tab_host)) {
       response = getWidgetList(sender.tab.id);
       response.frameId = sender.frameId;
     }
