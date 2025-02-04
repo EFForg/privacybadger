@@ -5470,6 +5470,7 @@ let multiDomainFirstPartiesArray = [
     "ionoscloud.us",
 
     "alturo.de",
+    "arsys.net",
     "banner.de",
     "mi-web.es",
     "mywebsite.it",
