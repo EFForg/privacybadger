@@ -491,10 +491,6 @@
         "message": "Ved blokering af sociale knapper og andre potentielt brugbare (video, lyd, kommentarer) kontroller, kan Privacy Badger udskifte dem med klik-for-at-aktivere pladsholdere.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Aktiver udskiftning",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Widget Exceptions",
         "description": "Header text on the Widget Replacement tab"

@@ -491,10 +491,6 @@
         "message": "Sosyal butonları ve diğer potansiyel olarak yararlı (video, ses, yorum) widgetlarını engellerken, Privacy Badger onları tıkla-çalıştır yer tutucularla değiştirebilir.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Widget değiştirmesini aç",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Widget İstisnaları",
         "description": "Header text on the Widget Replacement tab"

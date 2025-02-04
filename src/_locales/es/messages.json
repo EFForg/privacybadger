@@ -491,10 +491,6 @@
         "message": "Al bloquear botones de redes sociales y otros widgets potencialmente útiles (vídeo, audio, comentarios), Privacy Badger puede sustituirlos con marcadores de posición de clic para activarlos.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Habilitar la sustitución de widgets",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Excepciones de widgets",
         "description": "Header text on the Widget Replacement tab"

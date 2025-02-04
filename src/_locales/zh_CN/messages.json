@@ -491,10 +491,6 @@
         "message": "当屏蔽社交媒体按钮和其他可能有用的小部件（如音视频和评论区）时，隐私獾可以将他们替换成“点击以启用”的占位部件。",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "开启小部件替换",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "例外小部件",
         "description": "Header text on the Widget Replacement tab"

@@ -491,10 +491,6 @@
         "message": "Pri blokiranju dugmića socijalnih mreža, kao i drugih potencijalno korisnih vidžeta (video, audio, komentari), Privacy Badger ih može zameniti rezervisanim poljem koje se aktivira klikom.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Omogući zamenu vidžeta",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Vidžeti izuzeci",
         "description": "Header text on the Widget Replacement tab"

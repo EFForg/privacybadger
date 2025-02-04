@@ -491,10 +491,6 @@
         "message": "Wanneer socialemedia-knoppen en andere potentieel nuttige widgets worden geblokkeerd, dan kan Privacy Badger ze vervangen door plaatsvervangers die je kan klikken om te activeren.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Widgets vervangen inschakelen",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Widget-uitzonderingen",
         "description": "Header text on the Widget Replacement tab"

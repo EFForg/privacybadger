@@ -491,10 +491,6 @@
         "message": "Apabila menyekat butang sosial dan widget lain yang berpotensi berguna (video, audio, ulasan), Privacy Badger boleh menggantikannya dengan ruang-letak klik-untuk-aktifkan.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Aktifkan penggantian widget",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Pengecualian Widget",
         "description": "Header text on the Widget Replacement tab"

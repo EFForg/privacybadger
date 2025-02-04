@@ -491,10 +491,6 @@
         "message": "בעת חסימת כפתורים חברתיים ויישומונים שימושיים פוטנציאלים אחרים (סרטון, שמע, תגובות), Privacy Badger יכול להחליף אותם בממלאי מקום של לחץ־כדי־לשפעל.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "אפשר החלפת יישומונים",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "יישומונים מוחרגים",
         "description": "Header text on the Widget Replacement tab"

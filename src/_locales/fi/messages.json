@@ -491,10 +491,6 @@
         "message": "Kun estetään sosiaalisen median painikkeita ja muita mahdollisesti hyödyllisiä elementtejä, kuten videoita, ääniä ja kommentteja, voi Privacy Badger korvata ne paikkamerkeillä, joita painamalla ne voidaan aktivoida.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Käytä widgettien korvausta",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Widget-poikkeukset",
         "description": "Header text on the Widget Replacement tab"

@@ -491,10 +491,6 @@
         "message": "सोशल बटन और अन्य संभावित उपयोगी (वीडियो, ऑडियो, टिप्पणियां) विजेट को अवरुद्ध करते समय, प्राइवेसी बैजर उन्हें क्लिक-टू-एक्टिवेट प्लेसहोल्डर्स से बदल सकता है।",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "विजेट प्रतिस्थापन सक्षम करें",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "विजेट अपवाद",
         "description": "Header text on the Widget Replacement tab"

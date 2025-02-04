@@ -491,10 +491,6 @@
         "message": "Közösségi gombok és egyéb lehetséges hasznos (videó, hang, hozzászólások) felületi elemek tiltásakor a Privacy Badger ki tudja cserélni azokat kattintásra aktiválódó helykitöltőkre.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Felületi elem cseréjének engedélyezése",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Felületi elem kivételek",
         "description": "Header text on the Widget Replacement tab"

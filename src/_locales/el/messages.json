@@ -491,10 +491,6 @@
         "message": "Πολλές φορές επιλέγετε να μην εμφανίζονται τα κουμπιά μέσων κοινωνικής δικτύωσης, ή άλλα πιθανότατα χρήσιμα widgets (που σχετίζονται π.χ. με βίντεο, ήχο, σχόλια) σε συγκεκριμένες ιστοσελίδες. Το Privacy Badger σας δίνει τη δυνατότητα να τα αντικαταστήσετε με άλλα κουμπιά· κάνοντας κλικ σε αυτά, μπορείτε να ενεργοποιήσετε τα αρχικώς αποκλεισμένα widgets.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Να αντικαθίστανται τα widget",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Εξαιρέσεις widget",
         "description": "Header text on the Widget Replacement tab"

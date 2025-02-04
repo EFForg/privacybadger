@@ -491,10 +491,6 @@
         "message": "Vid blockering av sociala knappar och andra potentiellt användbara gränssnittskomponenter (video, ljud, kommentarer) kan Privacy Badger ersätta dem med klicka-för-att-aktivera platshållare.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Aktivera gränssnittskomponentsersättning",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Gränssnittskomponentsundantag",
         "description": "Header text on the Widget Replacement tab"

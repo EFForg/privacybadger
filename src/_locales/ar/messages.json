@@ -491,10 +491,6 @@
         "message": "عند حظر الأزرار الاجتماعية والأدوات الأخرى المفيدة المحتملة (الفيديو، الصوت والتعليقات) widgets، يمكن لـ «غرير الخصوصية»  استبدالها بعناصر يمكن النقر عليها للتفعيلها.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "إسمح بإستبدال الـ Widget",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "إستثناءات الـ Widget",
         "description": "Header text on the Widget Replacement tab"

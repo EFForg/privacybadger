@@ -491,10 +491,6 @@
         "message": "Podczas blokowania przycisków mediów społecznościowych i innych potencjalnie użytecznych widżetów (filmów, dźwięków, komentarzy), Privacy Badger może zastępować je przyciskami (które nie ładują się automatycznie).",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Zastępuj widżety",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Wyjątki: widżety",
         "description": "Header text on the Widget Replacement tab"

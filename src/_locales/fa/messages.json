@@ -491,10 +491,6 @@
         "message": "هنگامی که دکمه‌های اجتماعی و دیگر ابزارک‌های بالقوهٔ کاربردی (ویدیو،‌ صدا، نظرات) مسدود می‌شوند، پرایوسی بجر می‌تواند آن‌ها را با فضاپرکن «کلیک برای به کار انداختن» جایگزین کند.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "به کار انداختن جایگزینی ابزارک",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "استثنائات ابزارک",
         "description": "Header text on the Widget Replacement tab"

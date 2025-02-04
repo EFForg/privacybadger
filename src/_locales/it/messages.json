@@ -491,10 +491,6 @@
         "message": "Quando vengono bloccati i pulsanti social ed altri widget possibilmente utili (video, audio, commenti), Privacy Badger li può sostituire con segnaposto clicca-per-attivare.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
-    "options_social_widgets_checkbox": {
-        "message": "Attiva sostituzione dei widget",
-        "description": "Checkbox label on the Widget Replacement tab"
-    },
     "options_widget_exceptions_header": {
         "message": "Eccezioni widget",
         "description": "Header text on the Widget Replacement tab"
