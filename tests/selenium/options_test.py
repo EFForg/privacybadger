@@ -18,8 +18,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
     """Make sure the options page works correctly."""
 
     def assert_domain_toggle_state(self, domain, action, failure_msg):
-        clicker = self.driver.find_element(By.CSS_SELECTOR,
-            f'div[data-origin="{domain}"]')
+        clicker = self.find_el_by_css(f'div[data-origin="{domain}"]')
         assert clicker.get_dom_attribute("class") == "clicker userset", failure_msg
 
         switches_div = clicker.find_element(By.CSS_SELECTOR, ".switch-container")
@@ -193,7 +192,8 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         # Change user preferences
         domain_id = DOMAIN.replace(".", "-")
-        self.js(f"$('#{overwrite_action}-{domain_id}').click()")
+        self.wait_for_script(f"return $('#{overwrite_action}-{domain_id}')[0];")
+        self.js(f"$('#{overwrite_action}-{domain_id}').trigger('click');")
 
         # Re-open the tab
         self.load_options_page()
