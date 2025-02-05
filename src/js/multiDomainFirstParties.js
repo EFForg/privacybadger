@@ -6102,6 +6102,7 @@ let multiDomainFirstPartiesArray = [
 
     "abczdrowie.pl",
     "allani.pl",
+    "autocentrum.pl",
     "autokult.pl",
     "dobreprogramy.pl",
     "domodi.pl",
