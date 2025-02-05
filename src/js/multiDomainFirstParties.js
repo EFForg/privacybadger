@@ -5597,6 +5597,11 @@ let multiDomainFirstPartiesArray = [
     "startrek.com",
     "vh1.com",
 
+    "southparkstudios.com.br",
+    "southparkstudios.co.uk",
+    "southparkstudios.nu",
+    "southparkstudios.se",
+
     "cbsig.net",
     "cbsimg.net",
     "cbsistatic.com",
