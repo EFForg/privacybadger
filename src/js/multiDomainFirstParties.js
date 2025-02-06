@@ -2918,6 +2918,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["mdsol.com", "imedidata.com"],
   ["mediacorp.sg", "channelnewsasia.com", "melisten.sg", "mewatch.sg", "todayonline.com"],
+  ["medialivre.pt", "cmjornal.pt", "record.pt", "xl.pt"],
   [
     "mediamarktsaturn.com",
 
