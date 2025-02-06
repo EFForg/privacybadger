@@ -495,8 +495,8 @@
         "message": "Widget Exceptions",
         "description": "Header text on the Widget Replacement tab"
     },
-    "options_hide_social_widgets": {
-        "message": "Don't replace the following widgets:",
+    "options_widget_exceptions_label": {
+        "message": "Always allow the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
