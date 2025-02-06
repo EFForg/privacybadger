@@ -173,7 +173,7 @@ class DntTest(pbtest.PBSeleniumTest):
         except NoSuchElementException:
             self.fail("Unable to find the non-tracking domain on the page")
 
-        action_map = self.get_badger_storage('action_map')
+        action_map = retry_until(partial(self.get_badger_storage, 'action_map'))
 
         # verify that the cookie-tracking domain was recorded
         assert TRACKING_DOMAIN in action_map, (
