@@ -4715,6 +4715,7 @@ let multiDomainFirstPartiesArray = [
   ["schibsted.com", "finn.no", "tori.fi"],
   ["scmp.com", "i-scmp.com"],
   ["sears.com", "shld.net"],
+  ["seek.com.au", "jobsdb.com", "jobstreet.com", "seek.co.nz"],
   [
     "seznam.cz",
 
