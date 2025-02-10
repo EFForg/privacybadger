@@ -782,7 +782,7 @@ BadgerStorage.prototype = {
     if (self.name == "settings_map") {
       for (let prop in mapData) {
         // combine array settings via intersection/union
-        if (prop == "disabledSites" || prop == "widgetReplacementExceptions") {
+        if (prop == "disabledSites" || prop == "widgetAllowlist") {
           self.setItem(prop, utils.concatUniq(self.getItem(prop), mapData[prop]));
 
         // string/array map
