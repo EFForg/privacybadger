@@ -43,6 +43,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/* globals badger:false */
+
 import { log } from "./bootstrap.js";
 import utils from "./utils.js";
 
@@ -70,9 +72,9 @@ function getFileContents(file_path, callback) {
 function loadWidgetsFromFile(file_path) {
   return new Promise(function (resolve) {
     getFileContents(file_path, function (contents) {
-      let widgets = initializeWidgets(JSON.parse(contents));
+      badger.widgetList = initializeWidgets(JSON.parse(contents));
       log("Initialized widgets from disk");
-      resolve(widgets);
+      resolve();
     });
   });
 }

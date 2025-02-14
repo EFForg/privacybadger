@@ -17,6 +17,7 @@
 
 import { extractHostFromURL, getChromeInitiator } from "../lib/basedomain.js";
 
+import { log } from "./bootstrap.js";
 import utils from "./utils.js";
 
 function TabData() {
@@ -152,6 +153,7 @@ TabData.prototype.initialize = function () {
           self.recordFrame(tab.id, 0, tab.url);
         }
 
+        log("Initialized tab data");
         resolve();
       });
     });
@@ -165,6 +167,7 @@ TabData.prototype.initialize = function () {
  */
 TabData.prototype.restoreSession = function (callback) {
   if (!chrome.storage.session) {
+    log("No storage.session API");
     return callback({});
   }
 
@@ -174,7 +177,9 @@ TabData.prototype.restoreSession = function (callback) {
     'tempAllowedWidgets',
   ];
 
+  log("Reading from storage.session ...");
   chrome.storage.session.get(SESSION_STORAGE_KEYS, function (res) {
+    log("Done reading from storage.session");
     if (utils.isObject(res) && Object.keys(res).length) {
       // clean up
       chrome.storage.session.remove(SESSION_STORAGE_KEYS, function () {

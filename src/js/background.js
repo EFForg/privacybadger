@@ -53,9 +53,6 @@ function Badger(from_qunit) {
   self.widgetList = [];
   let widgetListPromise = widgetLoader.loadWidgetsFromFile(
     "data/socialwidgets.json").catch(console.error);
-  widgetListPromise.then(widgets => {
-    self.widgetList = widgets;
-  });
 
   self.storage = new BadgerPen(onStorageReady);
 
@@ -99,10 +96,10 @@ function Badger(from_qunit) {
 
     // Show icon as page action for all tabs that already exist
     chrome.tabs.query({}, function (tabs) {
-      for (let i = 0; i < tabs.length; i++) {
-        let tab = tabs[i];
+      for (let tab of tabs) {
         self.updateIcon(tab.id, tab.url);
       }
+      log("Updated tab icons");
     });
 
     // wait for async functions (seed data, yellowlist, ...) to resolve
@@ -120,8 +117,8 @@ function Badger(from_qunit) {
     }
 
     log("Initialization complete");
-    console.log("Privacy Badger is ready to rock!");
     self.INITIALIZED = true;
+    window.DEBUG = false;
 
     if (self.criticalError == "Privacy Badger failed to initialize") {
       delete self.criticalError;
