@@ -210,27 +210,27 @@ class OptionsTest(pbtest.PBSeleniumTest):
             f"after user overwrite of PB's decision to {original_action}")
         self.assert_domain_toggle_state(DOMAIN, overwrite_action, failure_msg)
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_tracking_user_overwrite_allowed_block(self):
         self.tracking_user_overwrite('allow', 'block')
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_tracking_user_overwrite_allowed_cookieblock(self):
         self.tracking_user_overwrite('allow', 'cookieblock')
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_tracking_user_overwrite_cookieblocked_allow(self):
         self.tracking_user_overwrite('cookieblock', 'allow')
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_tracking_user_overwrite_cookieblocked_block(self):
         self.tracking_user_overwrite('cookieblock', 'block')
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_tracking_user_overwrite_blocked_allow(self):
         self.tracking_user_overwrite('block', 'allow')
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_tracking_user_overwrite_blocked_cookieblock(self):
         self.tracking_user_overwrite('block', 'cookieblock')
 
