@@ -15,6 +15,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals badger:false */
+
 import { extractHostFromURL, getChromeInitiator } from "../lib/basedomain.js";
 
 import { log } from "./bootstrap.js";
@@ -171,6 +173,12 @@ TabData.prototype.restoreSession = function (callback) {
     return callback({});
   }
 
+  // also noop if not MV3 and persistent is not set to false
+  if (badger.manifestVersion == 2 && !badger.isEventPage) {
+    log("No need to read from storage.session");
+    return callback({});
+  }
+
   const SESSION_STORAGE_KEYS = [
     'tabData',
     'tempAllowlist',
@@ -178,6 +186,9 @@ TabData.prototype.restoreSession = function (callback) {
   ];
 
   log("Reading from storage.session ...");
+  // TODO reading from session storage can hang for a long time in Firefox
+  // https://github.com/EFForg/privacybadger/issues/3036#issuecomment-2645926189
+  // TODO will need a workaround if we switch Firefox to MV3 or an event page
   chrome.storage.session.get(SESSION_STORAGE_KEYS, function (res) {
     log("Done reading from storage.session");
     if (utils.isObject(res) && Object.keys(res).length) {
@@ -210,6 +221,8 @@ TabData.prototype.saveSession = (function () {
   }
   // also noop if not MV3 and persistent is not set to false
   let manifestJson = chrome.runtime.getManifest();
+  // we duplicate manifest parsing here because this is an IIFE,
+  // and the badger object doesn't yet exist
   if (manifestJson.manifest_version == 2) {
     if (!utils.hasOwn(manifestJson.background, "persistent") || manifestJson.background.persistent !== false) {
       return function () {};
