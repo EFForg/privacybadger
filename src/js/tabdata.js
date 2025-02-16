@@ -15,8 +15,11 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* globals badger:false */
+
 import { extractHostFromURL, getChromeInitiator } from "../lib/basedomain.js";
 
+import { log } from "./bootstrap.js";
 import utils from "./utils.js";
 
 function TabData() {
@@ -152,6 +155,7 @@ TabData.prototype.initialize = function () {
           self.recordFrame(tab.id, 0, tab.url);
         }
 
+        log("Initialized tab data");
         resolve();
       });
     });
@@ -165,6 +169,13 @@ TabData.prototype.initialize = function () {
  */
 TabData.prototype.restoreSession = function (callback) {
   if (!chrome.storage.session) {
+    log("No storage.session API");
+    return callback({});
+  }
+
+  // also noop if not MV3 and persistent is not set to false
+  if (badger.manifestVersion == 2 && !badger.isEventPage) {
+    log("No need to read from storage.session");
     return callback({});
   }
 
@@ -174,7 +185,12 @@ TabData.prototype.restoreSession = function (callback) {
     'tempAllowedWidgets',
   ];
 
+  log("Reading from storage.session ...");
+  // TODO reading from session storage can hang for a long time in Firefox
+  // https://github.com/EFForg/privacybadger/issues/3036#issuecomment-2645926189
+  // TODO will need a workaround if we switch Firefox to MV3 or an event page
   chrome.storage.session.get(SESSION_STORAGE_KEYS, function (res) {
+    log("Done reading from storage.session");
     if (utils.isObject(res) && Object.keys(res).length) {
       // clean up
       chrome.storage.session.remove(SESSION_STORAGE_KEYS, function () {
@@ -205,6 +221,8 @@ TabData.prototype.saveSession = (function () {
   }
   // also noop if not MV3 and persistent is not set to false
   let manifestJson = chrome.runtime.getManifest();
+  // we duplicate manifest parsing here because this is an IIFE,
+  // and the badger object doesn't yet exist
   if (manifestJson.manifest_version == 2) {
     if (!utils.hasOwn(manifestJson.background, "persistent") || manifestJson.background.persistent !== false) {
       return function () {};

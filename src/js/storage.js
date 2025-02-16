@@ -26,7 +26,7 @@ import utils from "./utils.js";
 function getLocalStorage(keys, callback) {
   function _cb(store) {
     if (chrome.runtime.lastError) {
-      console.error("Error reading from chrome.storage.local:",
+      console.error("Error reading from storage.local:",
         chrome.runtime.lastError.message);
     }
     callback(store);
@@ -35,7 +35,7 @@ function getLocalStorage(keys, callback) {
   try {
     chrome.storage.local.get(keys, _cb);
   } catch (ex) {
-    console.error("Error reading from chrome.storage.local:", ex);
+    console.error("Error reading from storage.local:", ex);
     callback(null);
   }
 }
@@ -51,13 +51,17 @@ let readFromStorageWithRetrying = (function () {
    * @param {Function} callback
    */
   function _tryReading(keys, callback) {
+    log("Trying to read from storage.local");
+
     getLocalStorage(keys, function (store) {
       if (store) {
+        log("Successfully read from storage.local");
         return callback(store);
       }
 
       num_tries++;
       if (num_tries >= MAX_TRIES) {
+        log("Giving up reading from storage.local");
         return callback(null);
       }
 
@@ -360,7 +364,7 @@ BadgerPen.prototype = {
       removedDomains = utils.difference(oldDomains, newDomains);
 
     if (addedDomains.length) {
-      log("Adding to cookie blocklist:", addedDomains);
+      log("Adding %i items to cookie blocklist", addedDomains.length);
     }
     for (let domain of addedDomains) {
       ylistStorage.setItem(domain, true);
@@ -377,7 +381,7 @@ BadgerPen.prototype = {
     }
 
     if (removedDomains.length) {
-      log("Removing from cookie blocklist:", removedDomains);
+      log("Removing %i items from cookie blocklist", removedDomains.length);
     }
     for (let domain of removedDomains) {
       ylistStorage.deleteItem(domain);
@@ -981,7 +985,7 @@ let _syncStorage = (function () {
         !err.startsWith("QuotaExceededError:")) {
         badger.criticalError = err;
       }
-      console.error("Error writing to chrome.storage.local:", err);
+      console.error("Error writing to storage.local:", err);
       callback(err);
     });
   }

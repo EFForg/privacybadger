@@ -25,9 +25,6 @@ if [ -n "$1" ]; then
   # include LICENSE in build
   cp LICENSE src/
 
-  # disable debug output
-  sed -i -e 's/\.DEBUG = true/.DEBUG = false/' src/js/bootstrap.js
-
   # blank out locale descriptions to reduce package size
   ../scripts/min_locales.py
 
