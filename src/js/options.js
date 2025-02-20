@@ -259,21 +259,23 @@ function loadOptions() {
       });
     });
 
-  const $widgetExceptions = $("#hide-widgets-select");
+  const $widgetExceptions = $("#always-activate-select");
 
   // Initialize Select2 and populate options
   $widgetExceptions.select2({
     width: '100%'
   });
-  OPTIONS_DATA.widgets.forEach(function (key) {
-    const isSelected = OPTIONS_DATA.settings.widgetReplacementExceptions && OPTIONS_DATA.settings.widgetReplacementExceptions.includes(key);
-    const option = new Option(key, key, false, isSelected);
-    $widgetExceptions.append(option).trigger("change");
-  });
+  for (let widget_name of OPTIONS_DATA.widgets) {
+    let is_selected = OPTIONS_DATA.settings.widgetAllowlist &&
+      OPTIONS_DATA.settings.widgetAllowlist.includes(widget_name);
+    $widgetExceptions
+      .append(new Option(widget_name, widget_name, false, is_selected))
+      .trigger("change");
+  }
 
-  $widgetExceptions.on('select2:select', updateWidgetReplacementExceptions);
-  $widgetExceptions.on('select2:unselect', updateWidgetReplacementExceptions);
-  $widgetExceptions.on('select2:clear', updateWidgetReplacementExceptions);
+  $widgetExceptions.on('select2:select', updateWidgetExceptions);
+  $widgetExceptions.on('select2:unselect', updateWidgetExceptions);
+  $widgetExceptions.on('select2:clear', updateWidgetExceptions);
 
   reloadDisabledSites();
   reloadTrackingDomainsTab();
@@ -1035,13 +1037,15 @@ function removeDomain(event) {
 }
 
 /**
- * Update which widgets should not get replaced
+ * Update which widgets should always get activated.
  */
-function updateWidgetReplacementExceptions() {
-  const widgetReplacementExceptions = $('#hide-widgets-select').select2('data').map(({ id }) => id);
+function updateWidgetExceptions() {
+  let $el = $('#always-activate-select'),
+    widgetAllowlist = $el.select2('data').map(({ id }) => id);
+
   chrome.runtime.sendMessage({
     type: "updateSettings",
-    data: { widgetReplacementExceptions }
+    data: { widgetAllowlist }
   });
 }
 
