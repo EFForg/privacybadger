@@ -43,7 +43,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-manage-data"]').click()
 
     def load_options_page(self):
-        self.load_url(self.options_url)
+        self.load_url(self.options_url + '?all')
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
 
     def test_reloading_should_reapply_filters(self):
