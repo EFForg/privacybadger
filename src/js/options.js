@@ -213,13 +213,17 @@ function loadOptions() {
           }
         }
 
-        $("#not-yet-blocked-filter").toggle(enabled);
+        if (!enabled || (new URLSearchParams(document.location.search)).has('all')) {
+          $("#not-yet-blocked-filter").toggle(enabled);
+        }
         $("#hide-in-seed-filter").toggle(enabled);
       });
     });
   if (OPTIONS_DATA.settings.learnLocally) {
     $("#learning-setting-divs").show();
-    $("#not-yet-blocked-filter").show();
+    if ((new URLSearchParams(document.location.search)).has('all')) {
+      $("#not-yet-blocked-filter").show();
+    }
     $("#hide-in-seed-filter").show();
   }
 
