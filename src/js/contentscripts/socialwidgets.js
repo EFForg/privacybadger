@@ -408,6 +408,9 @@ function createReplacementWidget(widget, elToReplace) {
   let name = widget.name;
 
   let widgetFrame = document.createElement('iframe');
+  let shadowHost = document.createElement("div");
+  let shadowRoot = shadowHost.attachShadow({ mode: "closed" });
+  shadowRoot.appendChild(widgetFrame);
 
   // widget replacement frame styles
   let border_width = 1;
@@ -648,7 +651,7 @@ function createReplacementWidget(widget, elToReplace) {
   }
   let data = {
     parentNode: elToReplace.parentNode,
-    replacement: widgetFrame,
+    replacement: shadowHost,
     origWidgetElem: elToReplace
   };
   if (widget.scriptSelectors) {
@@ -690,9 +693,9 @@ function createReplacementWidget(widget, elToReplace) {
         return;
       }
       e.preventDefault();
-      WIDGET_ELS[name] = WIDGET_ELS[name].filter(d => d.replacement != widgetFrame);
+      WIDGET_ELS[name] = WIDGET_ELS[name].filter(d => d.replacement != shadowHost);
       doNotReplace.add(elToReplace);
-      widgetFrame.replaceWith(elToReplace);
+      shadowHost.replaceWith(elToReplace);
     }, { once: true });
 
   }, false); // end of click handler
@@ -796,7 +799,7 @@ a:hover {
 
   widgetFrame.srcdoc = '<html><head><style>' + head_styles + '</style></head><body style="margin:0">' + widgetDiv.outerHTML + '</body></html>';
 
-  return widgetFrame;
+  return shadowHost;
 }
 
 /**
