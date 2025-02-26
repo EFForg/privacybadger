@@ -75,8 +75,11 @@ function subscribeToStorageUpdates() {
     }
   });
 
+  // notify() callbacks receive the name of the property
+  // ("disabledSites" in this case) as the second argument,
+  // which breaks functions that define their own second parameter
   settingsStore.subscribe("set:disabledSites",
-    utils.debounce(dnrUtils.updateDisabledSitesRules, 100));
+    utils.debounce(sites => dnrUtils.updateDisabledSitesRules(sites), 100));
 
   settingsStore.subscribe("set:widgetSiteAllowlist",
     utils.debounce(dnrUtils.updateWidgetSiteAllowlistRules, 100));
