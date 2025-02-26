@@ -89,21 +89,15 @@ function Badger(from_qunit) {
   let widgetListPromise = widgetLoader.loadWidgetsFromFile(
     "data/socialwidgets.json").catch(console.error);
 
-  if (!from_qunit) {
-    // session DNR rules don't get removed when reloading the extension, apparently
-    chrome.declarativeNetRequest.getSessionRules(rules => {
-      chrome.declarativeNetRequest.updateSessionRules({
-        removeRuleIds: rules.map(r => r.id)
-      }).then(function () {
-        log("[DNR] Cleared session rules");
-        dnrUtils.registerGoogleRedirectBypassRules();
-      });
-    });
-  }
-
-  // we need to get ready to create dynamic rules before initializing storage
-  self.initMaxDynamicRuleId().then(function () {
-    log("[DNR] Ready to generate dynamic rule IDs");
+  // we need to get ready to create DNR rules before initializing storage
+  Promise.all([
+    self.initMaxDynamicRuleId(),
+    self.initMaxSessionRuleId()
+  ]).then(function () {
+    log("[DNR] Ready to generate dynamic/session rule IDs");
+    if (!from_qunit) {
+      dnrUtils.registerGoogleRedirectBypassRules();
+    }
     self.storage = new BadgerPen(onStorageReady);
   });
 
@@ -121,6 +115,14 @@ function Badger(from_qunit) {
    */
   async function onStorageReady() {
     log("Storage is ready");
+
+    if (!self.isUpdate && self.manifestVersion > 2) {
+      let disabledSites = self.getDisabledSites();
+      if (disabledSites.length) {
+        // create the disabled sites session rule
+        dnrUtils.updateDisabledSitesRules(disabledSites, true);
+      }
+    }
 
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(self.storage);
 
@@ -236,6 +238,24 @@ Badger.prototype = {
 
     self.maxDynamicRuleId = (rules.length ?
       Math.max(...rules.map(r => r.id)) : 0);
+  },
+
+  /**
+   * Required for session rule generation.
+   */
+  initMaxSessionRuleId: async function () {
+    let self = this,
+      rules = await chrome.declarativeNetRequest.getSessionRules();
+
+    if (rules.length) {
+      // session DNR rules don't get removed reloading the extension, apparently
+      await chrome.declarativeNetRequest.updateSessionRules({
+        removeRuleIds: rules.map(r => r.id)
+      });
+      log("[DNR] Cleared session rules");
+    }
+
+    self.maxSessionRuleId = 0;
   },
 
   /**
@@ -1063,6 +1083,15 @@ Badger.prototype = {
    */
   getDynamicRuleId: function () {
     return ++this.maxDynamicRuleId;
+  },
+
+  /**
+   * Returns the next available session rule ID.
+   *
+   * @returns {Integer}
+   */
+  getSessionRuleId: function () {
+    return ++this.maxSessionRuleId;
   },
 
   /**
