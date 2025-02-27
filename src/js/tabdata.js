@@ -173,8 +173,9 @@ TabData.prototype.restoreSession = function (callback) {
     return callback({});
   }
 
+  // also noop if we just got installed
   // also noop if not MV3 and persistent is not set to false
-  if (badger.manifestVersion == 2 && !badger.isEventPage) {
+  if (badger.isFirstRun || (badger.manifestVersion == 2 && !badger.isEventPage)) {
     log("No need to read from storage.session");
     return callback({});
   }
