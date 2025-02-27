@@ -99,6 +99,24 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         assert self.THIRD_PARTY_HOST in sliders['blocked'], (
             "third-party should be reported as blocked")
 
+    def test_disabling_on_site(self):
+        self.clear_tracker_data()
+        self.block_domain(self.THIRD_PARTY_HOST)
+
+        self.init_sw_page()
+
+        self.disable_badger_on_site(self.FIXTURE_HOST)
+
+        self.load_url(self.FIXTURE_URL)
+
+        # check what happened
+        selector = '#third-party-load-result'
+        self.wait_for_script(
+            "return document.querySelector(arguments[0]).textContent",
+            selector)
+        assert self.find_el_by_css(selector).text == "success", (
+            "third-party should have been allowed to load")
+
 
 if __name__ == "__main__":
     unittest.main()
