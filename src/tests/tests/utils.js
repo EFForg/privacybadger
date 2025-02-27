@@ -174,10 +174,8 @@ QUnit.module("Utils", function (/*hooks*/) {
       "Website matches wildcard pattern");
     assert.notOk(badger.isPrivacyBadgerEnabled('stuff.fakedomain.web.mail.example.com'),
       "Wildcard catches all prefacing subdomains");
-    // TODO no implicit wildcard in MV2
-    // TODO https://github.com/EFForg/privacybadger/issues/3061
-    assert.ok(badger.isPrivacyBadgerEnabled('mail.example.com'),
-      "Wildcard pattern does not match exact domain");
+    assert.notOk(badger.isPrivacyBadgerEnabled('mail.example.com'),
+      "Wildcard pattern matches exact domain");
 
     const PSL_TLD = "example.googlecode.com";
     assert.equal(getBaseDomain(PSL_TLD), PSL_TLD,
@@ -187,9 +185,7 @@ QUnit.module("Utils", function (/*hooks*/) {
       "PSL TLDs work with wildcards as expected");
   });
 
-  // TODO no implicit wildcard in MV2
-  // TODO https://github.com/EFForg/privacybadger/issues/3061
-  QUnit.skip("isPrivacyBadgerEnabled() subdomain tests", (assert) => {
+  QUnit.test("isPrivacyBadgerEnabled() subdomain tests", (assert) => {
     let testPatterns = [
       "example.com",
       "*.example.org",
