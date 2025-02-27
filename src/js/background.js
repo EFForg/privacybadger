@@ -1134,9 +1134,14 @@ Badger.prototype = {
     let sitePatterns = this.getSettings().getItem("disabledSites") || [];
 
     for (let pattern of sitePatterns) {
-      if (pattern.startsWith("*") && host.endsWith(pattern.slice(1))) {
-        return false;
-      } else if (pattern === host) {
+      // domains now always match subdomains
+      if (pattern.startsWith('*')) {
+        pattern = pattern.slice(1);
+        if (pattern.startsWith('.')) {
+          pattern = pattern.slice(1);
+        }
+      }
+      if (pattern === host || host.endsWith('.' + pattern)) {
         return false;
       }
     }
