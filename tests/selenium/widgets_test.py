@@ -79,7 +79,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         ), widgetsJson)
 
     def switch_to_shadow_host_frame(self, selector):
-        shadow_host = self.driver.find_element(By.CSS_SELECTOR, "div.widget-shadow-host")
+        shadow_host = self.find_el_by_css("div.widget-shadow-host")
         shadow_root = self.driver.execute_script("return arguments[0].shadowRoot", shadow_host)
         iframe = shadow_root.find_element(By.CSS_SELECTOR, selector)
         self.driver.switch_to.frame(iframe)
