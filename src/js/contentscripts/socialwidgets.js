@@ -405,7 +405,8 @@ function createReplacementWidget(widget, elToReplace) {
 
   let widgetFrame = document.createElement('iframe');
   let shadowHost = document.createElement("div");
-  let shadowRoot = shadowHost.attachShadow({ mode: "closed" });
+  shadowHost.className = "widget-shadow-host";
+  let shadowRoot = shadowHost.attachShadow({ mode: "open" });
   shadowRoot.appendChild(widgetFrame);
 
   // widget replacement frame styles
