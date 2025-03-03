@@ -1,6 +1,14 @@
 Privacy Badger changelog
 ========================
 
+2025.3.3
+* Added tracking domain settings to admin policies. To learn more, visit
+https://github.com/EFForg/privacybadger/blob/master/doc/admin-deployment.md
+* Fixed failing to allow all requests on disabled sites in Chrome
+* Fixed another set of "Privacy Badger failed to initialize" errors in Firefox
+* Fixed various site breakages
+* Improved German and Hebrew translations
+
 2025.1.29
 Bug fix update to fix fetching the latest fixes from EFF's CDN
 
