@@ -4227,9 +4227,12 @@ let multiDomainFirstPartiesArray = [
     "tenpay.com",
     "ugdtimg.com",
     "url.cn",
+    "webnovel.com",
     "wechat.com",
     "wegame.com",
     "weiyun.com",
+
+    "cdn-go.cn"
   ],
   [
     "rai.it",
