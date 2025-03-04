@@ -38,6 +38,22 @@ const DOMAIN_TOOLTIP_CONF = {
   side: 'bottom',
 };
 
+// Rotation for the link displayed at the bottom of the popup
+let linkRotation = [
+  {
+    url: "https://supporters.eff.org/donate/support-privacy-badger",
+    text: "donate_to_eff",
+    weekDuration: 2 // Shown for 2 weeks
+  },
+  {
+    url: constants.REVIEW_LINKS[constants.BROWSER] || constants.REVIEW_LINKS.chrome, // Default to Chrome if unknown
+    text: "review_pb",
+    weekDuration: 1 // Shown for 1 week
+  }
+];
+// Number of weeks in the link cycle
+let totalCycleWeeks = linkRotation.reduce((sum, link) => sum + link.duration, 0);
+
 /* if they aint seen the comic*/
 function showNagMaybe() {
   var $nag = $("#instruction");
@@ -247,7 +263,30 @@ function init() {
     visibility: 'visible'
   });
 
+  let link = getLink();
+  $("#cta-link").attr("href", link.url);
+  $('#cta-text').html(chrome.i18n.getMessage(link.text));
+
   window.POPUP_INITIALIZED = true;
+}
+
+/**
+ * Get the link to display at the bottom of the popup
+ */
+function getLink() {
+  let startReference = new Date(2025, 0, 1); // Fixed start reference
+  // Milliseconds in a week = 7 * 24 * 60 * 60 * 1000 = 604800000
+  let currentWeek = Math.floor((Date.now() - startReference.getTime()) / (604800000));
+  let weekCycleIndex = currentWeek % totalCycleWeeks;
+  let cumulativeWeeks = 0;
+  for (let link of linkRotation) {
+    if (weekCycleIndex < (cumulativeWeeks + link.weekDuration)) {
+      return link;
+    }
+    cumulativeWeeks += link.weekDuration;
+  }
+  // Fallback
+  return linkRotation[0];
 }
 
 function openPage(url) {

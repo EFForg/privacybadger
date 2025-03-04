@@ -288,8 +288,11 @@ class PopupTest(pbtest.PBSeleniumTest):
         """Ensure donate button opens EFF website."""
 
         EFF_URL = "https://supporters.eff.org/donate/support-privacy-badger"
-
         self.open_popup()
+        # Workaround popup displaying different link depending on the date
+        self.driver.execute_script("""
+            document.querySelector("#cta-link").setAttribute("href", "https://supporters.eff.org/donate/support-privacy-badger");
+        """)
         self.driver.find_element(By.ID, "donate").click()
 
         # make sure EFF website not opened in same window
