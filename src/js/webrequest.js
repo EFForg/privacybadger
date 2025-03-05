@@ -713,6 +713,7 @@ function recordFingerprinting(tab_id, msg) {
     script_path = parsedScriptUrl.pathname;
   } catch (e) {
     console.error("Failed to parse URL of %s\n", msg.scriptUrl, e);
+    return;
   }
 
   // CNAME uncloaking

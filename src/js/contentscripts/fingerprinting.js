@@ -36,15 +36,18 @@ function getPageScript(event_id) {
   // return a string
   return "(" + function (EVENT_ID, DOCUMENT, dispatchEvent, CUSTOM_EVENT, ERROR, DATE, setTimeout, OBJECT, FUNCTION, UNDEFINED) {
 
-    const V8_STACK_TRACE_API = !!(ERROR && ERROR.captureStackTrace);
+    function hasOwn(obj, prop) {
+      return OBJECT.prototype.hasOwnProperty.call(obj, prop);
+    }
+
+    const V8_STACK_TRACE_API = !!(ERROR &&
+      ERROR.captureStackTrace &&
+      hasOwn(ERROR, "stackTraceLimit"));
 
     if (V8_STACK_TRACE_API) {
       ERROR.stackTraceLimit = Infinity; // collect all frames
     }
 
-    function hasOwn(obj, prop) {
-      return OBJECT.prototype.hasOwnProperty.call(obj, prop);
-    }
     function apply(obj, context, args) {
       return FUNCTION.prototype.apply.call(obj, context, args);
     }
