@@ -29,10 +29,18 @@ function() {
   QUnit.module("logThirdParty", {
     beforeEach: function () {
       this.clock = sinon.useFakeTimers();
-      sinon.stub(chrome.browserAction, "setBadgeText");
+
+      // back up original
+      this.setBadgeText = chrome.browserAction.setBadgeText;
+      // stub
+      this.setBadgeTextCalls = [];
+      chrome.browserAction.setBadgeText = function () {
+        this.setBadgeTextCalls.push(Array.from(arguments));
+      }.bind(this);
     },
     afterEach: function () {
-      chrome.browserAction.setBadgeText.restore();
+      // restore original
+      chrome.browserAction.setBadgeText = this.setBadgeText;
       this.clock.restore();
     },
   });
@@ -50,41 +58,37 @@ function() {
     // log blocked domain
     badger.logThirdParty(this.tabId, DOMAIN, constants.BLOCK);
     this.clock.tick(1);
+
     assert.equal(
       badger.getTrackerCount(this.tabId), 1, "count gets incremented"
     );
-    assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
-      "updateBadge gets called when we see a blocked domain"
-    );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+    assert.equal(this.setBadgeTextCalls.length, 1,
+      "updateBadge gets called when we see a blocked domain");
+    assert.deepEqual(this.setBadgeTextCalls[this.setBadgeTextCalls.length-1], [{
       tabId: this.tabId,
       text: "1"
-    }), "setBadgeText was called with expected args");
+    }], "setBadgeText was called with expected args");
   });
 
   QUnit.test("logging unblocked domain", function (assert) {
     badger.logThirdParty(this.tabId, "example.com", constants.ALLOW);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId), 0, "count stays at zero"
-    );
-    assert.ok(
-      chrome.browserAction.setBadgeText.notCalled,
-      "updateBadge does not get called when we see a hasn't-decided-yet-to-block domain"
-    );
+
+    assert.equal(badger.getTrackerCount(this.tabId), 0,
+      "count stays at zero");
+    assert.equal(this.setBadgeTextCalls.length, 0,
+      "updateBadge does not get called " +
+      "when we see a hasn't-decided-yet-to-block domain");
   });
 
   QUnit.test("logging DNT-compliant domain", function (assert) {
     badger.logThirdParty(this.tabId, "example.com", constants.DNT);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId), 0, "count stays at zero"
-    );
-    assert.ok(
-      chrome.browserAction.setBadgeText.notCalled,
-      "updateBadge does not get called when we see a DNT-compliant domain"
-    );
+
+    assert.equal(badger.getTrackerCount(this.tabId), 0,
+      "count stays at zero");
+    assert.equal(this.setBadgeTextCalls.length, 0,
+      "updateBadge does not get called when we see a DNT-compliant domain");
   });
 
   QUnit.test("logging as unblocked then as blocked", function (assert) {
@@ -100,18 +104,15 @@ function() {
     // log the same domain, this time as blocked
     badger.logThirdParty(this.tabId, DOMAIN, constants.BLOCK);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId), 1, "count gets incremented"
-    );
-    assert.equal(
-      chrome.browserAction.setBadgeText.callCount,
-      "1",
-      "updateBadge gets called when we see a blocked domain"
-    );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+
+    assert.equal(badger.getTrackerCount(this.tabId), 1,
+      "count gets incremented");
+    assert.equal(this.setBadgeTextCalls.length, 1,
+      "updateBadge gets called when we see a blocked domain");
+    assert.deepEqual(this.setBadgeTextCalls[this.setBadgeTextCalls.length-1], [{
       tabId: this.tabId,
       text: "1"
-    }), "setBadgeText was called with expected args");
+    }], "setBadgeText was called with expected args");
   });
 
   QUnit.test("logging blocked domain twice", function (assert) {
@@ -123,30 +124,24 @@ function() {
     // log blocked domain
     badger.logThirdParty(this.tabId, DOMAIN, constants.BLOCK);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId), 1, "count gets incremented"
-    );
-    assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
-      "updateBadge gets called when we see a blocked domain"
-    );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+
+    assert.equal(badger.getTrackerCount(this.tabId), 1,
+      "count gets incremented");
+    assert.equal(this.setBadgeTextCalls.length, 1,
+      "updateBadge gets called when we see a blocked domain");
+    assert.deepEqual(this.setBadgeTextCalls[this.setBadgeTextCalls.length-1], [{
       tabId: this.tabId,
       text: "1"
-    }), "setBadgeText was called with expected args");
+    }], "setBadgeText was called with expected args");
 
     // log the same blocked domain again
     badger.logThirdParty(this.tabId, DOMAIN, constants.BLOCK);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId),
-      1,
-      "count does not get incremented"
-    );
-    assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
-      "updateBadge not called when we see the same blocked domain again"
-    );
+
+    assert.equal(badger.getTrackerCount(this.tabId), 1,
+      "count does not get incremented");
+    assert.equal(this.setBadgeTextCalls.length, 1,
+      "updateBadge not called when we see the same blocked domain again");
   });
 
   QUnit.test("logging 2x unblocked then 2x blocked", function (assert) {
@@ -164,14 +159,12 @@ function() {
     // log blocked domain
     badger.logThirdParty(this.tabId, DOMAIN, constants.BLOCK);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId), 1, "count gets incremented"
-    );
-    assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
-      "updateBadge gets called when we see a blocked domain"
-    );
-    assert.deepEqual(chrome.browserAction.setBadgeText.getCall(0).args[0], {
+
+    assert.equal(badger.getTrackerCount(this.tabId), 1,
+      "count gets incremented");
+    assert.equal(this.setBadgeTextCalls.length, 1,
+      "updateBadge gets called when we see a blocked domain");
+    assert.deepEqual(this.setBadgeTextCalls[0][0], {
       tabId: this.tabId,
       text: "1"
     }, "setBadgeText was called with expected args");
@@ -179,15 +172,11 @@ function() {
     // log the same blocked domain again
     badger.logThirdParty(this.tabId, DOMAIN, constants.BLOCK);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId),
-      1,
-      "count does not get incremented"
-    );
-    assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
-      "updateBadge not called when we see the same blocked domain again"
-    );
+
+    assert.equal(badger.getTrackerCount(this.tabId), 1,
+      "count does not get incremented");
+    assert.equal(this.setBadgeTextCalls.length, 1,
+      "updateBadge not called when we see the same blocked domain again");
   });
 
   QUnit.test("logging cookieblocked domain", function (assert) {
@@ -199,17 +188,15 @@ function() {
     // log cookieblocked domain
     badger.logThirdParty(this.tabId, DOMAIN, constants.COOKIEBLOCK);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId), 1, "count gets incremented"
-    );
-    assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
-      "updateBadge gets called when we see a cookieblocked domain"
-    );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+
+    assert.equal(badger.getTrackerCount(this.tabId), 1,
+      "count gets incremented");
+    assert.equal(this.setBadgeTextCalls.length, 1,
+      "updateBadge gets called when we see a cookieblocked domain");
+    assert.deepEqual(this.setBadgeTextCalls[this.setBadgeTextCalls.length-1], [{
       tabId: this.tabId,
       text: "1"
-    }), "setBadgeText was called with expected args");
+    }], "setBadgeText was called with expected args");
   });
 
   QUnit.test("logging several domains", function (assert) {
@@ -223,32 +210,28 @@ function() {
     // log blocked domain
     badger.logThirdParty(this.tabId, DOMAIN1, constants.BLOCK);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId), 1, "count gets incremented"
-    );
-    assert.ok(
-      chrome.browserAction.setBadgeText.calledOnce,
-      "updateBadge gets called when we see a blocked domain"
-    );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+
+    assert.equal(badger.getTrackerCount(this.tabId), 1,
+      "count gets incremented");
+    assert.equal(this.setBadgeTextCalls.length, 1,
+      "updateBadge gets called when we see a blocked domain");
+    assert.deepEqual(this.setBadgeTextCalls[this.setBadgeTextCalls.length-1], [{
       tabId: this.tabId,
       text: "1"
-    }), "setBadgeText was called with expected args");
+    }], "setBadgeText was called with expected args");
 
     // log cookieblocked domain
     badger.logThirdParty(this.tabId, DOMAIN2, constants.COOKIEBLOCK);
     this.clock.tick(1);
-    assert.equal(
-      badger.getTrackerCount(this.tabId), 2, "count gets incremented again"
-    );
-    assert.ok(
-      chrome.browserAction.setBadgeText.calledTwice,
-      "updateBadge gets called when we see a cookieblocked domain"
-    );
-    assert.ok(chrome.browserAction.setBadgeText.calledWithExactly({
+
+    assert.equal(badger.getTrackerCount(this.tabId), 2,
+      "count gets incremented again");
+    assert.equal(this.setBadgeTextCalls.length, 2,
+      "updateBadge gets called when we see a cookieblocked domain");
+    assert.deepEqual(this.setBadgeTextCalls[this.setBadgeTextCalls.length-1], [{
       tabId: this.tabId,
       text: "2"
-    }), "setBadgeText was called with expected args");
+    }], "setBadgeText was called with expected args");
   });
 
   QUnit.module('updateBadge', {
