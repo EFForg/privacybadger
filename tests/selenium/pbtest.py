@@ -228,6 +228,9 @@ class Shim:
                 # tracking detection test
                 opts.set_preference("network.cookie.cookieBehavior", 0)
 
+                # disable JSON viewer as it breaks parsing JSON pages
+                opts.set_preference("devtools.jsonview.enabled", False)
+
                 # to produce a trace-level geckodriver.log,
                 # remove the log_output argument to FirefoxService()
                 # and uncomment the line below
