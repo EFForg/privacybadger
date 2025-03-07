@@ -16,13 +16,17 @@ from pbtest import retry_until
 class DntTest(pbtest.PBSeleniumTest):
     """Tests to make sure DNT policy checking works as expected."""
 
-    # TODO switch to non-delayed version
-    # https://gist.github.com/ghostwords/9fc6900566a2f93edd8e4a1e48bbaa28
-    # once race condition (https://crbug.com/478183) is fixed
-    NAVIGATOR_DNT_TEST_URL = (
-        "https://efforg.github.io/privacybadger-test-fixtures/html/"
-        "navigator_donottrack_delayed.html"
-    )
+    def setUp(self):
+        self.FIXTURE_DOMAIN = "efforg.github.io"
+        self.FIXTURE_PARENT_DOMAIN = "github.io"
+        self.FIXTURE_URL = (
+            f"https://{self.FIXTURE_DOMAIN}/privacybadger-test-fixtures/html/")
+        if self.driver.capabilities['browserName'] == "chrome":
+            self.FIXTURE_URL += "navigator_donottrack.html"
+        else:
+            # TODO switch to scripting in Firefox (MV2) to remove delay
+            # TODO https://github.com/EFForg/privacybadger/issues/2948
+            self.FIXTURE_URL += "navigator_donottrack_delayed.html"
 
     def get_first_party_headers(self, url):
         self.load_url(url)
@@ -51,6 +55,12 @@ class DntTest(pbtest.PBSeleniumTest):
             "  type: 'setDntHashes',"
             "  value: { 'cookies=0 test policy': 'f63ee614ebd77f8634b92633c6bb809a64b9a3d7' }"
             "}, done);")
+
+    def assert_navigator_gpc_unset(self, msg=""):
+        # GPC on Navigator should be unset (Chrome) or False (Firefox)
+        assert self.js("""
+return (typeof navigator.globalPrivacyControl == 'undefined' ||
+  navigator.globalPrivacyControl === false);"""), msg
 
     def test_dnt_policy_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
@@ -142,7 +152,7 @@ class DntTest(pbtest.PBSeleniumTest):
         assert result, "One or more cookies were sent (cookies=0 policy hash did not match)"
 
     def test_should_not_record_nontracking_domains(self):
-        FIXTURE_URL = (
+        NONTRACKING_FIXTURE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
             "recording_nontracking_domains.html"
         )
@@ -159,7 +169,7 @@ class DntTest(pbtest.PBSeleniumTest):
         # visit a page containing two third-party resources,
         # one from a cookie-tracking domain
         # and one from a non-tracking domain
-        self.load_url(FIXTURE_URL)
+        self.load_url(NONTRACKING_FIXTURE_URL)
 
         # verify both domains are present on the page
         try:
@@ -216,7 +226,7 @@ class DntTest(pbtest.PBSeleniumTest):
         assert 'Sec-Gpc' not in headers, "GPC header should have been missing"
 
     def test_navigator_object(self):
-        self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
+        self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
         body_text = self.driver.find_element(By.TAG_NAME, 'body').text
         assert body_text == 'no tracking (navigator.doNotTrack="1")', (
             'navigator.doNotTrack should have been set to "1"')
@@ -228,38 +238,77 @@ return Object.getOwnPropertyDescriptor(
 """), "GPC should be set on Navigator.prototype"
 
     def test_navigator_unmodified_when_disabled_on_site(self):
-        self.disable_badger_on_site(DntTest.NAVIGATOR_DNT_TEST_URL)
+        self.disable_badger_on_site(self.FIXTURE_URL)
 
-        self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
+        self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         body_text = self.driver.find_element(By.TAG_NAME, 'body').text
         assert body_text[0:5] == 'unset', (
             "navigator.doNotTrack should be unset or \"unspecified\"")
 
-        # GPC on Navigator should be unset (Chrome) or False (Firefox)
-        assert self.js("""
-return typeof navigator.globalPrivacyControl == 'undefined' ||
-  navigator.globalPrivacyControl === false;
-"""), "navigator.globalPrivacyControl should be unset or False"
+        self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should be unset or False")
+
+    def test_navigator_disabling_on_site_parent_domain(self):
+        """Needs to be consistent with test_disabling_on_site_parent_domain()"""
+        self.disable_badger_on_site(self.FIXTURE_PARENT_DOMAIN)
+        self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
+        # TODO no implicit wildcard in MV2
+        # TODO https://github.com/EFForg/privacybadger/issues/3061
+        assert self.js("return navigator.globalPrivacyControl === true")
+
+    def test_navigator_disabling_on_site_wildcard(self):
+        """Needs to be consistent with test_disabling_on_site_wildcard()"""
+        self.disable_badger_on_site("*." + self.FIXTURE_PARENT_DOMAIN)
+        self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
+        self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should be unset or False")
 
     def test_navigator_unmodified_when_dnt_disabled(self):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('#enable_dnt_checkbox').click()
 
-        self.load_url(DntTest.NAVIGATOR_DNT_TEST_URL, wait_for_body_text=True)
+        self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
 
         # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
         body_text = self.driver.find_element(By.TAG_NAME, 'body').text
         assert body_text[0:5] == 'unset', (
             "navigator.doNotTrack should be unset or \"unspecified\"")
 
-        # GPC on Navigator should be unset (Chrome) or False (Firefox)
-        assert self.js("""
-return typeof navigator.globalPrivacyControl == 'undefined' ||
-  navigator.globalPrivacyControl === false;
-"""), "navigator.globalPrivacyControl should be unset or False"
+        self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should be unset or False")
+
+    def test_navigator_toggling_dnt_and_disabled_sites(self):
+        # disable on site
+        self.disable_badger_on_site(self.FIXTURE_URL)
+
+        # disable sending DNT signals
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#enable_dnt_checkbox').click()
+
+        self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
+        assert self.js("return navigator.doNotTrack") != "1", (
+            "navigator.doNotTrack should not be set")
+        self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should be unset or False")
+
+        # re-enable sending DNT signals
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('#enable_dnt_checkbox').click()
+
+        self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
+        assert self.js("return navigator.doNotTrack") != "1", (
+            "navigator.doNotTrack should still not be set")
+        self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should still be unset or False")
+
+        # re-enable on site
+        self.reenable_badger_on_site("efforg.github.io")
+
+        self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
+        assert self.js("return navigator.doNotTrack") == "1", (
+            "navigator.doNotTrack should now be set")
+        assert self.js("return navigator.globalPrivacyControl"), (
+            "navigator.globalPrivacyControl should also be set")
 
 
 if __name__ == "__main__":
