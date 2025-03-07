@@ -150,48 +150,69 @@ QUnit.module("Utils", function (/*hooks*/) {
     });
   });
 
-  QUnit.test("isPrivacyBadgerEnabled basic tests", function (assert) {
+  QUnit.test("isPrivacyBadgerEnabled() basic tests", (assert) => {
     assert.ok(badger.isPrivacyBadgerEnabled("example.com"),
-      "Domain starts out as enabled.");
+      "Domain starts out as enabled");
 
     badger.disableOnSite("example.com");
     assert.notOk(badger.isPrivacyBadgerEnabled("example.com"),
-      "Disabling the domain works.");
+      "Disabling the domain works");
 
     badger.reenableOnSite("example.com");
     assert.ok(badger.isPrivacyBadgerEnabled("example.com"),
-      "Re-enabling the domain works.");
+      "Re-enabling the domain works");
   });
 
-  QUnit.test("isPrivacyBadgerEnabled wildcard tests", function (assert) {
+  QUnit.test("isPrivacyBadgerEnabled() wildcard tests", (assert) => {
     badger.disableOnSite('*.mail.example.com');
-    assert.ok(
-      badger.isPrivacyBadgerEnabled('www.example.com'),
-      "Ignores cases without as many subdomains as the wildcard."
-    );
-    assert.ok(
-      badger.isPrivacyBadgerEnabled('web.stuff.example.com'),
-      "Ignores cases where subdomains do not match the wildcard."
-    );
-    assert.notOk(
-      badger.isPrivacyBadgerEnabled('web.mail.example.com'),
-      "Website matches wildcard pattern."
-    );
-    assert.notOk(
-      badger.isPrivacyBadgerEnabled('stuff.fakedomain.web.mail.example.com'),
-      "Wildcard catches all prefacing subdomains."
-    );
-    assert.ok(
-      badger.isPrivacyBadgerEnabled('mail.example.com'),
-      "Checks against URLs that lack a starting dot."
-    );
+
+    assert.ok(badger.isPrivacyBadgerEnabled('www.example.com'),
+      "Ignores cases without as many subdomains as the wildcard");
+    assert.ok(badger.isPrivacyBadgerEnabled('web.stuff.example.com'),
+      "Ignores cases where subdomains do not match the wildcard");
+    assert.notOk(badger.isPrivacyBadgerEnabled('web.mail.example.com'),
+      "Website matches wildcard pattern");
+    assert.notOk(badger.isPrivacyBadgerEnabled('stuff.fakedomain.web.mail.example.com'),
+      "Wildcard catches all prefacing subdomains");
+    // TODO no implicit wildcard in MV2
+    // TODO https://github.com/EFForg/privacybadger/issues/3061
+    assert.ok(badger.isPrivacyBadgerEnabled('mail.example.com'),
+      "Wildcard pattern does not match exact domain");
 
     const PSL_TLD = "example.googlecode.com";
     assert.equal(getBaseDomain(PSL_TLD), PSL_TLD,
       PSL_TLD + " is a PSL TLD");
     badger.disableOnSite('*.googlecode.com');
     assert.notOk(badger.isPrivacyBadgerEnabled(PSL_TLD),
-      "PSL TLDs work with wildcards as expected.");
+      "PSL TLDs work with wildcards as expected");
+  });
+
+  // TODO no implicit wildcard in MV2
+  // TODO https://github.com/EFForg/privacybadger/issues/3061
+  QUnit.skip("isPrivacyBadgerEnabled() subdomain tests", (assert) => {
+    let testPatterns = [
+      "example.com",
+      "*.example.org",
+      "*example.net"
+    ];
+
+    for (let pattern of testPatterns) {
+      badger.disableOnSite(pattern);
+
+      if (pattern.startsWith('*')) {
+        pattern = pattern.slice(1);
+        if (pattern.startsWith('.')) {
+          pattern = pattern.slice(1);
+        }
+      }
+
+      assert.notOk(badger.isPrivacyBadgerEnabled(pattern),
+        "Disabled on exact disabled domain");
+      assert.notOk(badger.isPrivacyBadgerEnabled("www." + pattern),
+        "Disabled on subdomains of disabled domain");
+      assert.ok(badger.isPrivacyBadgerEnabled("domainthatendswith" + pattern),
+        "Enabled on unrelated domains ending with disabled domain");
+    }
   });
 
   QUnit.test("disable/enable privacy badger for domain", function (assert) {
