@@ -21,12 +21,9 @@ class DntTest(pbtest.PBSeleniumTest):
         self.FIXTURE_PARENT_DOMAIN = "github.io"
         self.FIXTURE_URL = (
             f"https://{self.FIXTURE_DOMAIN}/privacybadger-test-fixtures/html/")
-        if self.driver.capabilities['browserName'] == "chrome":
-            self.FIXTURE_URL += "navigator_donottrack.html"
-        else:
-            # TODO switch to scripting in Firefox (MV2) to remove delay
-            # TODO https://github.com/EFForg/privacybadger/issues/2948
-            self.FIXTURE_URL += "navigator_donottrack_delayed.html"
+        # TODO switch to scripting in Firefox (MV2) to remove delay
+        # TODO https://github.com/EFForg/privacybadger/issues/2948
+        self.FIXTURE_URL += "navigator_donottrack_delayed.html"
 
     def get_first_party_headers(self, url):
         self.load_url(url)
