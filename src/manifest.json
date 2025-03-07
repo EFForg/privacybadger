@@ -16,12 +16,12 @@
   "permissions": [
     "<all_urls>",
     "alarms",
+    "privacy",
+    "storage",
     "tabs",
     "webNavigation",
     "webRequest",
-    "webRequestBlocking",
-    "storage",
-    "privacy"
+    "webRequestBlocking"
   ],
   "background": {
     "page": "background.html"
