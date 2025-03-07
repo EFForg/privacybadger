@@ -9,10 +9,10 @@
       "data_collection_permissions": {
         "required": ["none"]
       },
-      "strict_min_version": "113.0"
+      "strict_min_version": "128.0"
     },
     "gecko_android": {
-      "strict_min_version": "113.0"
+      "strict_min_version": "128.0"
     }
   },
   "incognito": "spanning",
@@ -32,6 +32,7 @@
     "<all_urls>"
   ],
   "background": {
+    "scripts": ["js/background.js"],
     "service_worker": "js/background.js",
     "type": "module"
   },
@@ -500,7 +501,7 @@
     "128": "icons/badger-128.png"
   },
   "manifest_version": 3,
-  "minimum_chrome_version": "109.0",
+  "minimum_chrome_version": "121.0",
   "name": "__MSG_name__",
   "action": {
     "default_area": "navbar",
