@@ -308,7 +308,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Privacy Badger отправляет <a href='https://globalprivacycontrol.org/' target='_blank'>сигнал Global Privacy Control</a>, чтобы отказаться от разпростровления и продажи ваших данных, и отправляет <a href='https://www.eff.org/issues/do-not-track' target='_blank'>сигнал Do Not Track</a>, чтобы сообщить компаниям не отслеживать вас.",
+        "message": "Privacy Badger отправляет <a href='https://globalprivacycontrol.org/' target='_blank'>сигнал Global Privacy Control</a>, чтобы отказаться от распространения и продажи ваших данных, и отправляет <a href='https://www.eff.org/issues/do-not-track' target='_blank'>сигнал Do Not Track</a>, чтобы сообщить компаниям не отслеживать вас.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
