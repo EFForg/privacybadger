@@ -8,7 +8,7 @@ The Privacy API lets extensions modify browser-wide privacy settings. Privacy Ba
 - [hyperlink auditing](https://www.bleepingcomputer.com/news/software/major-browsers-to-prevent-disabling-of-click-tracking-privacy-risk/), an [HTML feature](https://html.spec.whatwg.org/multipage/links.html#hyperlink-auditing) meant to optimize and normalize click tracking on the Web
 - [prefetching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) (network predictions), as it presents a poor tradeoff between privacy and perceived browsing performance
 - suggestions for similar pages when a page can't be found, as this Chrome feature sends visited web addresses to Google
-- Google's [Privacy Sandbox ad tracking](https://www.eff.org/deeplinks/2023/09/how-turn-googles-privacy-sandbox-ad-tracking-and-why-you-should) (ad topics, site-suggested ads, and ad measurement), as these features enable Google’s behavioral advertising by tracking your internet use
+- Google's [Privacy Sandbox ad tracking](https://www.eff.org/deeplinks/2024/07/why-privacy-badger-opts-you-out-googles-privacy-sandbox) (ad topics, site-suggested ads, and ad measurement), as these features enable Google’s behavioral advertising by tracking your internet use
 
 ## Storage
 The storage API lets extensions store information that persists after the browser is closed. Privacy Badger uses it to save user settings and information it has learned about trackers.
