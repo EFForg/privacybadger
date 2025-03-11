@@ -433,7 +433,7 @@
     },
     "options_disable_floc": {
         "message": "“Privacy-zandbak”-advertentievolgen van Google uitschakelen",
-        "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2023/09/how-turn-googles-privacy-sandbox-ad-tracking-and-why-you-should"
+        "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2024/07/why-privacy-badger-opts-you-out-googles-privacy-sandbox"
     },
     "options_advanced_settings": {
         "message": "Geavanceerd",
