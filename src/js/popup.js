@@ -73,21 +73,9 @@ function showNagMaybe() {
       });
     });
     $("#intro-reminder-btn").on("click", function () {
-      // If there is a firstRun.html tab, switch to the tab.
-      // Otherwise, create a new tab
-      chrome.tabs.query({url: intro_page_url}, function (tabs) {
-        if (tabs.length == 0) {
-          chrome.tabs.create({
-            url: intro_page_url
-          });
-        } else {
-          chrome.tabs.update(tabs[0].id, {active: true}, function (tab) {
-            chrome.windows.update(tab.windowId, {focused: true});
-          });
-        }
-        _setSeenComic(() => {
-          window.close();
-        });
+      chrome.tabs.create({ url: intro_page_url });
+      _setSeenComic(() => {
+        window.close();
       });
     });
   }
@@ -147,9 +135,10 @@ function showNagMaybe() {
     _showLearningPrompt();
 
   } else if (!POPUP_DATA.settings.seenComic) {
-    chrome.tabs.query({active: true, currentWindow: true}, function (focusedTab) {
-      // Show the popup instruction if the active tab is not firstRun.html page
-      if (!focusedTab[0].url.startsWith(intro_page_url)) {
+    // if the user never engaged with the welcome page, show the reminder
+    // but only if the welcome page is no longer open
+    chrome.tabs.query({ url: intro_page_url }, function (tabs) {
+      if (!tabs.length) {
         _showNag();
       }
     });
