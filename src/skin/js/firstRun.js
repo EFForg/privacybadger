@@ -20,22 +20,11 @@ $(function () {
     $("body").css('overflow', 'auto');
     $("#pin-nudge").fadeOut();
     $("#overlay").fadeOut();
-    document.removeEventListener("click", clickHandler);
     document.removeEventListener("keydown", keydownHandler);
   }
 
-  function clickHandler(e) {
-    // Hide the pin nudge when a user clicks outside the popup
-    if (!document.getElementById('pin-nudge').contains(e.target)) {
-      hideNudgeOverlay();
-    }
-  }
-
   function keydownHandler(e) {
-    // Hide the pin nudge when a user presses 'Esc'
-    if (e.keyCode === 27) {
-      hideNudgeOverlay();
-    } else if (e.keyCode === 9) {
+    if (e.keyCode === 9) {
       // Trap focus within the popup
       $("#dismiss-nudge").trigger("focus");
       e.preventDefault();
@@ -61,7 +50,6 @@ $(function () {
     $("#overlay").show();
     $("body").css('overflow', 'hidden');
 
-    document.addEventListener("click", clickHandler);
     document.addEventListener("keydown", keydownHandler);
 
     $("#dismiss-nudge").on("click", function (e) {
