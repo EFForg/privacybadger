@@ -819,32 +819,17 @@ body {
 	60% {transform: translateY(-5px);}
 }
 
-#dismiss-nudge {
-  float: right;
-  padding-bottom: 5px;
-  margin: 5px;
-  position: relative;
-  top: -5px;
-  right: -5px;
-}
-
-#dismiss-nudge img {
-  height: 20px;
-}
-
-#dismiss-nudge:hover img, #dismiss-nudge:focus img {
-  /* Calculated with https://codepen.io/sosuke/pen/Pjoqqp to match #F06A0A */
-  filter: invert(63%) sepia(46%) saturate(6632%) hue-rotate(356deg) brightness(95%) contrast(98%);
-}
-
 #pin-nudge-text {
+  color: #000;
+  font-size: 17px;
+  font-weight: bold;
   line-height: 1.5;
   width: 275px;
-  font-size: 17px;
 }
 
 #pin-nudge-cta {
-  font-family:"OpenSans-Bold",sans-serif;
+  color: #fff;
+  font-family: "OpenSans-Bold", sans-serif;
 }
 
 #pin-image {
@@ -853,7 +838,7 @@ body {
 }
 
 #pin-nudge {
-  background-color: #DFDFE6;
+  background-image: linear-gradient(#ef6d24, #ef6d24 15%, #555 55%);
   position: fixed;
   top: 15px;
   right: 15px;
@@ -871,7 +856,7 @@ body {
 #pin-nudge-tail {
   width: 20px;
   height: 20px;
-  background-color: #DFDFE6;
+  background-color: #ef6d24;
   transform: rotate(45deg) translateY(-50%);
   position: absolute;
   top: 0px;
@@ -925,18 +910,5 @@ body {
     background-color: #555;
     border-left: 0.4275rem solid #555;
     color: #fff;
-  }
-
-  #pin-nudge, #pin-nudge-tail {
-    background-color: #555;
-  }
-
-  #dismiss-nudge img {
-    filter: invert(0.85);
-  }
-  
-  #dismiss-nudge:hover img, #dismiss-nudge:focus img {
-    /* Calculated with https://codepen.io/sosuke/pen/Pjoqqp to match #F06A0A */
-    filter: invert(63%) sepia(46%) saturate(6632%) hue-rotate(356deg) brightness(95%) contrast(98%);;
   }
 }

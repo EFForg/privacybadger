@@ -26,7 +26,7 @@ $(function () {
   function keydownHandler(e) {
     if (e.keyCode === 9) {
       // Trap focus within the popup
-      $("#dismiss-nudge").trigger("focus");
+      $("#pin-nudge").trigger("focus");
       e.preventDefault();
     }
   }
@@ -51,11 +51,6 @@ $(function () {
     $("body").css('overflow', 'hidden');
 
     document.addEventListener("keydown", keydownHandler);
-
-    $("#dismiss-nudge").on("click", function (e) {
-      e.preventDefault();
-      hideNudgeOverlay();
-    });
   }
 
   // Don't show the pin nudge in Firefox because extensions are pinned automatically
