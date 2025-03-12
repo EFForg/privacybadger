@@ -16,15 +16,32 @@ $(function () {
     }
   });
 
+  let num_outside_clicks = 0;
+
   function hideNudgeOverlay() {
     $("body").css('overflow', 'auto');
     $("#pin-nudge").fadeOut();
     $("#overlay").fadeOut();
+    document.removeEventListener("click", clickHandler);
     document.removeEventListener("keydown", keydownHandler);
   }
 
+  function clickHandler(e) {
+    // Hide the pin nudge when a user clicks outside the popup
+    if (!document.getElementById('pin-nudge').contains(e.target)) {
+      num_outside_clicks++;
+      if (num_outside_clicks > 1) {
+        num_outside_clicks = 0;
+        hideNudgeOverlay();
+      }
+    }
+  }
+
   function keydownHandler(e) {
-    if (e.keyCode === 9) {
+    // Hide the pin nudge when a user presses 'Esc'
+    if (e.keyCode === 27 && $('#pin-nudge').css('display') != 'none') {
+      hideNudgeOverlay();
+    } else if (e.keyCode === 9) {
       // Trap focus within the popup
       $("#pin-nudge").trigger("focus");
       e.preventDefault();
@@ -50,6 +67,7 @@ $(function () {
     $("#overlay").show();
     $("body").css('overflow', 'hidden');
 
+    document.addEventListener("click", clickHandler);
     document.addEventListener("keydown", keydownHandler);
   }
 
