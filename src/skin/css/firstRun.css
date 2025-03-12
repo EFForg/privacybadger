@@ -868,6 +868,16 @@ body {
   gap: 10px;
 }
 
+#pin-nudge-tail {
+  width: 20px;
+  height: 20px;
+  background-color: #DFDFE6;
+  transform: rotate(45deg) translateY(-50%);
+  position: absolute;
+  top: 0px;
+  right: 85px;
+}
+
 #pb-privacy-policy, #pb-privacy-policy a {
   color:#707070;
   font-family:"OpenSans-Light",sans-serif;
@@ -917,7 +927,7 @@ body {
     color: #fff;
   }
 
-  #pin-nudge {
+  #pin-nudge, #pin-nudge-tail {
     background-color: #555;
   }
 
