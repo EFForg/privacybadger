@@ -12,30 +12,15 @@ if ! git show release-"$TARGET" > /dev/null 2> /dev/null ; then
   exit 1
 fi
 
-echo Copying Changelog.txt
-git show release-"$TARGET":doc/Changelog > /tmp/pbchangelog$$ || exit 1
-scp /tmp/pbchangelog$$ "$USER@$SERVER:/www/eff.org/files/pbChangelog.txt" || exit 1
-rm -f /tmp/changelog$$
-
-MSG=/tmp/email$$
-
-echo "Privacy Badger $TARGET has been released for all supported browsers." > $MSG
-echo "" >> $MSG
-echo "Notable updates:" >> $MSG
-echo "" >> $MSG
-tail -n+4 ../doc/Changelog | sed '/^$/q' | grep -Ev '^[0-9]{4}\.[0-9\.]+$' >> $MSG
-echo "For further details, consult our release notes on GitHub:" >> $MSG
-echo "https://github.com/EFForg/privacybadger/releases/tag/release-$TARGET" >> $MSG
-echo "" >> $MSG
-echo "To install Privacy Badger, visit https://privacybadger.org/" >> $MSG
-
-echo To send email to the mailing list...
-echo mutt -s "Privacy\ Badger\ version\ $TARGET\ released" privacybadger@eff.org '<' $MSG
+changelog_tmp=$(mktemp)
+echo "Uploading changelog ($changelog_tmp)"
+git show release-"$TARGET":doc/Changelog > "$changelog_tmp" || exit 1
+scp "$changelog_tmp" "$USER@$SERVER:/www/eff.org/files/pbChangelog.txt" || exit 1
+rm "$changelog_tmp"
 
 echo ""
 echo "AMO release notes:"
 echo ""
-echo "<ul>"
 tail -n+4 ../doc/Changelog | sed '/^$/q' | grep -Ev '^[0-9]{4}\.[0-9\.]+$' | {
   out=""
   while IFS= read -r line; do
@@ -43,9 +28,9 @@ tail -n+4 ../doc/Changelog | sed '/^$/q' | grep -Ev '^[0-9]{4}\.[0-9\.]+$' | {
     if [ "${line:0:1}" = "*" ]; then
       # this is the first entry
       if [ -z "$out" ]; then
-        out="<li>${line:2}"
+        out="$line"
       else
-        out="$out</li>\n<li>${line:2}"
+        out="$out\n$line"
       fi
     # changelog entry continues
     else
@@ -54,7 +39,6 @@ tail -n+4 ../doc/Changelog | sed '/^$/q' | grep -Ev '^[0-9]{4}\.[0-9\.]+$' | {
       fi
     fi
   done
-  echo -e "$out</li>"
+  echo -e "$out"
 }
-echo "</ul>"
 echo ""
