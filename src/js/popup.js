@@ -41,14 +41,16 @@ const DOMAIN_TOOLTIP_CONF = {
 // Rotation for the link displayed at the bottom of the popup
 let linkRotation = [
   {
-    url: "https://supporters.eff.org/donate/support-privacy-badger",
-    text: "donate_to_eff",
-    weekDuration: 2 // Shown for 2 weeks
-  },
-  {
     url: constants.REVIEW_LINKS[constants.BROWSER] || constants.REVIEW_LINKS.chrome, // Default to Chrome if unknown
     text: "review_pb",
+    icon: "ui-icon-star",
     weekDuration: 1 // Shown for 1 week
+  },
+  {
+    url: "https://supporters.eff.org/donate/support-privacy-badger",
+    text: "donate_to_eff",
+    icon: "ui-icon-heart",
+    weekDuration: 2 // Shown for 2 weeks
   }
 ];
 // Number of weeks in the link cycle
@@ -266,6 +268,7 @@ function init() {
   let link = getLink();
   $("#cta-link").attr("href", link.url);
   $('#cta-text').html(chrome.i18n.getMessage(link.text));
+  $('#cta-icon').addClass(link.icon);
 
   window.POPUP_INITIALIZED = true;
 }

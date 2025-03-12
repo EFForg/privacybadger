@@ -356,7 +356,7 @@
         "description": "A button on the intro page, and a link in the popup footer."
     },
     "review_pb": {
-        "message": "Leave a review",
+        "message": "Enjoying Privacy Badger? Leave a review!",
         "description": "A link in the popup footer."
     },
     "intro_donate_subheading": {
