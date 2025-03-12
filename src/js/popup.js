@@ -44,17 +44,15 @@ let linkRotation = [
     url: constants.REVIEW_LINKS[constants.BROWSER] || constants.REVIEW_LINKS.chrome, // Default to Chrome if unknown
     text: "review_pb",
     icon: "ui-icon-star",
-    weekDuration: 1 // Shown for 1 week
+    odds: 0.3 // Odds of all links should add up to 1
   },
   {
     url: "https://supporters.eff.org/donate/support-privacy-badger",
     text: "donate_to_eff",
     icon: "ui-icon-heart",
-    weekDuration: 2 // Shown for 2 weeks
+    weekDuration: 0.7
   }
 ];
-// Number of weeks in the link cycle
-let totalCycleWeeks = linkRotation.reduce((sum, link) => sum + link.duration, 0);
 
 /* if they aint seen the comic*/
 function showNagMaybe() {
@@ -277,19 +275,18 @@ function init() {
  * Get the link to display at the bottom of the popup
  */
 function getLink() {
-  let startReference = new Date(2025, 0, 1); // Fixed start reference
-  // Milliseconds in a week = 7 * 24 * 60 * 60 * 1000 = 604800000
-  let currentWeek = Math.floor((Date.now() - startReference.getTime()) / (604800000));
-  let weekCycleIndex = currentWeek % totalCycleWeeks;
-  let cumulativeWeeks = 0;
+  let rand = Math.random();
+  let cumulativeOdds = 0;
+
   for (let link of linkRotation) {
-    if (weekCycleIndex < (cumulativeWeeks + link.weekDuration)) {
+    cumulativeOdds += link.odds || 0;
+    if (rand < cumulativeOdds) {
       return link;
     }
-    cumulativeWeeks += link.weekDuration;
   }
-  // Fallback
-  return linkRotation[0];
+
+  // Fallback in case of errors
+  return linkRotation[linkRotation.length - 1];
 }
 
 function openPage(url) {
