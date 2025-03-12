@@ -828,7 +828,6 @@ body {
 }
 
 #pin-nudge-cta {
-  color: #fff;
   font-family: "OpenSans-Bold", sans-serif;
 }
 
@@ -838,12 +837,13 @@ body {
 }
 
 #pin-nudge {
-  background-image: linear-gradient(#ef6d24, #ef6d24 15%, #555 55%);
+  background-color: #DFDFE6;
   position: fixed;
   top: 15px;
   right: 15px;
   padding: 25px;
   z-index: 1000;
+  border: 5px solid #ef6d24;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.30) 0px 0px 20px, rgba(0, 0, 0, 0.40) 0px 25px 30px;
   animation: custom-bounce 2s ease 1;
@@ -854,12 +854,13 @@ body {
 }
 
 #pin-nudge-tail {
-  width: 20px;
-  height: 20px;
-  background-color: #ef6d24;
-  transform: rotate(45deg) translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #ef6d24;
   position: absolute;
-  top: 0px;
+  top: -15px;
   right: 85px;
 }
 
@@ -910,5 +911,13 @@ body {
     background-color: #555;
     border-left: 0.4275rem solid #555;
     color: #fff;
+  }
+
+  #pin-nudge-text {
+    color: #ddd;
+  }
+
+  #pin-nudge {
+    background-color: #555;
   }
 }
