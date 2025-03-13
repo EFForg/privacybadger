@@ -1,4 +1,4 @@
-$(function () {
+function initWelcomePage() {
   let already_set = false;
 
   $(".scroll-it").smoothScroll();
@@ -15,10 +15,12 @@ $(function () {
       });
     }
   });
+}
 
+function initPinNudge() {
   let num_outside_clicks = 0;
 
-  function hideNudgeOverlay() {
+  function hideNudge() {
     $("body").css('overflow', 'auto');
     $("#pin-nudge").fadeOut();
     $("#overlay").fadeOut();
@@ -32,7 +34,7 @@ $(function () {
       num_outside_clicks++;
       if (num_outside_clicks > 1) {
         num_outside_clicks = 0;
-        hideNudgeOverlay();
+        hideNudge();
       }
     }
   }
@@ -40,7 +42,7 @@ $(function () {
   function keydownHandler(e) {
     // Hide the pin nudge when a user presses 'Esc'
     if (e.keyCode === 27 && $('#pin-nudge').css('display') != 'none') {
-      hideNudgeOverlay();
+      hideNudge();
     } else if (e.keyCode === 9) {
       // Trap focus within the popup
       $("#pin-nudge").trigger("focus");
@@ -53,7 +55,7 @@ $(function () {
   async function checkIsPinned() {
     let userSettings = await chrome.action.getUserSettings();
     if (userSettings.isOnToolbar) {
-      hideNudgeOverlay();
+      hideNudge();
       clearInterval(interval_id);
     }
   }
@@ -88,4 +90,9 @@ $(function () {
       }
     });
   }
+}
+
+$(function () {
+  initWelcomePage();
+  initPinNudge();
 });
