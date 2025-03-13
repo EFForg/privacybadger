@@ -47,6 +47,10 @@
         "message": "Enable for this site",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
+    "popup_review_pb": {
+        "message": "Enjoying Privacy Badger? Leave a review!",
+        "description": "A link in the popup footer."
+    },
     "report_broken_site": {
         "message": "Report broken site",
         "description": "Button in the popup and title of the error reporting form overlay."
@@ -354,10 +358,6 @@
     "donate_to_eff": {
         "message": "Donate to EFF",
         "description": "A button on the intro page, and a link in the popup footer."
-    },
-    "review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
-        "description": "A link in the popup footer."
     },
     "intro_donate_subheading": {
         "message": "Help us by donating and sharing your support for our tools",
