@@ -64,6 +64,13 @@ function initPinNudge() {
     // switch the instructional graphic for Opera
     if (window.navigator.userAgent.match(/OPR\//)) {
       $('#pin-image').attr("src", "images/pinning-instructions-opera.png");
+      // don't fix the tail if already fixed for RTL
+      if ($('#pin-nudge-tail').css('left') != '10px') {
+        $('#pin-nudge-tail').css({
+          left: 'unset',
+          right: '10px'
+        });
+      }
     }
 
     $("#pin-nudge-text").html(

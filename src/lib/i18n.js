@@ -83,11 +83,16 @@ function setTextDirection() {
       right: 'unset',
       left: '15px'
     });
-    $('#pin-nudge-tail').css({
-      right: 'unset',
-      left: '85px'
-    });
-    if (!window.navigator.userAgent.match(/OPR\//)) {
+    if (window.navigator.userAgent.match(/OPR\//)) {
+      $('#pin-nudge-tail').css({
+        right: 'unset',
+        left: '10px'
+      });
+    } else {
+      $('#pin-nudge-tail').css({
+        right: 'unset',
+        left: '85px'
+      });
       $('#pin-image').attr("src", "images/pinning-instructions-rtl.png");
     }
     $('#dismiss-nudge').css({
