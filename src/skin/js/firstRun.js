@@ -1,4 +1,4 @@
-$(function () {
+function initWelcomePage() {
   let already_set = false;
 
   $(".scroll-it").smoothScroll();
@@ -15,8 +15,12 @@ $(function () {
       });
     }
   });
+}
 
-  function hideNudgeOverlay() {
+function initPinNudge() {
+  let num_outside_clicks = 0;
+
+  function hideNudge() {
     $("body").css('overflow', 'auto');
     $("#pin-nudge").fadeOut();
     $("#overlay").fadeOut();
@@ -27,17 +31,21 @@ $(function () {
   function clickHandler(e) {
     // Hide the pin nudge when a user clicks outside the popup
     if (!document.getElementById('pin-nudge').contains(e.target)) {
-      hideNudgeOverlay();
+      num_outside_clicks++;
+      if (num_outside_clicks > 1) {
+        num_outside_clicks = 0;
+        hideNudge();
+      }
     }
   }
 
   function keydownHandler(e) {
     // Hide the pin nudge when a user presses 'Esc'
-    if (e.keyCode === 27) {
-      hideNudgeOverlay();
+    if (e.keyCode === 27 && $('#pin-nudge').css('display') != 'none') {
+      hideNudge();
     } else if (e.keyCode === 9) {
       // Trap focus within the popup
-      $("#dismiss-nudge").trigger("focus");
+      $("#pin-nudge").trigger("focus");
       e.preventDefault();
     }
   }
@@ -47,15 +55,28 @@ $(function () {
   async function checkIsPinned() {
     let userSettings = await chrome.action.getUserSettings();
     if (userSettings.isOnToolbar) {
-      hideNudgeOverlay();
+      hideNudge();
       clearInterval(interval_id);
     }
   }
 
   function renderNudge() {
+    // switch the instructional graphic for Opera
+    if (window.navigator.userAgent.match(/OPR\//)) {
+      $('#pin-image').attr("src", "images/pinning-instructions-opera.png");
+      // don't fix the tail if already fixed for RTL
+      if ($('#pin-nudge-tail').css('left') != '10px') {
+        $('#pin-nudge-tail').css({
+          left: 'unset',
+          right: '10px'
+        });
+      }
+    }
+
     $("#pin-nudge-text").html(
       chrome.i18n.getMessage("intro_pin_nudge",
         [chrome.i18n.getMessage("popup_disable_for_site")]));
+
     $("#pin-nudge").show();
 
     $("#overlay").show();
@@ -63,11 +84,6 @@ $(function () {
 
     document.addEventListener("click", clickHandler);
     document.addEventListener("keydown", keydownHandler);
-
-    $("#dismiss-nudge").on("click", function (e) {
-      e.preventDefault();
-      hideNudgeOverlay();
-    });
   }
 
   // Don't show the pin nudge in Firefox because extensions are pinned automatically
@@ -87,4 +103,9 @@ $(function () {
       }
     });
   }
+}
+
+$(function () {
+  initWelcomePage();
+  initPinNudge();
 });
