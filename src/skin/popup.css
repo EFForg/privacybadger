@@ -556,6 +556,7 @@ a.overlay-close:hover {
 #cta-icon.ui-icon-star {
    margin-bottom: 2px;
    font-size: 18px;
+   color: #F6C324 !important;
 }
 
 @media screen and (max-width: 400px){
