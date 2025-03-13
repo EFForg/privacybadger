@@ -87,7 +87,9 @@ function setTextDirection() {
       right: 'unset',
       left: '85px'
     });
-    $('#pin-image').attr("src", "images/pinning-instructions-rtl.png");
+    if (!window.navigator.userAgent.match(/OPR\//)) {
+      $('#pin-image').attr("src", "images/pinning-instructions-rtl.png");
+    }
     $('#dismiss-nudge').css({
       float: 'left',
       right: 'unset',

@@ -61,9 +61,15 @@ function initPinNudge() {
   }
 
   function renderNudge() {
+    // switch the instructional graphic for Opera
+    if (window.navigator.userAgent.match(/OPR\//)) {
+      $('#pin-image').attr("src", "images/pinning-instructions-opera.png");
+    }
+
     $("#pin-nudge-text").html(
       chrome.i18n.getMessage("intro_pin_nudge",
         [chrome.i18n.getMessage("popup_disable_for_site")]));
+
     $("#pin-nudge").show();
 
     $("#overlay").show();
