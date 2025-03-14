@@ -38,6 +38,39 @@ const DOMAIN_TOOLTIP_CONF = {
   side: 'bottom',
 };
 
+/**
+ * Use weighted random selection to get the link to display at the bottom of the popup.
+ */
+function getLink() {
+  let linkRotation = [
+    {
+      url: constants.REVIEW_LINKS[constants.BROWSER] || constants.REVIEW_LINKS.chrome, // Default to Chrome if unknown
+      text: "popup_review_pb",
+      icon: "ui-icon-star",
+      odds: 0.3 // Odds of all links should add up to 1
+    },
+    {
+      url: "https://supporters.eff.org/donate/support-privacy-badger",
+      text: "donate_to_eff",
+      icon: "ui-icon-heart",
+      odds: 0.7
+    }
+  ];
+
+  let rand = Math.random();
+  let cumulative_odds = 0;
+
+  for (let link of linkRotation) {
+    cumulative_odds += (link.odds || 0);
+    if (rand < cumulative_odds) {
+      return link;
+    }
+  }
+
+  // Fallback in case of errors
+  return linkRotation[linkRotation.length - 1];
+}
+
 /* if they aint seen the comic*/
 function showNagMaybe() {
   var $nag = $("#instruction");
@@ -246,6 +279,11 @@ function init() {
     overflow: 'visible',
     visibility: 'visible'
   });
+
+  let link = getLink();
+  $("#cta-link").attr("href", link.url);
+  $('#cta-text').text(chrome.i18n.getMessage(link.text));
+  $('#cta-icon').addClass(link.icon);
 
   window.POPUP_INITIALIZED = true;
 }

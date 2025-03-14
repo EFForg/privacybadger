@@ -40,6 +40,16 @@ let exports = {
 
   PANOPTICLICK_DOMAINS: ["trackersimulator.org", "eviltracker.net"],
 
+  // Browser (modified during the build process)
+  BROWSER: "firefox",
+
+  REVIEW_LINKS: {
+    chrome: "https://chromewebstore.google.com/detail/privacy-badger/pkehgijcmpdhfbdbbnkijodmdjhbjlgp/reviews",
+    firefox: "https://addons.mozilla.org/en-US/firefox/addon/privacy-badger17/",
+    edge: "https://microsoftedge.microsoft.com/addons/detail/privacy-badger/mkejgcgkdlddbggjhhflekkondicpnop",
+    opera: "https://addons.opera.com/en/extensions/details/privacy-badger/",
+  },
+
   FP_CDN_DOMAINS: new Set([
     'd.alicdn.com',
     's3.us-west-2.amazonaws.com',

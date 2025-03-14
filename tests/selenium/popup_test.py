@@ -284,23 +284,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         assert report_input.get_property('value') == ERROR_REPORT_TEXT, (
             "Previously entered text should be displayed")
 
-    def test_donate_button(self):
-        """Ensure donate button opens EFF website."""
-
-        EFF_URL = "https://supporters.eff.org/donate/support-privacy-badger"
-
-        self.open_popup()
-        self.driver.find_element(By.ID, "donate").click()
-
-        # make sure EFF website not opened in same window
-        if self.driver.current_url != self.popup_url:
-            self.fail("EFF website not opened in new window")
-
-        self.switch_to_window_with_url(EFF_URL)
-        self.wait_for_page_to_start_loading(EFF_URL)
-        assert self.driver.current_url == EFF_URL, (
-            "EFF website should open after clicking donate button on popup")
-
     def test_breakage_warnings(self):
         YLIST_DOMAIN = "code.jquery.com"
         FIXTURE_URL = ("https://privacybadger-tests.eff.org/html/"
