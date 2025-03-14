@@ -312,7 +312,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Privacy Badger skickar <a href='https://globalprivacycontrol.org/' target='_blank'>Global sekretesstyrningssignal</a>, för att välja bort datadelning och försäljning, och <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte-signal</a> för att tala om för företag att inte spåra dig.",
+        "message": "Privacy Badger skickar <a href='https://globalprivacycontrol.org/' target='_blank'>globala sekretesstyrningssignalen</a> för att välja bort datadelning och försäljning, och <a href='https://www.eff.org/issues/do-not-track' target='_blank'>spåra inte-signalen</a> för att tala om för företag att inte spåra dig.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
@@ -412,7 +412,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
-        "message": "Skicka signalerna \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global sekretesstyrning</a>\" och \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte</a>\" till webbplatser",
+        "message": "Skicka signalerna \"<a href='https://globalprivacycontrol.org/' target='_blank'>global sekretesstyrning</a>\" och \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>spåra inte</a>\" till webbplatser",
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
