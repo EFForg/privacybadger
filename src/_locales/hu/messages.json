@@ -51,6 +51,10 @@
         "message": "Report broken site",
         "description": "Button in the popup and title of the error reporting form overlay."
     },
+    "popup_review_pb": {
+        "message": "Enjoying Privacy Badger? Leave a review!",
+        "description": "A link in the popup footer."
+    },
     "version": {
         "message": "verzió: $VERSION_STRING$",
         "description": "Version text in the popup footer. For example, \"version 2018.8.1\".",
