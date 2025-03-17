@@ -420,7 +420,7 @@
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
-        "message": "Удалить выбранные элементы",
+        "message": "Удалить выбранное",
         "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
