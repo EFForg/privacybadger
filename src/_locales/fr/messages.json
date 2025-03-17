@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Block but don't replace the following widgets:",
+        "message": "Bloquer, mais ne pas remplacer les widgets suivant :",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
