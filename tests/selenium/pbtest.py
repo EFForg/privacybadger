@@ -526,7 +526,6 @@ class PBSeleniumTest(unittest.TestCase):
     def disable_badger_on_site(self, url):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
-        self.find_el_by_css('a[href="#tab-allowlist"]').click()
         self.driver.find_element(By.ID, 'new-disabled-site-input').send_keys(url)
         self.driver.find_element(By.CSS_SELECTOR, '#add-disabled-site').click()
 

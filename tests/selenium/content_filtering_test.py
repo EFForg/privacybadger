@@ -120,6 +120,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         # enable local learning
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#local-learning-checkbox').click()
 
         self.load_url(self.FIXTURE_URL + '?fingerprintjs')
@@ -245,6 +246,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#check_dnt_policy_checkbox').click()
 
         self.load_url(self.FIXTURE_URL)
@@ -259,9 +261,11 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         # toggle EFF's DNT policy checking
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#check_dnt_policy_checkbox').click()
         self.driver.refresh()
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#check_dnt_policy_checkbox').click()
 
         self.load_url(self.FIXTURE_URL)

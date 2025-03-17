@@ -161,6 +161,7 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
 
         # enable local learning
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#local-learning-checkbox').click()
 
         # visit a page containing two third-party resources,
@@ -214,6 +215,7 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
 
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#enable_dnt_checkbox').click()
 
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
@@ -263,6 +265,7 @@ return Object.getOwnPropertyDescriptor(
     def test_navigator_unmodified_when_dnt_disabled(self):
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#enable_dnt_checkbox').click()
 
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
@@ -281,6 +284,7 @@ return Object.getOwnPropertyDescriptor(
         # disable sending DNT signals
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#enable_dnt_checkbox').click()
 
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
@@ -291,6 +295,7 @@ return Object.getOwnPropertyDescriptor(
         # re-enable sending DNT signals
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#enable_dnt_checkbox').click()
 
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)

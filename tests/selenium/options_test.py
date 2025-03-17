@@ -185,6 +185,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
 
         self.load_options_page()
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         # enable learning to reveal the show-not-yet-blocked checkbox
         self.find_el_by_css('#local-learning-checkbox').click()
         self.select_domain_list_tab()

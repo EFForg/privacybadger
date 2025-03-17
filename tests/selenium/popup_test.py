@@ -121,6 +121,7 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # enable showing non-tracking domains in the popup
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#local-learning-checkbox').click()
         self.find_el_by_css('#show-nontracking-domains-checkbox').click()
 
@@ -417,6 +418,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         # enable local learning and showing non-tracking domains
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#local-learning-checkbox').click()
         self.find_el_by_css('#show-nontracking-domains-checkbox').click()
 

@@ -38,6 +38,7 @@ class NavigationTest(pbtest.PBSeleniumTest):
         self.clear_tracker_data()
         # enable local learning
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#local-learning-checkbox').click()
 
         self.load_url(FIXTURE_URL)

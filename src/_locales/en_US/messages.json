@@ -403,6 +403,30 @@
         "message": "Privacy Badger Options",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "Disabled Sites",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "e.g. www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "Remove selected",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "Please add a valid domain or URL",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "General Settings",
         "description": "This is an options page tab heading."
@@ -462,30 +486,6 @@
     "options_incognito_warning": {
         "message": "Enabling learning in Private/Incognito windows may leave traces of your private browsing history on your computer. By default, Privacy Badger will block trackers it already knows about in Private/Incognito windows, but it won't learn about new trackers. You might want to enable this option if a lot of your browsing happens in Private/Incognito windows.",
         "description": "Tooltip in general settings."
-    },
-    "disabled_sites": {
-        "message": "Disabled Sites",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "e.g. www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "Add site",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "Remove selected",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "Please add a valid domain or URL",
-        "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_widget_replacement_tab": {
         "message": "Widget Replacement",
