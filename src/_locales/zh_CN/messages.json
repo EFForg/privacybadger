@@ -52,7 +52,7 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
+        "message": "喜欢隐私獾？留言评论吧！",
         "description": "A link in the popup footer."
     },
     "version": {
