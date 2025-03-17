@@ -214,7 +214,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.disable_badger_on_site(self.FIXTURE_PARENT_DOMAIN)
 
         self.load_url(self.FIXTURE_URL)
-        self.assert_block()
+        self.assert_load()
 
     def test_disabling_on_site_wildcard(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)

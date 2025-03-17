@@ -252,9 +252,7 @@ return Object.getOwnPropertyDescriptor(
         """Needs to be consistent with test_disabling_on_site_parent_domain()"""
         self.disable_badger_on_site(self.FIXTURE_PARENT_DOMAIN)
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
-        # TODO no implicit wildcard in MV2
-        # TODO https://github.com/EFForg/privacybadger/issues/3061
-        assert self.js("return navigator.globalPrivacyControl === true")
+        self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should be unset or False")
 
     def test_navigator_disabling_on_site_wildcard(self):
         """Needs to be consistent with test_disabling_on_site_wildcard()"""
