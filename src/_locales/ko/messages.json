@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "Enjoying Privacy Badger? Leave a review!",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "버전 $VERSION_STRING$",
@@ -403,6 +403,30 @@
         "message": "Privacy Badger 옵션",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "비활성화 사이트",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "예시, www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "제거",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "유효한 도메인 또는 URL을 추가하세요.",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "일반 설정",
         "description": "This is an options page tab heading."
@@ -463,30 +487,6 @@
         "message": "Private/Incognito 창에서 학습을 활성화하면 컴퓨터에 개인 검색 기록을 남길 수 있습니다. 기본적으로 Privacy Badger는 Private/Incognito 창에서 이미 알고 있는 추적기를 차단하지만 새로운 추적기에 대해서는 학습하지 않습니다. Private/Incognito 창에서 많은 검색이 발생하는 경우 이 옵션을 사용하도록 설정할 수 있습니다.",
         "description": "Tooltip in general settings."
     },
-    "disabled_sites": {
-        "message": "비활성화 사이트",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "예시, www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "Add site",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "제거",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "유효한 도메인 또는 URL을 추가하세요.",
-        "description": "Error text for the form on the Disabled Sites options page tab"
-    },
     "options_widget_replacement_tab": {
         "message": "위젯 교체",
         "description": "Options page tab heading"
@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "다음 위젯을 교체하지 마세요:",
+        "message": "Block but don't replace the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {

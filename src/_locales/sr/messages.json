@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "Enjoying Privacy Badger? Leave a review!",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "verzija $VERSION_STRING$",
@@ -403,6 +403,30 @@
         "message": "Privacy Badger - Opcije",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "Onemogućeni sajtovi",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger je isključen na sledećim sajtovima. To znači da Privacy badger neće blokirati ništa kada posetite sajtove navedene ovde, a takođe neće slati ni \"Do Not Track\" ili \"Global Policy Control\" signale.",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "npr. www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "Ukloni odabrano",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "Molimo vas da dodate validan domen ili URL",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "Opšta podešavanja",
         "description": "This is an options page tab heading."
@@ -463,30 +487,6 @@
         "message": "Uključivanje učenja u privatnom/incognito prozoru može ostaviti tragove privatnog pregledanja na vašem računaru. Podrazumevano će Privacy Badger u privatnim prozoima blokirati trekere za koje već zna, ali neće učiti o novim. Možda želite da uključite ovu opciju ako se većina vašeg pregledanja odvija u privatnim/inkognito prozorima.",
         "description": "Tooltip in general settings."
     },
-    "disabled_sites": {
-        "message": "Onemogućeni sajtovi",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "Privacy Badger je isključen na sledećim sajtovima. To znači da Privacy badger neće blokirati ništa kada posetite sajtove navedene ovde, a takođe neće slati ni \"Do Not Track\" ili \"Global Policy Control\" signale.",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "npr. www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "Add site",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "Ukloni odabrano",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "Molimo vas da dodate validan domen ili URL",
-        "description": "Error text for the form on the Disabled Sites options page tab"
-    },
     "options_widget_replacement_tab": {
         "message": "Zamena vidžeta",
         "description": "Options page tab heading"
@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Nemoj zameniti sledeće vidžete:",
+        "message": "Block but don't replace the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {

@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "喜欢隐私獾？留言评论吧！",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "版本 $VERSION_STRING$",
@@ -403,6 +403,30 @@
         "message": "隐私獾设置",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "已禁用的域名",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "隐私獾已在以下网站上禁用。您浏览这些网站时，隐私獾不会屏蔽任何东西，也不会发送请勿追踪或全局隐私控制信号。",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "例如 www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "添加站点",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "删除所选",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "请添加一个有效的域名或者 URL",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "通用设置",
         "description": "This is an options page tab heading."
@@ -463,30 +487,6 @@
         "message": "启用“在隐私/无痕模式学习”后，你的隐私浏览历史可能会在电脑中留下痕迹。默认设置下，隐私獾会在隐私/无痕模式时屏蔽已知的追踪器，但不会学习新的追踪器。如果你平时经常使用隐私/无痕模式的话，您可能想要启用这个选项。",
         "description": "Tooltip in general settings."
     },
-    "disabled_sites": {
-        "message": "已禁用的域名",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "隐私獾已在以下网站上禁用。您浏览这些网站时，隐私獾不会屏蔽任何东西，也不会发送请勿追踪或全局隐私控制信号。",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "例如 www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "添加站点",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "删除所选",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "请添加一个有效的域名或者 URL",
-        "description": "Error text for the form on the Disabled Sites options page tab"
-    },
     "options_widget_replacement_tab": {
         "message": "小部件替换",
         "description": "Options page tab heading"
@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "不要替换以下小部件：",
+        "message": "Block but don't replace the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {

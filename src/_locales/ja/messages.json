@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "Enjoying Privacy Badger? Leave a review!",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "バージョン $VERSION_STRING$",
@@ -403,6 +403,30 @@
         "message": "Privacy Badger の設定",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "保護を無効化するサイト",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger は次のサイトで無効になっています。つまり、Privacy Badger はここにリストされたサイトにアクセスしても何もブロックせず、Do Not Track や Global Privacy Control のシグナルを送信しません。",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "例: www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "選択したドメインを削除",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "有効なドメインまたはURLを追加してください",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "一般設定",
         "description": "This is an options page tab heading."
@@ -463,30 +487,6 @@
         "message": "プライベートウィンドウで学習機能を有効にすると、プライベートウィンドウでの閲覧履歴の痕跡がコンピュータに残ることがあります。デフォルトでは、Privacy Badgerはプライベートウィンドウで既に知っているトラッカーをブロックしますが、新しいトラッカーについては学習しません。プライベートウィンドウで多くのブラウジングを行う場合、このオプションを有効にするとよいでしょう。",
         "description": "Tooltip in general settings."
     },
-    "disabled_sites": {
-        "message": "保護を無効化するサイト",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "Privacy Badger は次のサイトで無効になっています。つまり、Privacy Badger はここにリストされたサイトにアクセスしても何もブロックせず、Do Not Track や Global Privacy Control のシグナルを送信しません。",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "例: www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "Add site",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "選択したドメインを削除",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "有効なドメインまたはURLを追加してください",
-        "description": "Error text for the form on the Disabled Sites options page tab"
-    },
     "options_widget_replacement_tab": {
         "message": "ウィジェットの置き換え",
         "description": "Options page tab heading"
@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "以下のウィジェットは置き換えられません:",
+        "message": "Block but don't replace the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {

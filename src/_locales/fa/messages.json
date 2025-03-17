@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "Enjoying Privacy Badger? Leave a review!",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "نگارش $VERSION_STRING$",
@@ -403,6 +403,30 @@
         "message": "گزینه‌های پرایوسی بجر",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "پایگاه‌های از کار افتاده",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "پرایوسی بجر بر روی پایگاه‌های زیر از کار افتاده است. این به این معناست که پرایوسی بجر، هنگامی که پایگاه‌هایی که این‌جا فهرست شده‌اند را بازدید می‌کنید، هیچ‌چیزی را مسدود نخواهد کرد، و نشانک ردیابی نکن یا واپایش حریم خصوصی جهانی را هم نخواهد فرستاد.",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "مثلاً www.example.com‏، ‎*.‎example.net‏،‌ example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "حذف گزینه (های) انتخاب شده",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "لطفا یک دامنه یا URL معتبر اضافه کنید",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "تنظیمات کلی",
         "description": "This is an options page tab heading."
@@ -463,30 +487,6 @@
         "message": "به کار انداختن یادگیری در پنجره‌های خصوصی/ناشناس ممکن است ردی از تاریخچهٔ وبگردی خصوصی شما روی رایانه‌تان به جا بگذارد. به‌صورت پیش‌فرض، پرایوسی بجر ردیاب‌هایی که در پنجره‌های خصوصی/ناشناس می‌شناسد را مسدود خواهد کرد، اما دربارهٔ ردیاب‌های جدید اطلاعی کسب نخواهد کرد. اگر بیش‌تر وقت خود را در پنجره‌های خصوصی/ناشناس می‌گذرانید شاید بهتر باشد که این گزینه را به کار بیندازید.",
         "description": "Tooltip in general settings."
     },
-    "disabled_sites": {
-        "message": "پایگاه‌های از کار افتاده",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "پرایوسی بجر بر روی پایگاه‌های زیر از کار افتاده است. این به این معناست که پرایوسی بجر، هنگامی که پایگاه‌هایی که این‌جا فهرست شده‌اند را بازدید می‌کنید، هیچ‌چیزی را مسدود نخواهد کرد، و نشانک ردیابی نکن یا واپایش حریم خصوصی جهانی را هم نخواهد فرستاد.",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "مثلاً www.example.com‏، ‎*.‎example.net‏،‌ example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "Add site",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "حذف گزینه (های) انتخاب شده",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "لطفا یک دامنه یا URL معتبر اضافه کنید",
-        "description": "Error text for the form on the Disabled Sites options page tab"
-    },
     "options_widget_replacement_tab": {
         "message": "جایگزینی ابزارک",
         "description": "Options page tab heading"
@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "ابزارک‌های زیر را جایگزین نکن:",
+        "message": "Block but don't replace the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {

@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "Vous aimez Privacy Badger. Rédigez une critique.",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "version $VERSION_STRING$",
@@ -403,6 +403,30 @@
         "message": "Options de Privacy Badger",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "Sites désactivés",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger est désactivée pour les sites suivants. Cela signifie que Privacy Badger ne bloquera rien lors d’une visite des sites indiqués ici, et n’enverra ni les signaux « Ne pas me pister » ni « Contrôle global de la protection des données ».",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "p. ex. www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Ajouter le site",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "Supprimer la sélection",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "Ajoutez un domaine ou une URL valide",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "Paramètres généraux",
         "description": "This is an options page tab heading."
@@ -463,30 +487,6 @@
         "message": "L’activation de l’apprentissage dans les fenêtres de navigation privée pourrait laisser sur votre ordinateur des traces de votre historique de navigation privée. Dans les fenêtres de navigation privée, Privacy Badger bloquera par défaut les traceurs qu’elle connaît déjà, mais elle n’identifiera pas les nouveaux traceurs. Si une grande partie de votre navigation a lieu en mode privé, vous pourriez envisager d’activer cette option.",
         "description": "Tooltip in general settings."
     },
-    "disabled_sites": {
-        "message": "Sites désactivés",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "Privacy Badger est désactivée pour les sites suivants. Cela signifie que Privacy Badger ne bloquera rien lors d’une visite des sites indiqués ici, et n’enverra ni les signaux « Ne pas me pister » ni « Contrôle global de la protection des données ».",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "p. ex. www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "Ajouter le site",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "Supprimer la sélection",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "Ajoutez un domaine ou une URL valide",
-        "description": "Error text for the form on the Disabled Sites options page tab"
-    },
     "options_widget_replacement_tab": {
         "message": "Remplacement de widgets",
         "description": "Options page tab heading"
@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Ne pas remplacer les widgets suivant :",
+        "message": "Block but don't replace the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {

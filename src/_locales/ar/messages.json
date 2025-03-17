@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "Enjoying Privacy Badger? Leave a review!",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "إصدار $VERSION_STRING$",
@@ -403,6 +403,30 @@
         "message": "خيارات «غرير الخصوصية»",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "المواقع غير المفعلة",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "تم تعطيل «غرير الخصوصية» على المواقع التالية. هذا يعني أن «غرير الخصوصية» لن يحظر أي شيء عند زيارتك للمواقع المدرجة هنا، ولن يرسل إشارات عدم التتبع أو التحكم العالمي في الخصوصية.",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "مثلا: www.example.com، أو ‪*.example.net‬، أو example.org ",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "إضافة الموقع",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "أزل المحدد",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "رجاء أضف مسارا أو نطاقا صحيحا",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "الإعدادات العامة",
         "description": "This is an options page tab heading."
@@ -463,30 +487,6 @@
         "message": "تفعيل التعلم في نوافذ التصفح الخاص قد يترك آثارا لتأريخ تصفحك الخاص على حاسوبك. مبدئيا سيحجب «غرير الخصوصية» المتعقبات التي يعرفها من قبل في نوافذ التصفح الخاص، لكنه لن يتعلم أي متعقبات جديدة. قد تريد تفعيل هذا الخيار إن كان الكثير من تصفحك في نوافذ خاصة.",
         "description": "Tooltip in general settings."
     },
-    "disabled_sites": {
-        "message": "المواقع غير المفعلة",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "تم تعطيل «غرير الخصوصية» على المواقع التالية. هذا يعني أن «غرير الخصوصية» لن يحظر أي شيء عند زيارتك للمواقع المدرجة هنا، ولن يرسل إشارات عدم التتبع أو التحكم العالمي في الخصوصية.",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "مثلا: www.example.com، أو ‪*.example.net‬، أو example.org ",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "إضافة الموقع",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "أزل المحدد",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "رجاء أضف مسارا أو نطاقا صحيحا",
-        "description": "Error text for the form on the Disabled Sites options page tab"
-    },
     "options_widget_replacement_tab": {
         "message": "استبدال الـ Widget",
         "description": "Options page tab heading"
@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "لا تستبدل هذه الـ widgets:",
+        "message": "Block but don't replace the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {

@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "Enjoying Privacy Badger? Leave a review!",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "versi $VERSION_STRING$",
@@ -403,6 +403,30 @@
         "message": "Pilihan-pilihan Privacy Badger",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "Lelaman yang Dinyahaktif",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger dinyahaktifkan di lelaman berikut. Ini bermakna Privacy Badger tidak akan menyekat apa-apa apabila anda melawati lelaman yang tersenarai di sini, dan ia tidak akan menghantar isyarat Do Not Track atau Global Privacy Control.",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "cth. www.example.com, *.example.net, example.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "Buang pilihan",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "Sila tambah domain atau URL yang sah",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "Tetapan Umum",
         "description": "This is an options page tab heading."
@@ -463,30 +487,6 @@
         "message": "Mengaktifkan pembelajaran dalam tetingkap Peribadi/Inkognito mungkin meninggalkan kesan sejarah pelayaran peribadi anda pada komputer anda. Secara biasa, Privacy Badger akan menyekat penjejak yang sudah diketahuinya dalam tetingkap Peribadi/Inkognito, tetapi ia tidak akan mempelajari tentang penjejak baharu. Anda mungkin mahu mengaktifak pilihan ini jika pelayaran anda banyak berlaku dalam tetingkap Peribadi/Inkognito.",
         "description": "Tooltip in general settings."
     },
-    "disabled_sites": {
-        "message": "Lelaman yang Dinyahaktif",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "Privacy Badger dinyahaktifkan di lelaman berikut. Ini bermakna Privacy Badger tidak akan menyekat apa-apa apabila anda melawati lelaman yang tersenarai di sini, dan ia tidak akan menghantar isyarat Do Not Track atau Global Privacy Control.",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "cth. www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "Add site",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "Buang pilihan",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "Sila tambah domain atau URL yang sah",
-        "description": "Error text for the form on the Disabled Sites options page tab"
-    },
     "options_widget_replacement_tab": {
         "message": "Penggantian Widget",
         "description": "Options page tab heading"
@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Jangan gantikan widget berikut:",
+        "message": "Block but don't replace the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {

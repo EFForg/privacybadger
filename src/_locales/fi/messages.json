@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "Enjoying Privacy Badger? Leave a review!",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "versio $VERSION_STRING$",
@@ -403,6 +403,30 @@
         "message": "Privacy Badgerin asetukset",
         "description": ""
     },
+    "disabled_sites": {
+        "message": "Ohitettavat sivustot",
+        "description": "Options page tab heading"
+    },
+    "disabled_for_these_domains": {
+        "message": "Privacy Badger ohittaa seuraavat sivustot, eli Privacy Badger ei estä mitään käyttäessäsi näitä sivustoja, eikä se lähetä \"Do Not Track\" tai \"Global Privacy Control\" -signaaleja.",
+        "description": "Intro text on the Disabled Sites options page tab"
+    },
+    "allowlist_domain_input_placeholder": {
+        "message": "esim. www.esimerkki.fi, *.esimerkki.net, esimerkki.org",
+        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
+    },
+    "add_domain_button": {
+        "message": "Add site",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "remove_button": {
+        "message": "Poista valitut",
+        "description": "Button on the Disabled Sites options page tab"
+    },
+    "invalid_domain": {
+        "message": "Lisää kelvollinen verkkotunnus tai URL",
+        "description": "Error text for the form on the Disabled Sites options page tab"
+    },
     "options_general_settings": {
         "message": "Yleiset",
         "description": "This is an options page tab heading."
@@ -463,30 +487,6 @@
         "message": "Oppimisen käyttö myös yksityisessä selausikkunoissa saattaa jättää tietokoneellesi jälkiä yksityisestä selaushistoriastasi. Oletusarvoisesti Privacy Badger estää jo entuudestaan tuntemansa seurannat yksityisessä selaustilassa, muttei opettele uusia. Tämä valinta voi olla hyödyllinen, jos selaat verkkoa paljon yksityisessä selaustilassa.",
         "description": "Tooltip in general settings."
     },
-    "disabled_sites": {
-        "message": "Ohitettavat sivustot",
-        "description": "Options page tab heading"
-    },
-    "disabled_for_these_domains": {
-        "message": "Privacy Badger ohittaa seuraavat sivustot, eli Privacy Badger ei estä mitään käyttäessäsi näitä sivustoja, eikä se lähetä \"Do Not Track\" tai \"Global Privacy Control\" -signaaleja.",
-        "description": "Intro text on the Disabled Sites options page tab"
-    },
-    "allowlist_domain_input_placeholder": {
-        "message": "esim. www.esimerkki.fi, *.esimerkki.net, esimerkki.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
-    "add_domain_button": {
-        "message": "Add site",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "remove_button": {
-        "message": "Poista valitut",
-        "description": "Button on the Disabled Sites options page tab"
-    },
-    "invalid_domain": {
-        "message": "Lisää kelvollinen verkkotunnus tai URL",
-        "description": "Error text for the form on the Disabled Sites options page tab"
-    },
     "options_widget_replacement_tab": {
         "message": "Widgettien korvaus",
         "description": "Options page tab heading"
@@ -500,7 +500,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Älä korvaa seuraavia widgettejä:",
+        "message": "Block but don't replace the following widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
