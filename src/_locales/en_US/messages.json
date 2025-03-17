@@ -53,7 +53,7 @@
     },
     "popup_review_pb": {
         "message": "Enjoying Privacy Badger? Leave a review!",
-        "description": "A link in the popup footer."
+        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
         "message": "version $VERSION_STRING$",
