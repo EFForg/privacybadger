@@ -411,10 +411,6 @@
         "message": "Privacy Badger מושבת באתרים הבאים. זה אומר כי Privacy Badger לא יחסום שום דבר כאשר תבקר באתרים הכתובים למטה, והוא לא ישלח את האות אל תעקוב או את האות בקרה גלובלית של פרטיות.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "לדוגמה www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "הוסף אתר",
         "description": "Button on the Disabled Sites options page tab"

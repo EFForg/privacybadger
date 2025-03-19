@@ -411,10 +411,6 @@
         "message": "Privacy Badger müteakip sitelerde devre dışı bırakıldı. Bu, Privacy Badger'ın bu listedeki sitelerde hiçbir şeyi engellemeyeceği anlamına gelir; aynı zamanda Do Not Track veya Global Gizlilik Kontrolü sinyallerini göndermez.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "örn. www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "Add site",
         "description": "Button on the Disabled Sites options page tab"

@@ -411,10 +411,6 @@
         "message": "Privacy Badger 已在下列網站中停用。這代表 Privacy Badger 將不會在您瀏覽它們時封鎖任何東西，也不會傳送「不要追蹤」或「全域隱私控制」信號。",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "範例：www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "新增網站",
         "description": "Button on the Disabled Sites options page tab"

@@ -411,10 +411,6 @@
         "message": "A Privacy Badger le van tiltva a következő oldalakon. Ez azt jelenti, hogy a Privacy Badger semmit sem fog tiltani, ha meglátogatja az itt felsorolt oldalakat, és nem fog „ne kövessen” vagy „globális adatvédelmi szabályozás” jelzéseket küldeni.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "például www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "Add site",
         "description": "Button on the Disabled Sites options page tab"

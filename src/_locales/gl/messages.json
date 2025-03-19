@@ -411,10 +411,6 @@
         "message": "Privacy Badger está desactivado nas seguintes webs. Isto significa que Privacy Badger non vai bloquear nada cando visites as webs aquí relacionadas, e non enviará as marcas de Do Not Track e Global Privacy Control.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "ex. www.exemplo.com, *.exemplo.net, exemplo.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "Add site",
         "description": "Button on the Disabled Sites options page tab"

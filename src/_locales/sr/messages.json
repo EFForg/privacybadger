@@ -411,10 +411,6 @@
         "message": "Privacy Badger je isključen na sledećim sajtovima. To znači da Privacy badger neće blokirati ništa kada posetite sajtove navedene ovde, a takođe neće slati ni \"Do Not Track\" ili \"Global Policy Control\" signale.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "npr. www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "Add site",
         "description": "Button on the Disabled Sites options page tab"

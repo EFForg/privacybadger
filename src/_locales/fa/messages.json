@@ -411,10 +411,6 @@
         "message": "پرایوسی بجر بر روی پایگاه‌های زیر از کار افتاده است. این به این معناست که پرایوسی بجر، هنگامی که پایگاه‌هایی که این‌جا فهرست شده‌اند را بازدید می‌کنید، هیچ‌چیزی را مسدود نخواهد کرد، و نشانک ردیابی نکن یا واپایش حریم خصوصی جهانی را هم نخواهد فرستاد.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "مثلاً www.example.com‏، ‎*.‎example.net‏،‌ example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "Add site",
         "description": "Button on the Disabled Sites options page tab"

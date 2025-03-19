@@ -411,10 +411,6 @@
         "message": "Privacy Badger bị vô hiệu hóa trên các trang web sau. Điều này có nghĩa là Privacy Badger sẽ không chặn bất kỳ thứ gì khi bạn truy cập các trang web được liệt kê ở đây và sẽ không gửi tín hiệu Không theo dõi hoặc Kiểm soát quyền riêng tư toàn cầu.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "Ví dụ. www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "Add site",
         "description": "Button on the Disabled Sites options page tab"

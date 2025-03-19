@@ -411,10 +411,6 @@
         "message": "O Privacy Badger está desativado nos sites a seguir. Isso significa que o Privacy Badger não bloqueará nada quando você acessar os sites listados aqui e não enviará os sinais \"Não rastrear\" nem \"Global Privacy Control\".",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "ex.: www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "Adicionar site",
         "description": "Button on the Disabled Sites options page tab"

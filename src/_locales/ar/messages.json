@@ -411,10 +411,6 @@
         "message": "تم تعطيل «غرير الخصوصية» على المواقع التالية. هذا يعني أن «غرير الخصوصية» لن يحظر أي شيء عند زيارتك للمواقع المدرجة هنا، ولن يرسل إشارات عدم التتبع أو التحكم العالمي في الخصوصية.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "مثلا: www.example.com، أو ‪*.example.net‬، أو example.org ",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "إضافة الموقع",
         "description": "Button on the Disabled Sites options page tab"

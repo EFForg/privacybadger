@@ -411,10 +411,6 @@
         "message": "प्राइवेसी बैजर बैजर निम्न साइटों पर अक्षम है। इसका मतलब यह है कि जब आप यहां सूचीबद्ध साइटों पर जाते हैं तो प्राइवेसी बैजर बैजर कुछ भी अवरुद्ध नहीं करेगा,और यह Do Not Track या Global Privacy Control signals नहीं भेजेगा।",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "उदाहरण www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "Add site",
         "description": "Button on the Disabled Sites options page tab"

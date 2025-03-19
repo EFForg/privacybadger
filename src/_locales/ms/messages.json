@@ -411,10 +411,6 @@
         "message": "Privacy Badger dinyahaktifkan di lelaman berikut. Ini bermakna Privacy Badger tidak akan menyekat apa-apa apabila anda melawati lelaman yang tersenarai di sini, dan ia tidak akan menghantar isyarat Do Not Track atau Global Privacy Control.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
-    "allowlist_domain_input_placeholder": {
-        "message": "cth. www.example.com, *.example.net, example.org",
-        "description": "Placeholder for a text input under the Disabled Sites tab on the options page"
-    },
     "add_domain_button": {
         "message": "Add site",
         "description": "Button on the Disabled Sites options page tab"
