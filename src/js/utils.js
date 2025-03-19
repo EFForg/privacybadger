@@ -15,7 +15,7 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { extractHostFromURL, isThirdParty, getBaseDomain, URI } from "../lib/basedomain.js";
+import { extractHostFromURL, isThirdParty, getBaseDomain } from "../lib/basedomain.js";
 
 import mdfp from "./multiDomainFirstParties.js";
 
@@ -395,23 +395,26 @@ function parseCookie(str, opts) {
  * otherwise the URL host
  */
 function getHostFromDomainInput(input) {
+  if (input.startsWith('*')) {
+    input = input.slice(1);
+    if (input.startsWith('.')) {
+      input = input.slice(1);
+    }
+  }
+
   if (!input.startsWith("http://") && !input.startsWith("https://")) {
     input = "http://" + input;
   }
 
-  if (!input.endsWith("/")) {
-    input += "/";
-  }
-
-  let uri;
+  let url;
 
   try {
-    uri = new URI(input);
+    url = new URL(input);
   } catch (err) {
     return false;
   }
 
-  return uri.host;
+  return url.hostname;
 }
 
 /**
