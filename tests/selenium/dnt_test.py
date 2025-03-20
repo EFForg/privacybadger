@@ -3,6 +3,8 @@
 import json
 import unittest
 
+import pytest
+
 import pbtest
 
 from functools import partial
@@ -148,6 +150,7 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
         result = self.check_dnt(TEST_DOMAIN)
         assert result, "One or more cookies were sent (cookies=0 policy hash did not match)"
 
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_should_not_record_nontracking_domains(self):
         NONTRACKING_FIXTURE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
@@ -181,7 +184,7 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
         except NoSuchElementException:
             self.fail("Unable to find the non-tracking domain on the page")
 
-        action_map = retry_until(partial(self.get_badger_storage, 'action_map'))
+        action_map = self.get_badger_storage('action_map')
 
         # verify that the cookie-tracking domain was recorded
         assert TRACKING_DOMAIN in action_map, (

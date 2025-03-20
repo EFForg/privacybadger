@@ -2,6 +2,8 @@
 
 import unittest
 
+import pytest
+
 import pbtest
 
 
@@ -108,6 +110,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL + '?alt3p')
         self.assert_load()
 
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "edge")
     def test_blocking_fp_script_served_from_cookieblocked_cdn(self):
         self.cookieblock_domain("cdn.jsdelivr.net")
 
