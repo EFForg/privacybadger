@@ -63,7 +63,7 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         self.init_sw_page()
 
         # visit a page that 302-redirects back to our fixture
-        self.load_url("https://httpbin.org/redirect-to"
+        self.load_url("https://httpbun.com/redirect-to"
             "?url=https%3A%2F%2Fefforg.github.io%2Fprivacybadger-test-fixtures%2Fhtml%2Fservice_workers.html"
             "&status_code=302")
 

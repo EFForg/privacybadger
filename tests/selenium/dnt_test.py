@@ -195,17 +195,17 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
             "Non-tracking domain should not have gotten recorded")
 
     def test_first_party_dnt_header(self):
-        TEST_URL = "https://httpbin.org/get"
+        TEST_URL = "https://httpbingo.org/get"
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
         assert headers is not None, "It seems we failed to get headers"
         assert 'Dnt' in headers, "DNT header should have been present"
         assert 'Sec-Gpc' in headers, "GPC header should have been present"
-        assert headers['Dnt'] == "1", 'DNT header should have been set to "1"'
-        assert headers['Sec-Gpc'] == "1", 'Sec-Gpc header should have been set to "1"'
+        assert headers['Dnt'] == ["1"], 'DNT header should have been set to "1"'
+        assert headers['Sec-Gpc'] == ["1"], 'Sec-Gpc header should have been set to "1"'
 
     def test_no_dnt_header_when_disabled_on_site(self):
-        TEST_URL = "https://httpbin.org/get"
+        TEST_URL = "https://httpbingo.org/get"
         self.disable_badger_on_site(TEST_URL)
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
@@ -214,7 +214,7 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
         assert 'Sec-Gpc' not in headers, "GPC header should have been missing"
 
     def test_no_dnt_header_when_dnt_disabled(self):
-        TEST_URL = "https://httpbin.org/get"
+        TEST_URL = "https://httpbingo.org/get"
 
         self.load_url(self.options_url)
         self.wait_for_script("return window.OPTIONS_INITIALIZED")

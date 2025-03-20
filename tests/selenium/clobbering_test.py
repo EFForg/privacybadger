@@ -74,7 +74,7 @@ class ClobberingTest(pbtest.PBSeleniumTest):
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
             "referrer.html"
         )
-        THIRD_PARTY_DOMAIN = "httpbin.org"
+        THIRD_PARTY_DOMAIN = "httpbingo.org"
 
         def verify_referrer_header(expected, failure_message):
             self.load_url(FIXTURE_URL)
