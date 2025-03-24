@@ -78,6 +78,19 @@ function setTextDirection() {
     ['.btn-silo', '.btn-silo div', '#allowlist-form > div > div > div', '#widget-site-exceptions-select-div', '#widget-site-exceptions-remove-button'].forEach((selector) => {
       toggle_css_value(selector, "float", "left", "right");
     });
+
+    // Adjust tip on Disabled Sites tab
+    if (!window.navigator.userAgent.match(/OPR\//)) {
+      $('#disable-instructions-image').attr('src', "images/disable-instructions-rtl.png");
+    }
+    $('#tip-container').css({
+      borderLeft: 'unset',
+      borderRight: '4px solid #f06a0a'
+    });
+    $('#tip-icon').css({
+      marginRight: 'unset',
+      marginLeft: '8px'
+    });
   } else if (document.location.pathname == "/skin/firstRun.html") {
     $('#pin-nudge').css({
       right: 'unset',
