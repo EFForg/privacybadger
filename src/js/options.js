@@ -506,6 +506,9 @@ function reloadDisabledSites() {
     $('#disable-instructions-image').attr("src", "images/disable-instructions-opera.png");
   }
 
+  $('#disable-instructions-image').attr("alt", chrome.i18n.getMessage("options_disable_tip_alt",
+    [chrome.i18n.getMessage("popup_disable_for_site")]));
+
   let sites = OPTIONS_DATA.settings.disabledSites,
     $select = $('#allowlist-select');
 

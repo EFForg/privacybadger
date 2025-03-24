@@ -281,7 +281,7 @@ header {
 }
 
 #tip-container {
-    margin-top: 10px;
+    margin: 10px 0 20px 0;
     border-left: 4px solid #f06a0a; 
     background-color: #e8e9ea;
     border-radius: 4px;
@@ -302,18 +302,25 @@ header {
     background: unset;
 }
 
-#tip-header:hover {
+#tip-header:hover, #tip-header:focus {
     background-color: #ccc;
 }
   
 #tip-icon {
     font-size: 1.2em;
     margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.tip-arrow {
+    flex-shrink: 0;
 }
   
 #tip-title {
     color: #333;
-    flex-grow: 1; /* Expand title to keep the arrow on the right */
+    /* Text should expand to keep the arrow on the right, then shrink and wrap when the screen is narrow */
+    flex: 1 1;
+    white-space: normal;
 }
 
 #disable-instructions-image {

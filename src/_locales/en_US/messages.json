@@ -427,13 +427,15 @@
         "message": "How to disable Privacy Badger without leaving the site",
         "description": "Title of tip at the top of the Disabled Sites options page tab"
     },
-    "options_disable_tip_content": {
-        "message": "If you think Privacy Badger is breaking a site you're on, you can click Privacy Badger's button in your browser toolbar, then click the 'Disable for this site' button.",
-        "description": "Content of the tip on the Disabled Sites tab of the Options page. Click options_disable_tip_title to show or hide this content."
-    },
     "options_disable_tip_alt": {
-        "message": "A screenshot demonstrating how to open the Privacy Badger popup and disable it for a site. Step 1 highlights the Privacy Badger icon in the browser toolbar. Step 2 highlights the disable button on the popup.",
-        "description": "Alt text for the image shown below options_disable_tip_content on the Disabled Sites tab of the Options page."
+        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "description": "Alt text for the image shown below options_disable_tip_content on the Disabled Sites tab of the Options page.",
+        "placeholders": {
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
+            }
+        }
     },
     "options_general_settings": {
         "message": "General Settings",
