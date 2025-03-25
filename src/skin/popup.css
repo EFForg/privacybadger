@@ -301,7 +301,6 @@ button.cta-button:hover, a.cta-button:hover {
     float: right;
 }
 #pbInstructions, #special-browser-page, #disabled-site-message, .toggle-header-title, #first-run-page {
-    color: #505050;
     font-size: 16px;
     margin: 0;
 }
