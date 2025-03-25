@@ -63,6 +63,7 @@ function loadOptions() {
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
   $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteExceptions);
+  $('#tip-header').on('click', toggleDisabledSitesTip);
 
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").on("input", utils.debounce(filterTrackingDomains, 500));
@@ -489,7 +490,37 @@ function updateCheckingDNTPolicy() {
   });
 }
 
+function hideDisabledSitesTip(skip_anim) {
+  $("#collapse-tip").hide();
+  $("#expand-tip").show();
+  if (skip_anim) {
+    $("#tip-expanded").hide();
+  } else {
+    $("#tip-expanded").slideUp();
+  }
+  $("#tip-header").attr("aria-expanded", "false");
+}
+
+function showDisabledSitesTip() {
+  $("#collapse-tip").show();
+  $("#expand-tip").hide();
+  $("#tip-expanded").slideDown();
+  $("#tip-header").attr("aria-expanded", "true");
+}
+
 function reloadDisabledSites() {
+  // Remember the state of the tip box
+  if (!OPTIONS_DATA.settings.showDisabledSitesTip) {
+    hideDisabledSitesTip(true);
+  }
+  // Switch the instructional graphic for Opera
+  if (window.navigator.userAgent.match(/OPR\//)) {
+    $('#disable-instructions-image').attr("src", "images/disable-instructions-opera.png");
+  }
+
+  $('#disable-instructions-image').attr("alt", i18n.getMessage("options_disable_tip_alt",
+    [i18n.getMessage("popup_disable_for_site")]));
+
   let sites = OPTIONS_DATA.settings.disabledSites,
     $select = $('#allowlist-select');
 
@@ -539,6 +570,25 @@ function removeDisabledSite(event) {
     OPTIONS_DATA.settings.disabledSites = response.disabledSites;
     reloadDisabledSites();
   });
+}
+
+/**
+ * Click handler for showing/hiding the disable site button tip
+ */
+function toggleDisabledSitesTip() {
+  if ($("#expand-tip").is(":visible")) {
+    showDisabledSitesTip();
+    chrome.runtime.sendMessage({
+      type: "updateSettings",
+      data: { showDisabledSitesTip: true }
+    });
+  } else {
+    hideDisabledSitesTip();
+    chrome.runtime.sendMessage({
+      type: "updateSettings",
+      data: { showDisabledSitesTip: false }
+    });
+  }
 }
 
 /**

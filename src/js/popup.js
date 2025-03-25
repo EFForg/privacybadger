@@ -606,7 +606,7 @@ function refreshPopup() {
   if (POPUP_DATA.noTabData) {
     $('#blockedResourcesContainer').hide();
 
-    if (POPUP_DATA.fromWelcomePage) {
+    if (POPUP_DATA.showDisableButtonTip) {
       $('#first-run-page').show();
 
       // disable Disable/Report buttons
@@ -906,8 +906,10 @@ $(function () {
       tabUrl: tab.url
     }, (response) => {
       setPopupData(response);
-      if (tab.url == chrome.runtime.getURL('/skin/firstRun.html')) {
-        POPUP_DATA.fromWelcomePage = true;
+      if (POPUP_DATA.noTabData && tab.url && (
+        tab.url == chrome.runtime.getURL('/skin/firstRun.html') ||
+        tab.url.startsWith(chrome.runtime.getURL('/skin/options.html')))) {
+        POPUP_DATA.showDisableButtonTip = true;
       }
       refreshPopup();
       init();

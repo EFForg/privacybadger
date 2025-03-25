@@ -280,6 +280,61 @@ header {
     margin-inline-start: 25px;
 }
 
+#tip-container {
+    margin: 10px 0 20px 0;
+    border-left: 4px solid #f06a0a; 
+    background-color: #e8e9ea;
+    border-radius: 4px;
+}
+  
+#tip-header {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #f06a0a; 
+    cursor: pointer;
+    padding: 12px 16px;
+    border-radius: 4px;
+    background-color: #e8e9ea;
+    width: 100%;
+    text-align: start;
+    border: unset;
+    background: unset;
+}
+
+#tip-header:hover {
+    background-color: #ccc;
+}
+  
+#tip-icon {
+    font-size: 1.2em;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.tip-arrow {
+    flex-shrink: 0;
+}
+  
+#tip-title {
+    color: #333;
+    /* Text should expand to keep the arrow on the right, then shrink and wrap when the screen is narrow */
+    flex: 1 1;
+    white-space: normal;
+}
+
+#disable-instructions-image {
+    width: 400px; 
+    border: 1px solid black; 
+    border-radius: 2px; 
+    margin-top: 10px;
+}
+
+#tip-expanded {
+    padding: 8px 16px;
+}
+
+
 @media screen and (max-width: 500px) {
     .ui-tabs .ui-tabs-panel {
         padding: 0.5em 0;
@@ -332,7 +387,8 @@ header {
 
     input[type="text"]:focus,
     #allowlist-select:focus,
-    #widget-site-exceptions-select:focus {
+    #widget-site-exceptions-select:focus,
+    #tip-header:focus-visible {
         border: 1px solid #f06a0a;
         outline: none;
     }
@@ -432,5 +488,21 @@ header {
 
     .select2-container--default .select2-search--inline .select2-search__field {
         color: #ddd;
+    }
+
+    #tip-container {
+        background-color: #555;
+    }
+    
+    #tip-header:hover {
+        background-color: #666;
+    }
+
+    #tip-title {
+        color: #f9f9f9;
+    }
+    
+    #disable-instructions-image {
+        border: 1px solid #ccc; 
     }
 }
