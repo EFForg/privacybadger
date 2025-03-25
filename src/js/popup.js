@@ -906,7 +906,9 @@ $(function () {
       tabUrl: tab.url
     }, (response) => {
       setPopupData(response);
-      if ((tab.url == chrome.runtime.getURL('/skin/firstRun.html')) || (tab.url && tab.url.startsWith(chrome.runtime.getURL('/skin/options.html')))) {
+      if (POPUP_DATA.noTabData && tab.url && (
+        tab.url == chrome.runtime.getURL('/skin/firstRun.html') ||
+        tab.url.startsWith(chrome.runtime.getURL('/skin/options.html')))) {
         POPUP_DATA.showDisableButtonTip = true;
       }
       refreshPopup();
