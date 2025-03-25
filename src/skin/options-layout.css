@@ -302,7 +302,7 @@ header {
     background: unset;
 }
 
-#tip-header:hover, #tip-header:focus {
+#tip-header:hover {
     background-color: #ccc;
 }
   
