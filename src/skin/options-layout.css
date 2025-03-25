@@ -387,7 +387,8 @@ header {
 
     input[type="text"]:focus,
     #allowlist-select:focus,
-    #widget-site-exceptions-select:focus {
+    #widget-site-exceptions-select:focus,
+    #tip-header:focus-visible {
         border: 1px solid #f06a0a;
         outline: none;
     }
