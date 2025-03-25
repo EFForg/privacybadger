@@ -63,7 +63,7 @@ function loadOptions() {
   $('#resetData').on("click", resetData);
   $('#removeAllData').on("click", removeAllData);
   $('#widget-site-exceptions-remove-button').on("click", removeWidgetSiteExceptions);
-  $('#tip-header').on('click', clickDisabledSitesTipHandler);
+  $('#tip-header').on('click', toggleDisabledSitesTip);
 
   // Set up input for searching through tracking domains.
   $("#trackingDomainSearch").on("input", utils.debounce(filterTrackingDomains, 500));
@@ -490,16 +490,28 @@ function updateCheckingDNTPolicy() {
   });
 }
 
+function hideDisabledSitesTip(skip_anim) {
+  $("#collapse-tip").hide();
+  $("#expand-tip").show();
+  if (skip_anim) {
+    $("#tip-expanded").hide();
+  } else {
+    $("#tip-expanded").slideUp();
+  }
+  $("#tip-header").attr("aria-expanded", "false");
+}
+
+function showDisabledSitesTip() {
+  $("#collapse-tip").show();
+  $("#expand-tip").hide();
+  $("#tip-expanded").slideDown();
+  $("#tip-header").attr("aria-expanded", "true");
+}
+
 function reloadDisabledSites() {
   // Remember the state of the tip box
-  if (OPTIONS_DATA.settings.showDisabledSitesTip) {
-    $('#expand-tip').hide();
-    $('#collapse-tip').show();
-    $('#tip-expanded').show();
-  } else {
-    $('#expand-tip').show();
-    $('#collapse-tip').hide();
-    $('#tip-expanded').hide();
+  if (!OPTIONS_DATA.settings.showDisabledSitesTip) {
+    hideDisabledSitesTip(true);
   }
   // Switch the instructional graphic for Opera
   if (window.navigator.userAgent.match(/OPR\//)) {
@@ -561,23 +573,17 @@ function removeDisabledSite(event) {
 }
 
 /**
- * Click handlers for showing/hiding the disable site button tip
+ * Click handler for showing/hiding the disable site button tip
  */
-function clickDisabledSitesTipHandler() {
+function toggleDisabledSitesTip() {
   if ($("#expand-tip").is(":visible")) {
-    $("#collapse-tip").show();
-    $("#expand-tip").hide();
-    $("#tip-expanded").slideDown();
-    $("#tip-header").attr("aria-expanded", "true");
+    showDisabledSitesTip();
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showDisabledSitesTip: true }
     });
   } else {
-    $("#collapse-tip").hide();
-    $("#expand-tip").show();
-    $("#tip-expanded").slideUp();
-    $("#tip-header").attr("aria-expanded", "false");
+    hideDisabledSitesTip();
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showDisabledSitesTip: false }
