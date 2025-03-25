@@ -401,11 +401,25 @@
     },
     "options_title": {
         "message": "Privacy Badger 設定",
-        "description": ""
+        "description": "Page title and heading text of options page"
     },
     "disabled_sites": {
         "message": "已停用網站",
         "description": "Options page tab heading"
+    },
+    "options_disable_tip_title": {
+        "message": "How to disable Privacy Badger without leaving the site",
+        "description": "Title of tip container on Disabled Sites tab"
+    },
+    "options_disable_tip_alt": {
+        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "description": "Alt text for image inside tip container on Disabled Sites tab",
+        "placeholders": {
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
+            }
+        }
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger 已在下列網站中停用。這代表 Privacy Badger 將不會在您瀏覽它們時封鎖任何東西，也不會傳送「不要追蹤」或「全域隱私控制」信號。",

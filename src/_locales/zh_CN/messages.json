@@ -401,11 +401,25 @@
     },
     "options_title": {
         "message": "隐私獾设置",
-        "description": ""
+        "description": "Page title and heading text of options page"
     },
     "disabled_sites": {
         "message": "已禁用的域名",
         "description": "Options page tab heading"
+    },
+    "options_disable_tip_title": {
+        "message": "How to disable Privacy Badger without leaving the site",
+        "description": "Title of tip container on Disabled Sites tab"
+    },
+    "options_disable_tip_alt": {
+        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "description": "Alt text for image inside tip container on Disabled Sites tab",
+        "placeholders": {
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
+            }
+        }
     },
     "disabled_for_these_domains": {
         "message": "隐私獾已在以下网站上禁用。您浏览这些网站时，隐私獾不会屏蔽任何东西，也不会发送请勿追踪或全局隐私控制信号。",

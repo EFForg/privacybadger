@@ -401,11 +401,25 @@
     },
     "options_title": {
         "message": "Opções do Privacy Badger",
-        "description": ""
+        "description": "Page title and heading text of options page"
     },
     "disabled_sites": {
         "message": "Sites desativados",
         "description": "Options page tab heading"
+    },
+    "options_disable_tip_title": {
+        "message": "How to disable Privacy Badger without leaving the site",
+        "description": "Title of tip container on Disabled Sites tab"
+    },
+    "options_disable_tip_alt": {
+        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "description": "Alt text for image inside tip container on Disabled Sites tab",
+        "placeholders": {
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
+            }
+        }
     },
     "disabled_for_these_domains": {
         "message": "O Privacy Badger está desativado nos seguintes sites. Isto significa que o Privacy Badger não irá bloquear nada ao visitar os sites apresentados aqui e não irá ser enviado o sinal de não rastrear (Do Not Track) nem o sinal de controlo da privacidade global (Global Privacy Control).",

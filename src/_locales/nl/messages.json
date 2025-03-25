@@ -401,11 +401,25 @@
     },
     "options_title": {
         "message": "Opties voor Privacy Badger",
-        "description": ""
+        "description": "Page title and heading text of options page"
     },
     "disabled_sites": {
         "message": "Uitgeschakelde websites",
         "description": "Options page tab heading"
+    },
+    "options_disable_tip_title": {
+        "message": "How to disable Privacy Badger without leaving the site",
+        "description": "Title of tip container on Disabled Sites tab"
+    },
+    "options_disable_tip_alt": {
+        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "description": "Alt text for image inside tip container on Disabled Sites tab",
+        "placeholders": {
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
+            }
+        }
     },
     "disabled_for_these_domains": {
         "message": "Privacy Badger is op de volgende websites uitgeschakeld. Dit betekent dat Privacy Badger niets zal blokkeren op één van de websites in deze lijst, en dat het ook niet het “Volg me niet”- of “Global Privacy Control”-signaal zal verzenden.",
