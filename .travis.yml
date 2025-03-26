@@ -8,9 +8,6 @@ jobs:
   include:
     - env: INFO="lint"
       node_js: node
-    - env: INFO="Chrome" BROWSER=google-chrome-stable
-      addons:
-        chrome: stable
     - env: INFO="Firefox" BROWSER=firefox
       addons:
         firefox: latest
