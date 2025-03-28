@@ -20,6 +20,7 @@
 import { extractHostFromURL, getChromeInitiator } from "../lib/basedomain.js";
 
 import { log } from "./bootstrap.js";
+import incognito from "./incognito.js";
 import utils from "./utils.js";
 
 function TabData() {
@@ -124,6 +125,9 @@ TabData.prototype.initialize = function () {
       chrome.tabs.query({}, tabs => {
         for (let tab of tabs) {
           let { id, url } = tab;
+
+          // mark incognito status
+          incognito.updateTabStatus(id, tab.incognito);
 
           // don't record on special browser pages
           if (utils.isRestrictedUrl(url)) {
