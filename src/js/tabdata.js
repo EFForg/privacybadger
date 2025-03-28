@@ -20,6 +20,7 @@
 import { extractHostFromURL, getChromeInitiator } from "../lib/basedomain.js";
 
 import { log } from "./bootstrap.js";
+import incognito from "./incognito.js";
 import utils from "./utils.js";
 
 function TabData() {
@@ -129,6 +130,9 @@ TabData.prototype.initialize = function () {
           if (utils.isRestrictedUrl(url)) {
             continue;
           }
+
+          // mark incognito status
+          incognito.updateTabStatus(id, tab.incognito);
 
           // update icon to active when not disabled for site
           badger.updateIcon(id, url);
