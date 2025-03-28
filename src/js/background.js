@@ -92,14 +92,6 @@ function Badger(from_qunit) {
       chrome.browserAction.setBadgeTextColor({ color: "#fff" });
     }
 
-    // Show icon as page action for all tabs that already exist
-    chrome.tabs.query({}, function (tabs) {
-      for (let tab of tabs) {
-        self.updateIcon(tab.id, tab.url);
-      }
-      log("Updated tab icons");
-    });
-
     // wait for async functions (seed data, yellowlist, ...) to resolve
     await widgetListPromise;
     await seedDataPromise;
