@@ -134,6 +134,9 @@ TabData.prototype.initialize = function () {
             continue;
           }
 
+          // set HeuristicBlocker's [sic] tab URL and eTLD+1 domain data
+          badger.heuristicBlocking.initTabData(id, url);
+
           // update icon to active when not disabled for site
           badger.updateIcon(id, url);
 
