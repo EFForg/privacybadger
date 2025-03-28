@@ -39,20 +39,18 @@ function HeuristicBlocker(pbStorage) {
   // impossible to attribute to a tab.
   self.tabBases = {};
   self.tabUrls = {};
-
-  // initialize tab bases and URLs for already-open tabs
-  chrome.tabs.query({}, function (res) {
-    for (let tab of res) {
-      if (utils.isRestrictedUrl(tab.url)) {
-        continue;
-      }
-      self.tabBases[tab.id] = getBaseDomain((new URI(tab.url)).host);
-      self.tabUrls[tab.id] = tab.url;
-    }
-  });
 }
 
 HeuristicBlocker.prototype = {
+
+  /**
+   * Initializes tab bases and URLs for already-open tabs
+   */
+  initTabData: function (tab_id, tab_url) {
+    let self = this;
+    self.tabBases[tab_id] = getBaseDomain((new URI(tab_url)).host);
+    self.tabUrls[tab_id] = tab_url;
+  },
 
   /**
    * Blocklists a domain:
