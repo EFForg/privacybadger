@@ -1,0 +1,37 @@
+name: Selenium Testing
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      INFO: "Chrome"
+      BROWSER: "google-chrome-stable"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Browser Dependencies
+        run: |
+          sudo apt update
+          # Install Xvfb for GUI-based testing
+          sudo apt install -y xvfb
+          # Install Google Chrome
+          sudo apt install -y google-chrome-stable
+
+      - name: Run Setup Script
+        run: ./scripts/setup_travis.sh
+
+      - name: Run Tests
+        run: . ./scripts/run_travis.sh
