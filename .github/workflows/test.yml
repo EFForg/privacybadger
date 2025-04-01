@@ -35,4 +35,4 @@ jobs:
         run: ./scripts/setup_travis.sh
 
       - name: Run Tests
-        run: . ./scripts/run_travis.sh
+        run: ./scripts/run_travis.sh
