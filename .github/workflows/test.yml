@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - travis-github-action
   pull_request:
   workflow_dispatch:
 
