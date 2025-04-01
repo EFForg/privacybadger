@@ -189,7 +189,6 @@ class Shim:
     def edge_manager(self):
         opts = EdgeOptions()
         opts.add_argument("--load-extension=" + self.extension_path)
-        opts.add_argument(f"--user-data-dir={tempfile.TemporaryDirectory()}")
         opts.binary_location = self.browser_path
 
         for i in range(5):
