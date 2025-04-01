@@ -408,11 +408,11 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "How to disable Privacy Badger without leaving the site",
+        "message": "Hur man inaktiverar Privacy Badger utan att lämna webbplatsen",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Klicka först på Privacy Badgers ikon i webbläsarens verktygsfält. Klicka sedan på knappen \"$DISABLE_FOR_SITE$\".",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
