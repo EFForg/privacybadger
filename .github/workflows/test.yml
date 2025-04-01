@@ -45,7 +45,11 @@ jobs:
 
       - name: Install Browser Dependencies # Firefox documentation
         run: |
+          snap list firefox  # Check if Firefox is installed as a Snap package
+          which firefox      # Find the current Firefox binary location
+          ls -l "$(which firefox)"  # See if it's a symlink to Snap
           sudo apt update
+          sudo snap remove firefox
           # Install Xvfb (replacing xvfb in Travis services)
           sudo apt-get install -y xvfb
           # Install browsers as needed:
