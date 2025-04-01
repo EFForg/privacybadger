@@ -60,6 +60,12 @@ jobs:
             Pin-Priority: 1000
             ' | sudo tee /etc/apt/preferences.d/mozilla
             sudo apt-get update && sudo apt-get install firefox
+            # Print the Firefox binary path
+            echo "Firefox binary path:"
+            which firefox
+            ls -l "$(which firefox)"
+            # Print the version to confirm it's installed correctly
+            firefox --version
           elif [[ "${BROWSER}" == "microsoft-edge-beta" ]]; then
             curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
             sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/
