@@ -23,9 +23,9 @@ jobs:
           - job: firefox
             INFO: "Firefox"
             BROWSER: "firefox"
-          - job: edge-beta
-            INFO: "Edge Beta"
-            BROWSER: "microsoft-edge-beta"
+          # - job: edge-beta
+          #   INFO: "Edge Beta"
+          #   BROWSER: "microsoft-edge-beta"
     env:
       INFO: ${{ matrix.INFO }}
       BROWSER: ${{ matrix.BROWSER }}
