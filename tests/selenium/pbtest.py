@@ -231,12 +231,15 @@ class Shim:
                 # disable JSON viewer as it breaks parsing JSON pages
                 opts.set_preference("devtools.jsonview.enabled", False)
 
+                opts.add_argument("--headless")
+
                 # to produce a trace-level geckodriver.log,
                 # remove the log_output argument to FirefoxService()
                 # and uncomment the line below
-                #opts.log.level = "trace"
+                opts.log.level = "trace"
+                service = FirefoxService()
 
-                service = FirefoxService(log_output=os.path.devnull)
+                # service = FirefoxService(log_output=os.path.devnull)
                 driver = webdriver.Firefox(options=opts, service=service)
 
             except WebDriverException as e:
