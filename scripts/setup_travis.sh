@@ -84,7 +84,7 @@ case $INFO in
     ;;
   *Firefox*)
     check_browser
-    install_geckodriver
+    # install_geckodriver
     install_python_deps
     ;;
   *Edge*)
