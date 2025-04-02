@@ -59,6 +59,15 @@ function setTextDirection() {
     ['#fittslaw', '.overlay-close'].forEach((selector) => {
       toggle_css_value(selector, "float", "right", "left");
     });
+    // Workaround for tooltipster dynamically inserted after localization
+    let css = document.createElement("style");
+    css.textContent = `
+    #dismiss-tooltip {
+      float: left;
+      right: unset;
+      left: -5px;
+    }`;
+    document.body.appendChild(css);
 
   // options page
   } else if (document.location.pathname == "/skin/options.html") {
