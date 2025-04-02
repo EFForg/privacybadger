@@ -53,7 +53,9 @@ jobs:
       - name: Install Gecko Driver
         if:  matrix.job == 'firefox'
         uses: browser-actions/setup-geckodriver@latest
-        run: geckodriver --version
+      - run: |
+          geckodriver --version
+          firefox --version
       # - name: Install Browser Dependencies # Firefox documentation
       #   run: |
       #     sudo apt update
