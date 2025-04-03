@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        job: [lint, firefox]
+        job: [lint, firefox, firefox-beta, firefox-nightly, firefox-esr]
         # job: [lint, firefox, edge-beta]
         include:
           - job: lint
@@ -23,6 +23,19 @@ jobs:
           - job: firefox
             INFO: "Firefox"
             BROWSER: "firefox"
+            FIREFOX_VERSION: "latest"
+          - job: firefox-beta
+            INFO: "Firefox Beta"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest-beta"
+          - job: firefox-nightly
+            INFO: "Firefox Nightly"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest-nightly"
+          - job: firefox-esr
+            INFO: "Firefox ESR"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest-esr"
           # - job: edge-beta
           #   INFO: "Edge Beta"
           #   BROWSER: "microsoft-edge-beta"
@@ -45,18 +58,15 @@ jobs:
           node-version: '18.18.0' # Minimum version for eslint: https://eslint.org/docs/latest/use/getting-started
 
       - name: Set up Firefox
-        if:  matrix.job == 'firefox'
+        if: ${{ matrix.BROWSER == 'firefox' }}
         uses: browser-actions/setup-firefox@v1
         with:
-          firefox-version: 'latest'
+          firefox-version: ${{ matrix.FIREFOX_VERSION }}
 
       - name: Install Gecko Driver
-        if:  matrix.job == 'firefox'
+        if:  ${{ matrix.BROWSER == 'firefox' }}
         uses: browser-actions/setup-geckodriver@latest
-      - name: Check that Gecko Driver and Firefox are installed
-        run: |
-          geckodriver --version
-          firefox --version
+
       # - name: Install Browser Dependencies # Firefox documentation
       #   run: |
       #     sudo apt update
