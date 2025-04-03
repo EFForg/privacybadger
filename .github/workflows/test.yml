@@ -95,6 +95,11 @@ jobs:
           ${{ matrix.BROWSER }} --version
           chrome --version
           google-chrome --version
+      - name: Overwrite system Chrome
+        if: ${{ contains(matrix.BROWSER, 'chrome') }}
+        run: |
+          sudo rm -f /usr/bin/google-chrome
+          sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
 
       # - name: Install Chrome Driver
       #   if:  ${{ contains(matrix.BROWSER, 'chrome') }}
