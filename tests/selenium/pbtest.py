@@ -231,7 +231,7 @@ class Shim:
                 # disable JSON viewer as it breaks parsing JSON pages
                 opts.set_preference("devtools.jsonview.enabled", False)
 
-                opts.add_argument("--headless")
+                # opts.add_argument("--headless")
 
                 # to produce a trace-level geckodriver.log,
                 # remove the log_output argument to FirefoxService()
