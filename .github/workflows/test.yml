@@ -18,8 +18,6 @@ jobs:
         include:
           - job: lint
             INFO: "lint"
-            # No BROWSER variable needed for linting
-          # Don't test Chrome in non-mv3 codebase
           - job: firefox
             INFO: "Firefox"
             BROWSER: "firefox"
@@ -39,6 +37,15 @@ jobs:
           - job: edge-beta
             INFO: "Edge Beta"
             BROWSER: "microsoft-edge-beta"
+            # Move Chrome tests into mv3 repo after testing: 
+          - job: chrome
+            INFO: "Chrome"
+            BROWSER: "google-chrome-stable"
+            CHROME_VERSION: "stable"
+          - job: chrome-beta
+            INFO: "Chrome Beta"
+            BROWSER: "google-chrome-beta"
+            CHROME_VERSION: "beta"
     env:
       INFO: ${{ matrix.INFO }}
       BROWSER: ${{ matrix.BROWSER }}
@@ -73,39 +80,17 @@ jobs:
         with:
           edge-version: beta
         # Why do we test with Edge Beta but not Edge?
-        
-      # - run: Xvfb :99 &
-      # - name: Install Browser Dependencies # Firefox documentation
-      #   run: |
-      #     sudo apt update
-      #     # Install Xvfb (replacing xvfb in Travis services)
-      #     sudo apt-get install -y xvfb
-      #     # Install browsers as needed:
-      #     if [[ "${BROWSER}" == "firefox" ]]; then
-      #       sudo install -d -m 0755 /etc/apt/keyrings
-      #       wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
-      #       gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc | awk '/pub/{getline; gsub(/^ +| +$/,""); if($0 == "35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3") print "\nThe key fingerprint matches ("$0").\n"; else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}'
-      #       echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
-      #       echo '
-      #       Package: *
-      #       Pin: origin packages.mozilla.org
-      #       Pin-Priority: 1000
-      #       ' | sudo tee /etc/apt/preferences.d/mozilla
-      #       sudo apt-get update && sudo apt-get install firefox
-      #       # Print the Firefox binary path
-      #       echo "Firefox binary path:"
-      #       which firefox
-      #       ls -l "$(which firefox)"
-      #       # Print the version to confirm it's installed correctly
-      #       firefox --version
-      #     elif [[ "${BROWSER}" == "microsoft-edge-beta" ]]; then
-      #       curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-      #       sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/
-      #       sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-beta.list'
-      #       sudo rm microsoft.gpg
-      #       sudo apt update
-      #       sudo apt install microsoft-edge-beta
-      #     fi
+
+      - name: Set up Chrome
+        if:  ${{ contains(matrix.BROWSER, 'chrome') }}
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: ${{ matrix.CHROME_VERSION }}
+          install-chromedriver: true
+
+      # - name: Install Chrome Driver
+      #   if:  ${{ contains(matrix.BROWSER, 'chrome') }}
+      #   uses: browser-actions/setup-geckodriver@latest
 
       - name: Run Setup Script
         run: ./scripts/setup_travis.sh
