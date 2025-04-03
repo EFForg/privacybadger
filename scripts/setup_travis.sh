@@ -84,6 +84,7 @@ case $INFO in
     ;;
   *Firefox*)
     check_browser
+    # sudo apt-get install -y xvfb
     # install_geckodriver
     install_python_deps
     ;;

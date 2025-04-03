@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        job: [lint, firefox, firefox-beta, firefox-nightly, firefox-esr]
+        job: [lint, firefox, firefox-beta, firefox-nightly, firefox-esr, edge-beta]
         # job: [lint, firefox, edge-beta]
         include:
           - job: lint
@@ -36,9 +36,9 @@ jobs:
             INFO: "Firefox ESR"
             BROWSER: "firefox"
             FIREFOX_VERSION: "latest-esr"
-          # - job: edge-beta
-          #   INFO: "Edge Beta"
-          #   BROWSER: "microsoft-edge-beta"
+          - job: edge-beta
+            INFO: "Edge Beta"
+            BROWSER: "microsoft-edge-beta"
     env:
       INFO: ${{ matrix.INFO }}
       BROWSER: ${{ matrix.BROWSER }}
@@ -67,6 +67,14 @@ jobs:
         if:  ${{ matrix.BROWSER == 'firefox' }}
         uses: browser-actions/setup-geckodriver@latest
 
+      - name: Set up Edge
+        if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
+        uses: browser-actions/setup-edge@v1
+        with:
+          edge-version: beta
+        # Why do we test with Edge Beta but not Edge?
+        
+      # - run: Xvfb :99 &
       # - name: Install Browser Dependencies # Firefox documentation
       #   run: |
       #     sudo apt update
