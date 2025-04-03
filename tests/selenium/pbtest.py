@@ -163,6 +163,7 @@ class Shim:
     @contextmanager
     def chrome_manager(self):
         opts = ChromeOptions()
+        opts.add_argument("--headless")
         opts.add_argument("--load-extension=" + self.extension_path)
         opts.binary_location = self.browser_path
 
