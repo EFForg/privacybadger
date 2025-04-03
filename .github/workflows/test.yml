@@ -99,7 +99,17 @@ jobs:
         if: ${{ contains(matrix.BROWSER, 'chrome') }}
         run: |
           sudo rm -f /usr/bin/google-chrome
+          sudo rm -f /usr/bin/${{ matrix.BROWSER }}
           sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
+          sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/${{ matrix.BROWSER }}
+
+      - name: Check Chrome Installation after overwriting system Chrome
+        if: ${{ contains(matrix.BROWSER, 'chrome') }}
+        run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+          ${{ matrix.BROWSER }} --version
+          chrome --version
+          google-chrome --version
 
       # - name: Install Chrome Driver
       #   if:  ${{ contains(matrix.BROWSER, 'chrome') }}
