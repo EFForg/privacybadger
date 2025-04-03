@@ -87,6 +87,7 @@ jobs:
         with:
           chrome-version: ${{ matrix.CHROME_VERSION }}
           install-chromedriver: true
+        id: setup-chrome
       - name: Verify Chrome Installation
         if: ${{ contains(matrix.BROWSER, 'chrome') }}
         run: |
