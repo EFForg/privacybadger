@@ -87,6 +87,11 @@ jobs:
         with:
           chrome-version: ${{ matrix.CHROME_VERSION }}
           install-chromedriver: true
+      - run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+          chrome --version
+          google-chrome --version
+          ${{ matrix.BROWSER }} --version
 
       # - name: Install Chrome Driver
       #   if:  ${{ contains(matrix.BROWSER, 'chrome') }}
