@@ -190,7 +190,7 @@ class Shim:
         opts = EdgeOptions()
         opts.add_argument("--load-extension=" + self.extension_path)
         opts.add_argument("--headless")
-        opts.add_argument("--edge-skip-compat-layer-relaunch") # https://github.com/SeleniumHQ/selenium/issues/15340#issuecomment-2689372248
+        # opts.add_argument("--edge-skip-compat-layer-relaunch") # https://github.com/SeleniumHQ/selenium/issues/15340#issuecomment-2689372248
         opts.binary_location = self.browser_path
 
         for i in range(5):
