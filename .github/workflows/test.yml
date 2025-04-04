@@ -1,20 +1,21 @@
-name: Selenium Testing
+name: Tests
 
 on:
   push:
     branches:
       - master
       - travis-github-action
+      - travis-github-action-mv3
   pull_request:
   workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-22.04
+    continue-on-error: ${{ matrix.job != 'lint' }}
     strategy:
       matrix:
-        job: [lint, firefox, firefox-beta, firefox-nightly, firefox-esr, edge-beta]
-        # job: [lint, firefox, edge-beta]
+        job: [lint, firefox, firefox-beta, firefox-nightly, firefox-esr, edge-beta, chrome, chrome-beta]
         include:
           - job: lint
             INFO: "lint"
@@ -37,7 +38,6 @@ jobs:
           - job: edge-beta
             INFO: "Edge Beta"
             BROWSER: "microsoft-edge-beta"
-            # Move Chrome tests into mv3 repo after testing: 
           - job: chrome
             INFO: "Chrome"
             BROWSER: "google-chrome-stable"
@@ -79,7 +79,6 @@ jobs:
         uses: browser-actions/setup-edge@v1
         with:
           edge-version: beta
-        # Why do we test with Edge Beta but not Edge?
 
       - name: Set up Chrome
         if:  ${{ contains(matrix.BROWSER, 'chrome') }}
@@ -88,6 +87,7 @@ jobs:
           chrome-version: ${{ matrix.CHROME_VERSION }}
           install-chromedriver: true
         id: setup-chrome
+
       - name: Verify Chrome Installation
         if: ${{ contains(matrix.BROWSER, 'chrome') }}
         run: |
@@ -102,7 +102,6 @@ jobs:
           sudo rm -f /usr/bin/${{ matrix.BROWSER }}
           sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
           sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/${{ matrix.BROWSER }}
-
       - name: Check Chrome Installation after overwriting system Chrome
         if: ${{ contains(matrix.BROWSER, 'chrome') }}
         run: |
@@ -110,13 +109,8 @@ jobs:
           ${{ matrix.BROWSER }} --version
           chrome --version
           google-chrome --version
-
-      # - name: Install Chrome Driver
-      #   if:  ${{ contains(matrix.BROWSER, 'chrome') }}
-      #   uses: browser-actions/setup-geckodriver@latest
-
       - name: Run Setup Script
-        run: ./scripts/setup_travis.sh
+        run: ./scripts/setup_ga_tests.sh
 
       - name: Run Tests
         run: ./scripts/run_travis.sh

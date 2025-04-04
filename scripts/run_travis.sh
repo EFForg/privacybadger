@@ -22,12 +22,6 @@ else
     case $BROWSER in
       *chrome*)
         echo "Running tests on Chrome"
-        # check that chromedriver is now present
-        type chromedriver >/dev/null 2>&1 || {
-          echo "Failed to install ChromeDriver!"
-          exit 1
-        }
-        chromedriver --version
         run_selenium
         ;;
       *firefox*)
