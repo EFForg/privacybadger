@@ -24,37 +24,6 @@ install_edge_webdriver() {
   }
 }
 
-install_geckodriver() {
-    # Install the latest version of geckodriver
-    version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep -i "^Location: " | sed 's/.*\///' | tr -d '\r')
-
-    # check that we got something
-    if [ -z "$version" ]; then
-      echo "Failed to determine the latest geckodriver version!"
-      exit 1
-    fi
-
-    # Geckodriver distribution is MacOS or Linux specific
-    os="$(uname -s)"
-    if [[ $os == "Darwin" ]]; then
-      os_dist="macos.tar.gz"
-    else
-      os_dist="linux64.tar.gz"
-    fi
-
-    echo "Setting up geckodriver version $version ..."
-    url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-${os_dist}"
-    wget -q -O /tmp/geckodriver.tar.gz "$url"
-    sudo tar -xvf /tmp/geckodriver.tar.gz -C /usr/local/bin/
-    sudo chmod a+x /usr/local/bin/geckodriver
-
-    # check that geckodriver is now present
-    type geckodriver >/dev/null 2>&1 || {
-      echo "Failed to install geckodriver!"
-      exit 1
-    }
-}
-
 install_python_deps() {
   pip install -r "$toplevel"/tests/requirements.txt
 }
@@ -79,7 +48,12 @@ check_browser() {
 case $INFO in
   *Chrome*)
     check_browser
-    "$toplevel"/scripts/chromedriver.sh "$BROWSER" || exit 1
+    # check that chromedriver is present
+    type chromedriver >/dev/null 2>&1 || {
+        echo "Failed to install ChromeDriver!"
+        exit 1
+    }
+    chromedriver --version
     install_python_deps
     ;;
   *Firefox*)
@@ -89,7 +63,6 @@ case $INFO in
     ;;
   *Edge*)
     check_browser
-    install_edge_webdriver
     install_python_deps
     ;;
   *lint*)
