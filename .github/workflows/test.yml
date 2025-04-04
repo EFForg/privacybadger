@@ -1,0 +1,118 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+      - travis-github-action
+      - travis-github-action-mv3
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        job: [lint, firefox, firefox-beta, firefox-nightly, firefox-esr, edge-beta, chrome, chrome-beta]
+        include:
+          - job: lint
+            INFO: "lint"
+          - job: firefox
+            INFO: "Firefox"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest"
+          - job: firefox-beta
+            INFO: "Firefox Beta"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest-beta"
+          - job: firefox-nightly
+            INFO: "Firefox Nightly"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest-nightly"
+          - job: firefox-esr
+            INFO: "Firefox ESR"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest-esr"
+          - job: edge-beta
+            INFO: "Edge Beta"
+            BROWSER: "microsoft-edge-beta"
+          - job: chrome
+            INFO: "Chrome"
+            BROWSER: "google-chrome-stable"
+            CHROME_VERSION: "stable"
+          - job: chrome-beta
+            INFO: "Chrome Beta"
+            BROWSER: "google-chrome-beta"
+            CHROME_VERSION: "beta"
+    env:
+      INFO: ${{ matrix.INFO }}
+      BROWSER: ${{ matrix.BROWSER }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Set up Node.js for linting
+        if: matrix.job == 'lint'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.18.0' # Minimum version for eslint: https://eslint.org/docs/latest/use/getting-started
+
+      - name: Set up Firefox
+        if: ${{ matrix.BROWSER == 'firefox' }}
+        uses: browser-actions/setup-firefox@v1
+        with:
+          firefox-version: ${{ matrix.FIREFOX_VERSION }}
+
+      - name: Install Gecko Driver
+        if:  ${{ matrix.BROWSER == 'firefox' }}
+        uses: browser-actions/setup-geckodriver@latest
+
+      - name: Set up Edge
+        if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
+        uses: browser-actions/setup-edge@v1
+        with:
+          edge-version: beta
+
+      - name: Set up Chrome
+        if:  ${{ contains(matrix.BROWSER, 'chrome') }}
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: ${{ matrix.CHROME_VERSION }}
+          install-chromedriver: true
+        id: setup-chrome
+
+      - name: Verify Chrome Installation
+        if: ${{ contains(matrix.BROWSER, 'chrome') }}
+        run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+          ${{ matrix.BROWSER }} --version
+          chrome --version
+          google-chrome --version
+
+      - name: Overwrite system Chrome
+        if: ${{ contains(matrix.BROWSER, 'chrome') }}
+        run: |
+          sudo rm -f /usr/bin/google-chrome
+          sudo rm -f /usr/bin/${{ matrix.BROWSER }}
+          sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
+          sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/${{ matrix.BROWSER }}
+
+      - name: Check Chrome Installation after overwriting system Chrome
+        if: ${{ contains(matrix.BROWSER, 'chrome') }}
+        run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+          ${{ matrix.BROWSER }} --version
+          chrome --version
+          google-chrome --version
+
+      - name: Run Setup Script
+        run: ./scripts/setup_ga_tests.sh
+
+      - name: Run Tests
+        run: ./scripts/run_travis.sh

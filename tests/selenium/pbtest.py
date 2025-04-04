@@ -164,6 +164,7 @@ class Shim:
     def chrome_manager(self):
         opts = ChromeOptions()
         opts.add_argument("--load-extension=" + self.extension_path)
+        opts.add_argument("--headless")
         opts.binary_location = self.browser_path
 
         # TODO not yet in Firefox (w/o hacks anyway):
@@ -188,6 +189,7 @@ class Shim:
     @contextmanager
     def edge_manager(self):
         opts = EdgeOptions()
+        opts.add_argument("--headless")
         opts.add_argument("--load-extension=" + self.extension_path)
         opts.binary_location = self.browser_path
 
@@ -211,7 +213,7 @@ class Shim:
         for i in range(5):
             try:
                 opts = FirefoxOptions()
-
+                opts.add_argument("--headless")
                 opts.binary_location = self.browser_path
 
                 # make extension ID constant across runs
