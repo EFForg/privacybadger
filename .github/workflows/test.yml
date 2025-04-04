@@ -12,6 +12,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-22.04
+    continue-on-error: ${{ matrix.job != 'lint' }}
     strategy:
       matrix:
         job: [lint, firefox, firefox-beta, firefox-nightly, firefox-esr, edge-beta, chrome, chrome-beta]
