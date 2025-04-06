@@ -408,7 +408,7 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "Как отключить Privacy Badger не покидая сайт",
+        "message": "Как отключить Privacy Badger, не покидая сайт",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
