@@ -4208,6 +4208,7 @@ let multiDomainFirstPartiesArray = [
 
     "aitangyou.com",
     "cdntips.com",
+    "cnb.cool",
     "dnspod.cn",
     "dnspod.com",
     "extqq.com",
