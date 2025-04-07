@@ -75,8 +75,9 @@ function Badger(from_qunit) {
     self.setPrivacyOverrides();
 
     // kick off async initialization steps
-    let pbconfigPromise = self.initPbconfig().catch(console.error),
-      tabDataPromise = self.tabData.initialize().catch(console.error);
+    let pbconfigPromise = self.initPbconfig().catch(console.error);
+
+    self.tabData.initialize().catch(console.error);
 
     // async load known CNAME domain aliases (but don't wait on them)
     self.initializeCnames().catch(console.error);
@@ -92,18 +93,9 @@ function Badger(from_qunit) {
       chrome.browserAction.setBadgeTextColor({ color: "#fff" });
     }
 
-    // Show icon as page action for all tabs that already exist
-    chrome.tabs.query({}, function (tabs) {
-      for (let tab of tabs) {
-        self.updateIcon(tab.id, tab.url);
-      }
-      log("Updated tab icons");
-    });
-
     // wait for async functions (seed data, yellowlist, ...) to resolve
     await widgetListPromise;
     await seedDataPromise;
-    await tabDataPromise;
 
     if (self.isFirstRun || self.isUpdate || !self.getPrivateSettings().getItem('doneLoadingSeed')) {
       // block all widget domains

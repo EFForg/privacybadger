@@ -4,12 +4,9 @@ import utils from "./utils.js";
 
 let tabs = {};
 
-// Get all existing tabs
-chrome.tabs.query({}, function(results) {
-  results.forEach(function(tab) {
-    tabs[tab.id] = tab.incognito;
-  });
-});
+function updateTabStatus(tab_id, incognito) {
+  tabs[tab_id] = !!incognito;
+}
 
 // Create tab event listeners
 function onCreatedListener(tab) {
@@ -43,4 +40,5 @@ function learningEnabled(tab_id) {
 export default {
   learningEnabled,
   startListeners,
+  updateTabStatus,
 };
