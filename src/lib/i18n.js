@@ -24,7 +24,7 @@ const LOCALE = chrome.i18n.getMessage('@@ui_locale').replace('-', '_'),
   ON_POPUP = (document.location.pathname == "/skin/popup.html");
 
 function localizeFaqLink() {
-  const LOCALIZED_HOMEPAGE_LOCALES = ['de', 'es', 'fr', 'zh_CN'];
+  const LOCALIZED_HOMEPAGE_LOCALES = ['de', 'es', 'fr', 'sv', 'zh_CN'];
   if (ON_POPUP && LOCALIZED_HOMEPAGE_LOCALES.includes(LOCALE)) {
     // update FAQ link to point to localized version
     $('#help').prop('href', `https://privacybadger.org/${LOCALE.replace('_', '-').toLowerCase()}/#faq`);
