@@ -925,7 +925,7 @@ let multiDomainFirstPartiesArray = [
     "gcsurplus.ca",
     "letstalktransportation.ca",
   ],
-  ["canadiantire.ca", "marks.com", "sportchek.com", "triangle.com"],
+  ["canadiantire.ca", "marks.com", "sportchek.com", "sportchek.ca", "triangle.com"],
   [
     "canalplus.com",
 
