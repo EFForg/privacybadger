@@ -160,12 +160,19 @@ class Shim:
             return True
         return False
 
+    @property
+    def on_github_actions(self):
+        if "GITHUB_ACTIONS" in os.environ:
+            return True
+        return False
+
     @contextmanager
     def chrome_manager(self):
         opts = ChromeOptions()
-        opts.add_argument("--headless")
         opts.add_argument("--load-extension=" + self.extension_path)
         opts.binary_location = self.browser_path
+        if self.on_github_actions:
+            opts.add_argument("--headless")
 
         # TODO not yet in Firefox (w/o hacks anyway):
         # https://github.com/mozilla/geckodriver/issues/284#issuecomment-456073771
@@ -190,8 +197,9 @@ class Shim:
     def edge_manager(self):
         opts = EdgeOptions()
         opts.add_argument("--load-extension=" + self.extension_path)
-        opts.add_argument("--headless")
         opts.binary_location = self.browser_path
+        if self.on_github_actions:
+            opts.add_argument("--headless")
 
         for i in range(5):
             try:
@@ -233,12 +241,13 @@ class Shim:
                 # disable JSON viewer as it breaks parsing JSON pages
                 opts.set_preference("devtools.jsonview.enabled", False)
 
-                opts.add_argument("--headless")
+                if self.on_github_actions:
+                    opts.add_argument("--headless")
 
                 # to produce a trace-level geckodriver.log,
                 # remove the log_output argument to FirefoxService()
                 # and uncomment the line below
-                # opts.log.level = "trace"
+                #opts.log.level = "trace"
 
                 service = FirefoxService(log_output=os.path.devnull)
                 driver = webdriver.Firefox(options=opts, service=service)
