@@ -12,7 +12,7 @@ run_lint() {
 
 run_selenium() {
   # autodiscover and run the tests
-  pytest --capture=no --verbose --durations=10 "$testdir"
+  pytest --capture=no --color=yes --verbose --durations=10 "$testdir"
 }
 
 if [ "$INFO" == "lint" ]; then

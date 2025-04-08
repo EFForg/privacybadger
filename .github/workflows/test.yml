@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - mv3-chrome
       - travis-github-action
       - travis-github-action-mv3
   pull_request:
