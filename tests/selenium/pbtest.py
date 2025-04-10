@@ -145,7 +145,7 @@ class Shim:
 
     @property
     def wants_xvfb(self):
-        if bool(int(os.environ.get('ENABLE_XVFB', 0))):
+        if self.on_github_actions or bool(int(os.environ.get('ENABLE_XVFB', 0))):
             try:
                 Xvfb
             except NameError:
@@ -165,8 +165,6 @@ class Shim:
         opts = ChromeOptions()
         opts.add_argument("--load-extension=" + self.extension_path)
         opts.binary_location = self.browser_path
-        if self.on_github_actions:
-            opts.add_argument("--headless")
 
         # TODO not yet in Firefox (w/o hacks anyway):
         # https://github.com/mozilla/geckodriver/issues/284#issuecomment-456073771
@@ -192,8 +190,6 @@ class Shim:
         opts = EdgeOptions()
         opts.add_argument("--load-extension=" + self.extension_path)
         opts.binary_location = self.browser_path
-        if self.on_github_actions:
-            opts.add_argument("--headless")
 
         for i in range(5):
             try:
@@ -234,9 +230,6 @@ class Shim:
 
                 # disable JSON viewer as it breaks parsing JSON pages
                 opts.set_preference("devtools.jsonview.enabled", False)
-
-                if self.on_github_actions:
-                    opts.add_argument("--headless")
 
                 # to produce a trace-level geckodriver.log,
                 # remove the log_output argument to FirefoxService()

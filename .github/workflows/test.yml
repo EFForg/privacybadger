@@ -86,6 +86,12 @@ jobs:
         if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
         run: ./scripts/edge_webdriver.sh
 
+      - name: Install xvfb
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          which Xvfb
+
       - name: Run Tests
         run: |
           type "$BROWSER" >/dev/null 2>&1 || {
@@ -95,4 +101,4 @@ jobs:
           toplevel=$(git rev-parse --show-toplevel)
           echo "Found $("$BROWSER" --version)"
           testdir=${toplevel}/tests/selenium
-          pytest --capture=no --color=yes --verbose --durations=10 "$testdir"
+          xvfb-run --auto-servernum pytest --capture=no --color=yes --verbose --durations=10 "$testdir"
