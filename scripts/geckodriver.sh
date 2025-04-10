@@ -5,7 +5,7 @@ version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep
 
 # check that we got something
 if [ -z "$version" ]; then
-  echo "Failed to determine the latest geckodriver version!"
+  echo "Failed to determine the latest Geckodriver version!"
   exit 1
 fi
 
@@ -17,7 +17,7 @@ else
   os_dist="linux64.tar.gz"
 fi
 
-echo "Setting up geckodriver version $version ..."
+echo "Setting up Geckodriver version $version ..."
 url="https://github.com/mozilla/geckodriver/releases/download/${version}/geckodriver-${version}-${os_dist}"
 wget -q -O /tmp/geckodriver.tar.gz "$url"
 sudo tar -xvf /tmp/geckodriver.tar.gz -C /usr/local/bin/
@@ -25,6 +25,6 @@ sudo chmod a+x /usr/local/bin/geckodriver
 
 # check that geckodriver is now present
 type geckodriver >/dev/null 2>&1 || {
-  echo "Failed to install geckodriver!"
+  echo "Failed to install Geckodriver"
   exit 1
 }
