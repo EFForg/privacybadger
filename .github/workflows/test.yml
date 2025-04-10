@@ -1,25 +1,32 @@
 name: Tests
 
-on:
-  push:
-    branches:
-      - master
-      - mv3-chrome
-      - travis-github-action
-      - travis-github-action-mv3
-  pull_request:
-  workflow_dispatch:
+on: [pull_request, push, workflow_dispatch]
 
 jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.18.0' # Minimum version for eslint: https://eslint.org/docs/latest/use/getting-started
+      - name: Run Lint
+        # "--production" to skip installing devDependencies modules
+        run: |
+          npm ci --production || exit 1
+          toplevel=$(git rev-parse --show-toplevel)
+          if ! make -C "$toplevel" lint; then
+            echo "Linting errors"
+            exit 1
+          fi
+
   test:
     runs-on: ubuntu-22.04
-    continue-on-error: ${{ matrix.job != 'lint' }}
+    continue-on-error: true
     strategy:
       matrix:
-        job: [lint, firefox, firefox-beta, firefox-nightly, firefox-esr, edge-beta, chrome, chrome-beta]
+        job: [firefox, firefox-beta, firefox-nightly, firefox-esr, edge-beta]
         include:
-          - job: lint
-            INFO: "lint"
           - job: firefox
             INFO: "Firefox"
             BROWSER: "firefox"
@@ -39,14 +46,7 @@ jobs:
           - job: edge-beta
             INFO: "Edge Beta"
             BROWSER: "microsoft-edge-beta"
-          - job: chrome
-            INFO: "Chrome"
-            BROWSER: "google-chrome-stable"
-            CHROME_VERSION: "stable"
-          - job: chrome-beta
-            INFO: "Chrome Beta"
-            BROWSER: "google-chrome-beta"
-            CHROME_VERSION: "beta"
+
     env:
       INFO: ${{ matrix.INFO }}
       BROWSER: ${{ matrix.BROWSER }}
@@ -59,11 +59,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Set up Node.js for linting
-        if: matrix.job == 'lint'
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.18.0' # Minimum version for eslint: https://eslint.org/docs/latest/use/getting-started
+      - name: Install python dependencies
+        run: |
+          toplevel=$(git rev-parse --show-toplevel)
+          pip install -r "$toplevel"/tests/requirements.txt
 
       - name: Set up Firefox
         if: ${{ matrix.BROWSER == 'firefox' }}
@@ -81,26 +80,16 @@ jobs:
         with:
           edge-version: beta
 
-      - name: Set up Chrome
-        if:  ${{ contains(matrix.BROWSER, 'chrome') }}
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: ${{ matrix.CHROME_VERSION }}
-          install-chromedriver: true
-        id: setup-chrome
-
-      - name: Overwrite system Chrome and verify Chrome installation
-        if: ${{ contains(matrix.BROWSER, 'chrome') }}
-        run: |
-          sudo rm -f /usr/bin/google-chrome
-          sudo rm -f /usr/bin/${{ matrix.BROWSER }}
-          sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
-          sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/${{ matrix.BROWSER }}
-          ${{ steps.setup-chrome.outputs.chrome-path }} --version
-          ${{ matrix.BROWSER }} --version
-
-      - name: Run Setup Script
-        run: ./scripts/setup_ga_tests.sh
+      - name: Instal Edge WebDriver
+        if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
+        run: ./scripts/edge_webdriver.sh
 
       - name: Run Tests
-        run: ./scripts/run_travis.sh
+        run: |
+          type "$BROWSER" >/dev/null 2>&1 || {
+            echo "$BROWSER seems to be missing!"
+            exit 1
+          }
+          echo "Found $("$BROWSER" --version)"
+          testdir=${toplevel}/tests/selenium
+          pytest --capture=no --color=yes --verbose --durations=10 "$testdir"
