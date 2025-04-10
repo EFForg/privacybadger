@@ -16,16 +16,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.18.0' # Minimum version for eslint: https://eslint.org/docs/latest/use/getting-started
+          node-version: 'lts/*'
       - name: Run Lint
-        # "--production" to skip installing devDependencies modules
         run: |
+          # "--production" to skip installing devDependencies modules
           npm ci --production || exit 1
-          toplevel=$(git rev-parse --show-toplevel)
-          if ! make -C "$toplevel" lint; then
-            echo "Linting errors"
-            exit 1
-          fi
+          make lint
 
   test:
     runs-on: ubuntu-22.04
