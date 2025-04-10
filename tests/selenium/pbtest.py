@@ -145,18 +145,12 @@ class Shim:
 
     @property
     def wants_xvfb(self):
-        if self.on_travis or bool(int(os.environ.get('ENABLE_XVFB', 0))):
+        if bool(int(os.environ.get('ENABLE_XVFB', 0))):
             try:
                 Xvfb
             except NameError:
                 print("\nHeadless mode not supported: install xvfbwrapper first")
                 return False
-            return True
-        return False
-
-    @property
-    def on_travis(self):
-        if "TRAVIS" in os.environ:
             return True
         return False
 
