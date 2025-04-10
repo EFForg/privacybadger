@@ -5,13 +5,13 @@ There are two types of tests:
 * [Unit tests](/doc/tests.md#unit-tests) for exercising isolated units of code
 * [Functional tests](/doc/tests.md#functional-tests) for verifying high-level extension functionality
 
-[Travis CI](/doc/tests.md#travis-ci) runs unit and functional tests on every pull request on Chrome, Firefox and Edge.
+[Github Actions](/doc/tests.md#github-actions-ci) runs unit and functional tests on every pull request on Chrome, Firefox and Edge.
 
-## Travis CI
+## Github Actions CI
 
-Every pull request runs the [full suite of tests on Travis CI](https://app.travis-ci.com/github/EFForg/privacybadger/branches). We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Edge Beta, Firefox Beta and Firefox ESR.
+Every pull request runs the full suite of tests on Github Actions. We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Edge Beta, Firefox Beta and Firefox ESR.
 
-See [`.travis.yml`](/.travis.yml) for Travis configuration, [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) for test setup, and [`scripts/run_travis.sh`](/scripts/run_travis.sh) for test execution procedures.
+See [`test.yml`](/.github/workflows/test.yml) for the Github Actions configuration.
 
 We use [ESLint](https://eslint.org) to flag potential JavaScript errors and style issues. Please see our [developer guide](/doc/develop.md#lint-your-changes) for setup instructions.
 
