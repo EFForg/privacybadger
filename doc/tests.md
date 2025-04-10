@@ -5,13 +5,11 @@ There are two types of tests:
 * [Unit tests](/doc/tests.md#unit-tests) for exercising isolated units of code
 * [Functional tests](/doc/tests.md#functional-tests) for verifying high-level extension functionality
 
-[Github Actions](/doc/tests.md#github-actions-ci) runs unit and functional tests on every pull request on Chrome, Firefox and Edge.
+[GitHub Actions](/doc/tests.md#github-actions-ci) runs unit and functional tests on every pull request on Chrome, Firefox and Edge.
 
-## Github Actions CI
+## GitHub Actions CI
 
-Every pull request runs the full suite of tests on Github Actions. We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Edge Beta, Firefox Beta and Firefox ESR.
-
-See [`test.yml`](/.github/workflows/test.yml) for the Github Actions configuration.
+Every pull request runs the full suite of tests on GitHub Actions. See [`test.yml`](/.github/workflows/test.yml) for the GitHub Actions configuration.
 
 We use [ESLint](https://eslint.org) to flag potential JavaScript errors and style issues. Please see our [developer guide](/doc/develop.md#lint-your-changes) for setup instructions.
 
