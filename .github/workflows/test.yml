@@ -6,6 +6,8 @@ jobs:
   lint:
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -90,6 +92,7 @@ jobs:
             echo "$BROWSER seems to be missing!"
             exit 1
           }
+          toplevel=$(git rev-parse --show-toplevel)
           echo "Found $("$BROWSER" --version)"
           testdir=${toplevel}/tests/selenium
           pytest --capture=no --color=yes --verbose --durations=10 "$testdir"
