@@ -145,7 +145,7 @@ class Shim:
 
     @property
     def wants_xvfb(self):
-        if self.on_travis or bool(int(os.environ.get('ENABLE_XVFB', 0))):
+        if self.on_github_actions or bool(int(os.environ.get('ENABLE_XVFB', 0))):
             try:
                 Xvfb
             except NameError:
@@ -155,8 +155,8 @@ class Shim:
         return False
 
     @property
-    def on_travis(self):
-        if "TRAVIS" in os.environ:
+    def on_github_actions(self):
+        if "GITHUB_ACTIONS" in os.environ:
             return True
         return False
 

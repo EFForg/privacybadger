@@ -5,13 +5,11 @@ There are two types of tests:
 * [Unit tests](/doc/tests.md#unit-tests) for exercising isolated units of code
 * [Functional tests](/doc/tests.md#functional-tests) for verifying high-level extension functionality
 
-[Travis CI](/doc/tests.md#travis-ci) runs unit and functional tests on every pull request on Chrome, Firefox and Edge.
+[GitHub Actions](/doc/tests.md#github-actions-ci) runs unit and functional tests on every pull request on Chrome, Firefox and Edge.
 
-## Travis CI
+## GitHub Actions CI
 
-Every pull request runs the [full suite of tests on Travis CI](https://app.travis-ci.com/github/EFForg/privacybadger/branches). We test on latest stable Chrome and Firefox releases, as well as on Chrome Beta, Edge Beta, Firefox Beta and Firefox ESR.
-
-See [`.travis.yml`](/.travis.yml) for Travis configuration, [`scripts/setup_travis.sh`](/scripts/setup_travis.sh) for test setup, and [`scripts/run_travis.sh`](/scripts/run_travis.sh) for test execution procedures.
+Every pull request runs the full suite of tests on GitHub Actions. See [`test.yml`](/.github/workflows/test.yml) for the GitHub Actions configuration.
 
 We use [ESLint](https://eslint.org) to flag potential JavaScript errors and style issues. Please see our [developer guide](/doc/develop.md#lint-your-changes) for setup instructions.
 
@@ -38,7 +36,7 @@ Do verify that removing or mutating the code being tested produces failed assert
 Our [functional tests](/tests/selenium/) are written in Python and driven by [Selenium](https://selenium-python.readthedocs.io/) and [pytest](https://docs.pytest.org/en/latest/).
 
 - To run them in Chrome, you need to [install `chromedriver`](http://chromedriver.chromium.org/getting-started)
-- For Firefox, you need to [install `geckodriver`](https://github.com/EFForg/privacybadger/blob/1550b9efb64c1d5e276361e3940f402c3ec87afc/scripts/setup_travis.sh#L21-L50)
+- For Firefox, you need to [install `geckodriver`](/scripts/geckodriver.sh)
 - For Microsoft Edge, [install Microsoft Edge WebDriver](https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/)
 
 You also need to [install the Python packages](https://snarky.ca/a-quick-and-dirty-guide-on-how-to-install-packages-for-python/) specified in [`/tests/requirements.txt`](/tests/requirements.txt).
@@ -55,9 +53,6 @@ $ BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin pytest -v tests/
 # or
 $ BROWSER=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome pytest -v tests/
 ```
-
-For more information, see our Travis CI [setup](/scripts/setup_travis.sh) and
-[run](/scripts/run_travis.sh) scripts.
 
 
 ### Invocation examples

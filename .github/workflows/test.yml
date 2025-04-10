@@ -1,0 +1,98 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+      - name: Run ESLint
+        run: |
+          # "--production" to skip installing devDependencies modules
+          npm ci --production || exit 1
+          make lint
+
+  selenium:
+    runs-on: ubuntu-22.04
+    continue-on-error: true
+    strategy:
+      matrix:
+        job: [firefox, firefox-beta, firefox-nightly, firefox-esr, edge-beta]
+        include:
+          - job: firefox
+            INFO: "Firefox"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest"
+          - job: firefox-beta
+            INFO: "Firefox Beta"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest-beta"
+          - job: firefox-nightly
+            INFO: "Firefox Nightly"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest-nightly"
+          - job: firefox-esr
+            INFO: "Firefox ESR"
+            BROWSER: "firefox"
+            FIREFOX_VERSION: "latest-esr"
+          - job: edge-beta
+            INFO: "Edge Beta"
+            BROWSER: "microsoft-edge-beta"
+
+    env:
+      INFO: ${{ matrix.INFO }}
+      BROWSER: ${{ matrix.BROWSER }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install -r tests/requirements.txt
+
+      - name: Set up Firefox
+        if: ${{ matrix.BROWSER == 'firefox' }}
+        uses: browser-actions/setup-firefox@v1
+        with:
+          firefox-version: ${{ matrix.FIREFOX_VERSION }}
+
+      - name: Install Geckodriver
+        if:  ${{ matrix.BROWSER == 'firefox' }}
+        uses: browser-actions/setup-geckodriver@latest
+
+      - name: Set up Edge
+        if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
+        uses: browser-actions/setup-edge@v1
+        with:
+          edge-version: beta
+
+      - name: Install Edge WebDriver
+        if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
+        run: ./scripts/edge_webdriver.sh
+
+      - name: Install Xvfb
+        run: sudo apt-get install -y xvfb
+
+      - name: Run Tests
+        run: |
+          type "$BROWSER" >/dev/null 2>&1 || {
+            echo "$BROWSER seems to be missing!"
+            exit 1
+          }
+          echo "Found $("$BROWSER" --version)"
+          xvfb-run --auto-servernum pytest --capture=no --color=yes --verbose --durations=10 tests/selenium

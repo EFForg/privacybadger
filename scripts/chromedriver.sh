@@ -49,7 +49,7 @@ wget -q -O "$TEMPDIR/chromedriver.zip" "$chromedriver_url" \
 
 # check that chromedriver is now present
 type chromedriver >/dev/null 2>&1 || {
-  echo "Failed to install ChromeDriver!"
+  echo "Failed to install ChromeDriver"
   exit 1
 }
 
