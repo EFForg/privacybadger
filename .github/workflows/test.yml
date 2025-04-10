@@ -23,7 +23,7 @@ jobs:
           npm ci --production || exit 1
           make lint
 
-  test:
+  selenium:
     runs-on: ubuntu-22.04
     continue-on-error: true
     strategy:
@@ -62,10 +62,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install python dependencies
-        run: |
-          toplevel=$(git rev-parse --show-toplevel)
-          pip install -r "$toplevel"/tests/requirements.txt
+      - name: Install Python dependencies
+        run: pip install -r tests/requirements.txt
 
       - name: Set up Firefox
         if: ${{ matrix.BROWSER == 'firefox' }}
@@ -73,7 +71,7 @@ jobs:
         with:
           firefox-version: ${{ matrix.FIREFOX_VERSION }}
 
-      - name: Install Gecko Driver
+      - name: Install Geckodriver
         if:  ${{ matrix.BROWSER == 'firefox' }}
         uses: browser-actions/setup-geckodriver@latest
 
@@ -83,15 +81,12 @@ jobs:
         with:
           edge-version: beta
 
-      - name: Instal Edge WebDriver
+      - name: Install Edge WebDriver
         if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
         run: ./scripts/edge_webdriver.sh
 
-      - name: Install xvfb
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-          which Xvfb
+      - name: Install Xvfb
+        run: sudo apt-get install -y xvfb
 
       - name: Run Tests
         run: |
@@ -99,7 +94,5 @@ jobs:
             echo "$BROWSER seems to be missing!"
             exit 1
           }
-          toplevel=$(git rev-parse --show-toplevel)
           echo "Found $("$BROWSER" --version)"
-          testdir=${toplevel}/tests/selenium
-          xvfb-run --auto-servernum pytest --capture=no --color=yes --verbose --durations=10 "$testdir"
+          xvfb-run --auto-servernum pytest --capture=no --color=yes --verbose --durations=10 tests/selenium
