@@ -2571,7 +2571,6 @@ let multiDomainFirstPartiesArray = [
   ["infor.pl", "gazetaprawna.pl", "forsal.pl", "dziennik.pl"],
   ["innogames.com", "elvenar.com", "forgeofempires.com", "grepolis.com", "innogamescdn.com"],
   ["intercom.com", "intercom.io", "intercomassets.com", "intercomcdn.com"],
-  ["interia.pl", "pomponik.pl", "smaker.pl", "iplsc.com"],
   ["itmedia.co.jp", "itmedia.jp"],
   [
     "iu.edu",
@@ -4061,6 +4060,18 @@ let multiDomainFirstPartiesArray = [
   ],
   ["plex.tv", "plex.direct"],
   ["pokemon-gl.com", "pokemon.com"],
+  [
+    "polsatnews.pl",
+
+    "rmf24.pl",
+
+    "interia.pl",
+    "pomponik.pl",
+    "smaker.pl",
+    "terazgotuje.pl",
+
+    "iplsc.com"
+  ],
   ["pornhub.com", "phncdn.com"],
   ["postepay.it", "poste.it"],
   ["postimees.ee", "city24.ee", "city24.lv", "pmo.ee"],
