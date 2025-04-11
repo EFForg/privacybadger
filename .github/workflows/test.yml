@@ -49,6 +49,15 @@ jobs:
           - job: edge-beta
             BROWSER: "microsoft-edge-beta"
             BROWSER_VERSION: "beta"
+          - job: chrome
+            BROWSER: "google-chrome-stable"
+            BROWSER_VERSION: "stable"
+          - job: chrome-beta
+            BROWSER: "google-chrome-beta"
+            BROWSER_VERSION: "beta"
+          - job: chrome-dev
+            BROWSER: "google-chrome-dev"
+            BROWSER_VERSION: "dev"
     env:
       BROWSER: ${{ matrix.BROWSER }}
     name:
@@ -84,6 +93,21 @@ jobs:
       - name: Install Edge WebDriver
         if:  ${{ contains(matrix.BROWSER, 'microsoft-edge') }}
         run: ./scripts/edge_webdriver.sh "$BROWSER"
+
+      - name: Set up Chrome
+        if:  ${{ contains(matrix.BROWSER, 'chrome') }}
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: ${{ matrix.BROWSER_VERSION }}
+          install-chromedriver: true
+        id: setup-chrome
+
+      # fix ChromeDriver failure due to existing Chrome installation:
+      # "This version of ChromeDriver only supports Chrome version XX"
+      - name: Work around browser-actions/setup-chrome bug
+        if: ${{ contains(matrix.BROWSER, 'chrome') }}
+        run: |
+          sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/local/bin/${{ matrix.BROWSER }}
 
       - name: Install Xvfb
         run: sudo apt-get install -y xvfb
