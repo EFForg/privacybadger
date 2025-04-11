@@ -36,7 +36,8 @@ except ImportError:
 SEL_DEFAULT_WAIT_TIMEOUT = 30
 
 BROWSER_TYPES = ['chrome', 'firefox', 'edge']
-BROWSER_NAMES = ['google-chrome', 'google-chrome-stable', 'google-chrome-beta', 'firefox', 'microsoft-edge', 'microsoft-edge-beta']
+BROWSER_NAMES = ['google-chrome', 'google-chrome-stable', 'google-chrome-beta',
+                 'firefox', 'microsoft-edge', 'microsoft-edge-beta']
 
 
 class WindowNotFoundException(Exception):
