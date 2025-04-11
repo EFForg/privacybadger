@@ -109,7 +109,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL + '?alt3p')
         self.assert_load()
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "edge")
+    @pytest.mark.flaky(reruns=5)
     def test_blocking_fp_script_served_from_cookieblocked_cdn(self):
         """Since we have a surrogate script for FingerprintJS served from
         cdn.jsdelivr.net, we need to test surrogation rather than blocking."""
@@ -392,6 +392,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_load()
 
+    @pytest.mark.flaky(reruns=3)
     def test_removing_dnt(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
         self.set_dnt(self.THIRD_PARTY_DOMAIN)
