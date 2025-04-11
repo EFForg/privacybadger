@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - mv3-chrome
   pull_request:
   workflow_dispatch:
 
