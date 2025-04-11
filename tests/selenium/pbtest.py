@@ -37,6 +37,7 @@ SEL_DEFAULT_WAIT_TIMEOUT = 30
 
 BROWSER_TYPES = ['chrome', 'firefox', 'edge']
 BROWSER_NAMES = ['google-chrome', 'google-chrome-stable', 'google-chrome-beta',
+                 'google-chrome-dev', 'google-chrome-unstable',
                  'firefox', 'microsoft-edge', 'microsoft-edge-beta']
 
 
