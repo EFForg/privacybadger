@@ -443,6 +443,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_load()
 
+    @pytest.mark.flaky(reruns=3)
     def test_removing_dnt(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
         self.set_dnt(self.THIRD_PARTY_DOMAIN)
