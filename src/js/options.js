@@ -52,6 +52,19 @@ function loadOptions() {
   // Set page title to i18n version of "Privacy Badger Options"
   document.title = i18n.getMessage("options_title");
 
+  // Render tip box on Disabled Sites tab on non-Android platforms
+  if (chrome.runtime.getPlatformInfo) {
+    chrome.runtime.getPlatformInfo((info) => {
+      if (info.os == "android") {
+        $("#tip-container").hide();
+      } else {
+        $("#tip-container").show();
+      }
+    });
+  } else { // Default to showing tip box if chrome.runtime.getPlatformInfo is not supported
+    $("#tip-container").show();
+  }
+
   // Add event listeners
   $("#allowlist-form").on("submit", addDisabledSite);
   $("#remove-disabled-site").on("click", removeDisabledSite);
