@@ -167,6 +167,9 @@ class Shim:
         opts.add_argument("--load-extension=" + self.extension_path)
         opts.binary_location = self.browser_path
 
+        # work around https://issues.chromium.org/issues/409441960
+        opts.add_experimental_option('enableExtensionTargets', True)
+
         # TODO not yet in Firefox (w/o hacks anyway):
         # https://github.com/mozilla/geckodriver/issues/284#issuecomment-456073771
         opts.set_capability("goog:loggingPrefs", {'browser': 'ALL'})
@@ -191,6 +194,9 @@ class Shim:
         opts = EdgeOptions()
         opts.add_argument("--load-extension=" + self.extension_path)
         opts.binary_location = self.browser_path
+
+        # work around https://issues.chromium.org/issues/409441960
+        opts.add_experimental_option('enableExtensionTargets', True)
 
         for i in range(5):
             try:
