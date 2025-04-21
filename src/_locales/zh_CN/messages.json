@@ -288,8 +288,17 @@
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
-        "message": "请<a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>告诉我们</a>以下的错误信息：",
-        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
+        "message": "请$LINK_START$ 告诉我们$LINK_END$以下的错误信息：",
+        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='http://example.com'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "firstRun_title": {
         "message": "感谢你安装隐私獾！",
@@ -543,8 +552,17 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "隐私獾还没有检测到任何<a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>追踪域名</a>。继续浏览吧！",
-        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
+        "message": "隐私獾还没有检测到任何$LINK_START$ 追踪域名$LINK_END$。继续浏览吧！",
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='http://example.com'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "what_is_a_tracker": {
         "message": "什么是追踪器？",

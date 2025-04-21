@@ -288,8 +288,17 @@
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
-        "message": "Пожалуйста, <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>сообщите нам</a> о возникшей проблеме:",
-        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
+        "message": "Пожалуйста, $LINK_START$ сообщите нам$LINK_END$ о возникшей проблеме:",
+        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='http://example.com'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "firstRun_title": {
         "message": "Спасибо вам за то, что установили Privacy Badger!",
@@ -543,8 +552,17 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger не обнаружил ни одного <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>домена с трекерами</a>. Продолжайте просмотр Интернета.",
-        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
+        "message": "Privacy Badger не обнаружил ни одного $LINK_START$ домена с трекерами$LINK_END$. Продолжайте просмотр Интернета.",
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='http://example.com'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "what_is_a_tracker": {
         "message": "Что такое трекер?",

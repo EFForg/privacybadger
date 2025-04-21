@@ -288,8 +288,17 @@
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
-        "message": "Por favor, <a href='https://www.eff.org/privacybadger#faq-I-found-a-bug!-What-do-I-do-now?' target='_blank'>infórmanos</a> del siguiente error:",
-        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about."
+        "message": "Por favor, $LINK_START$ infórmanos$LINK_END$ del siguiente error:",
+        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='http://example.com'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "firstRun_title": {
         "message": "¡Gracias por instalar Privacy Badger!",
@@ -543,8 +552,17 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger no ha detectado ningún <a target='_blank' tabindex=-1 title='i18n_what_is_a_tracker' class='tooltip' href='https://www.eff.org/privacybadger#faq-What-is-a-third-party-tracker?'>dominio de rastreo</a> por el momento. ¡Sigue navegando!",
-        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed."
+        "message": "Privacy Badger no ha detectado ningún $LINK_START$ dominio de rastreo$LINK_END$ por el momento. ¡Sigue navegando!",
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed",
+        "placeholders": {
+            "link_start": {
+                "content": "$1",
+                "example": "<a href='http://example.com'>"
+            },
+            "link_end": {
+                "content": "</a>"
+            }
+        }
     },
     "what_is_a_tracker": {
         "message": "¿Qué es un rastreador?",
