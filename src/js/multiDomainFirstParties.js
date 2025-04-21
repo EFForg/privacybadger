@@ -4066,7 +4066,10 @@ let multiDomainFirstPartiesArray = [
     "rmf24.pl",
 
     "interia.pl",
+    "bryk.pl",
+    "int.pl",
     "pomponik.pl",
+    "skul.pl",
     "smaker.pl",
     "terazgotuje.pl",
 
