@@ -289,7 +289,7 @@
     },
     "extension_error_text": {
         "message": "$LINK_START$ Mondjon el nekünk$LINK_END$ valamit a következő hibáról:",
-        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about",
+        "description": "NOTE: The space after $LINK_START$ is here to work around a Safari bug. Shown in the popup when there is an extension error we want to encourage the user to tell us about.",
         "placeholders": {
             "link_start": {
                 "content": "$1",
@@ -553,7 +553,7 @@
     },
     "options_domain_list_no_trackers": {
         "message": "A Privacy Badger még nem észlelt semmilyen $LINK_START$ követő tartományt$LINK_END$ sem. Folytassa a böngészést!",
-        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed",
+        "description": "NOTE: The space after $LINK_START$ is here to work around a Safari bug. Shown on the Tracking Domains tab on the options page if all tracking domains have been removed.",
         "placeholders": {
             "link_start": {
                 "content": "$1",
