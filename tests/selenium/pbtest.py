@@ -165,8 +165,11 @@ class Shim:
     @contextmanager
     def chrome_manager(self):
         opts = ChromeOptions()
-        opts.add_argument("--load-extension=" + self.extension_path)
+
         opts.binary_location = self.browser_path
+
+        opts.add_argument("--load-extension=" + self.extension_path)
+        opts.add_argument("--disable-features=TrackingProtection3pcd")
 
         # work around https://issues.chromium.org/issues/409441960
         opts.add_experimental_option('enableExtensionTargets', True)
