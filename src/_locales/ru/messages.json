@@ -519,7 +519,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Блокировать но не заменять следующие виджеты:",
+        "message": "Блокировать, но не заменять следующие виджеты:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
