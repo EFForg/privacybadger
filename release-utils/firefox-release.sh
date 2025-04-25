@@ -10,7 +10,7 @@ if [ $# -ne 1 ] ; then
 fi
 TARGET="$1"
 
-LATEST_SDK_VERSION=8.5.0
+LATEST_SDK_VERSION=8.6.0
 WEB_EXT=../node_modules/.bin/web-ext
 PATCHER=../scripts/patch_manifest.py
 
