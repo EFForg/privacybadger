@@ -10,7 +10,8 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import (
     NoSuchElementException,
     StaleElementReferenceException,
-    TimeoutException
+    TimeoutException,
+    NoSuchShadowRootException
 )
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
@@ -78,11 +79,16 @@ class WidgetsTest(pbtest.PBSeleniumTest):
             "}(arguments[0]));"
         ), widgetsJson)
 
-    def switch_to_shadow_host_frame(self, selector):
-        shadow_host = self.find_el_by_css("div.widget-shadow-host")
-        shadow_root = self.driver.execute_script("return arguments[0].shadowRoot", shadow_host)
-        iframe = shadow_root.find_element(By.CSS_SELECTOR, selector)
-        self.driver.switch_to.frame(iframe)
+    def switch_to_placeholder_frame(self, selector):
+        for el in self.driver.find_elements(By.CSS_SELECTOR, "div"):
+            try:
+                shadow_root = el.shadow_root
+            except NoSuchShadowRootException:
+                continue
+            iframe = shadow_root.find_element(By.CSS_SELECTOR, selector)
+            self.driver.switch_to.frame(iframe)
+            return
+        raise NoSuchElementException("Failed to find placeholder frame")
 
     def switch_to_frame(self, selector):
         self.wait_for_and_switch_to_frame(selector, timeout=1)
@@ -120,7 +126,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
             widget_name = self.TYPE3_WIDGET_NAME
 
         try:
-            self.switch_to_shadow_host_frame(f'iframe[srcdoc*="{widget_name}"]')
+            self.switch_to_placeholder_frame(f'iframe[srcdoc*="{widget_name}"]')
         except (StaleElementReferenceException, TimeoutException, NoSuchElementException):
             self.fail("Unable to find widget placeholder frame")
 
@@ -157,7 +163,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         if not widget_name:
             widget_name = self.TYPE3_WIDGET_NAME
         try:
-            self.switch_to_shadow_host_frame(f'iframe[srcdoc*="{widget_name}"]')
+            self.switch_to_placeholder_frame(f'iframe[srcdoc*="{widget_name}"]')
             self.fail("Widget placeholder frame should be missing")
         except (TimeoutException, NoSuchElementException):
             pass
@@ -167,7 +173,7 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         if not widget_name:
             widget_name = self.TYPE3_WIDGET_NAME
         id_prefix = 'btn-once' if once else 'btn-site'
-        self.switch_to_shadow_host_frame(f'iframe[srcdoc*="{widget_name}"]')
+        self.switch_to_placeholder_frame(f'iframe[srcdoc*="{widget_name}"]')
         self.find_el_by_css(f"button[id^='{id_prefix}']").click()
         self.driver.switch_to.default_content()
         # wait a bit for the widget to get reinserted

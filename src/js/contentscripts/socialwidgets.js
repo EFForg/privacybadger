@@ -405,9 +405,8 @@ function createReplacementWidget(widget, elToReplace) {
 
   let widgetFrame = document.createElement('iframe');
   let shadowHost = document.createElement("div");
-  shadowHost.className = "widget-shadow-host";
   // Use an open shadow root on EFF test pages to allow our Selenium tests to access placeholder buttons
-  let shadowRoot = shadowHost.attachShadow({ mode: window.location.host === "efforg.github.io" ? "open" : "closed"});
+  let shadowRoot = shadowHost.attachShadow({ mode: "closed"});
   shadowRoot.appendChild(widgetFrame);
 
   // widget replacement frame styles
