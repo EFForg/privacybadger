@@ -1171,15 +1171,9 @@ Badger.prototype = {
     // TODO grab hostname from tabData instead
     if (!utils.isRestrictedUrl(tab_url) &&
         self.isPrivacyBadgerEnabled(extractHostFromURL(tab_url))) {
-      iconFilename = {
-        19: chrome.runtime.getURL("icons/badger-19.png"),
-        38: chrome.runtime.getURL("icons/badger-38.png")
-      };
+      iconFilename = chrome.runtime.getURL("icons/badger.svg");
     } else {
-      iconFilename = {
-        19: chrome.runtime.getURL("icons/badger-19-disabled.png"),
-        38: chrome.runtime.getURL("icons/badger-38-disabled.png")
-      };
+      iconFilename = chrome.runtime.getURL("icons/badger-disabled.svg");
     }
 
     chrome.browserAction.setIcon({tabId: tab_id, path: iconFilename});

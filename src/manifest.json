@@ -467,12 +467,12 @@
   "default_locale": "en_US",
   "description": "__MSG_description__",
   "icons": {
-    "16": "icons/badger-16.png",
-    "19": "icons/badger-19.png",
-    "38": "icons/badger-38.png",
-    "48": "icons/badger-48.png",
-    "64": "icons/badger-64.png",
-    "128": "icons/badger-128.png"
+    "16": "icons/badger.svg",
+    "19": "icons/badger.svg",
+    "38": "icons/badger.svg",
+    "48": "icons/badger.svg",
+    "64": "icons/badger.svg",
+    "128": "icons/badger.svg"
   },
   "manifest_version": 2,
   "minimum_chrome_version": "61.0",
@@ -480,8 +480,8 @@
   "browser_action": {
     "default_area": "navbar",
     "default_icon": {
-      "19": "icons/badger-19-disabled.png",
-      "38": "icons/badger-38-disabled.png"
+      "19": "icons/badger-disabled.svg",
+      "38": "icons/badger-disabled.svg"
     },
     "default_popup": "skin/popup.html",
     "default_title": "__MSG_name__"
