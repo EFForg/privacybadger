@@ -18,24 +18,18 @@ function initWelcomePage() {
 }
 
 function initPinNudge() {
-  let num_outside_clicks = 0;
-
   function hideNudge() {
     $("body").css('overflow', 'auto');
     $("#pin-nudge").fadeOut();
     $("#overlay").fadeOut();
-    document.removeEventListener("click", clickHandler);
+    document.removeEventListener("dblclick", dblClickHandler);
     document.removeEventListener("keydown", keydownHandler);
   }
 
-  function clickHandler(e) {
+  function dblClickHandler(e) {
     // Hide the pin nudge when a user clicks outside the popup
     if (!document.getElementById('pin-nudge').contains(e.target)) {
-      num_outside_clicks++;
-      if (num_outside_clicks > 1) {
-        num_outside_clicks = 0;
-        hideNudge();
-      }
+      hideNudge();
     }
   }
 
@@ -82,7 +76,7 @@ function initPinNudge() {
     $("#overlay").show();
     $("body").css('overflow', 'hidden');
 
-    document.addEventListener("click", clickHandler);
+    document.addEventListener("dblclick", dblClickHandler);
     document.addEventListener("keydown", keydownHandler);
   }
 
