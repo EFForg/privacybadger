@@ -101,5 +101,15 @@ function initPinNudge() {
 
 $(function () {
   initWelcomePage();
-  initPinNudge();
+
+  // Don't show the pin nudge on Android devices, where it's not applicable
+  if (chrome.runtime.getPlatformInfo) {
+    chrome.runtime.getPlatformInfo((info) => {
+      if (!info || info.os != "android") {
+        initPinNudge();
+      }
+    });
+  } else {
+    initPinNudge();
+  }
 });

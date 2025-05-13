@@ -15,7 +15,8 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-body {
+/* popup only (not options page) */
+body#main {
   box-sizing: border-box;
 
   background: #fefefe;
@@ -30,11 +31,18 @@ body {
   max-width: 100%;  /* FF android */
   min-height: 300px;
 }
+
 @media screen and (min--moz-device-pixel-ratio:0) {
-    body {
-        min-width: 200px; /* FF android */
+    /* popup only (not options page) */
+    body#main {
         width: 430px;     /* FF desktop */
     }
+}
+
+/* Override min-width 430px, which is only necessary for Chrome and causes the popup to be larger than most phone screens */
+/* Using a @media (max-width) query would affect Chrome Desktop as well. */
+body#main.is-android {
+    min-width: 200px;
 }
 
 /* popup only (not options page) */
@@ -193,7 +201,7 @@ a.removeOrigin:hover {
     margin-inline-end: 3px;
 }
 
-/* body#main to avoid applying this to options page */
+/* popup only (not options page) */
 body#main #blockedResourcesContainer, #special-browser-page, #disabled-site-message, #first-run-page {
     flex: 1;
     display: flex;
@@ -304,12 +312,13 @@ button.cta-button:hover, a.cta-button:hover {
     font-size: 16px;
     margin: 0;
 }
-/* body#main to avoid applying this to options page */
+/* popup only (not options page) */
 body#main #pbInstructions a, #firstparty-protections-container a, #donate a {
     text-decoration: underline;
     color: black;
     font-weight: bold;
 }
+/* popup only (not options page) */
 body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #donate a:hover {
     color: #ec9329;
 }
@@ -589,6 +598,20 @@ a.overlay-close:hover {
     }
 }
 
+/* Space out icons on narrow Android screens */
+@media screen and (max-width: 500px){
+    body#main.is-android #corner-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex: 1;
+    }
+
+    body#main.is-android #badger-title-div {
+        flex: unset;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         color-scheme: dark;
@@ -604,7 +627,8 @@ a.overlay-close:hover {
         color: #fff;
     }
 
-    body, #instruction, .key {
+    /* popup only (not options page) */
+    body#main, #instruction, .key {
         background-color: #333;
         color: #ddd;
     }
@@ -617,7 +641,7 @@ a.overlay-close:hover {
     }
 
     button,
-    /* body#main to avoid applying this to options page */
+    /* popup only (not options page) */
     body#main #pbInstructions a,
     #firstparty-protections-container a,
     #donate a,

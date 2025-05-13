@@ -1139,6 +1139,7 @@ function dispatcher(request, sender, sendResponse) {
       if (request.type == "getPopupData") {
         return sendResponse({
           criticalError: badger.criticalError,
+          isAndroid: badger.isAndroid,
           noTabData: true,
           settings: { seenComic: true },
         });
@@ -1385,6 +1386,7 @@ function dispatcher(request, sender, sendResponse) {
     if (!badger.tabData.has(tab_id)) {
       sendResponse({
         criticalError: badger.criticalError,
+        isAndroid: badger.isAndroid,
         noTabData: true,
         settings: { seenComic: true },
       });
@@ -1408,6 +1410,7 @@ function dispatcher(request, sender, sendResponse) {
       criticalError: badger.criticalError,
       enabled: badger.isPrivacyBadgerEnabled(tab_host),
       errorText: badger.tabData._tabData[tab_id].errorText,
+      isAndroid: badger.isAndroid,
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
       noTabData: false,
       trackers,
@@ -1435,6 +1438,7 @@ function dispatcher(request, sender, sendResponse) {
 
     sendResponse({
       cookieblocked,
+      isAndroid: badger.isAndroid,
       trackers,
       settings: badger.getSettings().getItemClones(),
       widgets: badger.widgetList.map(widget => widget.name),

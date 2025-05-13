@@ -185,6 +185,10 @@ function showNagMaybe() {
 function init() {
   showNagMaybe();
 
+  if (POPUP_DATA.isAndroid) {
+    $("body").addClass("is-android");
+  }
+
   $("#activate_site_btn").on("click", activateOnSite);
   $("#deactivate_site_btn").on("click", deactivateOnSite);
 
@@ -245,19 +249,21 @@ function init() {
     $("#youtube-message-container").show();
   }
 
-  // improve on Firefox's built-in options opening logic
-  if (typeof browser == "object" && typeof browser.runtime.getBrowserInfo == "function") {
-    browser.runtime.getBrowserInfo().then(function (info) {
-      if (info.name == "Firefox") {
-        $("#options").on("click", function (e) {
-          e.preventDefault();
-          openPage(chrome.runtime.getURL("/skin/options.html"));
-        });
-        $("#help").on("click", function (e) {
-          e.preventDefault();
-          openPage(this.getAttribute('href'));
-        });
-      }
+  // avoid options (Edge and Firefox) and help (Firefox) pages
+  // opening inside the popup overlay on Android
+  //
+  // also avoid the popup staying open
+  // after clicking options/help on desktop Firefoxes
+  if (POPUP_DATA.isAndroid || constants.BROWSER == "firefox") {
+    $("#options").on("click", function (e) {
+      e.preventDefault();
+      openPage(chrome.runtime.getURL("/skin/options.html"));
+    });
+  }
+  if (constants.BROWSER == "firefox") {
+    $("#help").on("click", function (e) {
+      e.preventDefault();
+      openPage(this.getAttribute('href'));
     });
   }
 
@@ -304,7 +310,7 @@ function openPage(url) {
     try {
       chrome.tabs.create(tabProps);
     } catch (e) {
-      // TODO workaround for pre-57 Firefox
+      // workaround for Firefox on Android
       delete tabProps.openerTabId;
       chrome.tabs.create(tabProps);
     }

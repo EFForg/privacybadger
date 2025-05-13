@@ -40,6 +40,15 @@ function Badger(from_qunit) {
   self.startTime = new Date();
   self.isFirstRun = false;
   self.isUpdate = false;
+  self.isAndroid = false;
+
+  if (chrome.runtime.getPlatformInfo) {
+    chrome.runtime.getPlatformInfo((info) => {
+      if (info && info.os == "android") {
+        self.isAndroid = true;
+      }
+    });
+  }
 
   (function () {
     let manifestJson = chrome.runtime.getManifest();

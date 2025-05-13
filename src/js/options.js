@@ -52,16 +52,8 @@ function loadOptions() {
   // Set page title to i18n version of "Privacy Badger Options"
   document.title = i18n.getMessage("options_title");
 
-  // Render tip box on Disabled Sites tab on non-Android platforms
-  if (chrome.runtime.getPlatformInfo) {
-    chrome.runtime.getPlatformInfo((info) => {
-      if (info.os == "android") {
-        $("#tip-container").hide();
-      } else {
-        $("#tip-container").show();
-      }
-    });
-  } else { // Default to showing tip box if chrome.runtime.getPlatformInfo is not supported
+  if (!OPTIONS_DATA.isAndroid) {
+    // Render Disabled Sites tip box on non-Android platforms
     $("#tip-container").show();
   }
 
@@ -540,7 +532,14 @@ function reloadDisabledSites() {
   // sort disabled sites the same way blocked sites are sorted
   sites = htmlUtils.sortDomains(sites);
 
-  $select.empty();
+  if (OPTIONS_DATA.isAndroid && constants.BROWSER == "edge") {
+    // work around Edge on Android failing to update the "X selected" status
+    $select.parent().empty().html('<select id="allowlist-select" size="10" multiple></select>');
+    $select = $('#allowlist-select');
+  } else {
+    $select.empty();
+  }
+
   for (let i = 0; i < sites.length; i++) {
     $('<option>').text(sites[i]).appendTo($select);
   }
