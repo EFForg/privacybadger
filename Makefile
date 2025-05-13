@@ -10,6 +10,9 @@ crx:
 lint:
 	./node_modules/.bin/eslint .
 
+minimages:
+	npx @j9t/imagemin-guard@4.2.0
+
 updatepsl:
 	scripts/updatepsl.sh
 
@@ -64,4 +67,4 @@ runfn:
 test:
 	BROWSER=chrome ENABLE_XVFB=1 pytest -s tests/
 
-.PHONY: crx lint updatepsl updateseed apply_effdntlist updategoogle updatecnames tx runch runfa runff runfn test
+.PHONY: crx lint minimages updatepsl updateseed apply_effdntlist updategoogle updatecnames tx runch runfa runff runfn test
