@@ -453,11 +453,13 @@ function createReplacementWidget(widget, elToReplace) {
       }
     }
   }
+  widgetFrame.style = styleAttrs.join(";");
+
+  // fix widget placeholder sometimes overlapping page content:
+  // https://github.com/EFForg/privacybadger/issues/3024
   if (parseFloat(window.getComputedStyle(elToReplace.parentNode).height) < min_height) {
     elToReplace.parentNode.style.minHeight = `${min_height}px`;
   }
-
-  widgetFrame.style = styleAttrs.join(";");
 
   let widgetDiv = document.createElement('div');
 

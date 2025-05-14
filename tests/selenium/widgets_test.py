@@ -127,12 +127,12 @@ class WidgetsTest(pbtest.PBSeleniumTest):
 
         try:
             self.switch_to_placeholder_frame(f'iframe[srcdoc*="{widget_name}"]')
-        except (StaleElementReferenceException, TimeoutException, NoSuchElementException):
+        except (NoSuchElementException, StaleElementReferenceException):
             self.fail("Unable to find widget placeholder frame")
 
         try:
-            self.find_el_by_css("button[id^='btn-once']")
-            self.find_el_by_css("button[id^='btn-site']")
+            self.find_el_by_css("button[id='btn-once']")
+            self.find_el_by_css("button[id='btn-site']")
         except TimeoutException:
             self.fail("Unable to find expected widget placeholder buttons")
 
@@ -165,16 +165,16 @@ class WidgetsTest(pbtest.PBSeleniumTest):
         try:
             self.switch_to_placeholder_frame(f'iframe[srcdoc*="{widget_name}"]')
             self.fail("Widget placeholder frame should be missing")
-        except (TimeoutException, NoSuchElementException):
+        except NoSuchElementException:
             pass
         self.driver.switch_to.default_content()
 
     def activate_widget(self, widget_name=None, once=True):
         if not widget_name:
             widget_name = self.TYPE3_WIDGET_NAME
-        id_prefix = 'btn-once' if once else 'btn-site'
+        btn_id = 'btn-once' if once else 'btn-site'
         self.switch_to_placeholder_frame(f'iframe[srcdoc*="{widget_name}"]')
-        self.find_el_by_css(f"button[id^='{id_prefix}']").click()
+        self.find_el_by_css(f"button[id='{btn_id}']").click()
         self.driver.switch_to.default_content()
         # wait a bit for the widget to get reinserted
         sleep(1)
