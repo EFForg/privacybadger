@@ -410,12 +410,11 @@ function createReplacementWidget(widget, elToReplace) {
 
   // widget replacement frame styles
   let border_width = 1;
-  let min_height = 210;
   let styleAttrs = [
     "background-color: #fff",
     "border: " + border_width + "px solid #ec9329",
     "min-width: 220px",
-    `min-height: ${min_height}px`,
+    "min-height: 210px",
     "max-height: 600px",
     "pointer-events: all",
     "z-index: 999",
@@ -454,12 +453,6 @@ function createReplacementWidget(widget, elToReplace) {
     }
   }
   widgetFrame.style = styleAttrs.join(";");
-
-  // fix widget placeholder sometimes overlapping page content:
-  // https://github.com/EFForg/privacybadger/issues/3024
-  if (parseFloat(window.getComputedStyle(elToReplace.parentNode).height) < min_height) {
-    elToReplace.parentNode.style.minHeight = `${min_height}px`;
-  }
 
   let widgetDiv = document.createElement('div');
 
