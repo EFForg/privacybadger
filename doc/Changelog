@@ -1,6 +1,12 @@
 Privacy Badger changelog
 ========================
 
+2025.5.14
+* Fixed various display bugs on Android
+* Fixed even more "Privacy Badger failed to initialize" errors in Firefox
+* Fixed various site breakages
+* Improved Esperanto, Polish, Portuguese and Russian translations
+
 2025.3.27
 * Added an "Enjoying Privacy Badger? Leave a review!" link
 to the popup, shown sometimes instead of the "Donate to EFF" link
