@@ -469,6 +469,7 @@
   "icons": {
     "16": "icons/badger-16.png",
     "19": "icons/badger-19.png",
+    "32": "icons/badger-32.png",
     "38": "icons/badger-38.png",
     "48": "icons/badger-48.png",
     "64": "icons/badger-64.png",
@@ -480,7 +481,9 @@
   "browser_action": {
     "default_area": "navbar",
     "default_icon": {
+      "16": "icons/badger-16-disabled.png",
       "19": "icons/badger-19-disabled.png",
+      "32": "icons/badger-32-disabled.png",
       "38": "icons/badger-38-disabled.png",
       "64": "icons/badger-64-disabled.png",
       "128": "icons/badger-128-disabled.png"
