@@ -5598,6 +5598,7 @@ let multiDomainFirstPartiesArray = [
   [
     "viacomcbs.com",
 
+    "10play.com.au",
     "247sports.com",
     "bet.com",
     "cbs.com",
@@ -5607,6 +5608,7 @@ let multiDomainFirstPartiesArray = [
     "cbsnews.com",
     "cbssports.com",
     "cc.com",
+    "channel5.com",
     "cmt.com",
     "collegesports.com",
     "comedycentral.com",
@@ -5632,6 +5634,8 @@ let multiDomainFirstPartiesArray = [
     "startrek.com",
     "vh1.com",
 
+    "southpark.de",
+    "southpark.lat",
     "southparkstudios.com.br",
     "southparkstudios.co.uk",
     "southparkstudios.nu",
