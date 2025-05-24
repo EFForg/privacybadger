@@ -41,12 +41,18 @@ scp "$ALT" "$USER@$SERVER:/www/eff.org/files" || exit 1
 echo Copying detached signature
 scp "$PKG".sig "$USER@$SERVER:/www/eff.org/files" || exit 1
 
-echo "Now please edit https://www.eff.org/files/privacy-badger-updates.json to include the following"
+if type shas256sum >/dev/null 2>&1; then
+  SHA256=$(sha256sum "$PKG" | cut -c 1-64)
+else
+  SHA256=$(shasum -a 256 "$PKG" | cut -c 1-64)
+fi
+
+echo "Now edit https://www.eff.org/files/privacy-badger-updates.json to include the following"
 echo ""
 echo "{"
 echo "  \"version\": \"$TARGET\","
 echo "  \"update_link\": \"https://eff.org/files/privacy-badger-eff-$TARGET.xpi\","
-echo "  \"update_hash\": \"sha256:$(sha256sum "$PKG" | cut -c 1-64)\","
+echo "  \"update_hash\": \"sha256:$SHA256\","
 echo "  \"browser_specific_settings\": {"
 echo "    \"gecko\": { \"strict_min_version\": \"78.0\" },"
 echo "    \"gecko_android\": { \"strict_min_version\": \"78.0\" }"
