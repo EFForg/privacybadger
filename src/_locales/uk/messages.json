@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "Відкрили попап — чудова робота!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -52,7 +52,7 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
+        "message": "Подобається Privacy Badger? Залиште відгук!",
         "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
@@ -206,7 +206,7 @@
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
-        "message": "Briefly describe the problem:",
+        "message": "Коротко опишіть проблему:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -218,7 +218,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Send report",
+        "message": "Надіслати скаргу",
         "description": "Button text."
     },
     "report_cancel": {
@@ -405,7 +405,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_mastodon": {
-        "message": "Share on Mastodon",
+        "message": "Поширити на Mastodon",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
@@ -417,7 +417,7 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "How to disable Privacy Badger without leaving the site",
+        "message": "Як вимкнути Privacy Badger, залишаючись на сайті",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
@@ -435,7 +435,7 @@
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "add_domain_button": {
-        "message": "Add site",
+        "message": "Додати сайт",
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
@@ -479,7 +479,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's \"Privacy Sandbox\" ad tracking",
+        "message": "Вимкнути рекламне стеження Privacy Sandbox від Google",
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2024/07/why-privacy-badger-opts-you-out-googles-privacy-sandbox"
     },
     "options_advanced_settings": {
@@ -519,7 +519,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Block but don't replace the following widgets:",
+        "message": "Блокувати, але не замінювати такі віджети:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
