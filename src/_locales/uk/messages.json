@@ -284,7 +284,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Реклама не заблокована? Не працює YouTube? Ймовірно це не через Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -345,11 +345,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "Спробуйте відкрити попап Privacy Badger",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "Панель інструментів браузера з обведеною іконкою Privacy Badger",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
@@ -613,7 +613,7 @@
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
-        "message": "Hide domains present in the latest pre-trained list",
+        "message": "Сховати домени, які є в останній стандартній версії списку",
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
