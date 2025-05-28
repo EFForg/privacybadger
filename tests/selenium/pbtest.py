@@ -177,10 +177,9 @@ class Shim:
         for i in range(5):
             try:
                 driver = webdriver.Chrome(options=opts)
-            except WebDriverException as e:
+            except WebDriverException as ex:
                 if i == 0: print("")
-                print("Chrome WebDriver initialization failed:")
-                print(str(e) + "Retrying ...")
+                print(f"ChromeDriver initialization failed: {ex}")
             else:
                 break
 
@@ -198,13 +197,21 @@ class Shim:
         # work around https://issues.chromium.org/issues/409441960
         opts.add_experimental_option('enableExtensionTargets', True)
 
-        for i in range(5):
+        num_tries = 15
+        for i in range(num_tries):
             try:
                 driver = webdriver.Edge(options=opts)
-            except WebDriverException as e:
+
+                # test for sporadic failure to visit options with EdgeDriver
+                options_url = self.base_url + "skin/options.html"
+                driver.get(options_url)
+                if driver.current_url != options_url:
+                    raise WebDriverException("Failed to open options page")
+
+            except WebDriverException as ex:
                 if i == 0: print("")
-                print("Edge WebDriver initialization failed:")
-                print(str(e) + "Retrying ...")
+                print(f"EdgeDriver initialization failed ({i+1}/{num_tries}): {ex}", end='')
+                time.sleep(1)
             else:
                 break
 
@@ -328,18 +335,8 @@ class PBSeleniumTest(unittest.TestCase):
         with self.manager() as driver:
             self.init(driver)
 
-            # open options
-            num_tries = 5
-            for i in range(num_tries):
-                self.load_url(self.options_url)
-                if self.driver.current_url == self.options_url:
-                    break
-                if i == 0: print("")
-                print("Failed to open options page")
-                if i == num_tries - 1:
-                    raise WebDriverException("Failed to open options page")
-
             # wait for Badger's storage, listeners, ...
+            self.load_url(self.options_url)
             self.wait_for_script(
                 "let done = arguments[arguments.length - 1];"
                 "chrome.runtime.sendMessage({"

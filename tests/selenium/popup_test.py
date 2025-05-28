@@ -3,6 +3,8 @@
 import time
 import unittest
 
+import pytest
+
 import pbtest
 
 from selenium.common.exceptions import TimeoutException
@@ -109,6 +111,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         except TimeoutException:
             self.fail(f"Unable to find expected element ({faq_selector}) on EFF website")
 
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type == "edge")
     def test_toggling_sliders(self):
         """Ensure toggling sliders is persisted."""
 
@@ -155,6 +158,7 @@ class PopupTest(pbtest.PBSeleniumTest):
         assert self.get_domain_slider_state(DOMAIN) == "block", (
             "The domain should still be blocked on options page")
 
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type == "edge")
     def test_reverting_control(self):
         """Test restoring control of a domain to Privacy Badger."""
 
