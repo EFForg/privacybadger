@@ -328,13 +328,24 @@ class PBSeleniumTest(unittest.TestCase):
         with self.manager() as driver:
             self.init(driver)
 
+            # open options
+            num_tries = 5
+            for i in range(num_tries):
+                self.load_url(self.options_url)
+                if self.driver.current_url == self.options_url:
+                    break
+                if i == 0: print("")
+                print("Failed to open options page")
+                if i == num_tries - 1:
+                    raise WebDriverException("Failed to open options page")
+
             # wait for Badger's storage, listeners, ...
-            self.load_url(self.options_url)
             self.wait_for_script(
                 "let done = arguments[arguments.length - 1];"
                 "chrome.runtime.sendMessage({"
                 "  type: 'isBadgerInitialized'"
                 "}, r => done(r));", execute_async=True)
+
             # also disable the welcome page
             self.driver.execute_async_script(
                 "let done = arguments[arguments.length - 1];"
@@ -351,6 +362,7 @@ class PBSeleniumTest(unittest.TestCase):
                 "     chrome.tabs.remove(welcome_tab.id, done);"
                 "   });"
                 "});")
+
             super().run(result)
 
     def is_firefox_nightly(self):
