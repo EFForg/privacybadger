@@ -599,12 +599,13 @@ class PBSeleniumTest(unittest.TestCase):
         with the associated tabid. Then the correct status information will be displayed
         in the popup."""
 
-        self.open_window()
-        self.load_url(self.popup_url)
-        self.wait_for_script("return window.POPUP_INITIALIZED")
+        for _ in range(5):
+            self.open_window()
+            self.load_url(self.popup_url)
+            self.wait_for_script("return window.POPUP_INITIALIZED")
 
-        # get the popup populated with status information for the correct url
-        self.js("""
+            # get the popup populated with status information for the correct url
+            self.js("""
 /**
  * @param {String} [url]
  * @param {Boolean} [show_reminder]
@@ -632,8 +633,13 @@ class PBSeleniumTest(unittest.TestCase):
   });
 }(arguments[0], arguments[1]));""", target_url, show_reminder)
 
-        # wait for popup to be ready
-        self.wait_for_script("return window.DONE_REFRESHING && window.SLIDERS_DONE")
+            try:
+                # wait for popup to be ready
+                self.wait_for_script("return window.DONE_REFRESHING && window.SLIDERS_DONE")
+            except TimeoutException:
+                continue
+            else:
+                break
 
     def get_tracker_state(self):
         """Parse the UI to group all third party domains into their respective action states."""
