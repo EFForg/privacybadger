@@ -1183,17 +1183,13 @@ Badger.prototype = {
         self.isPrivacyBadgerEnabled(extractHostFromURL(tab_url))) {
       iconFilename = {
         16: chrome.runtime.getURL("icons/badger-16.png"),
-        19: chrome.runtime.getURL("icons/badger-19.png"),
         32: chrome.runtime.getURL("icons/badger-32.png"),
-        38: chrome.runtime.getURL("icons/badger-38.png"),
         64: chrome.runtime.getURL("icons/badger-64.png")
       };
     } else {
       iconFilename = {
         16: chrome.runtime.getURL("icons/badger-16-disabled.png"),
-        19: chrome.runtime.getURL("icons/badger-19-disabled.png"),
         32: chrome.runtime.getURL("icons/badger-32-disabled.png"),
-        38: chrome.runtime.getURL("icons/badger-38-disabled.png"),
         64: chrome.runtime.getURL("icons/badger-64-disabled.png")
       };
     }
