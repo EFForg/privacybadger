@@ -1186,8 +1186,7 @@ Badger.prototype = {
         19: chrome.runtime.getURL("icons/badger-19.png"),
         32: chrome.runtime.getURL("icons/badger-32.png"),
         38: chrome.runtime.getURL("icons/badger-38.png"),
-        64: chrome.runtime.getURL("icons/badger-64.png"),
-        128: chrome.runtime.getURL("icons/badger-128.png")
+        64: chrome.runtime.getURL("icons/badger-64.png")
       };
     } else {
       iconFilename = {
@@ -1195,8 +1194,7 @@ Badger.prototype = {
         19: chrome.runtime.getURL("icons/badger-19-disabled.png"),
         32: chrome.runtime.getURL("icons/badger-32-disabled.png"),
         38: chrome.runtime.getURL("icons/badger-38-disabled.png"),
-        64: chrome.runtime.getURL("icons/badger-64-disabled.png"),
-        128: chrome.runtime.getURL("icons/badger-128-disabled.png")
+        64: chrome.runtime.getURL("icons/badger-64-disabled.png")
       };
     }
 
