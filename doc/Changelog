@@ -1,6 +1,11 @@
 Privacy Badger changelog
 ========================
 
+2025.5.30
+* Fixed the popup failing to open in Chrome sometimes
+* Fixed various site breakages
+* Improved Swedish and Ukrainian translations
+
 2025.5.14
 * Fixed various display bugs on Android
 * Fixed even more "Privacy Badger failed to initialize" errors in Firefox
