@@ -485,8 +485,7 @@
       "19": "icons/badger-19-disabled.png",
       "32": "icons/badger-32-disabled.png",
       "38": "icons/badger-38-disabled.png",
-      "64": "icons/badger-64-disabled.png",
-      "128": "icons/badger-128-disabled.png"
+      "64": "icons/badger-64-disabled.png"
     },
     "default_popup": "skin/popup.html",
     "default_title": "__MSG_name__"
