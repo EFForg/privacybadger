@@ -4,8 +4,8 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Privacy Badger автоматически учится блокировать невидимые трекеры.",
-        "description": "Extension description sometimes used by extension stores. See also 'intro_welcome', 'share_base_message' and 'intro_learns' messages."
+        "message": "Automatically learns to block hidden trackers. Made by leading digital rights nonprofit EFF to stop companies from spying on you.",
+        "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
         "message": "метод canvas fingerprinting",
@@ -256,7 +256,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) — это расширение для браузера, которое автоматически учится блокировать невидимые трекеры. Privacy Badger разработан некоммерческой организацией Electronic Frontier Foundation, которая борется за ваши права в Интернете.",
+        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -309,7 +309,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger автоматически учится блокировать невидимые трекеры. Уделите минуту вашего времени, чтобы увидеть как.",
+        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -337,7 +337,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Невидимое отслеживание осуществляется многими способами; реклама — лишь видимая вершина айсберга. Privacy Badger не блокирует рекламу, если только она не отслеживает вас.",
+        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
         "description": "Intro page paragraph"
     },
     "next_section": {
