@@ -51,7 +51,7 @@ function getLink() {
     },
     {
       url: "https://supporters.eff.org/donate/support-privacy-badger",
-      text: "donate_to_eff",
+      text: "popup_donate_to_eff",
       icon: "ui-icon-heart",
       odds: 0.7
     }
