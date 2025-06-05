@@ -43,10 +43,6 @@
         "message": "Disable for this site",
         "description": "Button in the popup."
     },
-    "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
-        "description": "A link in the popup footer."
-    },
     "popup_enable_for_site": {
         "message": "Enable for this site",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
@@ -54,6 +50,10 @@
     "report_broken_site": {
         "message": "Report broken site",
         "description": "Button in the popup and title of the error reporting form overlay."
+    },
+    "popup_donate_to_eff": {
+        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "description": "A link in the popup footer."
     },
     "popup_review_pb": {
         "message": "Enjoying Privacy Badger? Leave a review!",
@@ -368,7 +368,7 @@
         "message": "When you use Privacy Badger you join the <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> and millions of other users in the fight for privacy. We are a nonprofit fighting for your rights online. Thanks for joining us!",
         "description": "Part of the 'donate' section on the intro page."
     },
-    "intro_donate_to_eff": {
+    "donate_to_eff": {
         "message": "Donate to EFF",
         "description": "A button on the intro page."
     },
