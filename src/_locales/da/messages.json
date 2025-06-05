@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "Godt gået at åbne popoppen!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -52,11 +52,11 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "Donér til EFF—en nonprofit der forsvarer digitalt privatliv",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
+        "message": "Kan du lide Privacy Badger? Giv en anmeldelse!",
         "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
@@ -198,7 +198,7 @@
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "Privacy Badger starts blocking once it sees the same tracker on three different websites. Three strikes and it's out!",
+        "message": "Privacy Badger starter sin blokering når den ser den samme sporing på tre forskellige netsteder. Tre forseelser og det er ud!",
         "description": "Tooltip for the 'not_yet_blocked_header' message"
     },
     "non_tracker": {
@@ -260,7 +260,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (privacybadger.org) er en browserudvidelse der automatisk lærer at blokere skjulte sporinger. Privacy Badger laves af Electronic Frontier Foundation, en nonprofit der kæmper for dine rettigheder online.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -288,7 +288,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Er reklamer ikke blokeret! Virker YouTube ikke? Det er sikkert ikke på grund af Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -313,7 +313,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
+        "message": "Privacy Badger lærer automatisk at blokere skjulte sporinger. Bug et minut på at se hvordan.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -325,11 +325,11 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Privacy Badger sends the <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control signal</a>, to opt you out of data sharing and selling, and the <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track signal</a> to tell companies not to track you.",
+        "message": "Privacy Badger sender signalet <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privatlivskontrol</a>, for at fravælge deling og salg af dine data, og signalet <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spor Ikke</a> for at bede virksomheder om ikke at spore dig.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
-        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Hvis de ignorerer disse signaler, vil Privacy Badger lære at blokere dem—uanset om de reklamerer eller sporer på andre måder.",
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
@@ -337,11 +337,11 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "Privacy Badger automatically discovers trackers based on their behavior.",
+        "message": "Privacy Badger opdager automatisk sporinger baseret på deres opførsel.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Skjult sporing sker på mange måder; reklamer er blot den synlige top af isbjerget. Privacy Badger blokerer ikke reklamer med mindre de sporer dig.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -349,11 +349,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "Prøv at åbne Privacy Badgers popop",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "Browserværktøjsbjælke med Privacy Badgers ikon indcirklet",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
@@ -381,7 +381,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Først, $START_SPAN_TAG$lås Privacy Badger til din værktøjsbjælke$END_SPAN_TAG$ for nem adgang til knappen \"$DISABLE_FOR_SITE$\".",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -397,7 +397,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "message": "For at låse Privacy Badgers ikon, klik på puslespilsbrikikonet i din browsers værktøjsbjælke. Klik dernæst på låseikonet ved siden af Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -421,11 +421,11 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "How to disable Privacy Badger without leaving the site",
+        "message": "Sådan deaktiveres Privacy Badger uden at forlade netstedet",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Først, klik på Privacy Badgers ikon i din browsers værktøjsbjælke. Klik dernæst på knappen \"$DISABLE_FOR_SITE$\".",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
@@ -435,11 +435,11 @@
         }
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger is disabled on the following sites. This means that Privacy Badger will not block anything when you visit the sites listed here, and it will not send the Do Not Track or Global Privacy Control signals.",
+        "message": "Privacy Badger er deaktiveret på følgende netsteder. Det betyder at Privacy Badger ikke blokerer noget når du besøger netstederne listet her, og den vil ikke sende signalerne Spor Ikke eller Global Privatlivskontrol.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "add_domain_button": {
-        "message": "Add site",
+        "message": "Tilføj netsted",
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
@@ -459,7 +459,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
-        "message": "Send websites the \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>\" and \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track</a>\" signals",
+        "message": "Send signalerne \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global Privatlivskontrol</a>\" og \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spor Ikke</a>\" til netsteder",
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
@@ -467,7 +467,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
-        "message": "Privacy",
+        "message": "Privatliv",
         "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
