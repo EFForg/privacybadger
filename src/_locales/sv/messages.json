@@ -256,7 +256,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (privacybadger.org) är ett webbläsartillägg som automatiskt lär sig att blockera dolda spårare. Privacy Badger är skapat av Electronic Frontier Foundation, en ideell organisation som kämpar för dina rättigheter på nätet.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -309,7 +309,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
+        "message": "Privacy Badger lär sig automatiskt att blockera dolda spårare. Ta en minut för att se hur.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -337,7 +337,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Dold spårning sker på alla möjliga sätt; annonser är bara den synliga toppen av isberget. Privacy Badger blockerar inte annonser om de inte råkar spåra dig.",
         "description": "Intro page paragraph"
     },
     "next_section": {
