@@ -52,7 +52,7 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "Пожертвовать EFF — некоммерческий защитник цифровой приватности",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
