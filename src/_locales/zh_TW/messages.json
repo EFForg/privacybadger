@@ -51,6 +51,10 @@
         "message": "回報網站問題",
         "description": "Button in the popup and title of the error reporting form overlay."
     },
+    "popup_donate_to_eff": {
+        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "description": "A link in the popup footer."
+    },
     "popup_review_pb": {
         "message": "喜歡 Privacy Badger 嗎？留下評論吧！",
         "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
@@ -366,7 +370,7 @@
     },
     "donate_to_eff": {
         "message": "捐款給電子前哨基金會",
-        "description": "A button on the intro page, and a link in the popup footer."
+        "description": "A button on the intro page."
     },
     "intro_donate_subheading": {
         "message": "透過捐款與分享對我們工具的支持來協助我們",
