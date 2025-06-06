@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "自动学习屏蔽隐藏的追踪器。由领先的数字权利非营利组织 EFF 开发以阻止企业窥视你。",
+        "message": "自动学习屏蔽隐藏的追踪器。由领先的数字权利非营利组织电子前哨基金会开发以阻止企业窥视你。",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -52,7 +52,7 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "给捍卫数字隐私的非盈利机构 EFF 捐款",
+        "message": "给捍卫数字隐私的非盈利机构电子前哨基金会捐款",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
