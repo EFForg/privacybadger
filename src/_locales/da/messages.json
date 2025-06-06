@@ -36,19 +36,19 @@
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
-        "message": "Privacy Badger er deaktiveret på dette websted",
+        "message": "Privacy Badger er deaktiveret på dette netsted",
         "description": "Shown in the popup on disabled sites."
     },
     "popup_disable_for_site": {
-        "message": "Deaktiver for dette websted",
+        "message": "Deaktiver for dette netsted",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "Aktiver for dette websted",
+        "message": "Aktiver for dette netsted",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "Rapportér ødelagt websted",
+        "message": "Rapportér ødelagt netsted",
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
@@ -479,7 +479,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
-        "message": "Deaktiverer afsendelse af netadresser du besøger til Google. Dette deaktiverer forslag til lignende sider når en side ikke kan findes.",
+        "message": "Deaktiver afsendelse af netadresser du besøger til Google. Dette deaktiverer forslag til lignende sider når en side ikke kan findes.",
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
@@ -539,7 +539,7 @@
         "description": "This is an options page tab heading."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger har besluttet at blokere $COUNT$ potentielle $TRACKER_LINK_START$sporingsdomæner$TRACKER_LINK_END$ ind til videre",
+        "message": "Privacy Badger har besluttet at blokere $COUNT$ potentielle $TRACKER_LINK_START$sporingsdomæner$TRACKER_LINK_END$ indtil nu",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -667,7 +667,7 @@
         "description": ""
     },
     "import_successful": {
-        "message": "Sporingsliste og opsætning successfuldt opdateret!",
+        "message": "Sporingsliste og opsætning succesfuldt opdateret!",
         "description": ""
     },
     "sync_intro": {
@@ -695,7 +695,7 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "Data successfuldt lagt op i skyen",
+        "message": "Data succesfuldt lagt op i skyen",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
