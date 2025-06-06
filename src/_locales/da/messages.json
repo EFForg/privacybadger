@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Lærer automatisk at blokere skjulte sporinger. Fra digitale rettighedsnonprofit EFF for at stoppe virksomheder i at udspionere dig.",
+        "message": "Lærer automatisk at blokere skjulte sporinger. Fra digital rettighedsnonprofit EFF for at stoppe virksomheder i at udspionere dig.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -471,7 +471,7 @@
         "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Forhindrer netsteder i at spore hvilke links du klikker på (\"hyperlinksporing\")",
+        "message": "Forhindrer netsteder i at spore hvilke links du klikker på (\"hyperlink auditing\")",
         "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
