@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "自動學習封鎖隱藏的追蹤者。由領先的非營利性數位權利組織 EFF 製造，以阻止公司對您進行監視。",
+        "message": "自動學習封鎖隱藏的追蹤者。由領先的非營利性數位權利組織電子前哨基金會製造，以阻止公司對您進行監視。",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -52,7 +52,7 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "捐款給電子前哨基金會，捍衛數位隱私的非營利組織",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
