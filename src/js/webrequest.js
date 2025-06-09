@@ -122,7 +122,7 @@ function onBeforeRequest(details) {
   }
 
   // TODO !from_current_tab requests shouldn't go through allowedOnTab()
-  let action = checkAction(tab_id, request_host, frame_id);
+  let action = checkAction(tab_id, tab_host, request_host, frame_id);
   if (!action) {
     return;
   }
@@ -424,7 +424,7 @@ function onBeforeSendHeaders(details) {
     return;
   }
 
-  let action = checkAction(tab_id, request_host, frame_id);
+  let action = checkAction(tab_id, tab_host, request_host, frame_id);
 
   if (action && from_current_tab) {
     badger.logThirdParty(tab_id, request_host, action);
@@ -518,7 +518,7 @@ function onHeadersReceived(details) {
     return;
   }
 
-  let action = checkAction(tab_id, response_host, details.frameId);
+  let action = checkAction(tab_id, tab_host, response_host, details.frameId);
   if (!action) {
     return;
   }
@@ -682,7 +682,7 @@ function recordSupercookie(tab_id, frame_host) {
   );
 
   // log for popup
-  let action = checkAction(tab_id, frame_host);
+  let action = checkAction(tab_id, page_host, frame_host);
   if (action) {
     badger.logThirdParty(tab_id, frame_host, action);
   }
@@ -762,7 +762,7 @@ function recordFingerprinting(tab_id, msg) {
             script_host, script_base, document_base);
 
           // log for popup
-          let action = checkAction(tab_id, script_host);
+          let action = checkAction(tab_id, document_host, script_host);
           if (action) {
             badger.logThirdParty(tab_id, script_host, action);
           }
@@ -794,24 +794,44 @@ function forgetTab(tab_id, is_reload) {
 /**
  * Determines the action to take on a specific FQDN.
  *
- * @param {Integer} tabId The relevant tab
- * @param {String} requestHost The FQDN
- * @param {Integer} frameId The id of the frame
- * @returns {(String|Boolean)} false or the action to take
+ * @param {Integer} tab_id
+ * @param {String} tab_host
+ * @param {String} request_host
+ * @param {Integer} [frame_id]
+ *
+ * @returns {(String|Boolean)} the action constant or false (ignore)
  */
-function checkAction(tabId, requestHost, frameId) {
+function checkAction(tab_id, tab_host, request_host, frame_id) {
   // Ignore requests from temporarily unblocked widgets.
   // Someone clicked the widget, so let it load.
-  if (allowedOnTab(tabId, requestHost, frameId)) {
+  if (allowedOnTab(tab_id, request_host, frame_id)) {
     return false;
   }
 
   // Ignore requests from private domains.
-  if (isPrivateDomain(requestHost)) {
+  if (isPrivateDomain(request_host)) {
     return false;
   }
 
-  return badger.storage.getBestAction(requestHost);
+  // apply site-specific compatibility overrides, if any
+  let sitefixes = badger.getPrivateSettings().getItem('sitefixes');
+  if (utils.hasOwn(sitefixes, tab_host)) {
+    if (utils.hasOwn(sitefixes[tab_host], "yellowlist")) {
+      for (let pattern of sitefixes[tab_host].yellowlist) {
+        if (pattern === request_host || request_host.endsWith('.' + pattern)) {
+          return constants.COOKIEBLOCK;
+        }
+      }
+    } else if (utils.hasOwn(sitefixes[tab_host], "ignore")) {
+      for (let pattern of sitefixes[tab_host].ignore) {
+        if (pattern === request_host || request_host.endsWith('.' + pattern)) {
+          return false;
+        }
+      }
+    }
+  }
+
+  return badger.storage.getBestAction(request_host);
 }
 
 /**
@@ -1239,7 +1259,7 @@ function dispatcher(request, sender, sendResponse) {
       return sendResponse();
     }
 
-    let action = checkAction(sender.tab.id, frame_host);
+    let action = checkAction(sender.tab.id, tab_host, frame_host);
     sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK);
 
     break;
@@ -1395,12 +1415,23 @@ function dispatcher(request, sender, sendResponse) {
 
     let tab_host = extractHostFromURL(request.tabUrl),
       trackers = badger.tabData.getTrackers(tab_id),
+      sitefixes = badger.getPrivateSettings().getItem("sitefixes")[tab_host],
+      siteYellowlist = sitefixes && sitefixes.yellowlist,
       cookieblocked = {};
 
     for (let fqdn in trackers) {
       // see if FQDN would be cookieblocked if not for user override
       if (badger.storage.wouldGetCookieblocked(fqdn)) {
         cookieblocked[fqdn] = true;
+        continue;
+      }
+      // also account for site-specific overrides
+      if (siteYellowlist) {
+        for (let pattern of siteYellowlist) {
+          if (pattern === fqdn || fqdn.endsWith('.' + pattern)) {
+            cookieblocked[fqdn] = true;
+          }
+        }
       }
     }
 

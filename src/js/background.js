@@ -539,7 +539,7 @@ Badger.prototype = {
   },
 
   /**
-   * Fetches, parses and validates the settings file.
+   * Fetches, parses and validates remotely configurable settings.
    * Then, updates the fetched settings in memory and storage.
    *
    * @param {String} url The URL to fetch settings from.
@@ -598,6 +598,11 @@ Badger.prototype = {
     self.storage.updateYellowlist(data.yellowlist);
 
     self.storage.updateDntHashes(data.dnt_policy_hashes);
+
+    if (utils.hasOwn(data, 'sitefixes')) {
+      self.getPrivateSettings().setItem('sitefixes',
+        JSON.parse(JSON.stringify(data.sitefixes)));
+    }
   },
 
   /**
@@ -812,6 +817,7 @@ Badger.prototype = {
       ignoredSiteBases: [],
       nextPbconfigUpdateTime: 0,
       showLearningPrompt: false,
+      sitefixes: {}
     };
     for (let key of Object.keys(privateDefaultSettings)) {
       if (!privateStore.hasItem(key)) {
@@ -1003,6 +1009,7 @@ Badger.prototype = {
     // temp. exception list for sites
     // where sending DNT/GPC signals causes major breakages
     // TODO indicate when this happens in the UI somehow
+    // TODO move to pbconfig.json
     const gpcDisabledWebsites = {
       'www.costco.com': true,
       'fivethirtyeight.com': true,

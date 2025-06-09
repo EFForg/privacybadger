@@ -27,6 +27,7 @@ Once the issue is confirmed (and the responsible domains have been identified), 
 | [Widget replacement](https://www.eff.org/deeplinks/2024/01/privacy-badger-puts-you-control-widgets) | [widgets](https://github.com/EFForg/privacybadger/labels/widgets) | [#196](https://github.com/EFForg/privacybadger/issues/196), [#1467](https://github.com/EFForg/privacybadger/issues/1467) | Medium | Still needs review/improvements, although some progress being made ([#2262](https://github.com/EFForg/privacybadger/pull/2262)) |
 | EFF's Do Not Track policy | [DNT Policy](https://github.com/EFForg/privacybadger/labels/DNT%20policy)| - | n/a | Narrowly applicable |
 | Yellowlisting | [yellowlist](https://github.com/EFForg/privacybadger/labels/yellowlist)| - | Easy | Only protects against some types of tracking |
+| Site-specific domain overrides | - | - | Easy | Last resort for when other approaches don't apply. |
 
 The question to ask is, which way addresses the issue most specifically, resolving the breakage while increasing privacy exposure by the smallest amount? If you are not sure, that's OK! Opening a new issue (or chiming in on an existing issue) to ask for help is fine.
 
@@ -61,3 +62,5 @@ If nothing else seems to fit, adding the affected domain to the "[yellowlist](/d
 Resources from yellowlisted domains are requested without referrer headers, and are restricted from reading or writing cookies or localStorage.
 
 [Here is an example yellowlist pull request](https://github.com/EFForg/privacybadger/pull/1543) that shows what's good to know when deciding how to fix a breakage, and how to get that information.
+
+Site-specific domain overrides are like the yellowlist, but specific to the site. Look for them under the `"sitefixes"` key in [pbconfig.json](/src/data/pbconfig.json). In addition to site-specific yellowlisting, when blocking cookies also breaks the website, we can tell PB to ignore specified domains entirely on a particular website instead. To do this, we use the `"ignore"` subkey under the website domain key inside `"sitefixes"`.
