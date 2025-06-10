@@ -813,16 +813,10 @@ function checkAction(tab_id, tab_host, request_host, frame_id) {
     return false;
   }
 
-  // apply site-specific compatibility overrides, if any
+  // apply site-specific "ignore" overrides, if any
   let sitefixes = badger.getPrivateSettings().getItem('sitefixes');
   if (utils.hasOwn(sitefixes, tab_host)) {
-    if (utils.hasOwn(sitefixes[tab_host], "yellowlist")) {
-      for (let pattern of sitefixes[tab_host].yellowlist) {
-        if (pattern === request_host || request_host.endsWith('.' + pattern)) {
-          return constants.COOKIEBLOCK;
-        }
-      }
-    } else if (utils.hasOwn(sitefixes[tab_host], "ignore")) {
+    if (utils.hasOwn(sitefixes[tab_host], 'ignore')) {
       for (let pattern of sitefixes[tab_host].ignore) {
         if (pattern === request_host || request_host.endsWith('.' + pattern)) {
           return false;
@@ -831,7 +825,21 @@ function checkAction(tab_id, tab_host, request_host, frame_id) {
     }
   }
 
-  return badger.storage.getBestAction(request_host);
+  let action = badger.storage.getBestAction(request_host);
+
+  // if this isn't a user-set action,
+  // apply site-specific "cookieblock" overrides, if any
+  if (utils.hasOwn(sitefixes, tab_host) && !constants.USER_ACTIONS.has(action)) {
+    if (utils.hasOwn(sitefixes[tab_host], 'yellowlist')) {
+      for (let pattern of sitefixes[tab_host].yellowlist) {
+        if (pattern === request_host || request_host.endsWith('.' + pattern)) {
+          return constants.COOKIEBLOCK;
+        }
+      }
+    }
+  }
+
+  return action;
 }
 
 /**

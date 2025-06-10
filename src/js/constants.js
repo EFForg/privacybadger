@@ -71,4 +71,10 @@ exports.BLOCKED_ACTIONS = new Set([
   exports.USER_COOKIEBLOCK,
 ]);
 
+exports.USER_ACTIONS = new Set([
+  exports.USER_BLOCK,
+  exports.USER_COOKIEBLOCK,
+  exports.USER_ALLOW
+]);
+
 export default exports;
