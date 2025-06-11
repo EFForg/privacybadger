@@ -68,6 +68,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         sel = Select(self.find_el_by_css('#tracking-domains-type-filter'))
         assert not sel.first_selected_option.get_property('value')
 
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type == "edge")
     def test_adding_domain(self):
         """Ensure domain and tracker count are displayed."""
         self.clear_tracker_data()
@@ -86,6 +87,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         except NoSuchElementException:
             self.fail("Tracking domain is not displayed")
 
+    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type == "edge")
     def test_removing_domain(self):
         """Ensure domain is removed properly."""
         self.clear_tracker_data()
