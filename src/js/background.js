@@ -539,7 +539,74 @@ Badger.prototype = {
   },
 
   /**
-   * Initializes PB's remotely configurable settings from local copy on disk.
+   * Fetches, parses and validates remotely configurable settings.
+   * Then, updates the fetched settings in memory and storage.
+   *
+   * @param {String} url The URL to fetch settings from.
+   *
+   * @returns {Promise}
+   */
+  ingestPbconfig: async function (url) {
+    let self = this;
+
+    let response, data;
+
+    try {
+      response = await fetch(url, { cache: "no-store" });
+    } catch (err) {
+      console.error("Problem fetching pbconfig:", err);
+      throw new Error("Failed to fetch pbconfig");
+    }
+    if (!response.ok) {
+      console.error("Problem fetching pbconfig: %s response", response.status);
+      throw new Error("Failed to fetch pbconfig");
+    }
+
+    try {
+      data = await response.json();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Failed to parse pbconfig JSON");
+    }
+
+    // validate the response
+    if (!data.yellowlist || !data.yellowlist.length || !data.yellowlist.every || !data.yellowlist.every(domain => {
+      // all domains must contain at least one dot
+      if (domain.indexOf('.') == -1) {
+        return false;
+      }
+
+      // validate character set
+      //
+      // regex says:
+      // - domain starts with lowercase English letter or Arabic numeral
+      // - following that, it contains one or more
+      // letter/numeral/dot/dash characters
+      // - following the previous two requirements, domain ends with a letter
+      //
+      // TODO both overly restrictive and inaccurate
+      // but that's OK for now, we manage the list
+      if (!/^[a-z0-9][a-z0-9.-]+[a-z]$/.test(domain)) {
+        return false;
+      }
+
+      return true;
+    })) {
+      throw new Error("Invalid yellowlist response");
+    }
+
+    self.storage.updateYellowlist(data.yellowlist);
+
+    self.storage.updateDntHashes(data.dnt_policy_hashes);
+
+    if (utils.hasOwn(data, 'sitefixes')) {
+      self.getPrivateSettings().setItem('sitefixes',
+        JSON.parse(JSON.stringify(data.sitefixes)));
+    }
+  },
+
+  /**
+   * Initializes remotely configurable settings from local copy on disk.
    *
    * @returns {Promise}
    */
@@ -552,24 +619,7 @@ Badger.prototype = {
       return;
     }
 
-    let response, data;
-
-    try {
-      response = await fetch(constants.PBCONFIG_LOCAL_URL);
-    } catch (err) {
-      console.error(err);
-      throw new Error("Failed to fetch local pbconfig");
-    }
-
-    try {
-      data = await response.json();
-    } catch (err) {
-      console.error(err);
-      throw new Error("Failed to parse local pbconfig JSON");
-    }
-
-    self.storage.updateYellowlist(data.yellowlist);
-    self.storage.updateDntHashes(data.dnt_policy_hashes);
+    await self.ingestPbconfig(constants.PBCONFIG_LOCAL_URL);
 
     if (!self.getPrivateSettings().getItem('doneLoadingYellowlist')) {
       self.storage.forceSync('action_map', function () {
@@ -610,8 +660,7 @@ Badger.prototype = {
   },
 
   /**
-   * Fetches the latest pbconfig from eff.org, and updates
-   * the yellowlist and DNT policy hashes.
+   * Updates remotely configurable settings from eff.org.
    *
    * @returns {Promise}
    */
@@ -621,59 +670,7 @@ Badger.prototype = {
     // schedule the next update for long-running extension environments
     setTimeout(self.updatePbconfig.bind(self), utils.oneDay());
 
-    let response, data;
-
-    try {
-      response = await fetch(constants.PBCONFIG_REMOTE_URL, { cache: "no-store" });
-    } catch (err) {
-      console.error("Problem fetching pbconfig:", err);
-      throw new Error("Failed to fetch remote pbconfig");
-    }
-    if (!response.ok) {
-      console.error("Problem fetching pbconfig: %s response", response.status);
-      throw new Error("Failed to fetch remote pbconfig");
-    }
-
-    try {
-      data = await response.json();
-    } catch (err) {
-      console.error(err);
-      throw new Error("Failed to parse pbconfig JSON");
-    }
-
-    // validate the response
-    if (!data.yellowlist || !data.yellowlist.length || !data.yellowlist.every || !data.yellowlist.every(domain => {
-      // all domains must contain at least one dot
-      if (domain.indexOf('.') == -1) {
-        return false;
-      }
-
-      // validate character set
-      //
-      // regex says:
-      // - domain starts with lowercase English letter or Arabic numeral
-      // - following that, it contains one or more
-      // letter/numeral/dot/dash characters
-      // - following the previous two requirements, domain ends with a letter
-      //
-      // TODO both overly restrictive and inaccurate
-      // but that's OK for now, we manage the list
-      if (!/^[a-z0-9][a-z0-9.-]+[a-z]$/.test(domain)) {
-        return false;
-      }
-
-      return true;
-    })) {
-      throw new Error("Invalid yellowlist response");
-    }
-
-    self.storage.updateYellowlist(data.yellowlist);
-    log("Updated yellowlist from remote");
-
-    if (self.isCheckingDNTPolicyEnabled()) {
-      self.storage.updateDntHashes(data.dnt_policy_hashes);
-      log("Updated DNT policy hashes from remote");
-    }
+    await self.ingestPbconfig(constants.PBCONFIG_REMOTE_URL);
 
     // refresh next update time to help avoid updating on every restart
     self.getPrivateSettings().setItem('nextPbconfigUpdateTime',
@@ -820,6 +817,7 @@ Badger.prototype = {
       ignoredSiteBases: [],
       nextPbconfigUpdateTime: 0,
       showLearningPrompt: false,
+      sitefixes: {}
     };
     for (let key of Object.keys(privateDefaultSettings)) {
       if (!privateStore.hasItem(key)) {
@@ -1011,6 +1009,7 @@ Badger.prototype = {
     // temp. exception list for sites
     // where sending DNT/GPC signals causes major breakages
     // TODO indicate when this happens in the UI somehow
+    // TODO move to pbconfig.json
     const gpcDisabledWebsites = {
       'www.costco.com': true,
       'fivethirtyeight.com': true,

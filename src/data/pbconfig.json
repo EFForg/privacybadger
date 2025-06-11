@@ -8,6 +8,27 @@
         "DNT Policy v1.0 dos-line-endings": "c09f71363bb29d0250a1f5524eef36f9ab07669b",
         "DNT Policy v1.0 no-eof-newline": "7861462d500fbb6ccb74c614782f4937377bec76"
     },
+    "sitefixes": {
+        "www.crunchyroll.com": {
+            "yellowlist": [
+                "2mdn.net",
+                "doubleclick.net",
+                "getpublica.com",
+                "googleadservices.com",
+                "googlesyndication.com",
+                "litix.io",
+                "playwire.com",
+                "rubiconproject.com",
+                "segment.com"
+            ]
+        },
+        "www.youtube.com": {
+            "ignore": [
+                "doubleclick.net",
+                "googlesyndication.com"
+            ]
+        }
+    },
     "yellowlist": [
         "cstaticdun.126.net",
         "music.126.net",

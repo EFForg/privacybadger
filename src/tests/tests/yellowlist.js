@@ -113,7 +113,7 @@ QUnit.module("Yellowlist", (hooks) => {
       await badger.updatePbconfig();
     } catch (ex) {
       assert.ok(ex, "exception was thrown, as expected");
-      assert.equal(ex, "Error: Failed to fetch remote pbconfig",
+      assert.equal(ex, "Error: Failed to fetch pbconfig",
         "exception matches expectation");
       done();
     }
