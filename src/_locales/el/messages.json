@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Automatically learns to block hidden trackers. Made by leading digital rights nonprofit EFF to stop companies from spying on you.",
+        "message": "Αποκλείει αυτόματα κρυφούς ιχνηλάτες. Δημιουργήθηκε από το μη κερδοσκοπικό ίδρυμα EFF και εμποδίζει εταιρείες να σας κατασκοπεύουν.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -52,11 +52,11 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "Κάντε μια δωρεά στο EFF — ένα μη κερδοσκοπικό ίδρυμα που υπερασπίζεται το δικαίωμα της ιδιωτικότητας στον ψηφιακό κόσμο",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
+        "message": "Σας αρέσει το Privacy Badger; Γράψτε μια αξιολόγηση!",
         "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
@@ -260,7 +260,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Το Privacy Badger (privacybadger.org) είναι μια επέκταση η οποία μαθαίνει αυτόματα να αποκλείει κρυφούς ιχνηλάτες. Δημιουργήθηκε από το Electronic Frontier Foundation, ένα μη κερδοσκοπικό ίδρυμα που υπερασπίζεται τα δικαιώματά σας στο διαδίκτυο.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -313,7 +313,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
+        "message": "Το Privacy Badger μαθαίνει αυτόματα να αποκλείει κρυφούς ιχνηλάτες. Δείτε σύντομα πώς.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -341,7 +341,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Η κρυφή ιχνηλάτηση συμβαίνει με πολλούς διαφορετικούς τρόπους – οι διαφημίσεις δεν είναι παρά η κορυφή του παγόβουνου. Το Privacy Badger γενικά δεν αποκλείει τις διαφημίσεις, εκτός και αν αυτές χρησιμοποιούνται για να σας ιχνηλατήσουν.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -421,11 +421,11 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "How to disable Privacy Badger without leaving the site",
+        "message": "Πώς να απενεργοποιήσετε το Privacy Badger χωρίς να αποχωρήσετε από την ιστοσελίδα",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Κάντε κλικ στο εικονίδιο του Privacy Badger στη γραμμή εργαλείων του προγράμματος περιήγησής σας. Στη συνέχεια κάντε κλικ στο κουμπί \"$DISABLE_FOR_SITE$\".",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
@@ -523,7 +523,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Block but don't replace the following widgets:",
+        "message": "Να αποκλείονται και να μην αντικαθίστανται τα ακόλουθα widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
