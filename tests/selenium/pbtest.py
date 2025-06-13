@@ -165,8 +165,12 @@ class Shim:
     @contextmanager
     def chrome_manager(self):
         opts = ChromeOptions()
-        opts.add_argument("--load-extension=" + self.extension_path)
+
         opts.binary_location = self.browser_path
+
+        opts.add_argument("--load-extension=" + self.extension_path)
+        # disable all Chrome for Testing on-by-default experiments
+        opts.add_argument("--disable-field-trial-config")
 
         # work around https://issues.chromium.org/issues/409441960
         opts.add_experimental_option('enableExtensionTargets', True)
