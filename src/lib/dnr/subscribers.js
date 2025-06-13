@@ -30,7 +30,8 @@ import utils from "../../js/utils.js";
  * in response to settings updates.
  */
 function subscribeToStorageUpdates() {
-  let settingsStore = badger.getSettings();
+  let settingsStore = badger.getSettings(),
+    privateStore = badger.getPrivateSettings();
 
   // update static rulesets
 
@@ -83,6 +84,8 @@ function subscribeToStorageUpdates() {
 
   settingsStore.subscribe("set:widgetSiteAllowlist",
     utils.debounce(dnrUtils.updateWidgetSiteAllowlistRules, 100));
+
+  privateStore.subscribe("set:sitefixes", dnrUtils.updateSiteSpecificOverrideRules);
 }
 
 /**
@@ -100,6 +103,8 @@ function _getDynamicRulesForDomain(domain, newVal, oldVal, rules) {
   let existingRules = rules.filter(r =>
     r.priority != constants.DNR_WIDGET_ALLOW_ALL &&
       r.priority != constants.DNR_SITE_ALLOW_ALL &&
+      r.priority != constants.DNR_SITE_ALLOW &&
+      r.priority != constants.DNR_SITE_COOKIEBLOCK_HEADERS &&
       r.condition.requestDomains &&
       r.condition.requestDomains.includes(domain));
   if (existingRules.length) {
