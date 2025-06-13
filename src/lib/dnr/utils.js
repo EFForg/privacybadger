@@ -85,10 +85,11 @@ function makeDnrBlockRule(domain, priority) {
  *
  * @param {String} domain
  * @param {Integer} [priority]
+ * @param {String} [site_host] optional site hostname constraint
  *
  * @returns {Object}
  */
-function makeDnrCookieblockRule(domain, priority) {
+function makeDnrCookieblockRule(domain, priority, site_host) {
   let id = badger.getDynamicRuleId();
 
   let action = {
@@ -101,6 +102,11 @@ function makeDnrCookieblockRule(domain, priority) {
     requestDomains: [domain],
     domainType: 'thirdParty',
   };
+  if (site_host) {
+    // TODO this should be topDomains
+    // TODO https://github.com/w3c/webextensions/issues/762
+    condition.initiatorDomains = [site_host];
+  }
   let mdfpList = mdfp.getEntityList(getBaseDomain(domain));
   if (mdfpList.length) {
     condition.excludedInitiatorDomains = mdfpList;
@@ -123,10 +129,11 @@ function makeDnrCookieblockRule(domain, priority) {
  *
  * @param {String} domain
  * @param {Integer} [priority]
+ * @param {String} [site_host] optional site hostname constraint
  *
  * @returns {Object}
  */
-function makeDnrAllowRule(domain, priority) {
+function makeDnrAllowRule(domain, priority, site_host) {
   let id = badger.getDynamicRuleId();
 
   priority = priority || constants.DNR_COOKIEBLOCK_ALLOW;
@@ -139,6 +146,12 @@ function makeDnrAllowRule(domain, priority) {
     requestDomains: [domain],
     domainType: 'thirdParty'
   };
+
+  if (site_host) {
+    // TODO this should be topDomains
+    // TODO https://github.com/w3c/webextensions/issues/762
+    condition.initiatorDomains = [site_host];
+  }
 
   let rule = { id, action, condition, priority };
 
@@ -586,6 +599,45 @@ async function updateWidgetSiteAllowlistRules(widgetSiteAllowlist) {
 }
 
 /**
+ * Reregisters DNR rules for site-specific domain overrides.
+ *
+ * @param {Object} sitefixes
+ */
+async function updateSiteSpecificOverrideRules(sitefixes) {
+  // remove any already registered site-specific override rules
+  let existingRules = await chrome.declarativeNetRequest.getDynamicRules();
+  let removeRuleIds = existingRules.filter(rule =>
+    rule.priority == constants.DNR_SITE_ALLOW ||
+    rule.priority == constants.DNR_SITE_COOKIEBLOCK_HEADERS).map(r => r.id);
+
+  // register current site-specific override rules, if any
+  let addRules = [];
+  for (let site of Object.keys(sitefixes)) {
+    if (utils.hasOwn(sitefixes[site], 'ignore')) {
+      for (let domain of sitefixes[site].ignore) {
+        addRules.push(makeDnrAllowRule(
+          domain, constants.DNR_SITE_ALLOW, site));
+      }
+    }
+    if (utils.hasOwn(sitefixes[site], 'yellowlist')) {
+      for (let domain of sitefixes[site].yellowlist) {
+        addRules.push(makeDnrCookieblockRule(
+          domain, constants.DNR_SITE_COOKIEBLOCK_HEADERS, site));
+        addRules.push(makeDnrAllowRule(
+          domain, constants.DNR_SITE_ALLOW, site));
+      }
+    }
+  }
+
+  if (addRules.length || removeRuleIds.length) {
+    let opts = {};
+    if (addRules.length) { opts.addRules = addRules; }
+    if (removeRuleIds.length) { opts.removeRuleIds = removeRuleIds; }
+    updateDynamicRules(opts);
+  }
+}
+
+/**
  * Workaround for https://github.com/w3c/webextensions/issues/302
  * See https://issues.chromium.org/issues/338071843#comment13
  */
@@ -642,5 +694,6 @@ export default {
   updateDynamicRules,
   updateEnabledRulesets,
   updateSessionAllowRules,
+  updateSiteSpecificOverrideRules,
   updateWidgetSiteAllowlistRules,
 };
