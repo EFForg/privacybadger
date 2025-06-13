@@ -289,13 +289,15 @@ BadgerPen.prototype = {
       }
     }
 
-    // remove all dynamic rules, except for the disabled sites rule
-    // and widget site exception rules
+    // remove all dynamic rules, except for the disabled sites rule,
+    // widget site exception rules, and site-specific domain overrides
     let rules = await chrome.declarativeNetRequest.getDynamicRules();
     // first, find any rules we want to keep and deep copy them
     let addRules = JSON.parse(JSON.stringify(rules.filter(r =>
       r.priority == constants.DNR_WIDGET_ALLOW_ALL ||
-      r.priority == constants.DNR_SITE_ALLOW_ALL)));
+      r.priority == constants.DNR_SITE_ALLOW_ALL ||
+      r.priority == constants.DNR_SITE_ALLOW ||
+      r.priority == constants.DNR_SITE_COOKIEBLOCK_HEADERS)));
     if (rules.length) {
       await chrome.declarativeNetRequest.updateDynamicRules({
         removeRuleIds: rules.map(r => r.id),
