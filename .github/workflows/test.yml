@@ -91,20 +91,27 @@ jobs:
         if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
         run: ./scripts/edge_webdriver.sh
 
-      - name: Set up Chrome
-        if:  ${{ contains(matrix.BROWSER, 'chrome') }}
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: ${{ matrix.BROWSER_VERSION }}
-          install-chromedriver: true
-        id: setup-chrome
+      - name: Set up Node.js
+        if: ${{ contains(matrix.BROWSER, 'chrome') }}
+        uses: actions/setup-node@v4
 
-      # fix ChromeDriver failure due to existing Chrome installation:
-      # "This version of ChromeDriver only supports Chrome version XX"
-      - name: Work around browser-actions/setup-chrome bug
+      - name: Install Chrome/ChromeDriver
         if: ${{ contains(matrix.BROWSER, 'chrome') }}
         run: |
-          sudo ln -s ${{ steps.setup-chrome.outputs.chrome-path }} /usr/local/bin/${{ matrix.BROWSER }}
+          npx @puppeteer/browsers install chrome@${{ matrix.BROWSER_VERSION }}
+          npx @puppeteer/browsers install chromedriver@${{ matrix.BROWSER_VERSION }}
+
+      - name: Get Chrome/ChromeDriver paths
+        if: ${{ contains(matrix.BROWSER, 'chrome') }}
+        run: |
+          echo "CHROME_BINARY=$(npx @puppeteer/browsers list | head -n 1 | cut -d ' ' -f 3)" >> "$GITHUB_ENV"
+          echo "CHROMEDRIVER_BINARY=$(npx @puppeteer/browsers list | tail -n 1 | cut -d ' ' -f 3)" >> "$GITHUB_ENV"
+
+      - name: Make Chrome/ChromeDriver symlinks
+        if: ${{ contains(matrix.BROWSER, 'chrome') }}
+        run: |
+          sudo ln -s ${{ env.CHROME_BINARY }} /usr/local/bin/${{ matrix.BROWSER }}
+          sudo ln -s ${{ env.CHROMEDRIVER_BINARY }} /usr/local/bin/chromedriver
 
       - name: Install Xvfb
         run: sudo apt-get install -y xvfb
