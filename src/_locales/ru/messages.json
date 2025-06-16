@@ -515,7 +515,7 @@
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "При блокировании кнопок социальных сетей и других потенциально полезных виджетов (видео, аудио, комментарии) Privacy Badger может заменить их специальными элементами с возможностью выборочной активации.",
+        "message": "При блокировании кнопок социальных сетей и других потенциально полезных виджетов (видео, аудио, комментарии) Privacy Badger может заменить их заполнителями, которые активируются при нажатии.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_widget_exceptions_header": {

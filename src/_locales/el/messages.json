@@ -397,7 +397,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "Για να καρφιτσώσετε το Privacy Badger, κάντε κλικ στο εικονίδιο που μοιάζει με κομμάτι παζλ και έπειτα στην καρφίτσα δίπλα στο Privacy Badger",
+        "message": "Για να καρφιτσώσετε το Privacy Badger, κάντε κλικ στο εικονίδιο που μοιάζει με κομμάτι παζλ και έπειτα στην καρφίτσα δίπλα στο Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
