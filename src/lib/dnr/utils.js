@@ -351,7 +351,8 @@ let updateSessionAllowRules = utils.debounce(async function (tempAllowlist) {
  * Debounced version of chrome.declarativeNetRequest.updateDynamicRules()
  */
 let updateDynamicRules = (function () {
-  let queue = [];
+  let queue = [],
+    subscribers = [];
 
   let _update = utils.debounce(function () {
     let opts = {
@@ -369,10 +370,21 @@ let updateDynamicRules = (function () {
     }
     queue = [];
 
-    log("[DNR] updateDynamicRules: addRules=%s, removeRuleIds=%s",
-      opts.addRules.length, opts.removeRuleIds.length);
+    let num_added = opts.addRules.length,
+      num_removed = opts.removeRuleIds.length;
 
-    chrome.declarativeNetRequest.updateDynamicRules(opts);
+    log("[DNR] updateDynamicRules: addRules=%s, removeRuleIds=%s",
+      num_added, num_removed);
+
+    chrome.declarativeNetRequest.updateDynamicRules(opts, function () {
+      // notify all subscribers
+      let fns = subscribers.slice(0);
+      // avoid an infinite loop in case of immediate re-subscription
+      subscribers = [];
+      for (let fn of fns) {
+        fn({ numAdded: num_added, numRemoved: num_removed });
+      }
+    });
   }, 100);
 
   let ret = function (opts) {
@@ -380,8 +392,13 @@ let updateDynamicRules = (function () {
     _update();
   };
 
+  ret.subscribeToNextUpdate = function (fn) {
+    subscribers.push(fn);
+  };
+
   ret.clearQueue = function () {
     queue = [];
+    subscribers = [];
   };
 
   return ret;
