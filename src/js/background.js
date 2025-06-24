@@ -158,6 +158,8 @@ function Badger(from_qunit) {
     await pbconfigPromise;
     // also get ready to create dynamic DNR rules
     subscribeToActionMapUpdates();
+    // get ready to await initial DNR rules creation
+    let dnrRegistrationPromise = self.subscribeToDnrUpdates().catch(console.error);
     // now async load seed data
     let seedDataPromise = self.updateTrackerData().catch(console.error);
 
@@ -190,6 +192,8 @@ function Badger(from_qunit) {
       self.blockPanopticlickDomains();
       globalThis.DATA_LOAD_IN_PROGRESS = false;
     }
+
+    await dnrRegistrationPromise;
 
     log("Initialization complete");
     self.INITIALIZED = true;
@@ -411,6 +415,42 @@ Badger.prototype = {
         (self.getSettings().getItem("disableTopics") ? false : null)
       );
     }
+  },
+
+  /**
+   * Resolves upon registration of the initial set of DNR rules on install.
+   *
+   * @returns {Promise}
+   */
+  subscribeToDnrUpdates: function () {
+    let self = this;
+
+    return new Promise((resolve) => {
+      function onDynamicRulesUpdate(stats) {
+        let sm = badger.storage.getStore('snitch_map'),
+          num_blocked = sm.keys().filter(d =>
+            sm.getItem(d).length >= constants.TRACKING_THRESHOLD).length;
+
+        // we are done if we registered a block of rules at least as big
+        // as the count of (cookie)blocked eTLD+1 domains in seed data
+        //
+        // this check is here so that we don't think we are done too early,
+        // when we register a smaller set of rules before we get to seed rules
+        //
+        // this assumes seed rules get generated in a single round
+        if (stats.numAdded >= num_blocked) {
+          return resolve();
+        }
+
+        dnrUtils.updateDynamicRules.subscribeToNextUpdate(onDynamicRulesUpdate);
+      }
+
+      if (!self.isFirstRun) {
+        return resolve();
+      }
+
+      dnrUtils.updateDynamicRules.subscribeToNextUpdate(onDynamicRulesUpdate);
+    });
   },
 
   /**
