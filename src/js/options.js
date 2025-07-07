@@ -953,6 +953,16 @@ function activateDomainListTooltips() {
   $rows.find('.honeybadgerPowered.tooltip').tooltipster();
 }
 
+$(document).on('keydown', function(event) {
+  // Emulates click on tracking domains to follow the activateDomainListTooltips code
+  if (event.key === 'Enter') {
+    if ($(document.activeElement).hasClass('origin-inner tooltip tooltipstered')) { // Tracked domain's HTML class (on tracking domains tab)
+      event.preventDefault();
+      $(document.activeElement).click();
+    }
+  }
+});
+
 /**
  * Updates privacy overrides in Badger storage and in browser settings.
  */
