@@ -194,6 +194,13 @@ p, #settingsForm {
     text-decoration: underline dotted #505050;
     text-underline-offset: 2px;
 }
+
+.origin-inner:focus {
+    background-color: #505050;
+    color:#ddd;
+    border-radius: 10%;
+}
+
 .tooltipster-badger-domain-more-info.tooltipster-sidetip .tooltipster-box {
     padding: 10px 0;
 }
@@ -427,6 +434,12 @@ header {
 
     .origin-inner {
         text-decoration: underline dotted #ddd;
+    }
+
+    .origin-inner:focus {
+        background-color: #ddd;
+        color:#505050;
+        border-radius: 10%;
     }
 
     #resetData, #removeAllData {

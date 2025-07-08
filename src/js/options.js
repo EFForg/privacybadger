@@ -908,6 +908,20 @@ function activateDomainListTooltips() {
     return false;
   });
 
+  $rows.each(function () {
+    $(this).on('keydown', function(event) {
+      // Emulates click on tracking domains to follow the activateDomainListTooltips code
+      if (event.key === 'Enter') {
+        if ($(document.activeElement).hasClass('origin-inner tooltip tooltipstered')) { // Tracked domain's HTML class (on tracking domains tab)
+          event.preventDefault();
+          $(document.activeElement).click();
+        }
+      }
+    });
+  });
+
+  $rows.find('.origin-inner.tooltip').attr('tabindex','0');
+
   $rows.find('.origin-inner.tooltip').tooltipster({
     functionBefore: function (tooltip, ev) {
       let $domainEl = $(ev.origin).parents('.clicker').first();
@@ -952,16 +966,6 @@ function activateDomainListTooltips() {
   $rows.find('.switch-toggle > label.tooltip').tooltipster();
   $rows.find('.honeybadgerPowered.tooltip').tooltipster();
 }
-
-$(document).on('keydown', function(event) {
-  // Emulates click on tracking domains to follow the activateDomainListTooltips code
-  if (event.key === 'Enter') {
-    if ($(document.activeElement).hasClass('origin-inner tooltip tooltipstered')) { // Tracked domain's HTML class (on tracking domains tab)
-      event.preventDefault();
-      $(document.activeElement).click();
-    }
-  }
-});
 
 /**
  * Updates privacy overrides in Badger storage and in browser settings.
