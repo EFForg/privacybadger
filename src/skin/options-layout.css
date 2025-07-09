@@ -193,12 +193,12 @@ p, #settingsForm {
     cursor: pointer;
     text-decoration: underline dotted #505050;
     text-underline-offset: 2px;
+    border: 2px solid transparent;
+    display: block;
 }
 
 .origin-inner:focus {
     border: 2px solid #F06A0A;
-    display:block;
-    border-radius: 10%;
 }
 
 .tooltipster-badger-domain-more-info.tooltipster-sidetip .tooltipster-box {
