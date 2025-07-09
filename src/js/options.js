@@ -908,20 +908,6 @@ function activateDomainListTooltips() {
     return false;
   });
 
-  $rows.each(function () {
-    $(this).on('keydown', function(event) {
-      // Emulates click on tracking domains to follow the activateDomainListTooltips code
-      if (event.key === 'Enter') {
-        if ($(document.activeElement).hasClass('origin-inner tooltip tooltipstered')) { // Tracked domain's HTML class (on tracking domains tab)
-          event.preventDefault();
-          $(document.activeElement).click();
-        }
-      }
-    });
-  });
-
-  $rows.find('.origin-inner.tooltip').attr('tabindex','0');
-
   $rows.find('.origin-inner.tooltip').tooltipster({
     functionBefore: function (tooltip, ev) {
       let $domainEl = $(ev.origin).parents('.clicker').first();
@@ -960,7 +946,15 @@ function activateDomainListTooltips() {
     theme: 'tooltipster-badger-domain-more-info',
     trigger: 'click',
     updateAnimation: false
-  });
+  }).on('keydown', function(event) {
+      // Emulates click on tracking domains to follow the activateDomainListTooltips code
+      if (event.key === 'Enter') {
+        if ($(document.activeElement).hasClass('origin-inner tooltip tooltipstered')) { // Tracked domain's HTML class (on tracking domains tab)
+            let act = ($(this).tooltipster('status').open ? 'hide' : 'show'); // Sets the opposite status, if open -> closes if it's closed -> opens
+            $(this).tooltipster(act);
+        }
+      }
+  }).attr('tabindex','0');
 
   $rows.find('.breakage-warning.tooltip').tooltipster();
   $rows.find('.switch-toggle > label.tooltip').tooltipster();

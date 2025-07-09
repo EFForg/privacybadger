@@ -196,8 +196,8 @@ p, #settingsForm {
 }
 
 .origin-inner:focus {
-    background-color: #505050;
-    color:#ddd;
+    border: 2px solid #F06A0A;
+    display:block;
     border-radius: 10%;
 }
 
@@ -434,12 +434,6 @@ header {
 
     .origin-inner {
         text-decoration: underline dotted #ddd;
-    }
-
-    .origin-inner:focus {
-        background-color: #ddd;
-        color:#505050;
-        border-radius: 10%;
     }
 
     #resetData, #removeAllData {
