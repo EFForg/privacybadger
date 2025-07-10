@@ -53,7 +53,7 @@ tx:
 	scripts/fix_placeholders.py
 
 runch:
-	./node_modules/.bin/web-ext run --target chromium --arg="--disable-component-update" --start-url "chrome://extensions" -s src/
+	./node_modules/.bin/web-ext run --target chromium --arg="--disable-component-update" --arg="--disable-blink-features=AutomationControlled" --start-url "chrome://extensions" -s src/
 
 runfa:
 	./node_modules/.bin/web-ext run -s src/ --target firefox-android --adb-bin $$ADB_BIN --android-device $$ANDROID_DEVICE_ID --firefox-apk org.mozilla.firefox --verbose
