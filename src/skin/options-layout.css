@@ -188,17 +188,20 @@ p, #settingsForm {
     max-height: 400px; /* override popup.css */
 }
 
-/* domain more info tooltips */
+/* domain "more info" tooltips */
 .origin-inner {
     cursor: pointer;
     text-decoration: underline dotted #505050;
     text-underline-offset: 2px;
-    border: 2px solid transparent;
+    border: 2px solid transparent; /* to avoid shifting on focus */
     display: block;
 }
-
 .origin-inner:focus {
     border: 2px solid #F06A0A;
+    outline: none; /* for Chrome */
+}
+div.switch-toggle {
+    margin-top: 2px; /* to align with domain names */
 }
 
 .tooltipster-badger-domain-more-info.tooltipster-sidetip .tooltipster-box {

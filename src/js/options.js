@@ -946,15 +946,25 @@ function activateDomainListTooltips() {
     theme: 'tooltipster-badger-domain-more-info',
     trigger: 'click',
     updateAnimation: false
-  }).on('keydown', function(event) {
-      // Emulates click on tracking domains to follow the activateDomainListTooltips code
-      if (event.key === 'Enter') {
-        if ($(document.activeElement).hasClass('origin-inner tooltip tooltipstered')) { // Tracked domain's HTML class (on tracking domains tab)
-            let act = ($(this).tooltipster('status').open ? 'hide' : 'show'); // Sets the opposite status, if open -> closes if it's closed -> opens
-            $(this).tooltipster(act);
-        }
+
+  // make domain "more info" tooltips keyboard accessible
+  }).attr('tabindex', '0').on('keydown', function (ev) {
+    if (ev.key != 'Enter') { return; }
+    if (document.activeElement != this) {
+      // don't handle Enter presses on sub-elements like the DNT icon
+      return;
+    }
+    let $el = $(this);
+    let action = $el.tooltipster('status').open ? 'hide' : 'show';
+    if (action == 'show') {
+      // close any other open tooltips
+      for (let $tip of $.tooltipster.instances('.origin-inner.tooltip')) {
+        $tip.close();
       }
-  }).attr('tabindex','0');
+    }
+    $el.tooltipster(action);
+    ev.preventDefault();
+  });
 
   $rows.find('.breakage-warning.tooltip').tooltipster();
   $rows.find('.switch-toggle > label.tooltip').tooltipster();
