@@ -1152,7 +1152,7 @@ function dispatcher(request, sender, sendResponse) {
   // for example, user clicks to open the popup when the ephemeral background
   // process is not running; the getPopupData message from the popup causes
   // the background to start but the background is not yet ready to respond
-  if (!badger.INITIALIZED) {
+  if (!badger.INITIALIZED || (request.type == "getPopupData" && !badger.tabData.INITIALIZED)) {
     if ((Date.now() - badger.startTime) > 15000) {
       // too much time elapsed for this to be a normal initialization,
       // give up to avoid an infinite loop
