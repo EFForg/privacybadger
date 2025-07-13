@@ -629,6 +629,7 @@ let multiDomainFirstPartiesArray = [
     "tt.com",
     "diepresse.com",
   ],
+  ["ap.org", "apnews.com"],
   ["apple.com", "apple.news", "icloud.com", "icloud.com.cn", "webkit.org",
     "aaplimg.com", "cdn-apple.com"],
   ["applefcu.org", "applefcuonline.org"],
