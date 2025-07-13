@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Automatically learns to block hidden trackers. Made by leading digital rights nonprofit EFF to stop companies from spying on you.",
+        "message": "Oppii estämään piiloseurannat automaattisesti. Digitaalioikeuksien puolustaja EFF:n kehittämä estämään yrityksiä vakoilemasta sinua.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "Avasit ponnahduksen. Hienoa!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -52,11 +52,11 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "Lahjoita EFF:lle – voittoa tavoittelematon digitaalisten oikeuksien puolustaja",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
+        "message": "Pidätkö privacy Badgeristä? Kirjoita arvostelu!",
         "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
@@ -210,7 +210,7 @@
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
-        "message": "Briefly describe the problem:",
+        "message": "Kuvaile ongelmaa lyhyesti:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -222,7 +222,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Send report",
+        "message": "Lähetä raportti",
         "description": "Button text."
     },
     "report_cancel": {
@@ -260,7 +260,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (privacybadger.org) on selainlaajennus, joka oppii estämään näkymättömät seurannat automaattisesti. Privacy Badgerin on kehittänyt Electronic Frontier Foundation, joka on digitaalisten oikeuksiesi puolesta taisteleva, voittoa tavoittelematon järjestö.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -288,7 +288,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Eikö mainoksia ole estetty? Eikö YouTube toimi? Ongelma ei todennäköisesti ole Privacy Bagerin aiheuttama.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -313,7 +313,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
+        "message": "Privacy Badger oppii automaattisesti estämään näkymättömät seurannat. Käytä hetki nähdäksesi miten.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -329,7 +329,7 @@
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
-        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Jos ne eivät huomioi näitä signaaleja Privacy Badger oppii estämään ne – ovatpa ne sitten mainostajia tai muita seurantoja.",
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
@@ -341,7 +341,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Näåkymätöntä seurantaa harjoitetaan monin tavoin ja mainokset ovat vain jäävuoren huipun näkyvä osa. Privacy Badger estää vain mainokset, joiden se havaitsee seuraavan sinua.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -349,11 +349,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "Yritä avata Privacy Badgerin ponnahdus",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "Selaimen työkalupalkki, josta Privacy Badgerin kuvake on ympyröity",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
@@ -381,7 +381,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Aloita $START_SPAN_TAG$kiinnitämällä Privacy Badger työkalupalkkiisi$END_SPAN_TAG$ tavoittaaksesi \"$DISABLE_FOR_SITE$\" -painikkeen helposti.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -397,7 +397,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "message": "Kiinnittääksesi Privacy Badgerin kuvakkeen, klikkaa selaimesi työkalupalkissa olevaa palapelin palan kuvaketta, ja sitten Privacy Badgerin vieressä olevaa nastakuvaketta.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -421,11 +421,11 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "How to disable Privacy Badger without leaving the site",
+        "message": "Miten privacy Badger poistetaan käytöstä poistumatta sivustolta",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Aloita klikkaamalla Privacy Badgerin kuvaketta selaimesi työkalupalkista, ja klikkaa sitten \"$DISABLE_FOR_SITE$\" -painiketta.",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
@@ -439,7 +439,7 @@
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "add_domain_button": {
-        "message": "Add site",
+        "message": "Lisää sivusto",
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
@@ -483,7 +483,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's \"Privacy Sandbox\" ad tracking",
+        "message": "Poista Googlen \"Privacy Sandbox\" -mainosseuranta käytöstä",
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2024/07/why-privacy-badger-opts-you-out-googles-privacy-sandbox"
     },
     "options_advanced_settings": {
@@ -523,7 +523,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Block but don't replace the following widgets:",
+        "message": "Estä (mutta älä korvaa) seuraavat widgetit:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
