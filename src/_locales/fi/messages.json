@@ -260,7 +260,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) on selainlaajennus, joka oppii estämään näkymättömät seurannat automaattisesti. Privacy Badgerin on kehittänyt Electronic Frontier Foundation, joka on digitaalisten oikeuksiesi puolesta taisteleva, voittoa tavoittelematon järjestö.",
+        "message": "Privacy Badger (privacybadger.org) on selainlaajennus, joka oppii estämään piiloseurannat automaattisesti. Privacy Badgerin on kehittänyt Electronic Frontier Foundation, joka on digitaalisten oikeuksiesi puolesta taisteleva, voittoa tavoittelematon järjestö.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -288,7 +288,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Eikö mainoksia ole estetty? Eikö YouTube toimi? Ongelma ei todennäköisesti ole Privacy Bagerin aiheuttama.",
+        "message": "Eikö mainoksia ole estetty? Eikö YouTube toimi? Ongelma ei todennäköisesti ole Privacy Badgerin aiheuttama.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -313,7 +313,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger oppii automaattisesti estämään näkymättömät seurannat. Käytä hetki nähdäksesi miten.",
+        "message": "Privacy Badger oppii automaattisesti estämään piiloseurannat. Käytä hetki nähdäksesi miten.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -341,7 +341,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Näåkymätöntä seurantaa harjoitetaan monin tavoin ja mainokset ovat vain jäävuoren huipun näkyvä osa. Privacy Badger estää vain mainokset, joiden se havaitsee seuraavan sinua.",
+        "message": "Piiloseurantaa harjoitetaan monin tavoin ja mainokset ovat vain jäävuoren huipun näkyvä osa. Privacy Badger estää vain mainokset, joiden se havaitsee seuraavan sinua.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -421,7 +421,7 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "Miten privacy Badger poistetaan käytöstä poistumatta sivustolta",
+        "message": "Miten Privacy Badger poistetaan käytöstä poistumatta sivustolta",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
@@ -479,7 +479,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
-        "message": "Älä käytä avaamiesi verkkotunnusten lähetytä Googlelle. Tämä poistaa käytöstä samantyylisen sisällön ehdotukset silloin, kun sivua ei löydy.",
+        "message": "Älä lähetä avaamiasi verkkotunnuksia Googlelle. Tämä poistaa käytöstä samantyylisen sisällön ehdotukset silloin, kun sivua ei löydy.",
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
