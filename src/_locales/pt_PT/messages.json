@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "A bloquear rastreadores ocultos. Criado pela EFF, uma organização sem fins lucrativos, para impedir que as empresas o espiem",
+        "message": "A bloquear rastreadores ocultos. Criado pela EFF, uma organização sem fins lucrativos, para impedir que as empresas o espiem.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
