@@ -8,7 +8,7 @@ Besides automatic tracker blocking, Privacy Badger comes with privacy features l
 
 To learn more, see [the FAQ on Privacy Badger's homepage](https://privacybadger.org/#faq).
 
-Privacy Badger is a project of the [Electronic Frontier Foundation](https://www.eff.org), and is governed by [EFF's Public Projects Code of Conduct](https://www.eff.org/pages/eppcode).
+Privacy Badger is governed by [EFF's Public Projects Code of Conduct](https://www.eff.org/pages/eppcode).
 
 ## Installing
 
