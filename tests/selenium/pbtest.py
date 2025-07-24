@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import functools
 import json
 import os
 import re
@@ -297,6 +298,18 @@ def retry_until(fun, tester=None, times=3, msg=None):
         time.sleep(2 ** i)
 
     return result
+
+
+def convert_exceptions_to_false(fun, silent=False):
+    def converter(fun, silent):
+        try:
+            result = fun()
+        except Exception as e:
+            if not silent:
+                print("\nCaught exception:", str(e))
+            return False
+        return result
+    return functools.partial(converter, fun, silent)
 
 
 class PBSeleniumTest(unittest.TestCase):

@@ -6,6 +6,8 @@ import pytest
 
 import pbtest
 
+from selenium.webdriver.common.by import By
+
 
 class ContentFilteringTest(pbtest.PBSeleniumTest):
     """Content filtering tests."""
@@ -257,16 +259,26 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
         self.add_site_override(self.THIRD_PARTY_DOMAIN, self.FIXTURE_DOMAIN)
 
-        self.load_url(self.FIXTURE_URL)
+        def element_loads():
+            self.load_url(self.FIXTURE_URL)
+            self.wait_for_any_text(self.SELECTOR)
+            return self.find_el_by_css(self.SELECTOR).text == "success"
+        # TODO remove race condition workaround
+        # TODO once we switch site-specific overrides DNR to topDomains
+        pbtest.retry_until(element_loads, times=3)
         self.assert_load()
 
         # verify cookieblocking
         self.block_domain(self.COOKIE_DOMAIN)
         self.add_site_override(self.COOKIE_DOMAIN, self.FIXTURE_DOMAIN)
 
-        self.load_url(self.COOKIE_FIXTURE_URL)
-        self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
-        self.wait_for_any_text('body')
+        def frame_loads():
+            self.load_url(self.COOKIE_FIXTURE_URL)
+            self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
+            return self.driver.find_element(By.CSS_SELECTOR, "body").text.strip()
+        # TODO remove race condition workaround
+        # TODO once we switch site-specific overrides DNR to topDomains
+        pbtest.retry_until(pbtest.convert_exceptions_to_false(frame_loads), times=3)
         assert self.find_el_by_css('body').text == "cookies=0", (
             "No cookies should have been sent by the cookieblocked domain")
         # reload to verify that there are still no cookies

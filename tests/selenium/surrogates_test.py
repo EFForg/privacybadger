@@ -130,8 +130,13 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         self.add_site_override(self.SURROGATE_HOST, self.FIXTURE_HOST)
 
         # assert the actual tracker loaded, not the surrogate
-        self.load_url(self.FIXTURE_URL)
-        self.wait_for_any_text(text_sel)
+        def tracker_loads():
+            self.load_url(SurrogatesTest.FIXTURE_URL)
+            self.wait_for_any_text(text_sel)
+            return self.find_el_by_css(text_sel).text != "function() { }"
+        # TODO remove race condition workaround
+        # TODO once we switch site-specific overrides DNR to topDomains
+        pbtest.retry_until(tracker_loads, times=3)
         assert self.find_el_by_css(text_sel).text != "function() { }", (
             "still redirecting to surrogate despite site-specific override")
 
