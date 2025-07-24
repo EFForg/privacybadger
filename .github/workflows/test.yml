@@ -70,7 +70,7 @@ jobs:
 
       - name: Install Geckodriver
         if:  ${{ matrix.BROWSER == 'firefox' }}
-        uses: browser-actions/setup-geckodriver@latest
+        run: ./scripts/geckodriver.sh
 
       - name: Set up Edge
         if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
