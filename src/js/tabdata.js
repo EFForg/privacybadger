@@ -26,6 +26,8 @@ import utils from "./utils.js";
 function TabData() {
   let self = this;
 
+  self.INITIALIZED = false;
+
   /**
    * {
    *   <tab_id>: {
@@ -167,6 +169,7 @@ TabData.prototype.initialize = function () {
         }
 
         log("Initialized tab data");
+        self.INITIALIZED = true;
         resolve();
       });
     });
