@@ -54,10 +54,21 @@ function onBeforeRequest(details) {
 
   if (type == "main_frame") {
     let oldTabData = badger.tabData.getFrameData(tab_id),
-      is_reload = oldTabData && oldTabData.url == url;
+      is_reload = oldTabData && oldTabData.url == url,
+      // TODO this doesn't work in Firefox when we reopen a closed tab
+      // TODO https://bugzilla.mozilla.org/show_bug.cgi?id=1979084
+      // TODO is_reload is probably similarly broken
+      is_same_site_nav = oldTabData &&
+        url.startsWith(`//${oldTabData.host}/`, url.indexOf('//'));
     forgetTab(tab_id, is_reload);
     badger.tabData.recordFrame(tab_id, frame_id, url);
-    initAllowedWidgets(tab_id, badger.tabData.getFrameData(tab_id).host);
+
+    let tab_host = badger.tabData.getFrameData(tab_id).host;
+    if (!is_same_site_nav) {
+      dnrUtils.updateSiteSpecificOverrideRules(tab_id, tab_host);
+    }
+    initAllowedWidgets(tab_id, tab_host);
+
     return;
   }
 
@@ -205,6 +216,7 @@ function onBeforeRequest(details) {
 function onTabRemoved(tab_id) {
   setTimeout(function () {
     forgetTab(tab_id);
+    dnrUtils.removeTabSessionRules(tab_id);
   }, utils.oneSecond() * 20);
 }
 
