@@ -1411,6 +1411,14 @@ function dispatcher(request, sender, sendResponse) {
   case "getPopupData": {
     let tab_id = request.tabId;
 
+    // if tab data isn't yet ready, retry up to a point
+    if (!badger.tabData.INITIALIZED && (Date.now() - badger.startTime) < 5000) {
+      setTimeout(function () {
+        dispatcher(request, sender, sendResponse);
+      }, 50);
+      return true; // async chrome.runtime.onMessage response
+    }
+
     if (!badger.tabData.has(tab_id)) {
       sendResponse({
         criticalError: badger.criticalError,
