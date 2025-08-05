@@ -357,18 +357,6 @@ header {
     .origin {
         max-width: 340px;
     }
-
-    .switch-container {
-        margin-left: 350px;
-    }
-
-    .key {
-        left: 345px;
-    }
-
-    .honeybadgerPowered {
-        left: 470px;
-    }
 }
 
 @media (prefers-color-scheme: dark) {
