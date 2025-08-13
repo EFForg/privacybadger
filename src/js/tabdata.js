@@ -18,6 +18,7 @@
 /* globals badger:false */
 
 import { extractHostFromURL, getChromeInitiator } from "../lib/basedomain.js";
+import dnrUtils from "../lib/dnr/utils.js";
 
 import { log } from "./bootstrap.js";
 import incognito from "./incognito.js";
@@ -155,6 +156,9 @@ TabData.prototype.initialize = function () {
             // TODO indicate that we don't have complete info for this tab?
             self.recordFrame(id, 0, url);
           }
+
+          // register session DNR rules for site-specific overrides, if any
+          dnrUtils.updateSiteSpecificOverrideRules(id, self.getFrameData(id).host);
         }
 
         log("Initialized tab data");
