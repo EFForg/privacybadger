@@ -59,10 +59,10 @@ runfa:
 	./node_modules/.bin/web-ext run -s src/ --target firefox-android --adb-bin $$ADB_BIN --android-device $$ANDROID_DEVICE_ID --firefox-apk org.mozilla.firefox --verbose
 
 runff:
-	./node_modules/.bin/web-ext run --devtools --start-url "about:debugging#/runtime/this-firefox" -s src/
+	./node_modules/.bin/web-ext run --start-url "about:debugging#/runtime/this-firefox" -s src/
 
 runfn:
-	./node_modules/.bin/web-ext run --devtools --start-url "about:debugging#/runtime/this-firefox" -s src/ -f nightly
+	./node_modules/.bin/web-ext run --start-url "about:debugging#/runtime/this-firefox" -s src/ -f nightly
 
 test:
 	BROWSER=chrome ENABLE_XVFB=1 pytest -s tests/
