@@ -600,8 +600,26 @@ Badger.prototype = {
     self.storage.updateDntHashes(data.dnt_policy_hashes);
 
     if (utils.hasOwn(data, 'sitefixes')) {
-      self.getPrivateSettings().setItem('sitefixes',
-        JSON.parse(JSON.stringify(data.sitefixes)));
+      let sitefixes = {};
+
+      for (let kind of ['ignore', 'yellowlist']) {
+        if (!data.sitefixes[kind]) {
+          continue;
+        }
+        for (let pattern of Object.keys(data.sitefixes[kind])) {
+          for (let site_host of data.sitefixes[kind][pattern]) {
+            if (!sitefixes[site_host]) {
+              sitefixes[site_host] = {};
+            }
+            if (!sitefixes[site_host][kind]) {
+              sitefixes[site_host][kind] = [];
+            }
+            sitefixes[site_host][kind].push(pattern);
+          }
+        }
+      }
+
+      self.getPrivateSettings().setItem('sitefixes', sitefixes);
     }
   },
 

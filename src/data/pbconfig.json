@@ -9,23 +9,58 @@
         "DNT Policy v1.0 no-eof-newline": "7861462d500fbb6ccb74c614782f4937377bec76"
     },
     "sitefixes": {
-        "www.crunchyroll.com": {
-            "yellowlist": [
-                "2mdn.net",
-                "doubleclick.net",
-                "getpublica.com",
-                "googleadservices.com",
-                "googlesyndication.com",
-                "litix.io",
-                "playwire.com",
-                "rubiconproject.com",
-                "segment.com"
+        "ignore": {
+            "doubleclick.net": [
+                "m.youtube.com",
+                "www.youtube.com"
+            ],
+            "googleadservices.com": [
+                "m.youtube.com",
+                "www.youtube.com"
+            ],
+            "googlesyndication.com": [
+                "m.youtube.com",
+                "www.youtube.com"
             ]
         },
-        "www.youtube.com": {
-            "ignore": [
-                "doubleclick.net",
-                "googlesyndication.com"
+        "yellowlist": {
+            "2mdn.net": [
+                "www.crunchyroll.com"
+            ],
+            "cdn.appdynamics.com": [
+                "www.telecharge.com"
+            ],
+            "doubleclick.net": [
+                "www.crunchyroll.com"
+            ],
+            "securepubads.g.doubleclick.net": [
+                "13wham.com",
+                "katu.com",
+                "newschannel9.com"
+            ],
+            "getpublica.com": [
+                "www.crunchyroll.com"
+            ],
+            "googleadservices.com": [
+                "www.crunchyroll.com"
+            ],
+            "googlesyndication.com": [
+                "www.crunchyroll.com"
+            ],
+            "pagead2.googlesyndication.com": [
+                "battlecats-db.com"
+            ],
+            "litix.io": [
+                "www.crunchyroll.com"
+            ],
+            "playwire.com": [
+                "www.crunchyroll.com"
+            ],
+            "rubiconproject.com": [
+                "www.crunchyroll.com"
+            ],
+            "segment.com": [
+                "www.crunchyroll.com"
             ]
         }
     },
