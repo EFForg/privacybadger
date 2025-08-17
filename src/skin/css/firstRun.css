@@ -558,6 +558,12 @@ header .title-bar h1 {
 .share-links>a.share-mastodon i:hover {
   opacity:0.7;
 }
+.share-links>a.share-bluesky i {
+  background:url("../images/bluesky.svg");
+}
+.share-links>a.share-bluesky i:hover {
+  opacity:0.7;
+}
 .share-links>a {
   display:inline-block;
   float:left;
