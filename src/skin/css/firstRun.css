@@ -495,17 +495,20 @@ header .title-bar h1 {
 
 /* share links */
 .share-links {
-  display:block;
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.45rem;
+  justify-content:center;
   margin:2.5rem auto 2rem;
   padding-bottom:3rem;
   z-index:3;
-  width: 146px;
 }
 .share-links>a {
   position:relative;
   width:2.6rem;
   height:2.6rem;
   overflow:hidden;
+  margin-left:0;
 }
 .share-links>a:hover {
   background-color:transparent !important;
@@ -564,16 +567,12 @@ header .title-bar h1 {
 .share-links>a.share-bluesky i:hover {
   opacity:0.7;
 }
-.share-links>a {
-  display:inline-block;
-  float:left;
-  margin-left:.65rem;
-}
 .share-links>a.share-clipboard {
   display:none;
 }
 @media print, screen and (min-width: 40em) {
   .share-links {
+    display:block;
     padding-bottom:0;
     position:fixed;
     top:5rem;
@@ -774,13 +773,13 @@ body {
     max-width:250px;
   }
 }
-[id*="pb-donate"] div {
+[id*="pb-donate"] div, [id*="pb-donate"] span {
   width:calc(100% - 1.875rem);
   margin-right:.9375rem;
   margin-left:.9375rem;
 }
 @media print, screen and (min-width: 40em) {
-  [id*="pb-donate"] div {
+  [id*="pb-donate"] div,[id*="pb-donate"] span {
     width:calc(33.33333% - 1.875rem);
     margin-right:.9375rem;
     margin-left:.9375rem;
