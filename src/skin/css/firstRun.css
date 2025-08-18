@@ -50,7 +50,6 @@ img {
 
 /* xy grid, selected foundation classes */
 .small-12 {
-  -ms-flex:0 0 100%;
   flex:0 0 100%;
   max-width:100%;
 }
@@ -74,13 +73,10 @@ img {
   margin:0 auto;
 }
 .grid-x {
-  display:-ms-flexbox;
   display:flex;
-  -ms-flex-flow:row wrap;
   flex-flow:row wrap;
 }
 .cell {
-  -ms-flex:0 0 auto;
   flex:0 0 auto;
   min-height:0px;
   min-width:0px;
@@ -88,19 +84,16 @@ img {
 }
 
 .grid-x>.small-shrink,.grid-x>.small-full,.grid-x>.small-1,.grid-x>.small-2,.grid-x>.small-3,.grid-x>.small-4,.grid-x>.small-5,.grid-x>.small-6,.grid-x>.small-7,.grid-x>.small-8,.grid-x>.small-9,.grid-x>.small-10,.grid-x>.small-11,.grid-x>.small-12 {
-  -ms-flex-preferred-size:auto;
   flex-basis:auto;
 }
 @media print, screen and (min-width: 40em) {
   .grid-x>.medium-10 {
-    -ms-flex-preferred-size:auto;
     flex-basis:auto;
   }
 
 }
 @media print, screen and (min-width: 64em) {
   .grid-x>.large-3,.grid-x>.large-4 {
-    -ms-flex-preferred-size:auto;
     flex-basis:auto;
   }
 }
@@ -353,18 +346,13 @@ ul ul,ol ul,ul ol,ol ol {
   align-items: center;
   background-color: #F06A0A;
   color: white;
-  display: -ms-flexbox;
-  display :flex;
+  display: flex;
   flex-flow: row wrap;
   flex-wrap: wrap;
   font-family: "OpenSans-Bold",sans-serif;
   font-size: 0.6rem;
   justify-content: center;
   padding: 0.5rem 0.5rem 1rem;
-  -ms-flex-flow: row wrap;
-  -ms-flex-wrap: wrap;
-  -ms-flex-align: center;
-  -ms-flex-pack: justify;
   text-transform: uppercase;
 }
 @media print, screen and (min-width: 40em) {
@@ -385,21 +373,17 @@ ul ul,ol ul,ul ol,ol ol {
 
 @media print, screen and (min-width: 40em) {
   .top-bar {
-    -ms-flex-wrap:nowrap;
     flex-wrap:nowrap;
   }
 }
 
 .top-bar-title {
-  -ms-flex:0 0 auto;
   flex:0 0 auto;
   margin:0.5rem 1rem 0.5rem 0;
 }
 
 header {
-  display:-ms-flexbox;
   display:flex;
-  -ms-flex-flow:row wrap;
   flex-flow:row wrap;
   background-color:#EC9329;
 }
@@ -477,19 +461,15 @@ header .title-bar h1 {
 }
 
 .align-right {
-  -ms-flex-pack:end;
   justify-content:flex-end;
 }
 .align-center {
-  -ms-flex-pack:center;
   justify-content:center;
 }
 .align-justify {
-  -ms-flex-pack:justify;
   justify-content:space-between;
 }
 .align-spaced {
-  -ms-flex-pack:distribute;
   justify-content:space-around;
 }
 
@@ -566,9 +546,6 @@ header .title-bar h1 {
 .share-links>a.share-bluesky i:hover {
   opacity:0.7;
 }
-.share-links>a.share-clipboard {
-  display:none;
-}
 @media print, screen and (min-width: 40em) {
   .share-links {
     display:block;
@@ -583,9 +560,6 @@ header .title-bar h1 {
     height:3.5625rem;
     overflow:hidden;
   }
-  .share-links>a:hover {
-    background-color:transparent !important;
-  }
   .share-links>a i {
     position:relative;
     display:inline-block;
@@ -594,45 +568,10 @@ header .title-bar h1 {
     z-index:2;
   }
   .share-links>a span {
-    position:absolute;
-    visibility:hidden;
-    display:inline-block;
-    top:0;
-    right:0;
-    z-index:1;
-    opacity:0.9;
-    width:12.5rem;
     height:3.5625rem;
-    box-sizing:content-box;
     line-height:3.5625rem;
     padding-left:.625rem;
-    text-align:left;
-    text-transform:uppercase;
-    font-size:0.9rem;
-    background-color:white;
     border-left:0.4275rem solid #fff;
-  }
-  .share-links>a:first-child {
-    margin-top:0;
-    margin-left:0;
-  }
-  .share-links>a.share-twitter i {
-    background:url("../images/twitter.svg");
-  }
-  .share-links>a.share-twitter i:hover {
-    opacity:0.7;
-  }
-  .share-links>a.share-facebook i {
-    background:url("../images/facebook.svg");
-  }
-  .share-links>a.share-facebook i:hover {
-    opacity:0.7;
-  }
-  .share-links>a.share-mastodon i {
-    background:url("../images/mastodon.svg");
-  }
-  .share-links>a.share-mastodon i:hover {
-    opacity:0.7;
   }
   .share-links>a {
     display:block;
@@ -683,9 +622,7 @@ body {
   margin:1rem 0;
 }
 .caret-down {
-  display:-ms-flexbox;
   display:flex;
-  -ms-flex-flow:row wrap;
   flex-flow:row wrap;
   padding:3rem 0 5rem;
 }
@@ -719,9 +656,7 @@ body {
   width: 90%;
 }
 [id*="pb-features-"] {
-  display:-ms-flexbox;
   display:flex;
-  -ms-flex-flow:row wrap;
   flex-flow:row wrap;
   padding:3rem 0 2rem;
 }
@@ -759,9 +694,7 @@ body {
     text-align: start;
 }
 [id*="pb-donate"] {
-  display:-ms-flexbox;
   display:flex;
-  -ms-flex-flow:row wrap;
   flex-flow:row wrap;
 }
 [id*="pb-donate"] img {
