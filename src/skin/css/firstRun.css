@@ -693,42 +693,43 @@ body {
 [id*="pb-features-"] .text, [id*="pb-features-"] p {
     text-align: start;
 }
-[id*="pb-donate"] {
+
+#pb-donate, #pb-donate-button, #pb-donate-help {
   display:flex;
   flex-flow:row wrap;
 }
-[id*="pb-donate"] img {
+#pb-donate img {
   max-width:200px;
 }
 @media print, screen and (min-width: 40em) {
-  [id*="pb-donate"] img {
+  #pb-donate img {
     max-width:250px;
   }
 }
-[id*="pb-donate"] div, [id*="pb-donate"] span {
+#pb-donate div, #pb-donate-button div, #pb-donate-help span {
   width:calc(100% - 1.875rem);
   margin-right:.9375rem;
   margin-left:.9375rem;
 }
 @media print, screen and (min-width: 40em) {
-  [id*="pb-donate"] div,[id*="pb-donate"] span {
+  #pb-donate div, #pb-donate-button div, #pb-donate-help span {
     width:calc(33.33333% - 1.875rem);
     margin-right:.9375rem;
     margin-left:.9375rem;
   }
 
 }
-[id*="pb-donate"] h3 {
+#pb-donate h3 {
   font-size:1.5rem;
   text-align:center;
   margin-top:1rem;
 }
 @media print, screen and (min-width: 40em) {
-  [id*="pb-donate"] h3 {
+  #pb-donate h3 {
     font-size:1.9375rem;
   }
 }
-[id*="pb-donate"] span {
+#pb-donate-help span {
   color:#F06A0A;
   font-family:"OpenSans-Bold",sans-serif;
   font-size:0.9rem;
