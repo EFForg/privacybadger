@@ -497,7 +497,7 @@ header .title-bar h1 {
 .share-links {
   display:flex;
   flex-wrap:wrap;
-  gap:0.45rem;
+  gap:0.65rem;
   justify-content:center;
   margin:2.5rem auto 2rem;
   padding-bottom:3rem;
@@ -508,7 +508,6 @@ header .title-bar h1 {
   width:2.6rem;
   height:2.6rem;
   overflow:hidden;
-  margin-left:0;
 }
 .share-links>a:hover {
   background-color:transparent !important;
