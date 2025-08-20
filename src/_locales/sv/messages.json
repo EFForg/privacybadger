@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Automatiskt blockering av dolda spårare. Skapad av den ideella organisationen EFF för att hindra företag från att spionera på dig.",
+        "message": "Lär sig att blockera dolda spårare. Skapad av den ideella organisationen EFF för att hindra företag från att spionera på dig.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -292,7 +292,7 @@
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
-        "message": "$LINK_START$ Berätta för oss$LINK_END$ om följande fel:",
+        "message": "$LINK_START$ berätta för oss$LINK_END$ om följande fel:",
         "description": "NOTE: The space after $LINK_START$ is here to work around a Safari bug. Shown in the popup when there is an extension error we want to encourage the user to tell us about.",
         "placeholders": {
             "link_start": {
@@ -413,7 +413,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_bluesky": {
-        "message": "Share on Bluesky",
+        "message": "Dela på Bluesky",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
