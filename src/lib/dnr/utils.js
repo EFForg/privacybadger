@@ -152,7 +152,7 @@ function makeDnrAllowRule(domain, priority) {
  * @param {String} script_host
  * @param {String} surrogate_path
  * @param {Object} extraConditions
- * @param {Integer?} priority
+ * @param {Integer} [priority]
  *
  * @returns {Object}
  */
@@ -192,16 +192,22 @@ function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions, 
  * This function generates all associated DNR rule objects.
  *
  * @param {String} domain
+ * @param {Boolean} [is_user_action] true if the domain is user blocked
  *
  * @returns {Array} DNR rule objects for this domain
  */
-function getDnrSurrogateRules(domain) {
+function getDnrSurrogateRules(domain, is_user_action) {
   let rules = [],
-    conf = sdb.hostnames[domain];
+    conf = sdb.hostnames[domain],
+    priority = constants.DNR_SURROGATE_REDIRECT;
+
+  if (is_user_action) {
+    priority = constants.DNR_USER_SURROGATE_REDIRECT;
+  }
 
   if (conf.match == sdb.MATCH_ANY) {
     rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
-      domain, sdb.surrogates[conf.token]));
+      domain, sdb.surrogates[conf.token]), false, priority);
 
   } else if (conf.match == sdb.MATCH_SUFFIX) {
     for (let token of conf.tokens) {
@@ -214,7 +220,7 @@ function getDnrSurrogateRules(domain) {
         regexFilter: utils.regexEscape(token) + '(?:\\?.*|#.*|$)'
       };
       rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
-        domain, sdb.surrogates[token], extra));
+        domain, sdb.surrogates[token], extra, priority));
     }
 
   } else if (conf.match == sdb.MATCH_PREFIX) {
@@ -223,7 +229,7 @@ function getDnrSurrogateRules(domain) {
         urlFilter: '||' + domain + token + '^'
       };
       rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
-        domain, sdb.surrogates[token], extra));
+        domain, sdb.surrogates[token], extra, priority));
     }
 
   } else if (conf.match == sdb.MATCH_PREFIX_WITH_PARAMS) {
@@ -233,7 +239,7 @@ function getDnrSurrogateRules(domain) {
         urlFilter: '||' + domain + token + '?*' + Object.keys(conf.params).join('^*^')
       };
       rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
-        domain, sdb.surrogates[token], extra));
+        domain, sdb.surrogates[token], extra, priority));
     }
   }
 
