@@ -6350,7 +6350,15 @@ let _domainLookup = makeDomainLookup(multiDomainFirstPartiesArray);
  */
 let isMultiDomainFirstParty = makeIsMultiDomainFirstParty(_domainLookup);
 
+function getEntityList(domain) {
+  if (domain in _domainLookup) {
+    return Array.from(_domainLookup[domain]);
+  }
+  return [];
+}
+
 export default {
+  getEntityList,
   isMultiDomainFirstParty,
   makeDomainLookup,
   makeIsMultiDomainFirstParty,
