@@ -445,6 +445,10 @@ class PBSeleniumTest(unittest.TestCase):
 
         return WebDriverWait(self.driver, timeout).until(execute_script, message)
 
+    def wait_for_any_text(self, selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        return WebDriverWait(self.driver, timeout).until(
+            lambda d: d.find_element(By.CSS_SELECTOR, selector).text.strip())
+
     def wait_for_text(self, selector, text, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
             EC.text_to_be_present_in_element(
@@ -538,6 +542,16 @@ class PBSeleniumTest(unittest.TestCase):
 
     def cookieblock_domain(self, domain):
         self.add_domain(domain, "cookieblock")
+
+    def add_site_override(self, domain, site_domain):
+        self.load_url(self.options_url)
+        self.driver.execute_async_script(
+            "let done = arguments[arguments.length - 1];"
+            "chrome.runtime.sendMessage({"
+            "  type: 'addSiteOverride',"
+            "  domain: arguments[0],"
+            "  site_domain: arguments[1]"
+            "}, done);", domain, site_domain)
 
     def disable_badger_on_site(self, url):
         self.load_url(self.options_url)

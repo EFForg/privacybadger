@@ -12,13 +12,16 @@ from pbtest import retry_until
 class SurrogatesTest(pbtest.PBSeleniumTest):
     """Integration tests to verify surrogate script functionality."""
 
+    FIXTURE_HOST = "efforg.github.io"
     FIXTURE_URL = (
-        "https://efforg.github.io/privacybadger-test-fixtures/html/"
+        f"https://{FIXTURE_HOST}/privacybadger-test-fixtures/html/"
         "ga_surrogate.html"
     )
+    SURROGATE_HOST_BASE = "google-analytics.com"
+    SURROGATE_HOST = f"www.{SURROGATE_HOST_BASE}"
 
     def load_ga_js_fixture(self, timeout=12):
-        self.load_url(SurrogatesTest.FIXTURE_URL)
+        self.load_url(self.FIXTURE_URL)
 
         load_status_sel = '#third-party-load-result'
         self.wait_for_script(
@@ -30,13 +33,12 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         try:
             self.wait_for_and_switch_to_frame('iframe', timeout=timeout)
             self.wait_for_text('h1', "It worked!", timeout=timeout)
+            self.driver.switch_to.default_content()
             return True
         except TimeoutException:
             return False
 
     def test_ga_js_surrogate(self):
-        SURROGATE_HOST = "www.google-analytics.com"
-
         # clear pre-trained/seed tracker data
         self.clear_tracker_data()
 
@@ -45,7 +47,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             "page failed to load even before we did anything")
 
         # block ga.js (should break the site)
-        self.block_domain(SURROGATE_HOST)
+        self.block_domain(self.SURROGATE_HOST)
         # disable surrogates
         self.driver.execute_async_script(
             "let done = arguments[arguments.length - 1];"
@@ -68,6 +70,49 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
         # verify site loads again
         assert retry_until(self.load_ga_js_fixture), (
             "page failed to load after surrogation")
+
+    def test_cookieblocking_base_overwrites_subdomain_surrogate(self):
+        SURROGATE_TOSTRING = "function() {\n    }"
+
+        def get_tracker_tostring():
+            return self.js("return _gat._getTrackers.toString();")
+
+        self.block_domain(self.SURROGATE_HOST)
+
+        assert self.load_ga_js_fixture()
+        # verify we replaced SURROGATE_HOST with surrogate
+        assert get_tracker_tostring() == SURROGATE_TOSTRING, (
+            "tracker does not appear to have been replaced with surrogate")
+
+        self.cookieblock_domain(self.SURROGATE_HOST_BASE)
+
+        assert self.load_ga_js_fixture()
+        # verify that we are no longer replacing SURROGATE_HOST with surrogate
+        assert get_tracker_tostring() != SURROGATE_TOSTRING, (
+            "surrogation took place when it shouldn't have")
+
+    def test_userblock_applies_surrogate(self):
+        self.block_domain(self.SURROGATE_HOST)
+        self.set_user_action(self.SURROGATE_HOST, "block")
+        assert retry_until(self.load_ga_js_fixture), (
+            "page widget unexpectedly failed")
+        # also verify that surrogation took place
+        text_sel = "#script-string"
+        self.wait_for_any_text(text_sel)
+        assert self.find_el_by_css(text_sel).text == "function() { }", (
+            "tracker does not appear to have been replaced with surrogate")
+
+    def test_site_override_for_domain_with_surrogate(self):
+        text_sel = "#script-string"
+
+        self.block_domain(self.SURROGATE_HOST)
+        self.add_site_override(self.SURROGATE_HOST, self.FIXTURE_HOST)
+
+        # assert the actual tracker loaded, not the surrogate
+        self.load_url(self.FIXTURE_URL)
+        self.wait_for_any_text(text_sel)
+        assert self.find_el_by_css(text_sel).text != "function() { }", (
+            "still redirecting to surrogate despite site-specific override")
 
 
 if __name__ == "__main__":

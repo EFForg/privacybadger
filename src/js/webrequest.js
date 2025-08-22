@@ -1602,6 +1602,17 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  // used by tests
+  case "addSiteOverride": {
+    let sitefixes = badger.getPrivateSettings().getItem('sitefixes');
+    sitefixes[request.site_domain] = {
+      yellowlist: [ request.domain ]
+    };
+    badger.getPrivateSettings().setItem('sitefixes', sitefixes);
+    sendResponse();
+    break;
+  }
+
   // used by Badger Sett
   case "setBlockThreshold": {
     let value = +request.value;

@@ -31,18 +31,13 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
     def setUp(self):
         self.clear_tracker_data()
 
-    def wait_for_status_output(self, selector=SELECTOR):
-        self.wait_for_script(
-            "return document.querySelector(arguments[0]).textContent",
-            selector)
-
     def assert_block(self):
-        self.wait_for_status_output()
+        self.wait_for_any_text(self.SELECTOR)
         assert self.find_el_by_css(self.SELECTOR).text == "error", (
             "3rd-party should've gotten blocked")
 
     def assert_load(self):
-        self.wait_for_status_output()
+        self.wait_for_any_text(self.SELECTOR)
         assert self.find_el_by_css(self.SELECTOR).text == "success", (
             "3rd-party should've loaded successfully")
 
@@ -77,13 +72,13 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
     def test_cookieblocking_stops_sending(self):
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
-        self.wait_for_status_output('body')
+        self.wait_for_any_text('body')
         assert self.find_el_by_css('body').text == "cookies=0", (
             "No cookies should've been sent to start with")
 
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
-        self.wait_for_status_output('body')
+        self.wait_for_any_text('body')
         assert self.find_el_by_css('body').text == "cookies=1", (
             "We should have sent a cookie at this point")
 
@@ -91,7 +86,7 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
-        self.wait_for_status_output('body')
+        self.wait_for_any_text('body')
         assert self.find_el_by_css('body').text == "cookies=0", (
             "No cookies should have been sent by the cookieblocked domain")
 
@@ -202,6 +197,36 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         # navigate elsewhere and back to work around the third-party getting served from cache
         self.load_url(self.options_url)
+        self.load_url(self.FIXTURE_URL)
+        self.assert_block()
+
+    def test_cookieblock_site_override(self):
+        # verify blocking gets overriden
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.add_site_override(self.THIRD_PARTY_DOMAIN, self.FIXTURE_DOMAIN)
+
+        self.load_url(self.FIXTURE_URL)
+        self.assert_load()
+
+        # verify cookieblocking
+        self.block_domain(self.COOKIE_DOMAIN)
+        self.add_site_override(self.COOKIE_DOMAIN, self.FIXTURE_DOMAIN)
+
+        self.load_url(self.COOKIE_FIXTURE_URL)
+        self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
+        self.wait_for_any_text('body')
+        assert self.find_el_by_css('body').text == "cookies=0", (
+            "No cookies should have been sent by the cookieblocked domain")
+        # reload to verify that there are still no cookies
+        self.load_url(self.COOKIE_FIXTURE_URL)
+        self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
+        self.wait_for_any_text('body')
+        assert self.find_el_by_css('body').text == "cookies=0", (
+            "No cookies should have been sent by the cookieblocked domain")
+
+    def test_userblock_overrides_site_override(self):
+        self.add_site_override(self.THIRD_PARTY_DOMAIN, self.FIXTURE_DOMAIN)
+        self.set_user_action(self.THIRD_PARTY_DOMAIN, "block")
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
 
