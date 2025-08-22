@@ -240,12 +240,15 @@ function subscribeToActionMapUpdates() {
     // now redo surrogate rules
     let addRules = [],
       removeRuleIds = existingRules
-        .filter(r => r.priority == constants.DNR_SURROGATE_REDIRECT)
+        .filter(r => r.priority == constants.DNR_SURROGATE_REDIRECT ||
+          r.priority == constants.DNR_USER_SURROGATE_REDIRECT)
         .map(r => r.id);
     for (let host of Object.keys(sdb.hostnames)) {
       let action = badger.storage.getBestAction(host);
-      if (action == constants.BLOCK || action == constants.USER_BLOCK) {
+      if (action == constants.BLOCK) {
         addRules.push(...dnrUtils.getDnrSurrogateRules(host));
+      } else if (action == constants.USER_BLOCK) {
+        addRules.push(...dnrUtils.getDnrSurrogateRules(host, true));
       }
     }
     if (addRules.length) {
