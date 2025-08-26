@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "Complimenti, hai aperto il popup!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -52,11 +52,11 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "Dona all’EFF — un’organizzazione senza scopo di lucro che difende la privacy digitale",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
+        "message": "Ti piace Privacy Badger? Lascia una recensione!",
         "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
@@ -210,7 +210,7 @@
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
-        "message": "Briefly describe the problem:",
+        "message": "Descrivi brevemente il problema:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -222,7 +222,7 @@
         "description": ""
     },
     "report_button": {
-        "message": "Send report",
+        "message": "Invia rapporto",
         "description": "Button text."
     },
     "report_cancel": {
@@ -288,7 +288,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Ads not blocked? YouTube not working? It's probably not because of Privacy Badger.",
+        "message": "Gli annunci non vengono bloccati? YouTube non funziona? Probabilmente non è colpa di Privacy Badger.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -313,7 +313,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
+        "message": "Privacy Badger impara automaticamente a bloccare i tracker nascosti. Dai un’occhiata e scopri come funziona.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -349,7 +349,7 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "Prova ad aprire il popup di Privacy Badger",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
@@ -413,7 +413,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_bluesky": {
-        "message": "Share on Bluesky",
+        "message": "Condividi su Bluesky",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
@@ -425,7 +425,7 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "How to disable Privacy Badger without leaving the site",
+        "message": "Come disattivare Privacy Badger senza lasciare il sito",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
@@ -443,7 +443,7 @@
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "add_domain_button": {
-        "message": "Add site",
+        "message": "Aggiungi sito",
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
@@ -527,7 +527,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Block but don't replace the following widgets:",
+        "message": "Blocca i seguenti widget senza sostituirli:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
@@ -621,7 +621,7 @@
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
-        "message": "Hide domains present in the latest pre-trained list",
+        "message": "Nascondi i domini della lista pre-addestrata più recente",
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
