@@ -3,7 +3,7 @@
 We need your help in translating Privacy Badger!
 
 > [!WARNING]
-> Please note that not all languages are [supported by Chrome](https://developer.chrome.com/docs/extensions/reference/i18n/#supported-locales).
+> Please note that not all languages are [supported by Chrome](https://developer.chrome.com/docs/extensions/reference/api/i18n#locales).
 
 You can contribute directly on GitHub, or you could [join us on Transifex](https://explore.transifex.com/eff/privacy-badger/), a localization platform. (We may [migrate from Transifex to potentially Weblate](https://github.com/EFForg/privacybadger/issues/2591#issuecomment-616816017) in the future.)
 
@@ -54,7 +54,7 @@ user intro page"). You should not translate it.
 
 To contribute on GitHub, first check the status of your local language
 translation: if you don't see a folder with your
-[local language code](https://developer.chrome.com/docs/webstore/i18n/?csw=1#choosing-locales-to-support),
+[local language code](https://developer.chrome.com/docs/extensions/reference/api/i18n#locales),
 the translation for that language is missing. In this case you should follow
 the instructions below to set up the JSON file for your language. If the
 translation for your language is already there, you can contribute by checking
@@ -67,7 +67,7 @@ To add a new language on GitHub, follow these steps:
 
 1. Fork this repository
 2. Inside your fork, create a folder in `src/_locales/` and name it
-with your [local language code](https://developer.chrome.com/docs/webstore/i18n/?csw=1#choosing-locales-to-support)
+with your [local language code](https://developer.chrome.com/docs/extensions/reference/api/i18n#locales)
 3. Copy the `src/_locales/en_US/messages.json` file to the folder you created
 4. Start translating each message to your language by replacing the
 English strings with the translated ones
