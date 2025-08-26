@@ -65,7 +65,11 @@ function onBeforeRequest(details) {
 
     let tab_host = badger.tabData.getFrameData(tab_id).host;
     if (!is_same_site_nav) {
-      dnrUtils.updateSiteSpecificOverrideRules(tab_id, tab_host);
+      if (oldTabData && oldTabData.host) {
+        dnrUtils.updateSiteSpecificOverrideRules(tab_id, tab_host, oldTabData.host);
+      } else {
+        dnrUtils.updateSiteSpecificOverrideRules(tab_id, tab_host);
+      }
     }
     initAllowedWidgets(tab_id, tab_host);
 
