@@ -361,6 +361,7 @@ let updateSessionAllowRules = utils.debounce(async function (tempAllowlist) {
  *
  * @param {Integer} tab_id
  * @param {String} tab_host
+ * @param {String} [prev_tab_host]
  */
 let updateSiteSpecificOverrideRules = (function () {
   let queue = {};
@@ -383,6 +384,10 @@ let updateSiteSpecificOverrideRules = (function () {
 
     for (let tab_id of Object.keys(queue)) {
       let fixes = queue[tab_id];
+
+      if (!fixes) {
+        continue;
+      }
 
       if (utils.hasOwn(fixes, 'ignore')) {
         for (let domain of fixes.ignore) {
@@ -436,18 +441,20 @@ let updateSiteSpecificOverrideRules = (function () {
 
   }, 100);
 
-  return function (tab_id, tab_host) {
+  return function (tab_id, tab_host, prev_tab_host) {
     let sitefixes = badger.getPrivateSettings().getItem('sitefixes');
-    if (!utils.hasOwn(sitefixes, tab_host)) {
+    if (!utils.hasOwn(sitefixes, tab_host) && !utils.hasOwn(sitefixes, prev_tab_host)) {
       return;
     }
-    queue[tab_id] = sitefixes[tab_host];
+    queue[tab_id] = (utils.hasOwn(sitefixes, tab_host) ? sitefixes[tab_host] : false);
     _update();
   };
 }());
 
 /**
  * Removes tab-scoped session rules for given tab ID, if any.
+ *
+ * @param {Integer} tab_id
  */
 let removeTabSessionRules = (function () {
   let queue = [];
