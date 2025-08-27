@@ -380,6 +380,12 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #d
 .pbButton:hover:enabled {
     border: 2px solid #F06A0A;
 }
+.pbButton:focus,
+.pbButton:focus-visible {
+    outline: 2px solid #F06A0A;
+    outline-offset: 2px;
+    border-color: #F06A0A;
+}
 .pbButton:disabled {
     background-color: #ccc;
     color: #666;
@@ -706,6 +712,13 @@ a.overlay-close:hover {
     .pbButton {
         background-color: #333;
         border: solid 2px #ddd;
+    }
+    .pbButton:focus,
+    .pbButton:focus-visible {
+        outline: 2px solid #F06A0A;
+        outline-offset: 2px;
+        border-color: #F06A0A;
+        background-color: #444;
     }
     .userset .honeybadgerPowered {
         filter: invert(100%);
