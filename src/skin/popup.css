@@ -715,9 +715,6 @@ a.overlay-close:hover {
     }
     .pbButton:focus,
     .pbButton:focus-visible {
-        outline: 2px solid #F06A0A;
-        outline-offset: 2px;
-        border-color: #F06A0A;
         background-color: #444;
     }
     .userset .honeybadgerPowered {
