@@ -380,7 +380,6 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #d
 .pbButton:hover:enabled {
     border: 2px solid #F06A0A;
 }
-.pbButton:focus,
 .pbButton:focus-visible {
     outline: 2px solid #F06A0A;
     outline-offset: 2px;
@@ -713,7 +712,6 @@ a.overlay-close:hover {
         background-color: #333;
         border: solid 2px #ddd;
     }
-    .pbButton:focus,
     .pbButton:focus-visible {
         background-color: #444;
     }
