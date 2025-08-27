@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Automatically learns to block hidden trackers. Made by leading digital rights nonprofit EFF to stop companies from spying on you.",
+        "message": "Blocca automaticamente i tracker nascosti. Creato da EFF, organizzazione senza scopo di lucro che difende la privacy digitale.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -260,7 +260,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (privacybadger.org) è un’estensione del browser che impara automaticamente a bloccare i tracker nascosti. Privacy Badger è sviluppata dalla Electronic Frontier Foundation, un’organizzazione senza scopo di lucro che combatte per i tuoi diritti online.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -329,7 +329,7 @@
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
-        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "Se ignorano questi segnali, Privacy Badger imparerà a bloccarli — siano essi inserzionisti o altri tipi di tracker.",
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
@@ -341,7 +341,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Il tracciamento nascosto avviene in molti modi; gli annunci sono solo la punta visibile dell’iceberg. Privacy Badger non blocca gli annunci, a meno che non ti stiano tracciando.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -353,7 +353,7 @@
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "Barra degli strumenti del browser con l’icona di Privacy Badger cerchiata",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
@@ -365,7 +365,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "Quando usi Privacy Badger ti unisci alla <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> e a milioni di altri utenti nella lotta per la privacy. Siamo senza scopo di lucro e combattiamo per i diritti nella rete. Grazie per la partecipazione!",
+        "message": "Quando usi Privacy Badger ti unisci alla <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> e a milioni di altri utenti nella lotta per la privacy. Siamo senza scopo di lucro e combattiamo per i diritti online. Grazie per la partecipazione!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "donate_to_eff": {
@@ -381,7 +381,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "$START_SPAN_TAG$Fissa Privacy Badger nella barra degli strumenti$END_SPAN_TAG$ per accedere facilmente al pulsante '$DISABLE_FOR_SITE$'.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -397,7 +397,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "message": "Per fissare l’icona di Privacy Badger, clicca sull’icona a forma di pezzo di puzzle nella barra del browser, poi sulla spilla accanto a Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -429,7 +429,7 @@
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Clicca sull’icona di Privacy Badger nella barra degli strumenti del browser, poi clicca sul tasto '$DISABLE_FOR_SITE$'.",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
@@ -487,7 +487,7 @@
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
-        "message": "Disable Google's \"Privacy Sandbox\" ad tracking",
+        "message": "Disattiva il tracciamento pubblicitario di Google “Privacy Sandbox”",
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2024/07/why-privacy-badger-opts-you-out-googles-privacy-sandbox"
     },
     "options_advanced_settings": {
@@ -621,7 +621,7 @@
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
-        "message": "Nascondi i domini della lista pre-addestrata più recente",
+        "message": "Nascondi i domini della lista preaddestrata più recente",
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
@@ -719,7 +719,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Il ripristino dei domini traccianti causa:\n\n  • L'eliminazione di tutti i dati sui tracker che Privacy Badger ha imparato dalla tua navigazione\n  • Il ripristino dell'elenco dei domini traccianti all'ultimo elenco pre-istruzione (visita www.eff.org/badger-pretraining per altre info)",
+        "message": "Il ripristino dei domini traccianti causa:\n\n  • L'eliminazione di tutti i dati sui tracker che Privacy Badger ha imparato dalla tua navigazione\n  • Il ripristino dell'elenco dei domini traccianti all'ultima lista preaddestrata (visita www.eff.org/badger-pretraining per altre info)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
