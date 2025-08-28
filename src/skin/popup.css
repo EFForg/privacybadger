@@ -381,9 +381,8 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #d
     border: 2px solid #F06A0A;
 }
 .pbButton:focus-visible {
-    outline: 2px solid #F06A0A;
-    outline-offset: 2px;
-    border-color: #F06A0A;
+    border: 2px solid #F06A0A;
+    outline: none;
 }
 .pbButton:disabled {
     background-color: #ccc;
@@ -712,9 +711,7 @@ a.overlay-close:hover {
         background-color: #333;
         border: solid 2px #ddd;
     }
-    .pbButton:focus-visible {
-        background-color: #444;
-    }
+
     .userset .honeybadgerPowered {
         filter: invert(100%);
     }
