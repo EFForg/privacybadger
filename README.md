@@ -17,7 +17,7 @@ To install Privacy Badger, visit the [Privacy Badger homepage](https://privacyba
 
 ## Contributing
 
-We're glad you want to help! Please see [our contributor guide](/CONTRIBUTING.md).
+We're glad you want to help! Please see [our contributor guide](/.github/CONTRIBUTING.md).
 
 
 ## Getting in touch
