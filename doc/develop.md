@@ -16,6 +16,9 @@ To install Privacy Badger from source in Firefox for Android, please see [Mozill
 
 Before submitting a pull request (PR), please review the sections below.
 
+> [!WARNING]
+> Please **DO NOT SUBMIT AI-GENERATED CODE** that you haven't thoroughly understood, reviewed, and tested.
+
 ### Style guide
 
 All JavaScript code going forward should use the following naming conventions:
