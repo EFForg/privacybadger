@@ -1,6 +1,14 @@
 Privacy Badger changelog
 ========================
 
+2025.9.2
+* Privacy Badger is now available on Microsoft Edge for Android
+* Fixed the popup showing "Nothing to do on this page"
+instead of what actually happened in Chrome sometimes
+* Fixed various site breakages
+* Improved Danish, Finnish, Greek, Hebrew, Italian, Polish,
+Portuguese, Russian and Swedish translations
+
 2025.5.30
 * Fixed the popup failing to open in Chrome sometimes
 * Fixed various site breakages
