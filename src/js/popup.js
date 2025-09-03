@@ -202,7 +202,7 @@ function init() {
   });
 
   $("#error").on("click", function() {
-    $('#overlay').toggleClass('active');
+    showOverlay("#overlay");
     // Show YouTube message on error reporting form
     if (POPUP_DATA.tabHost === "www.youtube.com" || POPUP_DATA.tabHost === "m.youtube.com") {
       $('#report-youtube-message').html(chrome.i18n.getMessage("popup_info_youtube") + " " + chrome.i18n.getMessage('learn_more_link', ['<a target=_blank href="https://privacybadger.org/#Is-Privacy-Badger-breaking-YouTube">privacybadger.org</a>']));
@@ -273,7 +273,7 @@ function init() {
   });
   $("#share-close").on("click", function (e) {
     e.preventDefault();
-    $("#share-overlay").toggleClass('active', false);
+    hideOverlay("#share-overlay");
   });
   $("#copy-button").on("click", function() {
     $("#share-output").select();
@@ -330,10 +330,10 @@ function clearSavedErrorText() {
  * Close the error reporting overlay
  */
 function closeOverlay() {
-  $('#overlay').toggleClass('active', false);
   $("#report-success").hide();
   $("#report-fail").hide();
   $("#error-input").val("");
+  hideOverlay("#overlay");
 }
 
 /**
@@ -459,7 +459,7 @@ function deactivateOnSite() {
  * Open the share overlay
  */
 function share() {
-  $("#share-overlay").toggleClass('active');
+  showOverlay("#share-overlay");
   let share_msg = chrome.i18n.getMessage("share_base_message");
 
   // only add language about found trackers if we actually found trackers
@@ -657,7 +657,7 @@ function refreshPopup() {
   }
   // show error layout if the user was writing an error report
   if (utils.hasOwn(POPUP_DATA, 'errorText') && POPUP_DATA.errorText) {
-    $('#overlay').toggleClass('active');
+    showOverlay("#overlay");
   }
 
   // show sliders when sliders were shown last,
@@ -900,6 +900,32 @@ function getTab(callback) {
  */
 function setPopupData(data) {
   POPUP_DATA = data;
+}
+
+let lastFocused;
+function showOverlay(overlayId) {
+  // Store last focused element to return to after closing overlay via tab navigation
+  lastFocused = $(document.activeElement);
+
+  $(overlayId).toggleClass('active');
+  $('#popup-content').toggleClass('hidden');
+  // Focus on the first focusable element focus to an element, per ARIA guidance for dialogs/modals (https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
+  const focusable = $(overlayId).find(
+    'button, [href], input, select, textarea, iframe, [tabindex]:not([tabindex="-1"])'
+  );
+  if (focusable.length) {
+    focusable[0].focus();
+  }
+}
+
+function hideOverlay(overlayId) {
+  $(overlayId).toggleClass('active', false);
+  $('#popup-content').toggleClass('hidden', false);
+
+  // Return focus to the element that invoked it, per ARIA guidance for dialogs/modals (https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
+  if (lastFocused && lastFocused.length) {
+    lastFocused.focus();
+  }
 }
 
 $(function () {
