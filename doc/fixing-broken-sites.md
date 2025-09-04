@@ -63,4 +63,4 @@ Resources from yellowlisted domains are requested without referrer headers, and 
 
 [Here is an example yellowlist pull request](https://github.com/EFForg/privacybadger/pull/1543) that shows what's good to know when deciding how to fix a breakage, and how to get that information.
 
-Site-specific domain overrides are like the yellowlist, but specific to the site. Look for them under the `"sitefixes"` key in [pbconfig.json](/src/data/pbconfig.json). In addition to site-specific yellowlisting, when blocking cookies also breaks the website, we can tell PB to ignore specified domains entirely on a particular website instead. To do this, we use the `"ignore"` subkey under the website domain key inside `"sitefixes"`.
+Site-specific domain overrides are like the yellowlist, but specific to the site. Look for them under the `"sitefixes"` key and the `"yellowlist"` subkey in [pbconfig.json](/src/data/pbconfig.json). In the rare case when going from full blocking to cookie blocking is not enough to fix the website, we can tell PB to entirely ignore certain domains on a particular website instead. To do this, we use the `"ignore"` subkey under `"sitefixes"`.
