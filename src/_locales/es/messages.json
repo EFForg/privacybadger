@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Aprende automáticamente a bloquear rastreadores ocultos. Creado por la EFF, para evitar que las empresas te espíen.",
+        "message": "\"Autoaprende\" a bloquear rastreadores ocultos. Creado por la ONG de derechos digitales EFF, para evitar que las empresas te espíen.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -52,7 +52,7 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donar a la EFF, una ONG dedicada a la defensa de la privacidad digital",
+        "message": "Haz una donación a la EFF, una ONG dedicada a la defensa de la privacidad digital",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
@@ -182,7 +182,7 @@
         "description": "Tooltip shown over the rightmost part of a domain slider."
     },
     "breakage_warning_tooltip": {
-        "message": "Bloquear este dominio es conocido por romper sitios web",
+        "message": "Bloquear este dominio suele producir problemas con la visualización de sitios web",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
@@ -214,7 +214,7 @@
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
-        "message": "¿Qué está mal?",
+        "message": "¿Qué está fallando?",
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
@@ -413,7 +413,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_bluesky": {
-        "message": "Comparte en Bluesky",
+        "message": "Compartir en Bluesky",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
