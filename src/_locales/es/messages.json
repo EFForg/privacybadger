@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Automatically learns to block hidden trackers. Made by leading digital rights nonprofit EFF to stop companies from spying on you.",
+        "message": "Aprende automáticamente a bloquear rastreadores ocultos. Creado por la EFF, para evitar que las empresas te espíen.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "¡Buen trabajo al abrir la ventana emergente!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -52,11 +52,11 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "Donar a la EFF, una ONG dedicada a la defensa de la privacidad digital",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
+        "message": "¿Estás disfrutando de Privacy Badger? ¡Deja un comentario!",
         "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
@@ -260,7 +260,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (privacybadger.org) es una extensión para navegadores que aprende automáticamente a bloquear rastreadores ocultos. Privacy Badger ha sido creado por la Electronic Frontier Foundation, una ONG que lucha por sus derechos en Internet.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -313,7 +313,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
+        "message": "Privacy Badger aprende automáticamente a bloquear los rastreadores ocultos. Date un minuto para ver cómo.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -341,7 +341,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Hay todo tipo de formas de rastreo oculto; los anuncios no son más que la punta visible del iceberg. Privacy Badger no bloquea los anuncios a menos que te estén rastreando.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -349,11 +349,11 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "Prueba a abrir la ventana emergente de Privacy Badger",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "Barra de herramientas del navegador con el icono de Privacy Badger marcado con un círculo",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
@@ -365,7 +365,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "Cuando utilizas Privacy Badger te unes a la <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> y a millones de otros usuarios en la lucha por la privacidad. Somos una organización sin ánimo de lucro que lucha por tus derechos en línea. ¡Gracias por unirte a nosotros!",
+        "message": "Cuando utilizas Privacy Badger te unes a la <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> y a millones de otros usuarios en la lucha por la privacidad. Somos una organización sin ánimo de lucro que lucha por tus derechos en Internet. ¡Gracias por unirte a nosotros!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "donate_to_eff": {
@@ -381,7 +381,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "En primer lugar, $START_SPAN_TAG$fije Privacy Badger a su barra de herramientas$END_SPAN_TAG$ para acceder fácilmente al botón \"$DISABLE_FOR_SITE$\".",
+        "message": "En primer lugar, $START_SPAN_TAG$fije Privacy Badger a tu barra de herramientas$END_SPAN_TAG$ para acceder fácilmente al botón \"$DISABLE_FOR_SITE$\".",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -397,7 +397,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "Para fijar el icono de Privacy Badger, haga clic en el icono de la pieza de rompecabezas de la barra de herramientas de su navegador. A continuación, haga clic en el icono de anclaje situado junto a Privacy Badger.",
+        "message": "Para fijar el icono de Privacy Badger, haga clic en el icono de la pieza de rompecabezas de la barra de herramientas de tu navegador. A continuación, haga clic en el icono de anclaje situado junto a Privacy Badger.",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
@@ -413,7 +413,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_bluesky": {
-        "message": "Share on Bluesky",
+        "message": "Comparte en Bluesky",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
@@ -425,11 +425,11 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "How to disable Privacy Badger without leaving the site",
+        "message": "Cómo deshabilitar Privacy Badger sin salir del sitio web",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Primero, haz clic en el icono de Privacy Badger en la barra de herramientas de tu navegador. A continuación, haz clic en el botón «$DISABLE_FOR_SITE$».",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
@@ -527,7 +527,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Block but don't replace the following widgets:",
+        "message": "Bloquear, pero no sustituir los siguientes widgets:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
