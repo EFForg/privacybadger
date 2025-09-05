@@ -1,6 +1,10 @@
 Privacy Badger changelog
 ========================
 
+2025.9.5
+Bug fix update to fix "cookieblocking" (domain toggle set to yellow)
+not working in Chrome, Edge and Opera
+
 2025.9.2
 * Privacy Badger is now available on Microsoft Edge for Android
 * Fixed the popup showing "Nothing to do on this page"
