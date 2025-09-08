@@ -226,6 +226,10 @@ button.cta-button, a.cta-button {
 button.cta-button:hover, a.cta-button:hover {
     background-color: #f58728;
 }
+button.cta-button:focus-visible, a.cta-button:focus-visible {
+    border: 2px solid #333;
+    outline: none;
+}
 
 .clickerContainer {
     max-height: 290px;
@@ -638,6 +642,9 @@ a.overlay-close:hover {
     }
     a.cta-button:hover {
         color: #fff;
+    }
+    button.cta-button:focus-visible, a.cta-button:focus-visible {
+        border: 2px solid #fff;
     }
 
     /* popup only (not options page) */
