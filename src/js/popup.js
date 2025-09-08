@@ -902,29 +902,31 @@ function setPopupData(data) {
   POPUP_DATA = data;
 }
 
-let lastFocused;
-function showOverlay(overlayId) {
+let $lastFocused;
+function showOverlay(overlay_id) {
   // Store last focused element to return to after closing overlay via tab navigation
-  lastFocused = $(document.activeElement);
+  $lastFocused = $(document.activeElement);
 
-  $(overlayId).toggleClass('active');
+  $(overlay_id).toggleClass('active');
   $('#popup-content').toggleClass('hidden');
-  // Focus on the first focusable element focus to an element, per ARIA guidance for dialogs/modals (https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
-  const focusable = $(overlayId).find(
+
+  // Focus on the first focusable element, per ARIA guidance for dialogs/modals
+  // https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+  let $focusables = $(overlay_id).find(
     'button, [href], input, select, textarea, iframe, [tabindex]:not([tabindex="-1"])'
   );
-  if (focusable.length) {
-    focusable[0].focus();
+  if ($focusables.length) {
+    $focusables[0].focus();
   }
 }
-
-function hideOverlay(overlayId) {
-  $(overlayId).toggleClass('active', false);
+function hideOverlay(overlay_id) {
+  $(overlay_id).toggleClass('active', false);
   $('#popup-content').toggleClass('hidden', false);
 
-  // Return focus to the element that invoked it, per ARIA guidance for dialogs/modals (https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
-  if (lastFocused && lastFocused.length) {
-    lastFocused.focus();
+  // Return focus to the element that invoked it,
+  // per ARIA guidance for dialogs/modals
+  if ($lastFocused && $lastFocused.length) {
+    $lastFocused.focus();
   }
 }
 

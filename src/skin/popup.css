@@ -416,7 +416,7 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #d
   box-sizing: border-box;
   color: #ccc;
   background: url("/skin/background.png");
-  /* Delay visibility  change to show opacity transition when overlay is closed */
+  /* Delay visibility change to show opacity transition when overlay is closed */
   transition: visibility 0s 0.1s, opacity 0.1s ease;
   overflow-y: auto;
   visibility: hidden;
