@@ -202,7 +202,7 @@ a.removeOrigin:hover {
 }
 
 /* popup only (not options page) */
-body#main #blockedResourcesContainer, #special-browser-page, #disabled-site-message, #first-run-page {
+body#main #blockedResourcesContainer, #special-browser-page, #disabled-site-message, #first-run-page, #popup-content {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -416,13 +416,21 @@ body#main #pbInstructions a:hover, #firstparty-protections-container a:hover, #d
   box-sizing: border-box;
   color: #ccc;
   background: url("/skin/background.png");
-  transition: opacity .1s ease;
+  /* Delay visibility change to show opacity transition when overlay is closed */
+  transition: visibility 0s 0.1s, opacity 0.1s ease;
   overflow-y: auto;
+  visibility: hidden;
 }
 div.overlay.active {
   z-index: 31;
   opacity: 1;
+  visibility: visible;
+  transition: opacity 0.1s ease;
 }
+div#popup-content.hidden {
+    visibility: hidden;
+}
+
 #error-input {
     display: block;
     width: 98%;

@@ -33,6 +33,37 @@
 <script type="module" src="/js/popup.js"></script>
 </head>
 <body id="main">
+
+<div id="overlay" class="overlay" role="dialog" aria-modal="true">
+  <div>
+    <a href="" id="report-close" class="i18n_report_close overlay-close" role="button"></a>
+    <h1 class="i18n_report_broken_site overlay-title"></h1>
+  </div>
+  <div id="report-youtube-message-container" style="display:none">
+    <div id="report-youtube-message"></div>
+  </div>
+  <label id="report-label" for="error-input" class="i18n_report_input_label"></label>
+  <textarea id="error-input" maxlength="300" rows=3 placeholder="i18n_error_input"></textarea>
+  <div id="report-controls">
+    <button id="report-button" class="i18n_report_button pbButton"></button>
+    <button id="report-cancel" class="i18n_report_cancel pbButton"></button>
+  </div>
+  <div id="report-success" class="i18n_report_success" style="display:none"></div>
+  <div id="report-fail" class="i18n_report_fail" style="display:none"></div>
+  <p id="report-terms" class="i18n_report_terms"></p>
+</div>
+
+<div id="share-overlay" class="overlay" role="dialog" aria-modal="true">
+  <div>
+    <a href="" id="share-close" class="i18n_report_close overlay-close" role="button"></a>
+    <h1 class="i18n_share_title overlay-title"></h1>
+  </div>
+  <textarea id="share-output" spellcheck="false"></textarea>
+  <button id="copy-button" class="i18n_copy_button_initial pbButton"></button>
+</div>
+
+<div id="popup-content">
+
   <div id="instruction-outer">
   </div>
   <div id="instruction">
@@ -71,33 +102,6 @@
     </div>
 
   </div><!-- end of div#instruction -->
-
-  <div id="overlay" class="overlay">
-    <div>
-      <a href="" id="report-close" class="i18n_report_close overlay-close" role="button"></a>
-      <h1 class="i18n_report_broken_site overlay-title"></h1>
-    </div>
-    <div id="report-youtube-message-container" style="display:none">
-      <div id="report-youtube-message"></div>
-    </div>
-    <label id="report-label" for="error-input" class="i18n_report_input_label"></label>
-    <textarea id="error-input" maxlength="300" rows=3 placeholder="i18n_error_input"></textarea>
-    <div id="report-controls">
-      <button id="report-button" class="i18n_report_button pbButton"></button>
-      <button id="report-cancel" class="i18n_report_cancel pbButton"></button>
-    </div>
-    <div id="report-success" class="i18n_report_success" style="display:none"></div>
-    <div id="report-fail" class="i18n_report_fail" style="display:none"></div>
-    <p id="report-terms" class="i18n_report_terms"></p>
-  </div>
-  <div id="share-overlay" class="overlay">
-    <div>
-      <a href="" id="share-close" class="i18n_report_close overlay-close" role="button"></a>
-      <h1 class="i18n_share_title overlay-title"></h1>
-    </div>
-    <textarea id="share-output" spellcheck="false"></textarea>
-    <button id="copy-button" class="i18n_copy_button_initial pbButton"></button>
-  </div>
 
 <div id="privacy-badger-header">
 
@@ -183,5 +187,8 @@
   </div>
   <div id="version" class="i18n_version"></div>
 </footer>
+
+</div><!-- end of div#popup-content -->
+
 </body>
 </html>
