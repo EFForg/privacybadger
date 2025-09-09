@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "priority": 4,
+    "priority": 6,
     "action": {
       "type": "modifyHeaders",
       "requestHeaders": [
@@ -25,7 +25,7 @@
   },
   {
     "id": 2,
-    "priority": 4,
+    "priority": 6,
     "action": {
       "type": "modifyHeaders",
       "requestHeaders": [
