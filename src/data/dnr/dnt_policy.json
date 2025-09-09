@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "priority": 3,
+    "priority": 5,
     "action": {
       "type": "allow"
     },
