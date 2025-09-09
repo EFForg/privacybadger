@@ -234,6 +234,18 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_load()
 
+    def test_updates_do_not_break_cookieblocking(self):
+        self.block_domain(self.THIRD_PARTY_DOMAIN)
+        self.cookieblock_domain(self.THIRD_PARTY_SUBDOMAIN)
+        self.load_url(self.FIXTURE_URL + '?alt3p')
+        self.assert_load()
+
+        # now trigger another DNR update (the domain here doesn't matter)
+        self.set_user_action("example.com", "block")
+        # we should still be cookieblocking
+        self.load_url(self.FIXTURE_URL + '?alt3p')
+        self.assert_load()
+
     def test_reverting_control(self):
         self.block_domain(self.THIRD_PARTY_DOMAIN)
         self.set_user_action(self.THIRD_PARTY_DOMAIN, "allow")
