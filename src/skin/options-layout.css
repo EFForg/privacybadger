@@ -196,7 +196,7 @@ p, #settingsForm {
     border: 2px solid transparent; /* to avoid shifting on focus */
     display: block;
 }
-.origin-inner:focus {
+.origin-inner:focus-visible {
     border: 2px solid #F06A0A;
     outline: none; /* for Chrome */
 }
