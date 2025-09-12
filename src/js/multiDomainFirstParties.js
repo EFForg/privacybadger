@@ -1877,6 +1877,35 @@ let multiDomainFirstPartiesArray = [
     "assets-gap.com",
   ],
   [
+    "gartner.com",
+
+    "capterra.com",
+
+    "capterra.ae",
+    "capterra.at",
+    "capterra.ch",
+    "capterra.com.au",
+    "capterra.com.br",
+    "capterra.com.de",
+    "capterra.co.uk",
+    "capterra.es",
+    "capterra.fr",
+    "capterra.ie",
+    "capterra.it",
+    "capterra.nl",
+    "capterra.se",
+
+    "getapp.cl",
+    "getapp.com.br",
+    "getapp.co.uk",
+    "getapp.de",
+    "getapp.es",
+    "getapp.fr",
+    "getapp.sg",
+
+    "softwareadvice.fr",
+  ],
+  [
     "gedi.it",
     "gedispa.it",
 
