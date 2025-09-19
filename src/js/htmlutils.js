@@ -146,11 +146,13 @@ let htmlUtils = {
    * @returns {String}
    */
   getDntIconHtml: (function () {
-    let dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
+    let dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png'),
+      dnt_aria_label = i18n.getMessage('dnt_tooltip');
+
     return function () {
       return `
       <div class="dnt-compliant">
-        <a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me"><img src="${dnt_icon_url}"></a>
+        <a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me" aria-label="${dnt_aria_label}"><img src="${dnt_icon_url}" alt=""></a>
       </div>
       `.trim();
     };
@@ -201,7 +203,7 @@ let htmlUtils = {
 
       let shield_icon = '';
       if (blockedFpScripts) {
-        shield_icon = '<span class="ui-icon ui-icon-shield"></span>';
+        shield_icon = '<span class="ui-icon ui-icon-shield" aria-hidden="true"></span>';
       }
 
       // construct HTML for domain
@@ -209,13 +211,13 @@ let htmlUtils = {
 
       return `
 <div class="${classes.join(' ')}" data-origin="${fqdn}">
-  <div class="origin" role="heading" aria-level="4">
-    <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
+  <div class="origin" role="heading" aria-level="4" aria-label="${domain_tooltip}">
+    <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}" aria-label="${breakage_warning_tooltip}" role="img"></span>
     <span class="origin-inner tooltip" title="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
   </div>
   <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
-  <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></a>
+  <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}" aria-label="${undo_arrow_tooltip}"></a>
 </div>
       `.trim();
     };
