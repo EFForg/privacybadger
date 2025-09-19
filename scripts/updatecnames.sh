@@ -19,11 +19,18 @@ if wget -q -T 30 -O "$TEMPFILE" -- $CNAME_LIST_URL && [ -s "$TEMPFILE" ]; then
     exit 1
   fi
 
+  node --experimental-default-type=module scripts/updatecnames.mjs "$TEMPFILE"
+
   if cmp -s "$TEMPFILE" $CNAME_LIST_PATH; then
     echo "    no CNAME domain list updates"
   else
     cp "$TEMPFILE" $CNAME_LIST_PATH
     echo "    updated CNAME domain list at $CNAME_LIST_PATH"
+    echo
+    echo "    WARNING: AMO REQUIRES ALL FILES TO BE UNDER 4 MB"
+    filesize=$(python3 -c "import sys, json; print(round(len(json.dumps(json.load(sys.stdin))) / 1000 / 1000, 2), end='')" < "$CNAME_LIST_PATH")
+    printf "    $CNAME_LIST_PATH is %s MB\n" "$filesize"
+    echo
     echo "    please verify and commit!"
     exit 1
   fi
