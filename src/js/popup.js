@@ -512,6 +512,7 @@ function toggleBlockedResourcesHandler(e) {
     $("#collapse-blocked-resources").show();
     $("#expand-blocked-resources").hide();
     $("#blockedResources").slideDown();
+    $("#tracker-list-header").attr("aria-expanded", true);
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showExpandedTrackingSection: true }
@@ -520,6 +521,7 @@ function toggleBlockedResourcesHandler(e) {
     $("#collapse-blocked-resources").hide();
     $("#expand-blocked-resources").show();
     $("#blockedResources").slideUp();
+    $("#tracker-list-header").attr("aria-expanded", false);
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showExpandedTrackingSection: false }
@@ -741,11 +743,13 @@ function refreshPopup() {
     $('#expand-blocked-resources').hide();
     $('#collapse-blocked-resources').show();
     $('#blockedResources').show();
+    $("#tracker-list-header").attr("aria-expanded", true);
 
   } else {
     $('#expand-blocked-resources').show();
     $('#collapse-blocked-resources').hide();
     $('#blockedResources').hide();
+    $("#tracker-list-header").attr("aria-expanded", false);
   }
 
   let domainsArr = [];
