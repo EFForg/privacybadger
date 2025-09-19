@@ -61,6 +61,7 @@ class DntTest(pbtest.PBSeleniumTest):
 return (typeof navigator.globalPrivacyControl == 'undefined' ||
   navigator.globalPrivacyControl === false);"""), msg
 
+    @pytest.mark.skip(reason="test fixture is down")
     def test_dnt_policy_check_should_happen_for_blocked_domains(self):
         PAGE_URL = (
             "https://efforg.github.io/privacybadger-test-fixtures/html/"
@@ -132,6 +133,7 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
         assert not self.driver.get_cookies(), (
             "Shouldn't have any cookies after the DNT check")
 
+    @pytest.mark.skip(reason="test fixture is down")
     def test_dnt_policy_check_should_not_send_cookies(self):
         TEST_DOMAIN = "dnt-request-cookies-test.trackersimulator.org"
         TEST_URL = f"https://{TEST_DOMAIN}/"
@@ -150,6 +152,7 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
         result = self.check_dnt(TEST_DOMAIN)
         assert result, "One or more cookies were sent (cookies=0 policy hash did not match)"
 
+    @pytest.mark.skip(reason="test fixture is down")
     @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type in ("chrome", "edge"))
     def test_should_not_record_nontracking_domains(self):
         NONTRACKING_FIXTURE_URL = (
