@@ -20,6 +20,7 @@ let multiDomainFirstPartiesArray = [
 
     "action-media.ru",
   ],
+  [ "actonsoftware.com", "actonservice.com"],
   [
     "adidas-group.com",
 
@@ -108,6 +109,7 @@ let multiDomainFirstPartiesArray = [
     "photoshop.com",
     "typekit.com",
   ],
+  ["adobedc.net", "omtrdc.net"],
   [
     "agora.pl",
 
