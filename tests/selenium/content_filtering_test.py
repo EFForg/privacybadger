@@ -51,7 +51,6 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
 
-    @pytest.mark.skip(reason="test fixture is down")
     def test_cookieblocking_stops_saving(self):
         self.load_url(f"https://{self.COOKIE_DOMAIN}/")
         assert not self.driver.get_cookies(), (
@@ -70,7 +69,6 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         assert not self.driver.get_cookies(), (
             "Cookie fixture should have been blocked from setting a cookie")
 
-    @pytest.mark.skip(reason="test fixture is down")
     def test_cookieblocking_stops_sending(self):
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
@@ -202,7 +200,6 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
 
-    @pytest.mark.skip(reason="test fixture is down")
     def test_cookieblock_site_override(self):
         # verify blocking gets overriden
         self.block_domain(self.THIRD_PARTY_DOMAIN)
