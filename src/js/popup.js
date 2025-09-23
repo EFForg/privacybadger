@@ -697,6 +697,7 @@ function refreshPopup() {
 
     // activate tooltips
     $('.tooltip').tooltipster();
+    htmlUtils.triggerTooltipsOnFocus();
 
     window.SLIDERS_DONE = true;
 
@@ -769,6 +770,7 @@ function refreshPopup() {
 
     // activate tooltips
     $('.tooltip').tooltipster();
+    htmlUtils.triggerTooltipsOnFocus();
 
     window.SLIDERS_DONE = true;
 
@@ -845,6 +847,7 @@ function refreshPopup() {
 
   // activate tooltips
   $('.tooltip').tooltipster();
+  htmlUtils.triggerTooltipsOnFocus();
 
   if (POPUP_DATA.trackerCount === 0) {
     // show "no trackers" message
@@ -884,6 +887,7 @@ function refreshPopup() {
 
     // activate tooltips
     $printable.find('.tooltip:not(.tooltipstered)').tooltipster(DOMAIN_TOOLTIP_CONF);
+
     if ($printable.hasClass('breakage-note')) {
       let domain = $printable[0].dataset.origin;
       createBreakageNote(domain, BREAKAGE_NOTE_DOMAINS[domain]);
@@ -894,6 +898,8 @@ function refreshPopup() {
     } else {
       $('#not-yet-blocked-header').tooltipster();
       $('#non-trackers-header').tooltipster();
+      htmlUtils.triggerTooltipsOnFocus();
+      htmlUtils.triggerSliderTooltipsOnFocus();
       window.SLIDERS_DONE = true;
     }
   }

@@ -53,6 +53,8 @@ let htmlUtils = {
         }
       }
     },
+    // Meet accessibility requirement that the tooltip stays open when a user hovers over it
+    interactive: true
   },
 
   /**
@@ -250,6 +252,42 @@ let htmlUtils = {
     if (show_breakage_warning) {
       $clicker.addClass("show-breakage-warning");
     }
+  },
+
+  /**
+   * Make tooltips keyboard accessible
+   *
+   * @param {String} selector The selector of focusable elements with a tooltip
+   */
+  triggerTooltipsOnFocus: (selector = '.tooltip') => {
+    $(selector).off('focus.tooltip').on('focus.tooltip', function() {
+      $(this).tooltipster('show');
+    });
+    $(selector).off('blur.tooltip').on('blur.tooltip', function() {
+      $(this).tooltipster('hide');
+    });
+  },
+
+  /**
+   * Make slider toggle tooltips keyboard accessible
+   *
+   * @param {String} selector The selector of the focusable elements in the slider
+   */
+  triggerSliderTooltipsOnFocus: (selector = '.switch-toggle input') => {
+    // Workaround for slider tooltips
+    // The input receives keyboard focus, but the tooltip must be attached to the corresponding label to appear in the correct place
+    $(selector).off('focus.tooltip').on('focus.tooltip', function () {
+      let label = $(`label.tooltip[for="${this.id}"]`);
+      if (label.length) {
+        label.tooltipster('show');
+      }
+    });
+    $(selector).off('blur.tooltip').on('blur.tooltip', function () {
+      let label = $(`label.tooltip[for="${this.id}"]`);
+      if (label.length) {
+        label.tooltipster('hide');
+      }
+    });
   },
 
   /**
