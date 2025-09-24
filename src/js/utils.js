@@ -366,7 +366,8 @@ function parseCookie(str, opts) {
   ];
 
   let parsed = {},
-    cookies = str.replace(/\n/g, ";").split(";");
+    cookies = str.replace(/\n/g, ";").split(";"),
+    is_session_cookie = true;
 
   for (let i = 0; i < cookies.length; i++) {
     let cookie = cookies[i],
@@ -393,8 +394,11 @@ function parseCookie(str, opts) {
       value = "";
     }
 
-    if (opts.skipAttributes &&
-        COOKIE_ATTRIBUTES.indexOf(name.toLowerCase()) != -1) {
+    let lname = name.toLowerCase();
+    if (opts.ignoreSessionCookies && (lname == "expires" || lname == "max-age")) {
+      is_session_cookie = false;
+    }
+    if (opts.skipAttributes && COOKIE_ATTRIBUTES.includes(lname)) {
       continue;
     }
 
@@ -423,6 +427,10 @@ function parseCookie(str, opts) {
     if (!opts.noOverwrite || !hasOwn(parsed, name)) {
       parsed[name] = value;
     }
+  }
+
+  if (opts.ignoreSessionCookies && is_session_cookie) {
+    return {};
   }
 
   return parsed;
