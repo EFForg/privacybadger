@@ -53,6 +53,8 @@ let htmlUtils = {
         }
       }
     },
+    // Meet accessibility requirement that the tooltip stays open when a user hovers over it
+    interactive: true
   },
 
   /**
@@ -122,11 +124,13 @@ let htmlUtils = {
       allow: i18n.getMessage('domain_slider_allow_tooltip')
     };
 
+    let aria_label = i18n.getMessage('popup_slider_label', 'XXX');
+
     return function (fqdn, action) {
       let id = fqdn.replace(/\./g, '-');
       return `
 <div class="switch-container ${action}">
-  <div class="switch-toggle switch-3 switch-candy">
+  <div class="switch-toggle switch-3 switch-candy" role="radiogroup" aria-label="${aria_label.replace('XXX', fqdn)}">
     <input id="block-${id}" name="${fqdn}" value="${constants.BLOCK}" type="radio" aria-label="${tooltips.block}" ${is_checked(constants.BLOCK, action)}>
     <label title="${tooltips.block}" class="tooltip" for="block-${id}"></label>
     <input id="cookieblock-${id}" name="${fqdn}" value="${constants.COOKIEBLOCK}" type="radio" aria-label="${tooltips.cookieblock}" ${is_checked(constants.COOKIEBLOCK, action)}>
@@ -147,10 +151,11 @@ let htmlUtils = {
    */
   getDntIconHtml: (function () {
     let dnt_icon_url = chrome.runtime.getURL('/icons/dnt-16.png');
+    let dnt_aria_label = i18n.getMessage('dnt_tooltip');
     return function () {
       return `
       <div class="dnt-compliant">
-        <a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me"><img src="${dnt_icon_url}"></a>
+        <a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me" aria-label="${dnt_aria_label}"><img src="${dnt_icon_url}" alt=""></a>
       </div>
       `.trim();
     };
@@ -201,7 +206,7 @@ let htmlUtils = {
 
       let shield_icon = '';
       if (blockedFpScripts) {
-        shield_icon = '<span class="ui-icon ui-icon-shield"></span>';
+        shield_icon = '<span class="ui-icon ui-icon-shield" aria-hidden="true"></span>';
       }
 
       // construct HTML for domain
@@ -209,13 +214,13 @@ let htmlUtils = {
 
       return `
 <div class="${classes.join(' ')}" data-origin="${fqdn}">
-  <div class="origin" role="heading" aria-level="4">
-    <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
+  <div class="origin" role="heading" aria-level="4" aria-label="${domain_tooltip}">
+    <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}" aria-label="${breakage_warning_tooltip}" role="img"></span>
     <span class="origin-inner tooltip" title="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
   </div>
   <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
-  <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></a>
+  <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}" aria-label="${undo_arrow_tooltip}"></a>
 </div>
       `.trim();
     };
@@ -246,6 +251,42 @@ let htmlUtils = {
     if (show_breakage_warning) {
       $clicker.addClass("show-breakage-warning");
     }
+  },
+
+  /**
+   * Make tooltips keyboard accessible
+   *
+   * @param {String} selector The selector of focusable elements with a tooltip
+   */
+  triggerTooltipsOnFocus: (selector = '.tooltip') => {
+    $(selector).off('focus.tooltip').on('focus.tooltip', function() {
+      $(this).tooltipster('show');
+    });
+    $(selector).off('blur.tooltip').on('blur.tooltip', function() {
+      $(this).tooltipster('hide');
+    });
+  },
+
+  /**
+   * Make slider toggle tooltips keyboard accessible
+   *
+   * @param {String} selector The selector of the focusable elements in the slider
+   */
+  triggerSliderTooltipsOnFocus: (selector = '.switch-toggle input') => {
+    // Workaround for slider tooltips
+    // The input receives keyboard focus, but the tooltip must be attached to the corresponding label to appear in the correct place
+    $(selector).off('focus.tooltip').on('focus.tooltip', function () {
+      let label = $(`label.tooltip[for="${this.id}"]`);
+      if (label.length) {
+        label.tooltipster('show');
+      }
+    });
+    $(selector).off('blur.tooltip').on('blur.tooltip', function () {
+      let label = $(`label.tooltip[for="${this.id}"]`);
+      if (label.length) {
+        label.tooltipster('hide');
+      }
+    });
   },
 
   /**
