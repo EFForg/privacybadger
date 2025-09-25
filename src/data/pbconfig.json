@@ -33,9 +33,13 @@
             "cdn.appdynamics.com": [
                 "www.telecharge.com"
             ],
+            "demdex.net": [
+                "www.sbs.com.au"
+            ],
             "doubleclick.net": [
                 "www.crunchyroll.com",
-                "www.paramountplus.com"
+                "www.paramountplus.com",
+                "www.sbs.com.au"
             ],
             "securepubads.g.doubleclick.net": [
                 "13wham.com",
@@ -202,6 +206,9 @@
             ],
             "segment.com": [
                 "www.crunchyroll.com"
+            ],
+            "tremorhub.com": [
+                "www.sbs.com.au"
             ]
         }
     },
