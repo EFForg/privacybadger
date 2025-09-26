@@ -1057,6 +1057,7 @@ Badger.prototype = {
     // TODO move to pbconfig.json
     const gpcDisabledWebsites = {
       'www.costco.com': true,
+      'www.delta.com': true,
       'fivethirtyeight.com': true,
     };
     return !utils.hasOwn(gpcDisabledWebsites, site_host);
