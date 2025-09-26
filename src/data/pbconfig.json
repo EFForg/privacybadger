@@ -211,6 +211,9 @@
             "segment.com": [
                 "www.crunchyroll.com"
             ],
+            "cdn.trackjs.com": [
+                "www.delta.com"
+            ],
             "tremorhub.com": [
                 "www.sbs.com.au"
             ]
@@ -1061,7 +1064,6 @@
         "townnews.com",
         "toyota.com",
         "cookieblock.trackersimulate.org",
-        "cdn.trackjs.com",
         "tradingview.com",
         "widget-sheriff.tradingview-widget.com",
         "www.tradingview-widget.com",
