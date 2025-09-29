@@ -9,6 +9,10 @@
         "DNT Policy v1.0 no-eof-newline": "7861462d500fbb6ccb74c614782f4937377bec76"
     },
     "sitefixes": {
+        "gpc": [
+            "www.costco.com",
+            "www.delta.com"
+        ],
         "ignore": {
             "doubleclick.net": [
                 "m.youtube.com",

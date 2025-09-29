@@ -627,6 +627,17 @@ Badger.prototype = {
     self.storage.updateDntHashes(data.dnt_policy_hashes);
 
     if (utils.hasOwn(data, 'sitefixes')) {
+      // temporary exception list for sites
+      // where sending DNT/GPC signals causes major breakages
+      if (utils.hasOwn(data.sitefixes, 'gpc')) {
+        let gpcExceptions = {};
+        for (let site of data.sitefixes.gpc) {
+          gpcExceptions[site] = true;
+        }
+        self.getPrivateSettings().setItem('gpcDisabledSites', gpcExceptions);
+      }
+
+      // site-specific overrides
       let sitefixes = {};
 
       for (let kind of ['ignore', 'yellowlist']) {
@@ -859,6 +870,7 @@ Badger.prototype = {
       doneLoadingSeed: false,
       doneLoadingYellowlist: false,
       firstRunTimerFinished: true,
+      gpcDisabledSites: {},
       ignoredSiteBases: [],
       nextPbconfigUpdateTime: 0,
       showLearningPrompt: false,
@@ -1048,19 +1060,15 @@ Badger.prototype = {
    * @returns {Boolean}
    */
   isDntSignalEnabled: function (site_host) {
-    if (!this.getSettings().getItem("sendDNTSignal")) {
+    let self = this;
+
+    if (!self.getSettings().getItem("sendDNTSignal")) {
       return false;
     }
-    // temp. exception list for sites
-    // where sending DNT/GPC signals causes major breakages
+
     // TODO indicate when this happens in the UI somehow
-    // TODO move to pbconfig.json
-    const gpcDisabledWebsites = {
-      'www.costco.com': true,
-      'www.delta.com': true,
-      'fivethirtyeight.com': true,
-    };
-    return !utils.hasOwn(gpcDisabledWebsites, site_host);
+    let gpcExceptions = self.getPrivateSettings().getItem("gpcDisabledSites");
+    return !utils.hasOwn(gpcExceptions, site_host);
   },
 
   isCheckingDNTPolicyEnabled: function() {
