@@ -52,7 +52,7 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Spenden Sie an die EFF – eine gemeinnützige Organisation, die sich für den Schutz der digitalen Privatsphäre einsetzt",
+        "message": "Spenden Sie an EFF – eine gemeinnützige Organisation, die für Datenschutz im Internet kämpft",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
