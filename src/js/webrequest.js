@@ -913,7 +913,7 @@ function dispatcher(request, sender, sendResponse) {
             if (r.priority == constants.DNR_WIDGET_ALLOW_ALL) {
               if (r.condition.tabIds.includes(sender.tab.id)) {
                 if (r.condition.requestDomains) {
-                  return r.condition.requestDomains.includes(d);
+                  return r.condition.requestDomains[0] == d;
                 } else if (r.condition.urlFilter) {
                   return r.condition.urlFilter == "||" + d.slice(2);
                 }
