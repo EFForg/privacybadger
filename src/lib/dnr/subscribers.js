@@ -124,7 +124,7 @@ function _getDynamicRulesForDomain(domain, newVal, oldVal, rules) {
     r.priority != constants.DNR_WIDGET_ALLOW_ALL &&
       r.priority != constants.DNR_SITE_ALLOW_ALL &&
       r.condition.requestDomains &&
-      r.condition.requestDomains.includes(domain));
+      r.condition.requestDomains[0] == domain);
   if (existingRules.length) {
     opts.removeRuleIds = existingRules.map(r => r.id);
   }
@@ -222,7 +222,7 @@ function subscribeToActionMapUpdates() {
           for (let newRule of addRules) {
             if (newRule.priority == constants.DNR_BLOCK) {
               opts.addRules = opts.addRules.filter(rule =>
-                !(rule.condition.requestDomains.includes(domain) &&
+                !(rule.condition.requestDomains[0] == domain &&
                 (rule.priority == constants.DNR_COOKIEBLOCK_HEADERS ||
                   rule.priority == constants.DNR_COOKIEBLOCK_ALLOW)));
             }

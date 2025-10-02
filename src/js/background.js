@@ -152,6 +152,7 @@ function Badger(from_qunit) {
     self.tabData.initialize().catch(console.error);
 
     // async load known CNAME domain aliases (but don't wait on them)
+    // TODO race condition: cnameCloakedDomains may not be ready in time for DNR rule creation
     self.initializeCnames().catch(console.error);
 
     // seed data loading depends on the yellowlist
@@ -225,9 +226,26 @@ Badger.prototype = {
   tabData: new TabData(),
 
   /**
-   * Mapping of known CNAME domain aliases
+   * Mapping of known CNAME aliases
+   *
+   * {
+   *   <CNAME alias FQDN>: cloaked third-party FQDN,
+   *   ...
+   * }
    */
   cnameDomains: {},
+  /**
+   * Mapping of third-party FQDNs to known CNAME aliases
+   *
+   * {
+   *   <third-party FQDN>: [
+   *     CNAME alias FQDN,
+   *     ...
+   *   ],
+   *   ...
+   * }
+   */
+  cnameCloakedDomains: {},
 
   // Methods
 
@@ -755,6 +773,21 @@ Badger.prototype = {
       .then(response => response.json())
       .then(data => {
         badger.cnameDomains = data;
+
+        for (let cname of Object.keys(badger.cnameDomains)) {
+          let uncloaked = badger.cnameDomains[cname];
+
+          // we want "amazonaws.com" (PSL TLD)
+          // but we don't want "com", "net", etc.
+          let parts = utils.explodeSubdomains(uncloaked, true).slice(0, -1);
+
+          for (let part of parts) {
+            if (!utils.hasOwn(badger.cnameCloakedDomains, part)) {
+              badger.cnameCloakedDomains[part] = [];
+            }
+            badger.cnameCloakedDomains[part].push(cname);
+          }
+        }
       });
   },
 
