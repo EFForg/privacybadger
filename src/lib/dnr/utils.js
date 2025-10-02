@@ -48,6 +48,37 @@ function convertHostsToMatchPatterns(hosts) {
 }
 
 /**
+ * Returns any known matching CNAME aliases for a given tracker domain.
+ *
+ * CNAME aliases are considered to match if they point to the tracker domain,
+ * or to a subdomain of the tracker (domain that ends with the tracker domain).
+ *
+ * Let's take the following CNAME definitions for example:
+ *
+ * metrics.example.com -> example.com.eviltracker.net
+ * sg781tc.example.net -> track.eviltracker.net
+ *
+ * Calling this function with "track.eviltracker.net"
+ * should return `['sg781tc.example.net']`
+ *
+ * Calling it with "eviltracker.net"
+ * should return `['metrics.example.com', 'sg781tc.example.net']`
+ *
+ * @param {String} domain The third-party tracker domain
+ *
+ * @returns {Array} any first-party CNAME aliases
+ */
+function getCnameAliases(domain) {
+  let cnames = [];
+
+  if (utils.hasOwn(badger.cnameCloakedDomains, domain)) {
+    cnames = badger.cnameCloakedDomains[domain];
+  }
+
+  return cnames;
+}
+
+/**
  * Constructs a DNR rule object that blocks a domain and its subdomains.
  *
  * @param {String} domain
@@ -55,25 +86,38 @@ function convertHostsToMatchPatterns(hosts) {
  *
  * @returns {Object}
  */
-function makeDnrBlockRule(domain, priority) {
+function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
   let id = badger.getDynamicRuleId();
 
   let action = {
     type: 'block'
   };
 
+  let cnames = getCnameAliases(domain);
+
   let condition = {
-    requestDomains: [domain],
-    // TODO "A request is said to be first party if it has the same domain (eTLD+1) as the frame in which the request originated."
-    // TODO will this ever be a problem? frame vs. top-level frame
-    domainType: 'thirdParty',
+    requestDomains: [domain]
   };
+
+  if (cnames.length) {
+    // important for requestDomains[0] to be the domain
+    condition.requestDomains = condition.requestDomains.concat(cnames);
+  }
+
   let mdfpList = mdfp.getEntityList(getBaseDomain(domain));
   if (mdfpList.length) {
     condition.excludedInitiatorDomains = mdfpList;
   }
 
-  priority = priority || constants.DNR_BLOCK;
+  if (cnames.length) {
+    if (!condition.excludedInitiatorDomains) {
+      condition.excludedInitiatorDomains = [domain];
+    }
+  } else {
+    // TODO "A request is said to be first party if it has the same domain (eTLD+1) as the frame in which the request originated."
+    // TODO will this ever be a problem? frame vs. top-level frame
+    condition.domainType = 'thirdParty';
+  }
 
   let rule = { id, action, condition, priority };
 
@@ -88,7 +132,7 @@ function makeDnrBlockRule(domain, priority) {
  *
  * @returns {Object}
  */
-function makeDnrCookieblockRule(domain, priority) {
+function makeDnrCookieblockRule(domain, priority = constants.DNR_COOKIEBLOCK_HEADERS) {
   let id = badger.getDynamicRuleId();
 
   let action = {
@@ -97,17 +141,29 @@ function makeDnrCookieblockRule(domain, priority) {
     responseHeaders: [{ header: "set-cookie", operation: "remove" }]
   };
 
+
+  let cnames = getCnameAliases(domain);
+
   let condition = {
     requestDomains: [domain],
-    domainType: 'thirdParty',
   };
+
+  if (cnames.length) {
+    // important for requestDomains[0] to be the domain
+    condition.requestDomains = condition.requestDomains.concat(cnames);
+  }
+
   let mdfpList = mdfp.getEntityList(getBaseDomain(domain));
   if (mdfpList.length) {
     condition.excludedInitiatorDomains = mdfpList;
   }
 
-  if (!priority) {
-    priority = constants.DNR_COOKIEBLOCK_HEADERS;
+  if (cnames.length) {
+    if (!condition.excludedInitiatorDomains) {
+      condition.excludedInitiatorDomains = [domain];
+    }
+  } else {
+    condition.domainType = 'thirdParty';
   }
 
   let rule = { id, action, condition, priority };
@@ -126,19 +182,25 @@ function makeDnrCookieblockRule(domain, priority) {
  *
  * @returns {Object}
  */
-function makeDnrAllowRule(domain, priority) {
+function makeDnrAllowRule(domain, priority = constants.DNR_COOKIEBLOCK_ALLOW) {
   let id = badger.getDynamicRuleId();
-
-  priority = priority || constants.DNR_COOKIEBLOCK_ALLOW;
 
   let action = {
     type: 'allow'
   };
 
+  let cnames = getCnameAliases(domain);
+
   let condition = {
     requestDomains: [domain],
-    domainType: 'thirdParty'
   };
+
+  if (cnames.length) {
+    // important for requestDomains[0] to be the domain
+    condition.requestDomains = condition.requestDomains.concat(cnames);
+  } else {
+    condition.domainType = 'thirdParty';
+  }
 
   let rule = { id, action, condition, priority };
 
