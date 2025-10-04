@@ -512,6 +512,7 @@ function toggleBlockedResourcesHandler(e) {
     $("#collapse-blocked-resources").show();
     $("#expand-blocked-resources").hide();
     $("#blockedResources").slideDown();
+    $("#tracker-list-header").attr("aria-expanded", true);
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showExpandedTrackingSection: true }
@@ -520,6 +521,7 @@ function toggleBlockedResourcesHandler(e) {
     $("#collapse-blocked-resources").hide();
     $("#expand-blocked-resources").show();
     $("#blockedResources").slideUp();
+    $("#tracker-list-header").attr("aria-expanded", false);
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showExpandedTrackingSection: false }
@@ -571,6 +573,11 @@ function createBreakageNote(domain, i18n_message_key) {
     autoClose: false,
     content: chrome.i18n.getMessage(i18n_message_key),
     functionReady: function (tooltip) {
+      // Add aria-hidden to ensure that the tooltip isn't read twice by screenreaders
+      // It should be read along with the selected slider option (via aria-describedby), and not where it's inserted at the end of the popup DOM
+      $(tooltip.elementTooltip()).attr({role: "tooltip", "aria-hidden": "true"});
+      $slider_allow.closest(".switch-toggle").find("input:checked").attr("aria-describedby", tooltip.elementTooltip().id);
+
       // close on tooltip click/tap
       $(tooltip.elementTooltip()).on('click', function (e) {
         e.preventDefault();
@@ -629,6 +636,7 @@ function refreshPopup() {
 
     // activate tooltips
     $('.tooltip').tooltipster();
+    htmlUtils.triggerTooltipsOnFocus();
 
     window.SLIDERS_DONE = true;
 
@@ -675,11 +683,13 @@ function refreshPopup() {
     $('#expand-blocked-resources').hide();
     $('#collapse-blocked-resources').show();
     $('#blockedResources').show();
+    $("#tracker-list-header").attr("aria-expanded", true);
 
   } else {
     $('#expand-blocked-resources').show();
     $('#collapse-blocked-resources').hide();
     $('#blockedResources').hide();
+    $("#tracker-list-header").attr("aria-expanded", false);
   }
 
   let domainsArr = [];
@@ -699,6 +709,7 @@ function refreshPopup() {
 
     // activate tooltips
     $('.tooltip').tooltipster();
+    htmlUtils.triggerTooltipsOnFocus();
 
     window.SLIDERS_DONE = true;
 
@@ -775,6 +786,7 @@ function refreshPopup() {
 
   // activate tooltips
   $('.tooltip').tooltipster();
+  htmlUtils.triggerTooltipsOnFocus();
 
   if (POPUP_DATA.trackerCount === 0) {
     // show "no trackers" message
@@ -795,7 +807,7 @@ function refreshPopup() {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
       "popup_instructions", [
         POPUP_DATA.trackerCount,
-        "<a target='_blank' title='" + htmlUtils.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+        "<a target='_blank' title='" + htmlUtils.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' aria-description='" + htmlUtils.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
       ]
     )).find(".tooltip").tooltipster();
   }
@@ -814,6 +826,7 @@ function refreshPopup() {
 
     // activate tooltips
     $printable.find('.tooltip:not(.tooltipstered)').tooltipster(DOMAIN_TOOLTIP_CONF);
+
     if ($printable.hasClass('breakage-note')) {
       let domain = $printable[0].dataset.origin;
       createBreakageNote(domain, BREAKAGE_NOTE_DOMAINS[domain]);
@@ -824,6 +837,8 @@ function refreshPopup() {
     } else {
       $('#not-yet-blocked-header').tooltipster();
       $('#non-trackers-header').tooltipster();
+      htmlUtils.triggerTooltipsOnFocus();
+      htmlUtils.triggerSliderTooltipsOnFocus();
       window.SLIDERS_DONE = true;
     }
   }
