@@ -52,7 +52,7 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "Doe para a EFF—uma organização sem fins lucrativos que defende a privacidade digital",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
@@ -260,7 +260,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (privacybadger.org) é uma extensão de navegador que aprende automaticamente a bloquear rastreadores ocultos. O Privacy Badger é desenvolvido pela Electronic Frontier Foundation, uma organização sem fins lucrativos que luta pelos seus direitos online.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -313,7 +313,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
+        "message": "O Privacy Badger aprende automaticamente a bloquear rastreadores ocultos. Reserve um minuto para ver como.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -341,7 +341,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "O rastreamento oculto acontece de várias maneiras; os anúncios são apenas a ponta visível do iceberg. O Privacy Badger não bloqueia anúncios, a menos que eles estejam rastreando você.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -413,7 +413,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_bluesky": {
-        "message": "Share on Bluesky",
+        "message": "Compartilhar no Bluesky",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
