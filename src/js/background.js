@@ -89,6 +89,9 @@ function Badger(from_qunit) {
   let widgetListPromise = widgetLoader.loadWidgetsFromFile(
     "data/socialwidgets.json").catch(console.error);
 
+  // load known CNAME domain aliases
+  let cnameDataPromise = self.initializeCnames().catch(console.error);
+
   // we need to get ready to create DNR rules before initializing storage
   Promise.all([
     self.initMaxDynamicRuleId(),
@@ -151,16 +154,15 @@ function Badger(from_qunit) {
 
     self.tabData.initialize().catch(console.error);
 
-    // async load known CNAME domain aliases (but don't wait on them)
-    // TODO race condition: cnameCloakedDomains may not be ready in time for DNR rule creation
-    self.initializeCnames().catch(console.error);
-
     // seed data loading depends on the yellowlist
     await pbconfigPromise;
     // also get ready to create dynamic DNR rules
     subscribeToActionMapUpdates();
     // get ready to await initial DNR rules creation
     let dnrRegistrationPromise = self.subscribeToDnrUpdates().catch(console.error);
+    // DNR rule creation depends on CNAME data
+    await cnameDataPromise;
+
     // now async load seed data
     let seedDataPromise = self.updateTrackerData().catch(console.error);
 
