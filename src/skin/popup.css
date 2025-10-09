@@ -81,7 +81,6 @@ button {
 .origin{
   max-width: 210px;
   color: #555555;
-  float: left;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -90,7 +89,6 @@ button {
 .switch-container {
     width: 115px;
     display: block;
-    margin-left: 220px;
 }
 .switch-toggle {
     background-color: #515050;
@@ -99,6 +97,7 @@ button {
 .switch-toggle > label {
     cursor: pointer;
 }
+.keyContainer .key,
 .options .switch-container {
     max-width: 114px;
 }
@@ -127,9 +126,6 @@ button {
     margin-right: 10px;
     width: 20px;
     height: 20px;
-    position: relative;
-    left: 340px;
-    bottom: 15px;
 }
 .userset .honeybadgerPowered {
     display: block;
@@ -137,8 +133,8 @@ button {
 }
 
 a.removeOrigin {
-    float: right;
     margin-right: 10px;
+    margin-left: auto;
     width: 10px;
     text-decoration: none;
 }
@@ -231,6 +227,17 @@ button.cta-button:focus-visible, a.cta-button:focus-visible {
     outline: none;
 }
 
+.keyContainer,
+.clicker {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.toggle-container {
+    display: flex;
+    gap: 10px;
+}
+
 .clickerContainer {
     max-height: 290px;
     overflow-y: auto;
@@ -243,17 +250,13 @@ button.cta-button:focus-visible, a.cta-button:focus-visible {
     position: relative;
 }
 .key {
-    position: relative;
-    height: 7px;
-    left: 215px;
-    right: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
     z-index: 30;
     background: #fefefe;
     padding-top: 4px;
-    width: 117px;
-}
-.key img {
-    margin-left: 19px;
+    grid-column: 2;
 }
 
 .flex-wrapper {
@@ -589,21 +592,9 @@ a.overlay-close:hover {
         max-width: 150px;
     }
 
+    .key,
     .switch-container {
         width: 100px;
-        display: block;
-        margin-left: 150px;
-    }
-
-    .key {
-        left: 150px;
-    }
-    .key img {
-        margin-left: 12px;
-    }
-
-    .honeybadgerPowered {
-        left: 255px;
     }
 
     #share {
@@ -611,7 +602,7 @@ a.overlay-close:hover {
         margin-right: 8px;
     }
     #options {
-        margin-right: 0px;
+        margin-right: 0;
     }
 }
 
