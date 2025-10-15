@@ -1008,16 +1008,6 @@ let multiDomainFirstPartiesArray = [
   ["codepen.io", "cdpn.io"],
   ["concur.com", "concursolutions.com"],
   [
-    "cornell.edu",
-
-    "birdsna.org",
-    "birdsoftheworld.com",
-    "birdsoftheworld.org",
-    "ebird.org",
-    "hbw.com",
-    "macaulaylibrary.org",
-  ],
-  [
     "condenast.com",
 
     "allure.com",
@@ -1047,6 +1037,17 @@ let multiDomainFirstPartiesArray = [
 
     "condenastdigital.com",
   ],
+  [
+    "cornell.edu",
+
+    "birdsna.org",
+    "birdsoftheworld.com",
+    "birdsoftheworld.org",
+    "ebird.org",
+    "hbw.com",
+    "macaulaylibrary.org",
+  ],
+  ["corriere.it", "corriereobjects.it"],
   ["costco.com", "costco.ca"],
   ["cox.com", "cox.net"],
   ["cricketwireless.com", "aiowireless.com"],
