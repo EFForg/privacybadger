@@ -44,6 +44,9 @@
             "cdn.appdynamics.com": [
                 "www.telecharge.com"
             ],
+            "connatix.com": [
+                "www.accuweather.com"
+            ],
             "demdex.net": [
                 "www.sbs.com.au"
             ],
@@ -425,7 +428,6 @@
         "make.cohesionapps.com",
         "25livepub.collegenet.com",
         "puzzles-games-api.gp-prod.conde.digital",
-        "connatix.com",
         "consentframework.com",
         "consentmanager.net",
         "imgssl.constantcontact.com",
