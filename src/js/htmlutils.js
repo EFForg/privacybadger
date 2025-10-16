@@ -216,7 +216,7 @@ let htmlUtils = {
       return `
 <div class="${classes.join(' ')}" data-origin="${fqdn}">
   <div class="origin" role="heading" aria-level="4" aria-label="${domain_tooltip}">
-    <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}" aria-label="${breakage_warning_tooltip}" role="img"></span>
+    <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}" aria-label="${breakage_warning_tooltip}" role="img" tabindex="0"></span>
     <span class="origin-inner tooltip" title="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
   </div>
   <a href="" class="removeOrigin">&#10006</a>
