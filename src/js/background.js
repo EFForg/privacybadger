@@ -16,6 +16,7 @@
  */
 
 import { extractHostFromURL, getBaseDomain } from "../lib/basedomain.js";
+import { Trie } from "../lib/trie.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -106,6 +107,8 @@ function Badger(from_qunit) {
   async function onStorageReady() {
     log("Storage is ready");
 
+    self.initDisabledSitesTrie();
+
     self.heuristicBlocking = new HeuristicBlocking.HeuristicBlocker(self.storage);
 
     self.setPrivacyOverrides();
@@ -175,6 +178,11 @@ Badger.prototype = {
    * Mapping of known CNAME domain aliases
    */
   cnameDomains: {},
+
+  /**
+   * Trie for looking up whether PB is disabled for a site.
+   */
+  disabledSitesTrie: null,
 
   // Methods
 
@@ -1014,16 +1022,14 @@ Badger.prototype = {
   },
 
   /**
-   * Returns whether Privacy Badger is enabled on a given hostname.
-   *
-   * @param {String} host the FQDN to check
-   *
-   * @returns {Boolean}
+   * (Re)builds the disabled sites trie.
    */
-  isPrivacyBadgerEnabled: function (host) {
-    let sitePatterns = this.getSettings().getItem("disabledSites") || [];
+  initDisabledSitesTrie: function () {
+    let self = this;
 
-    for (let pattern of sitePatterns) {
+    self.disabledSitesTrie = new Trie();
+
+    for (let pattern of self.getSettings().getItem("disabledSites")) {
       // domains now always match subdomains
       // TODO clean up user data and remove wildcard handling
       if (pattern.startsWith('*')) {
@@ -1032,12 +1038,63 @@ Badger.prototype = {
           pattern = pattern.slice(1);
         }
       }
-      if (pattern === host || host.endsWith('.' + pattern)) {
-        return false;
-      }
+      self.disabledSitesTrie.insert(pattern);
     }
+  },
 
-    return true;
+  /**
+   * Returns whether Privacy Badger is enabled on a given hostname.
+   *
+   * @param {String} host the FQDN to check
+   *
+   * @returns {Boolean}
+   */
+  isPrivacyBadgerEnabled: function (host) {
+    return !this.disabledSitesTrie.globDomainMatches(host);
+  },
+
+  /**
+   * Adds a domain to the list of disabled sites.
+   *
+   * @param {String} domain The site domain to disable PB for
+   */
+  disableOnSite: function (domain) {
+    let self = this,
+      settings = self.getSettings(),
+      disabledSites = settings.getItem('disabledSites');
+
+    if (!disabledSites.includes(domain)) {
+      disabledSites.push(domain);
+      settings.setItem("disabledSites", disabledSites);
+
+      // domains now always match subdomains
+      // TODO clean up user data and remove wildcard handling
+      if (domain.startsWith('*')) {
+        domain = domain.slice(1);
+        if (domain.startsWith('.')) {
+          domain = domain.slice(1);
+        }
+      }
+      self.disabledSitesTrie.insert(domain);
+    }
+  },
+
+  /**
+   * Removes a domain from the list of disabled sites.
+   *
+   * @param {String} domain The site domain to re-enable PB on
+   */
+  reenableOnSite: function (domain) {
+    let self = this,
+      settings = self.getSettings(),
+      disabledSites = settings.getItem("disabledSites"),
+      idx = disabledSites.indexOf(domain);
+
+    if (idx >= 0) {
+      disabledSites.splice(idx, 1);
+      settings.setItem("disabledSites", disabledSites);
+      self.initDisabledSitesTrie();
+    }
   },
 
   /**
@@ -1073,44 +1130,6 @@ Badger.prototype = {
 
   isCheckingDNTPolicyEnabled: function() {
     return this.getSettings().getItem("checkForDNTPolicy");
-  },
-
-  /**
-   * Adds a domain to the list of disabled sites.
-   *
-   * @param {String} domain The site domain to disable PB for
-   */
-  disableOnSite: function (domain) {
-    let settings = this.getSettings();
-    let disabledSites = settings.getItem('disabledSites');
-    if (disabledSites.indexOf(domain) < 0) {
-      disabledSites.push(domain);
-      settings.setItem("disabledSites", disabledSites);
-    }
-  },
-
-  /**
-   * Returns the current list of disabled sites.
-   *
-   * @returns {Array} site domains where Privacy Badger is disabled
-   */
-  getDisabledSites: function () {
-    return this.getSettings().getItem("disabledSites");
-  },
-
-  /**
-   * Removes a domain from the list of disabled sites.
-   *
-   * @param {String} domain The site domain to re-enable PB on
-   */
-  reenableOnSite: function (domain) {
-    let settings = this.getSettings();
-    let disabledSites = settings.getItem("disabledSites");
-    let idx = disabledSites.indexOf(domain);
-    if (idx >= 0) {
-      disabledSites.splice(idx, 1);
-      settings.setItem("disabledSites", disabledSites);
-    }
   },
 
   /**
