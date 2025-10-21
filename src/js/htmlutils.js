@@ -156,7 +156,7 @@ let htmlUtils = {
     return function () {
       return `
       <div class="dnt-compliant">
-        <a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me" aria-label="${dnt_aria_label}"><img src="${dnt_icon_url}" alt=""></a>
+        <a target=_blank href="https://privacybadger.org/#-I-am-an-online-advertising-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me" aria-label="${dnt_aria_label}"><img src="${dnt_icon_url}"></a>
       </div>
       `.trim();
     };
@@ -215,9 +215,9 @@ let htmlUtils = {
 
       return `
 <div class="${classes.join(' ')}" data-origin="${fqdn}">
-  <div class="origin" role="heading" aria-level="4" aria-label="${domain_tooltip}">
+  <div class="origin">
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}" aria-label="${breakage_warning_tooltip}" role="img" tabindex="0"></span>
-    <span class="origin-inner tooltip" title="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
+    <span class="origin-inner tooltip" title="${domain_tooltip}" role="heading" aria-level="4" aria-label="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
   </div>
   <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
