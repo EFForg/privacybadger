@@ -142,6 +142,7 @@ function loadI18nStrings() {
     'placeholder',
     'title',
     'aria-label',
+    'aria-description',
   ];
 
   // get all the elements that contain one or more of these attributes
