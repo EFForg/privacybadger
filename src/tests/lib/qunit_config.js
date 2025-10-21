@@ -39,6 +39,9 @@
       let store = badger.storage.getStore(store_name);
       BACKUP[store_name] = store.getItemClones();
     });
+
+    BACKUP.disabledSitesTrie = badger.disabledSitesTrie;
+    badger.initDisabledSitesTrie();
   });
 
   QUnit.testDone(() => {
@@ -47,6 +50,8 @@
       let store = badger.storage.getStore(store_name);
       store._store = BACKUP[store_name];
     });
+
+    badger.disabledSitesTrie = BACKUP.disabledSitesTrie;
   });
 
   // kick off tests when we have what we need from Badger
