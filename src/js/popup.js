@@ -560,42 +560,73 @@ function revertDomainControl(event) {
 }
 
 /**
- * Tooltip that explains how to enable signing into websites with Google.
- */
+  * Tooltip that explains how to enable signing into websites with Google.
+  */
 function createBreakageNote(domain, i18n_message_key) {
-  let $slider_allow = $(`#blockedResourcesInner label[for="allow-${domain.replace(/\./g, '-')}"]`);
-
-  // first remove the Allow tooltip so that future tooltipster calls
-  // return the tooltip we want (the breakage note, not Allow)
-  $slider_allow.tooltipster('destroy').tooltipster({
-    autoClose: false,
-    content: chrome.i18n.getMessage(i18n_message_key),
-    functionReady: function (tooltip) {
-      // close on tooltip click/tap
-      $(tooltip.elementTooltip()).on('click', function (e) {
-        e.preventDefault();
-        tooltip.hide();
-      });
-      // also when Report Broken Site or Share overlays get activated
-      $('#error, #share').off('click.breakage-note').on('click.breakage-note', function (e) {
-        e.preventDefault();
-        tooltip.hide();
-      });
-    },
-    interactive: true,
-    position: ['top'],
-    trigger: 'custom',
-    theme: 'tooltipster-badger-breakage-note'
-
-  // now restore the Allow tooltip
-  }).tooltipster(Object.assign({}, DOMAIN_TOOLTIP_CONF, {
-    content: chrome.i18n.getMessage('domain_slider_allow_tooltip'),
-    multiple: true
-  }));
-
-  if (POPUP_DATA.settings.seenComic && !POPUP_DATA.showLearningPrompt && !POPUP_DATA.criticalError) {
-    $slider_allow.tooltipster('show');
+  if (!POPUP_DATA.settings.seenComic || POPUP_DATA.showLearningPrompt || POPUP_DATA.criticalError) {
+    return;
   }
+
+  let $clicker = $(`.clicker[data-origin="${domain}"]`);
+  let $switchContainer = $clicker.find('.switch-container');
+
+  // Create tooltip HTML
+  let $tooltip = $(`
+   <div class="breakage-note-tooltip" role="tooltip">
+     <div class="tooltip-box">
+       <button class="dismiss-tooltip" aria-label="${chrome.i18n.getMessage("report_close")}">×</button>
+       <div class="tooltip-content">${chrome.i18n.getMessage(i18n_message_key)}</div>
+     </div>
+     <div class="tooltip-arrow">
+       <div class="tooltip-arrow-inner"></div>
+     </div>
+   </div>
+ `);
+
+  // Cannot insert inside blockedResourcesInner because it'll be cut off
+  $('#blockedResourcesInner').before($tooltip);
+
+  let switchOffset = $switchContainer.offset();
+  let switchWidth = $switchContainer.outerWidth();
+  let switchHeight = $switchContainer.outerHeight();
+  let arrowWidth = $tooltip.find('.tooltip-arrow-inner').outerWidth();
+  let tooltipHeight = $tooltip.outerHeight();
+
+  // Tooltip should be above the the switch container
+  $tooltip.css({
+    top: (switchOffset.top - tooltipHeight - switchHeight) + 'px',
+    left: '0px',
+    visibility: 'visible',
+  });
+
+  // Arrow should point to the allow toggle of the slider
+  let arrowLeft = (switchOffset.left + (switchWidth * 5/6)) - arrowWidth / 2;
+  $tooltip.find('.tooltip-arrow').css('left', arrowLeft + 'px');
+
+  let io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        $tooltip.show(); // show tooltip when slider is visible
+      } else {
+        $tooltip.hide(); // hide tooltip when slider is not visible
+      }
+    });
+  }, { threshold: 0 });
+  io.observe($switchContainer[0]);
+
+  // Close button handler
+  $tooltip.find('.dismiss-tooltip').on('click', function(e) {
+    e.preventDefault();
+    io.disconnect();
+    $tooltip.fadeOut(200);
+  });
+
+  // Also close when Report Broken Site or Share overlays get activated
+  $('#error, #share').off('click.breakage-note').on('click.breakage-note', function (e) {
+    e.preventDefault();
+    io.disconnect();
+    $tooltip.remove();
+  });
 }
 
 /**

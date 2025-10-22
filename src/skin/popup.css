@@ -519,18 +519,54 @@ a.overlay-close:hover {
     border: none;
 }
 
-.tooltipster-badger-breakage-note.tooltipster-sidetip .tooltipster-box {
+.breakage-note-tooltip {
+    position: absolute;
+    z-index: 999999;
+    /* Firefox Android workaround: must define position before measuring tooltip height for position calculations */
+    top: 0;
+    left: 0;
+    visibility: hidden;
+}
+
+.breakage-note-tooltip .tooltip-box {
     background-color: #F06A0A;
-    padding: 10px 0;
-}
-.tooltipster-badger-breakage-note.tooltipster-sidetip .tooltipster-content {
     color: #fefefe;
-    cursor: pointer;
     font-size: 15px;
+    line-height: 1.2;
+    border-radius: 7px;
+    padding: 16px 12px;
 }
-.tooltipster-badger-breakage-note.tooltipster-sidetip .tooltipster-arrow-background {
-    border-top-color: #F06A0A;
+
+.breakage-note-tooltip .dismiss-tooltip {
+    float: right;
+    background: none;
+    border: none;
+    color: #fefefe;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1;
     cursor: pointer;
+    margin-left: 5px;
+    padding: 0;
+    position: relative;
+    top: -8px;
+}
+
+.breakage-note-tooltip .dismiss-tooltip:hover {
+    color: #ddd;
+}
+
+.breakage-note-tooltip .tooltip-arrow {
+    position: absolute;
+}
+
+.breakage-note-tooltip .tooltip-arrow-inner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #F06A0A;
+    transform: rotate(45deg);
+    top: -8px;
 }
 
 #firstparty-protections-container, #youtube-message-container {
