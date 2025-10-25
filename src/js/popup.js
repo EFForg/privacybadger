@@ -563,7 +563,7 @@ function revertDomainControl(event) {
   * Tooltip that explains how to enable signing into websites with Google.
   */
 function createBreakageNote(domain, i18n_message_key) {
-  if (!POPUP_DATA.settings.seenComic && POPUP_DATA.showLearningPrompt && POPUP_DATA.criticalError) {
+  if (!POPUP_DATA.settings.seenComic || POPUP_DATA.showLearningPrompt || POPUP_DATA.criticalError) {
     return;
   }
 
