@@ -72,7 +72,9 @@ function getCnameAliases(domain) {
   let cnames = [];
 
   if (utils.hasOwn(badger.cnameCloakedDomains, domain)) {
-    cnames = badger.cnameCloakedDomains[domain];
+    for (let tracker of badger.cnameTrackersTrie.getDomains(domain)) {
+      cnames = cnames.concat(badger.cnameCloakedDomains[tracker]);
+    }
   }
 
   return cnames;
@@ -93,11 +95,14 @@ function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
     type: 'block'
   };
 
-  let cnames = getCnameAliases(domain);
-
   let condition = {
-    requestDomains: [domain]
+    requestDomains: [domain],
+    // TODO "A request is said to be first party if it has the same domain (eTLD+1) as the frame in which the request originated."
+    // TODO will this ever be a problem? frame vs. top-level frame
+    domainType: 'thirdParty',
   };
+
+  let cnames = getCnameAliases(domain);
 
   if (cnames.length) {
     // important for requestDomains[0] to be the domain
@@ -110,13 +115,10 @@ function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
   }
 
   if (cnames.length) {
+    delete condition.domainType;
     if (!condition.excludedInitiatorDomains) {
       condition.excludedInitiatorDomains = [domain];
     }
-  } else {
-    // TODO "A request is said to be first party if it has the same domain (eTLD+1) as the frame in which the request originated."
-    // TODO will this ever be a problem? frame vs. top-level frame
-    condition.domainType = 'thirdParty';
   }
 
   let rule = { id, action, condition, priority };
@@ -141,12 +143,12 @@ function makeDnrCookieblockRule(domain, priority = constants.DNR_COOKIEBLOCK_HEA
     responseHeaders: [{ header: "set-cookie", operation: "remove" }]
   };
 
-
-  let cnames = getCnameAliases(domain);
-
   let condition = {
     requestDomains: [domain],
+    domainType: 'thirdParty',
   };
+
+  let cnames = getCnameAliases(domain);
 
   if (cnames.length) {
     // important for requestDomains[0] to be the domain
@@ -159,11 +161,10 @@ function makeDnrCookieblockRule(domain, priority = constants.DNR_COOKIEBLOCK_HEA
   }
 
   if (cnames.length) {
+    delete condition.domainType;
     if (!condition.excludedInitiatorDomains) {
       condition.excludedInitiatorDomains = [domain];
     }
-  } else {
-    condition.domainType = 'thirdParty';
   }
 
   let rule = { id, action, condition, priority };
@@ -189,17 +190,17 @@ function makeDnrAllowRule(domain, priority = constants.DNR_COOKIEBLOCK_ALLOW) {
     type: 'allow'
   };
 
-  let cnames = getCnameAliases(domain);
-
   let condition = {
     requestDomains: [domain],
+    domainType: 'thirdParty'
   };
 
+  let cnames = getCnameAliases(domain);
+
   if (cnames.length) {
+    delete condition.domainType;
     // important for requestDomains[0] to be the domain
     condition.requestDomains = condition.requestDomains.concat(cnames);
-  } else {
-    condition.domainType = 'thirdParty';
   }
 
   let rule = { id, action, condition, priority };
