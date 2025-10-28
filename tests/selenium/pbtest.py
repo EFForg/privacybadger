@@ -167,21 +167,35 @@ class Shim:
         opts = ChromeOptions()
 
         opts.binary_location = self.browser_path
+        opts.enable_bidi = True
 
-        opts.add_argument("--load-extension=" + self.extension_path)
-        # disable all Chrome for Testing on-by-default experiments
-        opts.add_argument("--disable-field-trial-config")
+        opts.add_argument('--remote-debugging-pipe')
+        opts.add_argument('--enable-unsafe-extension-debugging')
 
         # work around https://issues.chromium.org/issues/409441960
         opts.add_experimental_option('enableExtensionTargets', True)
+
+        # https://github.com/GoogleChromeLabs/chromium-bidi/issues/3281
+        opts.set_capability("unhandledPromptBehavior", "ignore");
 
         # TODO not yet in Firefox (w/o hacks anyway):
         # https://github.com/mozilla/geckodriver/issues/284#issuecomment-456073771
         opts.set_capability("goog:loggingPrefs", {'browser': 'ALL'})
 
+        def webExtension_install(path):
+            cmd_dict = {
+                "method": "webExtension.install",
+                "params": { "extensionData": { "type": 'path', "path": path } }
+            }
+            _ = yield cmd_dict
+
         for i in range(5):
             try:
                 driver = webdriver.Chrome(options=opts)
+                # pylint: disable-next=protected-access
+                driver._start_bidi()
+                # pylint: disable-next=protected-access
+                driver._websocket_connection.execute(webExtension_install(self.extension_path))
             except WebDriverException as ex:
                 if i == 0: print("")
                 print(f"ChromeDriver initialization failed: {ex}")
@@ -427,7 +441,7 @@ class PBSeleniumTest(unittest.TestCase):
         num_windows = len(self.driver.window_handles)
         yield
         WebDriverWait(self.driver, timeout).until(
-            lambda d: len(d.window_handles) + 1 == num_windows)
+            EC.number_of_windows_to_be(num_windows - 1))
 
     @contextmanager
     def wait_for_reload(self, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
@@ -493,7 +507,6 @@ class PBSeleniumTest(unittest.TestCase):
             time.sleep(1)
 
         raise WindowNotFoundException("Failed to find window for " + url)
-
 
     def close_window_with_url(self, url, max_tries=5):
         self.switch_to_window_with_url(url, max_tries)

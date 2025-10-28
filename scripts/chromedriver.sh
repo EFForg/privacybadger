@@ -39,10 +39,9 @@ json_url=https://googlechromelabs.github.io/chrome-for-testing/last-known-good-v
 json=$(wget "$json_url" -q -O -)
 channel_version=$(echo "$json" | python3 -c "import sys, json; print(json.load(sys.stdin)['channels']['$channel']['version'])")
 chromedriver_url=$(echo "$json" | python3 -c "import sys, json; print(next(i['url'] for i in json.load(sys.stdin)['channels']['$channel']['downloads']['chromedriver'] if i['platform'] == 'linux64'))")
-cft_url=$(echo "$json" | python3 -c "import sys, json; print(next(i['url'] for i in json.load(sys.stdin)['channels']['$channel']['downloads']['chrome'] if i['platform'] == 'linux64'))")
 
-if [ -z "$channel_version" ] || [ -z "$chromedriver_url" ] || [ -z "$cft_url" ]; then
-  echo "Failed to retrieve channel version and/or download URLs from $json_url"
+if [ -z "$channel_version" ] || [ -z "$chromedriver_url" ]; then
+  echo "Failed to retrieve channel version and/or download URL from $json_url"
   exit 1
 fi
 
@@ -60,21 +59,3 @@ type chromedriver >/dev/null 2>&1 || {
 }
 
 chromedriver --version
-
-echo "Setting up Chrome for Testing version $channel_version ..."
-
-CFT_NAME="$CHROME"-for-testing
-
-wget -q -O "$TEMPDIR/cft.zip" "$cft_url" \
-  && unzip -q -o "$TEMPDIR/cft.zip" -d "$TEMPDIR" \
-  && rm -rf /opt/"$CFT_NAME" \
-  && mv "$TEMPDIR/chrome-linux64" /opt/"$CFT_NAME" \
-  && sudo ln -sf /opt/"$CFT_NAME"/chrome /usr/local/bin/"$CFT_NAME"
-
-# check that chrome for testing is now present
-type "$CFT_NAME" >/dev/null 2>&1 || {
-  echo "Failed to install Chrome for Testing!"
-  exit 1
-}
-
-"$CFT_NAME" --version
