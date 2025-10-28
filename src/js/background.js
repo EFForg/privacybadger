@@ -16,6 +16,7 @@
  */
 
 import { extractHostFromURL, getBaseDomain } from "../lib/basedomain.js";
+import { Trie } from "../lib/trie.js";
 import { subscribeToActionMapUpdates } from "../lib/dnr/subscribers.js";
 import { getDntScriptExcludeMatches } from "../lib/scripting/utils.js";
 import dnrUtils from "../lib/dnr/utils.js";
@@ -247,6 +248,10 @@ Badger.prototype = {
    * }
    */
   cnameCloakedDomains: {},
+  /**
+   * Trie for looking up subdomains for a given tracker domain
+   */
+  cnameTrackersTrie: new Trie(),
 
   // Methods
 
@@ -766,27 +771,28 @@ Badger.prototype = {
     log(`Finished saving action ${userAction} for ${domain}`);
   },
 
+  /**
+   * Fetches known tracker CNAME alias data,
+   * then populates cnameDomains (used by webRequest)
+   * and cnameCloakedDomains/cnameTrackersTrie (used by DNR).
+   *
+   * @returns {Promise}
+   */
   initializeCnames: function () {
     let url = chrome.runtime.getURL(constants.CNAME_DOMAINS_LOCAL_PATH);
     return fetch(url)
       .then(response => response.json())
       .then(data => {
-        badger.cnameDomains = data;
-
-        for (let cname of Object.keys(badger.cnameDomains)) {
-          let uncloaked = badger.cnameDomains[cname];
-
-          // we want "amazonaws.com" (PSL TLD)
-          // but we don't want "com", "net", etc.
-          let parts = utils.explodeSubdomains(uncloaked, true).slice(0, -1);
-
-          for (let part of parts) {
-            if (!utils.hasOwn(badger.cnameCloakedDomains, part)) {
-              badger.cnameCloakedDomains[part] = [];
+        for (let tracker of Object.keys(data)) {
+          if (data[tracker].length) {
+            badger.cnameTrackersTrie.insert(tracker);
+            for (let cname of data[tracker]) {
+              badger.cnameDomains[cname] = tracker;
             }
-            badger.cnameCloakedDomains[part].push(cname);
           }
         }
+        badger.cnameCloakedDomains = data;
+        log("Initialized CNAMEs");
       });
   },
 
