@@ -607,8 +607,10 @@ function createBreakageNote(domain, i18n_message_key) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         $tooltip.show(); // show tooltip when slider is visible
+        suppressOverlapping();
       } else {
         $tooltip.hide(); // hide tooltip when slider is not visible
+        restoreSuppressed();
       }
     });
   }, { threshold: 0 });
@@ -616,17 +618,20 @@ function createBreakageNote(domain, i18n_message_key) {
 
   // Collect originally focusable elements we suppress
   let suppressed = [];
-  // Ensure that only visible elements can receive keyboard focus (https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
-  let tooltipRect = $tooltip[0].getBoundingClientRect();
-  document.querySelectorAll(htmlUtils.focusableSelectors).forEach(el => {
-    let elRect = el.getBoundingClientRect();
-    // Treat elements as hidden if at least 50% of its height overlaps with the tooltip
-    let overlaps = (elRect.bottom > (tooltipRect.top + (elRect.height * 0.5))) && (elRect.top < (tooltipRect.bottom - (elRect.height * 0.5)));
-    if (overlaps && !$tooltip[0].contains(el)) {
-      suppressed.push({ el, originalTabIndex: el.getAttribute('tabindex') });
-      el.setAttribute('tabindex', '-1');
-    }
-  });
+  function suppressOverlapping() {
+    // Ensure that only visible elements can receive keyboard focus (https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
+    let tooltipRect = $tooltip[0].getBoundingClientRect();
+    document.querySelectorAll(htmlUtils.focusableSelectors).forEach(el => {
+      let elRect = el.getBoundingClientRect();
+      // Treat elements as hidden if at least 50% of its height overlaps with the tooltip
+      let overlaps = (elRect.bottom > (tooltipRect.top + (elRect.height * 0.5))) && (elRect.top < (tooltipRect.bottom - (elRect.height * 0.5)));
+      if (overlaps && !$tooltip[0].contains(el)) {
+        suppressed.push({ el, originalTabIndex: el.getAttribute('tabindex') });
+        el.setAttribute('tabindex', '-1');
+      }
+    });
+  }
+  suppressOverlapping();
   // Restore ability to tab navigate to hidden elements once breakage note is closed
   function restoreSuppressed() {
     suppressed.forEach(({ el, originalTabIndex }) => {
