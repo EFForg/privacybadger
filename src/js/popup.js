@@ -621,7 +621,7 @@ function createBreakageNote(domain, i18n_message_key) {
   function suppressOverlapping() {
     // Ensure that only visible elements can receive keyboard focus (https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
     let tooltipRect = $tooltip[0].getBoundingClientRect();
-    document.querySelectorAll(utils.focusableSelectors).forEach(el => {
+    document.querySelectorAll(htmlUtils.focusableSelectors).forEach(el => {
       let elRect = el.getBoundingClientRect();
       // Treat elements as hidden if at least 50% of its height overlaps with the tooltip
       let overlaps = (elRect.bottom > (tooltipRect.top + (elRect.height * 0.5))) && (elRect.top < (tooltipRect.bottom - (elRect.height * 0.5)));
@@ -971,7 +971,7 @@ function showOverlay(overlay_id) {
 
   // Focus on the first focusable element, per ARIA guidance for dialogs/modals
   // https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
-  let $focusables = $(overlay_id).find(utils.focusableSelectors);
+  let $focusables = $(overlay_id).find(htmlUtils.focusableSelectors);
   if ($focusables.length) {
     $focusables[0].focus();
   }
