@@ -560,8 +560,8 @@ function revertDomainControl(event) {
 }
 
 /**
-  * Tooltip that explains how to enable signing into websites with Google.
-  */
+ * Tooltip that explains how to enable signing into websites with Google.
+ */
 function createBreakageNote(domain, i18n_message_key) {
   if (!POPUP_DATA.settings.seenComic || POPUP_DATA.showLearningPrompt || POPUP_DATA.criticalError) {
     return;
@@ -580,30 +580,29 @@ function createBreakageNote(domain, i18n_message_key) {
      <div class="tooltip-arrow">
        <div class="tooltip-arrow-inner"></div>
      </div>
-   </div>
- `);
+   </div>`);
 
   // Cannot insert inside blockedResourcesInner because it'll be cut off
   $('#blockedResourcesInner').before($tooltip);
 
   let switchOffset = $switchContainer.offset();
-  let switchWidth = $switchContainer.outerWidth();
-  let switchHeight = $switchContainer.outerHeight();
-  let arrowWidth = $tooltip.find('.tooltip-arrow-inner').outerWidth();
-  let tooltipHeight = $tooltip.outerHeight();
+  let switch_width = $switchContainer.outerWidth();
+  let switch_height = $switchContainer.outerHeight();
+  let arrow_width = $tooltip.find('.tooltip-arrow-inner').outerWidth();
+  let tooltip_height = $tooltip.outerHeight();
 
   // Tooltip should be above the the switch container
   $tooltip.css({
-    top: (switchOffset.top - tooltipHeight - switchHeight) + 'px',
+    top: (switchOffset.top - tooltip_height - switch_height) + 'px',
     left: '0px',
     visibility: 'visible',
   });
 
   // Arrow should point to the allow toggle of the slider
-  let arrowLeft = (switchOffset.left + (switchWidth * 5/6)) - arrowWidth / 2;
-  $tooltip.find('.tooltip-arrow').css('left', arrowLeft + 'px');
+  let arrow_left = switchOffset.left + (switch_width * 5/6) - (arrow_width / 2);
+  $tooltip.find('.tooltip-arrow').css('left', arrow_left + 'px');
 
-  let io = new IntersectionObserver((entries) => {
+  let intObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         $tooltip.show(); // show tooltip when slider is visible
@@ -614,12 +613,13 @@ function createBreakageNote(domain, i18n_message_key) {
       }
     });
   }, { threshold: 0 });
-  io.observe($switchContainer[0]);
+  intObserver.observe($switchContainer[0]);
 
   // Collect originally focusable elements we suppress
   let suppressed = [];
   function suppressOverlapping() {
-    // Ensure that only visible elements can receive keyboard focus (https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
+    // Ensure that only visible elements can receive keyboard focus
+    // (https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
     let tooltipRect = $tooltip[0].getBoundingClientRect();
     document.querySelectorAll(htmlUtils.focusableSelectors).forEach(el => {
       let elRect = el.getBoundingClientRect();
@@ -648,7 +648,7 @@ function createBreakageNote(domain, i18n_message_key) {
   $tooltip.find('.dismiss-tooltip').on('click', function(e) {
     e.preventDefault();
     restoreSuppressed();
-    io.disconnect();
+    intObserver.disconnect();
     $tooltip.fadeOut(200);
   });
 
@@ -656,7 +656,7 @@ function createBreakageNote(domain, i18n_message_key) {
   $('#error, #share').off('click.breakage-note').on('click.breakage-note', function (e) {
     e.preventDefault();
     restoreSuppressed();
-    io.disconnect();
+    intObserver.disconnect();
     $tooltip.remove();
   });
 }
