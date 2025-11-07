@@ -174,7 +174,7 @@ function onBeforeRequest(details) {
     return;
   }
 
-  if ((type == 'script' || sw_request) && from_current_tab) {
+  if ((type == 'script' || type == 'stylesheet' || sw_request) && from_current_tab) {
     let surrogate;
 
     if (utils.hasOwn(surrogates.WIDGET_SURROGATES, request_host)) {
@@ -184,7 +184,7 @@ function onBeforeRequest(details) {
       }
 
     } else {
-      surrogate = surrogates.getSurrogateUri(url, request_host);
+      surrogate = surrogates.getSurrogateUri(url, request_host, (sw_request ? null : type));
     }
 
     if (surrogate) {
