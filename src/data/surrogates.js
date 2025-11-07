@@ -154,6 +154,13 @@ const hostnames = {
       '/npm/@fingerprintjs/fingerprintjs@3.3.2/dist/fp.js',
     ]
   },
+  'p.typekit.net': {
+    match: MATCH_PREFIX,
+    tokens: [
+      '/p.css'
+    ],
+    resourceType: 'stylesheet'
+  }
 };
 
 /**
@@ -207,8 +214,13 @@ const surrogates = {
 
   '/omweb-v1.js': 'noop.js',
 
-  'noopjs': 'noop.js'
+  'noopjs': 'noop.js',
+
+  'noopcss': 'noop.css'
 };
+
+// aliases
+surrogates['/p.css'] = surrogates.noopcss;
 
 // expand filenames to extension URLs
 Object.keys(surrogates).forEach(key => {

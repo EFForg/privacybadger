@@ -45,20 +45,35 @@ function _match_prefix(url, hostname, tokens) {
  * parameter. This is an optimization: the calling context should already have
  * this information.
  *
+ * @param {?String} [resource_type] optional webRequest/DNR resource type;
+ * set to non-null to look up non-script (e.g. stylesheet) surrogates.
+ * Setting to null disables the resource type check.
+ *
  * @return {(String|Boolean)} Extension URL to the surrogate script
  * when there is a match; boolean false otherwise.
  */
-function getSurrogateUri(script_url, script_hostname) {
+function getSurrogateUri(script_url, script_hostname, resource_type = 'script') {
   if (window.SURROGATES_DISABLED) {
     return false;
   }
 
-  // do we have an entry for the script hostname?
+  // do we have an entry for the resource hostname?
   if (!utils.hasOwn(db.hostnames, script_hostname)) {
     return false;
   }
 
   const conf = db.hostnames[script_hostname];
+
+  if (resource_type !== null) {
+    // most but not all surrogates are for script resources
+    if (utils.hasOwn(conf, 'resourceType')) {
+      if (conf.resourceType != resource_type) {
+        return false;
+      }
+    } else if (resource_type != 'script') {
+      return false;
+    }
+  }
 
   switch (conf.match) {
 
