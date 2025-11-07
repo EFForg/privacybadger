@@ -216,13 +216,16 @@ function makeDnrAllowRule(domain, priority = constants.DNR_COOKIEBLOCK_ALLOW) {
  * @param {String} surrogate_path
  * @param {Object} extraConditions
  * @param {Integer} [priority]
+ * @param {String} [resource_type] optional DNR resource type (to support non-script surrogates)
  *
  * @returns {Object}
  */
-function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions, priority) {
+function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions,
+  priority = constants.DNR_SURROGATE_REDIRECT, resource_type = 'script') {
+
   let rule = {
     id,
-    priority: priority || constants.DNR_SURROGATE_REDIRECT,
+    priority,
     action: {
       type: 'redirect',
       redirect: {
@@ -231,7 +234,7 @@ function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions, 
     },
     condition: {
       requestDomains: [script_host],
-      resourceTypes: ['script'],
+      resourceTypes: [resource_type],
       domainType: 'thirdParty',
       excludedInitiatorDomains: mdfp.getEntityList(getBaseDomain(script_host))
     }
@@ -262,15 +265,20 @@ function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions, 
 function getDnrSurrogateRules(domain, is_user_action) {
   let rules = [],
     conf = sdb.hostnames[domain],
-    priority = constants.DNR_SURROGATE_REDIRECT;
+    priority = constants.DNR_SURROGATE_REDIRECT,
+    resource_type = 'script';
 
   if (is_user_action) {
     priority = constants.DNR_USER_SURROGATE_REDIRECT;
   }
 
+  if (utils.hasOwn(conf, 'resourceType')) {
+    resource_type = conf.resourceType;
+  }
+
   if (conf.match == sdb.MATCH_ANY) {
     rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
-      domain, sdb.surrogates[conf.token]), false, priority);
+      domain, sdb.surrogates[conf.token]), false, priority, resource_type);
 
   } else if (conf.match == sdb.MATCH_SUFFIX) {
     for (let token of conf.tokens) {
@@ -283,7 +291,7 @@ function getDnrSurrogateRules(domain, is_user_action) {
         regexFilter: utils.regexEscape(token) + '(?:\\?.*|#.*|$)'
       };
       rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
-        domain, sdb.surrogates[token], extra, priority));
+        domain, sdb.surrogates[token], extra, priority, resource_type));
     }
 
   } else if (conf.match == sdb.MATCH_PREFIX) {
@@ -292,7 +300,7 @@ function getDnrSurrogateRules(domain, is_user_action) {
         urlFilter: '||' + domain + token + '^'
       };
       rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
-        domain, sdb.surrogates[token], extra, priority));
+        domain, sdb.surrogates[token], extra, priority, resource_type));
     }
 
   } else if (conf.match == sdb.MATCH_PREFIX_WITH_PARAMS) {
@@ -302,7 +310,7 @@ function getDnrSurrogateRules(domain, is_user_action) {
         urlFilter: '||' + domain + token + '?*' + Object.keys(conf.params).join('^*^')
       };
       rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
-        domain, sdb.surrogates[token], extra, priority));
+        domain, sdb.surrogates[token], extra, priority, resource_type));
     }
   }
 
