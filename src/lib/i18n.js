@@ -60,6 +60,19 @@ function setTextDirection() {
       toggle_css_value(selector, "float", "right", "left");
     });
 
+    // Workaround for tooltipster dynamically inserted after localization
+    let css = document.createElement("style");
+    css.textContent = `
+    .breakage-note-tooltip .dismiss-tooltip {
+      margin-left: unset;
+      margin-right: 8px;
+    }
+    /* part of workaround for .clicker rows being hardcoded to ltr */
+    .breakage-note-tooltip .tooltip-box {
+      direction: rtl;
+    }`;
+    document.body.appendChild(css);
+
   // options page
   } else if (document.location.pathname == "/skin/options.html") {
     // apply RTL workaround for jQuery UI tabs
