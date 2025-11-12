@@ -64,12 +64,11 @@ function setTextDirection() {
     let css = document.createElement("style");
     css.textContent = `
     .breakage-note-tooltip .dismiss-tooltip {
-      float: left;
       margin-left: unset;
       margin-right: 8px;
     }
     /* part of workaround for .clicker rows being hardcoded to ltr */
-    .breakage-note-tooltip .tooltip-content {
+    .breakage-note-tooltip .tooltip-box {
       direction: rtl;
     }`;
     document.body.appendChild(css);
