@@ -574,8 +574,8 @@ function createBreakageNote(domain, i18n_message_key) {
   let $tooltip = $(`
    <div class="breakage-note-tooltip" role="tooltip">
      <div class="tooltip-box">
-       <button class="dismiss-tooltip" aria-label="${chrome.i18n.getMessage("report_close")}">×</button>
        <div class="tooltip-content">${chrome.i18n.getMessage(i18n_message_key)}</div>
+       <button class="dismiss-tooltip" aria-label="${chrome.i18n.getMessage("report_close")}">×</button>
      </div>
      <div class="tooltip-arrow">
        <div class="tooltip-arrow-inner"></div>

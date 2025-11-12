@@ -536,10 +536,10 @@ a.overlay-close:hover {
     line-height: 1.2;
     border-radius: 7px;
     padding: 16px 12px;
+    display: flex;
 }
 
 .breakage-note-tooltip .dismiss-tooltip {
-    float: right;
     background: none;
     border: none;
     color: #fefefe;
@@ -551,6 +551,7 @@ a.overlay-close:hover {
     padding: 0;
     position: relative;
     top: -8px;
+    align-self: flex-start;
 }
 
 .breakage-note-tooltip .dismiss-tooltip:hover {
