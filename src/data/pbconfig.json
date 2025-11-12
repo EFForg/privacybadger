@@ -11,7 +11,8 @@
     "sitefixes": {
         "gpc": [
             "www.costco.com",
-            "www.delta.com"
+            "www.delta.com",
+            "www.madewell.com"
         ],
         "ignore": {
             "doubleclick.net": [
