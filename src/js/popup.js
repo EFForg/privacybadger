@@ -899,7 +899,9 @@ function refreshPopup() {
       $('#not-yet-blocked-header').tooltipster();
       $('#non-trackers-header').tooltipster();
       htmlUtils.triggerTooltipsOnFocus();
-      htmlUtils.triggerSliderTooltipsOnFocus();
+      htmlUtils.triggerTooltipsOnFocus('.dnt-compliant a', (trigger) => $(trigger).closest('.tooltip'));
+      // Workaround for slider tooltips: the input receives keyboard focus, but the tooltip must be attached to the corresponding label to appear in the correct place
+      htmlUtils.triggerTooltipsOnFocus('.switch-toggle input', (trigger) => `label.tooltip[for="${trigger.id}"]`);
       window.SLIDERS_DONE = true;
     }
   }

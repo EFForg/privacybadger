@@ -257,35 +257,20 @@ let htmlUtils = {
   /**
    * Make tooltips keyboard accessible
    *
-   * @param {String} selector The selector of focusable elements with a tooltip
+   * @param {String} triggerSelector Selector of the focusable elements that should have a tooltip
+   * @param {Function} getTooltipOrigin Returns the element (DOM element or selector string) with a 'tooltip' class corresponding with the trigger element. Defaults to the trigger element itself.
    */
-  triggerTooltipsOnFocus: (selector = '.tooltip') => {
-    $(selector).off('focus.tooltip').on('focus.tooltip', function() {
-      $(this).tooltipster('show');
-    });
-    $(selector).off('blur.tooltip').on('blur.tooltip', function() {
-      $(this).tooltipster('hide');
-    });
-  },
-
-  /**
-   * Make slider toggle tooltips keyboard accessible
-   *
-   * @param {String} selector The selector of the focusable elements in the slider
-   */
-  triggerSliderTooltipsOnFocus: (selector = '.switch-toggle input') => {
-    // Workaround for slider tooltips
-    // The input receives keyboard focus, but the tooltip must be attached to the corresponding label to appear in the correct place
-    $(selector).off('focus.tooltip').on('focus.tooltip', function () {
-      let label = $(`label.tooltip[for="${this.id}"]`);
-      if (label.length) {
-        label.tooltipster('show');
+  triggerTooltipsOnFocus: (triggerSelector = '.tooltip', getTooltipOrigin = (trigger) => trigger) => {
+    $(triggerSelector).off('focus.tooltip').on('focus.tooltip', function() {
+      let target = $(getTooltipOrigin(this));
+      if (target.length) {
+        target.tooltipster('show');
       }
     });
-    $(selector).off('blur.tooltip').on('blur.tooltip', function () {
-      let label = $(`label.tooltip[for="${this.id}"]`);
-      if (label.length) {
-        label.tooltipster('hide');
+    $(triggerSelector).off('blur.tooltip').on('blur.tooltip', function() {
+      let target = $(getTooltipOrigin(this));
+      if (target.length) {
+        target.tooltipster('hide');
       }
     });
   },
