@@ -48,6 +48,28 @@ function convertHostsToMatchPatterns(hosts) {
 }
 
 /**
+ * excludeMatches helper for registering and updating
+ * the registration of the dnt_signal content script.
+ *
+ * @param {Object} [hosts]
+ *
+ * @returns {Array}
+ */
+function getDntScriptExcludeMatches(hosts = {}) {
+  let disabledSites = (utils.hasOwn(hosts, "disabledSites") ?
+    hosts.disabledSites :
+    badger.getSettings().getItem("disabledSites"));
+
+  let gpcDisabledHosts = (utils.hasOwn(hosts, "gpcDisabledHosts") ?
+    hosts.gpcDisabledHosts :
+    Object.keys(badger.getPrivateSettings().getItem("gpcDisabledSites")));
+
+  return utils.concatUniq(
+    convertHostsToMatchPatterns(disabledSites),
+    convertHostsToMatchPatterns(gpcDisabledHosts));
+}
+
+/**
  * Returns any known matching CNAME aliases for a given tracker domain.
  *
  * CNAME aliases are considered to match if they point to the tracker domain,
@@ -833,9 +855,85 @@ function registerGoogleRedirectBypassRules() {
   });
 }
 
+/**
+ * Re-registers rules for sending GPC/DNT header signals.
+ */
+async function updateDntSignalHeaderRules() {
+  let opts = {
+    addRules: []
+  };
+
+  let existingRules = await chrome.declarativeNetRequest.getDynamicRules();
+
+  // remove all existing DNT/GPC header rules
+  opts.removeRuleIds = existingRules.filter(r => {
+    return (r.priority == constants.DNR_DNT_HEADER);
+  }).map(r => r.id);
+
+  if (badger.getSettings().getItem('sendDNTSignal')) {
+    // set DNT and Sec-GPC on top-level documents
+    let rule = {
+      id: badger.getDynamicRuleId(),
+      priority: constants.DNR_DNT_HEADER,
+      action: {
+        type: 'modifyHeaders',
+        requestHeaders: [{
+          header: 'DNT',
+          operation: 'set',
+          value: '1'
+        }, {
+          header: 'Sec-GPC',
+          operation: 'set',
+          value: '1'
+        }]
+      },
+      condition: {
+        resourceTypes: ['main_frame']
+      }
+    };
+    let exceptionSites = Object.keys(
+      badger.getPrivateSettings().getItem("gpcDisabledSites"));
+    if (exceptionSites.length) {
+      // TODO switch to excludedTopDomains once widely available
+      rule.condition.excludedInitiatorDomains = exceptionSites;
+    }
+    opts.addRules.push(rule);
+
+    // set DNT and Sec-GPC on all other resource types
+    rule = {
+      id: badger.getDynamicRuleId(),
+      priority: constants.DNR_DNT_HEADER,
+      action: {
+        type: 'modifyHeaders',
+        requestHeaders: [{
+          header: 'DNT',
+          operation: 'set',
+          value: '1'
+        }, {
+          header: 'Sec-GPC',
+          operation: 'set',
+          value: '1'
+        }]
+      },
+      // all resource types except main_frame
+      condition: {}
+    };
+    if (exceptionSites.length) {
+      // TODO switch to excludedTopDomains once widely available
+      rule.condition.excludedInitiatorDomains = exceptionSites;
+    }
+    opts.addRules.push(rule);
+  }
+
+  if (opts.addRules.length || opts.removeRuleIds.length) {
+    updateDynamicRules(opts);
+  }
+}
+
 export default {
   convertHostsToMatchPatterns,
   getDnrSurrogateRules,
+  getDntScriptExcludeMatches,
   makeDnrAllowRule,
   makeDnrBlockRule,
   makeDnrCookieblockRule,
@@ -844,6 +942,7 @@ export default {
   registerGoogleRedirectBypassRules,
   removeTabSessionRules,
   updateDisabledSitesRules,
+  updateDntSignalHeaderRules,
   updateDynamicRules,
   updateEnabledRulesets,
   updateSessionAllowRules,
