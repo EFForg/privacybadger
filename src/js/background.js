@@ -144,10 +144,6 @@ function Badger(from_qunit) {
 
     self.toggleEnabledDnrRulesets();
 
-    if (!from_qunit) {
-      self.registerContentScripts();
-    }
-
     self.setPrivacyOverrides();
 
     // kick off async initialization steps
@@ -156,8 +152,14 @@ function Badger(from_qunit) {
     self.tabData.initialize().catch(console.error);
 
     // seed data loading depends on the yellowlist
+    // dnt_signal content script registration depends on GPC exceptions
     await pbconfigPromise;
-    // also get ready to create dynamic DNR rules
+
+    if (!from_qunit) {
+      self.registerContentScripts();
+    }
+
+    // get ready to create dynamic DNR rules
     subscribeToActionMapUpdates();
     // get ready to await initial DNR rules creation
     let dnrRegistrationPromise = self.subscribeToDnrUpdates().catch(console.error);
@@ -179,6 +181,9 @@ function Badger(from_qunit) {
       if (disabledSites.length) {
         dnrUtils.updateDisabledSitesRules(disabledSites);
       }
+
+      // TODO same as above, this doesn't have to happen on every update
+      dnrUtils.updateDntSignalHeaderRules();
 
       // register widget site allowlist DNR rules on update to MV3,
       // and whenever unblockDomains in widgets.json could get updated
@@ -295,10 +300,6 @@ Badger.prototype = {
     let self = this,
       prefs = self.getSettings();
 
-    if (!prefs.getItem("sendDNTSignal")) {
-      dnrUtils.updateEnabledRulesets({ disableRulesetIds: ['dnt_signal_ruleset'] });
-    }
-
     if (!prefs.getItem("checkForDNTPolicy")) {
       dnrUtils.updateEnabledRulesets({ disableRulesetIds: ['dnt_policy_ruleset'] });
     }
@@ -311,9 +312,6 @@ Badger.prototype = {
     let self = this,
       prefs = self.getSettings();
 
-    let excludeMatches = dnrUtils.convertHostsToMatchPatterns(
-      prefs.getItem("disabledSites"));
-
     let scripts = constants.CONTENT_SCRIPTS
       .filter(item => {
         switch (item.id) {
@@ -324,10 +322,9 @@ Badger.prototype = {
         }
       })
       .map(item => {
-        // TODO we want top-level frame (site) domains only
-        // TODO but the API doesn't limit frames to top-level:
-        // https://crbug.com/1261768
-        item.excludeMatches = excludeMatches;
+        // TODO what we actually want is excludeTopFrameMatches
+        // https://github.com/w3c/webextensions/issues/763
+        item.excludeMatches = dnrUtils.getDntScriptExcludeMatches();
         return item;
       });
 
@@ -1298,25 +1295,6 @@ Badger.prototype = {
       this.getSettings().getItem("learnLocally") &&
       incognito.learningEnabled(tab_id)
     );
-  },
-
-  /**
-   * Returns whether we should send DNT/GPC signals on a given website.
-   *
-   * @param {String} site_host the FQDN of the website
-   *
-   * @returns {Boolean}
-   */
-  isDntSignalEnabled: function (site_host) {
-    let self = this;
-
-    if (!self.getSettings().getItem("sendDNTSignal")) {
-      return false;
-    }
-
-    // TODO indicate when this happens in the UI somehow
-    let gpcExceptions = self.getPrivateSettings().getItem("gpcDisabledSites");
-    return !utils.hasOwn(gpcExceptions, site_host);
   },
 
   isCheckingDNTPolicyEnabled: function() {
