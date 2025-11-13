@@ -30,15 +30,11 @@ import utils from "../../js/utils.js";
  * in response to settings updates.
  */
 function subscribeToStorageUpdates() {
-  let settingsStore = badger.getSettings();
+  let settingsStore = badger.getSettings(),
+    privateStore = badger.getPrivateSettings();
 
   // update static rulesets
 
-  settingsStore.subscribe("set:sendDNTSignal", function (enabled) {
-    dnrUtils.updateEnabledRulesets({
-      [enabled ? 'enableRulesetIds' : 'disableRulesetIds']: ['dnt_signal_ruleset']
-    });
-  });
   settingsStore.subscribe("set:checkForDNTPolicy", function (enabled) {
     dnrUtils.updateEnabledRulesets({
       [enabled ? 'enableRulesetIds' : 'disableRulesetIds']: ['dnt_policy_ruleset']
@@ -83,6 +79,13 @@ function subscribeToStorageUpdates() {
 
   settingsStore.subscribe("set:widgetSiteAllowlist",
     utils.debounce(dnrUtils.updateWidgetSiteAllowlistRules, 100));
+
+  settingsStore.subscribe("set:sendDNTSignal", function () {
+    dnrUtils.updateDntSignalHeaderRules();
+  });
+  privateStore.subscribe("set:gpcDisabledSites", function () {
+    dnrUtils.updateDntSignalHeaderRules();
+  });
 }
 
 /**
