@@ -222,9 +222,13 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
         # poll for DNR to get updated
         self.wait_for_script(
             "let done = arguments[arguments.length - 1];"
-            "chrome.declarativeNetRequest.getEnabledRulesets(rulesetIds => {"
-            "  done(!rulesetIds.includes('dnt_signal_ruleset'));"
-            "});", execute_async=True, timeout=3)
+            "(async function () {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(!rules.some(r => {"
+            "    return (r.priority == constants.DNR_DNT_HEADER);"
+            "  }));"
+            "}());", execute_async=True, timeout=3)
 
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)

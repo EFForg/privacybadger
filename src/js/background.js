@@ -183,6 +183,9 @@ function Badger(from_qunit) {
         dnrUtils.updateDisabledSitesRules(disabledSites);
       }
 
+      // TODO same as above, this doesn't have to happen on every update
+      dnrUtils.updateDntSignalHeaderRules();
+
       // register widget site allowlist DNR rules on update to MV3,
       // and whenever unblockDomains in widgets.json could get updated
       let widgetSiteAllowlist = self.getSettings().getItem("widgetSiteAllowlist");
@@ -293,10 +296,6 @@ Badger.prototype = {
   toggleEnabledDnrRulesets: function () {
     let self = this,
       prefs = self.getSettings();
-
-    if (!prefs.getItem("sendDNTSignal")) {
-      dnrUtils.updateEnabledRulesets({ disableRulesetIds: ['dnt_signal_ruleset'] });
-    }
 
     if (!prefs.getItem("checkForDNTPolicy")) {
       dnrUtils.updateEnabledRulesets({ disableRulesetIds: ['dnt_policy_ruleset'] });
@@ -1334,25 +1333,6 @@ Badger.prototype = {
       this.getSettings().getItem("learnLocally") &&
       incognito.learningEnabled(tab_id)
     );
-  },
-
-  /**
-   * Returns whether we should send DNT/GPC signals on a given website.
-   *
-   * @param {String} site_host the FQDN of the website
-   *
-   * @returns {Boolean}
-   */
-  isDntSignalEnabled: function (site_host) {
-    let self = this;
-
-    if (!self.getSettings().getItem("sendDNTSignal")) {
-      return false;
-    }
-
-    // TODO indicate when this happens in the UI somehow
-    let gpcExceptions = self.getPrivateSettings().getItem("gpcDisabledSites");
-    return !utils.hasOwn(gpcExceptions, site_host);
   },
 
   isCheckingDNTPolicyEnabled: function() {
