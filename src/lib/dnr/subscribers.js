@@ -30,15 +30,11 @@ import utils from "../../js/utils.js";
  * and registered content scripts in response to settings updates.
  */
 function subscribeToStorageUpdates() {
-  let settingsStore = badger.getSettings();
+  let settingsStore = badger.getSettings(),
+    privateStore = badger.getPrivateSettings();
 
   // update static rulesets
 
-  settingsStore.subscribe("set:sendDNTSignal", function (enabled) {
-    dnrUtils.updateEnabledRulesets({
-      [enabled ? 'enableRulesetIds' : 'disableRulesetIds']: ['dnt_signal_ruleset']
-    });
-  });
   settingsStore.subscribe("set:checkForDNTPolicy", function (enabled) {
     dnrUtils.updateEnabledRulesets({
       [enabled ? 'enableRulesetIds' : 'disableRulesetIds']: ['dnt_policy_ruleset']
@@ -84,13 +80,19 @@ function subscribeToStorageUpdates() {
   settingsStore.subscribe("set:widgetSiteAllowlist",
     utils.debounce(dnrUtils.updateWidgetSiteAllowlistRules, 100));
 
+  settingsStore.subscribe("set:sendDNTSignal", function () {
+    dnrUtils.updateDntSignalHeaderRules();
+  });
+  privateStore.subscribe("set:gpcDisabledSites", function () {
+    dnrUtils.updateDntSignalHeaderRules();
+  });
+
   // update content scripts
 
   settingsStore.subscribe("set:sendDNTSignal", function (enabled) {
     if (enabled) {
       let dntScript = constants.CONTENT_SCRIPTS.find(item => item.id == "dnt_signal");
-      dntScript.excludeMatches = dnrUtils.convertHostsToMatchPatterns(
-        this.getItem("disabledSites"));
+      dntScript.excludeMatches = dnrUtils.getDntScriptExcludeMatches();
       chrome.scripting.registerContentScripts([dntScript]);
     } else {
       chrome.scripting.unregisterContentScripts({
@@ -101,10 +103,21 @@ function subscribeToStorageUpdates() {
   settingsStore.subscribe("set:disabledSites", function (siteDomains) {
     chrome.scripting.updateContentScripts([{
       id: "dnt_signal",
-      excludeMatches: dnrUtils.convertHostsToMatchPatterns(siteDomains)
+      excludeMatches: dnrUtils.getDntScriptExcludeMatches({
+        disabledSites: siteDomains
+      })
     }]).catch(function () {
       // ignore "Content script with ID 'foo' does not exist or is not fully registered"
     });
+  });
+
+  privateStore.subscribe("set:gpcDisabledSites", function (gpcExceptions) {
+    chrome.scripting.updateContentScripts([{
+      id: "dnt_signal",
+      excludeMatches: dnrUtils.getDntScriptExcludeMatches({
+        gpcDisabledHosts: Object.keys(gpcExceptions)
+      })
+    }]).catch(function () {});
   });
 }
 
