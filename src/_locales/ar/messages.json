@@ -1,10 +1,10 @@
 {
     "name": {
-        "message": "«غرير الخصوصية»",
+        "message": "«بادجر الخصوصية»",
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Automatically learns to block hidden trackers. Made by leading digital rights nonprofit EFF to stop companies from spying on you.",
+        "message": "تعلم حظر أدوات التتبع المخفية تلقائيًا. صُممتها مؤسسة الجبهة الإلكترونية، وهي منظمة غير ربحية للحقوق الرقمية، لايقاف تجسس الشركات.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -16,7 +16,7 @@
         "description": "Tooltip shown over the question mark button in the upper right corner of the popup."
     },
     "popup_share_button": {
-        "message": "شارك",
+        "message": "شارك/ي",
         "description": "Tooltip shown over the share button in the upper right corner of the popup."
     },
     "popup_options_button": {
@@ -28,35 +28,35 @@
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "لا يعمل «غرير الخصوصية» على صفحات خاصة مثل هذه. حاول التصفح في مكان آخر.",
+        "message": "لا يعمل «بادجر الخصوصية» على صفحات خاصة مثل هذه. حاول التصفح في مكان آخر.",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "Great job opening the popup!",
+        "message": "أحسنت، أفتح/ي النافذة المنبثقة!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
-        "message": "«غرير الخصوصية» غير مفعل على هذا الموقع",
+        "message": "«بادجر الخصوصية» غير مفعل على هذا الموقع",
         "description": "Shown in the popup on disabled sites."
     },
     "popup_disable_for_site": {
-        "message": "عطّل على هذا الموقع",
+        "message": "عطّل/ي على هذا الموقع",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
-        "message": "فعّل على هذا الموقع",
+        "message": "فعّل/ي على هذا الموقع",
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "بلغّ عن موقع معطل",
+        "message": "بلغّ/ي عن موقع معطل",
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "تبرع لمؤسسة الجبهة الإلكترونية (EFF) - وهي منظمة غير ربحية تدافع عن الخصوصية الرقمية",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
+        "message": "هل تستمتع/ي بـ\"بادجر الخصوصية\"؟ اترك/ي تقييمًا!",
         "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
     },
     "version": {
@@ -100,19 +100,19 @@
         }
     },
     "popup_blocked": {
-        "message": "لا توجد مصادر خارجية على هذه الصفحة. يا هلا بالخصوصية!",
+        "message": "لا توجد مصادر خارجية على هذه الصفحة. يا أهلا بالخصوصية!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "tooltip_block": {
-        "message": "حرك المؤشر شمالا لحجب الموقع",
+        "message": "حرك/ي المؤشر يسارا لحجب الموقع",
         "description": "Domain slider list header tooltip."
     },
     "tooltip_cookieblock": {
-        "message": "حرك المؤشر الى الوسط لحجب ملفات تعريف الارتباط",
+        "message": "حرك/ي المؤشر الى الوسط لحجب ملفات تعريف الارتباط",
         "description": "Domain slider list header tooltip."
     },
     "tooltip_allow": {
-        "message": "حرك المؤشر يمينا للسماح للموقع",
+        "message": "حرك/ي المؤشر يمينا للسماح للموقع",
         "description": "Domain slider list header tooltip."
     },
     "badger_status_block": {
@@ -136,7 +136,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "ملفات تعريف الارتباط والبصمة الرقمية والسكريبت المحجوبة من $DOMAIN$",
+        "message": "ملفات تعريف الارتباط المحظورة ونصوص بصمات الأصابع من $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -156,7 +156,7 @@
         }
     },
     "badger_status_noaction": {
-        "message": "لا تَعقب للنطاق $DOMAIN$",
+        "message": "لا تَعقب لـ $DOMAIN$",
         "description": "Tooltip shown over a non-tracking domain name with a green slider in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -186,19 +186,19 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "لتمكين تسجيل الدخول إلى مواقع الويب باستخدام حساب \"غوغل\" الخاص بك، حرك شريط التمرير هذا إلى اليمين، وأعد تحميل الصفحة",
+        "message": "لتمكين تسجيل الدخول إلى المواقع الالكترونية باستخدام حساب \"غوغل\" الخاص بك، حرك/ي شريط التمرير هذا إلى اليمين، وأعد/يدي تحميل الصفحة",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
-        "message": "انقر هنا لإعادة التحكم في هذا الموقع إلى «غرير الخصوصية»",
+        "message": "انقر/ي هنا لإعادة التحكم في هذا الموقع إلى «بادجر الخصوصية»",
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "not_yet_blocked_header": {
-        "message": "لم يقرر «الغرير» الخاص بك بعد ما إذا كان ينبغي حظر هذه المواقع",
+        "message": "لم يقرر «بادجر» الخاص بك بعد ما إذا كان ينبغي حظر هذه المواقع",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
     "intro_not_an_adblocker_paragraph": {
-        "message": "يبدأ «غرير الخصوصية» في الحجب ما إن يرى نفس المتعقب على ثلاثة مواقع مختلفة. ثلاث فرص ثم يخرج!",
+        "message": "يبدأ «بادجر الخصوصية» في الحجب ما إن يرى نفس المتعقب على ثلاثة مواقع مختلفة. ثلاث فرص ثم يخرج!",
         "description": "Tooltip for the 'not_yet_blocked_header' message"
     },
     "non_tracker": {
@@ -206,11 +206,11 @@
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
     },
     "non_tracker_tip": {
-        "message": "حاليا «غرير الخصوصية» لا يتحقق إلا من كون الأطراف الخارجية تستخدم الكعكات، أو تخزين HTML5 المحلي، أو بصمات مساحة الرسم لتعقب تصفحك. ربما تستخدم بعض هذه النطاقات طرقًا أخرى لا يستطيع «غرير الخصوصية» اكتشافها.",
+        "message": "حاليا يتحقق «بادجر الخصوصية» فقط مما إذا كانت الجهات الخارجية تستخدم ملفات تعريف الارتباط، أو التخزين المحلي HTML5، أو بصمة Canvas لتتبع تصفحك. قد تستخدم بعض هذه النطاقات أساليب تتبع لا يستطيع بادجر الخصوصية اكتشافها.",
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
-        "message": "اوصف المشكلة بشكل موجز:",
+        "message": "اوصف/ي المشكلة بشكل موجز:",
         "description": "Label for the text input in the 'Report broken site' overlay."
     },
     "error_input": {
@@ -218,7 +218,7 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "سيرسل هذا تلقائيًا المعلومات التالية إلى منظمة EFF: الصفحة التي تزورها حاليًا، إصدار المتصفح المستخدم لديك، إصدار «غرير الخصوصية»، وحالة جميع الخيارات الموجودة على هذه الصفحة.",
+        "message": "سترسل المعلومات التالية تلقائيًا إلى مؤسسة الجبهة الإلكترونية : الصفحة التي تزورها حاليًا، إصدار المتصفح المستخدم لديك، إصدار «بادجر الخصوصية»، وحالة جميع الخيارات الموجودة على هذه الصفحة.",
         "description": ""
     },
     "report_button": {
@@ -226,11 +226,11 @@
         "description": "Button text."
     },
     "report_cancel": {
-        "message": "ألغ",
+        "message": "إلغاء",
         "description": "Button text."
     },
     "report_close": {
-        "message": "أغلق",
+        "message": "إغلاق",
         "description": "Link text."
     },
     "report_success": {
@@ -242,11 +242,11 @@
         "description": "Error status message."
     },
     "share_title": {
-        "message": "أخبر أصدقائك",
+        "message": "أخبر/ي أصدقائك/ صديقاتك",
         "description": "Title of the Share popup overlay."
     },
     "share_tracker_header": {
-        "message": "حجب «غرير الخصوصية» $COUNT$ متعقبات محتملة على $DOMAIN$",
+        "message": "حجب «بادجر الخصوصية» $COUNT$ متعقبات محتملة على $DOMAIN$",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -260,11 +260,11 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "باجر الخصوصية (privacybadger.org)  هو امتداد متصفح يتعلم تلقائيًا حظر أدوات التتبع المخفية. صُمم باجر الخصوصية بواسطة مؤسسة الجبهة الإلكترونية، وهي منظمة غير ربحية تُدافع عن حقوقك على الإنترنت.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
-        "message": "انسخ إلى الحافظة",
+        "message": "انسخ/ي إلى الحافظة",
         "description": "Initial text of the copy button on the share overlay."
     },
     "copy_button_copied": {
@@ -276,7 +276,7 @@
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "بعض المواقع $LINK_START$تستخدم روابط تتبع لتتبعك$LINK_END$ عندما تضغط على رابط للخروج من الموقع. «غرير الخصوصية» يزيل التتبع من هذه الروابط على هذا الموقع.",
+        "message": "بعض المواقع $LINK_START$تستخدم روابط تتبع لتتبعك$LINK_END$ عندما تضغط/ين على رابط للخروج من الموقع. «بادجر الخصوصية» يزيل التتبع من هذه الروابط على هذا الموقع.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
@@ -288,11 +288,11 @@
         }
     },
     "popup_info_youtube": {
-        "message": "الإعلانات غير محجوبة؟ يوتيوب لا يعمل؟ ربما لا يكون ذلك بسبب «غرير الخصوصية».",
+        "message": "الإعلانات غير محجوبة؟ يوتيوب لا يعمل؟ ربما ذلك ليس بسبب «بادجر الخصوصية».",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
-        "message": "رجاء $LINK_START$ أخبرنا$LINK_END$ بتفاصيل العطل التالي:",
+        "message": "رجاء $LINK_START$ أخبرنا/ينا$LINK_END$ بتفاصيل العطل التالي:",
         "description": "NOTE: The space after $LINK_START$ is here to work around a Safari bug. Shown in the popup when there is an extension error we want to encourage the user to tell us about.",
         "placeholders": {
             "link_start": {
@@ -305,7 +305,7 @@
         }
     },
     "firstRun_title": {
-        "message": "شكرا على تنصيب «غرير الخصوصية»",
+        "message": "شكرا على تنصيب «بادجر الخصوصية»",
         "description": "Title and header of the intro page."
     },
     "intro_by_eff": {
@@ -313,11 +313,11 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
+        "message": "بادجر الخصوصية يتعلم تلقائيًا حظر أدوات التتبع المخفية. خصص/ي دقيقة واحدة لتكتشف/ي كيف.",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
-        "message": "خذ جولة",
+        "message": "خذ/ي جولة",
         "description": "Intro page welcome button."
     },
     "intro_beyond_ads": {
@@ -325,11 +325,11 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "يرسل «غرير الخصوصية» <a href='https://globalprivacycontrol.org/' target='_blank'> إشارة التحكم في الخصوصية العالمية </a>، لإلغاء اشتراكك في مشاركة البيانات وبيعها، و <a href='https://www.eff.org/issues/do-not-track' target='_blank'> إشارة عدم التتبع </a> لإخبار الشركات بعدم تتبعك.",
+        "message": "يرسل «بادجر الخصوصية» <a href='https://globalprivacycontrol.org/' target='_blank'> إشارة التحكم في الخصوصية العالمية </a>، لإلغاء اشتراكك في مشاركة البيانات وبيعها، و <a href='https://www.eff.org/issues/do-not-track' target='_blank'> إشارة عدم التتبع </a> لإخبار الشركات بعدم تتبعك.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
-        "message": "If they ignore these signals, Privacy Badger will learn to block them—whether they are advertisers or trackers of other kinds.",
+        "message": "إذا تجاهلت هذه الإشارات، فسيتعلم بادجر الخصوصية حظرها - سواءً كانت معلنين/ات أو أدوات تتبع من أنواع أخرى.",
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
@@ -337,11 +337,11 @@
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
-        "message": "«غرير الخصوصية» يكتشف تلقائيًا أدوات التتبع استنادًا إلى سلوكها.",
+        "message": "«بادجر الخصوصية» يكتشف تلقائيًا أدوات التتبع استنادًا إلى سلوكها.",
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "يحدث التتبع المخفي بطرق مختلفة؛ والإعلانات ليست سوى غيض من فيض. لا يحظر بادجر الخصوصية الإعلانات إلا إذا كانت تتتبعك.",
         "description": "Intro page paragraph"
     },
     "next_section": {
@@ -349,15 +349,15 @@
         "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
     },
     "intro_open_popup": {
-        "message": "Try opening Privacy Badger's popup",
+        "message": "حاول/ي فتح نافذة  بادجر الخصوصية المنبثقة",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "Browser toolbar with the Privacy Badger icon circled",
+        "message": "شريط أدوات المتصفح مع أيقونة بادجر الخصوصية محاطة بدائرة",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
-        "message": "إذا كنت تظن أن «غرير الخصوصية» يفسد إحدى الصفحات (الفديو لا يعمل مثلا)، فيمكنك النقر على زر ’عطّل‘ لتعطيل «غرير الخصوصية» على هذا الموقع.",
+        "message": "إذا كنت تظن/ين أن «بادجر الخصوصية» يفسد إحدى الصفحات (الفيديو لا يعمل مثلا)، فيمكنك النقر على زر ’عطّل‘ لتعطيل «بادجر الخصوصية» على هذا الموقع.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
@@ -365,15 +365,15 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "باستخدامك «غرير الخصوصية» تنضم إلى <a href='https://www.eff.org/' target='_blank'>مؤسسة الجبهة الإلكترونية</a> و ملايين المستخدمين في قتالهم من أجل الخصوصية. نحن مؤسسة غير ربحية نقاتل لحقوقك على الإنترنت. شكرًا لانضمامك إلينا.",
+        "message": "باستخدامك «بادجر الخصوصية» تنضم/ين إلى <a href='https://www.eff.org/' target='_blank'>مؤسسة الجبهة الإلكترونية</a> و ملايين المستخدمين/ات في نضالهم/ن من أجل الخصوصية. نحن مؤسسة غير ربحية نناضل لحقوقك على الإنترنت. شكرًا لانضمامك إلينا.",
         "description": "Part of the 'donate' section on the intro page."
     },
     "donate_to_eff": {
-        "message": "تبرع إلى EFF",
+        "message": "تبرع إلى مؤسسة الجبهة الإلكترونية",
         "description": "A button on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "ساعدنا بالتبرع ونشر دعمك لأدواتنا",
+        "message": "ساعدنا/ينا بالتبرع ونشر دعمك لأدواتنا",
         "description": "Shown below the Donate button on the intro page."
     },
     "intro_link_policy": {
@@ -381,7 +381,7 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "بدايتاً، $START_SPAN_TAG$قم بتثبيت ايقونة «غرير الخصوصية» على شريط الأدوات الخاص بك$END_SPAN_TAG$ لتسهيل الوصول الى زر $DISABLE_FOR_SITE$",
+        "message": "بدايةً، $START_SPAN_TAG$قم/ومي بتثبيت ايقونة «بادجر الخصوصية» على شريط الأدوات الخاص بك$END_SPAN_TAG$ لتسهيل الوصول الى زر $DISABLE_FOR_SITE$",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
@@ -397,27 +397,27 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "لتثبيت أيقونة «غرير الخصوصية»، انقر على أيقونة قطعة اللغز في شريط أدوات المتصفح لديك. ثم انقر على أيقونة التثبيت بجوار «غرير الخصوصية».",
+        "message": "لتثبيت أيقونة «بادجر الخصوصية»، انقر/ي على أيقونة قطعة اللغز في شريط أدوات المتصفح لديك. ثم انقر/ي على أيقونة التثبيت بجوار «بادجر الخصوصية».",
         "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
     },
     "share_button_title_facebook": {
-        "message": "شارك على فيسبوك",
+        "message": "شارك/ي على فيسبوك",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_twitter": {
-        "message": "شارك على تويتر",
+        "message": "شارك/ي على تويتر",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_mastodon": {
-        "message": "شارك على ماستودون",
+        "message": "شارك/ي على ماستودون",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_bluesky": {
-        "message": "Share on Bluesky",
+        "message": "شارك/ي على  بلوسكاي",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "options_title": {
-        "message": "خيارات «غرير الخصوصية»",
+        "message": "خيارات «بادجر الخصوصية»",
         "description": "Page title and heading text of options page"
     },
     "disabled_sites": {
@@ -425,11 +425,11 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "How to disable Privacy Badger without leaving the site",
+        "message": "كيفية تعطيل بادجر الخصوصية دون مغادرة الموقع",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "أولاً، انقر/ي على أيقونة بادجر الخصوصية في شريط أدوات المتصفح. ثم انقر/ي على زر \"$DISABLE_FOR_SITE$\".",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
@@ -439,7 +439,7 @@
         }
     },
     "disabled_for_these_domains": {
-        "message": "تم تعطيل «غرير الخصوصية» على المواقع التالية. هذا يعني أن «غرير الخصوصية» لن يحظر أي شيء عند زيارتك للمواقع المدرجة هنا، ولن يرسل إشارات عدم التتبع أو التحكم العالمي في الخصوصية.",
+        "message": "تم تعطيل «بادجر الخصوصية» على المواقع التالية. هذا يعني أن «بادجر الخصوصية» لن يحظر أي شيء عند زيارتك للمواقع المدرجة هنا، ولن يرسل إشارات عدم التتبع أو التحكم العالمي في الخصوصية.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "add_domain_button": {
@@ -447,11 +447,11 @@
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
-        "message": "أزل المحدد",
+        "message": "أزل/يلي المحدد",
         "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
-        "message": "رجاء أضف مسارا أو نطاقا صحيحا",
+        "message": "رجاء أضف/ي مسارا أو نطاقا صحيحا",
         "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_general_settings": {
@@ -459,15 +459,15 @@
         "description": "This is an options page tab heading."
     },
     "show_counter_checkbox": {
-        "message": "إظهار عدد المتتبعين",
+        "message": "إظهار عدد المتتبعين/ات",
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
-        "message": "ارسل الى المواقع إشارات <a href='https://globalprivacycontrol.org/' target='_blank'>\"التحكم العالمي في الخصوصية\"</a> و<a href='https://www.eff.org/issues/do-not-track' target='_blank'>\"عدم التتبع\"</a>",
+        "message": "ارسل/ي إلى المواقع إشارات <a href='https://globalprivacycontrol.org/' target='_blank'>\"التحكم العالمي في الخصوصية\"</a> و<a href='https://www.eff.org/issues/do-not-track' target='_blank'>\"عدم التتبع\"</a>",
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
-        "message": "تحقق من كون <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>نطاقات الأطراف الخارحية</a> تلتزم <a target='_blank' href='https://www.eff.org/dnt-policy'>سياسة EFF لعدم التعقب</a>",
+        "message": "تحقق/ي من كون <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>نطاقات الأطراف الخارحية</a> تلتزم <a target='_blank' href='https://www.eff.org/dnt-policy'>بسياسة مؤسسة الجبهة الإلكترونية لعدم التعقب</a>",
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
@@ -475,7 +475,7 @@
         "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
-        "message": "منع المواقع من تتبع الروابط التي تنقر عليها (\"تدقيق الروابط\")",
+        "message": "منع المواقع من تتبع الروابط التي تنقر/ين عليها (\"تدقيق الروابط\")",
         "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
@@ -483,7 +483,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
-        "message": "تعطيل إرسال عناوين المواقع التي تزورها إلى غوغل. يؤدي هذا إلى تعطيل الاقتراحات الخاصة بالصفحات المشابهة عندما لا يمكن العثور على الصفحة.",
+        "message": "تعطيل إرسال عناوين المواقع التي تزورها/يها لغوغل. يؤدي هذا إلى تعطيل الاقتراحات الخاصة بالصفحات المشابهة عندما لا يمكن العثور على الصفحة.",
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
@@ -495,7 +495,7 @@
         "description": "Subheading in general settings."
     },
     "options_learn_setting": {
-        "message": "تعلم كيفية حظر أدوات التتبع الجديدة خلال تصفحك",
+        "message": "تعلم/ي كيفية حظر أدوات التتبع الجديدة خلال تصفحك",
         "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
@@ -507,11 +507,11 @@
         "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
-        "message": "تعلم في نوافذ التصفح الخاص",
+        "message": "تعلم/ي في نوافذ التصفح الخاص",
         "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
-        "message": "تفعيل التعلم في نوافذ التصفح الخاص قد يترك آثارا لتأريخ تصفحك الخاص على حاسوبك. مبدئيا سيحجب «غرير الخصوصية» المتعقبات التي يعرفها من قبل في نوافذ التصفح الخاص، لكنه لن يتعلم أي متعقبات جديدة. قد تريد تفعيل هذا الخيار إن كان الكثير من تصفحك في نوافذ خاصة.",
+        "message": "تفعيل التعلم في نوافذ التصفح الخاص قد يترك آثارا لتأريخ تصفحك الخاص على حاسوبك. مبدئيا سيحجب «بادجر الخصوصية» المتعقبات التي يعرفها من قبل في نوافذ التصفح الخاص، لكنه لن يتعلم أي متعقبات جديدة. قد تريد/ين تفعيل هذا الخيار إن كان الكثير من تصفحك في نوافذ خاصة.",
         "description": "Tooltip in general settings."
     },
     "options_widget_replacement_tab": {
@@ -519,7 +519,7 @@
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "عند حظر الأزرار الاجتماعية والأدوات الأخرى المفيدة المحتملة (الفيديو، الصوت والتعليقات) widgets، يمكن لـ «غرير الخصوصية»  استبدالها بعناصر يمكن النقر عليها للتفعيلها.",
+        "message": "عند حظر الأزرار الاجتماعية والأدوات الأخرى المفيدة المحتملة (الفيديو، الصوت والتعليقات) widgets، يمكن لـ «بادجر الخصوصية» استبدالها بعناصر يمكن النقر عليها للتفعيلها.",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_widget_exceptions_header": {
@@ -527,7 +527,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Block but don't replace the following widgets:",
+        "message": "احظر/ي الأدوات التالية، ولكن لا تستبدلها/يها:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
@@ -535,7 +535,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_label": {
-        "message": "إسمح دائماً للـ widgets على هذه المواقع:",
+        "message": "إسمح/ي دائماً للـ widgets على هذه المواقع:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_domain_list_tab": {
@@ -543,7 +543,7 @@
         "description": "This is an options page tab heading."
     },
     "options_domain_list_trackers": {
-        "message": "لقد قرر «غرير الخصوصية» حجب $COUNT$ محتملة $TRACKER_LINK_START$ مواقع متتبعة $TRACKER_LINK_END$ حتى الآن",
+        "message": "لقد قرر «بادجر الخصوصية» حجب $COUNT$ محتملة $TRACKER_LINK_START$ مواقع متتبعة $TRACKER_LINK_END$ حتى الآن",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -560,7 +560,7 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "لم يكتشف «غرير الخصوصية» أي $LINK_START$ نطاقات متعقِّبة$LINK_END$ حتى الآن. واصل تصفحك!",
+        "message": "لم يكتشف «بادجر الخصوصية» أي $LINK_START$ نطاقات متعقِّبة$LINK_END$ حتى الآن. واصل/ي تصفحك!",
         "description": "NOTE: The space after $LINK_START$ is here to work around a Safari bug. Shown on the Tracking Domains tab on the options page if all tracking domains have been removed.",
         "placeholders": {
             "link_start": {
@@ -593,11 +593,11 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_user": {
-        "message": "تحت تحكم المستخدم",
+        "message": "تحت تحكم المستخدم/ة",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
-        "message": "متوافق مع سياسة DNT الخاصة بـ EFF",
+        "message": "متوافق مع سياسة DNT الخاصة بمؤسسة الجبهة الإلكترونية",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_status_filter": {
@@ -635,7 +635,7 @@
         }
     },
     "options_remove_origin_confirm": {
-        "message": "أمتأكد أنك تريد إزالة النطاق من «غرير الخصوصية»",
+        "message": "هل أنت متأكد/ة أنك تريد إزالة النطاق من «بادجر الخصوصية»؟",
         "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
     },
     "data_settings": {
@@ -643,27 +643,27 @@
         "description": "This is an options page tab heading."
     },
     "manage_data_intro": {
-        "message": "استيراد بيانات المستخدم: <ul><li>يكتب فوق قيم الإعدادات العامة</li><li>يدمج قوائم المواقع غير المفعلة</li><li>يدمج معلومات المتعقبات التي رآها «غرير الخصوصية»</li><li>يكتب فوق إعدادات المواقع</li></ul>",
+        "message": "استيراد بيانات المستخدم/ة: <ul><li>يكتب فوق قيم الإعدادات العامة</li><li>يدمج قوائم المواقع غير المفعلة</li><li>يدمج معلومات المتعقبات التي رآها «بادجر الخصوصية»</li><li>يكتب فوق إعدادات المواقع</li></ul>",
         "description": "A brief explanation of what happens when you import Badger user data. Shown above the import/export user data buttons under the Manage Data options page tab."
     },
     "export_user_data": {
-        "message": "صدّر بيانات المستخدم",
+        "message": "صدّر/ي بيانات المستخدم/ة",
         "description": ""
     },
     "download": {
-        "message": "نزّل",
+        "message": "حمّل/ي",
         "description": "Button text shown under both 'export_user_data' and 'download_cloud' headings."
     },
     "import_user_data": {
-        "message": "إستورد بيانات المستخدم",
+        "message": "استورد/ي بيانات المستخدم/ة",
         "description": ""
     },
     "import": {
-        "message": "إستورد",
+        "message": "استورد/ي",
         "description": ""
     },
     "import_select_file": {
-        "message": "رجاء اختر ملفاً لإستيراده",
+        "message": "رجاء اختر/اري ملفاً لاستيراده",
         "description": ""
     },
     "invalid_json": {
@@ -675,19 +675,19 @@
         "description": ""
     },
     "sync_intro": {
-        "message": "مزامنة السحاب:<ul><li>تحتاج إلى مزامنة فايرفوكس\\كروم</li><li>الرفع يكتب فوق أي بيانات ل‍«غرير الخصوصية» موجودة على السحاب.</li><li>التنزيل يدمج قائمة المواقع التي عطلت عليها «غرير الخصوصية»</li></ul>",
+        "message": "مزامنة السحاب:<ul><li>تحتاج إلى مزامنة فايرفوكس\\كروم</li><li>الرفع يكتب فوق أي بيانات ل‍«بادجر الخصوصية» موجودة على السحاب.</li><li>التنزيل يدمج قائمة المواقع التي عطلها «بادجر الخصوصية»</li></ul>",
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "صدّر المواقع غير المفعلة إلى السحاب",
+        "message": "صدّر/ي المواقع غير المفعلة إلى السحاب",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "upload": {
-        "message": "ارفع",
+        "message": "ارفع/ي",
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "إستورد المواقع غير المفعلة من السحابة",
+        "message": "استورد/ي المواقع غير المفعلة من السحابة",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
@@ -699,11 +699,11 @@
         "description": "Message displayed to the user after failing to download cloud data."
     },
     "upload_cloud_success": {
-        "message": "تم رفع البيانات الى السحاب بنجاح",
+        "message": "تم رفع البيانات إلى السحاب بنجاح",
         "description": "Message displayed to the user after successfully uploading local data."
     },
     "upload_cloud_failure": {
-        "message": "تعذّر رفع البيانات الى السحاب",
+        "message": "تعذّر رفع البيانات إلى السحاب",
         "description": "Message displayed to the user after failing to upload local data."
     },
     "download_cloud_no_data": {
@@ -711,59 +711,59 @@
         "description": "'Error' message when there is on cloud data to download."
     },
     "reset_data": {
-        "message": "أعِد المواقع المتعقِّبة إلى أصلها",
+        "message": "أعِد/يدي المواقع المتعقِّبة إلى أصلها",
         "description": "Caption above reset button"
     },
     "reset": {
-        "message": "أعِد إلى الأصل",
+        "message": "أعِد/يدي إلى الأصل",
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "إعادة المواقع المتعقِّبة إلى أصلها:\n\n • سيحذف كل البيانات التي تعلمها «غرير الخصوصية» عن هذه المواقع أثناء تصفحك\n • سيعيد قائمة المواقع المتعقِّبة إلى آخر قائمة قبل التعلم (توجه الى www.eff.org/badger-pretraining لمزيد من المعلومات)",
+        "message": "إعادة المواقع المتعقِّبة إلى أصلها:\n\n • سيحذف كل البيانات التي تعلمها «بادجر الخصوصية» عن هذه المواقع أثناء تصفحك\n • سيعيد قائمة المواقع المتعقِّبة إلى آخر قائمة قبل التعلم (توجه/ي الى www.eff.org/badger-pretraining لمزيد من المعلومات)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
-        "message": "أزل كل النطاقات المتعقِّبة",
+        "message": "أزل/يلي كل النطاقات المتعقِّبة",
         "description": "Caption above remove_all button"
     },
     "remove_all": {
-        "message": "أزل الكل",
+        "message": "أزل/يلي الكل",
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data_confirm": {
-        "message": "إزالة كل النطاقات المتعقِّبة:\n\n • سيحذف كل ما يعرفه «غرير الخصوصية» عن المتعقبات\n • سيمنع «غرير الخصوصية» من حجب أي شيء إلى أن يعيد التعلم من تصفحك",
+        "message": "إزالة كل النطاقات المتعقِّبة:\n\n • سيحذف كل ما يعرفه «بادجر الخصوصية» عن المتعقبات\n • سيمنع «بادجر الخصوصية» من حجب أي شيء إلى أن يعيد التعلم من تصفحك",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
-        "message": "يحميك «غرير الخصوصية» الآن.",
+        "message": "يحميك «بادجر الخصوصية» الآن.",
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
-        "message": "لتتعرف على طريقة عمل «غرير الخصوصية» انقر أدناه للاطلاع على شرح مختصر.",
+        "message": "لتتعرف على طريقة عمل «بادجر الخصوصية» انقر/ي أدناه للاطلاع على شرح مختصر.",
         "description": "Second part of a reminder to visit the intro page"
     },
     "first_run_text": {
-        "message": "تعرف كيف يحمي «غرير الخصوصية» خصوصيتك",
+        "message": "تعرف/ي كيف يحمي «بادجر الخصوصية» خصوصيتك",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "learning_prompt_text1": {
-        "message": "لن يتعلم «غرير الخصوصية» بعد الآن من تصفحك بشكل افتراضي.",
+        "message": "لن يتعلم «بادجر الخصوصية» بعد الآن من تصفحك بشكل افتراضي.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
-        "message": "انقر أدناه لمعرفة المزيد.",
+        "message": "انقر/ي أدناه لمعرفة المزيد.",
         "description": "Second part of a prompt to visit the blog."
     },
     "learning_prompt_button": {
-        "message": "تعرّف على تحديثات «غرير الخصوصية»",
+        "message": "تعرّف/ي على تحديثات «بادجر الخصوصية»",
         "description": "Button text, part of a prompt to visit the blog."
     },
     "deprecated_setting": {
-        "message": "لقد تم إيقاف هذه الخاصية وسيتم إزالتها في تحديث «غرير الخصوصية» المستقبلي:",
+        "message": "لقد تم إيقاف هذه الخاصية وسيتم إزالتها في تحديث «بادجر الخصوصية» المستقبلي:",
         "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
-        "message": "تصفح $LINK$ للمزيد من المعلومات.",
+        "message": "تصفح/ي $LINK$ للمزيد من المعلومات.",
         "description": "Reusable 'learn more link' message",
         "placeholders": {
             "link": {
@@ -773,11 +773,11 @@
         }
     },
     "acknowledgement_action": {
-        "message": "أفهم",
+        "message": "فهمت",
         "description": "Acknowledgement button text"
     },
     "social_tooltip_pb_has_replaced": {
-        "message": "استبدل «غرير الخصوصية» هذا $BUTTON$ الزر ",
+        "message": "استبدل/ي «بادجر الخصوصية» هذا $BUTTON$ الزر ",
         "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
         "placeholders": {
             "button": {
@@ -787,7 +787,7 @@
         }
     },
     "widget_placeholder_pb_has_replaced": {
-        "message": "«غرير الخصوصية» إستبدل $START_ANCHOR_TAG$هذه $WIDGET$ Widget$END_ANCHOR_TAG$",
+        "message": "«بادجر الخصوصية» استبدل $START_ANCHOR_TAG$هذه $WIDGET$ Widget$END_ANCHOR_TAG$",
         "description": "Text shown inside a replaced widget's placeholder. For example, \"Privacy Badger has replaced this Google reCAPTCHA widget\". See also the social_tooltip_pb_has_replaced message.",
         "placeholders": {
             "widget": {
