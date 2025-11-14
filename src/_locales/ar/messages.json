@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "تعلم حظر أدوات التتبع المخفية تلقائيًا. صُممتها مؤسسة الجبهة الإلكترونية، وهي منظمة غير ربحية للحقوق الرقمية، لايقاف تجسس الشركات.",
+        "message": "تعلم بادجر الخصوصية حظر أدوات التتبع الخفية تلقائيًا. صُمم من قبل مؤسسة الجبهة الإلكترونية، وهي منظمة غير ربحية للحقوق الرقمية.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -32,7 +32,7 @@
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "أحسنت، أفتح/ي النافذة المنبثقة!",
+        "message": "أحسنت، الآن النافذة المنبثقة مفتوحة!",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
