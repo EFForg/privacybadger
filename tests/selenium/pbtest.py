@@ -168,9 +168,7 @@ class Shim:
 
         opts.binary_location = self.browser_path
         opts.enable_bidi = True
-
-        opts.add_argument('--remote-debugging-pipe')
-        opts.add_argument('--enable-unsafe-extension-debugging')
+        opts.enable_webextensions = True
 
         # work around https://issues.chromium.org/issues/409441960
         opts.add_experimental_option('enableExtensionTargets', True)
@@ -182,20 +180,10 @@ class Shim:
         # https://github.com/mozilla/geckodriver/issues/284#issuecomment-456073771
         opts.set_capability("goog:loggingPrefs", {'browser': 'ALL'})
 
-        def webExtension_install(path):
-            cmd_dict = {
-                "method": "webExtension.install",
-                "params": { "extensionData": { "type": 'path', "path": path } }
-            }
-            _ = yield cmd_dict
-
         for i in range(5):
             try:
                 driver = webdriver.Chrome(options=opts)
-                # pylint: disable-next=protected-access
-                driver._start_bidi()
-                # pylint: disable-next=protected-access
-                driver._websocket_connection.execute(webExtension_install(self.extension_path))
+                driver.webextension.install(self.extension_path)
             except WebDriverException as ex:
                 if i == 0: print("")
                 print(f"ChromeDriver initialization failed: {ex}")
