@@ -527,7 +527,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "احظر/ي الأدوات التالية، ولكن لا تستبدلها/يها:",
+        "message": "احظر/ي، ولكن لا تستبدل/ي الـwidgets التالية:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
