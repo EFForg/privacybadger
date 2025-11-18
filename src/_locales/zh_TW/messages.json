@@ -325,7 +325,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Privacy Badger 傳送<a href='https://globalprivacycontrol.org/' target='_blank'>「全域隱私控制」信號</a>，來讓您退出資料分享與販賣，以及 <a href='https://www.eff.org/issues/do-not-track' target='_blank'>「不要追蹤」信號</a>來告訴公司不要追蹤您。",
+        "message": "Privacy Badger 傳送<a href='https://globalprivacycontrol.org/' target='_blank'>「全域隱私控制」信號</a>，來讓您退出資料分享與販賣，以及 <a href='https://www.eff.org/issues/do-not-track' target='_blank'>「請勿追蹤」信號</a>來告訴公司不要追蹤您。",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
@@ -439,7 +439,7 @@
         }
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger 已在下列網站中停用。這代表 Privacy Badger 將不會在您瀏覽它們時封鎖任何東西，也不會傳送「不要追蹤」或「全域隱私控制」信號。",
+        "message": "Privacy Badger 已在下列網站中停用。這代表 Privacy Badger 將不會在您瀏覽它們時封鎖任何東西，也不會傳送「請勿追蹤」或「全域隱私控制」信號。",
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "add_domain_button": {
@@ -463,11 +463,11 @@
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
-        "message": "傳送「<a href='https://globalprivacycontrol.org/' target='_blank'>全域隱私控制</a>」與「<a href='https://www.eff.org/issues/do-not-track' target='_blank'>不要追蹤</a>」信號",
+        "message": "傳送「<a href='https://globalprivacycontrol.org/' target='_blank'>全域隱私控制</a>」與「<a href='https://www.eff.org/issues/do-not-track' target='_blank'>請勿追蹤</a>」信號",
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
-        "message": "檢查 <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方網域</a> 是否遵守電子前哨基金會的<a target='_blank' href='https://www.eff.org/dnt-policy'>「不要追蹤」政策</a>",
+        "message": "檢查 <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>第三方網域</a> 是否遵守電子前哨基金會的<a target='_blank' href='https://www.eff.org/dnt-policy'>「請勿追蹤」政策</a>",
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
@@ -515,11 +515,11 @@
         "description": "Tooltip in general settings."
     },
     "options_widget_replacement_tab": {
-        "message": "小工具取代",
+        "message": "取代小工具",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
-        "message": "當封鎖了社交媒體按鈕與其他可能有用（影片、音訊、留言）的小工具時，Privacy Badger 可以以點擊啟用的佔位按鈕將它們取代。",
+        "message": "當社交媒體按鈕與其他可能有用（影片、音訊、留言）的小工具被封鎖時，Privacy Badger 可以用點擊啟用的佔位符取代它們。",
         "description": "Introduction to the Widget Replacement tab on the options page"
     },
     "options_widget_exceptions_header": {
