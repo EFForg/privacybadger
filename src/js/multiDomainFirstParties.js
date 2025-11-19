@@ -2972,6 +2972,7 @@ let multiDomainFirstPartiesArray = [
     "ms-online.pl",
   ],
   ["meetup.com", "meetupstatic.com"],
+  ["meituan.com", "dianping.com", "longcat.chat", "meituan.net"],
   [
     "mercadolibre.com",
 
