@@ -12,7 +12,9 @@
         "gpc": [
             "www.costco.com",
             "www.delta.com",
-            "www.madewell.com"
+            "www.madewell.com",
+            "www.flyfrontier.com",
+            "booking.flyfrontier.com"
         ],
         "ignore": {
             "doubleclick.net": [
