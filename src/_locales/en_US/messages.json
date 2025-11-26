@@ -115,6 +115,16 @@
         "message": "Move the slider right to allow a domain",
         "description": "Domain slider list header tooltip."
     },
+    "popup_slider_label": {
+        "message": "Blocking options for $DOMAIN$",
+        "description": "Screenreader-accessible label for domain sliders",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
     "badger_status_block": {
         "message": "Blocked $DOMAIN$",
         "description": "Tooltip shown over a domain name with a red slider in the domain slider list. This is a status (\"example.com was blocked\"), not an action (\"click here to block example.com\").",

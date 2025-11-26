@@ -110,7 +110,7 @@
   </div>
 
   <div id="badger-title-div">
-    <a href="https://www.eff.org/" target="_blank"><img id='header-red-eff-logo' src="./images/EFF-red.svg" width="48" alt="" title="i18n_intro_by_eff" class="tooltip" data-tooltipster='{"distance":20,"maxWidth":180}'></a>
+    <a href="https://www.eff.org/" target="_blank" aria-label="i18n_intro_by_eff" title="i18n_intro_by_eff" class="tooltip" data-tooltipster='{"distance":20,"maxWidth":180}'><img id='header-red-eff-logo' src="./images/EFF-red.svg" width="48" alt=""></a>
     <h2><span class="i18n_name"></span></h2>
   </div>
 
@@ -139,7 +139,7 @@
 
 <div id="blockedResourcesContainer">
   <div id="pbInstructions">
-    <button class="toggle-header" id="tracker-list-header" style="display:none">
+    <button class="toggle-header" id="tracker-list-header" style="display:none" aria-expanded="false" aria-controls="blockedResources">
       <span class="toggle-header-title" id="instructions-many-trackers"></span>
       <span class="toggle-header-icon">
         <span id="expand-blocked-resources" class="ui-icon ui-icon-caret-d" style="display:none"></span>
@@ -147,14 +147,14 @@
       </span>
     </button>
     <div class="basic-header" id="instructions-no-trackers" style="display:none">
-      <span class="i18n_popup_instructions_no_trackers" data-i18n_contents_placeholders="<a target='_blank' title='i18n_what_is_a_tracker' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"></span>
+      <span class="i18n_popup_instructions_no_trackers" data-i18n_contents_placeholders="<a target='_blank' aria-description='i18n_what_is_a_tracker' title='i18n_what_is_a_tracker' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"></span>
       <span id="no-third-parties" class="i18n_popup_blocked" style="display:none"></span>
     </div>
   </div>
   <div id="blockedResources" style="display:none">
     <div class="keyContainer">
       <div class="key">
-        <img src="/icons/UI-icons-red.svg" class="tooltip" title="i18n_tooltip_block"><img src="/icons/UI-icons-yellow.svg" class="tooltip" title="i18n_tooltip_cookieblock"><img src="/icons/UI-icons-green.svg" class="tooltip" title="i18n_tooltip_allow">
+        <img src="/icons/UI-icons-red.svg" class="tooltip" title="i18n_tooltip_block" alt="i18n_tooltip_block" tabindex="0"><img src="/icons/UI-icons-yellow.svg" class="tooltip" title="i18n_tooltip_cookieblock" alt="i18n_tooltip_cookieblock" tabindex="0"><img src="/icons/UI-icons-green.svg" class="tooltip" title="i18n_tooltip_allow" alt="i18n_tooltip_allow" tabindex="0">
       </div>
     </div>
     <div id="blockedResourcesInner" class="clickerContainer"></div>
