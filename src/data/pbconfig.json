@@ -247,6 +247,22 @@
                 "www.ikonpass.com",
                 "robertsspaceindustries.com",
                 "www.utest.com"
+            ],
+            "w.soundcloud.com": [
+                "heardlewordle.io",
+                "90s.heardledecades.com",
+                "reheardle.xyz",
+                "reheardle.com",
+                "00s.heardledecades.com",
+                "www.heardle.info"
+            ],
+            "api-widget.soundcloud.com": [
+                "heardlewordle.io",
+                "90s.heardledecades.com",
+                "reheardle.xyz",
+                "reheardle.com",
+                "00s.heardledecades.com",
+                "www.heardle.info"
             ]
         }
     },
