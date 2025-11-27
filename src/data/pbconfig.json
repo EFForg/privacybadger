@@ -12,9 +12,9 @@
         "gpc": [
             "www.costco.com",
             "www.delta.com",
-            "www.madewell.com",
+            "booking.flyfrontier.com",
             "www.flyfrontier.com",
-            "booking.flyfrontier.com"
+            "www.madewell.com"
         ],
         "ignore": {
             "doubleclick.net": [
@@ -234,20 +234,6 @@
             "segment.com": [
                 "www.crunchyroll.com"
             ],
-            "cdn.trackjs.com": [
-                "www.delta.com"
-            ],
-            "tremorhub.com": [
-                "www.sbs.com.au"
-            ],
-            "p.typekit.net": [
-                "www.bungie.net",
-                "delayrepay.crosscountrytrains.co.uk",
-                "us.dollarshaveclub.com",
-                "www.ikonpass.com",
-                "robertsspaceindustries.com",
-                "www.utest.com"
-            ],
             "w.soundcloud.com": [
                 "heardlewordle.io",
                 "90s.heardledecades.com",
@@ -263,6 +249,20 @@
                 "reheardle.com",
                 "00s.heardledecades.com",
                 "www.heardle.info"
+            ],
+            "cdn.trackjs.com": [
+                "www.delta.com"
+            ],
+            "tremorhub.com": [
+                "www.sbs.com.au"
+            ],
+            "p.typekit.net": [
+                "www.bungie.net",
+                "delayrepay.crosscountrytrains.co.uk",
+                "us.dollarshaveclub.com",
+                "www.ikonpass.com",
+                "robertsspaceindustries.com",
+                "www.utest.com"
             ]
         }
     },
