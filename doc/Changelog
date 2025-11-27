@@ -9,7 +9,11 @@ not working in Chrome, Edge and Opera
 * Privacy Badger is now available on Microsoft Edge for Android
 * Fixed the popup showing "Nothing to do on this page"
 instead of what actually happened in Chrome sometimes
-* Fixed various site breakages
+* Fixed various site breakages. Notably, we can now relax blocking for
+specific tracking domains on specific sites, instead of only globally.
+This lets us fix more broken sites than ever before, since we can now
+work around breakages involving highly prominent tracking domains that
+we wouldn't be OK partially unblocking globally.
 * Improved Danish, Finnish, Greek, Hebrew, Italian, Polish,
 Portuguese, Russian and Swedish translations
 
