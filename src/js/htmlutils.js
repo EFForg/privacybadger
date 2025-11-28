@@ -211,11 +211,11 @@ let htmlUtils = {
 <div class="${classes.join(' ')}" data-origin="${fqdn}">
   <div class="origin" role="heading" aria-level="4">
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
-    <span class="origin-inner tooltip" title="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
+    <span class="origin-inner tooltip" title="${domain_tooltip}">${fqdn}${dnt_html}${shield_icon}</span>
   </div>
-  <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
   <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></a>
+  <a href="" class="removeOrigin">&#10006</a>
 </div>
       `.trim();
     };
