@@ -213,9 +213,11 @@ let htmlUtils = {
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}"></span>
     <span class="origin-inner tooltip" title="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
   </div>
+  <div class="toggle-container">
+    ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
+    <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></a>
+  </div>
   <a href="" class="removeOrigin">&#10006</a>
-  ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
-  <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}"></a>
 </div>
       `.trim();
     };
