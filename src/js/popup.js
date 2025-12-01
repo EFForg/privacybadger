@@ -631,7 +631,6 @@ function createBreakageNote(domain, i18n_message_key) {
       }
     });
   }
-  suppressOverlapping();
   // Restore ability to tab navigate to hidden elements once breakage note is closed
   function restoreSuppressed() {
     suppressed.forEach(({ el, originalTabIndex }) => {
