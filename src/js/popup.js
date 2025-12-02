@@ -563,39 +563,105 @@ function revertDomainControl(event) {
  * Tooltip that explains how to enable signing into websites with Google.
  */
 function createBreakageNote(domain, i18n_message_key) {
-  let $slider_allow = $(`#blockedResourcesInner label[for="allow-${domain.replace(/\./g, '-')}"]`);
-
-  // first remove the Allow tooltip so that future tooltipster calls
-  // return the tooltip we want (the breakage note, not Allow)
-  $slider_allow.tooltipster('destroy').tooltipster({
-    autoClose: false,
-    content: chrome.i18n.getMessage(i18n_message_key),
-    functionReady: function (tooltip) {
-      // close on tooltip click/tap
-      $(tooltip.elementTooltip()).on('click', function (e) {
-        e.preventDefault();
-        tooltip.hide();
-      });
-      // also when Report Broken Site or Share overlays get activated
-      $('#error, #share').off('click.breakage-note').on('click.breakage-note', function (e) {
-        e.preventDefault();
-        tooltip.hide();
-      });
-    },
-    interactive: true,
-    position: ['top'],
-    trigger: 'custom',
-    theme: 'tooltipster-badger-breakage-note'
-
-  // now restore the Allow tooltip
-  }).tooltipster(Object.assign({}, DOMAIN_TOOLTIP_CONF, {
-    content: chrome.i18n.getMessage('domain_slider_allow_tooltip'),
-    multiple: true
-  }));
-
-  if (POPUP_DATA.settings.seenComic && !POPUP_DATA.showLearningPrompt && !POPUP_DATA.criticalError) {
-    $slider_allow.tooltipster('show');
+  if (!POPUP_DATA.settings.seenComic || POPUP_DATA.showLearningPrompt || POPUP_DATA.criticalError) {
+    return;
   }
+
+  let $clicker = $(`.clicker[data-origin="${domain}"]`);
+  let $switchContainer = $clicker.find('.switch-container');
+
+  // Create tooltip HTML
+  let $tooltip = $(`
+   <div class="breakage-note-tooltip" role="tooltip">
+     <div class="tooltip-box">
+       <div class="tooltip-content">${chrome.i18n.getMessage(i18n_message_key)}</div>
+       <button class="dismiss-tooltip" aria-label="${chrome.i18n.getMessage("report_close")}">×</button>
+     </div>
+     <div class="tooltip-arrow">
+       <div class="tooltip-arrow-inner"></div>
+     </div>
+   </div>`);
+
+  // Cannot insert inside blockedResourcesInner because it'll be cut off
+  $('#blockedResourcesInner').before($tooltip);
+
+  let switchOffset = $switchContainer.offset();
+  let switch_width = $switchContainer.outerWidth();
+  let switch_height = $switchContainer.outerHeight();
+  let arrow_width = $tooltip.find('.tooltip-arrow-inner').outerWidth();
+  let tooltip_height = $tooltip.outerHeight();
+
+  // Tooltip should be above the the switch container
+  $tooltip.css({
+    top: (switchOffset.top - tooltip_height - switch_height) + 'px',
+    left: '0px',
+    visibility: 'visible',
+  });
+
+  // Arrow should point to the allow toggle of the slider
+  let arrow_left = switchOffset.left + (switch_width * 5/6) - (arrow_width / 2);
+  $tooltip.find('.tooltip-arrow').css('left', arrow_left + 'px');
+
+  let intObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        $tooltip.show(); // show tooltip when slider is visible
+        suppressOverlapping();
+      } else {
+        $tooltip.hide(); // hide tooltip when slider is not visible
+        restoreSuppressed();
+      }
+    });
+  }, { threshold: 0 });
+  intObserver.observe($switchContainer[0]);
+
+  // Collect originally focusable elements we suppress
+  let suppressed = [];
+  function suppressOverlapping() {
+    // Ensure that obscured elements will not receive keyboard focus
+    // (https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
+    let tooltipRect = $tooltip[0].getBoundingClientRect();
+    for (let el of document.querySelectorAll(htmlUtils.focusableSelectors)) {
+      // ignore invisible elements
+      if (el.style.display == 'none' || (el.offsetWidth == 0 && el.offsetHeight == 0) || window.getComputedStyle(el).visibility == 'hidden') {
+        continue;
+      }
+      let elRect = el.getBoundingClientRect();
+      // Treat elements as obscured if at least 50% of its height overlaps with the tooltip
+      let overlaps = (elRect.bottom > (tooltipRect.top + (elRect.height * 0.5))) && (elRect.top < (tooltipRect.bottom - (elRect.height * 0.5)));
+      if (overlaps && !$tooltip[0].contains(el)) {
+        suppressed.push({ el, originalTabIndex: el.getAttribute('tabindex') });
+        el.setAttribute('tabindex', '-1');
+      }
+    }
+  }
+  // Restore ability to tab navigate to hidden elements once breakage note is closed
+  function restoreSuppressed() {
+    suppressed.forEach(({ el, originalTabIndex }) => {
+      if (originalTabIndex === null) {
+        el.removeAttribute('tabindex');
+      } else {
+        el.setAttribute('tabindex', originalTabIndex);
+      }
+    });
+    suppressed = [];
+  }
+
+  // Close button handler
+  $tooltip.find('.dismiss-tooltip').on('click', function(e) {
+    e.preventDefault();
+    restoreSuppressed();
+    intObserver.disconnect();
+    $tooltip.fadeOut(200);
+  });
+
+  // Also close when Report Broken Site or Share overlays get activated
+  $('#error, #share').off('click.breakage-note').on('click.breakage-note', function (e) {
+    e.preventDefault();
+    restoreSuppressed();
+    intObserver.disconnect();
+    $tooltip.remove();
+  });
 }
 
 /**
@@ -912,9 +978,7 @@ function showOverlay(overlay_id) {
 
   // Focus on the first focusable element, per ARIA guidance for dialogs/modals
   // https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
-  let $focusables = $(overlay_id).find(
-    'button, [href], input, select, textarea, iframe, [tabindex]:not([tabindex="-1"])'
-  );
+  let $focusables = $(overlay_id).find(htmlUtils.focusableSelectors);
   if ($focusables.length) {
     $focusables[0].focus();
   }
