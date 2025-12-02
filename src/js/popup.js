@@ -618,18 +618,22 @@ function createBreakageNote(domain, i18n_message_key) {
   // Collect originally focusable elements we suppress
   let suppressed = [];
   function suppressOverlapping() {
-    // Ensure that only visible elements can receive keyboard focus
+    // Ensure that obscured elements will not receive keyboard focus
     // (https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
     let tooltipRect = $tooltip[0].getBoundingClientRect();
-    document.querySelectorAll(htmlUtils.focusableSelectors).forEach(el => {
+    for (let el of document.querySelectorAll(htmlUtils.focusableSelectors)) {
+      // ignore invisible elements
+      if (el.style.display == 'none' || (el.offsetWidth == 0 && el.offsetHeight == 0) || window.getComputedStyle(el).visibility == 'hidden') {
+        continue;
+      }
       let elRect = el.getBoundingClientRect();
-      // Treat elements as hidden if at least 50% of its height overlaps with the tooltip
+      // Treat elements as obscured if at least 50% of its height overlaps with the tooltip
       let overlaps = (elRect.bottom > (tooltipRect.top + (elRect.height * 0.5))) && (elRect.top < (tooltipRect.bottom - (elRect.height * 0.5)));
       if (overlaps && !$tooltip[0].contains(el)) {
         suppressed.push({ el, originalTabIndex: el.getAttribute('tabindex') });
         el.setAttribute('tabindex', '-1');
       }
-    });
+    }
   }
   // Restore ability to tab navigate to hidden elements once breakage note is closed
   function restoreSuppressed() {
