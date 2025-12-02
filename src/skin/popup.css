@@ -74,6 +74,7 @@ button {
     height: 40px;
     overflow: hidden;
     line-height: normal;
+    contain: layout;
 }
 .clicker:not(#not-yet-blocked-header):not(#non-trackers-header) {
     direction: ltr;
@@ -117,7 +118,6 @@ button {
 }
 
 .dnt-compliant {
-    float: left;
     display: inline;
     padding-right: 5px;
 }
@@ -127,9 +127,9 @@ button {
     margin-right: 10px;
     width: 20px;
     height: 20px;
-    position: relative;
-    left: 340px;
-    bottom: 15px;
+    position: fixed;
+    left: 345px;
+    bottom: 24px;
 }
 .userset .honeybadgerPowered {
     display: block;

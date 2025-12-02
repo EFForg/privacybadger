@@ -43,3 +43,6 @@ tests/.pytest_cache
 
 pkg
 release-utils/config.sh
+
+# development tooling
+.devcontainer/
