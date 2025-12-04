@@ -512,6 +512,7 @@ function toggleBlockedResourcesHandler(e) {
     $("#collapse-blocked-resources").show();
     $("#expand-blocked-resources").hide();
     $("#blockedResources").slideDown();
+    $("#tracker-list-header").attr("aria-expanded", true);
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showExpandedTrackingSection: true }
@@ -520,6 +521,7 @@ function toggleBlockedResourcesHandler(e) {
     $("#collapse-blocked-resources").hide();
     $("#expand-blocked-resources").show();
     $("#blockedResources").slideUp();
+    $("#tracker-list-header").attr("aria-expanded", false);
     chrome.runtime.sendMessage({
       type: "updateSettings",
       data: { showExpandedTrackingSection: false }
@@ -695,6 +697,7 @@ function refreshPopup() {
 
     // activate tooltips
     $('.tooltip').tooltipster();
+    htmlUtils.triggerTooltipsOnFocus();
 
     window.SLIDERS_DONE = true;
 
@@ -741,11 +744,13 @@ function refreshPopup() {
     $('#expand-blocked-resources').hide();
     $('#collapse-blocked-resources').show();
     $('#blockedResources').show();
+    $("#tracker-list-header").attr("aria-expanded", true);
 
   } else {
     $('#expand-blocked-resources').show();
     $('#collapse-blocked-resources').hide();
     $('#blockedResources').hide();
+    $("#tracker-list-header").attr("aria-expanded", false);
   }
 
   let domainsArr = [];
@@ -765,6 +770,7 @@ function refreshPopup() {
 
     // activate tooltips
     $('.tooltip').tooltipster();
+    htmlUtils.triggerTooltipsOnFocus();
 
     window.SLIDERS_DONE = true;
 
@@ -841,6 +847,7 @@ function refreshPopup() {
 
   // activate tooltips
   $('.tooltip').tooltipster();
+  htmlUtils.triggerTooltipsOnFocus();
 
   if (POPUP_DATA.trackerCount === 0) {
     // show "no trackers" message
@@ -861,7 +868,7 @@ function refreshPopup() {
     $('#instructions-many-trackers').html(chrome.i18n.getMessage(
       "popup_instructions", [
         POPUP_DATA.trackerCount,
-        "<a target='_blank' title='" + htmlUtils.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
+        "<a target='_blank' title='" + htmlUtils.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' aria-description='" + htmlUtils.escape(chrome.i18n.getMessage("what_is_a_tracker")) + "' class='tooltip' href='https://privacybadger.org/#What-is-a-third-party-tracker'>"
       ]
     )).find(".tooltip").tooltipster();
   }
@@ -880,6 +887,7 @@ function refreshPopup() {
 
     // activate tooltips
     $printable.find('.tooltip:not(.tooltipstered)').tooltipster(DOMAIN_TOOLTIP_CONF);
+
     if ($printable.hasClass('breakage-note')) {
       let domain = $printable[0].dataset.origin;
       createBreakageNote(domain, BREAKAGE_NOTE_DOMAINS[domain]);
@@ -890,6 +898,10 @@ function refreshPopup() {
     } else {
       $('#not-yet-blocked-header').tooltipster();
       $('#non-trackers-header').tooltipster();
+      htmlUtils.triggerTooltipsOnFocus();
+      htmlUtils.triggerTooltipsOnFocus('.dnt-compliant a', (trigger) => $(trigger).closest('.tooltip'));
+      // Workaround for slider tooltips: the input receives keyboard focus, but the tooltip must be attached to the corresponding label to appear in the correct place
+      htmlUtils.triggerTooltipsOnFocus('.switch-toggle input', (trigger) => `label.tooltip[for="${trigger.id}"]`);
       window.SLIDERS_DONE = true;
     }
   }
