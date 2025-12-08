@@ -8059,7 +8059,9 @@
       "heuristicAction": "block"
     },
     "decagon.ai": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1765552952932
     },
     "decibelinsight.net": {
       "heuristicAction": "block"
