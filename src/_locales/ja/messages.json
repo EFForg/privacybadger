@@ -169,6 +169,16 @@
         "message": "このドメインは、あなたを追跡しないことを約束しています",
         "description": "Tooltip shown over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
+    "domain_slider_label": {
+        "message": "Settings for $DOMAIN$",
+        "description": "Screenreader-accessible label for domain sliders",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
     "domain_slider_block_tooltip": {
         "message": "完全にブロック",
         "description": "Tooltip shown over the leftmost part of a domain slider. This is an action (\"click here to ...\"), not a status."
