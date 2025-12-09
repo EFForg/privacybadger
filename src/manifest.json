@@ -16,7 +16,6 @@
   "permissions": [
     "<all_urls>",
     "alarms",
-    "cookies",
     "privacy",
     "storage",
     "tabs",
