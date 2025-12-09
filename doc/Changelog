@@ -1,6 +1,18 @@
 Privacy Badger changelog
 ========================
 
+2025.12.9
+* Fixed various screen reader and keyboard navigation bugs.
+If you have feedback on how to make Privacy Badger more accessible,
+please let us know!
+* Fixed enforcement for "CNAME cloaked" trackers in Chrome and Chromium-based
+browsers. Prominent trackers like Adobe sometimes hide their tracking domains
+behind CNAME alias domains that belong to the website being visited.
+Privacy Badger should once again properly block known aliases in Chrome.
+* Fixed various site breakages
+* Improved Arabic, Traditional Chinese, German, Japanese, Brazilian Portuguese
+and European Portuguese translations
+
 2025.9.5
 Bug fix update to fix "cookieblocking" (domain toggle set to yellow)
 not working in Chrome, Edge and Opera
