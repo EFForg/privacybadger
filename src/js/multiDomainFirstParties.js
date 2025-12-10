@@ -685,6 +685,7 @@ let multiDomainFirstPartiesArray = [
     "enso.me",
     "hipchat.com",
     "jira.com",
+    "loom.com",
     "sourcetreeapp.com",
     "statuspage.io",
     "stride.com",
