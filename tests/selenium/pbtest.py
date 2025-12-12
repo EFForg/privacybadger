@@ -202,22 +202,13 @@ class Shim:
         # https://github.com/GoogleChromeLabs/chromium-bidi/issues/3281
         opts.set_capability("unhandledPromptBehavior", "ignore");
 
-        num_tries = 15
-        for i in range(num_tries):
+        for i in range(5):
             try:
                 driver = webdriver.Edge(options=opts)
                 driver.webextension.install(self.extension_path)
-
-                # test for sporadic failure to visit options with EdgeDriver
-                options_url = self.base_url + "skin/options.html"
-                driver.get(options_url)
-                if driver.current_url != options_url:
-                    raise WebDriverException("Failed to open options page")
-
             except WebDriverException as ex:
                 if i == 0: print("")
-                print(f"EdgeDriver initialization failed ({i+1}/{num_tries}): {ex}", end='')
-                time.sleep(1)
+                print(f"EdgeDriver initialization failed ({i+1}/5): {ex}", end='')
             else:
                 break
 

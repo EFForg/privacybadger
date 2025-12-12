@@ -46,7 +46,6 @@ class OptionsTest(pbtest.PBSeleniumTest):
         self.load_url(self.options_url + '?all')
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
 
-    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type == "edge")
     def test_reloading_should_reapply_filters(self):
         FILTERVAL = "user"
 

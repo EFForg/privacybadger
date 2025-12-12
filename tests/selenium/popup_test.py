@@ -3,8 +3,6 @@
 import time
 import unittest
 
-import pytest
-
 import pbtest
 
 from selenium.common.exceptions import TimeoutException
@@ -17,7 +15,7 @@ class PopupTest(pbtest.PBSeleniumTest):
     """Make sure the popup works correctly."""
 
     def wait_for_sliders(self, visible=True, timeout=5):
-        def condition(dr):
+        def invisibility_condition(dr):
             """tests all are invisible"""
             sliders = dr.find_elements(By.CSS_SELECTOR, "div.clicker")
             for slider in sliders:
@@ -25,12 +23,13 @@ class PopupTest(pbtest.PBSeleniumTest):
                     return False
             return True
 
-        if visible:
-            condition = EC.visibility_of_all_elements_located(
-                (By.CSS_SELECTOR, "div.clicker"))
-
         try:
-            WebDriverWait(self.driver, timeout).until(condition)
+            if visible:
+                WebDriverWait(self.driver, timeout).until(
+                    EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "div.clicker")))
+            else:
+                WebDriverWait(self.driver, timeout).until(
+                    invisibility_condition)
         except TimeoutException:
             pass
 
@@ -127,7 +126,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         except TimeoutException:
             self.fail(f"Unable to find expected element ({faq_selector}) on EFF website")
 
-    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type == "edge")
     def test_toggling_sliders(self):
         """Ensure toggling sliders is persisted."""
 
@@ -174,7 +172,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         assert self.get_domain_slider_state(DOMAIN) == "block", (
             "The domain should still be blocked on options page")
 
-    @pytest.mark.flaky(reruns=5, condition=pbtest.shim.browser_type == "edge")
     def test_reverting_control(self):
         """Test restoring control of a domain to Privacy Badger."""
 
