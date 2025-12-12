@@ -29,6 +29,9 @@
             "googlesyndication.com": [
                 "m.youtube.com",
                 "www.youtube.com"
+            ],
+            "assets.striiiipst.com": [
+                "stripchat.com"
             ]
         },
         "yellowlist": {
