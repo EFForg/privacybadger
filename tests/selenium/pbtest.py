@@ -191,16 +191,22 @@ class Shim:
     @contextmanager
     def edge_manager(self):
         opts = EdgeOptions()
-        opts.add_argument("--load-extension=" + self.extension_path)
+
         opts.binary_location = self.browser_path
+        opts.enable_bidi = True
+        opts.enable_webextensions = True
 
         # work around https://issues.chromium.org/issues/409441960
         opts.add_experimental_option('enableExtensionTargets', True)
+
+        # https://github.com/GoogleChromeLabs/chromium-bidi/issues/3281
+        opts.set_capability("unhandledPromptBehavior", "ignore");
 
         num_tries = 15
         for i in range(num_tries):
             try:
                 driver = webdriver.Edge(options=opts)
+                driver.webextension.install(self.extension_path)
 
                 # test for sporadic failure to visit options with EdgeDriver
                 options_url = self.base_url + "skin/options.html"
