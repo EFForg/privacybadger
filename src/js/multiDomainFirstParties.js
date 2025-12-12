@@ -979,7 +979,7 @@ let multiDomainFirstPartiesArray = [
   ["cctv.com", "cctv.cn", "cctvpic.com"],
   ["century21.com", "21online.com"],
   ["chart.io", "chartio.com"],
-  ["chaturbate.com", "highwebmedia.com"],
+  ["chaturbate.com", "highwebmedia.com", "mmcdn.com"],
   ["chegg.com", "citationmachine.net", "easybib.com", "internships.com",
     "mathway.com", "cheggcdn.com"],
   [
@@ -5034,7 +5034,7 @@ let multiDomainFirstPartiesArray = [
     "stacksnippets.net",
   ],
   ["steampowered.com", "steamstatic.com", "steamcommunity.com"],
-  ["stripchat.com", "xhamsterlive.com", "strpst.com"],
+  ["stripchat.com", "xhamsterlive.com", "strpst.com", "striiiipst.com"],
   ["stripe.com", "stripe.network", "stripecdn.com"],
   ["suning.com", "suning.cn", "hksuning.com"],
   [
