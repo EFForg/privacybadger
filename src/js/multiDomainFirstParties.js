@@ -4810,6 +4810,7 @@ let multiDomainFirstPartiesArray = [
     "garaz.cz",
     "kupi.cz",
     "lide.cz",
+    "mapy.com",
     "mapy.cz",
     "novinky.cz",
     "prozeny.cz",
