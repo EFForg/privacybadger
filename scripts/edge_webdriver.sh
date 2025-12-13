@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-edge_version_major=$(microsoft-edge-beta --product-version | cut -d . -f 1)
+MS_EDGE="${1:-microsoft-edge}"
+
+edge_version_major=$("$MS_EDGE" --product-version | cut -d . -f 1)
 edgedriver_version_url="https://msedgedriver.microsoft.com/LATEST_RELEASE_${edge_version_major}_LINUX"
 edgedriver_version=$(curl -s "$edgedriver_version_url" | tr -d "\0\r\n" | cut -c 3-)
 if [ -z "$edgedriver_version" ]; then

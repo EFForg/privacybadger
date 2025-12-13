@@ -29,7 +29,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        job: [firefox, firefox-beta, firefox-nightly, firefox-esr, edge-beta]
+        job: [firefox, firefox-beta, firefox-nightly, firefox-esr, edge, edge-beta]
         include:
           - job: firefox
             BROWSER: "firefox"
@@ -43,6 +43,9 @@ jobs:
           - job: firefox-esr
             BROWSER: "firefox"
             BROWSER_VERSION: "latest-esr"
+          - job: edge
+            BROWSER: "microsoft-edge"
+            BROWSER_VERSION: "stable"
           - job: edge-beta
             BROWSER: "microsoft-edge-beta"
             BROWSER_VERSION: "beta"
@@ -73,14 +76,14 @@ jobs:
         run: ./scripts/geckodriver.sh
 
       - name: Set up Edge
-        if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
+        if:  ${{ contains(matrix.BROWSER, 'microsoft-edge') }}
         uses: browser-actions/setup-edge@v1
         with:
           edge-version: ${{ matrix.BROWSER_VERSION }}
 
       - name: Install Edge WebDriver
-        if: ${{ matrix.BROWSER == 'microsoft-edge-beta' }}
-        run: ./scripts/edge_webdriver.sh
+        if:  ${{ contains(matrix.BROWSER, 'microsoft-edge') }}
+        run: ./scripts/edge_webdriver.sh "$BROWSER"
 
       - name: Install Xvfb
         run: sudo apt-get install -y xvfb
