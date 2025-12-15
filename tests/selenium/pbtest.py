@@ -164,11 +164,19 @@ class Shim:
     @contextmanager
     def chrome_manager(self):
         opts = ChromeOptions()
-        opts.add_argument("--load-extension=" + self.extension_path)
+
+        # support tests in Chrome with MV2 PB while this flag remains available
+        opts.add_argument("--enable-features=AllowLegacyMV2Extensions")
+
         opts.binary_location = self.browser_path
+        opts.enable_bidi = True
+        opts.enable_webextensions = True
 
         # work around https://issues.chromium.org/issues/409441960
         opts.add_experimental_option('enableExtensionTargets', True)
+
+        # https://github.com/GoogleChromeLabs/chromium-bidi/issues/3281
+        opts.set_capability("unhandledPromptBehavior", "ignore");
 
         # TODO not yet in Firefox (w/o hacks anyway):
         # https://github.com/mozilla/geckodriver/issues/284#issuecomment-456073771
@@ -177,6 +185,7 @@ class Shim:
         for i in range(5):
             try:
                 driver = webdriver.Chrome(options=opts)
+                driver.webextension.install(self.extension_path)
             except WebDriverException as ex:
                 if i == 0: print("")
                 print(f"ChromeDriver initialization failed: {ex}")
