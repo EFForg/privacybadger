@@ -2571,6 +2571,8 @@ let multiDomainFirstPartiesArray = [
     "gouvernement.fr",
     "ignrando.fr",
 
+    "geopf.fr",
+
     "ants.gouv.fr",
     "culture.gouv.fr",
     "data.gouv.fr",
