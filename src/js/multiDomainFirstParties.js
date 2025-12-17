@@ -4145,7 +4145,7 @@ let multiDomainFirstPartiesArray = [
 
     "iplsc.com"
   ],
-  ["pornhub.com", "pornhubpremium.com", "redtube.com", "thumbzilla.com", "youporn.com", "phncdn.com"],
+  ["pornhub.com", "pornhub.org", "pornhubpremium.com", "redtube.com", "thumbzilla.com", "youporn.com", "phncdn.com"],
   ["postepay.it", "poste.it"],
   ["postimees.ee", "city24.ee", "city24.lv", "pmo.ee"],
   [
