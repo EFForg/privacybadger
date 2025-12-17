@@ -136,6 +136,13 @@ const hostnames = {
     tokens: [
       '/embed/v1.js'
     ],
+    widgetName: "Twitch Embed"
+  },
+  'player.twitch.tv': {
+    match: MATCH_PREFIX,
+    tokens: [
+      '/js/embed/v1.js'
+    ],
     widgetName: "Twitch Player"
   },
   'platform.twitter.com': {
@@ -222,6 +229,8 @@ const surrogates = {
   '/omweb-v1.js': 'noop.js',
 
   '/embed/v1.js': 'twitch.js',
+
+  '/js/embed/v1.js': 'twitch.js',
 
   'noopjs': 'noop.js',
 
