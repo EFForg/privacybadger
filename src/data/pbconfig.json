@@ -22,6 +22,9 @@
                 "m.youtube.com",
                 "www.youtube.com"
             ],
+            "connect.facebook.net": [
+                "apps.facebook.com"
+            ],
             "googleadservices.com": [
                 "m.youtube.com",
                 "www.youtube.com"
