@@ -885,6 +885,7 @@
         "edge.microsoft.com",
         "graph.microsoft.com",
         "delivery.mp.microsoft.com",
+        "paymentinstruments.mp.microsoft.com",
         "tts.speech.microsoft.com",
         "wcpstatic.microsoft.com",
         "www.microsoft.com",
