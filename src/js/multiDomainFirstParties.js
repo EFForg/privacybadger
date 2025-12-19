@@ -5038,7 +5038,7 @@ let multiDomainFirstPartiesArray = [
     "stacksnippets.net",
   ],
   ["steampowered.com", "steamstatic.com", "steamcommunity.com"],
-  ["stripchat.com", "imagefap.live", "xhamsterlive.com", "strpst.com", "striiiipst.com"],
+  ["stripchat.com", "imagefap.live", "sun-porno.com", "xhamsterlive.com", "strpst.com", "striiiipst.com"],
   ["stripe.com", "stripe.network", "stripecdn.com"],
   ["suning.com", "suning.cn", "hksuning.com"],
   [
