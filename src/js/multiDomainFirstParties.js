@@ -2014,7 +2014,7 @@ let multiDomainFirstPartiesArray = [
     "kinja-img.com",
     "kinja-static.com",
   ],
-  ["globo.com", "glbimg.com"],
+  ["globo.com", "techtudo.com.br", "glbimg.com"],
   ["gm.com", "buick.com", "cadillac.com", "chevrolet.com", "gmc.com", "gmcertified.com"],
   ["gogoair.com", "gogoinflight.com"],
   [
