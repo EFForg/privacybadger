@@ -18,6 +18,14 @@
             "www.mazdausa.com"
         ],
         "ignore": {
+            "aa.com": [
+                "www.aa.com.br",
+                "www.aa.com.do",
+                "www.aavacations.com",
+                "www.americanairlines.co.cr",
+                "www.americanairlines.co.uk",
+                "www.americanairlines.fr"
+            ],
             "doubleclick.net": [
                 "m.youtube.com",
                 "www.youtube.com"
