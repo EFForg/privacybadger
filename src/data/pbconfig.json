@@ -26,6 +26,10 @@
                 "www.americanairlines.co.uk",
                 "www.americanairlines.fr"
             ],
+            "axelspringer.de": [
+                "signin.auth.bild.de",
+                "signin.auth.welt.de"
+            ],
             "doubleclick.net": [
                 "m.youtube.com",
                 "www.youtube.com"

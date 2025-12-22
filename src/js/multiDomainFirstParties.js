@@ -792,6 +792,14 @@ let multiDomainFirstPartiesArray = [
   ["automattic.com", "wordpress.com", "wordpress.org", "wp.com"],
   ["avito.ru", "avito.st"],
   ["avon.com", "youravon.com"],
+  [
+    "axelspringer.com",
+
+    "bild.de",
+    "welt.de",
+
+    "axelspringer.de"
+  ],
   ["axept.io", "axeptio.eu"],
   ["bahn.de", "img-bahn.de", "static-bahn.de"],
   [
