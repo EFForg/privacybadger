@@ -16,7 +16,6 @@ let multiDomainFirstPartiesArray = [
     "aa.com.pe",
     "aa.com.ve",
     "aa.co.uk",
-    "aa.co.uk ",
     "aadvantage.com",
     "aavacations.com",
     "americanair.com",
