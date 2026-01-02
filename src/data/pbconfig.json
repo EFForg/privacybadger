@@ -344,6 +344,9 @@
                 "www.ikonpass.com",
                 "robertsspaceindustries.com",
                 "www.utest.com"
+            ],
+            "api.useinsider.com": [
+                "www.canningvale.com"
             ]
         }
     },
