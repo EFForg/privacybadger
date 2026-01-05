@@ -367,7 +367,7 @@
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
-        "message": "Falls Sie annehmen, dass Privacy Badger bei einer Seite Probleme verursacht (z. B. ein Video wird nicht wiedergegeben), so können Sie auf die Schaltfläche »Deaktivieren« klicken, um Privacy Badger für diese Website auszuschalten.",
+        "message": "Wenn Sie glauben, dass Privacy Badger eine Seite beeinträchtigt (z. B. ein Video wird nicht abgespielt), können Sie auf die Schaltfläche »Für diese Site deaktivieren« klicken, um Privacy Badger für diese Website auszuschalten.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
@@ -439,7 +439,7 @@
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "Klicken Sie zunächst auf das Icon von Privacy Badger in Ihrer Browser-Symbolleiste. Klicken Sie dann auf die Schaltfläche \"$DISABLE_FOR_SITE$\".",
+        "message": "Klicken Sie zunächst auf das Icon von Privacy Badger in Ihrer Browser-Symbolleiste. Klicken Sie dann auf die Schaltfläche »$DISABLE_FOR_SITE$«.",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
@@ -485,7 +485,7 @@
         "description": "Subheading in general settings."
     },
     "options_disable_hyperlink_auditing": {
-        "message": "Sites daran hindern, angeklickte Links nachzuverfolgen (»Hyperlink Auditing«)",
+        "message": "Sites daran hindern, angeklickte Links nachzuverfolgen (»Hyperlink-Auditing«)",
         "description": "Checkbox label in general settings."
     },
     "options_disable_network_prediction": {
@@ -537,7 +537,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Blockieren Sie die folgenden Widgets, ersetzen Sie sie jedoch nicht:",
+        "message": "Folgende Widgets blockieren, aber nicht ersetzen:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
@@ -689,7 +689,7 @@
         "description": "A brief explanation of how syncing works. Shown above the upload/download cloud data buttons under the Manage Data options page tab."
     },
     "upload_cloud": {
-        "message": "Deaktivierte Sites zu Cloud exportieren",
+        "message": "Deaktivierte Websites in die Cloud exportieren",
         "description": "Button title for uploading data to the cloud on Manage Data options page tab."
     },
     "upload": {
@@ -697,7 +697,7 @@
         "description": "Button label for uploading data to the cloud on Manage Data options page tab."
     },
     "download_cloud": {
-        "message": "Deaktivierte Sites von Cloud importieren",
+        "message": "Deaktivierte Websites aus der Cloud importieren",
         "description": "Button title for downloading data from the cloud on Manage Data options page tab."
     },
     "download_cloud_success": {
