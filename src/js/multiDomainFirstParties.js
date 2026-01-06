@@ -5554,6 +5554,7 @@ let multiDomainFirstPartiesArray = [
     "ionos.it",
     "ionos.li",
     "ionos.me",
+    "ionos.mx",
     "ionos.nl",
     "ionos.nz",
     "ionos.ph",
