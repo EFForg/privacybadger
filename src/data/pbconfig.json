@@ -46,8 +46,7 @@
             ],
             "googlesyndication.com": [
                 "m.youtube.com",
-                "www.youtube.com",
-                "skmedix.pl"
+                "www.youtube.com"
             ],
             "meteored.com": [
                 "www.tempo.pt"
@@ -289,7 +288,8 @@
                 "www.crunchyroll.com"
             ],
             "googlesyndication.com": [
-                "www.crunchyroll.com"
+                "www.crunchyroll.com",
+                "skmedix.pl"
             ],
             "cdn.hubvisor.io": [
                 "www.leboncoin.fr"
@@ -302,8 +302,7 @@
                 "media.ccc.de"
             ],
             "pagead2.googlesyndication.com": [
-                "battlecats-db.com",
-                "skmedix.pl"
+                "battlecats-db.com"
             ],
             "imrworldwide.com": [
                 "www.threenow.co.nz"
