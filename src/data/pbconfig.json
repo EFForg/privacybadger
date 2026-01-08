@@ -46,7 +46,8 @@
             ],
             "googlesyndication.com": [
                 "m.youtube.com",
-                "www.youtube.com"
+                "www.youtube.com",
+                "skmedix.pl"
             ],
             "meteored.com": [
                 "www.tempo.pt"
@@ -108,6 +109,9 @@
                 "www.crunchyroll.com",
                 "www.paramountplus.com",
                 "www.sbs.com.au"
+            ],
+            "googleads.g.doubleclick.net": [
+                "skmedix.pl"
             ],
             "pubads.g.doubleclick.net": [
                 "southpark.cc.com",
@@ -290,7 +294,8 @@
                 "media.ccc.de"
             ],
             "pagead2.googlesyndication.com": [
-                "battlecats-db.com"
+                "battlecats-db.com",
+                "skmedix.pl"
             ],
             "imrworldwide.com": [
                 "www.threenow.co.nz"
