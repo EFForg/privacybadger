@@ -291,6 +291,9 @@
             "googlesyndication.com": [
                 "www.crunchyroll.com"
             ],
+            "cdn.hubvisor.io": [
+                "www.leboncoin.fr"
+            ],
             "iocnt.net": [
                 "epaper.aerzteblatt.de",
                 "www.aerzteblatt.de"
