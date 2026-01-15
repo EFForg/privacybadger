@@ -502,6 +502,7 @@
         "buttonSelectors": [
             "iframe[src^='https://clips.twitch.tv/embed?']",
             "iframe[src^='https://embed.twitch.tv?']",
+            "iframe[src^='https://embed.twitch.tv/']",
             "iframe[src^='https://player.twitch.tv/']",
             "iframe[src^='https://player.twitch.tv?']",
             "iframe[src^='//player.twitch.tv/']",
