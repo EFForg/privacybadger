@@ -338,6 +338,10 @@ class PBSeleniumTest(unittest.TestCase):
         self.test_url = self.base_url + "tests/index.html"
 
     def run(self, result=None):
+        # disable Selenium sending your IP to a third-party company
+        # https://www.selenium.dev/documentation/selenium_manager/#data-collection
+        os.environ['SE_AVOID_STATS'] = "true"
+
         with self.manager() as driver:
             self.init(driver)
 
