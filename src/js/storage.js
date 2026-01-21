@@ -788,6 +788,9 @@ BadgerStorage.prototype = {
         // combine array settings via intersection/union
         if (prop == "disabledSites" || prop == "widgetReplacementExceptions") {
           self.setItem(prop, utils.concatUniq(self.getItem(prop), mapData[prop]));
+          if (prop == "disabledSites") {
+            badger.initDisabledSitesTrie();
+          }
 
         // string/array map
         } else if (prop == "widgetSiteAllowlist") {
@@ -971,9 +974,9 @@ let _syncStorage = (function () {
     if (!callback) {
       callback = function () {};
     }
-    let obj = {};
-    obj[badgerStore.name] = badgerStore._store;
-    chrome.storage.local.set(obj, function () {
+    let data = {};
+    data[badgerStore.name] = badgerStore._store;
+    chrome.storage.local.set(data, function () {
       if (!chrome.runtime.lastError) {
         callback(null);
         return;

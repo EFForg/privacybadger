@@ -1663,13 +1663,13 @@ function dispatcher(request, sender, sendResponse) {
   case "downloadCloud": {
     chrome.storage.sync.get("disabledSites", function (store) {
       if (chrome.runtime.lastError) {
-        sendResponse({success: false, message: chrome.runtime.lastError.message});
+        sendResponse({ success: false, message: chrome.runtime.lastError.message });
       } else if (utils.hasOwn(store, "disabledSites")) {
         let disabledSites = utils.concatUniq(
-          badger.getDisabledSites(),
-          store.disabledSites
-        );
+          badger.getSettings().getItem("disabledSites"),
+          store.disabledSites);
         badger.getSettings().setItem("disabledSites", disabledSites);
+        badger.initDisabledSitesTrie();
         sendResponse({
           success: true,
           disabledSites
@@ -1687,13 +1687,13 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "uploadCloud": {
-    let obj = {};
-    obj.disabledSites = badger.getDisabledSites();
-    chrome.storage.sync.set(obj, function () {
+    let data = {};
+    data.disabledSites = badger.getSettings().getItem("disabledSites");
+    chrome.storage.sync.set(data, function () {
       if (chrome.runtime.lastError) {
-        sendResponse({success: false, message: chrome.runtime.lastError.message});
+        sendResponse({ success: false, message: chrome.runtime.lastError.message });
       } else {
-        sendResponse({success: true});
+        sendResponse({ success: true });
       }
     });
     // indicate this is an async response to chrome.runtime.onMessage
@@ -1767,7 +1767,7 @@ function dispatcher(request, sender, sendResponse) {
   case "disableOnSite": {
     badger.disableOnSite(request.domain);
     sendResponse({
-      disabledSites: badger.getDisabledSites()
+      disabledSites: badger.getSettings().getItem("disabledSites")
     });
     break;
   }
@@ -1777,7 +1777,7 @@ function dispatcher(request, sender, sendResponse) {
       badger.reenableOnSite(domain);
     });
     sendResponse({
-      disabledSites: badger.getDisabledSites()
+      disabledSites: badger.getSettings().getItem("disabledSites")
     });
     break;
   }
