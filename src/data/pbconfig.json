@@ -48,16 +48,16 @@
                 "m.youtube.com",
                 "www.youtube.com"
             ],
+            "lottomaticagroup.com": [
+                "www.goldbet.it",
+                "www.lottomatica.it",
+                "www.planetwin365.it"
+            ],
             "meteored.com": [
                 "www.tempo.pt"
             ],
             "osano.com": [
                 "my.datasubject.com"
-            ],
-            "lottomaticagroup.com": [
-                "www.goldbet.it",
-                "www.lottomatica.it",
-                "www.planetwin365.it"
             ],
             "phncdn.com": [
                 "pornhub.mainhub.com",
@@ -1051,6 +1051,7 @@
         "cdn.optimizely.com",
         "oraclecloud.com",
         "consent.api.osano.com",
+        "dsar-public.api.osano.com",
         "cmp.osano.com",
         "paddle.com",
         "pandacommerce.net",
