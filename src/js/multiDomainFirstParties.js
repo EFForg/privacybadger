@@ -3937,6 +3937,7 @@ let multiDomainFirstPartiesArray = [
     "oracleimg.com",
   ],
   ["orange.fr", "sosh.fr", "woopic.com"],
+  ["osano.com", "datasubject.com"],
   ["oschina.net", "gitee.io", "gitee.com"],
   [
     "osf.io",
