@@ -170,7 +170,7 @@
         "description": "Tooltip shown over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "domain_slider_label": {
-        "message": "Settings for $DOMAIN$",
+        "message": "Ρυθμίσεις για τον τομέα $DOMAIN$",
         "description": "Screenreader-accessible label for domain sliders",
         "placeholders": {
             "domain": {
