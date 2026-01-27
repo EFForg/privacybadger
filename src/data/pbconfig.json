@@ -48,6 +48,12 @@
                 "m.youtube.com",
                 "www.youtube.com"
             ],
+            "hubspot.com": [
+                "app-na1.hubspotdocuments.com"
+            ],
+            "hubspot.net": [
+                "app-na1.hubspotdocuments.com"
+            ],
             "lottomaticagroup.com": [
                 "www.goldbet.it",
                 "www.lottomatica.it",
