@@ -287,4 +287,19 @@ function() {
     done();
   });
 
+  QUnit.module('getTrackers()');
+
+  QUnit.test("Trackers are not returned by reference", function (assert) {
+    let DOMAIN = "example.com",
+      expected = {};
+    expected[DOMAIN] = constants.BLOCK;
+
+    badger.logThirdParty(this.tabId, DOMAIN, constants.BLOCK);
+
+    let trackers = badger.tabData.getTrackers(this.tabId);
+    trackers["eff.org"] = constants.NO_TRACKING;
+
+    assert.deepEqual(badger.tabData.getTrackers(this.tabId), expected);
+  });
+
 });

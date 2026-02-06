@@ -364,7 +364,7 @@ TabData.prototype.getTrackers = function (tab_id) {
   let self = this;
 
   if (self.has(tab_id)) {
-    return self._tabData[tab_id].trackers;
+    return JSON.parse(JSON.stringify(self._tabData[tab_id].trackers));
   }
 
   return {};
