@@ -300,7 +300,7 @@ function getDnrSurrogateRules(domain, is_user_action) {
 
   if (conf.match == sdb.MATCH_ANY) {
     rules.push(makeDnrSurrogateRule(badger.getDynamicRuleId(),
-      domain, sdb.surrogates[conf.token]), false, priority, resource_type);
+      domain, sdb.surrogates[conf.token], false, priority, resource_type));
 
   } else if (conf.match == sdb.MATCH_SUFFIX) {
     for (let token of conf.tokens) {
@@ -614,6 +614,17 @@ let updateDynamicRules = (function () {
   }, 100);
 
   let ret = function (opts) {
+    // validate (better to skip invalid rules than have the whole update fail)
+    if (utils.hasOwn(opts, "addRules")) {
+      opts.addRules = opts.addRules.filter(function (rule, idx) {
+        let valid = utils.isObject(rule);
+        if (!valid) {
+          console.warn("Skipping invalid rule at %i in opts.addRules:",
+            idx, rule, JSON.parse(JSON.stringify(opts)));
+        }
+        return valid;
+      });
+    }
     queue.push(opts);
     _update();
   };
