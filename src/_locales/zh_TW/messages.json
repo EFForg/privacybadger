@@ -28,11 +28,11 @@
         "description": "Heading for popup_special_page_paragraph"
     },
     "popup_special_page_paragraph": {
-        "message": "Privacy Badger 在這類特殊頁面上無法運作。試著瀏覽其他的頁面看看。",
+        "message": "Privacy Badger 無法在這類特殊頁面上運作。試著瀏覽其他頁面看看。",
         "description": "Shown in the popup for special browser pages such as the New Tab page and 'about:' pages."
     },
     "popup_first_run_header": {
-        "message": "做得好！",
+        "message": "成功打開彈窗，做得好！",
         "description": "Heading in the popup when opened from the intro page."
     },
     "popup_disabled_site_header": {
@@ -40,7 +40,7 @@
         "description": "Shown in the popup on disabled sites."
     },
     "popup_disable_for_site": {
-        "message": "在此網站上停用",
+        "message": "在此網站停用",
         "description": "Button in the popup."
     },
     "popup_enable_for_site": {
@@ -87,7 +87,7 @@
         }
     },
     "popup_instructions_no_trackers": {
-        "message": "沒有任何 $LINK_START$追蹤器$LINK_END$ 被封鎖",
+        "message": "沒有封鎖任何 $LINK_START$追蹤器$LINK_END$",
         "description": "Text shown in the popup when there are no trackers on the page.",
         "placeholders": {
             "link_start": {
@@ -156,7 +156,7 @@
         }
     },
     "badger_status_noaction": {
-        "message": "$DOMAIN$ 沒有追蹤您",
+        "message": "$DOMAIN$ 沒有追蹤器",
         "description": "Tooltip shown over a non-tracking domain name with a green slider in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -196,15 +196,15 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "若要使用 Google 帳號登入網站，請向右滑動滑桿，並重新整理頁面",
+        "message": "若要使用 Google 帳號登入網站，請向右滑動滑桿，並重新載入頁面",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
-        "message": "點擊以將此網域的控制權歸還給 Privacy Badger",
+        "message": "點擊以將網域的控制權歸還給 Privacy Badger",
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "not_yet_blocked_header": {
-        "message": "您的 Badger 尚未決定是否應該要封鎖這些網域",
+        "message": "您的 Badger 尚未決定是否要封鎖這些網域",
         "description": "Popup domain slider list header text. Separates blocked domains from domains that haven't yet been seen perform tracking on enough sites."
     },
     "intro_not_an_adblocker_paragraph": {
@@ -228,11 +228,11 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "此行為會令下列資料自動傳送給電子前哨基金會：您目前瀏覽的頁面、瀏覽器版本、Privacy Badger 版本，以及此頁面所有滑桿的狀態。",
+        "message": "此行為會將下列資料自動傳送給電子前哨基金會：您目前所在的頁面、瀏覽器版本、Privacy Badger 版本，以及此頁面所有滑桿的狀態。",
         "description": ""
     },
     "report_button": {
-        "message": "傳送回報",
+        "message": "傳送報告",
         "description": "Button text."
     },
     "report_cancel": {
@@ -244,7 +244,7 @@
         "description": "Link text."
     },
     "report_success": {
-        "message": "多謝！我們將會調查這個問題。",
+        "message": "感謝！我們會調查這個問題。",
         "description": "Success status message."
     },
     "report_fail": {
@@ -256,7 +256,7 @@
         "description": "Title of the Share popup overlay."
     },
     "share_tracker_header": {
-        "message": "Privacy Badger 已在 $DOMAIN$ 封鎖了 $COUNT$ 個潛在的追蹤器：",
+        "message": "Privacy Badger 在 $DOMAIN$ 封鎖了 $COUNT$ 個潛在的追蹤器：",
         "description": "Header above the list of tracking domains in the share message.",
         "placeholders": {
             "count": {
@@ -270,7 +270,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) 是一個瀏覽器擴充套件，可自動學習封鎖隱藏的追蹤器。Privacy Badger 是由電子前哨基金會所製作，該基金會是一個非營利組織，致力於爭取您的線上權利。",
+        "message": "Privacy Badger (privacybadger.org) 是一套瀏覽器擴充功能，可自動學習封鎖隱藏的追蹤器。Privacy Badger 是由電子前哨基金會所製作，該基金會是一個非營利組織，致力於爭取您的線上權利。",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -286,7 +286,7 @@
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "當您點擊連結離開網站時，某些網站會$LINK_START$使用連結追蹤來追蹤您$LINK_END$。Privacy Badger 從這網站上的連結移除了這種追蹤。",
+        "message": "當您點擊連結離開網站時，某些網站會$LINK_START$使用連結來追蹤您$LINK_END$。Privacy Badger 從這個網站上的連結移除了這種追蹤。",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
@@ -323,7 +323,7 @@
         "description": "Message in the header of the intro page."
     },
     "intro_welcome": {
-        "message": "Privacy Badger 會自動學習以封鎖隱藏的追蹤器。花一分鐘來看看它是怎樣做到的。",
+        "message": "Privacy Badger 會自動學習封鎖隱藏的追蹤器。花一分鐘來看背後的原理。",
         "description": "Intro page welcome paragraph."
     },
     "intro_next_button": {
@@ -363,7 +363,7 @@
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
     },
     "intro_open_popup_alt": {
-        "message": "瀏覽器工具列上圈出的 Privacy Badger 圖示",
+        "message": "瀏覽器工具列上圈出了 Privacy Badger 圖示",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
@@ -375,7 +375,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "當您使用 Privacy Badger 時，您就和 <a href='https://www.eff.org/' target='_blank'>電子前哨基金會</a> 及其他數百萬個使用者一同為隱私而戰。我們是非牟利組織，為捍衛您的線上權利而戰。感謝您加入我們！",
+        "message": "當您使用 Privacy Badger 時，您就和 <a href='https://www.eff.org/' target='_blank'>電子前哨基金會</a> 及其他數百萬個使用者一同為隱私而戰。我們是為捍衛您的線上權利而戰的非營利組織。感謝您加入我們！",
         "description": "Part of the 'donate' section on the intro page."
     },
     "donate_to_eff": {
@@ -513,19 +513,19 @@
         "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
-        "message": "顯示似乎未有追蹤您的網域",
+        "message": "顯示似乎未在追蹤您的網域",
         "description": "Checkbox label in general settings. Should match wording used in the 'non_tracker' message."
     },
     "options_incognito_setting": {
-        "message": "在隱私／無痕視窗中學習",
+        "message": "在隱私／無痕式視窗中學習",
         "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
-        "message": "啟用在隱私／無痕式視窗中學習可能會導致您的隱私瀏覽紀錄留在電腦上。預設情況下，Privacy Badger 會在隱私／無痕視窗中封鎖已知的追蹤器，但是不會學習新的追蹤器。假如您大部份時間都在使用隱私／無痕視窗，可能會想要啟用此選項。",
+        "message": "啟用在隱私／無痕式視窗中學習可能會導致您的私密瀏覽紀錄留在電腦上。預設情況下，Privacy Badger 會在隱私／無痕式視窗中封鎖已知的追蹤器，但不會學習新的追蹤器。假如您大部份時間都在使用隱私／無痕式視窗，可能會想要啟用此選項。",
         "description": "Tooltip in general settings."
     },
     "options_widget_replacement_tab": {
-        "message": "取代小工具",
+        "message": "小工具替換",
         "description": "Options page tab heading"
     },
     "options_widget_replacement_desc": {
@@ -729,7 +729,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "重設追蹤網域將會：\n\n • 刪除所有 Privacy Badger 從您的瀏覽中學習到的追蹤器資料\n • 將追蹤網域復原為最新的預訓練名單（詳情請見 www.eff.org/badger-pretraining）",
+        "message": "重設追蹤網域將會：\n\n • 刪除 Privacy Badger 從您的瀏覽中學習到的所有追蹤器資料\n • 將追蹤網域恢復到最新的預訓練名單（詳情請見 www.eff.org/badger-pretraining）",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
@@ -749,7 +749,7 @@
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
-        "message": "欲要了解 Privacy Badger 的運作原理，請點擊下方的快速教學。",
+        "message": "欲了解 Privacy Badger 的運作原理，請點擊下方的快速教學。",
         "description": "Second part of a reminder to visit the intro page"
     },
     "first_run_text": {
@@ -769,7 +769,7 @@
         "description": "Button text, part of a prompt to visit the blog."
     },
     "deprecated_setting": {
-        "message": "以下設定已被棄用，將於未來的 Privacy Badger 更新中被移除：",
+        "message": "以下設定已棄用，將於未來的 Privacy Badger 更新中被移除：",
         "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
     },
     "learn_more_link": {
