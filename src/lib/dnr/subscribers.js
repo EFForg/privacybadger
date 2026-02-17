@@ -113,6 +113,7 @@ function subscribeToStorageUpdates() {
  */
 function subscribeToActionMapUpdates() {
   let actionMap = badger.storage.getStore('action_map'),
+    fpStore = badger.storage.getStore('fp_scripts'),
     queue = {};
 
   /**
@@ -173,7 +174,6 @@ function subscribeToActionMapUpdates() {
         badger.getDynamicRuleId(), domain, constants.DNR_USER_COOKIEBLOCK_HEADERS));
       addRules.push(dnrUtils.makeDnrAllowRule(
         badger.getDynamicRuleId(), domain, constants.DNR_USER_COOKIEBLOCK_ALLOW));
-      // TODO add any fingerprinter block/surrogate rules
     } else if (newVal.userAction == constants.USER_ALLOW) {
       addRules.push(dnrUtils.makeDnrAllowRule(badger.getDynamicRuleId(), domain, constants.DNR_USER_ALLOW));
 
@@ -187,7 +187,6 @@ function subscribeToActionMapUpdates() {
         addRules.push(dnrUtils.makeDnrCookieblockRule(badger.getDynamicRuleId(), domain));
         addRules.push(dnrUtils.makeDnrAllowRule(
           badger.getDynamicRuleId(), domain, constants.DNR_COOKIEBLOCK_ALLOW));
-        // TODO add any fingerprinter block/surrogate rules
       } else {
         addRules.push(dnrUtils.makeDnrBlockRule(badger.getDynamicRuleId(), domain));
         if (utils.hasOwn(sdb.hostnames, domain)) {
@@ -248,6 +247,33 @@ function subscribeToActionMapUpdates() {
     });
 
     _updateDynamicRules();
+  });
+
+  // block known CDN-hosted fingerprinters
+  // https://github.com/EFForg/privacybadger/pull/2891
+  fpStore.subscribe("set:*", function (fpScripts, domain) {
+    let addRules = [];
+
+    if (!constants.FP_CDN_DOMAINS.has(domain)) {
+      return;
+    }
+
+    if (sdb.hostnames[domain]) {
+      if (sdb.hostnames[domain].match == sdb.MATCH_SUFFIX) {
+        for (let token of sdb.hostnames[domain].tokens) {
+          addRules.push(dnrUtils.makeDnrFpScriptSurrogateRule(
+            badger.getDynamicRuleId(),
+            domain,
+            token,
+            '/' + sdb.surrogates[token].slice(chrome.runtime.getURL('').length)));
+        }
+      }
+    }
+
+    addRules.push(dnrUtils.makeDnrFpScriptBlockRule(
+      badger.getDynamicRuleId(), domain, Object.keys(fpScripts)));
+
+    dnrUtils.updateDynamicRules({ addRules });
   });
 }
 
