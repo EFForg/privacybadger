@@ -18,5 +18,6 @@
     "tooltipster": "4.2.6",
     "web-ext": "^10.1.0"
   },
+  "type": "module",
   "private": true
 }

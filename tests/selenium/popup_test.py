@@ -208,8 +208,9 @@ class PopupTest(pbtest.PBSeleniumTest):
 
         # restore control to Badger
         self.open_popup(FIXTURE_URL)
-        self.driver.find_element(By.CSS_SELECTOR,
-            f'div[data-origin="{DOMAIN}"] a.honeybadgerPowered').click()
+        with self.wait_for_window_close():
+            self.driver.find_element(By.CSS_SELECTOR,
+                f'div[data-origin="{DOMAIN}"] a.honeybadgerPowered').click()
 
         # get back to a valid window handle as the window just got closed
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -401,8 +402,9 @@ class PopupTest(pbtest.PBSeleniumTest):
         assert sliders[0].get_dom_attribute('data-origin') == YLIST_DOMAIN
 
         # restore the user-set slider to default action
-        self.driver.find_element(By.CSS_SELECTOR,
-            f'div[data-origin="{YLIST_DOMAIN}"] a.honeybadgerPowered').click()
+        with self.wait_for_window_close():
+            self.driver.find_element(By.CSS_SELECTOR,
+                f'div[data-origin="{YLIST_DOMAIN}"] a.honeybadgerPowered').click()
 
         # get back to a valid window handle as the window just got closed
         self.driver.switch_to.window(self.driver.window_handles[0])
