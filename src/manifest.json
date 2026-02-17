@@ -493,7 +493,7 @@
     "128": "icons/badger-128.png"
   },
   "manifest_version": 3,
-  "minimum_chrome_version": "141.0",
+  "minimum_chrome_version": "121.0",
   "name": "__MSG_name__",
   "action": {
     "default_area": "navbar",
