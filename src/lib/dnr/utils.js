@@ -112,7 +112,9 @@ function getCnameAliases(domain) {
  */
 function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
   let id = badger.getDynamicRuleId(),
-    base = getBaseDomain(domain);
+    base = getBaseDomain(domain),
+    excluded_domains_prop = (constants.DNR_HAS_EXCLUDEDTOPDOMAINS ?
+      'excludedTopDomains' : 'excludedInitiatorDomains');
 
   let action = {
     type: 'block'
@@ -120,7 +122,7 @@ function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
 
   let condition = {
     requestDomains: [domain],
-    excludedTopDomains: [base]
+    [excluded_domains_prop]: [base]
   };
 
   let cnames = getCnameAliases(domain);
@@ -132,7 +134,7 @@ function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
 
   let mdfpList = mdfp.getEntityList(base);
   if (mdfpList.length) {
-    condition.excludedTopDomains = mdfpList;
+    condition[excluded_domains_prop] = mdfpList;
   }
 
   let rule = { id, action, condition, priority };
@@ -150,7 +152,9 @@ function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
  */
 function makeDnrCookieblockRule(domain, priority = constants.DNR_COOKIEBLOCK_HEADERS) {
   let id = badger.getDynamicRuleId(),
-    base = getBaseDomain(domain);
+    base = getBaseDomain(domain),
+    excluded_domains_prop = (constants.DNR_HAS_EXCLUDEDTOPDOMAINS ?
+      'excludedTopDomains' : 'excludedInitiatorDomains');
 
   let action = {
     type: 'modifyHeaders',
@@ -160,7 +164,7 @@ function makeDnrCookieblockRule(domain, priority = constants.DNR_COOKIEBLOCK_HEA
 
   let condition = {
     requestDomains: [domain],
-    excludedTopDomains: [base]
+    [excluded_domains_prop]: [base]
   };
 
   let cnames = getCnameAliases(domain);
@@ -172,7 +176,7 @@ function makeDnrCookieblockRule(domain, priority = constants.DNR_COOKIEBLOCK_HEA
 
   let mdfpList = mdfp.getEntityList(base);
   if (mdfpList.length) {
-    condition.excludedTopDomains = mdfpList;
+    condition[excluded_domains_prop] = mdfpList;
   }
 
   let rule = { id, action, condition, priority };
@@ -229,7 +233,9 @@ function makeDnrAllowRule(domain, priority = constants.DNR_COOKIEBLOCK_ALLOW) {
 function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions,
   priority = constants.DNR_SURROGATE_REDIRECT, resource_type = 'script') {
 
-  let script_base = getBaseDomain(script_host);
+  let script_base = getBaseDomain(script_host),
+    excluded_domains_prop = (constants.DNR_HAS_EXCLUDEDTOPDOMAINS ?
+      'excludedTopDomains' : 'excludedInitiatorDomains');
 
   let rule = {
     id,
@@ -243,13 +249,13 @@ function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions,
     condition: {
       requestDomains: [script_host],
       resourceTypes: [resource_type],
-      excludedTopDomains: [script_base]
+      [excluded_domains_prop]: [script_base]
     }
   };
 
   let mdfpList = mdfp.getEntityList(script_base);
   if (mdfpList.length) {
-    rule.condition.excludedTopDomains = mdfpList;
+    rule.condition[excluded_domains_prop] = mdfpList;
   }
 
   if (extraConditions) {
@@ -336,11 +342,13 @@ function getDnrSurrogateRules(domain, is_user_action) {
  */
 function makeDnrFpScriptBlockRule(id, domain, path) {
   let base = getBaseDomain(domain),
-    excludedTopDomains = [base];
+    excludedDomains = [base],
+    excluded_domains_prop = (constants.DNR_HAS_EXCLUDEDTOPDOMAINS ?
+      'excludedTopDomains' : 'excludedInitiatorDomains');
 
   let mdfpList = mdfp.getEntityList(base);
   if (mdfpList.length) {
-    excludedTopDomains = mdfpList;
+    excludedDomains = mdfpList;
   }
 
   return {
@@ -351,7 +359,7 @@ function makeDnrFpScriptBlockRule(id, domain, path) {
       requestDomains: [domain],
       resourceTypes: ['script'],
       urlFilter: '||' + domain + path + '^',
-      excludedTopDomains
+      [excluded_domains_prop]: excludedDomains
     }
   };
 }
@@ -763,6 +771,9 @@ async function updateWidgetSiteAllowlistRules(widgetSiteAllowlist) {
     return (r.priority == constants.DNR_WIDGET_ALLOW_ALL);
   }).map(r => r.id);
 
+  let domains_prop = (constants.DNR_HAS_TOPDOMAINS ?
+    'topDomains' : 'initiatorDomains');
+
   for (let site_host in widgetSiteAllowlist) {
     let widgetDomains = widgetSiteAllowlist[site_host].map(widget_name => {
       let widget = badger.widgetList.find(w => w.name == widget_name);
@@ -779,7 +790,7 @@ async function updateWidgetSiteAllowlistRules(widgetSiteAllowlist) {
         priority: constants.DNR_WIDGET_ALLOW_ALL,
         action: { type: 'allowAllRequests' },
         condition: {
-          topDomains: [site_host],
+          [domains_prop]: [site_host],
           requestDomains: [domain],
           resourceTypes: ['sub_frame']
         }
@@ -797,7 +808,7 @@ async function updateWidgetSiteAllowlistRules(widgetSiteAllowlist) {
         priority: constants.DNR_WIDGET_ALLOW_ALL,
         action: { type: 'allow' },
         condition: {
-          topDomains: [site_host],
+          [domains_prop]: [site_host],
           requestDomains: [domain]
         }
       };
@@ -875,6 +886,9 @@ async function updateDntSignalHeaderRules() {
   }).map(r => r.id);
 
   if (badger.getSettings().getItem('sendDNTSignal')) {
+    let excluded_domains_prop = (constants.DNR_HAS_EXCLUDEDTOPDOMAINS ?
+      'excludedTopDomains' : 'excludedInitiatorDomains');
+
     // set DNT and Sec-GPC on top-level documents
     let rule = {
       id: badger.getDynamicRuleId(),
@@ -898,7 +912,7 @@ async function updateDntSignalHeaderRules() {
     let exceptionSites = Object.keys(
       badger.getPrivateSettings().getItem("gpcDisabledSites"));
     if (exceptionSites.length) {
-      rule.condition.excludedTopDomains = exceptionSites;
+      rule.condition[excluded_domains_prop] = exceptionSites;
     }
     opts.addRules.push(rule);
 
@@ -922,7 +936,7 @@ async function updateDntSignalHeaderRules() {
       condition: {}
     };
     if (exceptionSites.length) {
-      rule.condition.excludedTopDomains = exceptionSites;
+      rule.condition[excluded_domains_prop] = exceptionSites;
     }
     opts.addRules.push(rule);
   }
