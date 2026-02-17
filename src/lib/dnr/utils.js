@@ -68,7 +68,8 @@ function getCnameAliases(domain) {
  * @returns {Object}
  */
 function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
-  let id = badger.getDynamicRuleId();
+  let id = badger.getDynamicRuleId(),
+    base = getBaseDomain(domain);
 
   let action = {
     type: 'block'
@@ -76,9 +77,7 @@ function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
 
   let condition = {
     requestDomains: [domain],
-    // TODO "A request is said to be first party if it has the same domain (eTLD+1) as the frame in which the request originated."
-    // TODO will this ever be a problem? frame vs. top-level frame
-    domainType: 'thirdParty',
+    excludedTopDomains: [base]
   };
 
   let cnames = getCnameAliases(domain);
@@ -88,16 +87,9 @@ function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
     condition.requestDomains = condition.requestDomains.concat(cnames);
   }
 
-  let mdfpList = mdfp.getEntityList(getBaseDomain(domain));
+  let mdfpList = mdfp.getEntityList(base);
   if (mdfpList.length) {
-    condition.excludedInitiatorDomains = mdfpList;
-  }
-
-  if (cnames.length) {
-    delete condition.domainType;
-    if (!condition.excludedInitiatorDomains) {
-      condition.excludedInitiatorDomains = [domain];
-    }
+    condition.excludedTopDomains = mdfpList;
   }
 
   let rule = { id, action, condition, priority };
@@ -114,7 +106,8 @@ function makeDnrBlockRule(domain, priority = constants.DNR_BLOCK) {
  * @returns {Object}
  */
 function makeDnrCookieblockRule(domain, priority = constants.DNR_COOKIEBLOCK_HEADERS) {
-  let id = badger.getDynamicRuleId();
+  let id = badger.getDynamicRuleId(),
+    base = getBaseDomain(domain);
 
   let action = {
     type: 'modifyHeaders',
@@ -124,7 +117,7 @@ function makeDnrCookieblockRule(domain, priority = constants.DNR_COOKIEBLOCK_HEA
 
   let condition = {
     requestDomains: [domain],
-    domainType: 'thirdParty',
+    excludedTopDomains: [base]
   };
 
   let cnames = getCnameAliases(domain);
@@ -134,16 +127,9 @@ function makeDnrCookieblockRule(domain, priority = constants.DNR_COOKIEBLOCK_HEA
     condition.requestDomains = condition.requestDomains.concat(cnames);
   }
 
-  let mdfpList = mdfp.getEntityList(getBaseDomain(domain));
+  let mdfpList = mdfp.getEntityList(base);
   if (mdfpList.length) {
-    condition.excludedInitiatorDomains = mdfpList;
-  }
-
-  if (cnames.length) {
-    delete condition.domainType;
-    if (!condition.excludedInitiatorDomains) {
-      condition.excludedInitiatorDomains = [domain];
-    }
+    condition.excludedTopDomains = mdfpList;
   }
 
   let rule = { id, action, condition, priority };
@@ -171,13 +157,11 @@ function makeDnrAllowRule(domain, priority = constants.DNR_COOKIEBLOCK_ALLOW) {
 
   let condition = {
     requestDomains: [domain],
-    domainType: 'thirdParty'
   };
 
   let cnames = getCnameAliases(domain);
 
   if (cnames.length) {
-    delete condition.domainType;
     // important for requestDomains[0] to be the domain
     condition.requestDomains = condition.requestDomains.concat(cnames);
   }
@@ -202,6 +186,8 @@ function makeDnrAllowRule(domain, priority = constants.DNR_COOKIEBLOCK_ALLOW) {
 function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions,
   priority = constants.DNR_SURROGATE_REDIRECT, resource_type = 'script') {
 
+  let script_base = getBaseDomain(script_host);
+
   let rule = {
     id,
     priority,
@@ -214,19 +200,19 @@ function makeDnrSurrogateRule(id, script_host, surrogate_path, extraConditions,
     condition: {
       requestDomains: [script_host],
       resourceTypes: [resource_type],
-      domainType: 'thirdParty',
-      excludedInitiatorDomains: mdfp.getEntityList(getBaseDomain(script_host))
+      excludedTopDomains: [script_base]
     }
   };
+
+  let mdfpList = mdfp.getEntityList(script_base);
+  if (mdfpList.length) {
+    rule.condition.excludedTopDomains = mdfpList;
+  }
 
   if (extraConditions) {
     for (let key in extraConditions) {
       rule.condition[key] = extraConditions[key];
     }
-  }
-
-  if (!rule.condition.excludedInitiatorDomains.length) {
-    delete rule.condition.excludedInitiatorDomains;
   }
 
   return rule;
@@ -306,6 +292,14 @@ function getDnrSurrogateRules(domain, is_user_action) {
  * @returns {Object}
  */
 function makeDnrFpScriptBlockRule(id, domain, path) {
+  let base = getBaseDomain(domain),
+    excludedTopDomains = [base];
+
+  let mdfpList = mdfp.getEntityList(base);
+  if (mdfpList.length) {
+    excludedTopDomains = mdfpList;
+  }
+
   return {
     id,
     priority: constants.DNR_FP_SCRIPT_BLOCK,
@@ -314,8 +308,7 @@ function makeDnrFpScriptBlockRule(id, domain, path) {
       requestDomains: [domain],
       resourceTypes: ['script'],
       urlFilter: '||' + domain + path + '^',
-      domainType: 'thirdParty',
-      excludedInitiatorDomains: mdfp.getEntityList(getBaseDomain(domain))
+      excludedTopDomains
     }
   };
 }
@@ -407,7 +400,7 @@ let updateSessionAllowRules = utils.debounce(async function (tempAllowlist) {
  * Reregisters DNR session rules for site-specific domain overrides.
  *
  * These are session rules because we can scope session rules to tab IDs.
- * What we actually want to do though is make topDomains-scoped dynamic rules.
+ * TODO What we actually want to do though is make topDomains-scoped dynamic rules.
  *
  * @param {Number} tab_id
  * @param {String} tab_host
@@ -743,7 +736,7 @@ async function updateWidgetSiteAllowlistRules(widgetSiteAllowlist) {
         priority: constants.DNR_WIDGET_ALLOW_ALL,
         action: { type: 'allowAllRequests' },
         condition: {
-          initiatorDomains: [site_host],
+          topDomains: [site_host],
           requestDomains: [domain],
           resourceTypes: ['sub_frame']
         }
@@ -761,7 +754,7 @@ async function updateWidgetSiteAllowlistRules(widgetSiteAllowlist) {
         priority: constants.DNR_WIDGET_ALLOW_ALL,
         action: { type: 'allow' },
         condition: {
-          initiatorDomains: [site_host],
+          topDomains: [site_host],
           requestDomains: [domain]
         }
       };
@@ -862,8 +855,7 @@ async function updateDntSignalHeaderRules() {
     let exceptionSites = Object.keys(
       badger.getPrivateSettings().getItem("gpcDisabledSites"));
     if (exceptionSites.length) {
-      // TODO switch to excludedTopDomains once widely available
-      rule.condition.excludedInitiatorDomains = exceptionSites;
+      rule.condition.excludedTopDomains = exceptionSites;
     }
     opts.addRules.push(rule);
 
@@ -887,8 +879,7 @@ async function updateDntSignalHeaderRules() {
       condition: {}
     };
     if (exceptionSites.length) {
-      // TODO switch to excludedTopDomains once widely available
-      rule.condition.excludedInitiatorDomains = exceptionSites;
+      rule.condition.excludedTopDomains = exceptionSites;
     }
     opts.addRules.push(rule);
   }
