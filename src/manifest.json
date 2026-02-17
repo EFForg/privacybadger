@@ -9,10 +9,10 @@
       "data_collection_permissions": {
         "required": ["none"]
       },
-      "strict_min_version": "109.0"
+      "strict_min_version": "113.0"
     },
     "gecko_android": {
-      "strict_min_version": "109.0"
+      "strict_min_version": "113.0"
     }
   },
   "incognito": "spanning",
@@ -471,6 +471,27 @@
       "run_at": "document_idle"
     }
   ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "seed_ruleset",
+        "enabled": true,
+        "path": "data/dnr/seed.json"
+      }, {
+        "id": "surrogates_ruleset",
+        "enabled": true,
+        "path": "data/dnr/surrogates.json"
+      }, {
+        "id": "dnt_signal_ruleset",
+        "enabled": true,
+        "path": "data/dnr/dnt_signal.json"
+      }, {
+        "id": "dnt_policy_ruleset",
+        "enabled": true,
+        "path": "data/dnr/dnt_policy.json"
+      }
+    ]
+  },
   "default_locale": "en_US",
   "description": "__MSG_description__",
   "icons": {
