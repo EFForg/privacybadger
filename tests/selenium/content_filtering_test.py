@@ -7,6 +7,8 @@ import pytest
 
 import pbtest
 
+from selenium.common.exceptions import TimeoutException
+
 
 class ContentFilteringTest(pbtest.PBSeleniumTest):
     """Content filtering tests."""
@@ -133,19 +135,23 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         if self.get_badger_storage('fp_scripts') == {}:
             time.sleep(1)
 
+        # poll for DNR to get updated
+        self.load_url(self.options_url)
+        try:
+            self.wait_for_script(
+                "let done = arguments[arguments.length - 1];"
+                "(async function () {"
+                "  let { default: constants } = await import('../js/constants.js');"
+                "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+                "  done(rules.some(r => {"
+                "    return (r.action.type == 'block' && r.priority == constants.DNR_FP_SCRIPT_BLOCK);"
+                "  }));"
+                "}());", execute_async=True, timeout=3)
+        except TimeoutException:
+            pass
+
         self.load_url(fp2_fixture)
         self.driver.refresh()
-
-        if self.js("return typeof window.Fingerprint2") != "undefined":
-            # clear webRequest caches
-            self.load_url(self.options_url)
-            self.wait_for_script(
-                "(async function (done) {"
-                "  await chrome.webRequest.handlerBehaviorChanged();"
-                "  done(true);"
-                "}(arguments[arguments.length - 1]));", execute_async=True)
-            self.load_url(fp2_fixture)
-            self.driver.refresh()
 
         assert self.js("return typeof window.Fingerprint2") == "undefined"
 
@@ -177,6 +183,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         # assert the original script still loads
         self.load_url(self.FIXTURE_URL + '?fingerprintjs')
+        if self.is_firefox_nightly():
+            self.driver.refresh()
         self.assert_load()
         assert get_visitor_id() == visitor_id, (
             "Visitor ID should be consistent between page loads")
@@ -184,22 +192,24 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         # keep the window open for recording to complete
         self.open_window()
 
+        # poll for DNR to get updated
+        self.load_url(self.options_url)
+        try:
+            self.wait_for_script(
+                "let done = arguments[arguments.length - 1];"
+                "(async function () {"
+                "  let { default: constants } = await import('../js/constants.js');"
+                "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+                "  done(rules.some(r => {"
+                "    return (r.action.type == 'redirect' && r.priority == constants.DNR_FP_SCRIPT_SURROGATE_REDIRECT);"
+                "  }));"
+                "}());", execute_async=True, timeout=3)
+        except TimeoutException:
+            pass
+
         # now assert the surrogate script loads
         self.load_url(self.FIXTURE_URL + '?fingerprintjs')
         self.assert_load()
-
-        if get_visitor_id() == visitor_id:
-            # clear webRequest caches
-            self.load_url(self.options_url)
-            self.wait_for_script(
-                "(async function (done) {"
-                "  await chrome.webRequest.handlerBehaviorChanged();"
-                "  done(true);"
-                "}(arguments[arguments.length - 1]));", execute_async=True)
-            self.load_url(self.FIXTURE_URL + '?fingerprintjs')
-            self.driver.refresh()
-            self.assert_load()
-
         assert get_visitor_id() != visitor_id, (
             "Visitor ID should change between page loads")
         self.driver.refresh()
