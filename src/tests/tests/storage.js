@@ -5,7 +5,7 @@ const DOMAIN = "example.com",
   SUBDOMAIN = "widgets." + DOMAIN,
   SUBSUBDOMAIN = "cdn." + SUBDOMAIN;
 
-let storage = badger.storage,
+let storage,
   actionMap,
   snitchMap;
 
@@ -13,6 +13,7 @@ QUnit.module("Storage", {
   before: (assert) => {
     // can't initialize globally above
     // as they get initialized too early when run by Selenium
+    storage = badger.storage;
     actionMap = storage.getStore('action_map');
     snitchMap = storage.getStore('snitch_map');
 

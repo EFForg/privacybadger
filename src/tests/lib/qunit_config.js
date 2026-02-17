@@ -49,6 +49,15 @@
     });
   });
 
+  chrome.declarativeNetRequest.updateEnabledRulesets = (_, cb) => {
+    cb = cb || (() => {});
+    setTimeout(cb, 0);
+  };
+  chrome.declarativeNetRequest.updateDynamicRules = (_, cb) => {
+    cb = cb || (() => {});
+    setTimeout(cb, 0);
+  };
+
   // kick off tests when we have what we need from Badger
   (function () {
 
