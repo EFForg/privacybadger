@@ -12,7 +12,7 @@ trap 'rm $TEMPFILE' EXIT
 
 echo "fetching Public Suffix List ..."
 if wget -q -T 30 -O "$TEMPFILE" -- $PSL_URL && [ -s "$TEMPFILE" ]; then
-	node scripts/convertpsl.js "$TEMPFILE"
+	./scripts/convertpsl.cjs "$TEMPFILE"
 	if cmp -s "$TEMPFILE" $PSL_PATH; then
 		echo "    no PSL updates"
 	else
