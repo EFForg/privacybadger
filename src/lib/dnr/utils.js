@@ -288,11 +288,10 @@ function makeDnrFpScriptSurrogateRule(id, domain, match_token, surrogate_path) {
  * We use DNR session rules to allow user-activated widgets to load.
  */
 let updateSessionAllowRules = utils.debounce(async function (tempAllowlist) {
-  let id = 0,
-    opts = {
-      addRules: [],
-      removeRuleIds: []
-    };
+  let opts = {
+    addRules: [],
+    removeRuleIds: []
+  };
 
   let rules = await chrome.declarativeNetRequest.getSessionRules();
 
@@ -300,18 +299,13 @@ let updateSessionAllowRules = utils.debounce(async function (tempAllowlist) {
     // remove all existing session widget rules
     opts.removeRuleIds = rules.filter(r =>
       r.priority == constants.DNR_WIDGET_ALLOW_ALL).map(r => r.id);
-
-    // get the largest session rule ID
-    id = Math.max(...rules.filter(r =>
-      r.priority != constants.DNR_WIDGET_ALLOW_ALL).map(r => r.id));
   }
 
   for (let tab_id in tempAllowlist) {
     for (let domain of tempAllowlist[tab_id]) {
       // allow all requests inside frames served by this domain
-      id++;
       let rule = {
-        id,
+        id: badger.getSessionRuleId(),
         priority: constants.DNR_WIDGET_ALLOW_ALL,
         action: { type: 'allowAllRequests' },
         condition: {
@@ -328,9 +322,8 @@ let updateSessionAllowRules = utils.debounce(async function (tempAllowlist) {
       opts.addRules.push(rule);
 
       // allow requests to this domain
-      id++;
       rule = {
-        id,
+        id: badger.getSessionRuleId(),
         priority: constants.DNR_WIDGET_ALLOW_ALL,
         action: { type: 'allow' },
         condition: {
@@ -348,7 +341,9 @@ let updateSessionAllowRules = utils.debounce(async function (tempAllowlist) {
   }
 
   if (opts.addRules.length || opts.removeRuleIds.length) {
-    chrome.declarativeNetRequest.updateSessionRules(opts);
+    chrome.declarativeNetRequest.updateSessionRules(opts, function () {
+      log("[DNR] Updated widget session rules");
+    });
   }
 }, 100);
 
@@ -432,17 +427,28 @@ let updateEnabledRulesets = (function () {
  * See also convertHostsToMatchPatterns()
  *
  * @param {Array} disabledSites disabled site entries (may contain wildcards)
+ * @param {Boolean} [session_only=false]
  */
-async function updateDisabledSitesRules(disabledSites) {
-  let opts = {
-    addRules: []
-  };
+async function updateDisabledSitesRules(disabledSites, session_only) {
+  let dOpts = { addRules: [] },
+    sOpts = { addRules: [] };
 
-  let rules = (await chrome.declarativeNetRequest.getDynamicRules())
-    .filter(r => r.action.type == "allowAllRequests" &&
-      r.priority == constants.DNR_SITE_ALLOW_ALL);
+  let [ dRules, sRules ] = await Promise.all([
+    (session_only ?
+      Promise.resolve([]) :
+      chrome.declarativeNetRequest.getDynamicRules()),
+    chrome.declarativeNetRequest.getSessionRules()
+  ]);
 
-  opts.removeRuleIds = rules.map(r => r.id) || [];
+  dOpts.removeRuleIds = dRules
+    .filter(r =>
+      r.action.type == "allowAllRequests" &&
+      r.priority == constants.DNR_SITE_ALLOW_ALL)
+    .map(r => r.id);
+
+  sOpts.removeRuleIds = sRules
+    .filter(r => r.priority == constants.DNR_SITE_ALLOW_ALL)
+    .map(r => r.id);
 
   // remove leading wildcards
   // domains now always match subdomains
@@ -457,19 +463,37 @@ async function updateDisabledSitesRules(disabledSites) {
   });
 
   if (disabledSites.length) {
-    opts.addRules.push({
-      id: badger.getDynamicRuleId(),
+    if (!session_only) {
+      dOpts.addRules.push({
+        id: badger.getDynamicRuleId(),
+        priority: constants.DNR_SITE_ALLOW_ALL,
+        action: { type: 'allowAllRequests' },
+        condition: {
+          requestDomains: disabledSites,
+          resourceTypes: ['main_frame']
+        }
+      });
+    }
+
+    sOpts.addRules.push({
+      id: badger.getSessionRuleId(),
       priority: constants.DNR_SITE_ALLOW_ALL,
-      action: { type: 'allowAllRequests' },
+      action: { type: 'allow' },
       condition: {
-        requestDomains: disabledSites,
-        resourceTypes: ['main_frame']
+        initiatorDomains: disabledSites,
+        tabIds: [ chrome.tabs.TAB_ID_NONE ]
       }
     });
   }
 
-  if (opts.addRules.length || opts.removeRuleIds.length) {
-    updateDynamicRules(opts);
+  if (dOpts.addRules.length || dOpts.removeRuleIds.length) {
+    updateDynamicRules(dOpts);
+  }
+
+  if (sOpts.addRules.length || sOpts.removeRuleIds.length) {
+    chrome.declarativeNetRequest.updateSessionRules(sOpts, function () {
+      log("[DNR] Updated disabled sites session rule");
+    });
   }
 }
 
@@ -565,7 +589,7 @@ function registerGoogleRedirectBypassRules() {
   for (let pattern of googlePatterns) {
     for (let param of ['.+&q', 'q', '.+&url', 'url']) {
       addRules.push({
-        id: addRules.length + 1,
+        id: badger.getSessionRuleId(),
         priority: 1,
         action: {
           type: "redirect",
