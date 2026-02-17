@@ -51,6 +51,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
 
+    # TODO sporadic "Cookie fixture should have set a cookie" failures
+    @pytest.mark.flaky(reruns=3)
     def test_cookieblocking_stops_saving(self):
         self.load_url(f"https://{self.COOKIE_DOMAIN}/")
         assert not self.driver.get_cookies(), (
@@ -69,6 +71,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         assert not self.driver.get_cookies(), (
             "Cookie fixture should have been blocked from setting a cookie")
 
+    # TODO sporadic "We should have sent a cookie at this point" failures
+    @pytest.mark.flaky(reruns=3)
     def test_cookieblocking_stops_sending(self):
         self.load_url(self.COOKIE_FIXTURE_URL)
         self.wait_for_and_switch_to_frame("iframe[src]", timeout=1)
@@ -189,8 +193,9 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         # click the undo arrow
         self.open_popup(self.FIXTURE_URL)
-        self.find_el_by_css(
-            f'div[data-origin="{self.THIRD_PARTY_DOMAIN}"] a.honeybadgerPowered').click()
+        with self.wait_for_window_close():
+            self.find_el_by_css(
+                f'div[data-origin="{self.THIRD_PARTY_DOMAIN}"] a.honeybadgerPowered').click()
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.open_window()
 
@@ -277,6 +282,17 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#check_dnt_policy_checkbox').click()
 
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function () {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(!rules.some(r => {"
+            "    return (r.action.type == 'allow' && r.priority == constants.DNR_DNT_ALLOW);"
+            "  }));"
+            "}());", execute_async=True, timeout=3)
+
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
         self.open_popup(self.FIXTURE_URL)
@@ -296,6 +312,17 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#check_dnt_policy_checkbox').click()
 
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function () {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(rules.some(r => {"
+            "    return (r.action.type == 'allow' && r.priority == constants.DNR_DNT_ALLOW);"
+            "  }));"
+            "}());", execute_async=True, timeout=3)
+
         self.load_url(self.FIXTURE_URL)
         self.assert_load()
 
@@ -308,6 +335,17 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         assert not self.check_dnt(self.THIRD_PARTY_DOMAIN), (
             "domain should not be DNT-compliant")
+
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function () {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(!rules.some(r => {"
+            "    return (r.action.type == 'allow' && r.priority == constants.DNR_DNT_ALLOW);"
+            "  }));"
+            "}());", execute_async=True)
 
         self.load_url(self.FIXTURE_URL)
         self.assert_block()
@@ -324,7 +362,12 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
             "});", self.THIRD_PARTY_DOMAIN)
 
         # the domain should now load
-        self.load_url(self.FIXTURE_URL)
+        def domain_loads():
+            self.load_url(self.FIXTURE_URL)
+            self.wait_for_any_text(self.SELECTOR)
+            return self.find_el_by_css(self.SELECTOR).text == "success"
+        # retry a few times as DNR takes a bit to update
+        pbtest.retry_until(domain_loads, times=3)
         self.assert_load()
 
 

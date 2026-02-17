@@ -415,6 +415,13 @@ class PBSeleniumTest(unittest.TestCase):
             EC.visibility_of_element_located((By.XPATH, xpath)))
 
     @contextmanager
+    def wait_for_window_close(self, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
+        num_windows = len(self.driver.window_handles)
+        yield
+        WebDriverWait(self.driver, timeout).until(
+            EC.number_of_windows_to_be(num_windows - 1))
+
+    @contextmanager
     def wait_for_reload(self, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         """Context manager that waits for the page to reload,
         to be used with actions that reload the page."""
@@ -479,7 +486,6 @@ class PBSeleniumTest(unittest.TestCase):
 
         raise WindowNotFoundException("Failed to find window for " + url)
 
-
     def close_window_with_url(self, url, max_tries=5):
         self.switch_to_window_with_url(url, max_tries)
 
@@ -500,6 +506,22 @@ class PBSeleniumTest(unittest.TestCase):
             "  type: 'setDnt',"
             "  domain: arguments[0]"
             "}, done);", domain)
+
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function (domain) {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(rules.find(r => {"
+            "    if (r.action.type == 'allow' &&"
+            "      r.priority == constants.DNR_DNT_ALLOW &&"
+            "      r.condition.requestDomains.includes(domain)) {"
+            "      return true;"
+            "    }"
+            "    return false;"
+            "  }));"
+            "}(arguments[0]));", domain, execute_async=True, timeout=3)
 
     def check_dnt(self, domain):
         self.load_url(self.options_url)
@@ -522,6 +544,36 @@ class PBSeleniumTest(unittest.TestCase):
             "  action: arguments[1]"
             "}, done);", domain, action)
 
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function (domain, action) {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(rules.find(r => {"
+            "    if (action == 'block') {"
+            "      if (r.action.type == 'block' &&"
+            "        r.priority == constants.DNR_USER_BLOCK &&"
+            "        r.condition.requestDomains.includes(domain)) {"
+            "        return true;"
+            "      }"
+            "    } else if (action == 'cookieblock') {"
+            "      if (r.action.type == 'modifyHeaders' &&"
+            "        r.priority == constants.DNR_USER_COOKIEBLOCK_HEADERS &&"
+            "        r.condition.requestDomains.includes(domain)) {"
+            "        return true;"
+            "      }"
+            "    } else if (action == 'allow') {"
+            "      if (r.action.type == 'allow' &&"
+            "        r.priority == constants.DNR_USER_ALLOW &&"
+            "        r.condition.requestDomains.includes(domain)) {"
+            "        return true;"
+            "      }"
+            "    }"
+            "    return false;"
+            "  }));"
+            "}(arguments[0], arguments[1]));", domain, action, execute_async=True, timeout=3)
+
     def add_domain(self, domain, action):
         """Adds or modifies the action_map entry for `domain`,
         setting heuristicAction to `action`."""
@@ -533,6 +585,34 @@ class PBSeleniumTest(unittest.TestCase):
             "chrome.runtime.sendMessage({"
             "  type: 'setAction', domain, action"
             "}, done);", domain, action)
+
+        if action == "allow":
+            return
+
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function (domain, action) {"
+            "  let { default: constants } = await import('../js/constants.js');"
+            "  let rules = await chrome.declarativeNetRequest.getDynamicRules();"
+            "  done(rules.find(r => {"
+            "    if (action == 'block') {"
+            "      if (r.action.type == 'block' &&"
+            "        !r.hasOwnProperty('priority') &&"
+            "        r.condition.requestDomains &&"
+            "        r.condition.requestDomains.includes(domain)) {"
+            "        return true;"
+            "      }"
+            "    } else if (action == 'cookieblock') {"
+            "      if (r.action.type == 'modifyHeaders' &&"
+            "        r.priority == constants.DNR_COOKIEBLOCK_HEADERS &&"
+            "        r.condition.requestDomains.includes(domain)) {"
+            "        return true;"
+            "      }"
+            "    }"
+            "    return false;"
+            "  }));"
+            "}(arguments[0], arguments[1]));", domain, action, execute_async=True, timeout=3)
 
     def block_domain(self, domain):
         self.add_domain(domain, "block")
@@ -555,6 +635,24 @@ class PBSeleniumTest(unittest.TestCase):
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.driver.find_element(By.ID, 'new-disabled-site-input').send_keys(url)
         self.driver.find_element(By.CSS_SELECTOR, '#add-disabled-site').click()
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(async function (url) {"
+            "  const { default: utils } = await import('../js/utils.js');"
+            "  let domain = utils.getHostFromDomainInput(url);"
+            "  if (domain.startsWith('*')) {"
+            "    domain = domain.slice(1);"
+            "    if (domain.startsWith('.')) {"
+            "      domain = domain.slice(1);"
+            "    }"
+            "  }"
+            "  chrome.declarativeNetRequest.getDynamicRules(rules => {"
+            "    done(rules.find(r =>"
+            "      r.action.type == 'allowAllRequests' &&"
+            "        r.condition.requestDomains.includes(domain)));"
+            "  });"
+            "}(arguments[0]));", url, execute_async=True, timeout=3)
 
     def reenable_badger_on_site(self, domain):
         self.load_url(self.options_url)
@@ -564,6 +662,16 @@ class PBSeleniumTest(unittest.TestCase):
             "  type: 'reenableOnSites',"
             "  domains: [arguments[0]]"
             "}, done);", domain)
+        # poll for DNR to get updated
+        self.wait_for_script(
+            "let done = arguments[arguments.length - 1];"
+            "(function (domain) {"
+            "  chrome.declarativeNetRequest.getDynamicRules(rules => {"
+            "    done(!rules.find(r =>"
+            "      r.action.type == 'allowAllRequests' &&"
+            "        r.condition.requestDomains.includes(domain)));"
+            "  });"
+            "}(arguments[0]));", domain, execute_async=True, timeout=3)
 
     def get_domain_slider_state(self, domain):
         label = self.driver.find_element(
