@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import functools
 import json
 import os
 import re
