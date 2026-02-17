@@ -94,7 +94,7 @@ function explodeSubdomains(fqdn, all) {
  * Estimates the max possible entropy of string.
  *
  * @param {String} str the string to compute entropy for
- * @returns {Integer} bits of entropy
+ * @returns {Number} bits of entropy
  */
 function estimateMaxEntropy(str) {
   // Don't process strings longer than MAX_LS_LEN_FOR_ENTROPY_EST.

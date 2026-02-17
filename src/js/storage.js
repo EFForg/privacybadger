@@ -47,7 +47,7 @@ let readFromStorageWithRetrying = (function () {
   let num_tries = 0;
 
   /**
-   * @param {Array} the list of keys to get from extension storage
+   * @param {Array} keys - the list of keys to get from extension storage
    * @param {Function} callback
    */
   function _tryReading(keys, callback) {
@@ -512,7 +512,7 @@ BadgerPen.prototype = {
    * Set up an action for a domain of the given action type in action_map
    *
    * @param {String} domain the domain to set the action for
-   * @param {String} action the action to take e.g. BLOCK || COOKIEBLOCK || DNT
+   * @param {String|Boolean} action the action to take e.g. BLOCK || COOKIEBLOCK || DNT
    * @param {String} action_type the type of action we are setting, one of "userAction", "heuristicAction", "dnt"
    *
    * @private
@@ -602,7 +602,7 @@ BadgerPen.prototype = {
    * Forces a write of a Badger storage object's contents to extension storage.
    *
    * @param {?String} store_name storage object's name or null (sync all)
-   * @param {Function} callback
+   * @param {Function} [callback]
    */
   forceSync: function (store_name, callback) {
     let self = this,

@@ -27,7 +27,7 @@ import utils from "../js/utils.js";
  *
  * @param {Object} details webRequest request/response details object
  *
- * @returns {Integer} the tab ID or -1
+ * @returns {Number} the tab ID or -1
  */
 function guessTabIdFromInitiator(details) {
   if (!details.initiator || details.initiator == "null") {

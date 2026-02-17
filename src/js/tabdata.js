@@ -78,7 +78,7 @@ function TabData() {
    * Mapping of Chrome webRequest details.initiator URLs to tab IDs.
    *
    * tabIdsByInitiator = {
-   *   <url>: {Integer} tab ID,
+   *   <url>: {Number} tab ID,
    *   ...
    * }
    */
@@ -252,7 +252,7 @@ TabData.prototype.saveSession = (function () {
 /**
  * Overwrites all data for a tab, triggering a save to session storage.
  *
- * @param {Integer} tab_id ID of the tab
+ * @param {Number} tab_id ID of the tab
  * @param {Object} data the tab data
  */
 TabData.prototype.set = function (tab_id, data) {
@@ -263,7 +263,7 @@ TabData.prototype.set = function (tab_id, data) {
 /**
  * Returns whether tabData is populated for a given tab ID.
  *
- * @param {Integer} tab_id ID of the tab
+ * @param {Number} tab_id ID of the tab
  *
  * @returns {Boolean}
  */
@@ -274,7 +274,7 @@ TabData.prototype.has = function (tab_id) {
 /**
  * Removes all per-tab data (such as on tab closing).
  *
- * @param {Integer} tab_id ID of the tab
+ * @param {Number} tab_id ID of the tab
  * @param {Boolean} [keep_temp_allowlists=false]
  */
 TabData.prototype.forget = function (tab_id, keep_temp_allowlists) {
@@ -300,8 +300,8 @@ TabData.prototype.forget = function (tab_id, keep_temp_allowlists) {
 /**
  * Records frame data. Top-level documents have frame_id === 0.
  *
- * @param {Integer} tab_id ID of the tab
- * @param {Integer} frame_id ID of the frame
+ * @param {Number} tab_id ID of the tab
+ * @param {Number} frame_id ID of the frame
  * @param {?String} frame_url The URL of the frame
  */
 TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
@@ -332,8 +332,8 @@ TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
 /**
  * Returns previously recorded frame data.
  *
- * @param {Integer} tab_id Tab ID to check for
- * @param {Integer} [frame_id=0] Frame ID to check for.
+ * @param {Number} tab_id Tab ID to check for
+ * @param {Number} [frame_id=0] Frame ID to check for.
  *  Optional, defaults to frame 0 (the main document frame).
  *
  * @returns {?Object} Frame data object or null
@@ -356,7 +356,7 @@ TabData.prototype.getFrameData = function (tab_id, frame_id) {
  * Returns a mapping between tracker FQDNs
  * and Privacy Badger actions for the given tab.
  *
- * @param {Integer} tab_id ID of the tab
+ * @param {Number} tab_id ID of the tab
  *
  * @returns {Object} tabData.trackers object or {}
  */
@@ -373,7 +373,7 @@ TabData.prototype.getTrackers = function (tab_id) {
 /**
  * Records performing an action for a tracker FQDN on a tab.
  *
- * @param {Integer} tab_id ID of the tab
+ * @param {Number} tab_id ID of the tab
  * @param {String} fqdn the tracker domain
  * @param {String} action the action taken
  */
@@ -401,7 +401,7 @@ TabData.prototype.logTracker = function (tab_id, fqdn, action) {
 /**
  * Records blocking a previously detected fingerprinting script.
  *
- * @param {Integer} tab_id the ID of the tab
+ * @param {Number} tab_id the ID of the tab
  * @param {String} fqdn the script's domain
  * @param {String} url the full URL of the script
  */
@@ -427,7 +427,7 @@ TabData.prototype.logFpScript = function (tab_id, fqdn, url) {
  * Initializes the entry if it doesn't exist.
  * Assumes tab data is initialized for the tab.
  *
- * @param {Integer} tab_id ID of the tab
+ * @param {Number} tab_id ID of the tab
  * @param {String} script_base the base domain of the script
  *
  * @returns {Object}
@@ -452,7 +452,7 @@ TabData.prototype.getScriptData = function (tab_id, script_base) {
  * Records that a canvas write was performed by a potential script tracker.
  * Assumes tab data is initialized for the tab.
  *
- * @param {Integer} tab_id ID of the tab
+ * @param {Number} tab_id ID of the tab
  * @param {String} script_base the base domain of the script
  */
 TabData.prototype.logCanvasWrite = function (tab_id, script_base) {
@@ -467,7 +467,7 @@ TabData.prototype.logCanvasWrite = function (tab_id, script_base) {
  * Records that a script was seen performing canvas fingerprinting.
  * Assumes tab data is initialized for the tab.
  *
- * @param {Integer} tab_id ID of the tab
+ * @param {Number} tab_id ID of the tab
  * @param {String} script_base the base domain of the script
  */
 TabData.prototype.logCanvasFingerprinting = function (tab_id, script_base) {
@@ -481,7 +481,7 @@ TabData.prototype.logCanvasFingerprinting = function (tab_id, script_base) {
 /**
  * Marks a set of (widget) domains to be (temporarily) allowed on a tab.
  *
- * @param {Integer} tab_id the ID of the tab
+ * @param {Number} tab_id the ID of the tab
  * @param {Array} domains the domains
  * @param {String} widget_name the name (ID) of the widget
  */

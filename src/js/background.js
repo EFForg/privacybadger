@@ -925,8 +925,8 @@ Badger.prototype = {
 
   /**
    * Returns the count of tracking domains for a tab.
-   * @param {Integer} tab_id browser tab ID
-   * @returns {Integer} tracking domains count
+   * @param {Number} tab_id browser tab ID
+   * @returns {Number} tracking domains count
    */
   getTrackerCount: function (tab_id) {
     let trackers = this.tabData.getTrackers(tab_id),
@@ -949,7 +949,7 @@ Badger.prototype = {
 
   /**
    * Update page action badge with current count.
-   * @param {Integer} tab_id browser tab ID
+   * @param {Number} tab_id browser tab ID
    */
   updateBadge: function (tab_id) {
     if (!FirefoxAndroid.hasBadgeSupport) {
@@ -1158,7 +1158,7 @@ Badger.prototype = {
    * Records third party FQDNs to tabData for use in the popup,
    * and if necessary updates the badge.
    *
-   * @param {Integer} tab_id the tab we are on
+   * @param {Number} tab_id the tab we are on
    * @param {String} fqdn the third party domain to add
    * @param {String} action the action we are taking
    */
@@ -1194,7 +1194,7 @@ Badger.prototype = {
 
   /**
    * Enables or disables page action icon according to options.
-   * @param {Integer} tab_id The tab ID to set the badger icon for
+   * @param {Number} tab_id The tab ID to set the badger icon for
    * @param {String} tab_url The tab URL to set the badger icon for
    */
   updateIcon: function (tab_id, tab_url) {

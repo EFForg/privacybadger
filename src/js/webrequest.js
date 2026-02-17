@@ -224,8 +224,8 @@ function onBeforeRequest(details) {
 /**
  * Generates a token for a given tab ID/frame ID/resource URL combination.
  *
- * @param {Integer} tab_id
- * @param {Integer} frame_id
+ * @param {Number} tab_id
+ * @param {Number} frame_id
  * @param {String} url
  *
  * @returns {String}
@@ -544,7 +544,7 @@ function onHeadersReceived(details) {
 /**
  * Event handler when a tab gets removed
  *
- * @param {Integer} tab_id ID of the tab
+ * @param {Number} tab_id ID of the tab
  */
 function onTabRemoved(tab_id) {
   setTimeout(function () {
@@ -556,8 +556,8 @@ function onTabRemoved(tab_id) {
  * Update internal db on tabs when a tab gets replaced
  * due to prerendering or instant search.
  *
- * @param {Integer} addedTabId The new tab id that replaces
- * @param {Integer} removedTabId The tab id that gets removed
+ * @param {Number} addedTabId The new tab id that replaces
+ * @param {Number} removedTabId The tab id that gets removed
  */
 function onTabReplaced(addedTabId, removedTabId) {
   if (!badger.INITIALIZED) {
@@ -669,7 +669,7 @@ function hideBlockedFrame(tab_id, parent_frame_id, frame_url, frame_host) {
 /**
  * Record "supercookie" tracking
  *
- * @param {Integer} tab_id browser tab ID
+ * @param {Number} tab_id browser tab ID
  * @param {String} frame_host hostname of the frame with supercookie
  */
 function recordSupercookie(tab_id, frame_host) {
@@ -691,7 +691,7 @@ function recordSupercookie(tab_id, frame_host) {
 /**
  * Record canvas fingerprinting
  *
- * @param {Integer} tab_id the tab ID
+ * @param {Number} tab_id the tab ID
  * @param {Object} msg specific fingerprinting data
  */
 function recordFingerprinting(tab_id, msg) {
@@ -784,8 +784,8 @@ function recordFingerprinting(tab_id, msg) {
 /**
  * Cleans up tab-specific data.
  *
- * @param {Integer} tab_id the ID of the tab
- * @param {Boolean} is_reload whether the page is being reloaded
+ * @param {Number} tab_id the ID of the tab
+ * @param {Boolean} [is_reload] whether the page is being reloaded
  */
 function forgetTab(tab_id, is_reload) {
   badger.tabData.forget(tab_id, is_reload);
@@ -794,10 +794,10 @@ function forgetTab(tab_id, is_reload) {
 /**
  * Determines the action to take on a specific FQDN.
  *
- * @param {Integer} tab_id
+ * @param {Number} tab_id
  * @param {String} tab_host
  * @param {String} request_host
- * @param {Integer} [frame_id]
+ * @param {Number} [frame_id]
  *
  * @returns {(String|Boolean)} the action constant or false (ignore)
  */
@@ -845,7 +845,7 @@ function checkAction(tab_id, tab_host, request_host, frame_id) {
 /**
  * Provides the widget replacing content script with list of widgets to replace.
  *
- * @param {Integer} tab_id the ID of the tab we're replacing widgets in
+ * @param {Number} tab_id the ID of the tab we're replacing widgets in
  *
  * @returns {Object} dict containing the complete list of widgets
  * as well as a mapping to indicate which ones should be replaced
@@ -965,9 +965,9 @@ let getWidgetList = (function () {
  *   - 2a) Request is from a subframe whose FQDN matches an entry on the list
  *   - 2b) Same but subframe's FQDN ends with a wildcard entry
  *
- * @param {Integer} tab_id the ID of the tab to check
+ * @param {Number} tab_id the ID of the tab to check
  * @param {String} request_host the request FQDN to check
- * @param {Integer} frame_id the frame ID to check
+ * @param {Number} frame_id the frame ID to check
  *
  * @returns {Boolean} true if FQDN is on the temporary allow list
  */
@@ -1327,7 +1327,7 @@ function dispatcher(request, sender, sendResponse) {
     // fetch replacement button SVG image data
     utils.fetchResource(button_path, function (_, response) {
       return sendResponse('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(response));
-    }, "GET");
+    });
 
     // indicate this is an async response to chrome.runtime.onMessage
     return true;
