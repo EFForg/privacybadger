@@ -84,6 +84,14 @@ let exports = {
   DNR_WIDGET_ALLOW_ALL: 75,
   DNR_SITE_ALLOW_ALL: 100,
 
+  // DNR feature tests
+  DNR_HAS_TOPDOMAINS: (typeof chrome != "undefined") &&
+    chrome.declarativeNetRequest.RuleConditionKeys &&
+    chrome.declarativeNetRequest.RuleConditionKeys.TOP_DOMAINS,
+  DNR_HAS_EXCLUDEDTOPDOMAINS: (typeof chrome != "undefined") &&
+    chrome.declarativeNetRequest.RuleConditionKeys &&
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_TOP_DOMAINS,
+
   CONTENT_SCRIPTS: [{
     id: "dnt_signal",
     js: ["js/contentscripts/dnt.js"],
