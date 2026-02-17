@@ -154,6 +154,37 @@ function make_seed_rules(badgerStorage) {
     }
   }
 
+  // block known CDN-hosted fingerprinters
+  // https://github.com/EFForg/privacybadger/pull/2891
+  let fpStore = badgerStorage.getStore('fp_scripts');
+  for (let domain of constants.FP_CDN_DOMAINS) {
+    if (badgerStorage.getBestAction(domain) != constants.COOKIEBLOCK) {
+      continue;
+    }
+
+    if (!fpStore.getItem(domain)) {
+      continue;
+    }
+
+    if (sdb.hostnames[domain]) {
+      if (sdb.hostnames[domain].match == sdb.MATCH_SUFFIX) {
+        for (let token of sdb.hostnames[domain].tokens) {
+          rules.push(
+            utils.makeDnrFpScriptSurrogateRule(
+              id, domain, token, sdb.surrogates[token]));
+          id++;
+        }
+      } else {
+        console.error(`Failed to create script surrogate rule for ${domain}:
+Time to add support for ${sdb.hostnames[domain].match} matching`);
+      }
+    }
+
+    rules.push(utils.makeDnrFpScriptBlockRule(
+      id, domain, Object.keys(fpStore.getItem(domain))));
+    id++;
+  }
+
   return rules;
 }
 
