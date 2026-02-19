@@ -30,7 +30,6 @@ if (document instanceof HTMLDocument === false && (
  * Executes a script in the page's JavaScript context.
  *
  * @param {String} text The content of the script to insert.
- * @param {Object} data Data attributes to set on the inserted script tag.
  */
 window.injectScript = function (text) {
   let parent = document.documentElement,
