@@ -170,7 +170,7 @@
         "description": "Tooltip shown over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "domain_slider_label": {
-        "message": "Settings for $DOMAIN$",
+        "message": "Configuración para $DOMAIN$",
         "description": "Screenreader-accessible label for domain sliders",
         "placeholders": {
             "domain": {
@@ -343,7 +343,7 @@
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
-        "message": "No un bloqueador de anuncios",
+        "message": "No es un bloqueador de anuncios",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
