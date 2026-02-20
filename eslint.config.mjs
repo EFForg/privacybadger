@@ -23,16 +23,6 @@ export default defineConfig([
   {
     extends: compat.extends("eslint:recommended"),
 
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.webextensions,
-      },
-
-      ecmaVersion: 2017,
-      sourceType: "module",
-    },
-
     rules: {
       "array-callback-return": "error",
       "brace-style": ["error", "1tbs", {
@@ -74,27 +64,24 @@ export default defineConfig([
         words: true,
         nonwords: false,
       }],
-    },
-  },
-  {
-    files: ["src/data/web_accessible_resources/**"],
-    rules: {
-      "indent": ["error", 4, {
-        outerIIFEBody: 1
-      }],
-      "keyword-spacing": "off",
-      "no-bitwise": "off",
-      "no-empty": "off",
-      "no-extra-semi": "off",
-      "space-in-parens": "off"
     }
   },
   {
-    files: ["src/js/contentscripts/**"],
-    rules: {
-      "indent": ["error", 2, {
-        outerIIFEBody: 0
-      }]
+    files: ["scripts/**"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      }
+    }
+  }
+  {
+    files: ["src/**"],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.webextensions,
+      },
+      ecmaVersion: 2017
     }
   },
   {
@@ -112,6 +99,27 @@ export default defineConfig([
     }
   },
   {
+    files: ["src/js/contentscripts/**"],
+    rules: {
+      "indent": ["error", 2, {
+        outerIIFEBody: 0
+      }]
+    }
+  },
+  {
+    files: ["src/data/web_accessible_resources/**"],
+    rules: {
+      "indent": ["error", 4, {
+        outerIIFEBody: 1
+      }],
+      "keyword-spacing": "off",
+      "no-bitwise": "off",
+      "no-empty": "off",
+      "no-extra-semi": "off",
+      "space-in-parens": "off"
+    }
+  },
+  {
     files: ["src/tests/**"],
     languageOptions: {
       globals: {
@@ -120,20 +128,6 @@ export default defineConfig([
         QUnit: "readonly",
         sinon: "readonly"
       }
-    }
-  },
-  {
-    files: ["scripts/**"],
-    languageOptions: {
-      globals: {
-        ...globals.node,
-      }
-    }
-  },
-  {
-    files: ["eslint.config.mjs"],
-    languageOptions: {
-      ecmaVersion: "latest",
     }
   }
 ]);
