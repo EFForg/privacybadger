@@ -15,8 +15,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* eslint-env browser, jquery */
-
 window.POPUP_INITIALIZED = false;
 window.SLIDERS_DONE = false;
 

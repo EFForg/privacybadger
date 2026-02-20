@@ -271,14 +271,18 @@ Badger.prototype = {
       response = await fetch(constants.SEED_DATA_LOCAL_URL);
     } catch (err) {
       console.error(err);
-      throw new Error("Failed to fetch seed data");
+      throw new Error("Failed to fetch seed data", {
+        cause: err
+      });
     }
 
     try {
       data = await response.json();
     } catch (err) {
       console.error(err);
-      throw new Error("Failed to parse seed data JSON");
+      throw new Error("Failed to parse seed data JSON", {
+        cause: err
+      });
     }
 
     self.storage.mergeUserData(data);
@@ -555,7 +559,9 @@ Badger.prototype = {
       response = await fetch(url, { cache: "no-store" });
     } catch (err) {
       console.error("Problem fetching pbconfig:", err);
-      throw new Error("Failed to fetch pbconfig");
+      throw new Error("Failed to fetch pbconfig", {
+        cause: err
+      });
     }
     if (!response.ok) {
       console.error("Problem fetching pbconfig: %s response", response.status);
@@ -566,7 +572,9 @@ Badger.prototype = {
       data = await response.json();
     } catch (err) {
       console.error(err);
-      throw new Error("Failed to parse pbconfig JSON");
+      throw new Error("Failed to parse pbconfig JSON", {
+        cause: err
+      });
     }
 
     // validate the response
@@ -1095,16 +1103,15 @@ Badger.prototype = {
   hasLocalStorageSupercookie: function (lsItems) {
     var LOCALSTORAGE_ENTROPY_THRESHOLD = 33, // in bits
       estimatedEntropy = 0,
-      lsKey = "",
-      lsItem = "";
-    for (lsKey in lsItems) {
+      key = "";
+    for (key in lsItems) {
       // send both key and value to entropy estimation
-      lsItem = lsItems[lsKey];
-      log("Checking localstorage item", lsKey, lsItem);
-      estimatedEntropy += utils.estimateMaxEntropy(lsKey + lsItem);
+      let item = lsItems[key];
+      log("Checking localstorage item", key, item);
+      estimatedEntropy += utils.estimateMaxEntropy(key + item);
       if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD) {
         log("Found high-entropy localStorage: ", estimatedEntropy,
-          " bits, key: ", lsKey);
+          " bits, key: ", key);
         return true;
       }
     }

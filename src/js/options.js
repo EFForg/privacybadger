@@ -18,8 +18,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* eslint-env browser, jquery */
-
 import { getBaseDomain } from "../lib/basedomain.js";
 import { filterDomains } from "../lib/options.js";
 

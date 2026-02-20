@@ -1,5 +1,0 @@
-src/lib/vendor/
-src/tests/lib/vendor/
-node_modules/
-**/selenium/
-!tests/selenium/

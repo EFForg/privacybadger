@@ -519,13 +519,14 @@ BadgerPen.prototype = {
    */
   _setupDomainAction: function (domain, action, action_type) {
     let actionStore = this.getStore("action_map"),
-      actionObj = {};
+      actionObj;
 
     if (actionStore.hasItem(domain)) {
       actionObj = actionStore.getItem(domain);
     } else {
       actionObj = _newActionMapObject();
     }
+
     actionObj[action_type] = action;
 
     // avoid thousands of messages from loading seed/user data

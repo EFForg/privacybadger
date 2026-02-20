@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 import * as fs from 'node:fs';
 import { default as utils } from '../src/js/utils.js';
 

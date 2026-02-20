@@ -89,7 +89,7 @@ function getBaseDomain(hostname) {
   }
 
   // search through PSL
-  let tld = 0,
+  let tld = 0, // eslint-disable-line no-useless-assignment
     prevDomains = [],
     cur_domain = hostname,
     next_dot = cur_domain.indexOf('.');

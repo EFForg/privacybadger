@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 // script based on
 // https://github.com/adblockplus/adblockpluscore/blob/d7efa99b47e6cefa9286d34ce80e2242d789a08b/build/updatepsl.js
 

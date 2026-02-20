@@ -1,5 +1,3 @@
-/* eslint-env browser */
-
 let destination = 'https://the.beach/';
 let fb_wrap = 'https://facebook.com/l.php?u=' + destination;
 let fb_xss = 'https://facebook.com/l.php?u=javascript://bad.site/%250Aalert(1)';

@@ -15,8 +15,6 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* eslint-env browser, jquery */
-
 import { isIPv4, isIPv6, getBaseDomain } from "../lib/basedomain.js";
 
 import constants from "./constants.js";

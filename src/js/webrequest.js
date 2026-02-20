@@ -705,6 +705,7 @@ function recordFingerprinting(tab_id, msg) {
   }
 
   let document_host = badger.tabData.getFrameData(tab_id).host,
+    // eslint-disable-next-line no-useless-assignment
     script_host = "", script_path = "";
 
   try {
