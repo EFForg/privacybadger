@@ -73,7 +73,7 @@ export default defineConfig([
         ...globals.node,
       }
     }
-  }
+  },
   {
     files: ["src/**"],
     languageOptions: {
