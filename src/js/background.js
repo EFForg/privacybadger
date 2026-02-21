@@ -298,18 +298,14 @@ Badger.prototype = {
       response = await fetch(constants.SEED_DATA_LOCAL_URL);
     } catch (err) {
       console.error(err);
-      throw new Error("Failed to fetch seed data", {
-        cause: err
-      });
+      throw new Error("Failed to fetch seed data");
     }
 
     try {
       data = await response.json();
     } catch (err) {
       console.error(err);
-      throw new Error("Failed to parse seed data JSON", {
-        cause: err
-      });
+      throw new Error("Failed to parse seed data JSON");
     }
 
     self.storage.mergeUserData(data);
@@ -586,9 +582,7 @@ Badger.prototype = {
       response = await fetch(url, { cache: "no-store" });
     } catch (err) {
       console.error("Problem fetching pbconfig:", err);
-      throw new Error("Failed to fetch pbconfig", {
-        cause: err
-      });
+      throw new Error("Failed to fetch pbconfig");
     }
     if (!response.ok) {
       console.error("Problem fetching pbconfig: %s response", response.status);
@@ -599,9 +593,7 @@ Badger.prototype = {
       data = await response.json();
     } catch (err) {
       console.error(err);
-      throw new Error("Failed to parse pbconfig JSON", {
-        cause: err
-      });
+      throw new Error("Failed to parse pbconfig JSON");
     }
 
     // validate the response

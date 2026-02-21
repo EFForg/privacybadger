@@ -57,6 +57,7 @@ export default defineConfig([
       "no-trailing-spaces": "error",
       "no-unused-expressions": "error",
       "no-unused-vars": "off",
+      "preserve-caught-error": "off",
       "semi": "error",
       "space-before-blocks": "error",
       "space-in-parens": "error",
