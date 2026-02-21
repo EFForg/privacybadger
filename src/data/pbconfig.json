@@ -54,6 +54,9 @@
             "hubspot.net": [
                 "app-na1.hubspotdocuments.com"
             ],
+            "livesportmedia.eu": [
+                "www.flashscore.at"
+            ],
             "lottomaticagroup.com": [
                 "www.goldbet.it",
                 "www.lottomatica.it",
@@ -325,9 +328,6 @@
             "imrworldwide.com": [
                 "www.threenow.co.nz"
             ],
-            "experience.ninetailed.co": [
-                "www.dkb.de"
-            ],
             "litix.io": [
                 "www.crunchyroll.com"
             ],
@@ -336,6 +336,9 @@
             ],
             "global.apis.naver.com": [
                 "weverse.io"
+            ],
+            "experience.ninetailed.co": [
+                "www.dkb.de"
             ],
             "aa.com.ssl.d1.sc.omtrdc.net": [
                 "www.aa.com"
