@@ -72,9 +72,9 @@ function startListeners() {
 
 // Used in popup.js, figures out which tab opened the 'fake' popup
 function getParentOfPopup(callback) {
-  chrome.tabs.query({active: true, currentWindow: true}, function(focusedTab) {
-    var parentId = parseInt(new URL(focusedTab[0].url).searchParams.get('tabId'));
-    chrome.tabs.get(parentId, callback);
+  chrome.tabs.query({ active: true, currentWindow: true }, function (focusedTab) {
+    let parent_tab_id = parseInt(new URL(focusedTab[0].url).searchParams.get('tabId'), 10);
+    chrome.tabs.get(parent_tab_id, callback);
   });
 }
 

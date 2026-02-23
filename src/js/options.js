@@ -825,11 +825,7 @@ let filterTrackingDomains = (function () {
  * @param {Array} domains
  * @param {Function} [cb] callback
  */
-function renderTrackingDomains(domains, cb) {
-  if (!cb) {
-    cb = function () {};
-  }
-
+function renderTrackingDomains(domains, cb = function () {}) {
   window.SLIDERS_DONE = false;
   $('#tracking-domains-filters').hide();
   $('#blockedResources').hide();

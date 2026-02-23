@@ -338,10 +338,8 @@ TabData.prototype.recordFrame = function (tab_id, frame_id, frame_url) {
  *
  * @returns {?Object} Frame data object or null
  */
-TabData.prototype.getFrameData = function (tab_id, frame_id) {
+TabData.prototype.getFrameData = function (tab_id, frame_id = 0) {
   let self = this;
-
-  frame_id = frame_id || 0;
 
   if (self.has(tab_id)) {
     if (utils.hasOwn(self._tabData[tab_id].frames, frame_id)) {

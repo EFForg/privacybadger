@@ -241,8 +241,19 @@ function oneDayFromNow() {
   return nDaysFromNow(1);
 }
 
+/**
+ * @param {Number} min
+ * @param {Number} max
+ *
+ * @also
+ *
+ * @param {Number} max
+ *
+ * @returns {Number} integer between min and max,
+ *  or between 0 and max when called with one parameter
+ */
 function random(min, max) {
-  if (max == null) {
+  if (max === undefined) {
     max = min;
     min = 0;
   }
@@ -295,7 +306,7 @@ function debounce(func, wait, immediate) {
  * http://stackoverflow.com/questions/23072815/throttle-javascript-function-calls-but-with-queuing-dont-discard-calls
  *
  * @param {Function} fn The function to rate-limit.
- * @param {number} interval The number of milliseconds to rate-limit invocations to.
+ * @param {Number} interval The number of milliseconds to rate-limit invocations to.
  * @param {Object} context The context object (optional).
  * @returns {Function} Returns the new rate-limited function.
  */
@@ -335,7 +346,10 @@ function rateLimit(fn, interval, context) {
   return limited;
 }
 
-function buf2hex(buffer) { // buffer is an ArrayBuffer
+/**
+ * @param {ArrayBuffer} buffer
+ */
+function buf2hex(buffer) {
   return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
 }
 
@@ -348,12 +362,10 @@ function sha1(input, callback) {
   });
 }
 
-function parseCookie(str, opts) {
-  if (!str) {
+function parseCookie(cookie_str, opts = {}) {
+  if (!cookie_str) {
     return {};
   }
-
-  opts = opts || {};
 
   let COOKIE_ATTRIBUTES = [
     "domain",
@@ -366,7 +378,7 @@ function parseCookie(str, opts) {
   ];
 
   let parsed = {},
-    cookies = str.replace(/\n/g, ";").split(";");
+    cookies = cookie_str.replace(/\n/g, ";").split(";");
 
   for (let i = 0; i < cookies.length; i++) {
     let cookie = cookies[i],
@@ -541,19 +553,18 @@ function isRestrictedUrl(url) {
   );
 }
 
-function difference(arr1, arr2) {
-  arr1 = arr1 || [];
-  arr2 = arr2 || [];
+function difference(arr1 = [], arr2 = []) {
   return arr1.filter(x => !arr2.includes(x));
 }
 
 /**
- * @returns {Array} items from arr1
- * followed by items from arr2 that were not already present in arr1
+ * @param {Array} [arr1=[]]
+ * @param {Array} [arr2=[]]
+ *
+ * @returns {Array} items from arr1 followed by items from arr2
+ *  that were not already present in arr1
  */
-function concatUniq(arr1, arr2) {
-  arr1 = arr1 || [];
-  arr2 = arr2 || [];
+function concatUniq(arr1 = [], arr2 = []) {
   return arr1.concat(arr2.filter(x => !arr1.includes(x)));
 }
 

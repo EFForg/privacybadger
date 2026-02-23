@@ -148,13 +148,11 @@ let pollForManagedStorage = (function () {
  * Privacy Badger's data objects in extension storage:
  *
  * https://github.com/EFForg/privacybadger/blob/master/doc/DESIGN-AND-ROADMAP.md#data-structures
+ *
+ * @param {Function} [callback]
  */
-function BadgerPen(callback) {
+function BadgerPen(callback = function () {}) {
   let self = this;
-
-  if (!callback) {
-    callback = function () {};
-  }
 
   // initialize from extension local storage
   readFromStorageWithRetrying(self.KEYS, function (store) {
@@ -316,19 +314,20 @@ BadgerPen.prototype = {
    * ignoring any rules for subdomains below or above it
    *
    * @param {(Object|String)} domain domain object from action_map
-   * @param {Boolean} [ignoreDNT] whether to ignore DNT status
+   * @param {Boolean} [ignore_dnt] whether to ignore DNT status
    * @returns {String} the presumed action for this FQDN
    */
-  getAction: function (domain, ignoreDNT) {
+  getAction: function (domain, ignore_dnt) {
     if (!badger.isCheckingDNTPolicyEnabled()) {
-      ignoreDNT = true;
+      ignore_dnt = true;
     }
 
     if (utils.isString(domain)) {
       domain = this.getStore('action_map').getItem(domain) || {};
     }
+
     if (domain.userAction) { return domain.userAction; }
-    if (domain.dnt && !ignoreDNT) { return constants.DNT; }
+    if (domain.dnt && !ignore_dnt) { return constants.DNT; }
     if (domain.heuristicAction) { return domain.heuristicAction; }
     return constants.NO_TRACKING;
   },
@@ -605,14 +604,10 @@ BadgerPen.prototype = {
    * @param {?String} store_name storage object's name or null (sync all)
    * @param {Function} [callback]
    */
-  forceSync: function (store_name, callback) {
+  forceSync: function (store_name, callback = function () {}) {
     let self = this,
       stores = [],
       num_done = 0;
-
-    if (!callback) {
-      callback = function () {};
-    }
 
     if (store_name) {
       if (!self.KEYS.includes(store_name)) {
@@ -968,10 +963,11 @@ BadgerStorage.prototype = {
 let _syncStorage = (function () {
   let debouncedFuncs = {};
 
-  function _sync(badgerStore, callback) {
-    if (!callback) {
-      callback = function () {};
-    }
+  /**
+   * @param {BadgerStorage} badgerStore
+   * @param {Function} [callback]
+   */
+  function _sync(badgerStore, callback = function () {}) {
     let obj = {};
     obj[badgerStore.name] = badgerStore._store;
     chrome.storage.local.set(obj, function () {

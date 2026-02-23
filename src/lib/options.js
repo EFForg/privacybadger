@@ -34,8 +34,7 @@ import { getBaseDomain } from "./basedomain.js";
  *
  * @return {Array} The array of domains.
  */
-function filterDomains(domains, options) {
-  options = options || {};
+function filterDomains(domains, options = {}) {
 
   let search_filter = options.searchFilter,
     type_filter = options.typeFilter,
@@ -78,11 +77,10 @@ function filterDomains(domains, options) {
       } else {
         if (seedBases.has(domain) && !seedNotYetBlocked.has(domain)) {
           return false;
-        } else {
-          let base = getBaseDomain(domain);
-          if (seedBases.has(base) && !seedNotYetBlocked.has(base)) {
-            return false;
-          }
+        }
+        let base = getBaseDomain(domain);
+        if (seedBases.has(base) && !seedNotYetBlocked.has(base)) {
+          return false;
         }
       }
     }
@@ -129,9 +127,7 @@ function filterDomains(domains, options) {
     // if we have any positive filters, and we don't match any,
     // don't bother checking negative filters
     if (positiveFilters.length) {
-      let result = positiveFilters.some(text => {
-        return ldomain.indexOf(text) != -1;
-      });
+      let result = positiveFilters.some(text => ldomain.indexOf(text) != -1);
       if (!result) {
         return false;
       }

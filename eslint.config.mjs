@@ -39,6 +39,7 @@ export default defineConfig([
       "no-array-constructor": "error",
       "no-bitwise": "error",
       "no-caller": "error",
+      "no-eq-null": "error",
       "no-eval": "error",
       "no-implied-eval": "error",
       "no-iterator": "error",
@@ -56,8 +57,13 @@ export default defineConfig([
       "no-tabs": "error",
       "no-trailing-spaces": "error",
       "no-unused-expressions": "error",
-      "no-unused-vars": "off",
+      "no-unused-vars": ["error", {
+        caughtErrors: "none"
+      }],
+      //"no-var": "error",
       "preserve-caught-error": "off",
+      "radix": "error",
+      //"require-unicode-regexp": "error",
       "semi": "error",
       "space-before-blocks": "error",
       "space-in-parens": "error",
@@ -109,6 +115,9 @@ export default defineConfig([
   },
   {
     files: ["src/data/web_accessible_resources/**"],
+    languageOptions: {
+      sourceType: "script"
+    },
     rules: {
       "indent": ["error", 4, {
         outerIIFEBody: 1
@@ -117,7 +126,7 @@ export default defineConfig([
       "no-bitwise": "off",
       "no-empty": "off",
       "no-extra-semi": "off",
-      "space-in-parens": "off"
+      "space-in-parens": "off",
     }
   },
   {

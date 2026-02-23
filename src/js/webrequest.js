@@ -919,9 +919,7 @@ let getWidgetList = (function () {
         if (domain[0] == "*") {
           domain = domain.slice(1);
           // get all domains in tabData.trackers that end with this domain
-          let matches = trackerDomains.filter(fqdn => {
-            return fqdn.endsWith(domain);
-          });
+          let matches = trackerDomains.filter(fqdn => fqdn.endsWith(domain));
           // do we have any matches and are they all blocked?
           return matches.length && matches.every(fqdn => {
             const action = trackers[fqdn];
@@ -1174,13 +1172,12 @@ function dispatcher(request, sender, sendResponse) {
         });
       }
       return sendResponse();
-    } else {
-      setTimeout(function () {
-        dispatcher(request, sender, sendResponse);
-      }, 50);
-      // indicate this is an async response to chrome.runtime.onMessage
-      return true;
     }
+    setTimeout(function () {
+      dispatcher(request, sender, sendResponse);
+    }, 50);
+    // indicate this is an async response to chrome.runtime.onMessage
+    return true;
   }
 
   // messages from content scripts are to be treated with greater caution:
