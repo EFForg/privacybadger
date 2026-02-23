@@ -20,8 +20,7 @@ jobs:
           node-version: 'lts/*'
       - name: Run ESLint
         run: |
-          # "--production" to skip installing devDependencies modules
-          npm ci --production || exit 1
+          npm ci --omit=dev || exit 1
           make lint
 
   selenium:
