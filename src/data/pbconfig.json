@@ -403,14 +403,6 @@
             "twitch.tv": [
                 "crowd.gamesdonequick.com"
             ],
-            "p.typekit.net": [
-                "www.bungie.net",
-                "delayrepay.crosscountrytrains.co.uk",
-                "us.dollarshaveclub.com",
-                "www.ikonpass.com",
-                "robertsspaceindustries.com",
-                "www.utest.com"
-            ],
             "api.useinsider.com": [
                 "www.canningvale.com"
             ],
@@ -753,8 +745,6 @@
         "fups.com",
         "futurecdn.net",
         "fwmrm.net",
-        "dm-localsites-assets.dm.aws.gartner.com",
-        "lcsites-sylar-prod-use1-assets.dmbx.aws.gartner.com",
         "geetest.com",
         "geotrust.com",
         "getpocket.com",
@@ -900,8 +890,6 @@
         "intercomcdn.com",
         "script.ioam.de",
         "api.ipify.org",
-        "i.iplsc.com",
-        "js.iplsc.com",
         "issuu.com",
         "iubenda.com",
         "jotfor.ms",
@@ -1083,7 +1071,6 @@
         "cmp.osano.com",
         "paddle.com",
         "pandacommerce.net",
-        "cdn.privacy.paramount.com",
         "parastorage.com",
         "storage.pardot.com",
         "cdn.pathfactory.com",
@@ -1319,7 +1306,6 @@
         "cdn.transcend.io",
         "sync.transcend.io",
         "trbcdn.net",
-        "triangle.com",
         "trinitymedia.ai",
         "www.tripadvisor.com",
         "trumba.com",
