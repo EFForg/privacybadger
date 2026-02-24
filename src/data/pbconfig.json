@@ -30,6 +30,12 @@
                 "signin.auth.bild.de",
                 "signin.auth.welt.de"
             ],
+            "bamgrid.com": [
+                "plus.espn.com",
+                "secure.web.plus.espn.com",
+                "www.disneyplus.com",
+                "www.hulu.com"
+            ],
             "doubleclick.net": [
                 "m.youtube.com",
                 "www.youtube.com"
@@ -115,11 +121,6 @@
             ],
             "cdn.appdynamics.com": [
                 "www.telecharge.com"
-            ],
-            "bamgrid.com": [
-                "plus.espn.com",
-                "secure.web.plus.espn.com",
-                "www.disneyplus.com"
             ],
             "connatix.com": [
                 "www.accuweather.com"

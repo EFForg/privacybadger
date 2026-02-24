@@ -5990,6 +5990,7 @@ let multiDomainFirstPartiesArray = [
     "disneyweddings.com",
     "disneyworld.co.uk",
     "disneyworld.eu",
+    "hulu.com",
     "ilm.com",
     "marvel.com",
     "readriordan.com",
@@ -6038,6 +6039,7 @@ let multiDomainFirstPartiesArray = [
     "disney.sg",
     "disneyturkiye.com.tr",
 
+    "bamgrid.com",
     "dilcdn.com",
     "disney.io",
     "disney-plus.net",
