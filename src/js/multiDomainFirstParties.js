@@ -2898,6 +2898,7 @@ let multiDomainFirstPartiesArray = [
     "livesport.eu",
 
     "flashscore.at",
+    "flashscore.ca",
     "flashscore.co",
     "flashscore.com",
     "flashscore.com.br",
@@ -2907,6 +2908,7 @@ let multiDomainFirstPartiesArray = [
     "flashscore.co.uk",
     "flashscore.de",
     "flashscore.es",
+    "flashscore.fi",
     "flashscore.fr",
     "flashscore.gr",
     "flashscore.nl",
