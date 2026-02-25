@@ -2913,6 +2913,7 @@ let multiDomainFirstPartiesArray = [
     "flashscore.gr",
     "flashscore.nl",
     "flashscore.pl",
+    "flashscore.pt",
     "flashscore.ro",
     "flashscorekz.com",
 
