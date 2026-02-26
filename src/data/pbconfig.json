@@ -41,6 +41,9 @@
                 "m.youtube.com",
                 "www.youtube.com"
             ],
+            "elevenlabs.io": [
+                "elevenreader.io"
+            ],
             "connect.facebook.net": [
                 "apps.facebook.com"
             ],

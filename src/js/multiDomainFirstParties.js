@@ -1422,6 +1422,7 @@ let multiDomainFirstPartiesArray = [
     "ebay-us.com",
   ],
   ["elcorteingles.es", "elcorteingles.pt", "primeriti.es", "grupoelcorteingles.es"],
+  ["elevenreader.io", "elevenlabs.io"],
   ["ename.com", "ename.cn", "ename.net"],
   [
     "enterprise.com",
