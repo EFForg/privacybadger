@@ -4391,6 +4391,7 @@ let multiDomainFirstPartiesArray = [
     "webnovel.com",
     "wechat.com",
     "wegame.com",
+    "wegame.com.cn",
     "weiyun.com",
 
     "cdn-go.cn"
