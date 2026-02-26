@@ -320,6 +320,9 @@
                 "www.uniladtech.com",
                 "www.zagreb.info"
             ],
+            "js-cdn.dynatrace.com": [
+                "www.fido.ca"
+            ],
             "connect.facebook.net": [
                 "app.roamless.com",
                 "www.redfin.com",
