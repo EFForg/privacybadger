@@ -75,6 +75,9 @@
                 "m.youtube.com",
                 "www.youtube.com"
             ],
+            "wegame.gtimg.com": [
+                "www.wegame.com.cn"
+            ],
             "hubspot.com": [
                 "app-na1.hubspotdocuments.com"
             ],
