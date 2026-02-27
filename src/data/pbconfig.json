@@ -405,6 +405,9 @@
             "tt.omtrdc.net": [
                 "www.aa.com"
             ],
+            "dam-cdn.atl.orangelogic.com": [
+                "www.atlassian.com"
+            ],
             "playwire.com": [
                 "www.crunchyroll.com"
             ],
