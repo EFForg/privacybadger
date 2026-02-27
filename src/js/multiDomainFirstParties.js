@@ -4739,6 +4739,7 @@ let multiDomainFirstPartiesArray = [
     "arcane.com",
     "playruneterra.com",
     "playvalorant.com",
+    "valorantesports.com",
 
     "riotcdn.net",
     "rdatasrv.net",
