@@ -2669,6 +2669,7 @@ let multiDomainFirstPartiesArray = [
   ["independent.co.uk", "indy100.com", "the-independent.com"],
   ["infor.pl", "gazetaprawna.pl", "forsal.pl", "dziennik.pl"],
   ["innogames.com", "elvenar.com", "forgeofempires.com", "grepolis.com", "innogamescdn.com"],
+  ["instructure.com", "learnplatform.com", "canvaslms.com"],
   ["intercom.com", "intercom.io", "intercomassets.com", "intercomcdn.com"],
   ["itmedia.co.jp", "itmedia.jp"],
   [
