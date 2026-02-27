@@ -1047,6 +1047,7 @@ let multiDomainFirstPartiesArray = [
     "sharefile.com",
     "tibco.com",
   ],
+  ["cloudflare.com", "cloudflareinsights.com"],
   ["cms.gov", "medicare.gov", "mymedicare.gov"],
   ["coach.com", "coachoutlet.com"],
   ["codepen.io", "cdpn.io"],
