@@ -1214,7 +1214,7 @@ function dispatcher(request, sender, sendResponse) {
     ];
     if (KNOWN_CONTENT_SCRIPT_MESSAGES.includes(request.type)) {
       if (!sender.tab) {
-        console.error("Dropping malformed content script message %o from %o",
+        console.warn("Dropping malformed content script message %o from %o",
           request, sender);
         return sendResponse();
       }
