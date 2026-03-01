@@ -2919,11 +2919,13 @@ let multiDomainFirstPartiesArray = [
     "flashscore.pl",
     "flashscore.pt",
     "flashscore.ro",
+    "flashscore.ua",
     "flashscorekz.com",
 
     "diretta.it",
     "eredmenyek.com",
     "livescore.in",
+    "livesport.com",
     "livesport.cz",
     "rezultati.com",
 
