@@ -2668,6 +2668,7 @@ let multiDomainFirstPartiesArray = [
     "indapass.hu"
   ],
   ["independent.co.uk", "indy100.com", "the-independent.com"],
+  ["indiatodaygroup.com", "aajtak.in", "businesstoday.in", "indiatoday.in", "intoday.in"],
   ["infor.pl", "gazetaprawna.pl", "forsal.pl", "dziennik.pl"],
   ["innogames.com", "elvenar.com", "forgeofempires.com", "grepolis.com", "innogamescdn.com"],
   ["instructure.com", "learnplatform.com", "canvaslms.com"],
