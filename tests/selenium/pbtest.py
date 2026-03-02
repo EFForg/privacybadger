@@ -232,6 +232,11 @@ class Shim:
                 opts = FirefoxOptions()
 
                 opts.binary_location = self.browser_path
+                opts.enable_bidi = True
+                opts.enable_webextensions = True
+
+                # https://github.com/mozilla/geckodriver/issues/2241#issuecomment-3984861843
+                opts.set_capability("unhandledPromptBehavior", "ignore");
 
                 # make extension ID constant across runs
                 opts.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' % (
@@ -265,7 +270,7 @@ class Shim:
             else:
                 break
 
-        driver.install_addon(self.extension_path, temporary=True)
+        driver.webextension.install(self.extension_path)
 
         try:
             yield driver
