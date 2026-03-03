@@ -345,6 +345,9 @@
             "js-cdn.dynatrace.com": [
                 "www.fido.ca"
             ],
+            "nexus.ensighten.com": [
+                "www.kmbc.com"
+            ],
             "connect.facebook.net": [
                 "app.roamless.com",
                 "www.redfin.com",
