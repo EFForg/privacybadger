@@ -227,50 +227,47 @@ class Shim:
 
     @contextmanager
     def firefox_manager(self):
+        opts = FirefoxOptions()
+
+        opts.binary_location = self.browser_path
+        opts.enable_bidi = True
+        opts.enable_webextensions = True
+
+        # https://github.com/mozilla/geckodriver/issues/2241#issuecomment-3984861843
+        opts.set_capability("unhandledPromptBehavior", "ignore");
+
+        # make extension ID constant across runs
+        opts.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' % (
+            self.info['extension_id'], self.info['uuid']))
+
+        # needed for test_referrer_header()
+        # https://bugzilla.mozilla.org/show_bug.cgi?id=1720294
+        opts.set_preference('network.http.referer.disallowCrossSiteRelaxingDefault', False)
+
+        # disable tracker cookie blocking as it breaks cookie tests
+        # that use trackersimulator.org, a "known tracker",
+        # and disable cookie site isolation, as it breaks the cookie
+        # tracking detection test
+        opts.set_preference("network.cookie.cookieBehavior", 0)
+
+        # disable JSON viewer as it breaks parsing JSON pages
+        opts.set_preference("devtools.jsonview.enabled", False)
+
+        # to produce a trace-level geckodriver.log,
+        # remove the log_output argument to FirefoxService()
+        # and uncomment the line below
+        #opts.log.level = "trace"
+
         for i in range(5):
             try:
-                opts = FirefoxOptions()
-
-                opts.binary_location = self.browser_path
-                opts.enable_bidi = True
-                opts.enable_webextensions = True
-
-                # https://github.com/mozilla/geckodriver/issues/2241#issuecomment-3984861843
-                opts.set_capability("unhandledPromptBehavior", "ignore");
-
-                # make extension ID constant across runs
-                opts.set_preference('extensions.webextensions.uuids', '{"%s": "%s"}' % (
-                    self.info['extension_id'], self.info['uuid']))
-
-                # needed for test_referrer_header()
-                # https://bugzilla.mozilla.org/show_bug.cgi?id=1720294
-                opts.set_preference('network.http.referer.disallowCrossSiteRelaxingDefault', False)
-
-                # disable tracker cookie blocking as it breaks cookie tests
-                # that use trackersimulator.org, a "known tracker",
-                # and disable cookie site isolation, as it breaks the cookie
-                # tracking detection test
-                opts.set_preference("network.cookie.cookieBehavior", 0)
-
-                # disable JSON viewer as it breaks parsing JSON pages
-                opts.set_preference("devtools.jsonview.enabled", False)
-
-                # to produce a trace-level geckodriver.log,
-                # remove the log_output argument to FirefoxService()
-                # and uncomment the line below
-                #opts.log.level = "trace"
-
                 service = FirefoxService(log_output=os.path.devnull)
                 driver = webdriver.Firefox(options=opts, service=service)
-
-            except WebDriverException as e:
+                driver.webextension.install(self.extension_path)
+            except WebDriverException as ex:
                 if i == 0: print("")
-                print("Firefox WebDriver initialization failed:")
-                print(str(e) + "Retrying ...")
+                print(f"Firefox WebDriver initialization failed ({i+1}/5): {ex}", end='')
             else:
                 break
-
-        driver.webextension.install(self.extension_path)
 
         try:
             yield driver
