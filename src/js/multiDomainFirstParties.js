@@ -2929,6 +2929,7 @@ let multiDomainFirstPartiesArray = [
     "livesport.com",
     "livesport.cz",
     "rezultati.com",
+    "soccerway.com",
 
     "livesportmedia.eu",
   ],
