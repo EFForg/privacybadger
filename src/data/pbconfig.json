@@ -463,20 +463,22 @@
                 "simplehomeedit.com"
             ],
             "w.soundcloud.com": [
-                "heardlewordle.io",
-                "90s.heardledecades.com",
-                "reheardle.xyz",
-                "reheardle.com",
+                "www.heardle.info",
                 "00s.heardledecades.com",
-                "www.heardle.info"
+                "90s.heardledecades.com",
+                "aus2.heardledecades.com",
+                "heardlewordle.io",
+                "reheardle.com",
+                "reheardle.xyz"
             ],
             "api-widget.soundcloud.com": [
-                "heardlewordle.io",
-                "90s.heardledecades.com",
-                "reheardle.xyz",
-                "reheardle.com",
+                "www.heardle.info",
                 "00s.heardledecades.com",
-                "www.heardle.info"
+                "90s.heardledecades.com",
+                "aus2.heardledecades.com",
+                "heardlewordle.io",
+                "reheardle.com",
+                "reheardle.xyz"
             ],
             "cdn.trackjs.com": [
                 "www.delta.com"
