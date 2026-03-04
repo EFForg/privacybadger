@@ -254,7 +254,7 @@ class Shim:
         opts.set_preference("devtools.jsonview.enabled", False)
 
         # to produce a trace-level geckodriver.log,
-        # remove the log_output argument to FirefoxService()
+        # set the log_output argument to FirefoxService() to "./geckodriver.log"
         # and uncomment the line below
         #opts.log.level = "trace"
 
