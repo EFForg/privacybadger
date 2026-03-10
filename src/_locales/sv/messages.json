@@ -286,7 +286,7 @@
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Vissa webbplatser $LINK_START$använder länkspårning för att följa dig$LINK_END$ när du klickar på en länk för att lämna webbplatsen. Privacy Badger tar bort spårning från sådana länkar på denna webbplats.",
+        "message": "Vissa webbplatser $LINK_START$använder länkspårning för att följa dig$LINK_END$ varje gång du klickar på en länk för att lämna webbplatsen. Privacy Badger tar bort spårning från sådana länkar på denna webbplats.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
@@ -367,7 +367,7 @@
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
-        "message": "Om du tror att Privacy Badger bryter en sida (till exempel om en video inte spelar) kan du klicka på knappen \"Inaktivera\" för att stänga av Privacy Badger för den webbplatsen.",
+        "message": "Om du tror att Privacy Badger bryter en sida (till exempel en video spelas inte upp) kan du klicka på knappen \"Inaktivera\" för att stänga av Privacy Badger för den webbplatsen.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
