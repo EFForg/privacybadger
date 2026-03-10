@@ -302,8 +302,8 @@
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
-        "message": "Будь ласка, $LINK_START$ розкажіть нам$LINK_END$ про наступну помилку:",
-        "description": "NOTE: The space after $LINK_START$ is here to work around a Safari bug. Shown in the popup when there is an extension error we want to encourage the user to tell us about.",
+        "message": "Будь ласка, $LINK_START$розкажіть нам$LINK_END$ про наступну помилку:",
+        "description": "Shown in the popup when there is an extension error we want to encourage the user to tell us about.",
         "placeholders": {
             "link_start": {
                 "content": "$1",
@@ -570,8 +570,8 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger досі не виявив жодного $LINK_START$ домену стеження$LINK_END$. Продовжуйте перегляд!",
-        "description": "NOTE: The space after $LINK_START$ is here to work around a Safari bug. Shown on the Tracking Domains tab on the options page if all tracking domains have been removed.",
+        "message": "Privacy Badger досі не виявив жодного $LINK_START$домену стеження$LINK_END$. Продовжуйте перегляд!",
+        "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed.",
         "placeholders": {
             "link_start": {
                 "content": "$1",
