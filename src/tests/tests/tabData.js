@@ -18,9 +18,14 @@ QUnit.module("tabData", {
         active: true
       });
     };
+
+    // Edge Beta and Firefox workaround for issues stubbing setBadgeBackgroundColor
+    this.setBadgeBackgroundColor = chrome.browserAction.setBadgeBackgroundColor;
+    chrome.browserAction.setBadgeBackgroundColor = () => {};
   },
 
   afterEach: function () {
+    chrome.browserAction.setBadgeBackgroundColor = this.setBadgeBackgroundColor;
     chrome.tabs.get = this.chromeTabsGet;
     badger.tabData.forget(this.tabId);
   }
@@ -237,13 +242,9 @@ function() {
   QUnit.module('updateBadge', {
     beforeEach: function() {
       this.setBadgeText = sinon.stub(chrome.browserAction, "setBadgeText");
-
-      // another Firefox workaround: setBadgeText gets stubbed fine but setBadgeBackgroundColor doesn't
-      this.setBadgeBackgroundColor = chrome.browserAction.setBadgeBackgroundColor;
     },
     afterEach: function() {
       this.setBadgeText.restore();
-      chrome.browserAction.setBadgeBackgroundColor = this.setBadgeBackgroundColor;
     },
   });
 
