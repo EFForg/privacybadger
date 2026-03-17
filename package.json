@@ -16,7 +16,7 @@
     "select2": "4.0.11",
     "sinon": "2.0.0",
     "tooltipster": "4.2.6",
-    "web-ext": "~9.3.0"
+    "web-ext": "^9.4.0"
   },
   "private": true
 }
