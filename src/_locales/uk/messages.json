@@ -8,7 +8,7 @@
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
-        "message": "відбитки canvas (canvas fingerprinting)",
+        "message": "зчитування цифрового відбитка через canvas (canvas fingerprinting)",
         "description": "Canvas fingerprinting is the tracking method described in https://en.wikipedia.org/wiki/Canvas_fingerprinting"
     },
     "popup_help_button": {
@@ -136,7 +136,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Заблоковано файли cookie та скрипти фінгерпринтингу від: $DOMAIN$",
+        "message": "Заблоковано файли cookie та скрипти для зчитування цифрового відбитка від: $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -196,7 +196,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Щоб увійти на сайт за допомогою облікового запису Google, посуньте цей повзунок праворуч і оновіть сторінку",
+        "message": "Щоб увійти на сайт за допомогою облікового запису Google, пересуньте цей повзунок праворуч і оновіть сторінку",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
