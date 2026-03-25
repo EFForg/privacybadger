@@ -52,7 +52,7 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Зробіть внесок до EFF — організації, що захищає цифрову приватність",
+        "message": "Зробіть внесок до EFF — некомерційної організації, що захищає цифрову приватність",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
@@ -282,7 +282,7 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_info_firstparty_protections": {
-        "message": "Захист від стеження посилань активний",
+        "message": "Увімкнено захист від відстеження через посилання",
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
@@ -335,7 +335,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Privacy Badger надсилає сигнал <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control</a>, щоб відмовитися від обміну та продажу даних, а також сигнал <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track («Не відстежувати»)</a>, щоб заборонити компаніям стежити за вами.",
+        "message": "Privacy Badger надсилає сигнал <a href='https://globalprivacycontrol.org/' target='_blank'>Global Privacy Control («Глобальний контроль приватності»)</a>, щоб відмовитися від обміну та продажу даних, а також сигнал <a href='https://www.eff.org/issues/do-not-track' target='_blank'>Do Not Track («Не відстежувати»)</a>, щоб заборонити компаніям стежити за вами.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
@@ -367,7 +367,7 @@
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
-        "message": "Якщо ви вважаєте, що Privacy Badger ламає сторінку (наприклад, не відтворюється відео), ви можете натиснути кнопку «Вимкнути для цього сайту», щоб деактивувати Privacy Badger для цього ресурсу.",
+        "message": "Якщо ви вважаєте, що Privacy Badger ламає сторінку (наприклад, не відтворюється відео), ви можете натиснути кнопку «Вимкнути для цього сайту», щоб деактивувати Privacy Badger для цього сайту.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
@@ -449,7 +449,7 @@
         }
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger вимкнено на перелічених нижче сайтах. Це означає, що розширення нічого не блокуватиме на цих ресурсах і не надсилатиме сигнали Do Not Track або Global Privacy Control.",
+        "message": "Privacy Badger вимкнено на наведених нижче сайтах. Це означає, що розширення не блокуватиме нічого під час їх відвідування і не надсилатиме сигнали Do Not Track («Не відстежувати») або Global Privacy Control («Глобальний контроль приватності»).",
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "add_domain_button": {
@@ -477,7 +477,7 @@
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
-        "message": "Перевіряти, чи дотримуються <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>сторонні домени</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>Політики «Не стежити» від EFF</a>",
+        "message": "Перевіряти, чи дотримуються <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>сторонні домени</a> <a target='_blank' href='https://www.eff.org/dnt-policy'>Політики «Не відстежувати» від EFF</a>",
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
@@ -521,7 +521,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
-        "message": "Увімкнення навчання в Приватних вікнах чи режимі Інкогніто може залишити сліди вашої приватної історії переглядів на комп’ютері. За замовчуванням Privacy Badger блокуватиме вже відомі трекери в цих режимах, але не вивчатиме нові. Можливо, ви захочете ввімкнути цю опцію, якщо більшість часу переглядаєте веб-сторінки в Приватному вікні чи режимі Інкогніто.",
+        "message": "Увімкнення навчання в Приватних вікнах чи режимі Інкогніто може залишити сліди вашої приватної історії переглядів на комп’ютері. За замовчуванням Privacy Badger блокуватиме вже відомі трекери в цих режимах, але не вивчатиме нові. Можливо, ви захочете увімкнути цю опцію, якщо більшість часу переглядаєте веб-сторінки в Приватному вікні чи режимі Інкогніто.",
         "description": "Tooltip in general settings."
     },
     "options_widget_replacement_tab": {
@@ -607,7 +607,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_filter_dnt": {
-        "message": "дотримуються політики DNT від EFF",
+        "message": "дотримуються політики «Не відстежувати» від EFF",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_domain_status_filter": {
@@ -729,7 +729,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Скидання доменів відстеження призведе до:\n\n  • Видалення всіх даних про трекери, про які Privacy Badger дізнався під час вашого перегляду\n  • Відновлення списку доменів відстеження до останнього базового списку (відвідайте www.eff.org/badger-pretraining, щоб дізнатися більше)",
+        "message": "Скидання доменів відстеження призведе до:\n\n  • Видалення всіх даних про трекери, про які Privacy Badger дізнався під час вашого перегляду\n  • Відновлення списку доменів відстеження до останнього попередньо навченого списку (відвідайте www.eff.org/badger-pretraining, щоб дізнатися більше)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
