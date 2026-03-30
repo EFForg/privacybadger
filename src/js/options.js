@@ -91,7 +91,7 @@ function loadOptions() {
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
   $('#blockedResourcesContainer').on('click', '.removeOrigin', removeDomain);
   $('#blockedResourcesInner').on('scroll', function () {
-    activateDomainListTooltips();
+    populateVisibleRows();
   });
 
   // Display jQuery UI elements
@@ -99,7 +99,7 @@ function loadOptions() {
     activate: function (_, ui) {
       let tab_id = ui.newPanel.attr('id');
       if (tab_id == 'tab-tracking-domains') {
-        activateDomainListTooltips();
+        populateVisibleRows();
       }
       // update options page URL fragment identifier
       // to preserve selected tab on page reload
@@ -831,26 +831,22 @@ function renderTrackingDomains(domains, cb = function () {}) {
   $('#blockedResources').hide();
   $('#tracking-domains-loader').show();
 
+  let $container = $('#blockedResourcesInner');
+
   domains = htmlUtils.sortDomains(domains);
 
   let out = [];
   for (let domain of domains) {
-    let action = getOriginAction(domain);
-    if (action) {
-      let show_breakage_warning = (
-        action == constants.USER_BLOCK &&
-        utils.hasOwn(OPTIONS_DATA.cookieblocked, domain)
-      );
-      out.push(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
-    }
+    // empty placeholder row
+    out.push(`<div class="clicker" data-origin="${domain}"></div>`);
   }
 
   function _renderChunk() {
-    const CHUNK = 100;
+    const CHUNK = 1000;
 
     let $printable = $(out.splice(0, CHUNK).join(""));
 
-    $printable.appendTo('#blockedResourcesInner');
+    $printable.appendTo($container);
 
     if (out.length) {
       requestAnimationFrame(_renderChunk);
@@ -859,8 +855,8 @@ function renderTrackingDomains(domains, cb = function () {}) {
       $('#tracking-domains-filters').show();
       $('#blockedResources').show();
 
-      if ($('#blockedResourcesInner').is(':visible')) {
-        activateDomainListTooltips();
+      if ($container.is(':visible')) {
+        populateVisibleRows();
       }
 
       window.SLIDERS_DONE = true;
@@ -868,7 +864,7 @@ function renderTrackingDomains(domains, cb = function () {}) {
     }
   }
 
-  $('#blockedResourcesInner').empty();
+  $container.empty();
 
   if (out.length) {
     requestAnimationFrame(_renderChunk);
@@ -881,28 +877,79 @@ function renderTrackingDomains(domains, cb = function () {}) {
 }
 
 /**
- * Activates fancy tooltips for each visible row
+ * Populates domain row contents for each visible, not yet populated row
  * in the list of tracking domains.
+ */
+function populateVisibleRows() {
+  let container = document.getElementById('blockedResourcesInner'),
+    found_visible_rows = false,
+    num_visible = 0,
+    num_to_prerender = null;
+
+  function _populate(row) {
+    if (row.children.length) {
+      return;
+    }
+
+    let domain = row.dataset.origin,
+      action = getOriginAction(domain);
+
+    if (!action) {
+      return;
+    }
+
+    let show_breakage_warning = (
+      action == constants.USER_BLOCK &&
+      utils.hasOwn(OPTIONS_DATA.cookieblocked, domain)
+    );
+
+    $(row).replaceWith(htmlUtils.getOriginHtml(domain, action, show_breakage_warning));
+  }
+
+  let idx = 0,
+    $rows = $('#blockedResourcesInner div.clicker');
+
+  for (let row of $rows) {
+    if (htmlUtils.isScrolledIntoView(row, container)) {
+      if (!found_visible_rows) {
+        found_visible_rows = true;
+        // populate the preceding two rows for backwards keyboard nav
+        if (idx > 0) {
+          _populate($rows[idx-1]);
+          if (idx > 1) {
+            _populate($rows[idx-2]);
+          }
+        }
+      }
+      num_visible++;
+      _populate(row);
+      activateDomainListTooltips($(`div.clicker[data-origin="${row.dataset.origin}"]`));
+
+    // also populate several rows following visible rows
+    } else if (found_visible_rows) {
+      if (num_to_prerender === null) {
+        num_to_prerender = Math.round(num_visible / 2) + 1;
+      }
+      if (num_to_prerender < 1) {
+        break;
+      }
+      num_to_prerender--;
+      _populate(row);
+    }
+
+    idx++;
+  }
+}
+
+/**
+ * Activates fancy tooltips for given rows.
  *
  * The tooltips over domain names are constructed dynamically
  * for fetching and showing extra information
  * that wasn't prefetched on options page load.
  */
-function activateDomainListTooltips() {
-  let container = document.getElementById('blockedResourcesInner');
-
-  // keep not-yet-tooltipstered, visible in scroll container elements only
-  let $rows = $('#blockedResourcesInner div.clicker').filter((_, el) => {
-    if (htmlUtils.isScrolledIntoView(el, container)) {
-      if (el.querySelector('.tooltipstered')) {
-        return false;
-      }
-      return el;
-    }
-    return false;
-  });
-
-  $rows.find('.origin-inner.tooltip').tooltipster({
+function activateDomainListTooltips($rows) {
+  $rows.find('.origin-inner.tooltip:not(.tooltipstered)').tooltipster({
     functionBefore: function (tooltip, ev) {
       let $domainEl = $(ev.origin).parents('.clicker').first();
       if ($domainEl.data('tooltip-fetched')) {
@@ -960,9 +1007,9 @@ function activateDomainListTooltips() {
     ev.preventDefault();
   });
 
-  $rows.find('.breakage-warning.tooltip').tooltipster();
-  $rows.find('.switch-toggle > label.tooltip').tooltipster();
-  $rows.find('.honeybadgerPowered.tooltip').tooltipster();
+  $rows.find('.breakage-warning.tooltip:not(.tooltipstered)').tooltipster();
+  $rows.find('.switch-toggle > label.tooltip:not(.tooltipstered)').tooltipster();
+  $rows.find('.honeybadgerPowered.tooltip:not(.tooltipstered)').tooltipster();
 }
 
 /**
@@ -1108,7 +1155,7 @@ function removeDomain(event) {
     // if we removed domains, the summary text may have changed
     updateSummary();
     // and we probably now have new visible rows in the tracking domains list
-    activateDomainListTooltips();
+    populateVisibleRows();
   });
 }
 
