@@ -91,6 +91,52 @@ function showNagMaybe() {
   function _hideNag() {
     $nag.fadeOut();
     $outer.fadeOut();
+    _removeFocusTrap();
+  }
+
+  /**
+   * Trap keyboard focus within the #instruction modal dialog,
+   * per WAI-ARIA modal dialog guidelines.
+   * https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+   */
+  function _setupFocusTrap() {
+    $nag.on('keydown.focustrap', function (e) {
+      if (e.key !== 'Tab') {
+        return;
+      }
+
+      let $focusables = $nag.find(htmlUtils.focusableSelectors).filter(':visible');
+      if (!$focusables.length) {
+        return;
+      }
+
+      let firstFocusable = $focusables[0],
+        lastFocusable = $focusables[$focusables.length - 1];
+
+      if (e.shiftKey) {
+        // Shift+Tab: wrap from first to last
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable.focus();
+        }
+      } else {
+        // Tab: wrap from last to first
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
+      }
+    });
+
+    // Focus the first focusable element in the modal
+    let $focusables = $nag.find(htmlUtils.focusableSelectors).filter(':visible');
+    if ($focusables.length) {
+      $focusables[0].focus();
+    }
+  }
+
+  function _removeFocusTrap() {
+    $nag.off('keydown.focustrap');
   }
 
   function _showNag() {
@@ -109,6 +155,7 @@ function showNagMaybe() {
         window.close();
       });
     });
+    _setupFocusTrap();
   }
 
   function _showError(error_text) {
@@ -133,6 +180,7 @@ function showNagMaybe() {
 
     $nag.show();
     $outer.show();
+    _setupFocusTrap();
   }
 
   function _showLearningPrompt() {
@@ -157,6 +205,7 @@ function showNagMaybe() {
     $('#learning-prompt-div').show();
     $nag.show();
     $outer.show();
+    _setupFocusTrap();
   }
 
   if (POPUP_DATA.criticalError) {
@@ -986,8 +1035,36 @@ function showOverlay(overlay_id) {
   $(overlay_id).toggleClass('active');
   $('#popup-content').toggleClass('hidden');
 
-  // Focus on the first focusable element, per ARIA guidance for dialogs/modals
+  // Trap keyboard focus within the overlay,
+  // per WAI-ARIA modal dialog guidelines
   // https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+  $(overlay_id).on('keydown.focustrap', function (e) {
+    if (e.key !== 'Tab') {
+      return;
+    }
+
+    let $focusables = $(overlay_id).find(htmlUtils.focusableSelectors).filter(':visible');
+    if (!$focusables.length) {
+      return;
+    }
+
+    let firstFocusable = $focusables[0],
+      lastFocusable = $focusables[$focusables.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusable) {
+        e.preventDefault();
+        lastFocusable.focus();
+      }
+    } else {
+      if (document.activeElement === lastFocusable) {
+        e.preventDefault();
+        firstFocusable.focus();
+      }
+    }
+  });
+
+  // Focus on the first focusable element, per ARIA guidance for dialogs/modals
   let $focusables = $(overlay_id).find(htmlUtils.focusableSelectors);
   if ($focusables.length) {
     $focusables[0].focus();
@@ -996,6 +1073,7 @@ function showOverlay(overlay_id) {
 function hideOverlay(overlay_id) {
   $(overlay_id).toggleClass('active', false);
   $('#popup-content').toggleClass('hidden', false);
+  $(overlay_id).off('keydown.focustrap');
 
   // Return focus to the element that invoked it,
   // per ARIA guidance for dialogs/modals
