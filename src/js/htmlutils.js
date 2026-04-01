@@ -217,8 +217,8 @@ let htmlUtils = {
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}" aria-label="${breakage_warning_tooltip}" role="img" tabindex="0"></span>
     <span class="origin-inner tooltip" title="${domain_tooltip}" role="heading" aria-level="4" aria-label="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
   </div>
-  <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
+  <a href="" class="removeOrigin">&#10006</a>
   <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}" aria-label="${undo_arrow_tooltip}"></a>
 </div>
       `.trim();
