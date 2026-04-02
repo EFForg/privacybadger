@@ -18,6 +18,8 @@ Before submitting a pull request (PR), please review the sections below.
 
 > [!WARNING]
 > Please **DO NOT SUBMIT AI-GENERATED CODE** that you haven't thoroughly understood, reviewed, and tested.
+>
+> For more, see "Policy regarding AI-generated contributions" on the [Coding with EFF](https://www.eff.org/about/opportunities/volunteer/coding-with-eff)) page.
 
 ### Style guide
 
