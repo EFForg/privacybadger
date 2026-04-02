@@ -148,11 +148,7 @@ function Badger(from_qunit) {
 
     if (self.criticalError == "Privacy Badger failed to initialize") {
       delete self.criticalError;
-      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-        if (tabs[0]) {
-          self.updateBadge(tabs[0].id);
-        }
-      });
+      badger.updateBadge();
     }
 
     if (!from_qunit) {
@@ -948,17 +944,18 @@ Badger.prototype = {
   },
 
   /**
-   * Update page action badge with current count.
-   * @param {Number} tab_id browser tab ID
+   * Updates browser action badge.
+   *
+   * @param {Number} [tab_id] the tab to update the badge for; defaults to active tab
    */
-  updateBadge: function (tab_id) {
+  updateBadge: function (tab_id = null) {
     if (!FirefoxAndroid.hasBadgeSupport) {
       return;
     }
 
     let self = this;
 
-    chrome.tabs.get(tab_id, function (tab) {
+    function _update(tab) {
       if (chrome.runtime.lastError) {
         // don't set on background (prerendered) tabs to avoid Chrome errors
         return;
@@ -996,7 +993,19 @@ Badger.prototype = {
 
       chrome.browserAction.setBadgeBackgroundColor({tabId: tab_id, color: "#ec9329"});
       chrome.browserAction.setBadgeText({tabId: tab_id, text: count + ""});
-    });
+    }
+
+    if (tab_id === null) {
+      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+        if (tabs[0]) {
+          _update(tabs[0]);
+        }
+      });
+    } else {
+      chrome.tabs.get(tab_id, function (tab) {
+        _update(tab);
+      });
+    }
   },
 
   /**
@@ -1227,10 +1236,10 @@ Badger.prototype = {
 /**************************** Listeners ****************************/
 
 function startBackgroundListeners() {
-  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  chrome.tabs.onUpdated.addListener(function(tab_id, changeInfo, tab) {
     if (badger.INITIALIZED && changeInfo.status == "loading" && tab.url) {
       badger.updateIcon(tab.id, tab.url);
-      badger.updateBadge(tabId);
+      badger.updateBadge(tab_id);
     }
   });
 

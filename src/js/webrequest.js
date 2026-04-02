@@ -1156,12 +1156,7 @@ function dispatcher(request, sender, sendResponse) {
       // too much time elapsed for this to be a normal initialization,
       // give up to avoid an infinite loop
       badger.criticalError = "Privacy Badger failed to initialize";
-      // update badge
-      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-        if (tabs[0]) {
-          badger.updateBadge(tabs[0].id);
-        }
-      });
+      badger.updateBadge();
       // show error in popup
       if (request.type == "getPopupData") {
         return sendResponse({
