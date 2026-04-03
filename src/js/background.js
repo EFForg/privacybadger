@@ -148,7 +148,7 @@ function Badger(from_qunit) {
 
     if (self.criticalError == "Privacy Badger failed to initialize") {
       delete self.criticalError;
-      badger.updateBadge();
+      self.updateBadge();
     }
 
     if (!from_qunit) {
@@ -996,11 +996,15 @@ Badger.prototype = {
     }
 
     if (tab_id === null) {
-      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+      chrome.tabs.query({
+        active: true,
+        lastFocusedWindow: true
+      }, function (tabs) {
         if (tabs[0]) {
           _update(tabs[0]);
         }
       });
+
     } else {
       chrome.tabs.get(tab_id, function (tab) {
         _update(tab);
