@@ -122,7 +122,8 @@ let htmlUtils = {
       allow: i18n.getMessage('domain_slider_allow_tooltip')
     };
 
-    let aria_label = i18n.getMessage('domain_slider_label', 'XXX');
+    let aria_label = i18n.getMessage('domain_slider_label', 'XXX'),
+      undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title');
 
     return function (fqdn, action) {
       let id = fqdn.replace(/\./g, '-');
@@ -137,6 +138,7 @@ let htmlUtils = {
     <label title="${tooltips.allow}" class="tooltip" for="allow-${id}"></label>
     <a></a>
   </div>
+  <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}" aria-label="${undo_arrow_tooltip}"></a>
 </div>
       `.trim();
     };
@@ -174,8 +176,7 @@ let htmlUtils = {
   // TODO origin --> domain/FQDN
   getOriginHtml: (function () {
 
-    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
-      undo_arrow_tooltip = i18n.getMessage('feed_the_badger_title');
+    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip');
 
     return function (fqdn, action, show_breakage_warning, show_breakage_note, blockedFpScripts) {
       action = escape_html(action);
@@ -219,7 +220,6 @@ let htmlUtils = {
   </div>
   <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
-  <a href="" class="honeybadgerPowered tooltip" title="${undo_arrow_tooltip}" aria-label="${undo_arrow_tooltip}"></a>
 </div>
       `.trim();
     };

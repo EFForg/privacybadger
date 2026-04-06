@@ -369,10 +369,6 @@ header {
     .key {
         left: 345px;
     }
-
-    .honeybadgerPowered {
-        left: 470px;
-    }
 }
 
 @media (prefers-color-scheme: dark) {

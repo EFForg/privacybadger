@@ -644,7 +644,7 @@ function getOriginAction(domain) {
 function revertDomainControl(event) {
   event.preventDefault();
 
-  let domain = $(event.target).parent().data('origin');
+  let domain = $(event.target).parent().parent().data('origin');
 
   chrome.runtime.sendMessage({
     type: "revertDomainControl",

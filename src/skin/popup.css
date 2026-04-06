@@ -128,11 +128,11 @@ button {
     width: 20px;
     height: 20px;
     position: relative;
-    left: 340px;
+    left: 120px;
     bottom: 15px;
 }
 .userset .honeybadgerPowered {
-    display: block;
+    display: inline-block;
     background: url('/icons/badger-pin.png') no-repeat;
 }
 
@@ -634,15 +634,15 @@ a.overlay-close:hover {
         margin-left: 150px;
     }
 
+    .honeybadgerPowered {
+        left: 105px;
+    }
+
     .key {
         left: 150px;
     }
     .key img {
         margin-left: 12px;
-    }
-
-    .honeybadgerPowered {
-        left: 255px;
     }
 
     #share {
