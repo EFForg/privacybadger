@@ -198,7 +198,7 @@ a.removeOrigin {
     text-decoration: underline dotted #505050;
     text-underline-offset: 2px;
     border: 2px solid transparent; /* to avoid shifting on focus */
-    display: block;
+    display: inline-block;
 }
 .origin-inner:focus-visible {
     border: 2px solid #F06A0A;
