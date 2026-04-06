@@ -188,6 +188,10 @@ p, #settingsForm {
     max-height: 400px; /* override popup.css */
 }
 
+a.removeOrigin {
+    display: inline-block; /* override popup.css */
+}
+
 /* domain "more info" tooltips */
 .origin-inner {
     cursor: pointer;

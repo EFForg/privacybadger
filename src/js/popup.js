@@ -876,11 +876,6 @@ function refreshPopup() {
 
     let $printable = $(printable.splice(0, CHUNK).join(""));
 
-    // Hide elements for removing domains (controlled from the options page).
-    // Popup shows what's loaded for the current page so it doesn't make sense
-    // to have removal ability here.
-    $printable.find('.removeOrigin').hide();
-
     $printable.appendTo('#blockedResourcesInner');
 
     // activate tooltips
