@@ -101,7 +101,7 @@ class OptionsTest(pbtest.PBSeleniumTest):
         # remove displayed domain
         remove_domain_element = self.find_el_by_xpath(
             './/div[@data-origin="pbtest.org"]'
-            '//a[@class="removeOrigin"]')
+            '//a[@class="removeDomain"]')
         remove_domain_element.click()
 
         # Make sure the alert is present. Otherwise we get intermittent errors.

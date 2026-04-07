@@ -188,7 +188,7 @@ p, #settingsForm {
     max-height: 400px; /* override popup.css */
 }
 
-a.removeOrigin {
+a.removeDomain {
     display: inline-block; /* override popup.css */
 }
 

@@ -176,7 +176,8 @@ let htmlUtils = {
   // TODO origin --> domain/FQDN
   getOriginHtml: (function () {
 
-    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip');
+    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
+      remove_button_label = i18n.getMessage('remove_button');
 
     return function (fqdn, action, show_breakage_warning, show_breakage_note, blockedFpScripts) {
       action = escape_html(action);
@@ -218,8 +219,8 @@ let htmlUtils = {
     <span class="ui-icon ui-icon-alert tooltip breakage-warning" title="${breakage_warning_tooltip}" aria-label="${breakage_warning_tooltip}" role="img" tabindex="0"></span>
     <span class="origin-inner tooltip" title="${domain_tooltip}" role="heading" aria-level="4" aria-label="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
   </div>
-  <a href="" class="removeOrigin">&#10006</a>
   ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
+  <a href="" class="removeDomain" role="button" aria-label="${remove_button_label}">&#10006</a>
 </div>
       `.trim();
     };

@@ -74,6 +74,7 @@ button {
     height: 40px;
     overflow: hidden;
     line-height: normal;
+    position: relative; /* so that we can abs position child els (removeDomain) */
 }
 .clicker:not(#not-yet-blocked-header):not(#non-trackers-header) {
     direction: ltr;
@@ -136,14 +137,16 @@ button {
     background: url('/icons/badger-pin.png') no-repeat;
 }
 
-a.removeOrigin {
+a.removeDomain {
     display: none;
-    float: right;
-    margin-right: 10px;
+    margin-right: 15px;
     width: 10px;
     text-decoration: none;
+    position: absolute;
+    right: 0;
+    top: 6px;
 }
-a.removeOrigin:hover {
+a.removeDomain:hover {
     color: red !important;
 }
 
