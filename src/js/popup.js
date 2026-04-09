@@ -684,6 +684,11 @@ function refreshPopup() {
       // disable Disable/Report buttons
       $('#deactivate_site_btn').prop('disabled', true);
       $('#error').prop('disabled', true);
+
+      // hide donate/rate/etc. to max. attention on disable button tip
+      $('#donate').text("");
+      $('#version').hide();
+
     } else {
       // show the "nothing to do here" message
       $('#special-browser-page').show();
