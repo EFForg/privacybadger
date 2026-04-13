@@ -956,6 +956,8 @@ Badger.prototype = {
     let self = this;
 
     function _update(tab) {
+      tab_id = tab.id;
+
       if (chrome.runtime.lastError) {
         // don't set on background (prerendered) tabs to avoid Chrome errors
         return;
@@ -997,11 +999,10 @@ Badger.prototype = {
 
     if (tab_id === null) {
       chrome.tabs.query({
-        active: true,
-        lastFocusedWindow: true
+        active: true
       }, function (tabs) {
-        if (tabs[0]) {
-          _update(tabs[0]);
+        for (let tab of tabs) {
+          _update(tab);
         }
       });
 
