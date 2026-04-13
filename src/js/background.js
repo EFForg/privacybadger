@@ -1008,7 +1008,9 @@ Badger.prototype = {
 
     } else {
       chrome.tabs.get(tab_id, function (tab) {
-        _update(tab);
+        if (tab) {
+          _update(tab);
+        }
       });
     }
   },

@@ -15,7 +15,8 @@ QUnit.module("tabData", {
     this.chromeTabsGet = chrome.tabs.get;
     chrome.tabs.get = (tab_id, callback) => {
       return callback({
-        active: true
+        active: true,
+        id: this.tabId
       });
     };
 
