@@ -48,7 +48,7 @@
         "description": "Button in the popup, visible if Privacy Badger is disabled on the current site."
     },
     "report_broken_site": {
-        "message": "Rapportera bruten webbplats",
+        "message": "Rapportera trasig webbplats",
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
@@ -100,7 +100,7 @@
         }
     },
     "popup_blocked": {
-        "message": "Det finns inga resurser från tredje part på denna sida. Hurra för privatliv!",
+        "message": "Det finns inga resurser från tredje part på denna sida. Hurra för integritet!",
         "description": "Text shown in the popup when showing non-tracking domains is enabled, and there are no third-party domains on the page."
     },
     "tooltip_block": {
@@ -108,7 +108,7 @@
         "description": "Domain slider list header tooltip."
     },
     "tooltip_cookieblock": {
-        "message": "Centrera skjutreglaget för att blockera kakor",
+        "message": "Flytta skjutreglaget till mitten för att blockera kakor",
         "description": "Domain slider list header tooltip."
     },
     "tooltip_allow": {
@@ -228,7 +228,7 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "Detta kommer automatiskt att skicka följande information till EFF: sidan du för närvarande besöker, din webbläsarversion, versionen av Privacy Badger och statusen för alla skjutreglage på denna sidan.",
+        "message": "Detta kommer automatiskt att skicka följande information till EFF: sidan du för närvarande besöker, din webbläsarversion, versionen av Privacy Badger och statusen för alla skjutreglage på denna sida.",
         "description": ""
     },
     "report_button": {
@@ -335,7 +335,7 @@
         "description": "Intro page paragraph heading."
     },
     "intro_beyond_ads_paragraph": {
-        "message": "Privacy Badger skickar <a href='https://globalprivacycontrol.org/' target='_blank'>globala sekretesstyrningssignalen</a> för att välja bort datadelning och försäljning, och <a href='https://www.eff.org/issues/do-not-track' target='_blank'>spåra inte-signalen</a> för att tala om för företag att inte spåra dig.",
+        "message": "Privacy Badger skickar <a href='https://globalprivacycontrol.org/' target='_blank'>globala sekretesskontrollsignalen</a> för att välja bort datadelning och försäljning, och <a href='https://www.eff.org/issues/do-not-track' target='_blank'>spåra inte-signalen</a> för att tala om för företag att inte spåra dig.",
         "description": "Intro page paragraph"
     },
     "intro_beyond_ads_paragraph2": {
@@ -367,7 +367,7 @@
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
     },
     "intro_disable_button": {
-        "message": "Om du tror att Privacy Badger bryter en sida (till exempel en video spelas inte upp) kan du klicka på knappen \"Inaktivera\" för att stänga av Privacy Badger för den webbplatsen.",
+        "message": "Om du tror att Privacy Badger ställer till problem på en sida (till exempel en video spelas inte upp) kan du klicka på knappen \"Inaktivera\" för att stänga av Privacy Badger för den webbplatsen.",
         "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
@@ -449,7 +449,7 @@
         }
     },
     "disabled_for_these_domains": {
-        "message": "Privacy Badger är inaktiverat på följande webbplatser. Detta innebär att Privacy Badger inte blockerar någonting när du besöker webbplatserna som listas här, och det kommer inte att skicka signalerna Spåra inte eller Global sekretesstyrning.",
+        "message": "Privacy Badger är inaktiverat på följande webbplatser. Detta innebär att Privacy Badger inte blockerar någonting när du besöker webbplatserna som listas här, och det kommer inte att skicka signalerna Spåra inte eller Global sekretesskontroll.",
         "description": "Intro text on the Disabled Sites options page tab"
     },
     "add_domain_button": {
@@ -473,7 +473,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
-        "message": "Skicka signalerna \"<a href='https://globalprivacycontrol.org/' target='_blank'>global sekretesstyrning</a>\" och \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>spåra inte</a>\" till webbplatser",
+        "message": "Skicka signalerna \"<a href='https://globalprivacycontrol.org/' target='_blank'>global sekretesskontroll</a>\" och \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>spåra inte</a>\" till webbplatser",
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
@@ -570,7 +570,7 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger har inte detekterat några $LINK_START$spårningsdomäner$LINK_END$ ännu. Fortsätt surfa!",
+        "message": "Privacy Badger har inte upptäckt några $LINK_START$spårningsdomäner$LINK_END$ ännu. Fortsätt surfa!",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed.",
         "placeholders": {
             "link_start": {
@@ -729,7 +729,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Att återställa spårningsdomäner kommer att:\n\n  • Ta bort all data om spårare som Privacy Badger har lärt dig från din surfning\n  • Återställa spårningsdomänlistan till den senaste förutbildade listan (besök www.eff.org/badger-pretraining för att lära dig mer)",
+        "message": "Att återställa spårningsdomäner kommer att:\n\n  • Ta bort all data om spårare som Privacy Badger har lärt sig av din surfning\n  • Återställa spårningsdomänlistan till den senaste förutbildade listan (besök www.eff.org/badger-pretraining för att lära dig mer)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
