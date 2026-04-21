@@ -42,18 +42,22 @@ const DOMAIN_TOOLTIP_CONF = {
 function getLink() {
   let linkRotation = [
     {
-      url: constants.REVIEW_LINKS[constants.BROWSER] || constants.REVIEW_LINKS.chrome, // Default to Chrome if unknown
-      text: "popup_review_pb",
-      icon: "ui-icon-star",
-      odds: 0.3 // Odds of all links should add up to 1
-    },
-    {
       url: "https://supporters.eff.org/donate/support-privacy-badger",
       text: "popup_donate_to_eff",
       icon: "ui-icon-heart",
-      odds: 0.7
+      odds: 1.0
     }
   ];
+  if (utils.hasOwn(constants.REVIEW_LINKS, constants.BROWSER)) {
+    linkRotation[0].odds = 0.7;
+
+    linkRotation.push({
+      url: constants.REVIEW_LINKS[constants.BROWSER],
+      text: "popup_review_pb",
+      icon: "ui-icon-star",
+      odds: 0.3 // Odds of all links should add up to 1
+    });
+  }
 
   let rand = Math.random();
   let cumulative_odds = 0;
