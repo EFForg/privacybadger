@@ -32,7 +32,7 @@ import { getBaseDomain } from "./basedomain.js";
  *   {Set} [seedBases] Required by hideInSeed.
  *   {Set} [seedNotYetBlocked] Required by hideInSeed.
  *
- * @return {Array} The array of domains.
+ * @return {Array<String>} The array of domains.
  */
 function filterDomains(domains, options = {}) {
 

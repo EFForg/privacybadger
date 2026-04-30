@@ -495,7 +495,7 @@ Badger.prototype = {
   },
 
   /**
-   * @returns {Set}
+   * @returns {Set<String>}
    */
   getAllWidgetDomains() {
     let self = this,
@@ -1108,7 +1108,7 @@ Badger.prototype = {
   /**
    * Returns the current list of disabled sites.
    *
-   * @returns {Array} site domains where Privacy Badger is disabled
+   * @returns {Array<String>} site domains where Privacy Badger is disabled
    */
   getDisabledSites: function () {
     return this.getSettings().getItem("disabledSites");

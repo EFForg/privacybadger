@@ -25,7 +25,7 @@ import utils from "../js/utils.js";
  *
  * https://bugs.chromium.org/p/chromium/issues/detail?id=766433#c13
  *
- * @param {Object} details webRequest request/response details object
+ * @param {chrome.webRequest.OnBeforeRequestDetails} details request/response details object
  *
  * @returns {Number} the tab ID or -1
  */
@@ -58,7 +58,7 @@ function guessTabIdFromInitiator(details) {
  * or if the metadata is unavailable for whatever reason.
  *
  * @param {String} tab_url our guess for the top-level document URL
- * @param {Object} details webRequest request/response details object
+ * @param {chrome.webRequest.OnBeforeRequestDetails} details request/response details object
  *
  * @returns {?String} the top-level document URL or null
  */

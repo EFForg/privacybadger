@@ -34,9 +34,9 @@ import utils from "./utils.js";
 /**
  * This is where we block or replace requests with empty "surrogates".
  *
- * @param {Object} details webRequest request details object
+ * @param {chrome.webRequest.OnBeforeRequestDetails} details
  *
- * @returns {Object|undefined} Can cancel requests
+ * @returns {chrome.webRequest.BlockingResponse|undefined} Can cancel requests
  */
 function onBeforeRequest(details) {
   if (!badger.INITIALIZED) {
@@ -258,9 +258,9 @@ function getWarSecret(tab_id, frame_id, url) {
  * for a given tab ID/frame ID/resource URL combination,
  * and whether the full request URL contains this token.
  *
- * @param {Object} details webRequest request details object
+ * @param {chrome.webRequest.OnBeforeRequestDetails} details
  *
- * @returns {Object|undefined} Can cancel requests
+ * @returns {chrome.webRequest.BlockingResponse|undefined} Can cancel requests
  */
 function filterWarRequests(details) {
   if (!badger.INITIALIZED) {
@@ -290,9 +290,9 @@ function filterWarRequests(details) {
  * Blocks moz-extension CSP reports to mitigate
  * https://bugzilla.mozilla.org/show_bug.cgi?id=1267027
  *
- * @param {Object} details webRequest request details object
+ * @param {chrome.webRequest.OnBeforeRequestDetails} details
  *
- * @returns {Object|undefined} Can cancel requests
+ * @returns {chrome.webRequest.BlockingResponse|undefined} Can cancel requests
  */
 function blockMozCspReports(details) {
   let report;
@@ -316,9 +316,9 @@ function blockMozCspReports(details) {
  * link actions via some mix of capturing all events, window.open() with
  * document.write(), and meta refresh.
  *
- * @param {Object} details webRequest request details object
+ * @param {chrome.webRequest.OnBeforeRequestDetails} details
  *
- * @returns {Object|undefined} Can redirect requests
+ * @returns {chrome.webRequest.BlockingResponse|undefined} Can redirect requests
  */
 function bypassGoogleRedirects(details) {
   if (!badger.INITIALIZED) { return; }
@@ -345,9 +345,9 @@ function bypassGoogleRedirects(details) {
 /**
  * Blocks Google's /gen_204 requests.
  *
- * @param {Object} details webRequest request details object
+ * @param {chrome.webRequest.OnBeforeRequestDetails} details
  *
- * @returns {Object|undefined} Can cancel requests
+ * @returns {chrome.webRequest.BlockingResponse|undefined} Can cancel requests
  */
 function blockGoogleGen204s(details) {
   if (!badger.INITIALIZED) { return; }
@@ -372,8 +372,8 @@ function blockGoogleGen204s(details) {
  * Filters outgoing cookies and referer
  * Injects DNT
  *
- * @param {Object} details Event details
- * @returns {Object} Contains the modified headers
+ * @param {chrome.webRequest.WebRequestDetails} details
+ * @returns {Object|undefined} Contains the modified headers
  */
 function onBeforeSendHeaders(details) {
   if (!badger.INITIALIZED) {
@@ -478,9 +478,9 @@ function onBeforeSendHeaders(details) {
 /**
  * Filters incoming cookies out of the response header.
  *
- * @param {Object} details webRequest response details object
+ * @param {chrome.webRequest.WebRequestDetails} details
  *
- * @returns {Object} Contains the new response headers
+ * @returns {Object|undefined} Contains the new response headers
  */
 function onHeadersReceived(details) {
   if (!badger.INITIALIZED) {
@@ -571,6 +571,8 @@ function onTabReplaced(addedTabId, removedTabId) {
 /**
  * We don't always get a "main_frame" details object in onBeforeRequest,
  * so we need a fallback for (re)initializing tabData.
+ *
+ * @param {chrome.webNavigation.WebNavigationTransitionCallbackDetails} details
  */
 function onNavigate(details) {
   if (!badger.INITIALIZED) {
@@ -1012,7 +1014,8 @@ function allowedOnTab(tab_id, request_host, frame_id) {
 }
 
 /**
- * @returns {Array|Boolean} the list of associated domains or false
+ * @param {String} widget_name
+ * @returns {Array<String>|Boolean} the list of associated domains or false
  */
 function getWidgetDomains(widget_name) {
   let widgetData = badger.widgetList.find(

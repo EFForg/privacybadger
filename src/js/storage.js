@@ -23,7 +23,12 @@ import { log } from "./bootstrap.js";
 import constants from "./constants.js";
 import utils from "./utils.js";
 
+/**
+ * @param {Array<String>} keys
+ * @param {Function} callback
+ */
 function getLocalStorage(keys, callback) {
+  /** @param {chrome.storage.LocalStorageArea} store */
   function _cb(store) {
     if (chrome.runtime.lastError) {
       console.error("Error reading from storage.local:",
@@ -47,13 +52,13 @@ let readFromStorageWithRetrying = (function () {
   let num_tries = 0;
 
   /**
-   * @param {Array} keys - the list of keys to get from extension storage
+   * @param {Array<String>} keys - the list of keys to get from extension storage
    * @param {Function} callback
    */
   function _tryReading(keys, callback) {
     log("Trying to read from storage.local");
 
-    getLocalStorage(keys, function (store) {
+    getLocalStorage(keys, /** @param {?chrome.storage.LocalStorageArea} store */ function (store) {
       if (store) {
         log("Successfully read from storage.local");
         return callback(store);
@@ -83,6 +88,9 @@ function getManagedStorage(callback) {
   });
 }
 
+/**
+ * @param {chrome.storage.StorageArea} managedStore
+ */
 function ingestManagedStorage(managedStore) {
   let settings = {};
   for (let key in badger.defaultSettings) {
@@ -351,7 +359,7 @@ BadgerPen.prototype = {
    * For each added domain, sets it to be cookieblocked
    * if its parent domain is set to be blocked.
    *
-   * @param {Array} newDomains domains to use for the new yellowlist
+   * @param {Array<String>} newDomains domains to use for the new yellowlist
    */
   updateYellowlist: function (newDomains) {
     let self = this,
@@ -658,7 +666,7 @@ BadgerPen.prototype = {
    * Helps update fp_scripts.
    *
    * @param {String} script_fqdn
-   * @param {Array} script_paths one or more script path strings
+   * @param {Array<String>} script_paths one or more script path strings
    */
   recordFingerprintingScript: function (script_fqdn, script_paths) {
     let fpStore = this.getStore('fp_scripts'),
@@ -764,7 +772,7 @@ BadgerStorage.prototype = {
   },
 
   /**
-   * @returns {Array} this storage object's store keys
+   * @returns {Array<String>} this storage object's store keys
    */
   keys: function () {
     return Object.keys(this._store);
@@ -913,7 +921,7 @@ BadgerStorage.prototype = {
   /**
    * @param {String} name The event to notify subscribers for
    * @param {String} key The storage key being created/updated/deleted
-   * @param {*} val The new value being assigned to the key
+   * @param {*} [val] The new value being assigned to the key
    */
   notify: function (name, key, val) {
     let self = this;
@@ -954,7 +962,7 @@ BadgerStorage.prototype = {
 
   /**
    * @param {String} name The event to clear subscriptions for
-   * @returns {Array} The subscriptions removed for that event name
+   * @returns {Array<Function>} The subscriptions removed for that event name
    */
   unsubscribe: function (name) {
     let self = this,

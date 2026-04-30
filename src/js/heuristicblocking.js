@@ -116,7 +116,7 @@ HeuristicBlocker.prototype = {
    * This wraps _recordPrevalence for use from webRequest listeners.
    * Use updateTrackerPrevalence for non-webRequest initiated bookkeeping.
    *
-   * @param {Object} details webRequest request/response details object
+   * @param {chrome.webRequest.WebRequestDetails} details webRequest request/response details object
    */
   checkForTrackingCookies: function (details) {
     // ignore requests that are outside a tabbed window
@@ -196,7 +196,7 @@ HeuristicBlocker.prototype = {
    * iff the request is for an image in the top-level frame,
    * and the request URL has querystring parameters.
    *
-   * @param {Object} details webRequest onResponseStarted details object
+   * @param {chrome.webRequest.WebRequestDetails} details onResponseStarted details object
    */
   checkForPixelCookieSharing: function (details) {
     if (!badger.isLearningEnabled(details.tabId)) {
@@ -706,7 +706,7 @@ const lowEntropyQueryValues = [
 /**
  * Extract cookies from onBeforeSendHeaders
  *
- * @param details Details for onBeforeSendHeaders
+ * @param {chrome.webRequest.WebRequestDetails} details onBeforeSendHeaders details object
  * @returns {*} an array combining all Cookies
  */
 function _extractCookies(details) {
@@ -732,7 +732,7 @@ function _extractCookies(details) {
 /**
  * Check if page is doing cookie tracking. Doing this by estimating the entropy of the cookies
  *
- * @param {Object} details onBeforeSendHeaders details
+ * @param {chrome.webRequest.WebRequestDetails} details onBeforeSendHeaders details object
  * @returns {Boolean} true if it has cookie tracking
  */
 function hasCookieTracking(details) {

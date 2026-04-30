@@ -115,7 +115,7 @@ function TabData() {
 /**
  * Populates tabData with currently open tabs on Privacy Badger startup.
  *
- * @returns {Promise}
+ * @returns {Promise<undefined>}
  */
 TabData.prototype.initialize = function () {
   let self = this;
@@ -480,7 +480,7 @@ TabData.prototype.logCanvasFingerprinting = function (tab_id, script_base) {
  * Marks a set of (widget) domains to be (temporarily) allowed on a tab.
  *
  * @param {Number} tab_id the ID of the tab
- * @param {Array} domains the domains
+ * @param {Array<String>} domains the domains
  * @param {String} widget_name the name (ID) of the widget
  */
 TabData.prototype.allowOnTab = function (tab_id, domains, widget_name) {

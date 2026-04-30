@@ -61,7 +61,7 @@ function fetchResource(url, callback) {
  * @param {String} fqdn the domain to split
  * @param {Boolean} [all] whether to go past eTLD+1: ['bbc.co.uk', 'co.uk', 'uk']
  *
- * @returns {Array}
+ * @returns {Array<String>}
  */
 function explodeSubdomains(fqdn, all) {
   let subdomains = [],
@@ -307,7 +307,8 @@ function debounce(func, wait, immediate) {
  *
  * @param {Function} fn The function to rate-limit.
  * @param {Number} interval The number of milliseconds to rate-limit invocations to.
- * @param {Object} context The context object (optional).
+ * @param {Object} [context=this] The context object (optional).
+ *
  * @returns {Function} Returns the new rate-limited function.
  */
 function rateLimit(fn, interval, context) {
@@ -558,10 +559,10 @@ function difference(arr1 = [], arr2 = []) {
 }
 
 /**
- * @param {Array} [arr1=[]]
- * @param {Array} [arr2=[]]
+ * @param {Array<*>} [arr1=[]]
+ * @param {Array<*>} [arr2=[]]
  *
- * @returns {Array} items from arr1 followed by items from arr2
+ * @returns {Array<*>} items from arr1 followed by items from arr2
  *  that were not already present in arr1
  */
 function concatUniq(arr1 = [], arr2 = []) {

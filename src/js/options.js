@@ -822,7 +822,7 @@ let filterTrackingDomains = (function () {
 /**
  * Renders the list of tracking domains.
  *
- * @param {Array} domains
+ * @param {Array<String>} domains
  * @param {Function} [cb] callback
  */
 function renderTrackingDomains(domains, cb = function () {}) {
