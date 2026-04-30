@@ -656,11 +656,16 @@ BadgerPen.prototype = {
 
   /**
    * Helps update fp_scripts.
+   *
+   * @param {String} script_fqdn
+   * @param {Array} script_paths one or more script path strings
    */
-  recordFingerprintingScript: function (script_fqdn, script_path) {
+  recordFingerprintingScript: function (script_fqdn, script_paths) {
     let fpStore = this.getStore('fp_scripts'),
       entry = fpStore.getItem(script_fqdn) || {};
-    entry[script_path] = 1;
+    for (let path of script_paths) {
+      entry[path] = 1;
+    }
     fpStore.setItem(script_fqdn, entry);
   }
 };
@@ -899,9 +904,8 @@ BadgerStorage.prototype = {
         if (!snitchItem) {
           continue;
         }
-        for (let script_path in mapData[script_fqdn]) {
-          badger.storage.recordFingerprintingScript(script_fqdn, script_path);
-        }
+        badger.storage.recordFingerprintingScript(script_fqdn,
+          Object.keys(mapData[script_fqdn]));
       }
     }
   },
