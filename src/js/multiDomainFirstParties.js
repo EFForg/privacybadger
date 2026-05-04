@@ -4985,6 +4985,7 @@ let multiDomainFirstPartiesArray = [
   ["signetjewelers.com", "jared.com", "kay.com", "zales.com", "jewels.com"],
   ["siriusxm.com", "sirius.com"],
   ["skygo.co.nz", "skytv.co.nz"],
+  ["skysmart.ru", "skyeng.ru"],
   ["skysports.com", "skybet.com", "skyvegas.com"],
   ["slashdot.org", "sourceforge.net", "fsdn.com", "slashdotmedia.com"],
   ["slickdeals.net", "slickdealscdn.com"],
@@ -5892,7 +5893,7 @@ let multiDomainFirstPartiesArray = [
     "ya.ru",
   ],
   ["vnexpress.net", "ngoisao.net", "vnecdn.net"],
-  ["vodafone.com", "vodafone.es", "vodafone.com.tr", "vodafone.co.uk"],
+  ["vodafone.com", "vodafone.co.uk", "vodafone.com.tr", "vodafone.de", "vodafone.es", "vodafone.pt", "vodafone.ro"],
   ["volvooceanrace.com", "virtualregatta.com"],
   ["vonage.com", "vonagebusiness.com"],
   [
