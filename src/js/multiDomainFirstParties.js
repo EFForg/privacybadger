@@ -914,7 +914,7 @@ let multiDomainFirstPartiesArray = [
     "worldofwarcraft.com",
   ],
   ["bloomberg.com", "bbthat.com", "bwbx.io", "bloomberg.co.jp"],
-  ["bmw.com", "bmw.de", "bmw.com.br", "bmwgroup.com", "bmwusa.com", "mini.de", "bmwfs.com"],
+  ["bmw.com", "bmw.de", "bmw.com.br", "bmwgroup.com", "bmwusa.com", "bmw-autofus.pl", "bmw-motorrad.de", "mini.de", "rolls-roycemotorcars.com", "bmwfs.com"],
   ["boardgamearena.com", "boardgamearena.net"],
   ["booking.com", "rentalcars.com", "bstatic.com"],
   ["bostonglobe.com", "boston.com", "statnews.com", "bostonglobemedia.com"],
@@ -938,7 +938,9 @@ let multiDomainFirstPartiesArray = [
     "tiktokcdn.com",
     "tiktokcdn-us.com",
     "tiktokv.com",
+    "tiktokv.eu",
     "tiktokv.us",
+    "tiktokw.eu",
     "tiktokw.us",
     "ttwstatic.com",
     "zijieapi.com",
@@ -1116,7 +1118,7 @@ let multiDomainFirstPartiesArray = [
     "deliveroo.it",
     "deliveroo.nl",
   ],
-  ["deliveryhero.com", "foodpanda.com.bd", "foodpanda.my", "foodpanda.ph", "foodpanda.pk", "foodora.com"],
+  ["deliveryhero.com", "foodpanda.com.bd", "foodpanda.my", "foodpanda.ph", "foodpanda.pk", "foodpanda.sg", "deliveryhero.net", "foodora.com"],
   ["dickssportinggoods.com", "goinggoinggone.com", "golfgalaxy.com", "publiclands.com", "vrst.com"],
   ["dictionary.com", "thesaurus.com", "sfdict.com"],
   [
@@ -2287,6 +2289,8 @@ let multiDomainFirstPartiesArray = [
     "registry.google",
     "research.google",
     "safety.google",
+    "search.google",
+    "skills.google",
     "sustainability.google",
     "tv.google",
 
@@ -4633,6 +4637,7 @@ let multiDomainFirstPartiesArray = [
     "indeed.nl",
     "indeed.pt",
   ],
+  ["redbull.com", "redbull.tv"],
   ["reddit.com", "redditmedia.com", "redditstatic.com", "redd.it", "redditenhancementsuite.com", "reddituploads.com", "imgur.com"],
   ["redhat.com", "openshift.com", "openshift.org", "okd.io"],
   [
@@ -5342,6 +5347,11 @@ let multiDomainFirstPartiesArray = [
     "toyota.sk",
     "toyota.ua",
 
+    "toyota.jp",
+    "gazoo.com",
+    "global.toyota",
+    "toyotagazooracing.com",
+
     "toyota-europe.com",
   ],
   [
@@ -5757,6 +5767,7 @@ let multiDomainFirstPartiesArray = [
     "yahoosandbox.com",
     "yimg.com",
   ],
+  ["vevor.com", "vevor.ca", "vevor.co.uk", "vevor.de", "vevor.es", "vevor.fr", "vevorstatic.com"],
   [
     "viacomcbs.com",
 
@@ -5829,7 +5840,7 @@ let multiDomainFirstPartiesArray = [
     "vinted.nl",
     "vinted.pl",
   ],
-  ["visa.com", "visa.cn", "visa.fr", "visaonline.com"],
+  ["visa.com", "visa.co.uk", "visa.cn", "visa.de", "visa.fr", "visaonline.com"],
   [
     "vk.com",
 
