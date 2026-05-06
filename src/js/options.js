@@ -1075,10 +1075,10 @@ function updateOrigin(domain, action, userset) {
  * for www.example.com and cdn.example.com
  */
 function updateSliders(updatedTrackerData) {
-  let updated_domains = Object.keys(updatedTrackerData);
+  let updatedDomains = Object.keys(updatedTrackerData);
 
   // update any sliders that changed
-  for (let domain of updated_domains) {
+  for (let domain of updatedDomains) {
     let action = updatedTrackerData[domain];
     if (action == OPTIONS_DATA.trackers[domain]) {
       continue;
@@ -1102,8 +1102,8 @@ function updateSliders(updatedTrackerData) {
   }
 
   // remove sliders that are no longer present
-  let removed = Object.keys(OPTIONS_DATA.trackers).filter(
-    x => !updated_domains.includes(x));
+  let removed = (new Set(Object.keys(OPTIONS_DATA.trackers))).difference(
+    new Set(updatedDomains));
   for (let domain of removed) {
     let $clicker = $('#blockedResourcesInner div.clicker[data-origin="' + domain + '"]');
     $clicker.remove();
