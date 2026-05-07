@@ -7,7 +7,7 @@ let multiDomainFirstPartiesArray = [
   ["2gis.ru", "2gis.ae", "2gis.kg", "2gis.kz", "2gis.com"],
   ["360.cn", "360.com", "360kuai.com", "360safe.com", "qhimg.com", "qhupdate.com"],
   ["37signals.com", "basecamp.com", "basecamphq.com", "highrisehq.com"],
-  ["888.com", "888casino.com", "888slots.de", "888sport.com", "safe-iplay.com"],
+  ["888.com", "888casino.com", "888poker.com", "888slots.de", "888sport.com", "images4us.com", "safe-iplay.com"],
   ["9gag.com", "9cache.com"],
   [
     "aa.com",
@@ -904,6 +904,7 @@ let multiDomainFirstPartiesArray = [
   ["bilibili.com", "acgvideo.com", "biliapi.net", "biliapi.com", "bilibilicomics.com", "biligame.com", "bilivideo.com", "hdslb.com"],
   ["binance.com", "binance.cloud", "binance.vision", "bnbstatic.com"],
   ["bitrix24.com", "bitrix24.ru", "1c-bitrix.ru", "bitrix.info", "bitrix24.net"],
+  ["blablacar.com", "blablacar.com.br", "blablacar.fr", "blablacar.ru"],
   [
     "blizzard.com",
 
@@ -1075,9 +1076,11 @@ let multiDomainFirstPartiesArray = [
     "them.us",
     "vanityfair.com",
     "vogue.com",
+    "vogue.com.tw",
     "vogue.fr",
     "vogue.in",
     "vogue.it",
+    "vogue.mx",
     "wired.com",
     "wired.co.uk",
     "wired.it",
@@ -1209,6 +1212,7 @@ let multiDomainFirstPartiesArray = [
     "digitec.ch",
 
     "galaxus.ch",
+    "galaxus.com",
     "galaxus.de",
     "galaxus.fr",
 
@@ -5162,6 +5166,7 @@ let multiDomainFirstPartiesArray = [
   ],
   ["t-mobile.com", "tmobile.com", "metrobyt-mobile.com", "t-mobilemoney.com"],
   ["target.com", "targetimg1.com"],
+  ["tbank.ru", "rosbank.ru"],
   ["techdata.com", "techdata.ch"],
   ["technologyadvice.com", "gadgethacks.com", "techrepublic.com", "wonderhowto.com"],
   ["telegraaf.nl", "tcdn.nl", "tmgonlinemedia.nl", "tnet.nl"],
