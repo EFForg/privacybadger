@@ -319,8 +319,56 @@
         "description": "Title and header of the intro page."
     },
     "intro_by_eff": {
-        "message": "A project of the Electronic Frontier Foundation",
-        "description": "Message in the header of the intro page."
+        "message": "A privacy tool by $START_SPAN_TAG$EFF$END_SPAN_TAG$, a member-supported nonprofit",
+        "description": "Message in the header of the intro page.",
+        "placeholders": {
+            "START_SPAN_TAG": {
+                "content": "<span class='bold-font'>"
+            },
+            "END_SPAN_TAG": {
+                "content": "</span>"
+            }
+        }
+    },
+    "intro_nag_header": {
+        "message": "Almost done!",
+        "description": "Subheading for welcome page and MacOS app page user needs to take additional action (granting extension permissions on Safari, pinning on Chrome"
+    },
+    "intro_disable_header": {
+        "message": "One tip before you enjoy better browsing",
+        "description": "Subheading on the welcome page for the section explaining the disable button"
+    },
+    "intro_disable_button_context": {
+        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "description": "First paragraph of the disable button section of the welcome page"
+    },
+    "intro_disable_button": {
+        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), $START_SPAN_TAG$you can click the 'Disable' button to turn off Privacy Badger for that site.$END_SPAN_TAG$",
+        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message.",
+        "placeholders": {
+            "START_SPAN_TAG": {
+                "content": "<span class='bold-font'>"
+            },
+            "END_SPAN_TAG": {
+                "content": "</span>"
+            }
+        }
+    },
+    "intro_animation_button_stop": {
+        "message":  "Stop animation",
+        "description": "Intro page button to stop the pinning instructions animation"
+    },
+    "intro_animation_button_play": {
+        "message":  "Play animation",
+        "description": "Intro page button to play the pinning instructions animation"
+    },
+    "intro_features_header": {
+        "message":  "Privacy Badger protects your browsing from trackers.",
+        "description": "Intro page header introducing Privacy Badger features section."
+    },
+    "intro_features_subheader": {
+        "message": "Learn how.",
+        "description": "Intro page subheader introducing Privacy Badger features section."
     },
     "intro_welcome": {
         "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
@@ -365,10 +413,6 @@
     "intro_open_popup_alt": {
         "message": "Browser toolbar with the Privacy Badger icon circled",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
-    },
-    "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), you can click the 'Disable' button to turn off Privacy Badger for that site.",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
         "message": "Privacy is a team sport!",

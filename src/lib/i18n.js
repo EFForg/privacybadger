@@ -103,9 +103,13 @@ function setTextDirection() {
       marginLeft: '8px'
     });
   } else if (document.location.pathname == "/skin/firstRun.html") {
-    $('#pin-nudge').css({
-      right: 'unset',
-      left: '15px'
+    $('#eff-logo').css({
+      left: 'unset',
+      right: '1rem'
+    });
+    $('#toggle-animation-icon').css({
+      marginRight: 'unset',
+      marginLeft: '5px',
     });
     if (window.navigator.userAgent.match(/OPR\//)) {
       $('#pin-nudge-tail').css({
