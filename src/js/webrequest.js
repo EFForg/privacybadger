@@ -1601,6 +1601,13 @@ function dispatcher(request, sender, sendResponse) {
       break;
     }
 
+    // replace only if not on the "do not replace" list;
+    // this is not in MV2 because there we don't redirect the widget script
+    // to our surrogate when the widget is on the "do not replace" list
+    if (badger.getSettings().getItem('widgetReplacementExceptions').includes(widget.name)) {
+      break;
+    }
+
     let frameData = badger.tabData.getFrameData(sender.tab.id, sender.frameId);
 
     if (frameData.widgetReplacementReady) {
