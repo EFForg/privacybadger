@@ -1139,7 +1139,7 @@ function getSurrogateWidget(name, data, frame_url) {
         "unblockDomains": ["www.youtube.com"],
         "type": 4
       },
-      directLinkUrl: `https://www.youtube.com/embed/${video_id}`
+      directLinkUrl: `https://www.youtube.com/watch?v=${video_id}`
     };
 
     return widget;
