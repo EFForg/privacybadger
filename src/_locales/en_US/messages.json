@@ -323,10 +323,10 @@
         "description": "Message in the header of the intro page.",
         "placeholders": {
             "START_SPAN_TAG": {
-                "content": "<span class='bold-font'>"
+                "content": "<b>"
             },
             "END_SPAN_TAG": {
-                "content": "</span>"
+                "content": "</b>"
             }
         }
     },
@@ -343,14 +343,18 @@
         "description": "First paragraph of the disable button section of the welcome page"
     },
     "intro_disable_button": {
-        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), $START_SPAN_TAG$you can click the 'Disable' button to turn off Privacy Badger for that site.$END_SPAN_TAG$",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message.",
+        "message": "If you think Privacy Badger is breaking a page (a video doesn't play, for example), $START_SPAN_TAG$you can click the \"$DISABLE_FOR_SITE$\" button to turn off Privacy Badger for that site.$END_SPAN_TAG$",
+        "description": "Intro page paragraph.",
         "placeholders": {
             "START_SPAN_TAG": {
-                "content": "<span class='bold-font'>"
+                "content": "<b>"
+            },
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
             },
             "END_SPAN_TAG": {
-                "content": "</span>"
+                "content": "</b>"
             }
         }
     },
@@ -402,10 +406,6 @@
         "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
         "description": "Intro page paragraph"
     },
-    "next_section": {
-        "message": "next section",
-        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
-    },
     "intro_open_popup": {
         "message": "Try opening Privacy Badger's popup",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
@@ -435,18 +435,18 @@
         "description": "Shown at the bottom of the intro page."
     },
     "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "$START_SPAN_TAG$Pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
         "description": "Part of a Chrome-only overlay on the intro page",
         "placeholders": {
             "start_span_tag": {
-                "content": "<span id='pin-nudge-cta'>"
+                "content": "<b>"
             },
             "disable_for_site": {
                 "content": "$1",
                 "example": "Disable for this site"
             },
             "end_span_tag": {
-                "content": "</span>"
+                "content": "</b>"
             }
         }
     },

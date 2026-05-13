@@ -15,6 +15,8 @@ function initWelcomePage() {
       });
     }
   });
+
+  $("#disable-button-intro").html(chrome.i18n.getMessage("intro_disable_button", [chrome.i18n.getMessage("popup_disable_for_site")]));
 }
 
 function initPinNudge() {
@@ -27,10 +29,19 @@ function initPinNudge() {
     initAnimationToggle();
   }
 
-  // Don't show the pin nudge in Firefox because extensions are pinned automatically
-  let is_firefox = chrome.runtime.getBrowserInfo;
-  if (!is_firefox) {
+  // chrome.action is only available in MV3 and chrome.browserAction is only available in <= MV2
+  // chrome.browserAction.getUserSettings doesn't exist in MV2 Chrome but does in Firefox
+  let is_chromium_mv3 = !!chrome.action;
+  let is_chromium_mv2 = chrome.browserAction && !chrome.browserAction.getUserSettings;
+  if (is_chromium_mv2) {
     renderNudge();
+  } else if (is_chromium_mv3) {
+    // Don't render pinning section if PB is already pinned
+    chrome.action.getUserSettings(userSettings => {
+      if (!userSettings.isOnToolbar) {
+        renderNudge();
+      }
+    });
   }
 }
 

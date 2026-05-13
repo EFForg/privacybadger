@@ -378,7 +378,7 @@ ul ul,ol ul,ul ol,ol ol {
   margin:0.5rem 1rem 0.5rem 0;
 }
 
-.bold-font {
+b {
     font-family: "OpenSans-Bold", sans-serif;
 }
 
@@ -818,10 +818,6 @@ body {
   font-weight: bold;
   line-height: 1.5;
   width: 275px;
-}
-
-#pin-nudge-cta {
-  font-family: "OpenSans-Bold", sans-serif;
 }
 
 #pin-image {
