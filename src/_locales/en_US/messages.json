@@ -318,7 +318,11 @@
         "message": "Thank you for installing Privacy Badger!",
         "description": "Title and header of the intro page."
     },
-    "intro_by_eff": {
+     "intro_by_eff": {
+        "message": "A project of the Electronic Frontier Foundation",
+        "description": "Message in the header of the intro page."
+     },
+    "intro_eff_header": {
         "message": "A privacy tool by $START_SPAN_TAG$EFF$END_SPAN_TAG$, a member-supported nonprofit",
         "description": "Message in the header of the intro page.",
         "placeholders": {
