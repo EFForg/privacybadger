@@ -32,7 +32,7 @@
         </div>
         <img id="pinning-instructions-animation" src="images/pinning-animation.gif" alt="i18n_intro_pin_instructions">
         <button id="toggle-animation-btn">
-          <span id="toggle-animation-icon">⏸</span> <span id="toggle-animation-label">Stop Animation</span>
+          <span id="toggle-animation-icon" aria-hidden="true">⏸</span> <span id="toggle-animation-label">Stop Animation</span>
         </button>
       </div>
     </div>
@@ -107,30 +107,29 @@
         <p class="i18n_intro_donate1 text"></p>
       </div>
     </div>
+    <div id="pb-donate-help" class="align-center">
+      <h3 class="i18n_intro_donate_subheading"></h3>
+    </div>
     <div id="pb-donate-button" class="align-center">
       <div class="text-center">
         <a class="i18n_donate_to_eff button large" target="_blank" href="https://supporters.eff.org/donate/support-privacy-badger"></a>
       </div>
     </div>
-    <div id="pb-donate-help" class="align-center">
-      <span class="i18n_intro_donate_subheading"></span>
+    <!-- social media icons -->
+    <div id="share-container">
+      <h3 class="i18n_share_title text-center"></h3>
+      <div class="share-links">
+        <a class="share-facebook" title="i18n_share_button_title_facebook" aria-label="i18n_share_button_title_facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fprivacybadger.org%2F">
+          <i></i>
+        </a>
+        <a class="share-mastodon" title="i18n_share_button_title_mastodon" aria-label="i18n_share_button_title_mastodon" target="_blank" rel="noopener noreferrer" href="https://mastodonshare.com/?text=I%20just%20installed%20Privacy%20Badger%2C%20a%20browser%20extension%20from%20%40eff%40mastodon.social%20that%20automatically%20learns%20to%20block%20hidden%20trackers%20https%3A%2F%2Fprivacybadger.org%2F">
+          <i></i>
+        </a>
+        <a class="share-bluesky" title="i18n_share_button_title_bluesky" aria-label="i18n_share_button_title_bluesky" target="_blank" rel="noopener noreferrer" href="https://bsky.app/intent/compose?text=I%20just%20installed%20Privacy%20Badger%2C%20a%20browser%20extension%20from%20%40eff.org%20that%20automatically%20learns%20to%20block%20hidden%20trackers%20https%3A%2F%2Fprivacybadger.org%2F">
+          <i></i>
+        </a>
+      </div>
     </div>
-  </div>
-
-  <!-- social media icons -->
-  <div class="share-links">
-    <a class="share-facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fprivacybadger.org%2F">
-      <i></i>
-      <span class="i18n_share_button_title_facebook"></span>
-    </a>
-    <a class="share-mastodon" target="_blank" rel="noopener noreferrer" href="https://mastodonshare.com/?text=I%20just%20installed%20Privacy%20Badger%2C%20a%20browser%20extension%20from%20%40eff%40mastodon.social%20that%20automatically%20learns%20to%20block%20hidden%20trackers%20https%3A%2F%2Fprivacybadger.org%2F">
-      <i></i>
-      <span class="i18n_share_button_title_mastodon"></span>
-    </a>
-    <a class="share-bluesky" target="_blank" rel="noopener noreferrer" href="https://bsky.app/intent/compose?text=I%20just%20installed%20Privacy%20Badger%2C%20a%20browser%20extension%20from%20%40eff.org%20that%20automatically%20learns%20to%20block%20hidden%20trackers%20https%3A%2F%2Fprivacybadger.org%2F">
-      <i></i>
-      <span class="i18n_share_button_title_bluesky"></span>
-    </a>
   </div>
 
   <!-- privacy policy link -->

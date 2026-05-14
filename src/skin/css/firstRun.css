@@ -474,13 +474,15 @@ header .title-bar h1 {
 }
 
 /* share links */
+#share-container {
+  margin-top: 2rem;
+}
 .share-links {
   display:flex;
   flex-wrap:wrap;
   gap:0.65rem;
   justify-content:center;
-  margin:2.5rem auto 2rem;
-  padding-bottom:3rem;
+  margin-top: 1rem;
   z-index:3;
 }
 .share-links>a {
@@ -489,8 +491,9 @@ header .title-bar h1 {
   height:2.6rem;
   overflow:hidden;
 }
-.share-links>a:hover {
-  background-color:transparent !important;
+
+.share-links>a:hover, .share-links>a:focus {
+  filter: brightness(0.85);
 }
 .share-links>a i {
   position:relative;
@@ -525,20 +528,11 @@ header .title-bar h1 {
 .share-links>a.share-facebook i {
   background:url("../images/facebook.svg");
 }
-.share-links>a.share-facebook i:hover {
-  opacity:0.7;
-}
 .share-links>a.share-mastodon i {
   background:url("../images/mastodon.svg");
 }
-.share-links>a.share-mastodon i:hover {
-  opacity:0.7;
-}
 .share-links>a.share-bluesky i {
   background:url("../images/bluesky.svg");
-}
-.share-links>a.share-bluesky i:hover {
-  opacity:0.7;
 }
 
 /* fonts */
@@ -861,12 +855,12 @@ body {
 }
 
 #pb-donate-help {
+  margin-top: 2rem;
   margin-bottom:0;
 }
-@media print, screen and (min-width: 40em) {
-  #pb-donate-help {
-    margin-bottom:5rem;
-  }
+
+#pb-donate-help h3 {
+  margin-bottom: 0;
 }
 
 @media (prefers-color-scheme: dark) {
