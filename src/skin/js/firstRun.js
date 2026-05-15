@@ -15,17 +15,11 @@ function initWelcomePage() {
       });
     }
   });
-
-  $("#disable-button-intro").html(chrome.i18n.getMessage("intro_disable_button", [chrome.i18n.getMessage("popup_disable_for_site")]));
 }
 
 function initPinNudge() {
   function renderNudge() {
     $("body").addClass('unpinned-chrome');
-    $("#pinning-instructions").html(
-      chrome.i18n.getMessage("intro_pin_nudge",
-        [chrome.i18n.getMessage("popup_disable_for_site")]));
-
     initAnimationToggle();
   }
 
