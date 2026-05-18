@@ -103,26 +103,13 @@ function setTextDirection() {
       marginLeft: '8px'
     });
   } else if (document.location.pathname == "/skin/firstRun.html") {
-    $('#pin-nudge').css({
-      right: 'unset',
-      left: '15px'
+    $('#eff-logo').css({
+      left: 'unset',
+      right: '1rem'
     });
-    if (window.navigator.userAgent.match(/OPR\//)) {
-      $('#pin-nudge-tail').css({
-        right: 'unset',
-        left: '10px'
-      });
-    } else {
-      $('#pin-nudge-tail').css({
-        right: 'unset',
-        left: '85px'
-      });
-      $('#pin-image').attr("src", "images/pinning-instructions-rtl.png");
-    }
-    $('#dismiss-nudge').css({
-      float: 'left',
-      right: 'unset',
-      left: '-5px'
+    $('#toggle-animation-icon').css({
+      marginRight: 'unset',
+      marginLeft: '5px',
     });
     $('#toolbar-icon').css("transform", "scaleX(-1)");
   }
@@ -142,6 +129,14 @@ function loadI18nStrings() {
     // get chrome.i18n placeholders, if any
     let placeholders = el.dataset.i18n_contents_placeholders;
     placeholders = (placeholders ? placeholders.split("@@") : []);
+
+    // placeholders could themselves be i18n locale strings
+    placeholders = placeholders.map(ph => {
+      if (ph.startsWith('i18n_')) {
+        ph = chrome.i18n.getMessage(ph.slice(5));
+      }
+      return ph;
+    });
 
     // replace contents
     el[prop] = chrome.i18n.getMessage(key, placeholders);
