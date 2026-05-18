@@ -58,7 +58,7 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         assert tab_data['host'] == self.FIXTURE_HOST, (
             "Unexpected first-tab hostname in tabData")
 
-    @pytest.mark.flaky(reruns=3)
+    @pytest.mark.xfail(reason="https://github.com/sharat87/httpbun/issues/33") # TODO
     def test_redirect_to_sw_cached_page(self):
         self.init_sw_page()
 
