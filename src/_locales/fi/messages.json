@@ -253,7 +253,7 @@
     },
     "share_title": {
         "message": "Kerro kavereillesi",
-        "description": "Title of the Share popup overlay."
+        "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
     "share_tracker_header": {
         "message": "Privacy Badger esti $COUNT$ mahdollista seurantaa verkkotunnuksella $DOMAIN$:",
@@ -316,11 +316,87 @@
     },
     "firstRun_title": {
         "message": "Kiitos, että asensit Privacy Badgerin!",
-        "description": "Title and header of the intro page."
+        "description": "Title of intro page"
     },
-    "intro_by_eff": {
-        "message": "Electronic Frontier Foundationin projekti",
-        "description": "Message in the header of the intro page."
+    "intro_eff_header": {
+        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "description": "Message in the header of intro page",
+        "placeholders": {
+            "start_html": {
+                "content": "$1",
+                "example": "<b>"
+            },
+            "end_html": {
+                "content": "$2",
+                "example": "</b>"
+            }
+        }
+    },
+    "intro_nag_header": {
+        "message": "Almost done!",
+        "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
+    },
+    "intro_pin_nudge": {
+        "message": "$START_SPAN_TAG$Pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "description": "Intro page paragraph in Chrome",
+        "placeholders": {
+            "start_span_tag": {
+                "content": "<b>"
+            },
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
+            },
+            "end_span_tag": {
+                "content": "</b>"
+            }
+        }
+    },
+    "intro_pin_instructions": {
+        "message": "Kiinnittääksesi Privacy Badgerin kuvakkeen, klikkaa selaimesi työkalupalkissa olevaa palapelin palan kuvaketta, ja sitten Privacy Badgerin vieressä olevaa nastakuvaketta.",
+        "description": "Alt text for pinning instructions image on intro page in Chrome"
+    },
+    "intro_animation_button_stop": {
+        "message": "Stop animation",
+        "description": "Intro page button to stop the pinning instructions animation"
+    },
+    "intro_animation_button_play": {
+        "message": "Play animation",
+        "description": "Intro page button to play the pinning instructions animation"
+    },
+    "intro_disable_header": {
+        "message": "One tip before you enjoy better browsing",
+        "description": "Subheading on intro page for the section explaining the disable button in Firefox"
+    },
+    "intro_disable_button_context": {
+        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "description": "First paragraph of the disable button section of intro page"
+    },
+    "intro_disable_button": {
+        "message": "Jos epäilet Privacy Badgerin rikkovan verkkosivun (esim. video ei toistu), $START_HTML$voit painaa \"$DISABLE_FOR_SITE$\" -painiketta kytkeäksesi Privacy Badgerin pois käytöstä kyseisellä sivustolla.$END_HTML$",
+        "description": "Disable button explainer on intro, options and popup pages",
+        "placeholders": {
+            "start_html": {
+                "content": "$1",
+                "example": "<b>"
+            },
+            "disable_for_site": {
+                "content": "$2",
+                "example": "Disable for this site"
+            },
+            "end_html": {
+                "content": "$3",
+                "example": "</b>"
+            }
+        }
+    },
+    "intro_features_header": {
+        "message": "Privacy Badger protects your browsing from trackers.",
+        "description": "Intro page header introducing Privacy Badger features section"
+    },
+    "intro_features_subheader": {
+        "message": "Learn how.",
+        "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
         "message": "Privacy Badger oppii automaattisesti estämään piiloseurannat. Käytä hetki nähdäksesi miten.",
@@ -354,10 +430,6 @@
         "message": "Piiloseurantaa harjoitetaan monin tavoin ja mainokset ovat vain jäävuoren huipun näkyvä osa. Privacy Badger estää vain mainokset, joiden se havaitsee seuraavan sinua.",
         "description": "Intro page paragraph"
     },
-    "next_section": {
-        "message": "seuraava osio",
-        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
-    },
     "intro_open_popup": {
         "message": "Yritä avata Privacy Badgerin ponnahdus",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
@@ -365,10 +437,6 @@
     "intro_open_popup_alt": {
         "message": "Selaimen työkalupalkki, josta Privacy Badgerin kuvake on ympyröity",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
-    },
-    "intro_disable_button": {
-        "message": "Jos epäilet Privacy Badgerin rikkovan verkkosivun (esim. video ei toistu), voit painaa \"Poista käytöstä\" -painiketta kytkeäksesi Privacy Badgerin pois käytöstä kyseisellä sivustolla.",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
         "message": "Yksityisyys on tiimipeliä!",
@@ -378,44 +446,16 @@
         "message": "Käyttämällä Privacy Badgeria liityt <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationin</a> ja miljoonien muiden käyttäjien joukkoon taistelussa yksityisyyden puolesta. Olemme voittoa tavoittelematon järjestö, joka taistelee verkko-oikeuksiesi puolesta. Kiitos kun liityit mukaan!",
         "description": "Part of the 'donate' section on the intro page."
     },
+    "intro_donate_subheading": {
+        "message": "Auta meitä lahjoittamalla",
+        "description": "Subheader above the Donate button on the intro page"
+    },
     "donate_to_eff": {
         "message": "Lahjoita EFF:lle",
-        "description": "A button on the intro page."
-    },
-    "intro_donate_subheading": {
-        "message": "Auta meitä lahjoittamalla ja antamalla tukesi työkaluillemme",
-        "description": "Shown below the Donate button on the intro page."
-    },
-    "intro_link_policy": {
-        "message": "Tietosuojakäytäntö",
-        "description": "Shown at the bottom of the intro page."
-    },
-    "intro_pin_nudge": {
-        "message": "Aloita $START_SPAN_TAG$kiinnitämällä Privacy Badger työkalupalkkiisi$END_SPAN_TAG$ tavoittaaksesi \"$DISABLE_FOR_SITE$\" -painikkeen helposti.",
-        "description": "Part of a Chrome-only overlay on the intro page",
-        "placeholders": {
-            "start_span_tag": {
-                "content": "<span id='pin-nudge-cta'>"
-            },
-            "disable_for_site": {
-                "content": "$1",
-                "example": "Disable for this site"
-            },
-            "end_span_tag": {
-                "content": "</span>"
-            }
-        }
-    },
-    "intro_pin_instructions": {
-        "message": "Kiinnittääksesi Privacy Badgerin kuvakkeen, klikkaa selaimesi työkalupalkissa olevaa palapelin palan kuvaketta, ja sitten Privacy Badgerin vieressä olevaa nastakuvaketta.",
-        "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
+        "description": "A button on the intro page"
     },
     "share_button_title_facebook": {
         "message": "Jaa Facebookissa",
-        "description": "Text shown when you hover over the social sharing buttons on the intro page."
-    },
-    "share_button_title_twitter": {
-        "message": "Jaa Twitterissä",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_mastodon": {
@@ -425,6 +465,10 @@
     "share_button_title_bluesky": {
         "message": "Jaa Blueskyssa",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
+    "intro_link_policy": {
+        "message": "Tietosuojakäytäntö",
+        "description": "Shown at the bottom of the intro page."
     },
     "options_title": {
         "message": "Privacy Badgerin asetukset",

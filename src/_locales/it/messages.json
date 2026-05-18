@@ -253,7 +253,7 @@
     },
     "share_title": {
         "message": "Dillo ai tuoi amici",
-        "description": "Title of the Share popup overlay."
+        "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
     "share_tracker_header": {
         "message": "Privacy Badger ha bloccato $COUNT$ potenziali tracker su $DOMAIN$:",
@@ -316,11 +316,87 @@
     },
     "firstRun_title": {
         "message": "Grazie per aver installato Privacy Badger!",
-        "description": "Title and header of the intro page."
+        "description": "Title of intro page"
     },
-    "intro_by_eff": {
-        "message": "Un progetto della Electronic Frontier Foundation",
-        "description": "Message in the header of the intro page."
+    "intro_eff_header": {
+        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "description": "Message in the header of intro page",
+        "placeholders": {
+            "start_html": {
+                "content": "$1",
+                "example": "<b>"
+            },
+            "end_html": {
+                "content": "$2",
+                "example": "</b>"
+            }
+        }
+    },
+    "intro_nag_header": {
+        "message": "Almost done!",
+        "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
+    },
+    "intro_pin_nudge": {
+        "message": "$START_SPAN_TAG$Fissa Privacy Badger nella barra degli strumenti$END_SPAN_TAG$ per accedere facilmente al pulsante '$DISABLE_FOR_SITE$'.",
+        "description": "Intro page paragraph in Chrome",
+        "placeholders": {
+            "start_span_tag": {
+                "content": "<b>"
+            },
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
+            },
+            "end_span_tag": {
+                "content": "</b>"
+            }
+        }
+    },
+    "intro_pin_instructions": {
+        "message": "Per fissare l’icona di Privacy Badger, clicca sull’icona a forma di pezzo di puzzle nella barra del browser, poi sulla spilla accanto a Privacy Badger.",
+        "description": "Alt text for pinning instructions image on intro page in Chrome"
+    },
+    "intro_animation_button_stop": {
+        "message": "Stop animation",
+        "description": "Intro page button to stop the pinning instructions animation"
+    },
+    "intro_animation_button_play": {
+        "message": "Play animation",
+        "description": "Intro page button to play the pinning instructions animation"
+    },
+    "intro_disable_header": {
+        "message": "One tip before you enjoy better browsing",
+        "description": "Subheading on intro page for the section explaining the disable button in Firefox"
+    },
+    "intro_disable_button_context": {
+        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "description": "First paragraph of the disable button section of intro page"
+    },
+    "intro_disable_button": {
+        "message": "Se pensi che Privacy Badger stia dando problemi a una pagina (ad esempio un video non si avvia), $START_HTML$puoi cliccare il tasto '$DISABLE_FOR_SITE$' per spegnere Privacy Badger in quel sito.$END_HTML$",
+        "description": "Disable button explainer on intro, options and popup pages",
+        "placeholders": {
+            "start_html": {
+                "content": "$1",
+                "example": "<b>"
+            },
+            "disable_for_site": {
+                "content": "$2",
+                "example": "Disable for this site"
+            },
+            "end_html": {
+                "content": "$3",
+                "example": "</b>"
+            }
+        }
+    },
+    "intro_features_header": {
+        "message": "Privacy Badger protects your browsing from trackers.",
+        "description": "Intro page header introducing Privacy Badger features section"
+    },
+    "intro_features_subheader": {
+        "message": "Learn how.",
+        "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
         "message": "Privacy Badger impara automaticamente a bloccare i tracker nascosti. Dai un’occhiata e scopri come funziona.",
@@ -354,10 +430,6 @@
         "message": "Il tracciamento nascosto avviene in molti modi; gli annunci sono solo la punta visibile dell’iceberg. Privacy Badger non blocca gli annunci, a meno che non ti stiano tracciando.",
         "description": "Intro page paragraph"
     },
-    "next_section": {
-        "message": "prossima sezione",
-        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
-    },
     "intro_open_popup": {
         "message": "Prova ad aprire il popup di Privacy Badger",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
@@ -365,10 +437,6 @@
     "intro_open_popup_alt": {
         "message": "Barra degli strumenti del browser con l’icona di Privacy Badger cerchiata",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
-    },
-    "intro_disable_button": {
-        "message": "Se pensi che Privacy Badger stia dando problemi a una pagina (ad esempio un video non si avvia), puoi cliccare il tasto 'Disattiva' per spegnere Privacy Badger in quel sito.",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
         "message": "La privacy è un gioco di squadra!",
@@ -378,44 +446,16 @@
         "message": "Quando usi Privacy Badger ti unisci alla <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> e a milioni di altri utenti nella lotta per la privacy. Siamo senza scopo di lucro e combattiamo per i diritti online. Grazie per la partecipazione!",
         "description": "Part of the 'donate' section on the intro page."
     },
+    "intro_donate_subheading": {
+        "message": "Aiutaci donando",
+        "description": "Subheader above the Donate button on the intro page"
+    },
     "donate_to_eff": {
         "message": "Dona alla EFF",
-        "description": "A button on the intro page."
-    },
-    "intro_donate_subheading": {
-        "message": "Aiutaci donando e offrendo il tuo supporto per i nostri strumenti",
-        "description": "Shown below the Donate button on the intro page."
-    },
-    "intro_link_policy": {
-        "message": "Politica sulla privacy",
-        "description": "Shown at the bottom of the intro page."
-    },
-    "intro_pin_nudge": {
-        "message": "$START_SPAN_TAG$Fissa Privacy Badger nella barra degli strumenti$END_SPAN_TAG$ per accedere facilmente al pulsante '$DISABLE_FOR_SITE$'.",
-        "description": "Part of a Chrome-only overlay on the intro page",
-        "placeholders": {
-            "start_span_tag": {
-                "content": "<span id='pin-nudge-cta'>"
-            },
-            "disable_for_site": {
-                "content": "$1",
-                "example": "Disable for this site"
-            },
-            "end_span_tag": {
-                "content": "</span>"
-            }
-        }
-    },
-    "intro_pin_instructions": {
-        "message": "Per fissare l’icona di Privacy Badger, clicca sull’icona a forma di pezzo di puzzle nella barra del browser, poi sulla spilla accanto a Privacy Badger.",
-        "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
+        "description": "A button on the intro page"
     },
     "share_button_title_facebook": {
         "message": "Condividi su Facebook",
-        "description": "Text shown when you hover over the social sharing buttons on the intro page."
-    },
-    "share_button_title_twitter": {
-        "message": "Condividi su Twitter",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_mastodon": {
@@ -425,6 +465,10 @@
     "share_button_title_bluesky": {
         "message": "Condividi su Bluesky",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
+    "intro_link_policy": {
+        "message": "Politica sulla privacy",
+        "description": "Shown at the bottom of the intro page."
     },
     "options_title": {
         "message": "Opzioni di Privacy Badger",

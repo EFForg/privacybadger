@@ -253,7 +253,7 @@
     },
     "share_title": {
         "message": "Mondja el az ismerőseinek",
-        "description": "Title of the Share popup overlay."
+        "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
     "share_tracker_header": {
         "message": "A Privacy Badger $COUNT$ lehetséges követőt tiltott a(z) $DOMAIN$ tartományon:",
@@ -316,11 +316,87 @@
     },
     "firstRun_title": {
         "message": "Köszönjük, hogy telepítette a Privacy Badger kiegészítőt!",
-        "description": "Title and header of the intro page."
+        "description": "Title of intro page"
     },
-    "intro_by_eff": {
-        "message": "Az Electronic Frontier Foundation egy projektje",
-        "description": "Message in the header of the intro page."
+    "intro_eff_header": {
+        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "description": "Message in the header of intro page",
+        "placeholders": {
+            "start_html": {
+                "content": "$1",
+                "example": "<b>"
+            },
+            "end_html": {
+                "content": "$2",
+                "example": "</b>"
+            }
+        }
+    },
+    "intro_nag_header": {
+        "message": "Almost done!",
+        "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
+    },
+    "intro_pin_nudge": {
+        "message": "$START_SPAN_TAG$Pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "description": "Intro page paragraph in Chrome",
+        "placeholders": {
+            "start_span_tag": {
+                "content": "<b>"
+            },
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
+            },
+            "end_span_tag": {
+                "content": "</b>"
+            }
+        }
+    },
+    "intro_pin_instructions": {
+        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
+        "description": "Alt text for pinning instructions image on intro page in Chrome"
+    },
+    "intro_animation_button_stop": {
+        "message": "Stop animation",
+        "description": "Intro page button to stop the pinning instructions animation"
+    },
+    "intro_animation_button_play": {
+        "message": "Play animation",
+        "description": "Intro page button to play the pinning instructions animation"
+    },
+    "intro_disable_header": {
+        "message": "One tip before you enjoy better browsing",
+        "description": "Subheading on intro page for the section explaining the disable button in Firefox"
+    },
+    "intro_disable_button_context": {
+        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "description": "First paragraph of the disable button section of intro page"
+    },
+    "intro_disable_button": {
+        "message": "Ha úgy gondolja, hogy a Privacy Badger elront egy oldalt (például egy videó nem játszható le), $START_HTML$akkor rákattinthat a „$DISABLE_FOR_SITE$” gombra a Privacy Badger azon az oldalon való kikapcsolásához.$END_HTML$",
+        "description": "Disable button explainer on intro, options and popup pages",
+        "placeholders": {
+            "start_html": {
+                "content": "$1",
+                "example": "<b>"
+            },
+            "disable_for_site": {
+                "content": "$2",
+                "example": "Disable for this site"
+            },
+            "end_html": {
+                "content": "$3",
+                "example": "</b>"
+            }
+        }
+    },
+    "intro_features_header": {
+        "message": "Privacy Badger protects your browsing from trackers.",
+        "description": "Intro page header introducing Privacy Badger features section"
+    },
+    "intro_features_subheader": {
+        "message": "Learn how.",
+        "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
         "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
@@ -354,10 +430,6 @@
         "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
         "description": "Intro page paragraph"
     },
-    "next_section": {
-        "message": "következő szakasz",
-        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
-    },
     "intro_open_popup": {
         "message": "Try opening Privacy Badger's popup",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
@@ -365,10 +437,6 @@
     "intro_open_popup_alt": {
         "message": "Browser toolbar with the Privacy Badger icon circled",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
-    },
-    "intro_disable_button": {
-        "message": "Ha úgy gondolja, hogy a Privacy Badger elront egy oldalt (például egy videó nem játszható le), akkor rákattinthat a „Letiltás” gombra a Privacy Badger azon az oldalon való kikapcsolásához.",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
         "message": "Az adatvédelem csapatsport!",
@@ -378,44 +446,16 @@
         "message": "A Privacy Badger használatakor Ön is csatlakozik az <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundationhöz</a> és több millió más felhasználóhoz az adatvédelemért folytatott harcban. Nonprofit alapítványként küzdünk az Ön internetes jogaiért. Köszönjük, hogy csatlakozott hozzánk!",
         "description": "Part of the 'donate' section on the intro page."
     },
+    "intro_donate_subheading": {
+        "message": "Segítsen nekünk adományozással",
+        "description": "Subheader above the Donate button on the intro page"
+    },
     "donate_to_eff": {
         "message": "Adományozás az EFF-nek",
-        "description": "A button on the intro page."
-    },
-    "intro_donate_subheading": {
-        "message": "Segítsen nekünk adományozással és az eszközeink támogatásának megosztásával",
-        "description": "Shown below the Donate button on the intro page."
-    },
-    "intro_link_policy": {
-        "message": "Adatvédelmi irányelv",
-        "description": "Shown at the bottom of the intro page."
-    },
-    "intro_pin_nudge": {
-        "message": "First, $START_SPAN_TAG$pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
-        "description": "Part of a Chrome-only overlay on the intro page",
-        "placeholders": {
-            "start_span_tag": {
-                "content": "<span id='pin-nudge-cta'>"
-            },
-            "disable_for_site": {
-                "content": "$1",
-                "example": "Disable for this site"
-            },
-            "end_span_tag": {
-                "content": "</span>"
-            }
-        }
-    },
-    "intro_pin_instructions": {
-        "message": "To pin Privacy Badger's icon, click on the puzzle piece icon in your browser toolbar. Then, click on the pin icon next to Privacy Badger.",
-        "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
+        "description": "A button on the intro page"
     },
     "share_button_title_facebook": {
         "message": "Megosztás Facebookon",
-        "description": "Text shown when you hover over the social sharing buttons on the intro page."
-    },
-    "share_button_title_twitter": {
-        "message": "Megosztás Twitteren",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_mastodon": {
@@ -425,6 +465,10 @@
     "share_button_title_bluesky": {
         "message": "Share on Bluesky",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
+    "intro_link_policy": {
+        "message": "Adatvédelmi irányelv",
+        "description": "Shown at the bottom of the intro page."
     },
     "options_title": {
         "message": "Privacy Badger beállításai",

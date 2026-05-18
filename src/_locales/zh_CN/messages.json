@@ -253,7 +253,7 @@
     },
     "share_title": {
         "message": "告诉您的朋友",
-        "description": "Title of the Share popup overlay."
+        "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
     "share_tracker_header": {
         "message": "隐私獾在$DOMAIN$屏蔽了$COUNT$个潜在的追踪器：",
@@ -316,11 +316,87 @@
     },
     "firstRun_title": {
         "message": "感谢你安装隐私獾！",
-        "description": "Title and header of the intro page."
+        "description": "Title of intro page"
     },
-    "intro_by_eff": {
-        "message": "一个电子前哨基金会的项目",
-        "description": "Message in the header of the intro page."
+    "intro_eff_header": {
+        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "description": "Message in the header of intro page",
+        "placeholders": {
+            "start_html": {
+                "content": "$1",
+                "example": "<b>"
+            },
+            "end_html": {
+                "content": "$2",
+                "example": "</b>"
+            }
+        }
+    },
+    "intro_nag_header": {
+        "message": "Almost done!",
+        "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
+    },
+    "intro_pin_nudge": {
+        "message": "$START_SPAN_TAG$将隐私獾固定到你的工具栏$END_SPAN_TAG$，以便轻松访问 “$DISABLE_FOR_SITE$”按钮。",
+        "description": "Intro page paragraph in Chrome",
+        "placeholders": {
+            "start_span_tag": {
+                "content": "<b>"
+            },
+            "disable_for_site": {
+                "content": "$1",
+                "example": "Disable for this site"
+            },
+            "end_span_tag": {
+                "content": "</b>"
+            }
+        }
+    },
+    "intro_pin_instructions": {
+        "message": "要固定隐私獾的图标，单击浏览器工具栏中的 “扩展”按钮。接着，单击隐私獾边上的大头针图标。",
+        "description": "Alt text for pinning instructions image on intro page in Chrome"
+    },
+    "intro_animation_button_stop": {
+        "message": "Stop animation",
+        "description": "Intro page button to stop the pinning instructions animation"
+    },
+    "intro_animation_button_play": {
+        "message": "Play animation",
+        "description": "Intro page button to play the pinning instructions animation"
+    },
+    "intro_disable_header": {
+        "message": "One tip before you enjoy better browsing",
+        "description": "Subheading on intro page for the section explaining the disable button in Firefox"
+    },
+    "intro_disable_button_context": {
+        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "description": "First paragraph of the disable button section of intro page"
+    },
+    "intro_disable_button": {
+        "message": "如果您认为隐私獾使得网站显示异常（例如无法播放视频），$START_HTML$您可以点击“$DISABLE_FOR_SITE$”按钮来在此网站关闭隐私獾。$END_HTML$",
+        "description": "Disable button explainer on intro, options and popup pages",
+        "placeholders": {
+            "start_html": {
+                "content": "$1",
+                "example": "<b>"
+            },
+            "disable_for_site": {
+                "content": "$2",
+                "example": "Disable for this site"
+            },
+            "end_html": {
+                "content": "$3",
+                "example": "</b>"
+            }
+        }
+    },
+    "intro_features_header": {
+        "message": "Privacy Badger protects your browsing from trackers.",
+        "description": "Intro page header introducing Privacy Badger features section"
+    },
+    "intro_features_subheader": {
+        "message": "Learn how.",
+        "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
         "message": "隐私獾会自动学习去屏蔽不可见的追踪器。看看这是如何做到的吧。",
@@ -354,10 +430,6 @@
         "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾不会阻止广告，除非它们碰巧在追踪您。",
         "description": "Intro page paragraph"
     },
-    "next_section": {
-        "message": "下一节",
-        "description": "Image alt. text on a couple of \"scroll down\" arrow buttons on the intro page."
-    },
     "intro_open_popup": {
         "message": "试着打开隐私獾的弹窗",
         "description": "Shown above an image of the Privacy Badger icon circled on the browser toolbar."
@@ -365,10 +437,6 @@
     "intro_open_popup_alt": {
         "message": "隐私獾图标被环绕的浏览器工具栏",
         "description": "Alt text for toolbar icon image, which is shown below the intro_open_popup header."
-    },
-    "intro_disable_button": {
-        "message": "如果您认为隐私獾使得网站显示异常（例如无法播放视频），您可以点击“禁用”按钮来在此网站关闭隐私獾。",
-        "description": "Intro page paragraph. The quoted string ('Disable') should match the verb used for the 'popup_disable_for_site' message."
     },
     "intro_donate_heading": {
         "message": "保护隐私人人有责！",
@@ -378,44 +446,16 @@
         "message": "当您使用隐私獾，您就和<a href='https://www.eff.org/' target='_blank'>电子前哨基金会</a>和成千上万的其它用户一道共同保卫隐私。我们是为您在线权利奋斗的非营利性组织。感谢您加入我们！",
         "description": "Part of the 'donate' section on the intro page."
     },
+    "intro_donate_subheading": {
+        "message": "Help us by donating",
+        "description": "Subheader above the Donate button on the intro page"
+    },
     "donate_to_eff": {
         "message": "向电子前哨基金会捐款",
-        "description": "A button on the intro page."
-    },
-    "intro_donate_subheading": {
-        "message": "捐款并分享对我们工具的支持来帮助我们",
-        "description": "Shown below the Donate button on the intro page."
-    },
-    "intro_link_policy": {
-        "message": "隐私政策",
-        "description": "Shown at the bottom of the intro page."
-    },
-    "intro_pin_nudge": {
-        "message": "首先，将 $START_SPAN_TAG$隐私獾固定到你的工具栏$END_SPAN_TAG$，以便轻松访问 “$DISABLE_FOR_SITE$”按钮。",
-        "description": "Part of a Chrome-only overlay on the intro page",
-        "placeholders": {
-            "start_span_tag": {
-                "content": "<span id='pin-nudge-cta'>"
-            },
-            "disable_for_site": {
-                "content": "$1",
-                "example": "Disable for this site"
-            },
-            "end_span_tag": {
-                "content": "</span>"
-            }
-        }
-    },
-    "intro_pin_instructions": {
-        "message": "要固定隐私獾的图标，单击浏览器工具栏中的 “扩展”按钮。接着，单击隐私獾边上的大头针图标。",
-        "description": "Alt text for pinning instructions image. Shown on the Chrome-only overlay of the intro page."
+        "description": "A button on the intro page"
     },
     "share_button_title_facebook": {
         "message": "分享到 Facebook",
-        "description": "Text shown when you hover over the social sharing buttons on the intro page."
-    },
-    "share_button_title_twitter": {
-        "message": "分享到 Twitter",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_mastodon": {
@@ -425,6 +465,10 @@
     "share_button_title_bluesky": {
         "message": "在 Bluesky 上分享",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
+    },
+    "intro_link_policy": {
+        "message": "隐私政策",
+        "description": "Shown at the bottom of the intro page."
     },
     "options_title": {
         "message": "隐私獾设置",
