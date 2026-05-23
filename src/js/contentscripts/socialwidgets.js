@@ -396,10 +396,6 @@ function replaceSubsequentTrackerButtonsHelper(tracker_domain) {
   });
 }
 
-function _make_id(prefix) {
-  return prefix + "-" + Math.random().toString().replace(".", "");
-}
-
 function createReplacementWidget(widget, elToReplace) {
   if (!elToReplace.parentNode) {
     return null;
@@ -408,6 +404,9 @@ function createReplacementWidget(widget, elToReplace) {
   let name = widget.name;
 
   let widgetFrame = document.createElement('iframe');
+  let shadowHost = document.createElement("div");
+  let shadowRoot = shadowHost.attachShadow({ mode: "open"});
+  shadowRoot.appendChild(widgetFrame);
 
   // widget replacement frame styles
   let border_width = 1;
@@ -420,7 +419,6 @@ function createReplacementWidget(widget, elToReplace) {
     "pointer-events: all",
     "z-index: 999",
   ];
-  // TODO shouldn't need this (nor !important, nor _make_id, nor ...) if we use shadow DOM
   let elToReplaceStyles = window.getComputedStyle(elToReplace);
   if (elToReplaceStyles.position == "absolute") {
     styleAttrs.push("position: absolute");
@@ -454,7 +452,7 @@ function createReplacementWidget(widget, elToReplace) {
       }
     }
   }
-  widgetFrame.style = styleAttrs.join(" !important;") + " !important";
+  widgetFrame.style = styleAttrs.join(";");
 
   let widgetDiv = document.createElement('div');
 
@@ -470,7 +468,7 @@ function createReplacementWidget(widget, elToReplace) {
   if (TRANSLATIONS.rtl) {
     styleAttrs.push("direction: rtl");
   }
-  widgetDiv.style = styleAttrs.join(" !important;") + " !important";
+  widgetDiv.style = styleAttrs.join(";");
 
   // child div styles
   styleAttrs = [
@@ -484,7 +482,7 @@ function createReplacementWidget(widget, elToReplace) {
   ];
 
   let textDiv = document.createElement('div');
-  textDiv.style = styleAttrs.join(" !important;") + " !important";
+  textDiv.style = styleAttrs.join(";");
 
   let summary = TRANSLATIONS.widget_placeholder_pb_has_replaced.replace("XXX", name),
     link_start = "YYY",
@@ -587,13 +585,13 @@ function createReplacementWidget(widget, elToReplace) {
   }
 
   let closeIcon = document.createElement('a'),
-    close_icon_id = _make_id("ico-close");
+    close_icon_id = "ico-close";
   closeIcon.id = close_icon_id;
   closeIcon.href = "javascript:void(0)"; // eslint-disable-line no-script-url
   textDiv.appendChild(closeIcon);
 
   let infoIcon = document.createElement('a'),
-    info_icon_id = _make_id("ico-help");
+    info_icon_id = "ico-help";
   infoIcon.id = info_icon_id;
   infoIcon.href = "https://privacybadger.org/#How-does-Privacy-Badger-handle-social-media-widgets";
   infoIcon.rel = "noreferrer";
@@ -603,11 +601,11 @@ function createReplacementWidget(widget, elToReplace) {
 
   let buttonDiv = document.createElement('div');
   styleAttrs.push("width: 100%");
-  buttonDiv.style = styleAttrs.join(" !important;") + " !important";
+  buttonDiv.style = styleAttrs.join(";");
 
   // allow once button
   let button = document.createElement('button'),
-    button_id = _make_id("btn-once");
+    button_id = "btn-once";
   button.id = button_id;
   styleAttrs = [
     "transition: background-color 0.25s ease-out, border-color 0.25s ease-out, color 0.25s ease-out",
@@ -626,13 +624,13 @@ function createReplacementWidget(widget, elToReplace) {
     "width: 70%",
     "max-width: 280px",
   ];
-  button.style = styleAttrs.join(" !important;") + " !important";
+  button.style = styleAttrs.join(";");
 
   // allow on this site button
   let site_button = document.createElement('button'),
-    site_button_id = _make_id("btn-site");
+    site_button_id = "btn-site";
   site_button.id = site_button_id;
-  site_button.style = styleAttrs.join(" !important;") + " !important";
+  site_button.style = styleAttrs.join(";");
 
   button.appendChild(document.createTextNode(TRANSLATIONS.allow_once));
   site_button.appendChild(document.createTextNode(TRANSLATIONS.allow_on_site));
@@ -648,7 +646,7 @@ function createReplacementWidget(widget, elToReplace) {
   }
   let data = {
     parentNode: elToReplace.parentNode,
-    replacement: widgetFrame,
+    replacement: shadowHost,
     origWidgetElem: elToReplace
   };
   if (widget.scriptSelectors) {
@@ -690,36 +688,36 @@ function createReplacementWidget(widget, elToReplace) {
         return;
       }
       e.preventDefault();
-      WIDGET_ELS[name] = WIDGET_ELS[name].filter(d => d.replacement != widgetFrame);
+      WIDGET_ELS[name] = WIDGET_ELS[name].filter(d => d.replacement != shadowHost);
       doNotReplace.add(elToReplace);
-      widgetFrame.replaceWith(elToReplace);
+      shadowHost.replaceWith(elToReplace);
     }, { once: true });
 
   }, false); // end of click handler
 
   let head_styles = `
 html, body {
-  color: #303030 !important;
-  height: 100% !important;
-  overflow: hidden !important;
+  color: #303030;
+  height: 100%;
+  overflow: hidden;
 }
 #${button_id} {
-  border: 2px solid #f06a0a !important;
-  background-color: #f06a0a !important;
-  color: #fefefe !important;
+  border: 2px solid #f06a0a;
+  background-color: #f06a0a;
+  color: #fefefe;
 }
 #${site_button_id} {
-  border: 2px solid #333 !important;
-  background-color: #fefefe !important;
-  color: #333 !important;
+  border: 2px solid #333;
+  background-color: #fefefe;
+  color: #333;
 }
 #${button_id}:hover {
-  background-color: #fefefe !important;
-  color: #333 !important;
+  background-color: #fefefe;
+  color: #333;
 }
 #${site_button_id}:hover {
-  background-color: #fefefe !important;
-  border: 2px solid #f06a0a !important;
+  background-color: #fefefe;
+  border: 2px solid #f06a0a;
 }
 #${info_icon_id}, #${close_icon_id} {
   position: absolute;
@@ -770,33 +768,33 @@ a:hover {
     color-scheme: dark;
   }
   body {
-    background-color: #333 !important;
-    color: #ddd !important;
+    background-color: #333;
+    color: #ddd;
   }
   a, a:visited {
-    color: #ddd !important;
+    color: #ddd;
   }
   a:hover {
-    color: #f06a0a !important;
+    color: #f06a0a;
   }
   #${info_icon_id}:before, #${close_icon_id}:before {
     color: #aaa;
   }
   #${site_button_id} {
-    background-color: #333 !important;
-    border: solid 2px #ddd !important;
-    color: #ddd !important;
+    background-color: #333;
+    border: solid 2px #ddd;
+    color: #ddd;
   }
   #${button_id}:hover, #${site_button_id}:hover {
-    background-color: #333 !important;
-    color: #ddd !important;
+    background-color: #333;
+    color: #ddd;
   }
 }
   `.trim();
 
   widgetFrame.srcdoc = '<html><head><style>' + head_styles + '</style></head><body style="margin:0">' + widgetDiv.outerHTML + '</body></html>';
 
-  return widgetFrame;
+  return shadowHost;
 }
 
 /**
