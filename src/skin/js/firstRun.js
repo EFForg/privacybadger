@@ -1,8 +1,6 @@
 function initWelcomePage() {
   let already_set = false;
 
-  $(".scroll-it").smoothScroll();
-
   $(window).scroll(function () {
     if (already_set) {
       return;
