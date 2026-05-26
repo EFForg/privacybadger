@@ -270,7 +270,7 @@
         }
     },
     "share_base_message": {
-        "message": "隐私獾（privacybadger.org）是一款浏览器扩展，它能够自动学习去屏蔽不可见的追踪器。隐私獾由一家为您在线权利而战的非营利组织——电子前哨基金会创造。",
+        "message": "隐私獾（privacybadger.org）是一款浏览器扩展，它能够自动学习去屏蔽隐藏追踪器。隐私獾由一家为您在线权利而战的非营利组织——电子前哨基金会创造。",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -399,7 +399,7 @@
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
-        "message": "隐私獾会自动学习去屏蔽不可见的追踪器。看看这是如何做到的吧。",
+        "message": "隐私獾会自动学习去屏蔽隐藏追踪器。看看这是如何做到的吧。",
         "description": "Intro page welcome paragraph."
     },
     "intro_beyond_ads": {
@@ -423,7 +423,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "不可见的追踪以各种形式发生；广告只是可见的冰山一角。隐私獾不会阻止广告，除非它们碰巧在追踪您。",
+        "message": "隐藏追踪以各种形式发生；广告只是可见的冰山一角。隐私獾不会阻止广告，除非它们碰巧在追踪您。",
         "description": "Intro page paragraph"
     },
     "intro_open_popup": {
