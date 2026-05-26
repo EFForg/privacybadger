@@ -319,7 +319,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "message": "由成员支持的非盈利机构 $START_HTML$EFF$END_HTML$ 打造的隐私工具",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
@@ -333,7 +333,7 @@
         }
     },
     "intro_nag_header": {
-        "message": "Almost done!",
+        "message": "快好了！",
         "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
     },
     "intro_pin_nudge": {
@@ -357,19 +357,19 @@
         "description": "Alt text for pinning instructions image on intro page in Chrome"
     },
     "intro_animation_button_stop": {
-        "message": "Stop animation",
+        "message": "停止动画",
         "description": "Intro page button to stop the pinning instructions animation"
     },
     "intro_animation_button_play": {
-        "message": "Play animation",
+        "message": "播放动画",
         "description": "Intro page button to play the pinning instructions animation"
     },
     "intro_disable_header": {
-        "message": "One tip before you enjoy better browsing",
+        "message": "享受更佳浏览体验前的一则小提示",
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "message": "隐私獾做好了防护隐藏追踪器的准备。但拦截跟踪器有时会让网站无法正常工作。",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -391,11 +391,11 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger protects your browsing from trackers.",
+        "message": "隐私獾保护您的上网浏览免遭跟踪",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
-        "message": "Learn how.",
+        "message": "了解运作原理",
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
@@ -447,7 +447,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Help us by donating",
+        "message": "捐款帮助我们",
         "description": "Subheader above the Donate button on the intro page"
     },
     "donate_to_eff": {

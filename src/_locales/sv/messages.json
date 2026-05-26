@@ -319,7 +319,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "message": "Ett integritetsverktyg från $START_HTML$EFF$END_HTML$, en medlemsstödd ideell organisation",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
@@ -333,7 +333,7 @@
         }
     },
     "intro_nag_header": {
-        "message": "Almost done!",
+        "message": "Nästan klart!",
         "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
     },
     "intro_pin_nudge": {
@@ -357,19 +357,19 @@
         "description": "Alt text for pinning instructions image on intro page in Chrome"
     },
     "intro_animation_button_stop": {
-        "message": "Stop animation",
+        "message": "Stoppa animationen",
         "description": "Intro page button to stop the pinning instructions animation"
     },
     "intro_animation_button_play": {
-        "message": "Play animation",
+        "message": "Spela upp animation",
         "description": "Intro page button to play the pinning instructions animation"
     },
     "intro_disable_header": {
-        "message": "One tip before you enjoy better browsing",
+        "message": "Ett tips innan du njuter av bättre surfning",
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "message": "Privacy Badger är redo att skydda dig från dolda spårare. Men att blockera spårare gör ibland att webbplatser inte fungerar.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -391,11 +391,11 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger protects your browsing from trackers.",
+        "message": "Privacy Badger skyddar din surfning från spårare.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
-        "message": "Learn how.",
+        "message": "Lär dig hur.",
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {

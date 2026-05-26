@@ -319,7 +319,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "message": "Un outil de protection de la vie privée par la $START_HTML$FFÉ$END_HTML$, un organisme sans but lucratif financé par ses membres",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
@@ -333,7 +333,7 @@
         }
     },
     "intro_nag_header": {
-        "message": "Almost done!",
+        "message": "C’est presque fini.",
         "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
     },
     "intro_pin_nudge": {
@@ -357,19 +357,19 @@
         "description": "Alt text for pinning instructions image on intro page in Chrome"
     },
     "intro_animation_button_stop": {
-        "message": "Stop animation",
+        "message": "Arrêter l’animation",
         "description": "Intro page button to stop the pinning instructions animation"
     },
     "intro_animation_button_play": {
-        "message": "Play animation",
+        "message": "Lire l’animation",
         "description": "Intro page button to play the pinning instructions animation"
     },
     "intro_disable_header": {
-        "message": "One tip before you enjoy better browsing",
+        "message": "Un conseil avant de profiter d’une meilleure navigation",
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "message": "Privacy Badger est prête à vous protéger contre les traceurs cachés. Mais le blocage des traceurs peut parfois empêcher le bon fonctionnement des sites Web.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -391,11 +391,11 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger protects your browsing from trackers.",
+        "message": "Privacy Badger protège votre navigation contre les traceurs.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
-        "message": "Learn how.",
+        "message": "En savoir plus.",
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {

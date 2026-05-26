@@ -319,7 +319,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "message": "Et privatlivsværktøj af $START_HTML$EFF$END_HTML$, en medlemsstøttet nonprofit",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
@@ -333,7 +333,7 @@
         }
     },
     "intro_nag_header": {
-        "message": "Almost done!",
+        "message": "Næsten færdig!",
         "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
     },
     "intro_pin_nudge": {
@@ -361,15 +361,15 @@
         "description": "Intro page button to stop the pinning instructions animation"
     },
     "intro_animation_button_play": {
-        "message": "Play animation",
+        "message": "Afspil animation",
         "description": "Intro page button to play the pinning instructions animation"
     },
     "intro_disable_header": {
-        "message": "One tip before you enjoy better browsing",
+        "message": "Et tip før du nyder bedre browsing",
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "message": "Privacy Badger er klar til beskytte dig fra skjulte sporinger. Men at blokere sporinger ødelægger nogle gange netsteder.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -391,11 +391,11 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger protects your browsing from trackers.",
+        "message": "Privacy Badger beskytter din browsing fra sporinger.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
-        "message": "Learn how.",
+        "message": "Lær hvordan.",
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
