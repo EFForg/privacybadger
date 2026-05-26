@@ -319,7 +319,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "由成员支持的非盈利机构 $START_HTML$EFF$END_HTML$ 打造的隐私工具",
+        "message": "由成员支持的非盈利机构 $START_HTML$电子前哨基金会$END_HTML$ 打造的隐私工具",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {

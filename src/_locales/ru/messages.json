@@ -369,7 +369,7 @@
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "message": "Privacy Badger готов защищать вас от скрытых трекеров. Но блокировка трекеров иногда вызывает неполадки на веб-сайтах.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -391,7 +391,7 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger protects your browsing from trackers.",
+        "message": "Privacy Badger защищает ваши действия в Интернете от трекеров.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {

@@ -319,7 +319,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "$START_HTML$EFF$END_HTML$（由會員支援的非營利組織）製作的隱私工具",
+        "message": "$START_HTML$電子前哨基金會$END_HTML$（由會員支援的非營利組織）製作的隱私工具",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
