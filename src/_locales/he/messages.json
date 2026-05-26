@@ -402,10 +402,6 @@
         "message": "Privacy Badger לומד באופן אוטומטי לחסום עוקבנים מוסתרים. קח דקה כדי לראות כיצד.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "צא לסיור",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "תופס עוקבנים ערמומיים",
         "description": "Intro page paragraph heading."

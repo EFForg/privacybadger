@@ -402,10 +402,6 @@
         "message": "O Privacy Badger aprende automaticamente a bloquear rastreadores ocultos. Reserve um minuto para ver como.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "Saber como funciona",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "Detecta rastreadores ocultos",
         "description": "Intro page paragraph heading."

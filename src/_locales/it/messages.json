@@ -402,10 +402,6 @@
         "message": "Privacy Badger impara automaticamente a bloccare i tracker nascosti. Dai un’occhiata e scopri come funziona.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "Fai un giro",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "Cattura i tracker subdoli",
         "description": "Intro page paragraph heading."

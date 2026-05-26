@@ -402,10 +402,6 @@
         "message": "Privacy Badger lærer automatisk at blokere skjulte sporinger. Bug et minut på at se hvordan.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "Tag turen",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "Fanger luskede sporinger",
         "description": "Intro page paragraph heading."

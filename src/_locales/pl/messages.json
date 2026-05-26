@@ -402,10 +402,6 @@
         "message": "Privacy Badger automatycznie uczy się blokować ukryte elementy śledzące. Poświęć minutę, aby dowiedzieć się jak.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "Wprowadzenie",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "Wyłapuje sprytne elementy śledzące",
         "description": "Intro page paragraph heading."

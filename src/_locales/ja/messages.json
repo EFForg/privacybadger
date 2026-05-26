@@ -402,10 +402,6 @@
         "message": "Privacy Badgerは、隠れたトラッカーを自動的に学習してブロックします。その仕組みを簡単にご紹介します。",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "ツアーを開始",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "卑劣なトラッカーを検出",
         "description": "Intro page paragraph heading."

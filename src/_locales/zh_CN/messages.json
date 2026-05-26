@@ -402,10 +402,6 @@
         "message": "隐私獾会自动学习去屏蔽不可见的追踪器。看看这是如何做到的吧。",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "了解一下",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "发现鬼鬼祟祟的追踪器",
         "description": "Intro page paragraph heading."

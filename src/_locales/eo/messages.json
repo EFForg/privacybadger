@@ -402,10 +402,6 @@
         "message": "Privata Melo aŭtomate lernas bloki kaŝitajn spurilojn. Jen konciza klarigo kiel.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "Enkonduko",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "Kaptas trompajn spurilojn",
         "description": "Intro page paragraph heading."

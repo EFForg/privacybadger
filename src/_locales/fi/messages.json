@@ -402,10 +402,6 @@
         "message": "Privacy Badger oppii automaattisesti estämään piiloseurannat. Käytä hetki nähdäksesi miten.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "Esittelykierros",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "Nappaa katalat seurannat",
         "description": "Intro page paragraph heading."

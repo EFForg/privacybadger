@@ -402,10 +402,6 @@
         "message": "بادجر الخصوصية يتعلم تلقائيًا حظر أدوات التتبع المخفية. خصص/ي دقيقة واحدة لتكتشف/ي كيف.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "خذ/ي جولة",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "يمسك بالمتعقبات المتخفية",
         "description": "Intro page paragraph heading."

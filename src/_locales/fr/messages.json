@@ -402,10 +402,6 @@
         "message": "Privacy Badger apprend automatiquement à bloquer les traceurs cachés. Prenez une minute pour comprendre comment.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "Commencer la visite",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "Intercepte les traceurs sournois",
         "description": "Intro page paragraph heading."

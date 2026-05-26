@@ -402,10 +402,6 @@
         "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "انجام سفر",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "ردیاب‌های موذی را می‌گیرد",
         "description": "Intro page paragraph heading."

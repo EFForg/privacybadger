@@ -402,10 +402,6 @@
         "message": "Privacy Badger автоматически учится блокировать скрытые трекеры. Уделите минуту вашего времени, чтобы увидеть как.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "Пройти тур",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "Ловит скользкие трекеры",
         "description": "Intro page paragraph heading."

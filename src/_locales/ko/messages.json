@@ -402,10 +402,6 @@
         "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "알아보기",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "은밀한 추적기를 잡습니다.",
         "description": "Intro page paragraph heading."

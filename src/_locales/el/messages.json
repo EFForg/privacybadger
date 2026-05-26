@@ -402,10 +402,6 @@
         "message": "Το Privacy Badger μαθαίνει αυτόματα να αποκλείει κρυφούς ιχνηλάτες. Δείτε σύντομα πώς.",
         "description": "Intro page welcome paragraph."
     },
-    "intro_next_button": {
-        "message": "Περιηγηθειτε",
-        "description": "Intro page welcome button."
-    },
     "intro_beyond_ads": {
         "message": "Εντοπίζει τους πονηρούς ιχνηλάτες",
         "description": "Intro page paragraph heading."
