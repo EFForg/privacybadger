@@ -9,7 +9,6 @@
   },
   "devDependencies": {
     "jquery": "3.7.1",
-    "jquery-smooth-scroll": "2.2.0",
     "jquery-ui": "1.13.2",
     "jquery-ui-iconfont": "2.3.2",
     "qunit": "2.24.3",
