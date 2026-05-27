@@ -655,6 +655,21 @@ Badger.prototype = {
 
       self.getPrivateSettings().setItem('sitefixes', sitefixes);
     }
+
+    if (utils.hasOwn(data, 'link_rotation')) {
+      let linkRotation = data.link_rotation;
+      // Remove the review link from the rotation if we don't have a link for the browser's extension store
+      if (!utils.hasOwn(constants.REVIEW_LINKS, constants.BROWSER)) {
+        linkRotation = linkRotation.filter(link => link.text !== "popup_review_pb");
+      }
+      // Update the review link for the user's browser
+      for (let link of linkRotation) {
+        if (link.text === "popup_review_pb") {
+          link.url = constants.REVIEW_LINKS[constants.BROWSER];
+        }
+      }
+      self.getPrivateSettings().setItem('linkRotation', linkRotation);
+    }
   },
 
   /**
@@ -870,7 +885,15 @@ Badger.prototype = {
       ignoredSiteBases: [],
       nextPbconfigUpdateTime: 0,
       showLearningPrompt: false,
-      sitefixes: {}
+      sitefixes: {},
+      linkRotation: [
+        {
+          url: "https://supporters.eff.org/donate/support-privacy-badger",
+          text: "popup_donate_to_eff",
+          icon: "ui-icon-heart",
+          odds: 1.0
+        }
+      ],
     };
     for (let key of Object.keys(privateDefaultSettings)) {
       if (!privateStore.hasItem(key)) {

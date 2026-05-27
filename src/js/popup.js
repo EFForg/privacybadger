@@ -40,28 +40,13 @@ const DOMAIN_TOOLTIP_CONF = {
  * Use weighted random selection to get the link to display at the bottom of the popup.
  */
 function getLink() {
-  let linkRotation = [
-    {
-      url: "https://supporters.eff.org/donate/support-privacy-badger",
-      text: "popup_donate_to_eff",
-      icon: "ui-icon-heart",
-      odds: 1.0
-    }
-  ];
-  if (utils.hasOwn(constants.REVIEW_LINKS, constants.BROWSER)) {
-    linkRotation[0].odds = 0.7;
+  let linkRotation = POPUP_DATA.linkRotation;
 
-    linkRotation.push({
-      url: constants.REVIEW_LINKS[constants.BROWSER],
-      text: "popup_review_pb",
-      icon: "ui-icon-star",
-      odds: 0.3 // Odds of all links should add up to 1
-    });
-  }
+  // Select a random number between 0 and the sum of the odds in the link rotation. They normally add up to 1, but won't if a link is removed (i.e. for a browser missing a review link)
+  let total_odds = linkRotation.reduce((sum, link) => sum + (link.odds || 0), 0);
+  let rand = Math.random() * total_odds;
 
-  let rand = Math.random();
   let cumulative_odds = 0;
-
   for (let link of linkRotation) {
     cumulative_odds += (link.odds || 0);
     if (rand < cumulative_odds) {

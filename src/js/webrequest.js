@@ -1419,6 +1419,7 @@ function dispatcher(request, sender, sendResponse) {
       sendResponse({
         criticalError: badger.criticalError,
         isAndroid: badger.isAndroid,
+        linkRotation: badger.getPrivateSettings().getItem("linkRotation"),
         noTabData: true,
         settings: { seenComic: true },
       });
@@ -1455,6 +1456,7 @@ function dispatcher(request, sender, sendResponse) {
       errorText: badger.tabData._tabData[tab_id].errorText,
       isAndroid: badger.isAndroid,
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
+      linkRotation: badger.getPrivateSettings().getItem("linkRotation"),
       noTabData: false,
       trackers,
       settings: badger.getSettings().getItemClones(),
