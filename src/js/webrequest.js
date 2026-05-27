@@ -724,8 +724,10 @@ function recordFingerprinting(tab_id, msg) {
     script_host = badger.cnameDomains[script_host];
   }
 
-  // ignore first-party scripts
-  if (!utils.isThirdPartyDomain(script_host, document_host)) {
+  // did we observe this domain in webRequest for the tab?
+  // this effectively ignores first-party scripts
+  if (!utils.hasOwn(badger.tabData.getTrackers(tab_id), script_host)) {
+    console.warn("Ignoring fpReport on %s: %o", document_host, msg);
     return;
   }
 
