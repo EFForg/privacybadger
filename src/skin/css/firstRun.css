@@ -389,26 +389,6 @@ b {
     font-family: "OpenSans-Bold", sans-serif;
 }
 
-header {
-  display:flex;
-  flex-flow:row wrap;
-  background-color:#EC9329;
-}
-header img {
-  margin:1rem 0 0;
-  width:7rem;
-}
-@media print, screen and (min-width: 40em) {
-  header img {
-    margin:1rem 0 0;
-    width:12rem;
-  }
-}
-header .title-bar h1 {
-  color:white;
-  font-family:"ChunkFive",serif;
-}
-
 /* visibility classes */
 .hide {
   display:none !important;
@@ -646,9 +626,6 @@ body {
   margin-right: 5px;
 }
 
-#intro {
-  padding:2rem 0rem 4rem;
-}
 #pb-settings #toolbar-img-container {
   position: relative;
   margin-top: 0;
@@ -689,12 +666,8 @@ body {
   margin: 2rem 0 3rem;
   width: 100%;
 }
-@media print, screen and (min-width: 40em) {
-  #intro {
-    padding:4rem 0rem 14rem;
-  }
-}
-#toolbar-icon, #disable-instructions {
+
+#toolbar-icon {
   max-width: 550px;
   width: 90%;
 }
