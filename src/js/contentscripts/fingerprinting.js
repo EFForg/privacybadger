@@ -42,6 +42,7 @@ function getPageScript(event_id) {
 
     const V8_STACK_TRACE_API = !!(ERROR &&
       ERROR.captureStackTrace &&
+      ERROR.prepareStackTrace &&
       hasOwn(ERROR, "stackTraceLimit"));
 
     if (V8_STACK_TRACE_API) {
