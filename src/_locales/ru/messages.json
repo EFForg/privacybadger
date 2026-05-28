@@ -60,7 +60,7 @@
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_sweatshirt_promo": {
-        "message": "Show your support with a new Privacy Badger sweatshirt!",
+        "message": "Выразите вашу поддержку с помощью новой толстовки со значком Privacy Badger",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "version": {
@@ -341,7 +341,7 @@
         "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
     },
     "intro_pin_nudge": {
-        "message": "$START_SPAN_TAG$прикрепите Privacy Badger к панели браузера$END_SPAN_TAG$, чтобы получить доступ к кнопке «$DISABLE_FOR_SITE$».",
+        "message": "$START_SPAN_TAG$Прикрепити Privacy Badger к панели браузера$END_SPAN_TAG$, чтобы получить доступ к кнопке «$DISABLE_FOR_SITE$».",
         "description": "Intro page paragraph in Chrome",
         "placeholders": {
             "start_span_tag": {
