@@ -369,6 +369,10 @@ ul ul,ol ul,ul ol,ol ol {
     max-width: 3rem;
     margin-inline-end: 0.2rem;
 }
+.top-bar span {
+  margin: 0 4rem;
+  text-align: center;
+}
 @media print, screen and (min-width: 40em) {
     .top-bar img {
         margin-inline-end: 1rem;
@@ -378,6 +382,9 @@ ul ul,ol ul,ul ol,ol ol {
       flex-wrap:nowrap;
       font-size: 0.9rem;
       padding: 0.75rem 0.5rem 0.75rem;
+    }
+    .top-bar span {
+      margin: 0 6rem;
     }
 }
 .top-bar-title {
