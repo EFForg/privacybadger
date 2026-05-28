@@ -1422,6 +1422,7 @@ function dispatcher(request, sender, sendResponse) {
         criticalError: badger.criticalError,
         isAndroid: badger.isAndroid,
         noTabData: true,
+        popupPromos: badger.getPrivateSettings().getItem("popupPromos"),
         settings: { seenComic: true },
       });
       break;
@@ -1458,6 +1459,7 @@ function dispatcher(request, sender, sendResponse) {
       isAndroid: badger.isAndroid,
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
       noTabData: false,
+      popupPromos: badger.getPrivateSettings().getItem("popupPromos"),
       trackers,
       settings: badger.getSettings().getItemClones(),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),

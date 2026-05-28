@@ -655,6 +655,24 @@ Badger.prototype = {
 
       self.getPrivateSettings().setItem('sitefixes', sitefixes);
     }
+
+    if (utils.hasOwn(data, 'popup_promos')) {
+      let popupPromos = data.popup_promos;
+
+      if (utils.hasOwn(constants.REVIEW_LINKS, constants.BROWSER)) {
+        // Set the review link for the user's browser
+        for (let promo of popupPromos) {
+          if (promo.text === "popup_review_pb") {
+            promo.url = constants.REVIEW_LINKS[constants.BROWSER];
+          }
+        }
+      } else {
+        // Remove the review promo from rotation when no review URL was defined
+        popupPromos = popupPromos.filter(promo => promo.text !== "popup_review_pb");
+      }
+
+      self.getPrivateSettings().setItem('popupPromos', popupPromos);
+    }
   },
 
   /**
@@ -869,6 +887,7 @@ Badger.prototype = {
       gpcDisabledSites: {},
       ignoredSiteBases: [],
       nextPbconfigUpdateTime: 0,
+      popupPromos: [],
       showLearningPrompt: false,
       sitefixes: {}
     };

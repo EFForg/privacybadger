@@ -37,40 +37,29 @@ const DOMAIN_TOOLTIP_CONF = {
 };
 
 /**
- * Use weighted random selection to get the link to display at the bottom of the popup.
+ * Use weighted random selection to get the link
+ * to display at the bottom of the popup.
+ *
+ * @returns {?Object}
  */
-function getLink() {
-  let linkRotation = [
-    {
-      url: "https://supporters.eff.org/donate/support-privacy-badger",
-      text: "popup_donate_to_eff",
-      icon: "ui-icon-heart",
-      odds: 1.0
-    }
-  ];
-  if (utils.hasOwn(constants.REVIEW_LINKS, constants.BROWSER)) {
-    linkRotation[0].odds = 0.7;
+function getPromo() {
+  let linkRotation = POPUP_DATA.popupPromos;
 
-    linkRotation.push({
-      url: constants.REVIEW_LINKS[constants.BROWSER],
-      text: "popup_review_pb",
-      icon: "ui-icon-star",
-      odds: 0.3 // Odds of all links should add up to 1
-    });
-  }
+  // Select a random number between 0 and the sum of odds in link rotation.
+  // They normally add up to 1, but won't if a link is removed
+  // (i.e. for a browser missing a review link).
+  let total_odds = linkRotation.reduce((sum, link) => sum + (link.odds || 0), 0);
+  let rand = Math.random() * total_odds;
 
-  let rand = Math.random();
   let cumulative_odds = 0;
-
-  for (let link of linkRotation) {
-    cumulative_odds += (link.odds || 0);
+  for (let promo of linkRotation) {
+    cumulative_odds += (promo.odds || 0);
     if (rand < cumulative_odds) {
-      return link;
+      return promo;
     }
   }
 
-  // Fallback in case of errors
-  return linkRotation[linkRotation.length - 1];
+  return null;
 }
 
 /* if they aint seen the comic*/
@@ -288,10 +277,15 @@ function init() {
     visibility: 'visible'
   });
 
-  let link = getLink();
-  $("#cta-link").attr("href", link.url);
-  $('#cta-text').text(chrome.i18n.getMessage(link.text));
-  $('#cta-icon').addClass(link.icon);
+  let promo = getPromo();
+  if (promo) {
+    let promo_text = chrome.i18n.getMessage(promo.text);
+    if (promo_text && promo.url && promo.icon) {
+      $("#cta-link").attr("href", promo.url);
+      $('#cta-text').text(promo_text);
+      $('#cta-icon').removeClass('ui-icon-heart').addClass(promo.icon);
+    }
+  }
 
   window.POPUP_INITIALIZED = true;
 }

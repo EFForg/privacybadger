@@ -8,6 +8,26 @@
         "DNT Policy v1.0 dos-line-endings": "c09f71363bb29d0250a1f5524eef36f9ab07669b",
         "DNT Policy v1.0 no-eof-newline": "7861462d500fbb6ccb74c614782f4937377bec76"
     },
+    "popup_promos": [
+        {
+            "url": "https://supporters.eff.org/donate/support-privacy-badger",
+            "text": "popup_donate_to_eff",
+            "icon": "ui-icon-heart",
+            "odds": 0.35
+        },
+        {
+            "url": null,
+            "text": "popup_review_pb",
+            "icon": "ui-icon-star",
+            "odds": 0.3
+        },
+        {
+            "url": "https://supporters.eff.org/donate/spring--pb",
+            "text": "popup_sweatshirt_promo",
+            "icon": "ui-icon-cart",
+            "odds": 0.35
+        }
+    ],
     "sitefixes": {
         "gpc": [
             "www.costco.com",
