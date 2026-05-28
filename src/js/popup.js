@@ -283,7 +283,7 @@ function init() {
     if (promo_text && promo.url && promo.icon) {
       $("#cta-link").attr("href", promo.url);
       $('#cta-text').text(promo_text);
-      $('#cta-icon').addClass(promo.icon);
+      $('#cta-icon').removeClass('ui-icon-heart').addClass(promo.icon);
     }
   }
 
