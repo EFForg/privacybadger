@@ -1419,8 +1419,8 @@ function dispatcher(request, sender, sendResponse) {
       sendResponse({
         criticalError: badger.criticalError,
         isAndroid: badger.isAndroid,
-        linkRotation: badger.getPrivateSettings().getItem("linkRotation"),
         noTabData: true,
+        popupPromos: badger.getPrivateSettings().getItem("popupPromos"),
         settings: { seenComic: true },
       });
       break;
@@ -1456,8 +1456,8 @@ function dispatcher(request, sender, sendResponse) {
       errorText: badger.tabData._tabData[tab_id].errorText,
       isAndroid: badger.isAndroid,
       isOnFirstParty: utils.firstPartyProtectionsEnabled(tab_host),
-      linkRotation: badger.getPrivateSettings().getItem("linkRotation"),
       noTabData: false,
+      popupPromos: badger.getPrivateSettings().getItem("popupPromos"),
       trackers,
       settings: badger.getSettings().getItemClones(),
       showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
