@@ -625,6 +625,9 @@ a.overlay-close:hover {
    font-size: 18px;
    color: #F6C324 !important;
 }
+#cta-icon.ui-icon-cart {
+   color: #ec9329 !important;
+}
 
 @media screen and (max-width: 400px){
     .origin {
