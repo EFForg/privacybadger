@@ -57,7 +57,11 @@
     },
     "popup_review_pb": {
         "message": "¿Estás disfrutando de Privacy Badger? ¡Deja un comentario!",
-        "description": "A link in the popup footer shown 30% of the time instead of 'Donate to EFF'."
+        "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
+    },
+    "popup_sweatshirt_promo": {
+        "message": "Show your support with a new Privacy Badger sweatshirt!",
+        "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "version": {
         "message": "versión $VERSION_STRING$",
