@@ -58,14 +58,11 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         assert tab_data['host'] == self.FIXTURE_HOST, (
             "Unexpected first-tab hostname in tabData")
 
-    @pytest.mark.xfail(reason="https://github.com/sharat87/httpbun/issues/33") # TODO
     def test_redirect_to_sw_cached_page(self):
         self.init_sw_page()
 
         # visit a page that 302-redirects back to our fixture
-        self.load_url("https://httpbun.com/redirect-to"
-            "?url=https%3A%2F%2Fefforg.github.io%2Fprivacybadger-test-fixtures%2Fhtml%2Fservice_workers.html"
-            "&status_code=302")
+        self.load("https://www.eff.org/privacy-badger-service-workers-navigation-test-redirect")
 
         # wait for URL to change
         WebDriverWait(self.driver, 10).until(EC.url_to_be(self.FIXTURE_URL))
