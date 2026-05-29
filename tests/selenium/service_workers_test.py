@@ -2,8 +2,6 @@
 
 import unittest
 
-import pytest
-
 import pbtest
 
 from selenium.webdriver.support import expected_conditions as EC
@@ -62,7 +60,7 @@ class ServiceWorkersTest(pbtest.PBSeleniumTest):
         self.init_sw_page()
 
         # visit a page that 302-redirects back to our fixture
-        self.load("https://www.eff.org/privacy-badger-service-workers-navigation-test-redirect")
+        self.load_url("https://www.eff.org/privacy-badger-service-workers-navigation-test-redirect")
 
         # wait for URL to change
         WebDriverWait(self.driver, 10).until(EC.url_to_be(self.FIXTURE_URL))
