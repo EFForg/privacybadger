@@ -20,8 +20,11 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
     SURROGATE_HOST_BASE = "google-analytics.com"
     SURROGATE_HOST = f"www.{SURROGATE_HOST_BASE}"
 
-    def load_ga_js_fixture(self, timeout=12):
+    def load_ga_js_fixture(self, cache_workaround=False, timeout=12):
         self.load_url(self.FIXTURE_URL)
+
+        if cache_workaround and self.is_firefox_nightly():
+            self.driver.refresh()
 
         load_status_sel = '#third-party-load-result'
         self.wait_for_script(
@@ -56,7 +59,7 @@ class SurrogatesTest(pbtest.PBSeleniumTest):
             "}, done);")
 
         # verify site breaks
-        assert not self.load_ga_js_fixture(), (
+        assert not self.load_ga_js_fixture(True), (
             "page loaded successfully when it should have failed")
 
         # re-enable surrogates

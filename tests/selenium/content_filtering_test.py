@@ -128,6 +128,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         # navigate elsewhere and back to work around the third-party getting served from cache
         self.load_url(self.options_url)
         self.load_url(self.FIXTURE_URL + '?fingerprintjs')
+        if self.is_firefox_nightly():
+            self.driver.refresh()
         self.assert_block()
 
     def test_userblock(self):
@@ -310,6 +312,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
             "domain should not be DNT-compliant")
 
         self.load_url(self.FIXTURE_URL)
+        if self.is_firefox_nightly():
+            self.driver.refresh()
         self.assert_block()
 
     def test_removing_domain(self):
