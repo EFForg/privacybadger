@@ -24,12 +24,11 @@ class FingerprintingTest(pbtest.PBSeleniumTest):
         self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#local-learning-checkbox').click()
 
-    def test_canvas_fingerprinting_detection(self):
+    def test_canvas_fingerprinting_detection(self, frozen_error=False):
         SITE_DOMAIN = "efforg.github.io"
-        FIXTURE_URL = (
-            f"https://{SITE_DOMAIN}/privacybadger-test-fixtures/html/"
-            "fingerprinting.html"
-        )
+        FIXTURE = "fingerprinting_frozen_error.html" if frozen_error else "fingerprinting.html"
+        FIXTURE_URL = f"https://{SITE_DOMAIN}/privacybadger-test-fixtures/html/{FIXTURE}"
+
         FP_DOMAIN = "cdn.jsdelivr.net"
         FP_BASE_DOMAIN = "jsdelivr.net"
         FP_PATH = "/npm/fingerprintjs2@1.5.1/dist/fingerprint2.min.js"
@@ -58,6 +57,9 @@ class FingerprintingTest(pbtest.PBSeleniumTest):
         # confirm we recorded the script's domain and path combo
         assert FP_PATH in self.get_badger_storage('fp_scripts').get(FP_DOMAIN, {}), (
             "Failed to record the fingerprinting script's path")
+
+    def test_canvas_fingerprinting_detection_frozen(self):
+        self.test_canvas_fingerprinting_detection(True)
 
     # Privacy Badger overrides a few functions on canvas contexts to check for fingerprinting.
     # In previous versions, it would restore the native function after a single call. Unfortunately,
