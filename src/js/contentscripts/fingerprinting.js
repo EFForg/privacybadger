@@ -42,7 +42,6 @@ function getPageScript(event_id) {
 
     const V8_STACK_TRACE_API = !!(ERROR &&
       ERROR.captureStackTrace &&
-      ERROR.prepareStackTrace &&
       hasOwn(ERROR, "stackTraceLimit"));
 
     if (V8_STACK_TRACE_API) {
@@ -185,16 +184,32 @@ function getPageScript(event_id) {
     function getOriginatingScriptUrl() {
       let trace = getStackTrace();
 
+      // we failed to get a structured stack trace
       if (OBJECT.prototype.toString.call(trace) == '[object String]') {
-        // we failed to get a structured stack trace
         trace = trace.split('\n');
-        // this script is at 0, 1, 2 and 3
-        let script_url_matches = trace[4].match(/\((http.*:\d+:\d+)/);
-        // TODO do we need stripLineAndColumnNumbers (in both places) here?
-        return script_url_matches && stripLineAndColumnNumbers(script_url_matches[1]) || stripLineAndColumnNumbers(trace[4]);
+
+        if (trace.length < 3) {
+          return '';
+        }
+
+        // Firefox 153+
+        // this script is at 0 and 1
+        let script_url_matches = trace[2].match(/.*@(https?:\/\/.*):\d+:\d+$/);
+        if (script_url_matches) {
+          return script_url_matches[1];
+        }
+
+        if (trace.length < 4) {
+          return '';
+        }
+
+        // frozen stack trace in Chromium
+        // the word "Error" is at 0, this script is at 1 and 2
+        script_url_matches = trace[3].match(/\((https?:\/\/.*):\d+:\d+\)$/);
+        return script_url_matches && script_url_matches[1] || stripLineAndColumnNumbers(trace[3]);
       }
 
-      if (trace.length < 2) {
+      if (trace.length < 3) {
         return '';
       }
 
@@ -240,6 +255,9 @@ function getPageScript(event_id) {
             }
           }
 
+          // TODO should be able to retire the V8_STACK_TRACE_API check
+          // TODO once min Firefox version reaches 153+
+          // TODO https://bugzilla.mozilla.org/show_bug.cgi?id=2037856
           let script_url = (
               V8_STACK_TRACE_API ?
                 getOriginatingScriptUrl() :
