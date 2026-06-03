@@ -40,11 +40,11 @@ const DOMAIN_TOOLTIP_CONF = {
  * Use weighted random selection to get the link
  * to display at the bottom of the popup.
  *
- * @returns {?Object}
+ * @param {Array} linkRotation array of promo details objects
+ *
+ * @returns {?Object} promo details
  */
-function getPromo() {
-  let linkRotation = POPUP_DATA.popupPromos;
-
+function getPromo(linkRotation) {
   // Select a random number between 0 and the sum of odds in link rotation.
   // They normally add up to 1, but won't if a link is removed
   // (i.e. for a browser missing a review link).
@@ -277,7 +277,7 @@ function init() {
     visibility: 'visible'
   });
 
-  let promo = getPromo();
+  let promo = getPromo(POPUP_DATA.popupPromos || []);
   if (promo) {
     let promo_text = chrome.i18n.getMessage(promo.text);
     if (promo_text && promo.url && promo.icon) {
