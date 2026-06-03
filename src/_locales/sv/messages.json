@@ -60,7 +60,7 @@
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_sweatshirt_promo": {
-        "message": "Show your support with a new Privacy Badger sweatshirt!",
+        "message": "Visa ditt stöd med en ny Privacy Badger-tröja!",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "version": {
