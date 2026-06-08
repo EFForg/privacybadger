@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
+import time
 import unittest
-
-import pytest
 
 import pbtest
 
@@ -105,32 +104,119 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         self.load_url(self.FIXTURE_URL + '?alt3p')
         self.assert_load()
 
-    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "edge")
-    def test_blocking_fp_script_served_from_cookieblocked_cdn(self):
+    def test_blocking_fp_script_from_cookieblocked_cdn(self):
+        fp2_fixture = "https://efforg.github.io/privacybadger-test-fixtures/html/fingerprinting.html"
+
         self.cookieblock_domain("cdn.jsdelivr.net")
 
-        # disable surrogates
-        self.driver.execute_async_script(
-            "let done = arguments[arguments.length - 1];"
-            "chrome.runtime.sendMessage({"
-            "  type: 'disableSurrogates'"
-            "}, done);")
+        # no canvas script data to start with
+        assert self.get_badger_storage('fp_scripts') == {}
 
         # enable local learning
         self.wait_for_script("return window.OPTIONS_INITIALIZED")
         self.find_el_by_css('a[href="#tab-general-settings"]').click()
         self.find_el_by_css('#local-learning-checkbox').click()
 
+        self.load_url(fp2_fixture)
+        assert self.js("return typeof window.Fingerprint2") == "function"
+
+        # keep the window open for recording to complete
+        self.open_window()
+
+        # wait for canvas script path to be recorded
+        if self.get_badger_storage('fp_scripts') == {}:
+            time.sleep(1)
+
+        self.load_url(fp2_fixture)
+        self.driver.refresh()
+
+        if self.js("return typeof window.Fingerprint2") != "undefined":
+            # clear webRequest caches
+            self.load_url(self.options_url)
+            self.wait_for_script(
+                "(async function (done) {"
+                "  await chrome.webRequest.handlerBehaviorChanged();"
+                "  done(true);"
+                "}(arguments[arguments.length - 1]));", execute_async=True)
+            self.load_url(fp2_fixture)
+            self.driver.refresh()
+
+        assert self.js("return typeof window.Fingerprint2") == "undefined"
+
+    def test_surrogating_fp_script_from_cookieblocked_cdn(self):
+        """Since we have a surrogate script for FingerprintJS (v3) served
+        from cdn.jsdelivr.net, we test surrogation rather than blocking."""
+
+        def get_visitor_id():
+            return self.driver.execute_async_script(
+                "let done = arguments[arguments.length - 1];"
+                "FingerprintJS.load().then(fp => {"
+                "  fp.get().then(res => {"
+                "    done(res.visitorId);"
+                "  });"
+                "});")
+
+        self.cookieblock_domain("cdn.jsdelivr.net")
+
+        # first get a visitor ID from FingerprintJS, before enabling learning
+        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
+        self.assert_load()
+        visitor_id = get_visitor_id()
+
+        # enable local learning
+        self.load_url(self.options_url)
+        self.wait_for_script("return window.OPTIONS_INITIALIZED")
+        self.find_el_by_css('a[href="#tab-general-settings"]').click()
+        self.find_el_by_css('#local-learning-checkbox').click()
+
+        # assert the original script still loads
+        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
+        self.assert_load()
+        assert get_visitor_id() == visitor_id, (
+            "Visitor ID should be consistent between page loads")
+
+        # keep the window open for recording to complete
+        self.open_window()
+
+        # now assert the surrogate script loads
         self.load_url(self.FIXTURE_URL + '?fingerprintjs')
         self.assert_load()
 
-        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
-        # navigate elsewhere and back to work around the third-party getting served from cache
-        self.load_url(self.options_url)
-        self.load_url(self.FIXTURE_URL + '?fingerprintjs')
-        if self.is_firefox_nightly():
+        if get_visitor_id() == visitor_id:
+            # clear webRequest caches
+            self.open_window()
+            self.load_url(self.options_url)
+            self.wait_for_script(
+                "(async function (done) {"
+                "  await chrome.webRequest.handlerBehaviorChanged();"
+                "  done(true);"
+                "}(arguments[arguments.length - 1]));", execute_async=True)
+            self.switch_to_window_with_url(self.FIXTURE_URL + '?fingerprintjs')
             self.driver.refresh()
-        self.assert_block()
+            self.assert_load()
+
+        assert get_visitor_id() != visitor_id, (
+            "Visitor ID should change between page loads")
+        self.driver.refresh()
+        self.assert_load()
+        assert get_visitor_id() != visitor_id, (
+            "Visitor ID should change between page loads")
+
+        # user cookieblocking the script domain
+        # should still surrogate the script
+        self.open_window()
+        self.load_url(self.options_url)
+        self.set_user_action("cdn.jsdelivr.net", "cookieblock")
+
+        self.switch_to_window_with_url(self.FIXTURE_URL + '?fingerprintjs')
+        self.driver.refresh()
+        self.assert_load()
+        assert get_visitor_id() != visitor_id, (
+            "Visitor ID should change between page loads")
+        self.driver.refresh()
+        self.assert_load()
+        assert get_visitor_id() != visitor_id, (
+            "Visitor ID should change between page loads")
 
     def test_userblock(self):
         self.set_user_action(self.THIRD_PARTY_DOMAIN, "block")
