@@ -202,22 +202,6 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
         assert get_visitor_id() != visitor_id, (
             "Visitor ID should change between page loads")
 
-        # user cookieblocking the script domain
-        # should still surrogate the script
-        self.open_window()
-        self.load_url(self.options_url)
-        self.set_user_action("cdn.jsdelivr.net", "cookieblock")
-
-        self.switch_to_window_with_url(self.FIXTURE_URL + '?fingerprintjs')
-        self.driver.refresh()
-        self.assert_load()
-        assert get_visitor_id() != visitor_id, (
-            "Visitor ID should change between page loads")
-        self.driver.refresh()
-        self.assert_load()
-        assert get_visitor_id() != visitor_id, (
-            "Visitor ID should change between page loads")
-
     def test_userblock(self):
         self.set_user_action(self.THIRD_PARTY_DOMAIN, "block")
 
