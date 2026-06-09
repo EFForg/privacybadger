@@ -323,7 +323,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "أداة للخصوصية مقدمة من $START_HTML$ مؤسسة الجبهة الإلكترونية $END_HTML$، وهي منظمة غير ربحية تعتمد على دعم الأعضاء والعضوات.",
+        "message": "أداة للخصوصية مقدمة من $START_HTML$ مؤسسة الجبهة الإلكترونية $END_HTML$، وهي منظمة غير ربحية تعتمد على دعم الأعضاء والعضوات",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
@@ -373,7 +373,7 @@
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "إن \"بادجر الخصوصية| جاهز تماماً لحمايتك من أدوات التتبع الخفية، إلا أن حظر أدوات التتبع قد يؤدي أحياناً إلى تعطل المواقع الإلكترونية.",
+        "message": "إن «بادجر الخصوصية» جاهز تماماً لحمايتك من أدوات التتبع الخفية، إلا أن حظر أدوات التتبع قد يؤدي أحياناً إلى تعطل المواقع الإلكترونية.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -399,7 +399,7 @@
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
-        "message": "تعلم/ي كيف",
+        "message": "تعلم/ي كيف.",
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
