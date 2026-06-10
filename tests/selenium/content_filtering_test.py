@@ -184,14 +184,13 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         if get_visitor_id() == visitor_id:
             # clear webRequest caches
-            self.open_window()
             self.load_url(self.options_url)
             self.wait_for_script(
                 "(async function (done) {"
                 "  await chrome.webRequest.handlerBehaviorChanged();"
                 "  done(true);"
                 "}(arguments[arguments.length - 1]));", execute_async=True)
-            self.switch_to_window_with_url(self.FIXTURE_URL + '?fingerprintjs')
+            self.load_url(self.FIXTURE_URL + '?fingerprintjs')
             self.driver.refresh()
             self.assert_load()
 
