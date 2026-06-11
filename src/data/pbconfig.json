@@ -13,19 +13,25 @@
             "url": "https://supporters.eff.org/donate/support-privacy-badger",
             "text": "popup_donate_to_eff",
             "icon": "ui-icon-heart",
-            "odds": 0.35
+            "odds": 0.25
         },
         {
             "url": null,
             "text": "popup_review_pb",
             "icon": "ui-icon-star",
-            "odds": 0.3
+            "odds": 0.25
         },
         {
             "url": "https://supporters.eff.org/donate/spring--pb",
             "text": "popup_sweatshirt_promo",
             "icon": "ui-icon-cart",
-            "odds": 0.35
+            "odds": 0.25
+        },
+        {
+            "url": "https://eff.org/pbeff",
+            "text": "popup_effector_signup",
+            "icon": "ui-icon-mail-closed",
+            "odds": 0.25
         }
     ],
     "sitefixes": {
