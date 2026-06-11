@@ -497,42 +497,39 @@ function isThirdPartyDomain(domain1, domain2) {
  * @return {Boolean}
  */
 let firstPartyProtectionsEnabled = (function () {
-  let firstPartiesList;
+  let firstPartyHostPatterns = new Set();
 
-  function getFirstParties() {
+  function initFirstPartyHostPatterns() {
     let manifestJson = chrome.runtime.getManifest();
-    let firstParties = [];
 
     for (let contentScriptObj of manifestJson.content_scripts) {
       // only include parts from content scripts that have firstparties entries
       if (contentScriptObj.js[0].includes("/firstparties/")) {
-        let extractedUrls = [];
-        for (let match of contentScriptObj.matches) {
-          extractedUrls.push(extractHostFromURL(match));
+        for (let url_pattern of contentScriptObj.matches) {
+          firstPartyHostPatterns.add(extractHostFromURL(url_pattern));
         }
-        firstParties.push(extractedUrls);
       }
     }
-    return [].concat.apply([], firstParties);
   }
 
   return function (tab_host) {
-    if (!firstPartiesList) {
-      firstPartiesList = getFirstParties();
+    if (!firstPartyHostPatterns.size) {
+      initFirstPartyHostPatterns();
     }
 
-    for (let url_pattern of firstPartiesList) {
-      if (url_pattern.startsWith("*")) {
-        if (tab_host.endsWith(url_pattern.slice(1))) {
+    for (let host_pattern of firstPartyHostPatterns) {
+      if (host_pattern.startsWith("*")) {
+        if (tab_host.endsWith(host_pattern.slice(1))) {
           return true;
         }
-      } else if (url_pattern == tab_host) {
+      } else if (host_pattern == tab_host) {
         return true;
       }
     }
     return false;
   };
-})();
+
+}());
 
 /**
  * Checks whether a given URL is a special browser page.
