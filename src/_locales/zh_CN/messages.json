@@ -63,6 +63,10 @@
         "message": "用新的隐私獾运动衫表达您的支持！",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
+    "popup_effector_signup": {
+        "message": "Get the latest privacy news from EFF",
+        "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
+    },
     "version": {
         "message": "版本 $VERSION_STRING$",
         "description": "Version text in the popup footer. For example, \"version 2018.8.1\".",

@@ -63,6 +63,10 @@
         "message": "Выразите вашу поддержку с помощью новой толстовки Privacy Badger",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
+    "popup_effector_signup": {
+        "message": "Get the latest privacy news from EFF",
+        "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
+    },
     "version": {
         "message": "версия $VERSION_STRING$",
         "description": "Version text in the popup footer. For example, \"version 2018.8.1\".",
