@@ -29,7 +29,15 @@
           <img src="images/pinning-instructions-1.png" alt="i18n_intro_pin_instructions">
           <img src="images/pinning-instructions-2.png" alt="">
         </div>
-        <img id="pinning-instructions-animation" src="images/pinning-animation.gif" alt="i18n_intro_pin_instructions">
+        <picture id="pinning-instructions-picture">
+          <source
+            srcset="images/pinning-animation-dark.gif"
+            media="(prefers-color-scheme: dark)">
+          <img
+            id="pinning-instructions-animation"
+            src="images/pinning-animation-light.gif"
+            alt="i18n_intro_pin_instructions">
+        </picture>
         <button id="toggle-animation-btn">
           <span id="toggle-animation-icon" aria-hidden="true">⏸</span> <span id="toggle-animation-label">Stop Animation</span>
         </button>
