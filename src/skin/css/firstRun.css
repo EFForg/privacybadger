@@ -212,7 +212,7 @@ p {
 h1,
 h2,
 h3{
-  font-family:"ChunkFive",serif;
+  font-family:"NotoSans",serif;
   font-style:normal;
   font-weight:normal;
   color:inherit;
@@ -531,8 +531,8 @@ b {
 
 /* fonts */
 @font-face {
-  font-family:'ChunkFive';
-  src:url("../fonts/Chunk.ttf") format("truetype");
+  font-family:'NotoSans';
+  src:url("../fonts/NotoSans-Black.ttf") format("truetype");
   font-weight:900;
   font-style:normal;
 }
