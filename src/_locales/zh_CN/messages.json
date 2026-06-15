@@ -64,7 +64,7 @@
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_effector_signup": {
-        "message": "Get the latest privacy news from EFF",
+        "message": "获取最新电子前哨基金会隐私新闻",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "version": {
