@@ -1,6 +1,20 @@
 Privacy Badger changelog
 ========================
 
+2026.6.16
+* Updated the new user welcome page to better explain how to disable
+Privacy Badger on a site. Redesigned pinning instructions in Chrome
+to become a part of learning about the "Disable for this site" button.
+* Added a new way to support Privacy Badger (with a sweatshirt!) to the popup,
+shown sometimes instead of existing "donate" and "leave a review" links.
+Also added a link to subscribe to privacy news ("EFFector").
+* Fixed hang on the Tracking Domains tab for screen reader users.
+This also improves options page performance for all users.
+* Improved keyboard navigation of tracking domains on the options page
+* Fixed various site breakages
+* Improved Arabic, Simplified Chinese, Finnish, Swedish and Ukrainian
+translations. Removed Czech and Korean translations due to lack of updates.
+
 2026.2.20
 * Improved blocking trackers in Chrome and Chromium-based browsers.
 Previously, due to now addressed limitations in Manifest V3 Chromium,
