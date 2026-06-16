@@ -1,7 +1,9 @@
 {
   "action_map": {
     "00px.net": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1781972378933
     },
     "021east.com": {
       "heuristicAction": "allow"
@@ -5143,7 +5145,9 @@
       "heuristicAction": "allow"
     },
     "cdn-client.medium.com": {
-      "heuristicAction": "cookieblock"
+      "dnt": true,
+      "heuristicAction": "cookieblock",
+      "nextUpdateTime": 1781914874812
     },
     "cdn-eu.dynamicyield.com": {
       "heuristicAction": "cookieblock"
@@ -5158,7 +5162,9 @@
       "heuristicAction": "cookieblock"
     },
     "cdn-images-1.medium.com": {
-      "heuristicAction": "cookieblock"
+      "dnt": true,
+      "heuristicAction": "cookieblock",
+      "nextUpdateTime": 1781932144827
     },
     "cdn-net.com": {
       "heuristicAction": "block"
@@ -7425,7 +7431,9 @@
       "heuristicAction": "block"
     },
     "decagon.ai": {
-      "heuristicAction": "block"
+      "dnt": true,
+      "heuristicAction": "block",
+      "nextUpdateTime": 1781766152637
     },
     "deccanherald.com": {
       "heuristicAction": "allow"
@@ -11104,7 +11112,9 @@
       "heuristicAction": "allow"
     },
     "glyph.medium.com": {
-      "heuristicAction": "cookieblock"
+      "dnt": true,
+      "heuristicAction": "cookieblock",
+      "nextUpdateTime": 1782162124835
     },
     "gmat.com": {
       "heuristicAction": "allow"
@@ -16323,7 +16333,9 @@
       "heuristicAction": "allow"
     },
     "miro.medium.com": {
-      "heuristicAction": "cookieblock"
+      "dnt": true,
+      "heuristicAction": "cookieblock",
+      "nextUpdateTime": 1781867822856
     },
     "mirrar.com": {
       "heuristicAction": "allow"
@@ -23551,8 +23563,9 @@
       "heuristicAction": "allow"
     },
     "statad.ru": {
+      "dnt": true,
       "heuristicAction": "block",
-      "nextUpdateTime": 1781950610541
+      "nextUpdateTime": 1781908881896
     },
     "statcounter.com": {
       "heuristicAction": "block",
