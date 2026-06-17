@@ -4919,7 +4919,6 @@ let multiDomainFirstPartiesArray = [
     "thinkorswim.com",
     "thinkorswim.com.sg",
   ],
-  ["schibsted.com", "finn.no", "tori.fi"],
   ["scmp.com", "i-scmp.com"],
   ["sears.com", "shld.net"],
   ["seek.com.au", "jobsdb.com", "jobstreet.com", "seek.co.nz"],
@@ -5725,6 +5724,17 @@ let multiDomainFirstPartiesArray = [
     "umusic.com",
   ],
   ["vanguard.com", "investornews.vanguard", "vanguardblog.com", "vanguardcanada.ca", "vanguardinvestor.co.uk", "vgcontent.info"],
+  [
+    "vend.com",
+
+    "blocket.se",
+    "dba.dk",
+    "finn.no",
+    "oikotie.fi",
+    "tori.fi",
+
+    "finncdn.no"
+  ],
   [
     "verizonmedia.com",
 
