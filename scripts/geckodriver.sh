@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 # Install the latest version of geckodriver
-#version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep -i "^Location: " | sed 's/.*\///' | tr -d '\r')
-version=v0.36.0
+version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep -i "^Location: " | sed 's/.*\///' | tr -d '\r')
 
 # check that we got something
 if [ -z "$version" ]; then
