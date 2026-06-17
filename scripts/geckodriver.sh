@@ -2,7 +2,7 @@
 
 # Install the latest version of geckodriver
 #version=$(curl -sI https://github.com/mozilla/geckodriver/releases/latest | grep -i "^Location: " | sed 's/.*\///' | tr -d '\r')
-version=0.36.0
+version=v0.36.0
 
 # check that we got something
 if [ -z "$version" ]; then
