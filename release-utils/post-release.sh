@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd "$(dirname "$0")"
-source ./config.sh
+
 if [ $# -ne 1 ] ; then
   echo "Usage: $0 <version to release>"
   exit 1
@@ -13,15 +13,15 @@ if ! git show release-"$TARGET" > /dev/null 2> /dev/null ; then
 fi
 
 changelog_tmp=$(mktemp)
-echo "Uploading changelog ($changelog_tmp)"
+echo; echo "Copying changelog ($changelog_tmp) to assets repo"
 git show release-"$TARGET":doc/Changelog > "$changelog_tmp" || exit 1
-scp "$changelog_tmp" "$USER@$SERVER:/www/eff.org/files/pbChangelog.txt" || exit 1
+cp "$changelog_tmp" ../../privacybadger_assets/files/pbChangelog.txt || exit 1
 rm "$changelog_tmp"
 
 echo ""
 echo "AMO release notes:"
 echo ""
-tail -n+4 ../doc/Changelog | sed '/^$/q' | grep -Ev '^[0-9]{4}\.[0-9\.]+$' | {
+tail -n+4 ../../privacybadger_assets/files/pbChangelog.txt | sed '/^$/q' | grep -Ev '^[0-9]{4}\.[0-9\.]+$' | {
   out=""
   while IFS= read -r line; do
     # changelog entries start with "*"

@@ -1,10 +1,9 @@
 #!/bin/bash
 
-if ! [ -f ./release-utils/config.sh ] ; then
-  echo "Missing config file. Cannot continue."
+if ! [ -d ../privacybadger_assets ] ; then
+  echo "Missing assets folder. Cannot continue."
   exit 1
 fi
-source ./release-utils/config.sh
 
 if [ $# -ne 1 ] ; then
   echo "Usage: $0 <version to release>"
@@ -24,6 +23,6 @@ fi
 
 cp "$CHROME_PKG" "$CHROME_ALT"
 
-echo "Uploading Chrome packages ..."
-scp "$CHROME_PKG" "$USER@$SERVER:/www/eff.org/files" || exit 1
-scp "$CHROME_ALT" "$USER@$SERVER:/www/eff.org/files" || exit 1
+echo "Copying Chrome CRXs to assets repo"
+cp "$CHROME_PKG" ../privacybadger_assets/files || exit 1
+cp "$CHROME_ALT" ../privacybadger_assets/files || exit 1

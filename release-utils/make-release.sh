@@ -15,6 +15,10 @@ if ! [ -f ./release-utils/config.sh ] ; then
 fi
 source ./release-utils/config.sh
 
+if ! [ -d ../privacybadger_assets ] ; then
+  echo "Missing assets folder. Cannot continue."
+  exit 1
+fi
 
 if echo "$TARGET" | grep -q release- ; then
   GITTAG=$TARGET
@@ -28,9 +32,12 @@ if ! git show "$GITTAG" > /dev/null 2> /dev/null ; then
   exit 1
 fi
 
-echo "Making Chrome/Opera zip"
+# TODO we don't use this zip for Chrome/Opera/Edge at this point
+# TODO but we do rely on the changes producing it makes to the checkout folder
+# TODO to make the Firefox zip below
+echo "Making zip"
 if ! release-utils/make-release-zip.sh "$TARGET"; then
-  echo "Failed to build target $TARGET for Chrome/Opera"
+  echo "Failed to build target $TARGET zip"
   exit 1
 fi
 

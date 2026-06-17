@@ -1,10 +1,9 @@
 #!/bin/bash
 
-if ! [ -f ./release-utils/config.sh ] ; then
-  echo "Missing config file. Cannot continue."
+if ! [ -d ../privacybadger_assets ] ; then
+  echo "Missing assets folder. Cannot continue."
   exit 1
 fi
-source ./release-utils/config.sh
 
 if [ $# -ne 1 ] ; then
   echo "Usage: $0 <version to release>"
@@ -18,7 +17,7 @@ fi
 
 PKGDIR=pkg
 PKG="$PKGDIR"/privacy-badger-eff-"$TARGET".xpi
-ALT="$PKGDIR"/privacy-badger-eff-latest.xpi
+ALT="$PKGDIR"/privacy-badger-latest.xpi
 
 # auto-generated XPI name from 'web-ext sign'
 PRE_XPI_NAME="$PKGDIR"/privacy_badger-"$TARGET".xpi
@@ -36,10 +35,10 @@ gpg --detach-sign "$PKG"
 cp "$PKG" "$ALT"
 
 echo Copying .xpi files...
-scp "$PKG" "$USER@$SERVER:/www/eff.org/files" || exit 1
-scp "$ALT" "$USER@$SERVER:/www/eff.org/files" || exit 1
+cp "$PKG" ../privacybadger_assets/files || exit 1
+cp "$ALT" ../privacybadger_assets/files || exit 1
 echo Copying detached signature
-scp "$PKG".sig "$USER@$SERVER:/www/eff.org/files" || exit 1
+cp "$PKG".sig ../privacybadger_assets/files || exit 1
 
 if type shas256sum >/dev/null 2>&1; then
   SHA256=$(sha256sum "$PKG" | cut -c 1-64)
@@ -47,7 +46,7 @@ else
   SHA256=$(shasum -a 256 "$PKG" | cut -c 1-64)
 fi
 
-echo "Now edit https://www.eff.org/files/privacy-badger-updates.json to include the following"
+echo "Now edit ../privacybadger_assets/files/privacy-badger-updates.json to include the following"
 echo ""
 echo "{"
 echo "  \"version\": \"$TARGET\","
