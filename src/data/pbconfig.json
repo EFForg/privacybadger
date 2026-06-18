@@ -67,6 +67,12 @@
                 "www.disneyplus.com",
                 "www.hulu.com"
             ],
+            "berlingskemedia.net": [
+                "www.berlingske.dk",
+                "www.bt.dk",
+                "www.euroinvestor.dk",
+                "www.weekendavisen.dk"
+            ],
             "doubleclick.net": [
                 "m.youtube.com",
                 "www.youtube.com"
