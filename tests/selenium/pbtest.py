@@ -260,7 +260,9 @@ class Shim:
 
         for i in range(5):
             try:
-                service = FirefoxService(log_output=os.path.devnull)
+                service = FirefoxService(log_output=os.path.devnull,
+                                         # https://bugzilla.mozilla.org/show_bug.cgi?id=2048451
+                                         service_args=['--allow-system-access'])
                 driver = webdriver.Firefox(options=opts, service=service)
                 driver.webextension.install(self.extension_path)
             except WebDriverException as ex:
