@@ -588,6 +588,7 @@ let multiDomainFirstPartiesArray = [
     "ext-twitch.tv",
     "jtvnw.net",
     "ttvnw.net",
+    "twitchcdn.net",
 
     "a2z.com",
     "amazon.dev",
