@@ -82,12 +82,6 @@
                 "www.marvelrivals.com",
                 "www.mumuplayer.com"
             ],
-            "finn.no": [
-                "www.blocket.se",
-                "www.dba.dk",
-                "asunnot.oikotie.fi",
-                "www.tori.fi"
-            ],
             "flashscore.com": [
                 "www.flashscore.at",
                 "www.flashscore.ca",
@@ -873,6 +867,7 @@
         "register.feefo.com",
         "filepicker.io",
         "filestackapi.com",
+        "assets.finn.no",
         "flipcause.com",
         "flippenterprise.net",
         "flixcdn.com",
