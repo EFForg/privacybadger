@@ -73,6 +73,9 @@
                 "www.euroinvestor.dk",
                 "www.weekendavisen.dk"
             ],
+            "dailymail.com": [
+                "www.thisismoney.co.uk"
+            ],
             "doubleclick.net": [
                 "m.youtube.com",
                 "www.youtube.com"
