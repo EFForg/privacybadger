@@ -2536,6 +2536,7 @@ let multiDomainFirstPartiesArray = [
   [
     "hellofresh.com",
 
+    "hellofresh.ca",
     "hellofresh.co.uk",
     "hellofresh.com.au",
     "hellofresh.lu",
