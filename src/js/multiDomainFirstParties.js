@@ -1023,6 +1023,7 @@ let multiDomainFirstPartiesArray = [
     "ccmbg.com",
   ],
   ["cctv.com", "cctv.cn", "cctvpic.com"],
+  ["centene.com", "ambetterhealth.com", "healthnet.com", "wellcare.com"],
   ["century21.com", "21online.com"],
   ["chart.io", "chartio.com"],
   ["chaturbate.com", "highwebmedia.com", "mmcdn.com"],
