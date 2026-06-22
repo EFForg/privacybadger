@@ -83,16 +83,19 @@
                 "m.youtube.com",
                 "www.youtube.com"
             ],
-            "elevenlabs.io": [
-                "elevenreader.io"
-            ],
-            "connect.facebook.net": [
-                "apps.facebook.com"
+            "dpgmedia.net": [
+                "qmusic.nl"
             ],
             "easebar.com": [
                 "www.fragpunk.com",
                 "www.marvelrivals.com",
                 "www.mumuplayer.com"
+            ],
+            "elevenlabs.io": [
+                "elevenreader.io"
+            ],
+            "connect.facebook.net": [
+                "apps.facebook.com"
             ],
             "flashscore.com": [
                 "www.flashscore.at",
