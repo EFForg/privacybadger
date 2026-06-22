@@ -4253,6 +4253,7 @@ let multiDomainFirstPartiesArray = [
     "pinimg.com",
     "pin.it",
   ],
+  ["pipedrive.com", "pipedriveassets.com"],
   ["plex.tv", "plex.direct"],
   ["pokemon-gl.com", "pokemon.com"],
   [
