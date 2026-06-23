@@ -46,18 +46,6 @@
             "www.mazdausa.com"
         ],
         "ignore": {
-            "aa.com": [
-                "www.aa.com.br",
-                "www.aa.com.do",
-                "www.aavacations.com",
-                "www.americanairlines.co.cr",
-                "www.americanairlines.co.uk",
-                "www.americanairlines.fr"
-            ],
-            "axelspringer.de": [
-                "signin.auth.bild.de",
-                "signin.auth.welt.de"
-            ],
             "bamgrid.com": [
                 "abc.com",
                 "plus.espn.com",
@@ -121,9 +109,6 @@
                 "www.livesport.com",
                 "www.livesport.cz"
             ],
-            "globo.com": [
-                "www.techtudo.com.br"
-            ],
             "googleadservices.com": [
                 "m.youtube.com",
                 "www.youtube.com"
@@ -141,12 +126,6 @@
                 "www.hellofresh.com.au",
                 "www.hellofresh.lu",
                 "www.hellofresh.nl"
-            ],
-            "hubspot.com": [
-                "app-na1.hubspotdocuments.com"
-            ],
-            "hubspot.net": [
-                "app-na1.hubspotdocuments.com"
             ],
             "intoday.in": [
                 "www.indiatoday.in"
@@ -171,42 +150,13 @@
                 "www.livesport.com",
                 "www.livesport.cz"
             ],
-            "lottomaticagroup.com": [
-                "www.goldbet.it",
-                "www.lottomatica.it",
-                "www.planetwin365.it"
-            ],
-            "meteored.com": [
-                "www.tempo.pt"
-            ],
             "mmcdn.com": [
                 "www.chaturbate.lat",
                 "www.chaturgirl.com",
                 "www.xnxx-livecams.com"
             ],
-            "osano.com": [
-                "my.datasubject.com"
-            ],
-            "phncdn.com": [
-                "pornhub.mainhub.com",
-                "de.redtube.com",
-                "fr.redtube.com",
-                "de.pornhub.org",
-                "www.pornhub.org",
-                "www.pornhubpremium.com",
-                "www.thumbzilla.com",
-                "www.youporn.com"
-            ],
             "riotgames.com": [
                 "valorantesports.com"
-            ],
-            "assets.striiiipst.com": [
-                "stripchat.com",
-                "de.stripchat.com",
-                "fr.stripchat.com",
-                "sun-porno.com",
-                "xhamsterlive.com",
-                "de.xhamsterlive.com"
             ],
             "twitchcdn.net": [
                 "www.twitch.tv"
@@ -487,9 +437,6 @@
             "litix.io": [
                 "www.crunchyroll.com"
             ],
-            "mars.com": [
-                "www.snickers.com"
-            ],
             "global.apis.naver.com": [
                 "weverse.io"
             ],
@@ -569,7 +516,6 @@
                 "bunpro.jp"
             ],
             "twitch.tv": [
-                "crowd.gamesdonequick.com",
                 "lolesports.com"
             ],
             "platform.twitter.com": [
