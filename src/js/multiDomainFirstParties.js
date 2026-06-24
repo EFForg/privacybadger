@@ -907,6 +907,7 @@ let multiDomainFirstPartiesArray = [
   ["binance.com", "binance.cloud", "binance.vision", "bnbstatic.com"],
   ["bitrix24.com", "bitrix24.ru", "1c-bitrix.ru", "bitrix.info", "bitrix24.net"],
   ["blablacar.com", "blablacar.com.br", "blablacar.fr", "blablacar.ru"],
+  ["blackhawknetwork.com", "cashstar.com", "giftcard.com", "giftcards.com", "myprepaidcenter.com"],
   [
     "blizzard.com",
 
