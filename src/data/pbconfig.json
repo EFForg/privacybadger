@@ -373,6 +373,9 @@
                 "www.uniladtech.com",
                 "www.zagreb.info"
             ],
+            "pub.doubleverify.com": [
+                "www.bbc.com"
+            ],
             "js-cdn.dynatrace.com": [
                 "www.fido.ca"
             ],
