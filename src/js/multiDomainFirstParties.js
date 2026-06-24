@@ -1304,6 +1304,7 @@ let multiDomainFirstPartiesArray = [
     "humo.be",
     "indebuurt.nl",
     "independer.nl",
+    "joe.be",
     "parool.nl",
     "persgroepinternational.be",
     "persgroepinternational.com",
