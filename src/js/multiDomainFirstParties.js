@@ -3638,6 +3638,7 @@ let multiDomainFirstPartiesArray = [
     "fragpunk.com",
     "marvelrivals.com",
     "mumuplayer.com",
+    "wherewindsmeetgame.com",
 
     "easebar.com"
   ],
