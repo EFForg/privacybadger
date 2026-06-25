@@ -43,6 +43,9 @@ import utils from "./utils.js";
  * firstPartyDomain is not currently supported in Chrome.
  */
 function testCookiesFirstPartyDomain() {
+  if (!chrome.cookies) {
+    return false;
+  }
   try {
     chrome.cookies.getAll({
       firstPartyDomain: null
@@ -125,7 +128,7 @@ function Badger(from_qunit) {
     // set badge text color to white in Firefox 63+
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1474110
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1424620
-    if (utils.hasOwn(chrome.browserAction, 'setBadgeTextColor')) {
+    if (chrome.browserAction && utils.hasOwn(chrome.browserAction, 'setBadgeTextColor')) {
       chrome.browserAction.setBadgeTextColor({ color: "#fff" });
     }
 
@@ -158,7 +161,7 @@ function Badger(from_qunit) {
 
 } /* end of Badger constructor */
 
-Badger.prototype = {
+Badger.prototype = { 
   INITIALIZED: false,
 
   /**
@@ -649,7 +652,7 @@ Badger.prototype = {
               sitefixes[site_host][kind] = [];
             }
             sitefixes[site_host][kind].push(pattern);
-          }
+          } 
         }
       }
 
@@ -1278,7 +1281,7 @@ function startBackgroundListeners() {
     }
   });
 
-  chrome.tabs.onActivated.addListener(function (activeInfo) {
+  chrome.tabs.onActivated.addListener(function (activeInfo) { 
     if (badger.INITIALIZED) {
       badger.updateBadge(activeInfo.tabId);
     }

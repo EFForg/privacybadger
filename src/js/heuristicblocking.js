@@ -246,6 +246,9 @@ HeuristicBlocker.prototype = {
 
     // get all non-HttpOnly cookies for the top-level frame
     // and pass those to the pixel cookie-share accounting function
+    if (!chrome.cookies) {
+      return;
+    }
     let config = {
       url: tab_url
     };
