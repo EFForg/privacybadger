@@ -555,7 +555,10 @@
         }
     },
     "X (Twitter)": {
-        "domain": "platform.twitter.com",
+        "domains": [
+            "platform.twitter.com",
+            "platform.x.com"
+        ],
         "buttonSelectors": [
             "blockquote[class*='twitter-tweet']",
             "blockquote[class*='twitter-video']",
@@ -564,13 +567,16 @@
         ],
         "scriptSelectors": [
             "script[src='https://platform.twitter.com/widgets.js']",
-            "script[src='//platform.twitter.com/widgets.js']"
+            "script[src='//platform.twitter.com/widgets.js']",
+            "script[src^='https://platform.x.com/widgets.js']",
+            "script[src^='//platform.x.com/widgets.js']"
         ],
         "replacementButton": {
             "unblockDomains": [
                 "platform.twitter.com",
                 "syndication.twitter.com",
-                "twitter.com"
+                "twitter.com",
+                "platform.x.com"
             ],
             "type": 3
         }

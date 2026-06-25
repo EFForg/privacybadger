@@ -520,7 +520,7 @@ function createReplacementWidget(widget, elToReplace) {
       widget_url = elToReplace.cite;
     } else if (elToReplace.className.includes("twitter-tweet") || elToReplace.className.includes("twitter-video")) {
       // Twitter
-      let lastLink = Array.from(elToReplace.querySelectorAll("a[href^='https://twitter.com/']")).slice(-1)[0];
+      let lastLink = Array.from(elToReplace.querySelectorAll("a[href^='https://twitter.com/'], a[href^='https://x.com/']")).slice(-1)[0];
       if (lastLink) {
         widget_url = lastLink.href;
       }
