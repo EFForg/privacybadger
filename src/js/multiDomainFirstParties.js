@@ -655,6 +655,7 @@ let multiDomainFirstPartiesArray = [
     "ancestrycdn.com",
   ],
   ["androidcentral.com", "mobilenations.com"],
+  ["anthropic.com", "claude.ai", "claude.com"],
   [
     "apa.at",
     "apa-it.at",
