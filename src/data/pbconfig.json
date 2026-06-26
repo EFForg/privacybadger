@@ -386,7 +386,8 @@
                 "www.zagreb.info"
             ],
             "pub.doubleverify.com": [
-                "www.bbc.com"
+                "www.bbc.com",
+                "www.target.com"
             ],
             "js-cdn.dynatrace.com": [
                 "www.fido.ca"
