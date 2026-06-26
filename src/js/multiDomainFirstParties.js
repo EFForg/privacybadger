@@ -4458,6 +4458,7 @@ let multiDomainFirstPartiesArray = [
 
     "cdn-go.cn"
   ],
+  ["questionpro.com", "questionpro.eu"],
   [
     "rai.it",
 
