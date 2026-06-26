@@ -1783,6 +1783,7 @@ let multiDomainFirstPartiesArray = [
   ["firefox.com", "firefoxusercontent.com", "mozilla.org"],
   ["focuschina.com", "doba.com", "made-in-china.com", "micstatic.com"],
   ["ford.com", "ford.ca", "fordpro.com", "lincoln.com"],
+  ["fortinet.com", "forticloud.com", "fortiguard.com", "fortisase.com"],
   [
     "foxcorporation.com",
 

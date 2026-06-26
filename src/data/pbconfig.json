@@ -122,6 +122,11 @@
                 "www.livesport.com",
                 "www.livesport.cz"
             ],
+            "fortinet.com": [
+              "www.fortisase.com",
+              "www.fortiguard.com",
+              "www.forticloud.com"
+            ],
             "googleadservices.com": [
                 "m.youtube.com",
                 "www.youtube.com"
