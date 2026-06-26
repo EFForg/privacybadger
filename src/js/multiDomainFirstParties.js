@@ -6500,6 +6500,7 @@ let multiDomainFirstPartiesArray = [
     "zohocreator.com",
     "zohopublic.com",
     "zohopublic.ca",
+    "zohopublic.in",
     "zohostatic.com",
   ],
   ["zonealarm.com", "zonelabs.com"],
