@@ -4891,6 +4891,7 @@ let multiDomainFirstPartiesArray = [
 
     "salesforce-sites.com",
   ],
+  ["samsung.com", "smartthings.com"],
   ["sanguosha.com", "bianfeng.com"],
   [
     "sberbank.com",
