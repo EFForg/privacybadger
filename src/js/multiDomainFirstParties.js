@@ -3634,6 +3634,7 @@ let multiDomainFirstPartiesArray = [
     "127.net",
     "163.com",
 
+    "draw.market",
     "icourse163.org",
     "kada.com",
     "kaola.com",
