@@ -476,6 +476,45 @@ function onBeforeSendHeaders(details) {
 }
 
 /**
+ * Checks whether the page's Content-Security-Policy allows inline scripts.
+ *
+ * Returns true when inline scripts are allowed (or when there is no
+ * relevant CSP directive), false when they are blocked.
+ *
+ * Handles multiple CSP headers (all must permit inline scripts for the
+ * result to be true). Treats 'unsafe-inline' as ineffective when nonces
+ * or hashes are also present (CSP Level 3 behaviour).
+ *
+ * @param {Array<{name: string, value: string}>} headers
+ * @returns {Boolean}
+ */
+function inlineScriptsAllowedByCsp(headers) {
+  for (const header of headers) {
+    if (header.name.toLowerCase() !== 'content-security-policy') {
+      continue;
+    }
+    const policy = header.value || '';
+    const scriptSrcMatch = /(?:^|;)\s*script-src\s+([^;]+)/i.exec(policy);
+    const defaultSrcMatch = /(?:^|;)\s*default-src\s+([^;]+)/i.exec(policy);
+    const directive = scriptSrcMatch ? scriptSrcMatch[1] : (defaultSrcMatch ? defaultSrcMatch[1] : null);
+    if (!directive) {
+      continue;
+    }
+    if (/'unsafe-inline'/i.test(directive)) {
+      // In CSP3, 'unsafe-inline' is ignored when nonces, hashes, or
+      // 'strict-dynamic' are present
+      if (/(?:nonce|sha(?:256|384|512))-/i.test(directive) ||
+        /'strict-dynamic'/i.test(directive)) {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
  * Filters incoming cookies out of the response header.
  *
  * @param {chrome.webRequest.WebRequestDetails} details
@@ -485,6 +524,17 @@ function onBeforeSendHeaders(details) {
 function onHeadersReceived(details) {
   if (!badger.INITIALIZED) {
     return;
+  }
+
+  // Record whether this frame's CSP allows inline script injection.
+  // Content script message handlers check this before enabling features
+  // that rely on injectScript() to avoid CSP-triggered console errors.
+  if ((details.type == 'main_frame' || details.type == 'sub_frame') &&
+    details.tabId >= 0) {
+    let frameData = badger.tabData.getFrameData(details.tabId, details.frameId);
+    if (frameData) {
+      frameData.inlineScriptsAllowed = inlineScriptsAllowedByCsp(details.responseHeaders);
+    }
   }
 
   if (details.type == 'main_frame') {
@@ -1150,6 +1200,21 @@ function getSurrogateWidget(name, data, frame_url) {
   return false;
 }
 
+/**
+ * Checks whether inline script injection is permitted for the frame that
+ * sent a content script message.
+ *
+ * Returns true when inline scripts are allowed (the default when CSP data
+ * has not yet been recorded, e.g. on the first load after install).
+ *
+ * @param {chrome.runtime.MessageSender} sender
+ * @returns {Boolean}
+ */
+function senderAllowsInlineScripts(sender) {
+  let frameData = badger.tabData.getFrameData(sender.tab.id, sender.frameId);
+  return !frameData || frameData.inlineScriptsAllowed !== false;
+}
+
 // NOTE: sender.tab is available for content script (not popup) messages only
 function dispatcher(request, sender, sendResponse) {
   // messages may arrive before Privacy Badger is ready
@@ -1266,7 +1331,8 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     let action = checkAction(sender.tab.id, tab_host, frame_host);
-    sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK);
+    sendResponse(senderAllowsInlineScripts(sender) &&
+      (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK));
 
     break;
   }
@@ -1366,7 +1432,8 @@ function dispatcher(request, sender, sendResponse) {
       frame_host = badger.cnameDomains[frame_host];
     }
 
-    sendResponse(frame_host &&
+    sendResponse(senderAllowsInlineScripts(sender) &&
+      frame_host &&
       badger.isLearningEnabled(sender.tab.id) &&
       badger.isPrivacyBadgerEnabled(tab_host) &&
       utils.isThirdPartyDomain(frame_host, tab_host));
@@ -1386,7 +1453,8 @@ function dispatcher(request, sender, sendResponse) {
       }
     }
 
-    sendResponse(badger.isLearningEnabled(sender.tab.id) &&
+    sendResponse(senderAllowsInlineScripts(sender) &&
+      badger.isLearningEnabled(sender.tab.id) &&
       badger.isPrivacyBadgerEnabled(extractHostFromURL(sender.tab.url)));
 
     break;
@@ -1826,6 +1894,7 @@ function dispatcher(request, sender, sendResponse) {
   case "checkDNT": {
     let tab_host = extractHostFromURL(sender.tab.url);
     sendResponse(
+      senderAllowsInlineScripts(sender) &&
       badger.isDntSignalEnabled(tab_host) &&
       badger.isPrivacyBadgerEnabled(tab_host));
     break;
@@ -2006,5 +2075,6 @@ function startListeners() {
 }
 
 export default {
+  inlineScriptsAllowedByCsp,
   startListeners
 };
