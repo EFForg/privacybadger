@@ -410,8 +410,7 @@
                 "www.zagreb.info"
             ],
             "pub.doubleverify.com": [
-                "www.bbc.com",
-                "www.target.com"
+                "www.bbc.com"
             ],
             "js-cdn.dynatrace.com": [
                 "www.fido.ca"
@@ -562,6 +561,9 @@
             ],
             "tremorhub.com": [
                 "www.sbs.com.au"
+            ],
+            "p.toadmash.net": [
+                "www.target.com"
             ],
             "uicdn.toast.com": [
                 "bunpro.jp"
