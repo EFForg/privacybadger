@@ -965,6 +965,7 @@ let multiDomainFirstPartiesArray = [
     "thezoereport.com",
   ],
   ["calvinklein.us", "calvinklein.co.uk", "calvinklein.de", "calvinklein.com"],
+  ["camsoda.com", "livemediahost.com"],
   [
     "canada.ca",
 
