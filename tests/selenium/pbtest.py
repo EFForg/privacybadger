@@ -194,7 +194,8 @@ class Shim:
         try:
             yield driver
         finally:
-            driver.quit()
+            if driver:
+                driver.quit()
 
     @contextmanager
     def edge_manager(self):
@@ -223,7 +224,8 @@ class Shim:
         try:
             yield driver
         finally:
-            driver.quit()
+            if driver:
+                driver.quit()
 
     @contextmanager
     def firefox_manager(self):
