@@ -5931,6 +5931,7 @@ let multiDomainFirstPartiesArray = [
     "bookmate.ru",
     "bringly.ru",
     "dzen.ru",
+    "go.yandex",
     "kinopoisk.ru",
     "mykp.ru",
     "yadi.sk",
