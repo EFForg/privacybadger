@@ -921,7 +921,7 @@ let multiDomainFirstPartiesArray = [
   ["bloomberg.com", "bbthat.com", "bwbx.io", "bloomberg.co.jp"],
   ["bmw.com", "bmw.de", "bmw.com.br", "bmwgroup.com", "bmwusa.com", "bmw-autofus.pl", "bmw-motorrad.de", "mini.de", "rolls-roycemotorcars.com", "bmwfs.com"],
   ["boardgamearena.com", "boardgamearena.net"],
-  ["boatsgroup.com", "boats.com", "boatsandoutboards.co.uk", "boattrader.com", "yachtworld.com", "yachtworld.fr"],
+  ["boatsgroup.com", "boats.com", "boatsandoutboards.co.uk", "boattrader.com", "boot24.com", "yachtworld.com", "yachtworld.fr"],
   ["booking.com", "rentalcars.com", "bstatic.com"],
   ["bostonglobe.com", "boston.com", "statnews.com", "bostonglobemedia.com"],
   ["box.com", "boxcdn.net"],
