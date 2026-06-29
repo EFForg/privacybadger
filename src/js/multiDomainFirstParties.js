@@ -3001,7 +3001,9 @@ let multiDomainFirstPartiesArray = [
   [
     "mafra.cz",
 
+    "emimino.cz",
     "idnes.cz",
+    "metro.cz",
     "lidovky.cz",
     "expres.cz",
 

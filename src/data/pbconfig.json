@@ -46,6 +46,9 @@
             "www.mazdausa.com"
         ],
         "ignore": {
+            "1gr.cz": [
+                "www.metro.cz"
+            ],
             "bamgrid.com": [
                 "abc.com",
                 "plus.espn.com",
