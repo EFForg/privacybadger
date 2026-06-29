@@ -3642,6 +3642,7 @@ let multiDomainFirstPartiesArray = [
     "kaola.com.hk",
     "lofter.com",
 
+    "anantagame.com",
     "fragpunk.com",
     "marvelrivals.com",
     "mumuplayer.com",
