@@ -60,11 +60,11 @@
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_sweatshirt_promo": {
-        "message": "Show your support with a new Privacy Badger sweatshirt!",
+        "message": "Υποστηρίξτε μας αγοράζοντας ένα φούτερ Privacy Badger!",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_effector_signup": {
-        "message": "Get the latest privacy news from EFF",
+        "message": "Μείνετε ενημερωμένοι για θέματα ιδιωτικότητας από το EFF",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "version": {
@@ -327,7 +327,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "message": "Ένα εργαλείο προστασίας της ιδιωτικότητας από το $START_HTML$EFF$END_HTML$, έναν μη κερδοσκοπικό οργανισμό που βασίζεται στη στήριξη των μελών του",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
@@ -341,7 +341,7 @@
         }
     },
     "intro_nag_header": {
-        "message": "Almost done!",
+        "message": "Σχεδόν τελειώσαμε!",
         "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
     },
     "intro_pin_nudge": {
@@ -365,19 +365,19 @@
         "description": "Alt text for pinning instructions image on intro page in Chrome"
     },
     "intro_animation_button_stop": {
-        "message": "Stop animation",
+        "message": "Διακοπή αναπαραγωγής",
         "description": "Intro page button to stop the pinning instructions animation"
     },
     "intro_animation_button_play": {
-        "message": "Play animation",
+        "message": "Αναπαραγωγή κινούμενης εικόνας",
         "description": "Intro page button to play the pinning instructions animation"
     },
     "intro_disable_header": {
-        "message": "One tip before you enjoy better browsing",
+        "message": "Πριν ξεκινήσετε, μια χρήσιμη συμβουλή",
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "message": "Το Privacy Badger είναι έτοιμο να σας προστατεύσει από κρυμμένους ιχνηλάτες. Εντούτοις, ο αποκλεισμός ιχνηλατών ενδέχεται σε κάποιες περιπτώσεις να επηρεάσει την ορθή λειτουργία ορισμένων ιστοσελίδων.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -399,11 +399,11 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger protects your browsing from trackers.",
+        "message": "Το Privacy Badger εμποδίζει τους ιχνηλάτες να παρακολουθούν τη δραστηριότητά σας.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
-        "message": "Learn how.",
+        "message": "Μάθετε πώς.",
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
@@ -423,7 +423,7 @@
         "description": "Intro page paragraph"
     },
     "intro_not_an_adblocker": {
-        "message": "Δεν ad blocker",
+        "message": "Δεν είναι ad blocker",
         "description": "Intro page paragraph heading."
     },
     "intro_learns_paragraph": {
@@ -451,7 +451,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate_subheading": {
-        "message": "Βοηθηστε μας κανοντας μια δωρεα",
+        "message": "Βοηθήστε μας κάνοντας μια δωρεά",
         "description": "Subheader above the Donate button on the intro page"
     },
     "donate_to_eff": {
@@ -797,7 +797,7 @@
         "description": "First part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "intro_text2": {
-        "message": "Για να μάθετε πώς δουλεύει το Privacy Badger, πατήστε παρακάτω για ένα γρήγορο μάθημα.",
+        "message": "Κάντε κλικ παρακάτω για μια σύντομη εισαγωγή στο Privacy Badger.",
         "description": "Second part of a reminder to visit the intro page"
     },
     "first_run_text": {
