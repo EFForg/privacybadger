@@ -373,7 +373,7 @@
         "description": "Intro page button to play the pinning instructions animation"
     },
     "intro_disable_header": {
-        "message": "Совет перед возвращением к просмотру веб-страниц",
+        "message": "Более качественный просмотр веб-страниц установлен. Теперь прочтите полезную подсказку.",
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
