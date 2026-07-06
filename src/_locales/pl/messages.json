@@ -60,11 +60,11 @@
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_sweatshirt_promo": {
-        "message": "Show your support with a new Privacy Badger sweatshirt!",
+        "message": "Zamanifestuj swoje wsparcie z nową bluzą Privacy Badger!",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_effector_signup": {
-        "message": "Get the latest privacy news from EFF",
+        "message": "Otrzymaj najnowsze informacje dotyczące prywatności od EFF",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "version": {
@@ -327,7 +327,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "message": "Chroniące prywatność narzędzie od $START_HTML$EFF$END_HTML$ – organizację non-profit utrzymywaną przez swoich członków",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
@@ -341,7 +341,7 @@
         }
     },
     "intro_nag_header": {
-        "message": "Almost done!",
+        "message": "Prawie gotowe!",
         "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
     },
     "intro_pin_nudge": {
@@ -365,19 +365,19 @@
         "description": "Alt text for pinning instructions image on intro page in Chrome"
     },
     "intro_animation_button_stop": {
-        "message": "Stop animation",
+        "message": "Zatrzymaj animację",
         "description": "Intro page button to stop the pinning instructions animation"
     },
     "intro_animation_button_play": {
-        "message": "Play animation",
+        "message": "Odtwórz animację",
         "description": "Intro page button to play the pinning instructions animation"
     },
     "intro_disable_header": {
-        "message": "One tip before you enjoy better browsing",
+        "message": "Jedna porada zanim nacieszysz się lepszym surfowaniem",
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "message": "Privacy Badger został zaprojektowany do ochrony Cię przed niewidzialnymi elementami śledzącymi. Ale czasami ich blokowanie może „zepsuć” działanie witryn internetowych.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -399,11 +399,11 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger protects your browsing from trackers.",
+        "message": "Privacy Badger chroni Twoje surfowanie przed elementami śledzącymi.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
-        "message": "Learn how.",
+        "message": "Dowiedz się jak.",
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
@@ -569,7 +569,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_incognito_warning": {
-        "message": "Włączenie nauki w trybie prywatnym może pozostawić ślady Twojego przeglądania prywatnego na komputerze. Domyślnie Privacy Badger będzie blokował już znane elementy śledzące w oknach prywatnych, ale nie będzie uczył się na temat nowych. Możesz zmienić tę opcję, jeżeli dużo serfujesz w trybie prywatnym.",
+        "message": "Włączenie nauki w trybie prywatnym może pozostawić ślady Twojego przeglądania prywatnego na komputerze. Domyślnie Privacy Badger będzie blokował już znane elementy śledzące w oknach prywatnych, ale nie będzie uczył się na temat nowych. Możesz zmienić tę opcję, jeżeli dużo surfujesz w trybie prywatnym.",
         "description": "Tooltip in general settings."
     },
     "options_widget_replacement_tab": {
@@ -618,7 +618,7 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger nie wykrył jakichkolwiek $LINK_START$szpiegujących domen$LINK_END$ do tej pory. Serfuj śmiało!",
+        "message": "Privacy Badger nie wykrył jakichkolwiek $LINK_START$szpiegujących domen$LINK_END$ do tej pory. Surfuj śmiało!",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed.",
         "placeholders": {
             "link_start": {
@@ -777,7 +777,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Reset szpiegujących domen spowoduje:\n\n • wymazanie wszystkich danych o elementach śledzących, o których Privacy Badger nauczył się podczas Twojego serfowania\n • zastąpienie listy szpiegujących domen najnowszą listą początkową (przeczytaj www.eff.org/badger-pretraining aby dowiedzieć się więcej)",
+        "message": "Reset szpiegujących domen spowoduje:\n\n • wymazanie wszystkich danych o elementach śledzących, o których Privacy Badger nauczył się podczas Twojego surfowania\n • zastąpienie listy szpiegujących domen najnowszą listą początkową (przeczytaj www.eff.org/badger-pretraining aby dowiedzieć się więcej)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {

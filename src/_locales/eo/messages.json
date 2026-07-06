@@ -60,11 +60,11 @@
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_sweatshirt_promo": {
-        "message": "Show your support with a new Privacy Badger sweatshirt!",
+        "message": "Montru vian subtenon kun la nova bluzo de Privata Melo!",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_effector_signup": {
-        "message": "Get the latest privacy news from EFF",
+        "message": "Akiri la plej aktualajn novaĵojn pri privateco el EFF",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "version": {
@@ -327,7 +327,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "message": "Privatec-rilata ilo de $START_HTML$EFF$END_HTML$ – ne-profit-cela fondaĵo subtenata de ĝiaj membroj",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
@@ -341,7 +341,7 @@
         }
     },
     "intro_nag_header": {
-        "message": "Almost done!",
+        "message": "Preskaŭ preta!",
         "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
     },
     "intro_pin_nudge": {
@@ -365,19 +365,19 @@
         "description": "Alt text for pinning instructions image on intro page in Chrome"
     },
     "intro_animation_button_stop": {
-        "message": "Stop animation",
+        "message": "Haltigi movbildon",
         "description": "Intro page button to stop the pinning instructions animation"
     },
     "intro_animation_button_play": {
-        "message": "Play animation",
+        "message": "Ludi movbildon",
         "description": "Intro page button to play the pinning instructions animation"
     },
     "intro_disable_header": {
-        "message": "One tip before you enjoy better browsing",
+        "message": "Unu konsilo antaŭ ol vi ĝuos pli bonan retumadon",
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "message": "Privata Melo estas destinita por protekti vin kontraŭ kaŝitaj spuriloj. Sed bloki spurilojn iam povas kaŭzi retejojn misfunkcii.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -399,11 +399,11 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger protects your browsing from trackers.",
+        "message": "Privata Melo protektas vian retumadon kontraŭ spuriloj.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
-        "message": "Learn how.",
+        "message": "Sciiĝu kiel.",
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
