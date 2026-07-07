@@ -2939,6 +2939,7 @@ let multiDomainFirstPartiesArray = [
   ["lbry.com", "odysee.com", "lbry.tv"],
   ["lendingtree.com", "comparecards.com", "depositaccounts.com"],
   ["likee.video", "like-video.com", "like.video", "likee.com", "likeevideo.com"],
+  ["listrak.com", "lt02.net", "listrakbi.com"],
   [
     "livesport.eu",
 
