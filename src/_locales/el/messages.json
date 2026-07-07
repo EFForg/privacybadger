@@ -377,7 +377,7 @@
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Το Privacy Badger είναι έτοιμο να σας προστατεύσει από κρυμμένους ιχνηλάτες. Εντούτοις, ο αποκλεισμός ιχνηλατών ενδέχεται σε κάποιες περιπτώσεις να επηρεάσει την ορθή λειτουργία ορισμένων ιστοσελίδων.",
+        "message": "Το Privacy Badger είναι έτοιμο να σας προστατεύσει από κρυφούς ιχνηλάτες. Εντούτοις, ο αποκλεισμός ιχνηλατών ενδέχεται σε κάποιες περιπτώσεις να επηρεάσει την ορθή λειτουργία ορισμένων ιστοσελίδων.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {

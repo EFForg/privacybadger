@@ -377,7 +377,7 @@
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger został zaprojektowany do ochrony Cię przed niewidzialnymi elementami śledzącymi. Ale czasami ich blokowanie może „zepsuć” działanie witryn internetowych.",
+        "message": "Privacy Badger został zaprojektowany do ochrony Cię przed ukrytymi elementami śledzącymi. Ale czasami ich blokowanie może „zepsuć” działanie witryn internetowych.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
