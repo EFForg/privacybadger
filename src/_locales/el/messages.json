@@ -369,7 +369,7 @@
         "description": "Intro page button to stop the pinning instructions animation"
     },
     "intro_animation_button_play": {
-        "message": "Αναπαραγωγή κινούμενης εικόνας",
+        "message": "Έναρξη αναπαραγωγής",
         "description": "Intro page button to play the pinning instructions animation"
     },
     "intro_disable_header": {
