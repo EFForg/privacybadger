@@ -4297,6 +4297,7 @@ let multiDomainFirstPartiesArray = [
     "pornhub.com",
 
     "gaytube.com",
+    "itsrealamateurs.com",
     "mainhub.com",
     "pornhub.org",
     "pornhubpremium.com",
