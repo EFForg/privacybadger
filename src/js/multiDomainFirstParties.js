@@ -2729,6 +2729,7 @@ let multiDomainFirstPartiesArray = [
     "ius.edu",
     "myiu.org",
   ],
+  ["ixbt.com", "ixbt.games", "ixbt.site"],
   [
     "jd.com",
 
