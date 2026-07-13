@@ -322,6 +322,38 @@
             }
         }
     },
+    "safari_popup_permissions_header": {
+        "message": "Additional permissions required to block trackers on all websites",
+        "description": "Shown in the popup and intro page on Safari before being granted permissions to run on all websites"
+    },
+    "safari_popup_permissions_button": {
+        "message": "Always Allow on Every Website...",
+        "description": "This translation must match button text in Safari settings. Select the Extensions tab, then select Privacy Badger. This button is shown next to 'Edit Websites...' if Privacy Badger hasn't been granted permissions yet."
+    },
+    "safari_popup_permissions_instructions": {
+        "message": "Click the button below to open Safari settings, then click $START_BOLD_TAG$\"$ALWAYS_ALLOW$\"$END_BOLD_TAG$",
+        "description": "Shown in the popup on Safari before being granted permissions for all websites",
+        "placeholders": {
+            "start_bold_tag": {
+                "content": "<b>"
+            },
+            "always_allow": {
+                "content": "$1",
+                "example": "Always Allow on Every Website..."
+            },
+            "end_bold_tag": {
+                "content": "</b>"
+            }
+        }
+    },
+    "safari_popup_settings_button": {
+        "message": "Open Safari settings",
+        "description": "Shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
+    },
+    "safari_popup_permissions_privacy_policy": {
+        "message": "Privacy Badger will never collect or share data about your browsing",
+        "description": "Shown in the popup on Safari before being granted permissions for all websites"
+    },
     "firstRun_title": {
         "message": "Köszönjük, hogy telepítette a Privacy Badger kiegészítőt!",
         "description": "Title of intro page"
@@ -371,6 +403,26 @@
     "intro_animation_button_play": {
         "message": "Play animation",
         "description": "Intro page button to play the pinning instructions animation"
+    },
+    "safari_intro_settings_instructions": {
+        "message": "Click the button below to open Safari settings",
+        "description": "Intro page instruction on Safari before being granted permissions for all websites"
+    },
+    "safari_intro_permissions_instructions": {
+        "message": "Click $START_SPAN_TAG$\"$ALWAYS_ALLOW$\"$END_SPAN_TAG$",
+        "description": "Instruction on intro page on Safari and macOS app that opens after installation",
+        "placeholders": {
+            "start_span_tag": {
+                "content": "<span class='bold'>"
+            },
+            "always_allow": {
+                "content": "$1",
+                "example": "Always Allow on Every Website..."
+            },
+            "end_span_tag": {
+                "content": "</span>"
+            }
+        }
     },
     "intro_disable_header": {
         "message": "One tip before you enjoy better browsing",
@@ -869,5 +921,29 @@
     "allow_on_site": {
         "message": "Mindig engedélyezze ezen az oldalon",
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
+    },
+    "safari_app_instructions_intro": {
+        "message": "Privacy Badger automatically protects you from trackers. $START_SPAN_TAG$Open Safari settings$END_SPAN_TAG$ to turn it on:",
+        "description": "Instructions on macOS app for Safari that opens after installation",
+        "placeholders": {
+            "start_span_tag": {
+                "content": "<span class='bold'>"
+            },
+            "end_span_tag": {
+                "content": "</span>"
+            }
+        }
+    },
+    "safari_app_checkbox_instructions": {
+        "message": "$START_SPAN_TAG$Check the box$END_SPAN_TAG$ next to Privacy Badger",
+        "description": "Instructions on macOS app for Safari that opens after installation",
+        "placeholders": {
+            "start_span_tag": {
+                "content": "<span class='bold'>"
+            },
+            "end_span_tag": {
+                "content": "</span>"
+            }
+        }
     }
 }
