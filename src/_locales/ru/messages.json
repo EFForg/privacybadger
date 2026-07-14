@@ -278,7 +278,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) — это расширение для браузера, которое автоматически учится блокировать скрытые трекеры. Privacy Badger разработан некоммерческой организацией Electronic Frontier Foundation, которая борется за ваши права в Интернете.",
+        "message": "Privacy Badger (privacybadger.org) — это расширение для браузера, которое автоматически учится блокировать скрытые трекеры. Privacy Badger разработан некоммерческой организацией Electronic Frontier Foundation, которая борется за ваши права в интернете.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -323,7 +323,7 @@
         }
     },
     "safari_popup_permissions_header": {
-        "message": "Additional permissions required to block trackers on all websites",
+        "message": "Для блокировки трекеров на всех сайтах требуются дополнительные разрешения",
         "description": "Shown in the popup and intro page on Safari before being granted permissions to run on all websites"
     },
     "safari_popup_permissions_button": {
@@ -331,7 +331,7 @@
         "description": "This translation must match button text in Safari settings. Select the Extensions tab, then select Privacy Badger. This button is shown next to 'Edit Websites...' if Privacy Badger hasn't been granted permissions yet."
     },
     "safari_popup_permissions_instructions": {
-        "message": "Click the button below to open Safari settings, then click $START_BOLD_TAG$\"$ALWAYS_ALLOW$\"$END_BOLD_TAG$",
+        "message": "Нажмите кнопку ниже, чтобы открыть настройки Safari. Потом нажмите $START_BOLD_TAG$«$ALWAYS_ALLOW$»$END_BOLD_TAG$.",
         "description": "Shown in the popup on Safari before being granted permissions for all websites",
         "placeholders": {
             "start_bold_tag": {
@@ -347,11 +347,11 @@
         }
     },
     "safari_popup_settings_button": {
-        "message": "Open Safari settings",
+        "message": "Откройте настройки Safari",
         "description": "Shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
     },
     "safari_popup_permissions_privacy_policy": {
-        "message": "Privacy Badger will never collect or share data about your browsing",
+        "message": "Privacy Badger никогда не будет собирать или распространять данные о ваших действиях в интернете",
         "description": "Shown in the popup on Safari before being granted permissions for all websites"
     },
     "firstRun_title": {
@@ -405,11 +405,11 @@
         "description": "Intro page button to play the pinning instructions animation"
     },
     "safari_intro_settings_instructions": {
-        "message": "Click the button below to open Safari settings",
+        "message": "Нажмите кнопку ниже, чтобы открыть настройки Safari",
         "description": "Intro page instruction on Safari before being granted permissions for all websites"
     },
     "safari_intro_permissions_instructions": {
-        "message": "Click $START_SPAN_TAG$\"$ALWAYS_ALLOW$\"$END_SPAN_TAG$",
+        "message": "Нажмите $START_SPAN_TAG$«$ALWAYS_ALLOW$»$END_SPAN_TAG$",
         "description": "Instruction on intro page on Safari and macOS app that opens after installation",
         "placeholders": {
             "start_span_tag": {
@@ -451,7 +451,7 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger защищает ваши действия в Интернете от трекеров.",
+        "message": "Privacy Badger защищает ваши действия в интернете от трекеров.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
@@ -499,7 +499,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "Когда вы используете Privacy Badger, вы присоединяетесь к <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> и миллионам других пользователей в борьбе за приватность. Мы — некоммерческая организация, борющаяся за ваши права в Интернете. Спасибо, что присоединились к нам!",
+        "message": "Когда вы используете Privacy Badger, вы присоединяетесь к <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> и миллионам других пользователей в борьбе за приватность. Мы — некоммерческая организация, борющаяся за ваши права в интернете. Спасибо, что присоединились к нам!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate_subheading": {
@@ -605,7 +605,7 @@
         "description": "Subheading in general settings."
     },
     "options_learn_setting": {
-        "message": "Обучение блокировки новых трекеров по мере вашего пользования Интернетом",
+        "message": "Обучение блокировки новых трекеров по мере вашего пользования интернетом",
         "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
@@ -670,7 +670,7 @@
         }
     },
     "options_domain_list_no_trackers": {
-        "message": "Privacy Badger не обнаружил ни одного $LINK_START$домена с трекерами$LINK_END$. Продолжайте просмотр Интернета.",
+        "message": "Privacy Badger не обнаружил ни одного $LINK_START$домена с трекерами$LINK_END$. Продолжайте просмотр интернета.",
         "description": "Shown on the Tracking Domains tab on the options page if all tracking domains have been removed.",
         "placeholders": {
             "link_start": {
@@ -829,7 +829,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Сброс доменов с трекерами:\n\n  • удалит все данные о трекерах, полученные Privacy Badger в процессе вашего пользования Интернетом\n  • восстановит список доменов с трекерами до последней стандартной версии (для получения более подробной информации посетите www.eff.org/badger-pretraining)",
+        "message": "Сброс доменов с трекерами:\n\n  • удалит все данные о трекерах, полученные Privacy Badger в процессе вашего пользования интернетом\n  • восстановит список доменов с трекерами до последней стандартной версии (для получения более подробной информации посетите www.eff.org/badger-pretraining)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
@@ -841,7 +841,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "remove_all_data_confirm": {
-        "message": "Удаление всех доменов с трекерами:\n\n  • удалит все трекеры, известные Privacy Badger\n  • приведёт к тому, что Privacy Badger не будет ничего блокировать до включения режима обучения во время пользования Интернетом",
+        "message": "Удаление всех доменов с трекерами:\n\n  • удалит все трекеры, известные Privacy Badger\n  • приведёт к тому, что Privacy Badger не будет ничего блокировать до включения режима обучения во время пользования интернетом",
         "description": "Pop-up triggered when the remove_all_data button is clicked"
     },
     "intro_text1": {
@@ -857,7 +857,7 @@
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
     "learning_prompt_text1": {
-        "message": "Privacy Badger по умолчанию больше не будет обучаться по мере вашего пользования Интернетом.",
+        "message": "Privacy Badger по умолчанию больше не будет обучаться по мере вашего пользования интернетом.",
         "description": "First part of a prompt to visit the blog."
     },
     "learning_prompt_text2": {
@@ -923,7 +923,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "safari_app_instructions_intro": {
-        "message": "Privacy Badger automatically protects you from trackers. $START_SPAN_TAG$Open Safari settings$END_SPAN_TAG$ to turn it on:",
+        "message": "Privacy Badger автоматически защищает вас от трекеров. $START_SPAN_TAG$Откройте настройки Safari$END_SPAN_TAG$, чтобы включить его.",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {
@@ -935,7 +935,7 @@
         }
     },
     "safari_app_checkbox_instructions": {
-        "message": "$START_SPAN_TAG$Check the box$END_SPAN_TAG$ next to Privacy Badger",
+        "message": "$START_SPAN_TAG$Поставьте галочку$END_SPAN_TAG$ рядом с Privacy Badger",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {
