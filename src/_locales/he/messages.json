@@ -327,7 +327,7 @@
         "description": "Shown in the popup and intro page on Safari before being granted permissions to run on all websites"
     },
     "safari_popup_permissions_button": {
-        "message": "Always Allow on Every Website...",
+        "message": "הרשאה קבועה בכל אתר...",
         "description": "This translation must match button text in Safari settings. Select the Extensions tab, then select Privacy Badger. This button is shown next to 'Edit Websites...' if Privacy Badger hasn't been granted permissions yet."
     },
     "safari_popup_permissions_instructions": {
