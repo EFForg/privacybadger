@@ -67,6 +67,7 @@ function showNagMaybe() {
   var $nag = $("#instruction");
   var $outer = $("#instruction-outer");
   let intro_page_url = chrome.runtime.getURL("/skin/firstRun.html");
+  let $nagFocusables = $("#instruction").find(htmlUtils.focusableSelectors);
 
   function _setSeenComic(cb) {
     chrome.runtime.sendMessage({
@@ -81,30 +82,66 @@ function showNagMaybe() {
     }, cb);
   }
 
+  function _createTrapFocusHandler(id) {
+    // #fittslaw button applies to all versions of this dialog's content, should always be included
+    let $currentNagFocusables = $nagFocusables.filter((i, el) => {
+      return el.id === "fittslaw" || $(id).has(el).length;
+    });
+    let $firstFocusableEl = $currentNagFocusables.first();
+    let $lastFocusableEl = $currentNagFocusables.last();
+
+    return function(e) {
+      let is_tab = e.key === "Tab" || e.keycode === 9;
+      if (!is_tab) {
+        return;
+      }
+      if (e.shiftKey ) {
+        if (document.activeElement === $firstFocusableEl.get(0)) {
+          e.preventDefault();
+          $lastFocusableEl.focus();
+        }
+        return;
+      }
+
+      if (document.activeElement === $lastFocusableEl.get(0)) {
+        e.preventDefault();
+        $firstFocusableEl.focus();
+      }
+    }
+  }
+
   function _hideNag() {
     $nag.fadeOut();
     $outer.fadeOut();
   }
 
   function _showNag() {
+    let trapFocus = _createTrapFocusHandler("#instruction-text");
+
     $nag.show();
     $outer.show();
+
     // Attach event listeners
+    $(document).on("keydown", trapFocus);
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
       _setSeenComic(() => {
         _hideNag();
+        $(document).off("keydown", trapFocus);
       });
     });
     $("#intro-reminder-btn").on("click", function () {
       chrome.tabs.create({ url: intro_page_url });
       _setSeenComic(() => {
+        $(document).off("keydown", trapFocus);
         window.close();
       });
     });
   }
 
   function _showError(error_text) {
+    let trapFocus = _createTrapFocusHandler("#error-text");
+
     $('#instruction-text').hide();
 
     $('#error-message').text(error_text);
@@ -119,9 +156,11 @@ function showNagMaybe() {
         width: 'auto',
       });
 
+    $(document).on("keydown", trapFocus);
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
       _hideNag();
+      $(document).off("keydown", trapFocus);
     });
 
     $nag.show();
@@ -129,13 +168,17 @@ function showNagMaybe() {
   }
 
   function _showLearningPrompt() {
+    let trapFocus = _createTrapFocusHandler("#learning-prompt-div");
+
     $('#instruction-text').hide();
 
+    $(document).on("keydown", trapFocus);
     $("#learning-prompt-btn").on("click", function () {
       chrome.tabs.create({
         url: "https://www.eff.org/badger-evolution"
       });
       _setSeenLearningPrompt(function () {
+        $(document).off("keydown", trapFocus);
         window.close();
       });
     });
@@ -143,6 +186,7 @@ function showNagMaybe() {
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
       _setSeenLearningPrompt(function () {
+        $(document).off("keydown", trapFocus);
         _hideNag();
       });
     });
