@@ -95,7 +95,7 @@ function showNagMaybe() {
       if (!is_tab) {
         return;
       }
-      if (e.shiftKey ) {
+      if (e.shiftKey) {
         if (document.activeElement === $firstFocusableEl.get(0)) {
           e.preventDefault();
           $lastFocusableEl.focus();
@@ -107,7 +107,7 @@ function showNagMaybe() {
         e.preventDefault();
         $firstFocusableEl.focus();
       }
-    }
+    };
   }
 
   function _hideNag() {
