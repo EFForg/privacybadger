@@ -177,7 +177,7 @@ let htmlUtils = {
   getOriginHtml: (function () {
 
     const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
-      remove_button_label = i18n.getMessage('remove_button');
+      remove_button_intro = i18n.getMessage('remove_button');
 
     return function (fqdn, action, show_breakage_warning, show_breakage_note, blockedFpScripts) {
       action = escape_html(action);
@@ -212,6 +212,8 @@ let htmlUtils = {
 
       // construct HTML for domain
       let domain_tooltip = htmlUtils.getActionDescription(action, fqdn, blockedFpScripts);
+
+      let remove_button_label = `${remove_button_intro}: ${fqdn}`;
 
       return `
 <div class="${classes.join(' ')}" data-origin="${fqdn}">
