@@ -739,6 +739,9 @@ body {
   display:flex;
   flex-flow:row wrap;
 }
+#pb-donate-button .button.large {
+  font-size: 1.2rem;
+}
 #pb-donate img {
   max-width:200px;
 }
@@ -798,7 +801,7 @@ body {
     color-scheme: dark;
   }
 
-  body, #pb-privacy-policy {
+  body, #pb-privacy-policy a {
     background-color: #222;
     color: #ddd;
   }

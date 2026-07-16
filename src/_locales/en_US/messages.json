@@ -358,6 +358,10 @@
         "message": "Thank you for installing Privacy Badger!",
         "description": "Title of intro page"
     },
+    "intro_logo_alt_text": {
+        "message": "EFF logo",
+        "description": "Alt text for EFF logo on the intro page"
+    },
     "intro_eff_header": {
         "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
         "description": "Message in the header of intro page",
