@@ -323,15 +323,15 @@
         }
     },
     "safari_popup_permissions_header": {
-        "message": "Additional permissions required to block trackers on all websites",
+        "message": "Pliaj permesoj necesaj por bloki spurilojn en ĉiuj retejoj",
         "description": "Shown in the popup and intro page on Safari before being granted permissions to run on all websites"
     },
     "safari_popup_permissions_button": {
-        "message": "Always Allow on Every Website...",
+        "message": "Ĉiam permesi en ĉiu retejo…",
         "description": "This translation must match button text in Safari settings. Select the Extensions tab, then select Privacy Badger. This button is shown next to 'Edit Websites...' if Privacy Badger hasn't been granted permissions yet."
     },
     "safari_popup_permissions_instructions": {
-        "message": "Click the button below to open Safari settings, then click $START_BOLD_TAG$\"$ALWAYS_ALLOW$\"$END_BOLD_TAG$",
+        "message": "Alklaku la butonon sube por malfermi agordojn de Safari kaj sekve alklaku $START_BOLD_TAG$“$ALWAYS_ALLOW$”$END_BOLD_TAG$",
         "description": "Shown in the popup on Safari before being granted permissions for all websites",
         "placeholders": {
             "start_bold_tag": {
@@ -347,11 +347,11 @@
         }
     },
     "safari_popup_settings_button": {
-        "message": "Open Safari settings",
+        "message": "Malfermi agordojn de Safari",
         "description": "Shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
     },
     "safari_popup_permissions_privacy_policy": {
-        "message": "Privacy Badger will never collect or share data about your browsing",
+        "message": "Privata Melo neniam kolektos aŭ diskonigos datumojn pri via retumado ",
         "description": "Shown in the popup on Safari before being granted permissions for all websites"
     },
     "firstRun_title": {
@@ -405,11 +405,11 @@
         "description": "Intro page button to play the pinning instructions animation"
     },
     "safari_intro_settings_instructions": {
-        "message": "Click the button below to open Safari settings",
+        "message": "Alklaku la butonon sube por malfermi agordojn de Safari",
         "description": "Intro page instruction on Safari before being granted permissions for all websites"
     },
     "safari_intro_permissions_instructions": {
-        "message": "Click $START_SPAN_TAG$\"$ALWAYS_ALLOW$\"$END_SPAN_TAG$",
+        "message": "Alklaku $START_SPAN_TAG$“$ALWAYS_ALLOW$”$END_SPAN_TAG$",
         "description": "Instruction on intro page on Safari and macOS app that opens after installation",
         "placeholders": {
             "start_span_tag": {
@@ -923,7 +923,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "safari_app_instructions_intro": {
-        "message": "Privacy Badger automatically protects you from trackers. $START_SPAN_TAG$Open Safari settings$END_SPAN_TAG$ to turn it on:",
+        "message": "Privata Malo aŭtomate protektos vin kontraŭ spuriloj. $START_SPAN_TAG$Malfermu agordojn de Safari$END_SPAN_TAG$ por aktivigi ĝin: ",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {
@@ -935,7 +935,7 @@
         }
     },
     "safari_app_checkbox_instructions": {
-        "message": "$START_SPAN_TAG$Check the box$END_SPAN_TAG$ next to Privacy Badger",
+        "message": "$START_SPAN_TAG$Aktivigu la butonon$END_SPAN_TAG$ sekve de Privata Melo",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {

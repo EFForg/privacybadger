@@ -323,7 +323,7 @@
         }
     },
     "safari_popup_permissions_header": {
-        "message": "Additional permissions required to block trackers on all websites",
+        "message": "Ytterligare behörigheter krävs för att blockera spårare på alla webbplatser",
         "description": "Shown in the popup and intro page on Safari before being granted permissions to run on all websites"
     },
     "safari_popup_permissions_button": {
@@ -331,7 +331,7 @@
         "description": "This translation must match button text in Safari settings. Select the Extensions tab, then select Privacy Badger. This button is shown next to 'Edit Websites...' if Privacy Badger hasn't been granted permissions yet."
     },
     "safari_popup_permissions_instructions": {
-        "message": "Click the button below to open Safari settings, then click $START_BOLD_TAG$\"$ALWAYS_ALLOW$\"$END_BOLD_TAG$",
+        "message": "Klicka på knappen nedan för att öppna Safari-inställningarna och klicka sedan på $START_BOLD_TAG$”$ALWAYS_ALLOW$”$END_BOLD_TAG$",
         "description": "Shown in the popup on Safari before being granted permissions for all websites",
         "placeholders": {
             "start_bold_tag": {
@@ -347,11 +347,11 @@
         }
     },
     "safari_popup_settings_button": {
-        "message": "Open Safari settings",
+        "message": "Öppna Safari-inställningarna",
         "description": "Shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
     },
     "safari_popup_permissions_privacy_policy": {
-        "message": "Privacy Badger will never collect or share data about your browsing",
+        "message": "Privacy Badger samlar aldrig in eller delar information om din surfning",
         "description": "Shown in the popup on Safari before being granted permissions for all websites"
     },
     "firstRun_title": {
@@ -405,11 +405,11 @@
         "description": "Intro page button to play the pinning instructions animation"
     },
     "safari_intro_settings_instructions": {
-        "message": "Click the button below to open Safari settings",
+        "message": "Klicka på knappen nedan för att öppna Safari-inställningarna",
         "description": "Intro page instruction on Safari before being granted permissions for all websites"
     },
     "safari_intro_permissions_instructions": {
-        "message": "Click $START_SPAN_TAG$\"$ALWAYS_ALLOW$\"$END_SPAN_TAG$",
+        "message": "Klicka på $START_SPAN_TAG$”$ALWAYS_ALLOW$”$END_SPAN_TAG$",
         "description": "Instruction on intro page on Safari and macOS app that opens after installation",
         "placeholders": {
             "start_span_tag": {
@@ -923,7 +923,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "safari_app_instructions_intro": {
-        "message": "Privacy Badger automatically protects you from trackers. $START_SPAN_TAG$Open Safari settings$END_SPAN_TAG$ to turn it on:",
+        "message": "Privacy Badger skyddar dig automatiskt mot spårare. $START_SPAN_TAG$Öppna Safari-inställningarna$END_SPAN_TAG$ för att aktivera det:",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {
@@ -935,7 +935,7 @@
         }
     },
     "safari_app_checkbox_instructions": {
-        "message": "$START_SPAN_TAG$Check the box$END_SPAN_TAG$ next to Privacy Badger",
+        "message": "$START_SPAN_TAG$Markera kryssrutan$END_SPAN_TAG$ bredvid Privacy Badger",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {
