@@ -256,13 +256,13 @@ p {
 
 a {
   line-height:inherit;
-  color:#F06A0A;
+  color:#000;
   font-weight: bold;
-  text-decoration:none;
+  text-decoration: underline;
   cursor:pointer;
 }
 a:hover,a:focus {
-  color:#000;
+  color:#F06A0A;
 }
 a img {
   border:0;
@@ -360,7 +360,6 @@ ul ul,ol ul,ul ol,ol ol {
 }
 .top-bar a {
     color: #ddd;
-    text-decoration: underline;
 }
 .top-bar a:hover {
     color: #f06a0a;
@@ -741,6 +740,7 @@ body {
 }
 #pb-donate-button .button.large {
   font-size: 1.2rem;
+  text-decoration: none;
 }
 #pb-donate img {
   max-width:200px;
@@ -781,10 +781,10 @@ body {
 }
 
 #pb-privacy-policy, #pb-privacy-policy a {
-  color:#707070;
   font-family:"OpenSans-Light",sans-serif;
   font-size:0.9rem;
   text-align:center;
+  font-weight: unset;
 }
 
 #pb-donate-help {
@@ -801,12 +801,12 @@ body {
     color-scheme: dark;
   }
 
-  body, #pb-privacy-policy a {
+  body {
     background-color: #222;
     color: #ddd;
   }
 
-  a:hover, a:focus {
+  a {
     color: #ddd;
   }
 

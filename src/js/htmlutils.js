@@ -176,8 +176,7 @@ let htmlUtils = {
   // TODO origin --> domain/FQDN
   getOriginHtml: (function () {
 
-    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
-      remove_button_intro = i18n.getMessage('remove_button');
+    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip');
 
     return function (fqdn, action, show_breakage_warning, show_breakage_note, blockedFpScripts) {
       action = escape_html(action);
@@ -213,7 +212,7 @@ let htmlUtils = {
       // construct HTML for domain
       let domain_tooltip = htmlUtils.getActionDescription(action, fqdn, blockedFpScripts);
 
-      let remove_button_label = `${remove_button_intro}: ${fqdn}`;
+      let remove_button_label = i18n.getMessage('options_domain_remove', fqdn);
 
       return `
 <div class="${classes.join(' ')}" data-origin="${fqdn}">
