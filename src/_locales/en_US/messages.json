@@ -730,6 +730,16 @@
         "message": "allowed",
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
+    "options_domain_remove": {
+        "message": "Remove $DOMAIN$",
+        "description": "Accessibility label for the remove button next to domains on the Tracking Domains options page tab.",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
     "options_show_not_yet_blocked": {
         "message": "Show domains your Badger hasn't decided yet to block",
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
