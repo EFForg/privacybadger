@@ -935,7 +935,7 @@
         }
     },
     "safari_app_checkbox_instructions": {
-        "message": "$START_SPAN_TAG$Kliknij w przycisk$END_SPAN_TAG$ obok Privacy Badgera",
+        "message": "$START_SPAN_TAG$Zaznacz pole wyboru$END_SPAN_TAG$ obok Privacy Badgera",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {

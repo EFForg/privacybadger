@@ -351,7 +351,7 @@
         "description": "Shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
     },
     "safari_popup_permissions_privacy_policy": {
-        "message": "Privata Melo neniam kolektos aŭ diskonigos datumojn pri via retumado ",
+        "message": "Privata Melo neniam kolektos aŭ diskonigos datumojn pri via retumado",
         "description": "Shown in the popup on Safari before being granted permissions for all websites"
     },
     "firstRun_title": {
@@ -935,7 +935,7 @@
         }
     },
     "safari_app_checkbox_instructions": {
-        "message": "$START_SPAN_TAG$Aktivigu la butonon$END_SPAN_TAG$ sekve de Privata Melo",
+        "message": "$START_SPAN_TAG$Marku la elektilon$END_SPAN_TAG$ sekve de Privata Melo",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {
