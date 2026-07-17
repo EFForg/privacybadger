@@ -4,11 +4,11 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Automatically learns to block hidden trackers. Made by leading digital rights nonprofit EFF to stop companies from spying on you.",
+        "message": "Leert automatisch om verborgen trackers te blokkeren. Gemaakt door de toonaangevende non-profitorganisatie voor digitale rechten EFF om te voorkomen dat bedrijven u bespioneren.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
-        "message": "canvas fingerprinting",
+        "message": "canvas-vingerafdrukken",
         "description": "Canvas fingerprinting is the tracking method described in https://en.wikipedia.org/wiki/Canvas_fingerprinting"
     },
     "popup_help_button": {
@@ -52,19 +52,19 @@
         "description": "Button in the popup and title of the error reporting form overlay."
     },
     "popup_donate_to_eff": {
-        "message": "Donate to EFF—a nonprofit defending digital privacy",
+        "message": "Doneer aan EFF — een non-profitorganisatie die digitale privacy verdedigt",
         "description": "A link in the popup footer."
     },
     "popup_review_pb": {
-        "message": "Enjoying Privacy Badger? Leave a review!",
+        "message": "Geniet u van Privacy Badger? Laat een recensie achter!",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_sweatshirt_promo": {
-        "message": "Show your support with a new Privacy Badger sweatshirt!",
+        "message": "Toon uw steun met een nieuwe Privacy Badger-trui!",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_effector_signup": {
-        "message": "Get the latest privacy news from EFF",
+        "message": "Ontvang het laatste privacynieuws van EFF",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "version": {
@@ -178,7 +178,7 @@
         "description": "Tooltip shown over an EFF's DNT policy-compliant domain name in the list of domains in the popup or under the Tracking Domains tab on the options page."
     },
     "domain_slider_label": {
-        "message": "Settings for $DOMAIN$",
+        "message": "Instellingen voor $DOMAIN$",
         "description": "Screenreader-accessible label for domain sliders",
         "placeholders": {
             "domain": {
@@ -278,7 +278,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a browser extension that automatically learns to block hidden trackers. Privacy Badger is made by the Electronic Frontier Foundation, a nonprofit that fights for your rights online.",
+        "message": "Privacy Badger (privacybadger.org) is een browserextensie die automatisch leert om verborgen trackers te blokkeren. Privacy Badger wordt gemaakt door de Electronic Frontier Foundation, een non-profitorganisatie die online opkomt voor uw rechten.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -359,7 +359,7 @@
         "description": "Title of intro page"
     },
     "intro_eff_header": {
-        "message": "A privacy tool by $START_HTML$EFF$END_HTML$, a member-supported nonprofit",
+        "message": "Een privacytool van $START_HTML$EFF$END_HTML$, een door leden gesteunde non-profitorganisatie",
         "description": "Message in the header of intro page",
         "placeholders": {
             "start_html": {
@@ -373,11 +373,11 @@
         }
     },
     "intro_nag_header": {
-        "message": "Almost done!",
+        "message": "Bijna klaar!",
         "description": "Intro page subheading in Chrome (also in macOS app for Safari)"
     },
     "intro_pin_nudge": {
-        "message": "$START_SPAN_TAG$Pin Privacy Badger to your toolbar$END_SPAN_TAG$ for easy access to the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "$START_SPAN_TAG$Pin Privacy Badger vast aan uw werkbalk$END_SPAN_TAG$ voor eenvoudige toegang tot de knop \"$DISABLE_FOR_SITE$\".",
         "description": "Intro page paragraph in Chrome",
         "placeholders": {
             "start_span_tag": {
@@ -397,11 +397,11 @@
         "description": "Alt text for pinning instructions image on intro page in Chrome"
     },
     "intro_animation_button_stop": {
-        "message": "Stop animation",
+        "message": "Animatie stoppen",
         "description": "Intro page button to stop the pinning instructions animation"
     },
     "intro_animation_button_play": {
-        "message": "Play animation",
+        "message": "Animatie afspelen",
         "description": "Intro page button to play the pinning instructions animation"
     },
     "safari_intro_settings_instructions": {
@@ -425,11 +425,11 @@
         }
     },
     "intro_disable_header": {
-        "message": "One tip before you enjoy better browsing",
+        "message": "Eén tip voordat u kunt genieten van beter browsen",
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is all set to protect you from hidden trackers. But blocking trackers sometimes breaks websites.",
+        "message": "Privacy Badger is klaar om u te beschermen tegen verborgen trackers. Maar het blokkeren van trackers kan soms websites verstoren.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -451,15 +451,15 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger protects your browsing from trackers.",
+        "message": "Privacy Badger beschermt uw browsen tegen trackers.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
-        "message": "Learn how.",
+        "message": "Ontdek hoe.",
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
-        "message": "Privacy Badger automatically learns to block hidden trackers. Take a minute to see how.",
+        "message": "Privacy Badger leert automatisch om verborgen trackers te blokkeren. Neem een minuut de tijd om te zien hoe.",
         "description": "Intro page welcome paragraph."
     },
     "intro_beyond_ads": {
@@ -483,7 +483,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Hidden tracking happens in all sorts of ways; ads are just the visible tip of the iceberg. Privacy Badger doesn't block ads unless they happen to be tracking you.",
+        "message": "Verborgen tracking gebeurt op allerlei manieren; advertenties zijn slechts het zichtbare topje van de ijsberg. Privacy Badger blokkeert geen advertenties, tenzij ze u toevallig ook tracken.",
         "description": "Intro page paragraph"
     },
     "intro_open_popup": {
@@ -519,7 +519,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_bluesky": {
-        "message": "Share on Bluesky",
+        "message": "Delen op Bluesky",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "intro_link_policy": {
@@ -535,11 +535,11 @@
         "description": "Options page tab heading"
     },
     "options_disable_tip_title": {
-        "message": "How to disable Privacy Badger without leaving the site",
+        "message": "Privacy Badger uitschakelen zonder de site te verlaten",
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "First, click on Privacy Badger's icon in your browser toolbar. Then, click the \"$DISABLE_FOR_SITE$\" button.",
+        "message": "Klik eerst op het pictogram van Privacy Badger in de werkbalk van uw browser. Klik vervolgens op de knop \"$DISABLE_FOR_SITE$\".",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
@@ -637,7 +637,7 @@
         "description": "Header text on the Widget Replacement tab"
     },
     "options_hide_social_widgets": {
-        "message": "Block but don't replace the following widgets:",
+        "message": "De volgende widgets blokkeren maar niet vervangen:",
         "description": "Label for a form on the Widget Replacement tab"
     },
     "options_widget_site_exceptions_header": {
