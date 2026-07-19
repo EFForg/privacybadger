@@ -8,7 +8,7 @@ import time
 import unittest
 
 from contextlib import contextmanager
-from shutil import copytree, which
+from shutil import copytree, rmtree, which
 
 from selenium import webdriver
 from selenium.common.exceptions import (
@@ -171,6 +171,13 @@ class Shim:
         opts.enable_bidi = True
         opts.enable_webextensions = True
 
+        # use a fresh, disposable profile per test run
+        user_data_dir = tempfile.mkdtemp(prefix="pb-chrome-profile-")
+        opts.add_argument(f"--user-data-dir={user_data_dir}")
+        opts.add_argument("--no-first-run")
+        opts.add_argument("--no-default-browser-check")
+        opts.add_argument(f"--disable-extensions-except={self.extension_path}")
+
         # work around https://issues.chromium.org/issues/409441960
         opts.add_experimental_option('enableExtensionTargets', True)
 
@@ -195,6 +202,7 @@ class Shim:
             yield driver
         finally:
             driver.quit()
+            rmtree(user_data_dir, ignore_errors=True)
 
     @contextmanager
     def edge_manager(self):
@@ -203,6 +211,13 @@ class Shim:
         opts.binary_location = self.browser_path
         opts.enable_bidi = True
         opts.enable_webextensions = True
+
+        # use a fresh, disposable profile per test run
+        user_data_dir = tempfile.mkdtemp(prefix="pb-edge-profile-")
+        opts.add_argument(f"--user-data-dir={user_data_dir}")
+        opts.add_argument("--no-first-run")
+        opts.add_argument("--no-default-browser-check")
+        opts.add_argument(f"--disable-extensions-except={self.extension_path}")
 
         # work around https://issues.chromium.org/issues/409441960
         opts.add_experimental_option('enableExtensionTargets', True)
@@ -224,6 +239,7 @@ class Shim:
             yield driver
         finally:
             driver.quit()
+            rmtree(user_data_dir, ignore_errors=True)
 
     @contextmanager
     def firefox_manager(self):
