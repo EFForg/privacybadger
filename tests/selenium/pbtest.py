@@ -359,7 +359,7 @@ class PBSeleniumTest(unittest.TestCase):
                 "let done = arguments[arguments.length - 1];"
                 "chrome.runtime.sendMessage({"
                 "  type: 'isBadgerInitialized'"
-                "}, r => done(r));", execute_async=True)
+                "}, r => done(r));", execute_async=True, ignore_js_errors=True)
 
             # also disable the welcome page
             self.driver.execute_async_script(
@@ -452,6 +452,7 @@ class PBSeleniumTest(unittest.TestCase):
 
     def wait_for_script(self, script, *script_args,
         timeout=SEL_DEFAULT_WAIT_TIMEOUT, execute_async=False,
+        ignore_js_errors=False,
         message="Timed out waiting for execute_script to eval to True"):
 
         """Variant of execute_script/execute_async_script
@@ -461,7 +462,12 @@ class PBSeleniumTest(unittest.TestCase):
             if execute_async: return dr.execute_async_script(script, *script_args)
             return dr.execute_script(script, *script_args)
 
-        return WebDriverWait(self.driver, timeout).until(execute_script, message)
+        wait_kwargs = {}
+        if ignore_js_errors:
+            wait_kwargs['ignored_exceptions'] = [JavascriptException]
+
+        return WebDriverWait(self.driver, timeout, **wait_kwargs).until(
+            execute_script, message)
 
     def wait_for_any_text(self, selector, timeout=SEL_DEFAULT_WAIT_TIMEOUT):
         return WebDriverWait(self.driver, timeout).until(
