@@ -13,6 +13,7 @@ from shutil import copytree, which
 from selenium import webdriver
 from selenium.common.exceptions import (
     InvalidArgumentException,
+    JavascriptException,
     NoSuchWindowException,
     TimeoutException,
     WebDriverException,
@@ -182,10 +183,18 @@ class Shim:
         opts.set_capability("goog:loggingPrefs", {'browser': 'ALL'})
 
         for i in range(5):
+            driver = None
             try:
                 driver = webdriver.Chrome(options=opts)
                 driver.webextension.install(self.extension_path)
-            except WebDriverException as ex:
+                driver.get(self.base_url + "skin/options.html")
+                WebDriverWait(
+                    driver, 30, ignored_exceptions=[JavascriptException]).until(
+                        lambda d: d.execute_script(
+                            "return !!(window.chrome && chrome.runtime && chrome.runtime.sendMessage)"))
+            except (TimeoutException, WebDriverException) as ex:
+                if driver:
+                    driver.quit()
                 if i == 0: print("")
                 print(f"ChromeDriver initialization failed: {ex}")
             else:
@@ -211,10 +220,18 @@ class Shim:
         opts.set_capability("unhandledPromptBehavior", "ignore");
 
         for i in range(5):
+            driver = None
             try:
                 driver = webdriver.Edge(options=opts)
                 driver.webextension.install(self.extension_path)
-            except WebDriverException as ex:
+                driver.get(self.base_url + "skin/options.html")
+                WebDriverWait(
+                    driver, 30, ignored_exceptions=[JavascriptException]).until(
+                        lambda d: d.execute_script(
+                            "return !!(window.chrome && chrome.runtime && chrome.runtime.sendMessage)"))
+            except (TimeoutException, WebDriverException) as ex:
+                if driver:
+                    driver.quit()
                 if i == 0: print("")
                 print(f"EdgeDriver initialization failed ({i+1}/5): {ex}", end='')
             else:
