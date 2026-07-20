@@ -348,7 +348,7 @@
     },
     "safari_popup_settings_button": {
         "message": "Откройте настройки Safari",
-        "description": "Shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
+        "description": "Button shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
     },
     "safari_popup_permissions_privacy_policy": {
         "message": "Privacy Badger никогда не будет собирать или распространять данные о ваших действиях в интернете",
@@ -357,6 +357,10 @@
     "firstRun_title": {
         "message": "Спасибо вам за то, что установили Privacy Badger!",
         "description": "Title of intro page"
+    },
+    "intro_logo_alt_text": {
+        "message": "EFF logo",
+        "description": "Alt text for EFF logo on the intro page"
     },
     "intro_eff_header": {
         "message": "Инструмент для защиты прайваси, созданный некоммерческой организацией $START_HTML$EFF$END_HTML$",
@@ -744,9 +748,19 @@
             }
         }
     },
+    "options_domain_remove": {
+        "message": "Remove $DOMAIN$",
+        "description": "Alt text for the remove domain icon in the list of tracking domains on the options page",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
     "options_remove_origin_confirm": {
         "message": "Вы уверены, что хотите удалить этот домен из Privacy Badger?",
-        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
+        "description": "Confirmation shown when you click to remove a domain the list of tracking domains on the options page"
     },
     "data_settings": {
         "message": "Управление данными",

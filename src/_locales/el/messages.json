@@ -348,7 +348,7 @@
     },
     "safari_popup_settings_button": {
         "message": "Open Safari settings",
-        "description": "Shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
+        "description": "Button shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
     },
     "safari_popup_permissions_privacy_policy": {
         "message": "Privacy Badger will never collect or share data about your browsing",
@@ -357,6 +357,10 @@
     "firstRun_title": {
         "message": "Ευχαριστούμε που εγκαταστήσατε το Privacy Badger!",
         "description": "Title of intro page"
+    },
+    "intro_logo_alt_text": {
+        "message": "EFF logo",
+        "description": "Alt text for EFF logo on the intro page"
     },
     "intro_eff_header": {
         "message": "Ένα εργαλείο προστασίας της ιδιωτικότητας από το $START_HTML$EFF$END_HTML$, έναν μη κερδοσκοπικό οργανισμό που βασίζεται στη στήριξη των μελών του",
@@ -744,9 +748,19 @@
             }
         }
     },
+    "options_domain_remove": {
+        "message": "Remove $DOMAIN$",
+        "description": "Alt text for the remove domain icon in the list of tracking domains on the options page",
+        "placeholders": {
+            "domain": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
     "options_remove_origin_confirm": {
         "message": "Είστε σίγουρος πως θέλετε να διαγράψατε αυτό το domain από το Privacy Badger;",
-        "description": "Confirmation shown when you click to remove a domain from Privacy Badger's tracking domains list on the options page."
+        "description": "Confirmation shown when you click to remove a domain the list of tracking domains on the options page"
     },
     "data_settings": {
         "message": "Διαχείριση δεδομένων",
