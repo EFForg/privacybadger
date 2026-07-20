@@ -255,14 +255,14 @@ p {
 }
 
 a {
-  line-height:inherit;
-  color:#000;
+  line-height: inherit;
+  color: #000;
   font-weight: bold;
   text-decoration: underline;
-  cursor:pointer;
+  cursor: pointer;
 }
-a:hover,a:focus {
-  color:#F06A0A;
+a:hover, a:focus {
+  color: #F06A0A;
 }
 a img {
   border:0;
