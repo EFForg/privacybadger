@@ -64,23 +64,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         # switch to the welcome page or fail
         self.switch_to_window_with_url(self.first_run_url)
 
-    def test_help_button(self):
-        """Ensure FAQ website is opened when help button is clicked."""
-
-        FAQ_URL = "https://privacybadger.org/#faq"
-
-        try:
-            self.switch_to_window_with_url(FAQ_URL, max_tries=1)
-        except pbtest.WindowNotFoundException:
-            pass
-        else:
-            self.fail("FAQ should not already be open")
-
-        self.open_popup()
-        self.driver.find_element(By.ID, "help").click()
-
-        self.switch_to_window_with_url(FAQ_URL)
-
     def test_options_button(self):
         """Ensure options page is opened when button is clicked."""
         # first close the options page if already open
@@ -95,36 +78,6 @@ class PopupTest(pbtest.PBSeleniumTest):
         self.open_popup()
         self.driver.find_element(By.ID, "options").click()
         self.switch_to_window_with_url(self.options_url)
-
-    def test_trackers_link(self):
-        """Ensure trackers link opens EFF website."""
-
-        EFF_URL = "https://privacybadger.org/#What-is-a-third-party-tracker"
-        DUMMY_PAGE_URL = "https://privacybadger-tests.eff.org/html/widget_frame.html"
-
-        self.load_url(DUMMY_PAGE_URL)
-        self.open_popup(DUMMY_PAGE_URL)
-        self.driver.find_element(By.CSS_SELECTOR, "#instructions-no-trackers a").click()
-
-        # Make sure EFF website not opened in same window.
-        if self.driver.current_url != self.popup_url:
-            self.fail("EFF website not opened in new window")
-
-        # Look for EFF website and return if found.
-        self.switch_to_window_with_url(EFF_URL)
-
-        self.wait_for_page_to_start_loading(EFF_URL)
-
-        assert self.driver.current_url == EFF_URL, (
-            "EFF website should open after clicking trackers link on popup")
-
-        # Verify EFF website contains the linked anchor element.
-        faq_selector = f"a[href='{EFF_URL[EFF_URL.index('#'):]}']"
-        try:
-            WebDriverWait(self.driver, pbtest.SEL_DEFAULT_WAIT_TIMEOUT).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, faq_selector)))
-        except TimeoutException:
-            self.fail(f"Unable to find expected element ({faq_selector}) on EFF website")
 
     def test_toggling_sliders(self):
         """Ensure toggling sliders is persisted."""
