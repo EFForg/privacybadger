@@ -176,7 +176,8 @@ let htmlUtils = {
   // TODO origin --> domain/FQDN
   getOriginHtml: (function () {
 
-    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip');
+    const breakage_warning_tooltip = i18n.getMessage('breakage_warning_tooltip'),
+      remove_button_label = i18n.getMessage('options_domain_remove', 'XXX');
 
     return function (fqdn, action, show_breakage_warning, show_breakage_note, blockedFpScripts) {
       action = escape_html(action);
@@ -212,8 +213,6 @@ let htmlUtils = {
       // construct HTML for domain
       let domain_tooltip = htmlUtils.getActionDescription(action, fqdn, blockedFpScripts);
 
-      let remove_button_label = i18n.getMessage('options_domain_remove', fqdn);
-
       return `
 <div class="${classes.join(' ')}" data-origin="${fqdn}">
   <div class="origin">
@@ -221,7 +220,7 @@ let htmlUtils = {
     <span class="origin-inner tooltip" title="${domain_tooltip}" role="heading" aria-level="4" aria-label="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
   </div>
   ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
-  <a href="" class="removeDomain" role="button" aria-label="${remove_button_label}">&#10006</a>
+  <a href="" class="removeDomain" role="button" aria-label="${remove_button_label.replace('XXX', fqdn)}">&#10006</a>
 </div>
       `.trim();
     };
