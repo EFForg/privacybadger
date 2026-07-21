@@ -937,7 +937,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "safari_app_instructions_intro": {
-        "message": "Privacy Badger schützt Sie automatisch vor Trackern. $START_SPAN_TAG$Öffnen Sie die Safari-Einstellungen$END_SPAN_TAG$, um die Funktion zu aktivieren:",
+        "message": "Privacy Badger schützt Sie automatisch vor Trackern. $START_SPAN_TAG$Öffnen Sie die Safari-Einstellungen$END_SPAN_TAG$, um es zu aktivieren:",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {
