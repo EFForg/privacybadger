@@ -604,26 +604,6 @@
         "message": "Disable Google's \"Privacy Sandbox\" ad tracking",
         "description": "Checkbox label in general settings. For what this disables, see https://www.eff.org/deeplinks/2024/07/why-privacy-badger-opts-you-out-googles-privacy-sandbox"
     },
-    "disable_hyperlink_auditing_help_link_label": {
-        "message": "More information about disabling hyperlink auditing",
-        "description": "Screen reader-accessible label for the 'help' icon link next to the 'Disable hyperlink auditing' checkbox in general settings."
-    },
-    "disable_network_prediction_help_link_label": {
-        "message": "More information about di   sabling prefetching",
-        "description": "Screen reader-accessible label for the 'help' icon link next to the 'Disable prefetching' checkbox in general settings."
-    },
-    "disable_google_nav_error_service_help_link_label": {
-        "message": "More information about disabling sending web addresses to Google",
-        "description": "Screen reader-accessible label for the 'help' icon link next to the 'Disable sending web addresses you visit to Google' checkbox in general settings."
-    },
-    "disable_floc_help_link_label": {
-        "message": "More information about Google's \"Privacy Sandbox\" ad tracking",
-        "description": "Screen reader-accessible label for the 'help' icon link next to the 'Disable Google's \"Privacy Sandbox\" ad tracking' checkbox in general settings."
-    },
-    "learn_setting_help_link_label": {
-        "message": "More information about how Privacy Badger learns to block new trackers",
-        "description": "Screen reader-accessible label for the 'help' icon link next to the 'Learn to block new trackers from your browsing' checkbox in general settings."
-    },
     "options_advanced_settings": {
         "message": "Advanced",
         "description": "Subheading in general settings."
@@ -919,6 +899,10 @@
     "acknowledgement_action": {
         "message": "I understand",
         "description": "Acknowledgement button text"
+    },
+    "learn_more": {
+        "message": "Learn more",
+        "description": "Reusable 'learn more' message used as alt text for help icons, etc."
     },
     "social_tooltip_pb_has_replaced": {
         "message": "Privacy Badger has replaced this $BUTTON$ button",
