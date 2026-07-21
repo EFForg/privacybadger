@@ -870,18 +870,6 @@
         "message": "Learn how Privacy Badger protects your privacy",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "Privacy Badger will no longer learn from your browsing by default.",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "Click below to learn more.",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "Learn how Privacy Badger is changing",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
     "deprecated_setting": {
         "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
         "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"

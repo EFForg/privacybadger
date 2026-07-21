@@ -75,12 +75,6 @@ function showNagMaybe() {
     }, cb);
   }
 
-  function _setSeenLearningPrompt(cb) {
-    chrome.runtime.sendMessage({
-      type: "seenLearningPrompt"
-    }, cb);
-  }
-
   function _hideNag() {
     $nag.fadeOut();
     $outer.fadeOut();
@@ -128,35 +122,8 @@ function showNagMaybe() {
     $outer.show();
   }
 
-  function _showLearningPrompt() {
-    $('#instruction-text').hide();
-
-    $("#learning-prompt-btn").on("click", function () {
-      chrome.tabs.create({
-        url: "https://www.eff.org/badger-evolution"
-      });
-      _setSeenLearningPrompt(function () {
-        window.close();
-      });
-    });
-
-    $('#fittslaw').on("click", function (e) {
-      e.preventDefault();
-      _setSeenLearningPrompt(function () {
-        _hideNag();
-      });
-    });
-
-    $('#learning-prompt-div').show();
-    $nag.show();
-    $outer.show();
-  }
-
   if (POPUP_DATA.criticalError) {
     _showError(POPUP_DATA.criticalError);
-
-  } else if (POPUP_DATA.showLearningPrompt) {
-    _showLearningPrompt();
 
   } else if (!POPUP_DATA.settings.seenComic) {
     // if the user never engaged with the welcome page, show the reminder
@@ -561,7 +528,7 @@ function revertDomainControl(event) {
  * Tooltip that explains how to enable signing into websites with Google.
  */
 function createBreakageNote(domain, i18n_message_key) {
-  if (!POPUP_DATA.settings.seenComic || POPUP_DATA.showLearningPrompt || POPUP_DATA.criticalError) {
+  if (!POPUP_DATA.settings.seenComic || POPUP_DATA.criticalError) {
     return;
   }
 
@@ -734,7 +701,7 @@ function refreshPopup() {
   // or when there is a visible breakage note,
   // or when there is at least one breakage warning
   if (POPUP_DATA.settings.showExpandedTrackingSection || (
-    (POPUP_DATA.settings.seenComic && !POPUP_DATA.showLearningPrompt && !POPUP_DATA.criticalError) &&
+    (POPUP_DATA.settings.seenComic && !POPUP_DATA.criticalError) &&
     Object.keys(BREAKAGE_NOTE_DOMAINS).some(d =>
       POPUP_DATA.trackers[d] == constants.BLOCK ||
         POPUP_DATA.trackers[d] == constants.COOKIEBLOCK)
