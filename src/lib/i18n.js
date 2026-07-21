@@ -103,6 +103,11 @@ function setTextDirection() {
       marginLeft: '8px'
     });
   } else if (document.location.pathname == "/skin/firstRun.html") {
+    $('#pinning-instructions-animation').attr('src', "images/rtl-pinning-animation.gif");
+    $('#disable-button-graphic').attr('src', "images/rtl-disable-button.png");
+    $('#pinning-instructions-1').attr('src', "images/rtl-pinning-instructions-1.png");
+    $('#pinning-instructions-2').attr('src', "images/rtl-pinning-instructions-2.png");
+    $('#popup-collapsed-screenshot').attr('src', "images/rtl-popup-collapsed-screenshot.png");
     $('#eff-logo').css({
       left: 'unset',
       right: '1rem'
