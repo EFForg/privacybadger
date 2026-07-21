@@ -565,7 +565,7 @@
         "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
-        "message": "Lägg till en giltig domän eller webbadress",
+        "message": "Lägg till en giltig domän eller URL",
         "description": "Error text for the form on the Disabled Sites options page tab"
     },
     "options_general_settings": {
@@ -597,7 +597,7 @@
         "description": "Checkbox label in general settings."
     },
     "options_disable_google_nav_error_service": {
-        "message": "Skicka inte webbadresser som du besöker till Google. Det här inaktiverar förslag på liknande sidor när en sida inte kan hittas.",
+        "message": "Skicka inte URL:er som du besöker till Google. Det här inaktiverar förslag på liknande sidor när en sida inte kan hittas.",
         "description": "(Chrome only) Checkbox label in general settings."
     },
     "options_disable_floc": {
