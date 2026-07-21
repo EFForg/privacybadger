@@ -749,7 +749,7 @@
         }
     },
     "options_domain_remove": {
-        "message": "Remove $DOMAIN$",
+        "message": "Fjern $DOMAIN$",
         "description": "Alt text for the remove domain icon in the list of tracking domains on the options page",
         "placeholders": {
             "domain": {
