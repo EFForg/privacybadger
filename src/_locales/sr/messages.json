@@ -900,6 +900,10 @@
         "message": "Razumem",
         "description": "Acknowledgement button text"
     },
+    "learn_more": {
+        "message": "Learn more",
+        "description": "Reusable 'learn more' message used as alt text for help icons, etc."
+    },
     "social_tooltip_pb_has_replaced": {
         "message": "Privacy Badger je zamenio ovo $BUTTON$ dugme",
         "description": "Tooltip shown over a replaced social button. For example, \"Privacy Badger has replaced this Facebook Like button\". See also the widget_placeholder_pb_has_replaced message.",
