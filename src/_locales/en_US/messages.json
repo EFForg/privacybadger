@@ -870,10 +870,6 @@
         "message": "Learn how Privacy Badger protects your privacy",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "deprecated_setting": {
-        "message": "The following setting has been deprecated and will be removed in a future Privacy Badger update:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "Visit $LINK$ to learn more.",
         "description": "Reusable 'learn more link' message",
@@ -883,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "I understand",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",
