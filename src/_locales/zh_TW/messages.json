@@ -561,7 +561,7 @@
         "description": "Button on the Disabled Sites options page tab"
     },
     "remove_button": {
-        "message": "刪除所選網域",
+        "message": "移除所選",
         "description": "Button on the Disabled Sites options page tab"
     },
     "invalid_domain": {
