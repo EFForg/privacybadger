@@ -1462,7 +1462,6 @@ function dispatcher(request, sender, sendResponse) {
       popupPromos: badger.getPrivateSettings().getItem("popupPromos"),
       trackers,
       settings: badger.getSettings().getItemClones(),
-      showLearningPrompt: badger.getPrivateSettings().getItem("showLearningPrompt"),
       tabHost: tab_host,
       tabId: tab_id,
       tabUrl: request.tabUrl,
@@ -1628,12 +1627,6 @@ function dispatcher(request, sender, sendResponse) {
     if (request.value && Array.isArray(request.value)) {
       badger.getPrivateSettings().setItem("ignoredSiteBases", request.value);
     }
-    sendResponse();
-    break;
-  }
-
-  case "seenLearningPrompt": {
-    badger.getPrivateSettings().setItem("showLearningPrompt", false);
     sendResponse();
     break;
   }

@@ -307,7 +307,7 @@ button.cta-button:focus-visible, a.cta-button:focus-visible {
 #instruction .flex-wrapper > div {
     padding-inline-end: 5px;
 }
-#intro-reminder-btn, #error-message, #learning-prompt-btn {
+#intro-reminder-btn, #error-message {
     margin-top: 1em;
 }
 #error-message {

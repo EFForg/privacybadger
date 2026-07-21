@@ -863,7 +863,6 @@ Badger.prototype = {
     if (settings.hasItem("isFirstRun")) {
       self.isUpdate = true;
       privateStore.setItem("badgerVersion", version);
-      privateStore.setItem("showLearningPrompt", true);
       settings.deleteItem("isFirstRun");
 
     // new install
@@ -888,7 +887,6 @@ Badger.prototype = {
       ignoredSiteBases: [],
       nextPbconfigUpdateTime: 0,
       popupPromos: [],
-      showLearningPrompt: false,
       sitefixes: {}
     };
     for (let key of Object.keys(privateDefaultSettings)) {
@@ -923,6 +921,7 @@ Badger.prototype = {
         "legacyWebRtcProtectionUser",
         "nextDntHashesUpdateTime",
         "nextYellowlistUpdateTime",
+        "showLearningPrompt",
         "shownBreakageNotes",
         "showWebRtcDeprecation",
       ].forEach(item => {
