@@ -347,7 +347,7 @@
         }
     },
     "safari_popup_settings_button": {
-        "message": "Откройте настройки Safari",
+        "message": "Открыть настройки Safari",
         "description": "Button shown in popup and intro page on Safari (as well as Privacy Badger's macOS app)"
     },
     "safari_popup_permissions_privacy_policy": {
