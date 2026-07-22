@@ -870,22 +870,6 @@
         "message": "Lue, miten Privacy Badger suojelee yksityisyyttäsi",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "Privacy Badger ei enää oletusarvoisesti opi selauksestasi.",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "Lue lisää painamalla alta.",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "Lue miten Privacy Badger muuttuu",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "Seuraava asetus on vanhentunut ja tullaan poistamaan tulevien Privacy Badgerin päivityksien yhteydessä:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "Lue lisää osoitteesta $LINK$.",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "Ymmärrän",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",

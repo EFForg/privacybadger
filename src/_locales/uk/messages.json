@@ -870,22 +870,6 @@
         "message": "Дізнайтеся, як Privacy Badger захищає вашу приватність",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "Privacy Badger більше не вчитиметься з вашого перегляду за замовчуванням.",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "Натисніть нижче, щоб дізнатися більше.",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "Дізнатися, як змінюється Privacy Badger",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "Цей параметр застарів і буде видалений у майбутньому оновленні Privacy Badger:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "Відвідайте $LINK$, щоб дізнатися більше.",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "Зрозуміло",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",

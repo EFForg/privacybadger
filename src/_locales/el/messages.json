@@ -870,22 +870,6 @@
         "message": "Μάθετε πώς το Privacy Badger προστατεύει το απόρρητό σας",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "Το Privacy Badger δε θα μαθαίνει πλέον από το ιστορικό σας αυτόματα.",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "Πατήστε παρακάτω για να μάθετε περισσότερα.",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "Μάθετε πως το Privacy Badger αλλάζει",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "Η παρακάτω ρύθμιση θα διαγραφεί σε μια μελλοντική έκδοση του Privacy Badger:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "Επισκεφτείτε την ιστοσελίδα $LINK$ για να μάθετε περισσότερα.",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "Καταλαβαίνω",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Μάθετε περισσότερα",

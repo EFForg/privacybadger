@@ -870,22 +870,6 @@
         "message": "जानें कि प्राइवेसी बैजर आपकी निजता की सुरक्षा कैसे करता है",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "प्राइवेसी बैजर अब डिफ़ॉल्ट रूप से आपकी ब्राउज़िंग से नहीं सीखेगा।",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "अधिक जानने के लिए नीचे क्लिक करें।",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "जानें कि प्राइवेसी बैजर कैसे बदल रहा है",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "निम्नलिखित सेटिंग को बहिष्कृत कर दिया गया है और भविष्य के प्राइवेसी बैजर अपडेट में हटा दिया जाएगा:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "अधिक जानने के लिए $LINK$ पर जाएँ",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "मै समझता/समझती हुँ",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",

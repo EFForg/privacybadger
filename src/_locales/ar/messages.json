@@ -870,22 +870,6 @@
         "message": "تعرف/ي كيف يحمي «بادجر الخصوصية» خصوصيتك",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "لن يتعلم «بادجر الخصوصية» بعد الآن من تصفحك بشكل افتراضي.",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "انقر/ي أدناه لمعرفة المزيد.",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "تعرّف/ي على تحديثات «بادجر الخصوصية»",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "لقد تم إيقاف هذه الخاصية وسيتم إزالتها في تحديث «بادجر الخصوصية» المستقبلي:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "تصفح/ي $LINK$ للمزيد من المعلومات.",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "فهمت",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",

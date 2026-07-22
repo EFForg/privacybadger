@@ -870,22 +870,6 @@
         "message": "Privacy Badgerがどのようにあなたのプライバシーを保護するかについて学ぶ",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "Privacy Badgerは、デフォルトで学習機能を無効にしました。",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "詳しくは以下をクリックしてください。",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "Privacy Badgerの変更について",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "以下の設定は非推奨となっており、将来のPrivacy Badgerのアップデートで削除される予定です:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "詳しくは $LINK$ をご覧ください。",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "私はこのことを理解しています",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",

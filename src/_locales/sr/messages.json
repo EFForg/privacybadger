@@ -870,22 +870,6 @@
         "message": "Naučite kako Privacy Badger štiti vašu privatnost",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "Privacy Badger više neće podrazumevano učiti iz vašeg pregledanja.",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "Kliknite ispod kako biste saznali više.",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "Saznajte kako se Privacy Badger menja",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "Sledeća podešavanja su zastarela i biće uklonjen u narednim verzijama:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "Posetite $LINK$ da biste saznali više.",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "Razumem",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",

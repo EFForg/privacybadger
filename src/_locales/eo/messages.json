@@ -870,22 +870,6 @@
         "message": "Sciiĝi pri kiel Privata Melo protektas vian privatecon",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "Privata Melo de nun implicite ne lernos surbaze de via retumado.",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "Alklaku suben por pli da informo.",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "Sciiĝi pri kiel Privata Malo ŝanĝiĝas",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "La jena agordo estas kaduka kaj estos forigita en la venonta ĝisdatigo de Privata Melo:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "Legu $LINK$ por pli da informoj.",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "Mi konscias",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",

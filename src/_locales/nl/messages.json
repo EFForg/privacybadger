@@ -870,22 +870,6 @@
         "message": "Meer leren over hoe Privacy Badger uw privacy beschermt",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "Privacy Badger zal niet langer standaard leren van uw surfgedrag.",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "Klik hieronder om meer te leren.",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "Lees how Privacy Badger verandert",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "De volgende instelling zal uit een toekomstige versie van Privacy Badger worden verwijderd:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "Bezoek $LINK$ voor meer informatie.",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "Ik snap het",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",

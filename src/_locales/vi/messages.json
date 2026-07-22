@@ -870,22 +870,6 @@
         "message": "Tìm hiểu cách Privacy Badger bảo vệ quyền riêng tư của bạn",
         "description": "Part of a reminder to visit the intro page. Shown in popup until the user clicks on the reminder link or browses through the intro page."
     },
-    "learning_prompt_text1": {
-        "message": "Theo mặc định, Privacy Badger sẽ không còn học từ trình duyệt của bạn nữa.",
-        "description": "First part of a prompt to visit the blog."
-    },
-    "learning_prompt_text2": {
-        "message": "Nhấp vào bên dưới để tìm hiểu thêm.",
-        "description": "Second part of a prompt to visit the blog."
-    },
-    "learning_prompt_button": {
-        "message": "Tìm hiểu cách Privacy Badger đang thay đổi",
-        "description": "Button text, part of a prompt to visit the blog."
-    },
-    "deprecated_setting": {
-        "message": "Cài đặt sau không được dùng nữa và sẽ bị xóa trong các bản cập nhật Privacy Badger tiếp theo:",
-        "description": "Followed by the label of the deprecated setting (for example: 'Prevent WebRTC...')"
-    },
     "learn_more_link": {
         "message": "Truy cập $LINK$ để tìm hiểu thêm.",
         "description": "Reusable 'learn more link' message",
@@ -895,10 +879,6 @@
                 "example": "<a href='https://example.com'>example.com</a>"
             }
         }
-    },
-    "acknowledgement_action": {
-        "message": "Tôi hiểu",
-        "description": "Acknowledgement button text"
     },
     "learn_more": {
         "message": "Learn more",
