@@ -359,7 +359,7 @@
         "description": "Title of intro page"
     },
     "intro_logo_alt_text": {
-        "message": "EFF logo",
+        "message": "Λογότυπο του EFF",
         "description": "Alt text for EFF logo on the intro page"
     },
     "intro_eff_header": {
@@ -749,7 +749,7 @@
         }
     },
     "options_domain_remove": {
-        "message": "Remove $DOMAIN$",
+        "message": "Διαγραφή του domain $DOMAIN$",
         "description": "Alt text for the remove domain icon in the list of tracking domains on the options page",
         "placeholders": {
             "domain": {
@@ -901,7 +901,7 @@
         "description": "Acknowledgement button text"
     },
     "learn_more": {
-        "message": "Learn more",
+        "message": "Μάθετε περισσότερα",
         "description": "Reusable 'learn more' message used as alt text for help icons, etc."
     },
     "social_tooltip_pb_has_replaced": {
