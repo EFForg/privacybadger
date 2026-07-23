@@ -499,7 +499,15 @@ function createReplacementWidget(widget, elToReplace) {
     // use the frame URL for framed widgets
     if (elToReplace.src) {
       widget_url = elToReplace.src;
-      if (widget_url.startsWith("https://embed.bsky.app/embed/")) {
+      if (widget.name == "YouTube") {
+        let yuri = (new URL(widget_url)),
+          ypath = yuri.pathname.slice(1).split("/");
+        if (ypath.length == 2 && ypath[0] == "embed" &&
+            ypath[1].length == 11 && ypath[1] != "videoseries") {
+          let ysearch = (yuri.search ? "&" + yuri.search.slice(1) : "");
+          widget_url = "https://www.youtube.com/watch?v=" + ypath[1] + ysearch;
+        }
+      } else if (widget_url.startsWith("https://embed.bsky.app/embed/")) {
         // Bluesky
         let buri = (new URL(widget_url)).pathname.split("/");
         if (buri[2] && buri[2].startsWith("did:") && buri[4]) {
