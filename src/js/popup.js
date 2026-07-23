@@ -64,8 +64,7 @@ function getPromo(linkRotation) {
 
 /* if they aint seen the comic*/
 function showNagMaybe() {
-  var $nag = $("#instruction");
-  var $outer = $("#instruction-outer");
+  let nag = document.getElementById('instruction');
   let intro_page_url = chrome.runtime.getURL("/skin/firstRun.html");
 
   function _setSeenComic(cb) {
@@ -76,13 +75,11 @@ function showNagMaybe() {
   }
 
   function _hideNag() {
-    $nag.fadeOut();
-    $outer.fadeOut();
+    nag.close();
   }
 
   function _showNag() {
-    $nag.show();
-    $outer.show();
+    nag.showModal();
     // Attach event listeners
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
@@ -118,8 +115,7 @@ function showNagMaybe() {
       _hideNag();
     });
 
-    $nag.show();
-    $outer.show();
+    nag.showModal();
   }
 
   if (POPUP_DATA.criticalError) {
