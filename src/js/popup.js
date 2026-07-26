@@ -75,7 +75,14 @@ function showNagMaybe() {
   }
 
   function _hideNag() {
-    nag.close();
+    function _closeDialog() {
+      nag.removeEventListener('transitionend', _closeDialog);
+      nag.close();
+      nag.classList.remove('closing');
+    }
+
+    nag.addEventListener('transitionend', _closeDialog);
+    nag.classList.add('closing');
   }
 
   function _showNag() {

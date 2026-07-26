@@ -267,6 +267,7 @@ button.cta-button:focus-visible, a.cta-button:focus-visible {
 }
 
 #instruction {
+    --transition-duration: 400ms;
     position: fixed;
     top: 0;
     left: 0;
@@ -287,10 +288,19 @@ button.cta-button:focus-visible, a.cta-button:focus-visible {
     border: none;
     border-radius: 4px;
     width: calc(100% - 46px);
+    transition: opacity var(--transition-duration);
 }
 
 #instruction::backdrop {
     background: rgba(0, 0, 0, 0.1);
+    transition: opacity var(--transition-duration);
+}
+
+#instruction.closing {
+    opacity: 0;
+}
+#instruction.closing::backdrop {
+    opacity: 0;
 }
 
 .instruction-logo {
