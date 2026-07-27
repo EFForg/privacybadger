@@ -87,6 +87,8 @@ function showNagMaybe() {
 
   function _showNag() {
     nag.showModal();
+    nag.focus(); // work around autofocus not working as expected in Chrome
+
     // Attach event listeners
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
@@ -94,6 +96,7 @@ function showNagMaybe() {
         _hideNag();
       });
     });
+
     $("#intro-reminder-btn").on("click", function () {
       chrome.tabs.create({ url: intro_page_url });
       _setSeenComic(() => {
@@ -123,6 +126,7 @@ function showNagMaybe() {
     });
 
     nag.showModal();
+    nag.focus();
   }
 
   if (POPUP_DATA.criticalError) {
