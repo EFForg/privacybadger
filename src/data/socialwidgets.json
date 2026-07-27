@@ -554,6 +554,23 @@
             "type": 3
         }
     },
+    "VK Video": {
+        "domain": "vkvideo.ru",
+        "selectors": [
+            {
+                "elm": "iframe",
+                "urls": [
+                    "https://vkvideo.ru/video_ext.php?"
+                ]
+            }
+        ],
+        "replacementButton": {
+            "unblockDomains": [
+                "vkvideo.ru"
+            ],
+            "type": 3
+        }
+    },
     "X (Twitter)": {
         "domains": [
             "platform.twitter.com",
