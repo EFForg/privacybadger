@@ -843,7 +843,7 @@
         "description": "Options page button, under the Manage Data tab"
     },
     "reset_data_confirm": {
-        "message": "Сброс доменов с трекерами:\n\n  • удалит все данные о трекерах, полученные Privacy Badger в процессе вашего пользования интернетом\n  • восстановит список доменов с трекерами до последней стандартной версии (для получения более подробной информации посетите www.eff.org/badger-pretraining)",
+        "message": "Сброс доменов с трекерами:\n\n  • удалит все данные о трекерах, полученные Privacy Badger в процессе вашего пользования интернетом\n  • восстановит список доменов с трекерами до последней стандартной версии (посетите www.eff.org/badger-pretraining, чтобы узнать больше)",
         "description": "Pop-up triggered when the reset_data button is clicked"
     },
     "remove_all_data": {
@@ -881,7 +881,7 @@
         }
     },
     "learn_more": {
-        "message": "Получить более подробную информацию",
+        "message": "Подробнее",
         "description": "Reusable 'learn more' message used as alt text for help icons, etc."
     },
     "social_tooltip_pb_has_replaced": {
