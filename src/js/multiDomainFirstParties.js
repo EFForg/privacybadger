@@ -521,6 +521,7 @@ let multiDomainFirstPartiesArray = [
 
     "lazcdn.com",
   ],
+  ["almamedia.fi", "ampparit.com", "etuovi.com", "iltalehti.fi", "jobly.fi", "kauppalehti.fi", "nettiauto.fi", "nettimoto.com", "talouselama.fi", "tekniikkatalous.fi", "tivi.fi", "uusisuomi.fi"],
   ["allstate.com", "myallstate.com"],
   ["altra.org", "altraonline.org"],
   [
