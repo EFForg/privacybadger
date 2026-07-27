@@ -881,7 +881,7 @@
         }
     },
     "learn_more": {
-        "message": "Learn more",
+        "message": "En savoir plus.",
         "description": "Reusable 'learn more' message used as alt text for help icons, etc."
     },
     "social_tooltip_pb_has_replaced": {
