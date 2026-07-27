@@ -86,9 +86,6 @@ function showNagMaybe() {
   }
 
   function _showNag() {
-    nag.showModal();
-    nag.focus(); // work around autofocus not working as expected in Chrome
-
     // Attach event listeners
     $('#fittslaw').on("click", function (e) {
       e.preventDefault();
@@ -103,6 +100,8 @@ function showNagMaybe() {
         window.close();
       });
     });
+
+    nag.showModal();
   }
 
   function _showError(error_text) {
@@ -110,8 +109,8 @@ function showNagMaybe() {
 
     $('#error-message').text(error_text);
 
-    $('#error-text').show().find('a')
-      .addClass('cta-button')
+    let $cta = $('#error-text').show().find('a');
+    $cta.addClass('cta-button')
       .css({
         borderRadius: '3px',
         display: 'inline-block',
@@ -126,7 +125,7 @@ function showNagMaybe() {
     });
 
     nag.showModal();
-    nag.focus();
+    $cta[0].focus();
   }
 
   if (POPUP_DATA.criticalError) {
