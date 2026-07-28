@@ -8,7 +8,7 @@
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
-        "message": "canvas-fingeravtryck",
+        "message": "canvasfingeravtryck",
         "description": "Canvas fingerprinting is the tracking method described in https://en.wikipedia.org/wiki/Canvas_fingerprinting"
     },
     "popup_help_button": {
@@ -78,7 +78,7 @@
         }
     },
     "popup_instructions": {
-        "message": "Blockerade potentiella $LINK_START$spårare$LINK_END$: $COUNT$",
+        "message": "Potentiella $LINK_START$spårare$LINK_END$ som blockerats: $COUNT$",
         "description": "Popup message shown when at least one tracker was blocked.",
         "placeholders": {
             "count": {
@@ -124,7 +124,7 @@
         "description": "Domain slider list header tooltip."
     },
     "badger_status_block": {
-        "message": "Blockerade domänen $DOMAIN$",
+        "message": "$DOMAIN$ blockerades",
         "description": "Tooltip shown over a domain name with a red slider in the domain slider list. This is a status (\"example.com was blocked\"), not an action (\"click here to block example.com\").",
         "placeholders": {
             "domain": {
@@ -134,7 +134,7 @@
         }
     },
     "badger_status_cookieblock": {
-        "message": "Blockerade kakor från domänen $DOMAIN$",
+        "message": "Kakor från $DOMAIN$ blockerades",
         "description": "Tooltip shown over a domain name with a yellow slider in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -144,7 +144,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Blockerade kakor och fingeravtrycksskript från domänen $DOMAIN$",
+        "message": "Kakor och fingeravtrycksskript från $DOMAIN$ blockerades",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -154,7 +154,7 @@
         }
     },
     "badger_status_allow": {
-        "message": "Tillät domänen $DOMAIN$",
+        "message": "$DOMAIN$ tilläts",
         "description": "Tooltip shown over a tracking but still allowed (green slider) domain name in the domain slider list.",
         "placeholders": {
             "domain": {
@@ -208,7 +208,7 @@
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
-        "message": "Klicka för att ge Privacy Badger kontrollen över den här domänen igen",
+        "message": "Klicka för att låta Privacy Badger styra den här domänen igen",
         "description": "Tooltip shown over an undo arrow that appears when you move a domain slider away from its automatic setting."
     },
     "not_yet_blocked_header": {
@@ -236,7 +236,7 @@
         "description": "Placeholder text in the text input in the 'Report broken site' overlay."
     },
     "report_terms": {
-        "message": "Följande information skickas automatiskt till EFF: sidan som du besöker, din webbläsarversion, Privacy Badger-versionen och alla skjutreglages status på den här sidan.",
+        "message": "Följande information skickas automatiskt till EFF: sidan du besöker, din webbläsarversion, Privacy Badger-versionen och statusen för alla skjutreglage på den här sidan.",
         "description": ""
     },
     "report_button": {
@@ -282,7 +282,7 @@
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
-        "message": "Kopiera till urklippet",
+        "message": "Kopiera till urklipp",
         "description": "Initial text of the copy button on the share overlay."
     },
     "copy_button_copied": {
@@ -306,7 +306,7 @@
         }
     },
     "popup_info_youtube": {
-        "message": "Annonserna är inte blockerade? Fungerar inte YouTube? Det är förmodligen inte på grund av Privacy Badger.",
+        "message": "Blockeras inte annonserna? Fungerar inte YouTube? Privacy Badger är förmodligen inte orsaken.",
         "description": "Message in the popup when users visit YouTube.com"
     },
     "extension_error_text": {
@@ -543,7 +543,7 @@
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "Klicka först på Privacy Badgers ikon i webbläsarens verktygsfält. Klicka sedan på knappen \"$DISABLE_FOR_SITE$\".",
+        "message": "Klicka först på Privacy Badgers ikon i webbläsarens verktygsfält. Klicka sedan på knappen ”$DISABLE_FOR_SITE$”.",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
@@ -577,11 +577,11 @@
         "description": "Checkbox label in general settings."
     },
     "options_enable_dnt_checkbox": {
-        "message": "Skicka signalerna \"<a href='https://globalprivacycontrol.org/' target='_blank'>Global sekretesskontroll</a>\" och \"<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte</a>\" till webbplatser",
+        "message": "Skicka signalerna ”<a href='https://globalprivacycontrol.org/' target='_blank'>Global sekretesskontroll</a>” och ”<a href='https://www.eff.org/issues/do-not-track' target='_blank'>Spåra inte</a>” till webbplatser",
         "description": "Checkbox label for toggling GPC and DNT signals, found in general settings."
     },
     "options_dnt_policy_setting": {
-        "message": "Kontrollera om <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>tredjepartsdomäner</a> rättar sig efter <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:s Spåra inte-policy</a>",
+        "message": "Kontrollera om <a target='_blank' href='https://www.eff.org/privacybadger/faq#What-is-a-third-party-tracker'>tredjepartsdomäner</a> följer <a target='_blank' href='https://www.eff.org/dnt-policy'>EFF:s Spåra inte-policy</a>",
         "description": "Checkbox label in general settings."
     },
     "options_privacy_settings": {
@@ -657,7 +657,7 @@
         "description": "This is an options page tab heading."
     },
     "options_domain_list_trackers": {
-        "message": "Privacy Badger har hittills beslutat att blockera $COUNT$ potentiella $TRACKER_LINK_START$spårningsdomäner$TRACKER_LINK_END$",
+        "message": "Privacy Badger har hittills valt att blockera $COUNT$ potentiella $TRACKER_LINK_START$spårningsdomäner$TRACKER_LINK_END$",
         "description": "Shown on the Tracking Domains tab on the options page after Privacy Badger learned to block one or more domains",
         "placeholders": {
             "count": {
@@ -731,7 +731,7 @@
         "description": "Dropdown control setting on the Tracking Domains options page tab."
     },
     "options_show_not_yet_blocked": {
-        "message": "Visa domäner som din Badger inte har beslutat att blockera ännu",
+        "message": "Visa domäner som Privacy Badger ännu inte har beslutat att blockera",
         "description": "Checkbox label on the Tracking Domains tab. Should match wording used in the 'not_yet_blocked_header' message. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_hide_in_seed": {
@@ -739,7 +739,7 @@
         "description": "Checkbox label on the Tracking Domains tab. Only visible when 'learn to block new trackers' is enabled."
     },
     "options_domain_list_sites": {
-        "message": "$DOMAIN$ sågs spåra på följande webbplatser:",
+        "message": "$DOMAIN$ har observerats spåra på följande webbplatser:",
         "description": "Part of a tooltip available for each domain in the tracking domains list on the options page.",
         "placeholders": {
             "domain": {
@@ -881,7 +881,7 @@
         }
     },
     "learn_more": {
-        "message": "Learn more",
+        "message": "Läs mer",
         "description": "Reusable 'learn more' message used as alt text for help icons, etc."
     },
     "social_tooltip_pb_has_replaced": {
@@ -921,7 +921,7 @@
         "description": "Button in the placeholder shown in place of certain third-party (video, audio, commenting) widgets. Clicking this button will always allow the widget to load on this particular site."
     },
     "safari_app_instructions_intro": {
-        "message": "Privacy Badger skyddar dig automatiskt mot spårare. $START_SPAN_TAG$Öppna Safari-inställningarna$END_SPAN_TAG$ för att aktivera det:",
+        "message": "Privacy Badger skyddar dig automatiskt mot spårare. $START_SPAN_TAG$Öppna Safari-inställningarna$END_SPAN_TAG$ för att aktivera tillägget:",
         "description": "Instructions on macOS app for Safari that opens after installation",
         "placeholders": {
             "start_span_tag": {
