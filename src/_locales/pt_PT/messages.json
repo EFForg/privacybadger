@@ -60,7 +60,7 @@
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_sweatshirt_promo": {
-        "message": "Mostra o teu apoio com uma nova camisola do Privacy Badger!",
+        "message": "Mostre o seu apoio com uma nova camisola do Privacy Badger!",
         "description": "A link in the popup footer shown sometimes instead of 'Donate to EFF'."
     },
     "popup_effector_signup": {
@@ -204,7 +204,7 @@
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
-        "message": "Para permitir o início de sessão em sites com a sua conta Google, desloque este controlo deslizante para a direita e volte a carregar a página",
+        "message": "Para permitir o início de sessão em websites com a sua conta Google, desloque este controlo deslizante para a direita e volte a carregar a página",
         "description": "Tooltip for a notification icon that appears next to the slider for accounts.google.com when it is blocked by default."
     },
     "feed_the_badger_title": {
