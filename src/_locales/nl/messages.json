@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Leert automatisch om verborgen trackers te blokkeren. Gemaakt door de toonaangevende non-profitorganisatie voor digitale rechten EFF om te voorkomen dat bedrijven u bespioneren.",
+        "message": "Leert om verborgen volgers te blokkeren. Gemaakt door de non-profitorganisatie EFF om te voorkomen dat bedrijven u bespioneren.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
     },
     "canvas_fingerprinting": {
@@ -144,7 +144,7 @@
         }
     },
     "badger_status_blocked_scripts": {
-        "message": "Geblokkeerde cookies en fingerprintingscripts van $DOMAIN$",
+        "message": "Geblokkeerde cookies en vingerafdrukkenscripts van $DOMAIN$",
         "description": "Tooltip for cookie-blocked domains that tried to load one or more fingerprinting scripts.",
         "placeholders": {
             "domain": {
@@ -224,7 +224,7 @@
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
     },
     "non_tracker_tip": {
-        "message": "Momenteel controleert Privacy Badger alleen of derde partijen cookies, lokale opslag met HTML5 of canvas-fingerprinting gebruiken om uw surfgedrag te volgen. Sommige van deze domeinen gebruiken wellicht volgmethoden die Privacy Badger (nog) niet detecteert.",
+        "message": "Momenteel controleert Privacy Badger alleen of derde partijen cookies, lokale opslag met HTML5 of canvas-vingerafdrukken gebruiken om uw surfgedrag te volgen. Sommige van deze domeinen gebruiken wellicht volgmethoden die Privacy Badger (nog) niet detecteert.",
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
@@ -278,7 +278,7 @@
         }
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is een browserextensie die automatisch leert om verborgen trackers te blokkeren. Privacy Badger wordt gemaakt door de Electronic Frontier Foundation, een non-profitorganisatie die online opkomt voor uw rechten.",
+        "message": "Privacy Badger (privacybadger.org) is een browserextensie die automatisch leert om verborgen volgers te blokkeren. Privacy Badger wordt gemaakt door de Electronic Frontier Foundation, een non-profitorganisatie die online opkomt voor uw rechten.",
         "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
@@ -397,7 +397,7 @@
         }
     },
     "intro_pin_instructions": {
-        "message": "Om het icoon van Privacy Badger vast te zetten, klik je op het puzzelstuk-icoon in de werkbalk van je browser.  Klik daarna op het duimspijkericoon naast Privacy Badger.",
+        "message": "Om het icoon van Privacy Badger vast te zetten, klik je op het puzzelstuk-icoon in de werkbalk van uw browser.  Klik daarna op het duimspijkericoon naast Privacy Badger.",
         "description": "Alt text for pinning instructions image on intro page in Chrome"
     },
     "intro_animation_button_stop": {
@@ -433,7 +433,7 @@
         "description": "Subheading on intro page for the section explaining the disable button in Firefox"
     },
     "intro_disable_button_context": {
-        "message": "Privacy Badger is klaar om u te beschermen tegen verborgen trackers. Maar het blokkeren van trackers kan soms websites verstoren.",
+        "message": "Privacy Badger is klaar om u te beschermen tegen verborgen volgers. Maar het blokkeren van volgers kan soms websites verstoren.",
         "description": "First paragraph of the disable button section of intro page"
     },
     "intro_disable_button": {
@@ -455,7 +455,7 @@
         }
     },
     "intro_features_header": {
-        "message": "Privacy Badger beschermt uw browsen tegen trackers.",
+        "message": "Privacy Badger beschermt uw browsen tegen volgers.",
         "description": "Intro page header introducing Privacy Badger features section"
     },
     "intro_features_subheader": {
@@ -463,7 +463,7 @@
         "description": "Intro page subheader introducing Privacy Badger features section"
     },
     "intro_welcome": {
-        "message": "Privacy Badger leert automatisch om verborgen trackers te blokkeren. Neem een minuut de tijd om te zien hoe.",
+        "message": "Privacy Badger leert automatisch om verborgen volgers te blokkeren. Neem een minuut de tijd om te zien hoe.",
         "description": "Intro page welcome paragraph."
     },
     "intro_beyond_ads": {
@@ -487,7 +487,7 @@
         "description": "Intro page paragraph."
     },
     "intro_not_an_adblocker_paragraph2": {
-        "message": "Verborgen tracking gebeurt op allerlei manieren; advertenties zijn slechts het zichtbare topje van de ijsberg. Privacy Badger blokkeert geen advertenties, tenzij ze u toevallig ook tracken.",
+        "message": "Verborgen volgen gebeurt op allerlei manieren; advertenties zijn slechts het zichtbare topje van de ijsberg. Privacy Badger blokkeert geen advertenties, tenzij ze u toevallig ook volgen.",
         "description": "Intro page paragraph"
     },
     "intro_open_popup": {
@@ -503,7 +503,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "Wanneer u Privacy Badger gebruikt vecht u met de <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> en miljoenen andere gebruikers in de strijd voor privacy. Wij zijn een organisatie zonder winstoogmerk die vecht voor uw online rechten. Bedankt voor het deelnemen!",
+        "message": "Wanneer u Privacy Badger gebruikt vecht u met de <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> en miljoenen andere gebruikers in de strijd voor privacy. Wij zijn een non-profitorganisatie die vecht voor uw online rechten. Bedankt voor het deelnemen!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate_subheading": {
@@ -523,7 +523,7 @@
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "share_button_title_bluesky": {
-        "message": "Delen op Bluesky",
+        "message": "Op Bluesky delen",
         "description": "Text shown when you hover over the social sharing buttons on the intro page."
     },
     "intro_link_policy": {
@@ -543,7 +543,7 @@
         "description": "Title of tip container on Disabled Sites tab"
     },
     "options_disable_tip_alt": {
-        "message": "Klik eerst op het pictogram van Privacy Badger in de werkbalk van uw browser. Klik vervolgens op de knop \"$DISABLE_FOR_SITE$\".",
+        "message": "Klik eerst op het icoon van Privacy Badger in de werkbalk van uw browser. Klik vervolgens op de knop \"$DISABLE_FOR_SITE$\".",
         "description": "Alt text for image inside tip container on Disabled Sites tab",
         "placeholders": {
             "disable_for_site": {
