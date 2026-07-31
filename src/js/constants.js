@@ -62,6 +62,17 @@ let exports = {
     'cdn.jsdelivr.net',
     'gadasource.storage.googleapis.com',
   ]),
+
+  CONTENT_SCRIPTS: [{
+    id: "dnt_signal",
+    js: ["js/contentscripts/dnt.js"],
+    matches: ["<all_urls>"],
+    allFrames: true,
+    matchOriginAsFallback: true, // crbug.com/55084
+    runAt: "document_start",
+    world: browser.scripting.ExecutionWorld.MAIN,
+    persistAcrossSessions: false,
+  }]
 };
 
 exports.BLOCKED_ACTIONS = new Set([

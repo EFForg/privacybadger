@@ -9,10 +9,10 @@
       "data_collection_permissions": {
         "required": ["none"]
       },
-      "strict_min_version": "78.0"
+      "strict_min_version": "128.0"
     },
     "gecko_android": {
-      "strict_min_version": "78.0"
+      "strict_min_version": "128.0"
     }
   },
   "incognito": "spanning",
@@ -21,6 +21,7 @@
     "alarms",
     "cookies",
     "privacy",
+    "scripting",
     "storage",
     "tabs",
     "webNavigation",
@@ -443,7 +444,6 @@
         "js/contentscripts/utils.js",
         "js/contentscripts/clobbercookie.js",
         "js/contentscripts/clobberlocalstorage.js",
-        "js/contentscripts/dnt.js",
         "js/contentscripts/fingerprinting.js"
       ],
       "matches": [

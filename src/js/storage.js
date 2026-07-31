@@ -18,6 +18,7 @@
 /* globals badger:false */
 
 import { getBaseDomain } from "../lib/basedomain.js";
+import { subscribeContentScriptsToStorageUpdates } from "../lib/scripting/subscribers.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -181,6 +182,7 @@ function BadgerPen(callback = function () {}) {
     }
 
     badger.initSettings();
+    subscribeContentScriptsToStorageUpdates();
 
     if (!chrome.storage.managed) {
       setTimeout(function () {
