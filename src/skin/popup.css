@@ -75,23 +75,25 @@ button {
     overflow: hidden;
     line-height: normal;
     position: relative; /* so that we can abs position child els (removeDomain) */
+    display: flex;
+    align-items: center;
 }
 .clicker:not(#not-yet-blocked-header):not(#non-trackers-header) {
-    direction: ltr;
+    /* direction no longer hardcoded to ltr — layout uses flexbox and margin-inline-start for RTL support */
 }
 .origin{
   max-width: 210px;
   color: #555555;
-  float: left;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .switch-container {
     width: 115px;
     display: block;
-    margin-left: 220px;
+    margin-inline-start: auto;
 }
 .switch-toggle {
     background-color: #515050;
@@ -243,21 +245,20 @@ button.cta-button:focus-visible, a.cta-button:focus-visible {
     margin-top: 25px;
 }
 .keyContainer{
-    direction: ltr;
     position: relative;
 }
 .key {
     position: relative;
     height: 7px;
-    left: 215px;
-    right: 0;
     z-index: 30;
     background: #fefefe;
     padding-top: 4px;
     width: 117px;
+    margin-inline-start: auto;
+    margin-inline-end: 0;
 }
 .key img {
-    margin-left: 19px;
+    margin-inline-start: 19px;
 }
 
 .flex-wrapper {
@@ -534,7 +535,6 @@ a.overlay-close:hover {
     top: 0;
     left: 0;
     visibility: hidden;
-    direction: ltr; /* to match .clicker:not(#not-yet-blocked-header):not(#non-trackers-header) */
 }
 
 .breakage-note-tooltip .tooltip-box {
@@ -641,7 +641,7 @@ a.overlay-close:hover {
     .switch-container {
         width: 100px;
         display: block;
-        margin-left: 150px;
+        margin-inline-start: auto;
     }
 
     .honeybadgerPowered {
@@ -649,10 +649,10 @@ a.overlay-close:hover {
     }
 
     .key {
-        left: 150px;
+        width: 100px;
     }
     .key img {
-        margin-left: 12px;
+        margin-inline-start: 12px;
     }
 
     #share {
