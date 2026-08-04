@@ -49,6 +49,7 @@ body#main.is-android {
 body#main {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 @font-face {
