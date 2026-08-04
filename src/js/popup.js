@@ -32,7 +32,7 @@ let BREAKAGE_NOTE_DOMAINS = {
 };
 
 const DOMAIN_TOOLTIP_CONF = {
-  maxWidth: 300,
+  maxWidth: 400,
   side: 'bottom',
 };
 
