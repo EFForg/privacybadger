@@ -673,6 +673,14 @@ Badger.prototype = {
 
       self.getPrivateSettings().setItem('popupPromos', popupPromos);
     }
+
+    if (utils.hasOwn(data, 'fp_cdn_domains')) {
+      let fpCdnDomains = {};
+      for (let fqdn of data.fp_cdn_domains) {
+        fpCdnDomains[fqdn] = true;
+      }
+      self.getPrivateSettings().setItem('fpCdnDomains', fpCdnDomains);
+    }
   },
 
   /**
