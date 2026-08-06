@@ -1,3 +1,5 @@
+import constants from "./constants.js";
+
 function initWelcomePage() {
   let already_set = false;
 
@@ -78,6 +80,13 @@ $(function () {
     chrome.runtime.getPlatformInfo((info) => {
       if (!info || info.os != "android") {
         initPinNudge();
+      } else if (info && info.os == "android") {
+        // On Android, update the graphic showing how to open the popup
+        if (constants.BROWSER == "firefox") {
+          $('#toolbar-icon').attr("src", "images/android-firefox-popup-instructions.png");
+        } else if (constants.BROWSER == "edge") {
+          $('#toolbar-icon').attr("src", "images/android-edge-popup-instructions.png");
+        }
       }
     });
   } else {

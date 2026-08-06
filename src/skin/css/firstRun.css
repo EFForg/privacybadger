@@ -675,8 +675,8 @@ body {
 }
 
 #toolbar-icon {
-  max-width: 550px;
-  width: 90%;
+  max-width: min(550px, 90vw);
+  max-height: 450px;
 }
 [id*="pb-features-"] img {
   max-width: 400px;
