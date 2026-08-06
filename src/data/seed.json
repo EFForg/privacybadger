@@ -25212,8 +25212,9 @@
       "heuristicAction": "block"
     },
     "statad.ru": {
+      "dnt": true,
       "heuristicAction": "block",
-      "nextUpdateTime": 1786248135287
+      "nextUpdateTime": 1786272894367
     },
     "statcounter.com": {
       "heuristicAction": "block",
