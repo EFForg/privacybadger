@@ -1,4 +1,4 @@
-import constants from "./constants.js";
+import constants from "../../js/constants.js";
 
 function initWelcomePage() {
   let already_set = false;
