@@ -116,7 +116,6 @@ function setTextDirection() {
       marginRight: 'unset',
       marginLeft: '5px',
     });
-    $('#toolbar-icon').css("transform", "scaleX(-1)");
   }
 }
 
