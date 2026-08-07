@@ -3632,6 +3632,7 @@ let multiDomainFirstPartiesArray = [
     "telemundoutah.com",
     "telemundowashingtondc.com",
 
+    "cnbcfm.com",
     "nbcuni.com",
     "newsvine.com",
     "s-nbcnews.com",
