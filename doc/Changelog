@@ -1,6 +1,15 @@
 Privacy Badger changelog
 ========================
 
+2026.8.7
+* Fixed the direct link to the video page in widget replacements for YouTube
+* Fixed tweet replacement for tweets served from x.com (and not twitter.com)
+* Fixed remaining accessibility bugs on the welcome page and in the popup
+* Fixed welcome page graphic for opening the popup on Android
+* Fixed various site breakages
+* Improved Arabic, Traditional Chinese, Dutch, Esperanto, Greek, Polish,
+European Portuguese, Russian, Spanish, Swedish and Ukrainian translations
+
 2026.6.16
 * Updated the new user welcome page to better explain how to disable
 Privacy Badger on a site. Redesigned pinning instructions in Chrome
