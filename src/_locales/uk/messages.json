@@ -290,11 +290,11 @@
         "description": "On-click text of the copy button on the share overlay."
     },
     "popup_info_firstparty_protections": {
-        "message": "Увімкнено захист від відстеження через посилання",
+        "message": "Увімкнено захист від стеження через посилання",
         "description": "Clickable status header text in the popup. Shown when Privacy Badger's link tracking protection is active (for example, on facebook.com)."
     },
     "popup_info_firstparty_description": {
-        "message": "Деякі сайти $LINK_START$використовують відстеження посилань, щоб стежити за вами$LINK_END$, щойно ви натискаєте на посилання, щоб залишити сайт. Privacy Badger видаляє стеження з таких посилань на цьому сайті.",
+        "message": "Деякі вебсайти $LINK_START$використовують відстеження посилань$LINK_END$, щоб стежити за вами щоразу, коли ви натискаєте посилання для переходу з сайту. Privacy Badger видаляє елементи відстеження з таких посилань на цьому вебсайті.",
         "description": "Text revealed by clicking on the link tracking protection header in the popup",
         "placeholders": {
             "link_start": {
