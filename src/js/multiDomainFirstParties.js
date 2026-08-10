@@ -1328,6 +1328,11 @@ let multiDomainFirstPartiesArray = [
     "vtm.be",
     "vtmgo.be",
 
+    "rtl.nl",
+    "buienradar.nl",
+    "videoland.com",
+    "vtbl.nl",
+
     "dpgmedia.net",
     "dpgmediagroup.net",
     "mychannels.world",
@@ -4827,20 +4832,6 @@ let multiDomainFirstPartiesArray = [
 
     "riotcdn.net",
     "rdatasrv.net",
-  ],
-  [
-    "rtl.nl",
-
-    "bright.nl",
-    "buienradar.nl",
-    "healthyfest.nl",
-    "rtlboulevard.nl",
-    "rtllatenight.nl",
-    "rtlnieuws.nl",
-    "rtlxl.nl",
-    "rtlz.nl",
-    "videoland.com",
-    "vtbl.nl",
   ],
   ["rtx.com", "collinsaerospace.com", "rockwellcollins.com", "rtxapps.com"],
   [
