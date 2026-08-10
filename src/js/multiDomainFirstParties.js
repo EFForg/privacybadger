@@ -3359,6 +3359,7 @@ let multiDomainFirstPartiesArray = [
     "s-microsoft.com",
     "s-msn.com",
     "staffhub.ms",
+    "static.microsoft",
     "status.microsoft",
     "svc.ms",
     "sway-cdn.com",
