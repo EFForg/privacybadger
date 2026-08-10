@@ -839,6 +839,7 @@
         "client.axept.io",
         "static.axept.io",
         "node03.westeurope.cloudapp.azure.com",
+        "communication.azure.com",
         "dev.azure.com",
         "logic.azure.com",
         "webpubsub.azure.com",
