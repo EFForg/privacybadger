@@ -6501,6 +6501,8 @@ let multiDomainFirstPartiesArray = [
     "zoho.jp",
     "zoho.sa",
 
+    "zohocloud.ca",
+
     "zohositescontent.com",
     "zohositescontent.com.au",
     "zohositescontent.eu",
