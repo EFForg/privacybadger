@@ -4817,6 +4817,7 @@ let multiDomainFirstPartiesArray = [
 
     "ocdn.eu",
     "pulsembed.eu",
+    "raspaid.pl"
   ],
   [
     "riotgames.com",
