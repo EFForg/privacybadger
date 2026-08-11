@@ -2686,6 +2686,7 @@ let multiDomainFirstPartiesArray = [
     "ac-lille.fr",
   ],
   ["iheart.com", "americantop40.com", "armstrongandgetty.com", "coasttocoastam.com"],
+  ["ihg.com", "holidayinn.com", "holidayinnexpress.com", "intercontinental.com", "kimptonhotels.com", "sixsenses.com"],
   [
     "impresa.pt",
 
