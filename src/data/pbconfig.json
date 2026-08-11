@@ -208,6 +208,9 @@
                 "www.livesport.com",
                 "www.livesport.cz"
             ],
+            "teams.microsoft.com": [
+                "teams.public.onecdn.static.microsoft"
+            ],
             "mmcdn.com": [
                 "www.chaturbate.lat",
                 "www.chaturgirl.com",
