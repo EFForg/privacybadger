@@ -16,6 +16,7 @@
  */
 
 import { extractHostFromURL, getBaseDomain } from "../lib/basedomain.js";
+import { getDntScriptExcludeMatches } from "../lib/scripting/utils.js";
 
 import { log } from "./bootstrap.js";
 import constants from "./constants.js";
@@ -119,7 +120,13 @@ function Badger(from_qunit) {
     self.initializeCnames().catch(console.error);
 
     // seed data depends on the yellowlist
+    // dnt_signal content script registration depends on GPC exceptions
     await pbconfigPromise;
+
+    if (!from_qunit) {
+      self.registerContentScripts();
+    }
+
     let seedDataPromise = self.updateTrackerData().catch(console.error);
 
     // set badge text color to white in Firefox 63+
@@ -173,6 +180,34 @@ Badger.prototype = {
   cnameDomains: {},
 
   // Methods
+
+  /**
+   * Registers content scripts on startup.
+   */
+  registerContentScripts: function () {
+    let self = this,
+      prefs = self.getSettings();
+
+    let scripts = constants.CONTENT_SCRIPTS
+      .filter(item => {
+        switch (item.id) {
+        case "dnt_signal":
+          return prefs.getItem('sendDNTSignal');
+        default:
+          return true;
+        }
+      })
+      .map(item => {
+        // TODO what we actually want is excludeTopFrameMatches
+        // https://github.com/w3c/webextensions/issues/763
+        item.excludeMatches = getDntScriptExcludeMatches();
+        return item;
+      });
+
+    if (scripts.length) {
+      browser.scripting.registerContentScripts(scripts);
+    }
+  },
 
   /**
    * Sets various browser privacy overrides.
