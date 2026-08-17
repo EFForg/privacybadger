@@ -8,6 +8,18 @@
         "DNT Policy v1.0 dos-line-endings": "c09f71363bb29d0250a1f5524eef36f9ab07669b",
         "DNT Policy v1.0 no-eof-newline": "7861462d500fbb6ccb74c614782f4937377bec76"
     },
+    "fp_cdn_domains": [
+        "d.alicdn.com",
+        "s3.us-west-2.amazonaws.com",
+        "fp-cdn.azureedge.net",
+        "sdtagging.azureedge.net",
+        "cdnjs.cloudflare.com",
+        "d1af033869koo7.cloudfront.net",
+        "d38xvr37kwwhcm.cloudfront.net",
+        "dlthst9q2beh8.cloudfront.net",
+        "cdn.jsdelivr.net",
+        "gadasource.storage.googleapis.com"
+    ],
     "popup_promos": [
         {
             "url": "https://supporters.eff.org/donate/support-privacy-badger",

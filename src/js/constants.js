@@ -49,19 +49,6 @@ let exports = {
     edge: "https://microsoftedge.microsoft.com/addons/detail/privacy-badger/mkejgcgkdlddbggjhhflekkondicpnop",
     opera: "https://addons.opera.com/en/extensions/details/privacy-badger/",
   },
-
-  FP_CDN_DOMAINS: new Set([
-    'd.alicdn.com',
-    's3.us-west-2.amazonaws.com',
-    'fp-cdn.azureedge.net',
-    'sdtagging.azureedge.net',
-    'cdnjs.cloudflare.com',
-    'd1af033869koo7.cloudfront.net',
-    'd38xvr37kwwhcm.cloudfront.net',
-    'dlthst9q2beh8.cloudfront.net',
-    'cdn.jsdelivr.net',
-    'gadasource.storage.googleapis.com',
-  ]),
 };
 
 exports.BLOCKED_ACTIONS = new Set([

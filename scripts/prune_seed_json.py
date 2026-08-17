@@ -1,26 +1,14 @@
 #!/usr/bin/env python3
 
 import json
-import subprocess
 import sys
 
 from collections import OrderedDict
 
 
 def prune_fp_scripts(data):
-    export_js = """
-// shim just enough for constants.js to load
-globalThis.chrome = { runtime: { getURL: ()=>{} } };
-const { default: constants } = await import('./src/js/constants.js');
-process.stdout.write(JSON.stringify(Array.from(constants.FP_CDN_DOMAINS)));"""
-
-    try:
-        cmd = ["node", "--experimental-default-type=module", f'--eval={export_js}']
-        fp_cdn_domains = subprocess.run(
-            cmd, capture_output=True, check=True, text=True).stdout.strip()
-    except subprocess.CalledProcessError as ex:
-        print(ex.stderr, file=sys.stderr)
-        raise ex
+    with open("./src/data/pbconfig.json", encoding='utf-8') as pbconfig:
+        fp_cdn_domains = json.load(pbconfig)['fp_cdn_domains']
 
     new_fp_scripts = {}
     for domain in data['fp_scripts']:
