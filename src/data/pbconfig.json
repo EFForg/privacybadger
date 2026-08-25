@@ -124,6 +124,9 @@
             "connect.facebook.net": [
                 "apps.facebook.com"
             ],
+            "live-chat.ps.five9.com": [
+                "myquest.questdiagnostics.com"
+            ],
             "flashscore.com": [
                 "www.flashscore.at",
                 "www.flashscore.ca",
@@ -603,9 +606,6 @@
                 "www.kickstarter.com",
                 "domains.squarespace.com",
                 "secure.squarespace.com"
-            ],
-            "app.five9.com": [
-                "www.drphillipscenter.org"
             ],
             "geoip-js.com": [
                 "www.airmusictech.com",
