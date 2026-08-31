@@ -572,6 +572,10 @@
         "message": "Allmänna inställningar",
         "description": "This is an options page tab heading."
     },
+    "options_safari_icon_style_checkbox": {
+        "message": "Use Safari-style toolbar icon",
+        "description": "Checkbox label in general settings on Safari"
+    },
     "show_counter_checkbox": {
         "message": "Visa antalet spårare",
         "description": "Checkbox label in general settings."

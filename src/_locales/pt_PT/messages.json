@@ -572,6 +572,10 @@
         "message": "Definições gerais",
         "description": "This is an options page tab heading."
     },
+    "options_safari_icon_style_checkbox": {
+        "message": "Use Safari-style toolbar icon",
+        "description": "Checkbox label in general settings on Safari"
+    },
     "show_counter_checkbox": {
         "message": "Mostrar número de rastreadores",
         "description": "Checkbox label in general settings."
