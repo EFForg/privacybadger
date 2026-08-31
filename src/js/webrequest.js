@@ -139,7 +139,7 @@ function onBeforeRequest(details) {
   // hosted by (user)cookieblocked CDNs
   if (type == 'script' || sw_request) {
     if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
-      if (constants.FP_CDN_DOMAINS.has(request_host)) {
+      if (utils.hasOwn(badger.getPrivateSettings().getItem('fpCdnDomains'), request_host)) {
         let fpScripts = badger.storage.getStore('fp_scripts').getItem(request_host);
 
         if (fpScripts) {
