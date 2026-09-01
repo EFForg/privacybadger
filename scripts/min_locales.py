@@ -16,6 +16,9 @@ def minify(locale):
         if "description" in data[key]:
             data[key]["description"] = ""
 
+    # remove Safari-specific entries
+    data = { key: data[key] for key in data if "safari_" not in key }
+
     with open(locale, 'w', encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
