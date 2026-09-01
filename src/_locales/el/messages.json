@@ -573,7 +573,7 @@
         "description": "This is an options page tab heading."
     },
     "options_safari_icon_style_checkbox": {
-        "message": "Use Safari-style toolbar icon",
+        "message": "Χρήση εικονιδίου γραμμής εργαλείων σε στυλ Safari",
         "description": "Checkbox label in general settings on Safari"
     },
     "show_counter_checkbox": {
