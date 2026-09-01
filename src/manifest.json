@@ -1,18 +1,16 @@
 {
   "version": "2026.8.7",
-  "author": {
-    "email": "eff.software.projects@gmail.com"
-  },
+  "author": "privacybadger-owner@eff.org",
   "browser_specific_settings": {
     "gecko": {
       "id": "jid1-MnnxcxisBPnSXQ@jetpack",
       "data_collection_permissions": {
         "required": ["none"]
       },
-      "strict_min_version": "78.0"
+      "strict_min_version": "128.0"
     },
     "gecko_android": {
-      "strict_min_version": "78.0"
+      "strict_min_version": "128.0"
     }
   },
   "incognito": "spanning",
@@ -21,6 +19,7 @@
     "alarms",
     "cookies",
     "privacy",
+    "scripting",
     "storage",
     "tabs",
     "webNavigation",
@@ -441,9 +440,7 @@
     {
       "js": [
         "js/contentscripts/utils.js",
-        "js/contentscripts/clobbercookie.js",
-        "js/contentscripts/clobberlocalstorage.js",
-        "js/contentscripts/dnt.js",
+        "js/contentscripts/clobberstorage.js",
         "js/contentscripts/fingerprinting.js"
       ],
       "matches": [
@@ -493,10 +490,6 @@
     "page": "/skin/options.html",
     "open_in_tab": true
   },
-  "storage": {
-    "managed_schema": "data/schema.json"
-  },
-  "update_url": "https://clients2.google.com/service/update2/crx",
   "web_accessible_resources": [
     "data/web_accessible_resources/*"
   ]

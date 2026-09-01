@@ -1183,23 +1183,15 @@ function dispatcher(request, sender, sendResponse) {
   // messages from content scripts are to be treated with greater caution:
   // https://groups.google.com/a/chromium.org/g/chromium-extensions/c/0ei-UCHNm34/m/lDaXwQhzBAAJ
   //
-  // prefer sender.origin when available
+  // use sender.origin, not sender.url
   // https://issues.chromium.org/issues/40095810
   // https://bugzilla.mozilla.org/show_bug.cgi?id=1787379
   // https://github.com/uBlockOrigin/uBlock-issues/issues/1992#issuecomment-1058056302
-  //
-  // TODO remove sender.origin sender.url/request.frameUrl fallbacks
-  // TODO once minimum supported versions equal or exceed
-  // TODO 80 (Chromium) and 126 (Firefox) in all builds
-  if (utils.hasOwn(sender, "origin") ?
-    sender.origin == "null" || sender.origin + '/' !== chrome.runtime.getURL('') :
-    !sender.url.startsWith(chrome.runtime.getURL(''))) {
-
+  if (sender.origin == "null" || sender.origin + '/' !== chrome.runtime.getURL('')) {
     // reject unless it's a known content script message
     const KNOWN_CONTENT_SCRIPT_MESSAGES = [
       "allowWidgetOnSite",
       "checkClobberingEnabled",
-      "checkDNT",
       "checkEnabled",
       "checkWidgetReplacementEnabled",
       "detectFingerprinting",
@@ -1207,6 +1199,7 @@ function dispatcher(request, sender, sendResponse) {
       "fpReport",
       "getBlockedFrameUrls",
       "getReplacementButton",
+      "reloadWidgetScripts",
       "supercookieReport",
       "unblockWidget",
       "widgetFromSurrogate",
@@ -1241,8 +1234,7 @@ function dispatcher(request, sender, sendResponse) {
   }
 
   case "checkClobberingEnabled": {
-    if (utils.hasOwn(sender, "origin") ?
-      sender.origin == "null" : request.frameUrl == "about:blank") {
+    if (sender.origin == "null") {
       return sendResponse();
     }
 
@@ -1252,8 +1244,7 @@ function dispatcher(request, sender, sendResponse) {
       return sendResponse();
     }
 
-    let frame_host = extractHostFromURL(
-      utils.hasOwn(sender, "origin") ? sender.origin + '/' : request.frameUrl);
+    let frame_host = extractHostFromURL(sender.origin + '/');
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, frame_host)) {
@@ -1266,8 +1257,20 @@ function dispatcher(request, sender, sendResponse) {
     }
 
     let action = checkAction(sender.tab.id, tab_host, frame_host);
-    sendResponse(action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK);
+    if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
+      browser.scripting.executeScript({
+        target: {
+          tabId: sender.tab.id,
+          frameIds: [sender.frameId]
+        },
+        injectImmediately: true,
+        world: browser.scripting.ExecutionWorld.MAIN,
+        files: ["js/contentscripts/clobbercookie.js",
+          "js/contentscripts/clobberlocalstorage.js"]
+      });
+    }
 
+    sendResponse();
     break;
   }
 
@@ -1310,6 +1313,60 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
+  case "reloadWidgetScripts": {
+    if (request.selectors) {
+      browser.scripting.executeScript({
+        target: {
+          tabId: sender.tab.id,
+          frameIds: [sender.frameId]
+        },
+        injectImmediately: true,
+        world: browser.scripting.ExecutionWorld.MAIN,
+        /**
+         * Find and replace script elements with their copies to trigger re-running.
+         *
+         * This is code for re-activating a previously blocked third-party widget
+         * (such as Google reCAPTCHA or Disqus comments).
+         *
+         * The scripts being run are third-party widget scripts that Privacy Badger
+         * previously blocked and the user chose to activate.
+         *
+         * For example:
+         *
+         * 1. The user visits a page with comments powered by Disqus.
+         * 2. Privacy Badger blocks the Disqus script and inserts a placeholder
+         * where the Disqus widget would have appeared.
+         * 3. If the user chooses to click "Allow" in the placeholder, Privacy Badger
+         * removes the placeholder and reinserts the Disqus script.
+         *
+         * Any script reinserted here is a script that would have
+         * run on the page anyway, had Privacy Badger not blocked it.
+         */
+        func: function (selectors) {
+          let scripts = document.querySelectorAll(selectors.join(','));
+
+          for (let scriptEl of scripts) {
+            // reinsert script elements only
+            if (!scriptEl.nodeName || scriptEl.nodeName.toLowerCase() != 'script') {
+              continue;
+            }
+
+            let replacement = document.createElement("script");
+            for (let attr of scriptEl.attributes) {
+              replacement.setAttribute(attr.nodeName, attr.value);
+            }
+            scriptEl.parentNode.replaceChild(replacement, scriptEl);
+            // reinsert one script and quit
+            break;
+          }
+        },
+        args: [request.selectors]
+      });
+    }
+    sendResponse();
+    break;
+  }
+
   case "getReplacementButton": {
     let widgetData = badger.widgetList.find(
       widget => widget.name == request.widgetName);
@@ -1340,26 +1397,19 @@ function dispatcher(request, sender, sendResponse) {
 
   case "supercookieReport": {
     if (badger.hasSupercookie(request.data)) {
-      let frame_host = extractHostFromURL(
-        utils.hasOwn(sender, "origin") ?
-          sender.origin + '/' : request.frameUrl);
-      if (frame_host) {
-        recordSupercookie(sender.tab.id, frame_host);
-      }
+      let frame_host = extractHostFromURL(sender.origin + '/');
+      recordSupercookie(sender.tab.id, frame_host);
     }
     break;
   }
 
   case "detectSupercookies": {
-    if (utils.hasOwn(sender, "origin") ?
-      sender.origin == "null" : request.frameUrl == "about:blank") {
+    if (sender.origin == "null") {
       return sendResponse();
     }
 
     let tab_host = extractHostFromURL(sender.tab.url),
-      frame_host = extractHostFromURL(
-        utils.hasOwn(sender, "origin") ?
-          sender.origin + '/' : request.frameUrl);
+      frame_host = extractHostFromURL(sender.origin + '/');
 
     // CNAME uncloaking
     if (utils.hasOwn(badger.cnameDomains, frame_host)) {
@@ -1377,10 +1427,7 @@ function dispatcher(request, sender, sendResponse) {
   case "detectFingerprinting": {
     if (sender.frameId > 0) {
       // do not modify the JS environment in Cloudflare CAPTCHA frames
-      if (utils.hasOwn(sender, "origin") ?
-        sender.origin === "https://challenges.cloudflare.com" :
-        sender.url.startsWith("https://challenges.cloudflare.com/")) {
-
+      if (sender.origin === "https://challenges.cloudflare.com") {
         sendResponse(false);
         break;
       }
@@ -1814,16 +1861,6 @@ function dispatcher(request, sender, sendResponse) {
     break;
   }
 
-  // called from contentscripts/dnt.js
-  // to check if it should set DNT on Navigator
-  case "checkDNT": {
-    let tab_host = extractHostFromURL(sender.tab.url);
-    sendResponse(
-      badger.isDntSignalEnabled(tab_host) &&
-      badger.isPrivacyBadgerEnabled(tab_host));
-    break;
-  }
-
   // proxies surrogate script-initiated widget replacement messages
   // from one content script to another
   case "widgetFromSurrogate": {
@@ -1840,9 +1877,7 @@ function dispatcher(request, sender, sendResponse) {
     // implications of accepting pbSurrogateMessage events
     // from third-party scripts in nested frames
     if (sender.frameId > 0) {
-      let frame_origin = utils.hasOwn(sender, "origin") ?
-        sender.origin != "null" && sender.origin :
-        request.frameUrl && (new URL(request.frameUrl)).origin;
+      let frame_origin = sender.origin != "null" && sender.origin;
 
       if (!frame_origin) {
         break;

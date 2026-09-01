@@ -15,46 +15,21 @@
  * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// NOTE: code below is not a content script: no chrome.* APIs
+
 (function () {
 
-// don't inject into non-HTML documents (such as XML documents)
-// but do inject into XHTML documents
-if (document instanceof HTMLDocument === false && (
-  document instanceof XMLDocument === false ||
-  document.createElement('div') instanceof HTMLDivElement === false
-)) {
-  return;
+document.__defineSetter__("cookie", function(/*value*/) { });
+document.__defineGetter__("cookie", function() { return ""; });
+
+// trim referrer down to origin
+let referrer = document.referrer;
+if (referrer) {
+  referrer = referrer.slice(
+    0,
+    referrer.indexOf('/', referrer.indexOf('://') + 3)
+  ) + '/';
 }
-
-// don't bother asking to run when trivially in first-party context
-if (window.top == window) {
-  return;
-}
-
-// TODO race condition; fix waiting on https://crbug.com/478183
-chrome.runtime.sendMessage({
-  type: "checkClobberingEnabled",
-  frameUrl: window.FRAME_URL
-}, function (blocked) {
-  if (blocked) {
-    var code = '('+ function() {
-      document.__defineSetter__("cookie", function(/*value*/) { });
-      document.__defineGetter__("cookie", function() { return ""; });
-
-      // trim referrer down to origin
-      let referrer = document.referrer;
-      if (referrer) {
-        referrer = referrer.slice(
-          0,
-          referrer.indexOf('/', referrer.indexOf('://') + 3)
-        ) + '/';
-      }
-      document.__defineGetter__("referrer", function () { return referrer; });
-    } +')();';
-
-    window.injectScript(code);
-  }
-  return true;
-});
+document.__defineGetter__("referrer", function () { return referrer; });
 
 }());
