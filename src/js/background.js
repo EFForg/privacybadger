@@ -326,7 +326,8 @@ Badger.prototype = {
       data;
 
     try {
-      response = await fetch(constants.SEED_DATA_LOCAL_URL);
+      let url = chrome.runtime.getURL(constants.SEED_DATA_LOCAL_PATH);
+      response = await fetch(url);
     } catch (err) {
       console.error(err);
       throw new Error("Failed to fetch seed data");
@@ -589,7 +590,8 @@ Badger.prototype = {
   },
 
   initializeCnames: function () {
-    return fetch(constants.CNAME_DOMAINS_LOCAL_URL)
+    let url = chrome.runtime.getURL(constants.CNAME_DOMAINS_LOCAL_PATH);
+    return fetch(url)
       .then(response => response.json())
       .then(data => {
         badger.cnameDomains = data;
@@ -724,7 +726,8 @@ Badger.prototype = {
       return;
     }
 
-    await self.ingestPbconfig(constants.PBCONFIG_LOCAL_URL);
+    let url = chrome.runtime.getURL(constants.PBCONFIG_LOCAL_PATH);
+    await self.ingestPbconfig(url);
 
     if (!self.getPrivateSettings().getItem('doneLoadingYellowlist')) {
       self.storage.forceSync('action_map', function () {

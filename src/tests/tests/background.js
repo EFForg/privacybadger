@@ -515,7 +515,7 @@ QUnit.test("mergeUserData() clears snitch_map when all items are MDFP", (assert)
 
     // perform the update
     stubbedFetch
-      .withArgs(constants.SEED_DATA_LOCAL_URL)
+      .withArgs(chrome.runtime.getURL(constants.SEED_DATA_LOCAL_PATH))
       .resolves(new Response(JSON.stringify({
         action_map: newActionMap,
         snitch_map: newSnitchMap
@@ -553,7 +553,7 @@ QUnit.test("mergeUserData() clears snitch_map when all items are MDFP", (assert)
 
     // perform the update
     stubbedFetch
-      .withArgs(constants.SEED_DATA_LOCAL_URL)
+      .withArgs(chrome.runtime.getURL(constants.SEED_DATA_LOCAL_PATH))
       .resolves(new Response(JSON.stringify({
         action_map: newActionMap,
         snitch_map: newSnitchMap

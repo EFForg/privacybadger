@@ -27,10 +27,10 @@ let exports = {
   USER_COOKIEBLOCK: "user_cookieblock",
 
   // URLs
-  CNAME_DOMAINS_LOCAL_URL: chrome.runtime.getURL('data/cname_domains.json'),
-  PBCONFIG_LOCAL_URL: chrome.runtime.getURL('data/pbconfig.json'),
+  CNAME_DOMAINS_LOCAL_PATH: 'data/cname_domains.json',
+  PBCONFIG_LOCAL_PATH: 'data/pbconfig.json',
   PBCONFIG_REMOTE_URL: "https://www.eff.org/files/pbconfig.json",
-  SEED_DATA_LOCAL_URL: chrome.runtime.getURL('data/seed.json'),
+  SEED_DATA_LOCAL_PATH: 'data/seed.json',
 
   // The number of 1st parties a 3rd party can be seen on
   TRACKING_THRESHOLD: 3,
@@ -70,7 +70,7 @@ let exports = {
     allFrames: true,
     matchOriginAsFallback: true, // crbug.com/55084
     runAt: "document_start",
-    world: browser.scripting.ExecutionWorld.MAIN,
+    world: ((typeof chrome != "undefined") && chrome.scripting && chrome.scripting.ExecutionWorld && chrome.scripting.ExecutionWorld.MAIN) || 'MAIN',
     persistAcrossSessions: false,
   }]
 };

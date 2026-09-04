@@ -9,8 +9,6 @@ from collections import OrderedDict
 
 def prune_fp_scripts(data):
     export_js = """
-// shim just enough for constants.js to load
-globalThis.chrome = { runtime: { getURL: ()=>{} } };
 const { default: constants } = await import('./src/js/constants.js');
 process.stdout.write(JSON.stringify(Array.from(constants.FP_CDN_DOMAINS)));"""
 

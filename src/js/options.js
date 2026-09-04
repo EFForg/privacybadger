@@ -732,7 +732,9 @@ let filterTrackingDomains = (function () {
       return setTimeout(cb, 0);
     }
 
-    utils.fetchResource(constants.SEED_DATA_LOCAL_URL, function (_, response) {
+    let url = chrome.runtime.getURL(constants.SEED_DATA_LOCAL_PATH);
+
+    utils.fetchResource(url, function (_, response) {
       let seedActions;
 
       try {
