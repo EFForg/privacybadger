@@ -9,6 +9,7 @@ import unittest
 
 from contextlib import contextmanager
 from shutil import copytree, which
+from websocket import WebSocketConnectionClosedException
 
 from selenium import webdriver
 from selenium.common.exceptions import (
@@ -265,7 +266,7 @@ class Shim:
                                          service_args=['--allow-system-access'])
                 driver = webdriver.Firefox(options=opts, service=service)
                 driver.webextension.install(self.extension_path)
-            except WebDriverException as ex:
+            except (WebDriverException, WebSocketConnectionClosedException) as ex:
                 if i == 0: print("")
                 print(f"Firefox WebDriver initialization failed ({i+1}/5): {ex}", end='')
             else:
