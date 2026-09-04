@@ -17,6 +17,7 @@
 
 import { extractHostFromURL, isThirdParty, getBaseDomain } from "../lib/basedomain.js";
 
+import constants from "./constants.js";
 import mdfp from "./multiDomainFirstParties.js";
 
 // TODO replace with Object.hasOwn() eventually
@@ -533,8 +534,6 @@ let firstPartyProtectionsEnabled = (function () {
 
 /**
  * Checks whether a given URL is a special browser page.
- * TODO account for browser-specific pages:
- * https://github.com/hackademix/noscript/blob/a8b35486571933043bb62e90076436dff2a34cd2/src/lib/restricted.js
  *
  * @param {String} url
  *
@@ -544,11 +543,20 @@ function isRestrictedUrl(url) {
   if (!url) {
     return true;
   }
+
+  if (constants.BROWSER == "firefox") {
+    if (url.startsWith('https://addons.mozilla.org/')) {
+      return true;
+    }
+  } else if (constants.BROWSER == "chrome") {
+    if (url.startsWith('https://chromewebstore.google.com/')) {
+      return true;
+    }
+  }
+
   // permitted schemes from
   // https://developer.chrome.com/extensions/match_patterns
-  return !(
-    url.startsWith('http') || url.startsWith('file') || url.startsWith('ftp')
-  );
+  return !(url.startsWith('http') || url.startsWith('file'));
 }
 
 function difference(arr1 = [], arr2 = []) {
