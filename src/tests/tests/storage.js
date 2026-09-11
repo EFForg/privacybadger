@@ -95,6 +95,57 @@ QUnit.test("updating object properties by subscribers does not update original o
   actionMap.setItem("xyz", { foo: "bar" });
 });
 
+QUnit.test("objects should only notify when something changed", function (assert) {
+  let done = assert.async(),
+    notifications = [];
+
+  actionMap.setItem("xyz", { one: null, two: "yes" });
+
+  actionMap.subscribe("set:xyz", function (val) {
+    notifications.push(val);
+  });
+
+  // same val
+  actionMap.setItem("xyz", { one: null, two: "yes" });
+
+  // diff val
+  actionMap.setItem("xyz", { one: "no", two: "yes" });
+
+  // another diff val
+  actionMap.setItem("xyz", { one: "no", two: "yes", three: true });
+
+  setTimeout(function () {
+    assert.equal(notifications.length, 2, "should have been notified twice, not thrice");
+    assert.deepEqual(notifications, [
+      { one: "no", two: "yes" },
+      { one: "no", two: "yes", three: true }], "unexpected notification values");
+    done();
+  }, 1);
+});
+
+QUnit.test("arrays should only notify when something changed", function (assert) {
+  let done = assert.async(),
+    notifications = [];
+
+  snitchMap.setItem("xyz", ["one"]);
+
+  snitchMap.subscribe("set:xyz", function (val) {
+    notifications.push(val);
+  });
+
+  // same val
+  snitchMap.setItem("xyz", ["one"]);
+
+  // diff val
+  snitchMap.setItem("xyz", ["one", "two"]);
+
+  setTimeout(function () {
+    assert.equal(notifications.length, 1, "should have been notified once, not twice");
+    assert.deepEqual(notifications, [["one", "two"]], "unexpected notification values");
+    done();
+  }, 1);
+});
+
 QUnit.test("subscribing to all storage keys", function (assert) {
   let done = assert.async(2);
 

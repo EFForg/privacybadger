@@ -939,8 +939,15 @@ BadgerStorage.prototype = {
     }
 
     // don't notify when there is no change
-    if (val === self.getItem(key)) {
-      return;
+    let prev_val = self.getItem(key);
+    if (utils.isObject(val) && utils.isObject(prev_val)) {
+      if (JSON.stringify(val) == JSON.stringify(prev_val)) {
+        return;
+      }
+    } else {
+      if (val === prev_val) {
+        return;
+      }
     }
 
     // exact match subscribers
