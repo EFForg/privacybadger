@@ -1,6 +1,18 @@
 Privacy Badger changelog
 ========================
 
+2026.9.15
+* Firefox: Fixed setting navigator.globalPrivacyControl (GPC)
+and denying cookieblocked domains JavaScript access to cookies
+on sites with strict Content Security Policies.
+This also avoids CSP errors in the Web Console (Firefox Developer Tools).
+* Firefox: Fixed potential timing issues with setting
+navigator.globalPrivacyControl
+* Non-Firefox: Fixed unwanted blocking of http requests
+inside pages of other extensions (such as Adobe Acrobat)
+* Fixed various site breakages
+* Improved Esperanto, German, Polish, Russian and Ukrainian translations
+
 2026.8.7
 * Fixed the direct link to the video page in widget replacements for YouTube
 * Fixed tweet replacement for tweets served from x.com (and not twitter.com)
