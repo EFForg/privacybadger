@@ -573,7 +573,7 @@
         "description": "This is an options page tab heading."
     },
     "options_safari_icon_style_checkbox": {
-        "message": "Symbol der Symbolleiste im Safari-Stil verwenden",
+        "message": "Icon der Symbolleiste im Safari-Stil verwenden",
         "description": "Checkbox label in general settings on Safari"
     },
     "show_counter_checkbox": {
