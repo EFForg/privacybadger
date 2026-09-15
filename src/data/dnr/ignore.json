@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "priority": 100,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "requestDomains": ["localhost", "127.0.0.1"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 100,
+    "action": {
+      "type": "allowAllRequests"
+    },
+    "condition": {
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "urlFilter": "|chrome-extension://*"
+    }
+  },
+  {
+    "id": 3,
+    "priority": 100,
+    "action": {
+      "type": "allowAllRequests"
+    },
+    "condition": {
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "urlFilter": "|moz-extension://*"
+    }
+  },
+  {
+    "id": 4,
+    "priority": 100,
+    "action": {
+      "type": "allowAllRequests"
+    },
+    "condition": {
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "urlFilter": "|safari-web-extension://*"
+    }
+  }
+]
