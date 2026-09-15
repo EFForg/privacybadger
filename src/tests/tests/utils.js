@@ -846,6 +846,30 @@ QUnit.module("Utils", function (/*hooks*/) {
       "A wildcard by itself is not a valid entry");
   });
 
+  // Tests algorithm used in the pixel tracking heuristic
+  // It should return a common substring between two given values
+  QUnit.test("findCommonSubstrings", assert => {
+
+    assert.deepEqual(
+      utils.findCommonSubstrings('www.foo.bar', 'www.foob.ar'),
+      [],
+      "substrings under the length threshold of 8 are ignored"
+    );
+
+    assert.equal(
+      utils.findCommonSubstrings('foobar.com/foo/fizz/buzz/bar', 'foobar.com/foo/bizz/fuzz/bar')[0],
+      'foobar.com/foo/',
+      "returns longest matching value from the pair of URLs"
+    );
+
+    assert.deepEqual(
+      utils.findCommonSubstrings('foobar.com/fizz/buzz/bar/foo', 'foobar.com/fizzbuzz/buzz/bar/foo'),
+      ['foobar.com/fizz', "zz/buzz/bar/foo"],
+      "returns multiple substrings if multiple are present in comparison"
+    );
+
+  });
+
   // used in pixel tracking heuristic, given a string the estimateMaxEntropy function
   // will return the estimated entropy value from it, based on logic parsing the string's length,
   // and classes of character complication included in the string
