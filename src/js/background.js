@@ -697,16 +697,23 @@ Badger.prototype = {
       let popupPromos = data.popup_promos;
 
       if (utils.hasOwn(constants.REVIEW_LINKS, constants.BROWSER)) {
-        // Set the review link for the user's browser
+        // set the review link for the user's browser
         for (let promo of popupPromos) {
           if (promo.text === "popup_review_pb") {
             promo.url = constants.REVIEW_LINKS[constants.BROWSER];
           }
         }
-      } else {
-        // Remove the review promo from rotation when no review URL was defined
-        popupPromos = popupPromos.filter(promo => promo.text !== "popup_review_pb");
       }
+
+      // validate: remove empty and invalid promos
+      popupPromos = popupPromos.filter(promo => {
+        try {
+          if (promo.url && (new URL(promo.url).protocol) == "https:") {
+            return true;
+          }
+        } catch (ex) { /* noop */ }
+        return false;
+      });
 
       self.getPrivateSettings().setItem('popupPromos', popupPromos);
     }
