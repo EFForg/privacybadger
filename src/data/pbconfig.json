@@ -305,10 +305,6 @@
             "demdex.net": [
                 "www.sbs.com.au"
             ],
-            "digitalvideoplatform.com": [
-                "www.fox.com",
-                "www.foxla.com"
-            ],
             "doubleclick.net": [
                 "www.crunchyroll.com",
                 "www.paramountplus.com",
@@ -1035,6 +1031,8 @@
         "digitaloceanspaces.com",
         "digitalriver.com",
         "digitalrivercontent.net",
+        "prod.api.digitalvideoplatform.com",
+        "prod.player.fox.digitalvideoplatform.com",
         "digiteka.com",
         "cdn.discordapp.com",
         "media.discordapp.net",
