@@ -4347,9 +4347,20 @@ let multiDomainFirstPartiesArray = [
   [
     "prensaiberica360.es",
 
+    "diariocordoba.com",
+    "diariodemallorca.es",
+    "elcorreogallego.es",
+    "eldia.es",
     "elperiodico.com",
+    "elperiodicodearagon.com",
+    "farodevigo.es",
+    "informacion.es",
+    "laopiniondemurcia.es",
+    "laopiniondezamora.es",
+    "laprovincia.es",
     "levante-emv.com",
     "lne.es",
+    "superdeporte.es",
 
     "prensaiberica.es",
   ],
