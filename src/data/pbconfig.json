@@ -650,10 +650,6 @@
             "imrworldwide.com": [
                 "www.threenow.co.nz"
             ],
-            "cdn.kaching.eu.com": [
-                "www.dumpert.nl",
-                "www.telegraaf.nl"
-            ],
             "keepa.com": [
                 "www.amazon.ca",
                 "www.amazon.co.jp",
@@ -1297,6 +1293,8 @@
         "judge.me",
         "juicer.io",
         "images.justwatch.com",
+        "api.kaching.eu.com",
+        "cdn.kaching.eu.com",
         "dapi.kakao.com",
         "developers.kakao.com",
         "kapi.kakao.com",
