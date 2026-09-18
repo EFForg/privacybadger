@@ -5592,6 +5592,7 @@ let multiDomainFirstPartiesArray = [
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
   ["ubisoft.com", "ubi.com", "anno-union.com", "thesettlers-alliance.com", "ubisoftconnect.com"],
   ["ui.com", "ubnt.com"],
+  ["unidadeditorial.es", "elmundo.es", "expansion.com", "marca.com"],
   [
     "unitedhealthgroup.com",
 
