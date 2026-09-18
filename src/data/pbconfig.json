@@ -732,10 +732,6 @@
             "spotify.com": [
                 "play.megaphone.fm"
             ],
-            "elements.stytch.com": [
-                "console.typesafe.ai",
-                "login.typesafe.ai"
-            ],
             "www.tiktok.com": [
                 "www.apartmenttherapy.com"
             ],
@@ -1705,6 +1701,7 @@
         "img.strpst.com",
         "static-cdn.strpst.com",
         "videos.strpst.com",
+        "stytch.com",
         "substack.com",
         "hdr.sundaysky.com",
         "images.sundaysky.com",
