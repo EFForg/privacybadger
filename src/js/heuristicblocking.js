@@ -720,9 +720,14 @@ function _extractCookies(details) {
   }
 
   for (let i = 0; i < headers.length; i++) {
-    let header = headers[i];
-    if (header.name.toLowerCase() == "cookie" || header.name.toLowerCase() == "set-cookie") {
-      cookies.push(header.value);
+    let header = headers[i],
+      header_name = header.name.toLowerCase();
+    if (header_name == "cookie" || header_name == "set-cookie") {
+      // only Set-Cookie carries attributes; a Cookie header is names and values
+      cookies.push({
+        value: header.value,
+        has_attributes: header_name == "set-cookie"
+      });
     }
   }
 
@@ -745,9 +750,9 @@ function hasCookieTracking(details) {
 
   // loop over every cookie
   for (let i = 0; i < cookies.length; i++) {
-    let cookie = utils.parseCookie(cookies[i], {
+    let cookie = utils.parseCookie(cookies[i].value, {
       noDecode: true,
-      skipAttributes: true,
+      skipAttributes: cookies[i].has_attributes,
       skipNonValues: true
     });
 
