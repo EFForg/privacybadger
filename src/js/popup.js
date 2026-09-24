@@ -253,6 +253,9 @@ function init() {
   let promo = getPromo(POPUP_DATA.popupPromos || []);
   if (promo) {
     let promo_text = chrome.i18n.getMessage(promo.text);
+    if (!promo_text) {
+      promo_text = promo.fallbackText;
+    }
     if (promo_text && promo.url && promo.icon) {
       $("#cta-link").attr("href", promo.url);
       $('#cta-text').text(promo_text);
