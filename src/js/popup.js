@@ -260,6 +260,9 @@ function init() {
       $("#cta-link").attr("href", promo.url);
       $('#cta-text').text(promo_text);
       $('#cta-icon').removeClass('ui-icon-heart').addClass(promo.icon);
+      if (promo.iconColor) {
+        $('#cta-icon').css("color", promo.iconColor);
+      }
     }
   }
 

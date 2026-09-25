@@ -19,12 +19,14 @@
             "url": null,
             "text": "popup_review_pb",
             "icon": "ui-icon-star",
+            "iconColor": "#f6c324",
             "odds": 0.33
         },
         {
             "url": "https://shopeff.org/products/privacy-badger-crewneck-1",
             "text": "popup_sweatshirt_promo",
             "icon": "ui-icon-cart",
+            "iconColor": "#ec9329",
             "odds": 0.33
         }
     ],

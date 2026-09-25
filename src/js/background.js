@@ -708,10 +708,17 @@ Badger.prototype = {
       // validate: remove empty and invalid promos
       popupPromos = popupPromos.filter(promo => {
         try {
+          // first check required fields
           if (promo.url && (new URL(promo.url).protocol) == "https:") {
+            // reject promos with invalid colors (optional field)
+            if (promo.iconColor && !CSS.supports('color', promo.iconColor)) {
+              return false;
+            }
+
             return true;
           }
         } catch (ex) { /* noop */ }
+
         return false;
       });
 
