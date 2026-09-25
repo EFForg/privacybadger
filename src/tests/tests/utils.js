@@ -669,6 +669,18 @@ QUnit.module("Utils", function (/*hooks*/) {
       "SameSite is ignored when ignoring attributes"
     );
 
+    // a cookie can be named after an attribute; only what follows it is one
+    assert.deepEqual(
+      utils.parseCookie('path=abc123def456; Path=/; HttpOnly', { skipAttributes: true }),
+      { path: 'abc123def456' },
+      "a cookie named after an attribute is kept when it comes first"
+    );
+    assert.deepEqual(
+      utils.parseCookie('secure=abc123def456', { skipAttributes: true }),
+      { secure: 'abc123def456' },
+      "a cookie named secure is kept when there are no attributes"
+    );
+
   });
 
   QUnit.test("cookie parsing (legacy Firefox add-on)", function (assert) {

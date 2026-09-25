@@ -407,7 +407,9 @@ function parseCookie(cookie_str, opts = {}) {
       value = "";
     }
 
-    if (opts.skipAttributes &&
+    // Attributes only follow the cookie itself, so the first pair is never one.
+    // Without that, a cookie actually named "path" or "secure" is thrown away.
+    if (opts.skipAttributes && i > 0 &&
         COOKIE_ATTRIBUTES.indexOf(name.toLowerCase()) != -1) {
       continue;
     }
