@@ -693,8 +693,8 @@ Badger.prototype = {
       self.getPrivateSettings().setItem('sitefixes', sitefixes);
     }
 
-    if (utils.hasOwn(data, 'popup_promos')) {
-      let popupPromos = data.popup_promos;
+    if (utils.hasOwn(data, 'popup_promos_v2')) {
+      let popupPromos = data.popup_promos_v2;
 
       if (utils.hasOwn(constants.REVIEW_LINKS, constants.BROWSER)) {
         // set the review link for the user's browser
@@ -713,6 +713,17 @@ Badger.prototype = {
             // reject promos with invalid colors (optional field)
             if (promo.iconColor && !CSS.supports('color', promo.iconColor)) {
               return false;
+            }
+
+            // remove promos meant for other browsers (optional fields)
+            if (promo.includeBrowsers) {
+              if (!promo.includeBrowsers.includes(constants.BROWSER)) {
+                return false;
+              }
+            } else if (promo.excludeBrowsers) {
+              if (promo.excludeBrowsers.includes(constants.BROWSER)) {
+                return false;
+              }
             }
 
             return true;
