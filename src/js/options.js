@@ -89,7 +89,7 @@ function loadOptions() {
     saveToggle(domain, action);
   });
   $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', revertDomainControl);
-  $('#blockedResourcesContainer').on('click', '.removeDomain', removeDomain);
+  $('#blockedResourcesContainer').on('click', '.remove-domain', removeDomain);
   $('#blockedResourcesInner').on('scroll', function () {
     populateVisibleRows();
   });

@@ -74,7 +74,7 @@ button {
     height: 40px;
     overflow: hidden;
     line-height: normal;
-    position: relative; /* so that we can abs position child els (removeDomain) */
+    position: relative; /* so that we can abs position child els (.remove-domain) */
 }
 .clicker:not(#not-yet-blocked-header):not(#non-trackers-header) {
     direction: ltr;
@@ -137,16 +137,17 @@ button {
     background: url('/icons/badger-pin.png') no-repeat;
 }
 
-a.removeDomain {
+button.remove-domain {
     display: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
     margin-right: 15px;
-    width: 10px;
-    text-decoration: none;
     position: absolute;
     right: 0;
     top: 6px;
 }
-a.removeDomain:hover {
+button.remove-domain:hover {
     color: red !important;
 }
 
@@ -319,6 +320,9 @@ button.cta-button:focus-visible, a.cta-button:focus-visible {
 }
 #fittslaw {
     float: right;
+    background: none;
+    border: 0;
+    cursor: pointer;
 }
 #pbInstructions, #special-browser-page, #disabled-site-message, .toggle-header-title, #first-run-page {
     font-size: 16px;
@@ -470,20 +474,20 @@ div#popup-content.hidden {
 #report-terms {
     margin: 10px 0 !important;
 }
-a.overlay-close {
+button.overlay-close {
   float: right;
   background: none;
   border: 0;
   font-size: 1.4em;
   color: #ccc;
-  text-decoration: none;
   margin-inline-start: 10px;
+  cursor: pointer;
 }
-a.overlay-close:before {
+button.overlay-close:before {
   content: '\2716';
   margin: 4px;
 }
-a.overlay-close:hover {
+button.overlay-close:hover {
     color: #f06a0a;
 }
 #share-output {
