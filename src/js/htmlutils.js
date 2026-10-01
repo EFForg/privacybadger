@@ -220,7 +220,7 @@ let htmlUtils = {
     <span class="origin-inner tooltip" title="${domain_tooltip}" role="heading" aria-level="4" aria-label="${domain_tooltip}">${dnt_html}${shield_icon}${fqdn}</span>
   </div>
   ${htmlUtils.getToggleHtml(fqdn, action, blockedFpScripts)}
-  <a href="" class="removeDomain" role="button" aria-label="${remove_button_label.replace('XXX', fqdn)}">&#10006</a>
+  <button class="remove-domain" aria-label="${remove_button_label.replace('XXX', fqdn)}">&#10006</button>
 </div>
       `.trim();
     };
