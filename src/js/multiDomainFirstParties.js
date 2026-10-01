@@ -5587,6 +5587,7 @@ let multiDomainFirstPartiesArray = [
 
     "cdntvn.pl",
   ],
+  ["metln.org", "centralmaine.com", "pressherald.com", "sunjournal.com", "mainetodaymedia.com"],
   ["tvp.pl", "tvp.info"],
   ["twinkl.co.uk", "twinkl.com", "twinkl.com.au", "twinkl.co.in", "twinkl.de"],
   ["ua2go.com", "ual.com", "united.com", "unitedwifi.com"],
