@@ -526,6 +526,8 @@ button.overlay-close:hover {
     background: #555;
     border: none;
     border-radius: 7px;
+    max-width: 300px;
+    overflow-wrap: break-word;
 }
 .tooltipster-sidetip .tooltipster-arrow-border {
     border: none;
