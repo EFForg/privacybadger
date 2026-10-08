@@ -710,8 +710,9 @@ Badger.prototype = {
         try {
           // first check required fields
           if (promo.url && (new URL(promo.url).protocol) == "https:") {
-            // reject promos with invalid colors (optional field)
-            if (promo.iconColor && !/^#[a-f0-9]{3,6}$/.test(promo.iconColor)) {
+            // reject promos with invalid* colors (optional field)
+            // [*] only hex colors are supported at this time
+            if (promo.iconColor && !/^#[A-Fa-f0-9]{3,6}$/.test(promo.iconColor)) {
               return false;
             }
 
