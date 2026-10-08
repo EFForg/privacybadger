@@ -1349,6 +1349,9 @@ function dispatcher(request, sender, sendResponse) {
          * Any script reinserted here is a script that would have
          * run on the page anyway, had Privacy Badger not blocked it.
          */
+        // TODO we actually want to mark below fn. as a browser (not worker)
+        // TODO environ. fn., but /* globals */ applies to the entire file...
+        /* eslint-disable no-undef */
         func: function (selectors) {
           let scripts = document.querySelectorAll(selectors.join(','));
 
@@ -1367,6 +1370,7 @@ function dispatcher(request, sender, sendResponse) {
             break;
           }
         },
+        /* eslint-enable no-undef */
         args: [request.selectors]
       });
     }

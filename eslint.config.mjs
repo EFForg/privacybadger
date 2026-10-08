@@ -85,7 +85,7 @@ export default defineConfig([
     files: ["src/**"],
     languageOptions: {
       globals: {
-        ...globals.browser,
+        ...globals.worker,
         ...globals.webextensions,
         "globalThis": "readonly"
       },
@@ -102,12 +102,18 @@ export default defineConfig([
     ],
     languageOptions: {
       globals: {
+        ...globals.browser,
         ...globals.jquery,
       }
     }
   },
   {
     files: ["src/js/contentscripts/**"],
+    languageOptions: {
+      globals: {
+        ...globals.browser
+      }
+    },
     rules: {
       "indent": ["error", 2, {
         outerIIFEBody: 0
@@ -115,8 +121,19 @@ export default defineConfig([
     }
   },
   {
+    files: ["src/js/firstparties/**"],
+    languageOptions: {
+      globals: {
+        ...globals.browser
+      }
+    }
+  },
+  {
     files: ["src/data/web_accessible_resources/**"],
     languageOptions: {
+      globals: {
+        ...globals.browser
+      },
       sourceType: "script"
     },
     rules: {
@@ -134,6 +151,7 @@ export default defineConfig([
     files: ["src/tests/**"],
     languageOptions: {
       globals: {
+        ...globals.browser,
         ...globals.jquery,
         badger: "readonly",
         QUnit: "readonly",
