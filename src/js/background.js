@@ -777,8 +777,15 @@ Badger.prototype = {
    */
   initPbconfigUpdates: function () {
     let self = this,
-      next_update_time = self.getPrivateSettings().getItem('nextPbconfigUpdateTime'),
+      next_update_time = 0,
       time_now = Date.now();
+
+    // get the latest remote config immediately on updates
+    if (self.isUpdate) {
+      self.getPrivateSettings().setItem("nextPbconfigUpdateTime", 0);
+    } else {
+      next_update_time = self.getPrivateSettings().getItem('nextPbconfigUpdateTime');
+    }
 
     if (time_now < next_update_time) {
       let msec_remaining = next_update_time - time_now;
