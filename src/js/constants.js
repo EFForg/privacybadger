@@ -45,9 +45,10 @@ let exports = {
 
   REVIEW_LINKS: {
     chrome: "https://chromewebstore.google.com/detail/privacy-badger/pkehgijcmpdhfbdbbnkijodmdjhbjlgp/reviews",
-    firefox: "https://addons.mozilla.org/en-US/firefox/addon/privacy-badger17/",
     edge: "https://microsoftedge.microsoft.com/addons/detail/privacy-badger/mkejgcgkdlddbggjhhflekkondicpnop",
+    firefox: "https://addons.mozilla.org/en-US/firefox/addon/privacy-badger17/",
     opera: "https://addons.opera.com/en/extensions/details/privacy-badger/",
+    safari: "https://apps.apple.com/app/privacy-badger/id6761143693"
   },
 
   FP_CDN_DOMAINS: new Set([
