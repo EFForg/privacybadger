@@ -4,8 +4,8 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Lærer automatisk at blokere skjulte sporinger. Fra digital rettighedsnonprofit EFF for at stoppe virksomheder i at udspionere dig.",
-        "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
+        "message": "Stop companies from spying on you online. Made by member-supported digital rights nonprofit EFF.",
+        "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
         "message": "canvas-fingeraftryk",
@@ -263,9 +263,13 @@
         "message": "Del med dine venner",
         "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
+    "share_base_message": {
+        "message": "Privacy Badger (privacybadger.org) is a free browser extension made by the leading digital rights nonprofit EFF to stop companies from spying on you online.",
+        "description": "The base message that is always included in the share message"
+    },
     "share_tracker_header": {
         "message": "Privacy Badger blokerede $COUNT$ potentielle trackere på $DOMAIN$:",
-        "description": "Header above the list of tracking domains in the share message.",
+        "description": "Header above the list of tracking domains in the share message",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -276,10 +280,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) er en browserudvidelse der automatisk lærer at blokere skjulte sporinger. Privacy Badger laves af Electronic Frontier Foundation, en nonprofit der kæmper for dine rettigheder online.",
-        "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
         "message": "Kopiér til udklipsholder",
@@ -464,7 +464,7 @@
     },
     "intro_welcome": {
         "message": "Privacy Badger lærer automatisk at blokere skjulte sporinger. Bug et minut på at se hvordan.",
-        "description": "Intro page welcome paragraph."
+        "description": "Intro page welcome paragraph"
     },
     "intro_beyond_ads": {
         "message": "Fanger luskede sporinger",

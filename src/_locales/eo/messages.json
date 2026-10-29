@@ -4,8 +4,8 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Aŭtomate lernas bloki kaŝitajn spurilojn. Farita de por-ciferec-rajta ne-profit-cela fondaĵo EFF por ke firmaoj ĉesu spuri vin.",
-        "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
+        "message": "Stop companies from spying on you online. Made by member-supported digital rights nonprofit EFF.",
+        "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
         "message": "fingrospurado per elemento «canvas»",
@@ -263,9 +263,13 @@
         "message": "Sciigu amikojn",
         "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
+    "share_base_message": {
+        "message": "Privacy Badger (privacybadger.org) is a free browser extension made by the leading digital rights nonprofit EFF to stop companies from spying on you online.",
+        "description": "The base message that is always included in the share message"
+    },
     "share_tracker_header": {
         "message": "Privata Melo blokis $COUNT$ eblajn spurilojn ĉe $DOMAIN$:",
-        "description": "Header above the list of tracking domains in the share message.",
+        "description": "Header above the list of tracking domains in the share message",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -276,10 +280,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "share_base_message": {
-        "message": "Privata Melo (privacybadger.org) estas retumila etendaĵo, kiu aŭtomate lernas kiel bloki kaŝitajn spurilojn. Privata Melo estas farita de Electronic Frontier Foundation, ne-profit-cela fondaĵo, kiu batalas por viaj rajtoj en la interreto.",
-        "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
         "message": "Kopii al tondejo",
@@ -464,7 +464,7 @@
     },
     "intro_welcome": {
         "message": "Privata Melo aŭtomate lernas bloki kaŝitajn spurilojn. Jen konciza klarigo kiel.",
-        "description": "Intro page welcome paragraph."
+        "description": "Intro page welcome paragraph"
     },
     "intro_beyond_ads": {
         "message": "Kaptas trompajn spurilojn",

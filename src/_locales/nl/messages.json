@@ -4,8 +4,8 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Leert om verborgen volgers te blokkeren. Gemaakt door de non-profitorganisatie EFF om te voorkomen dat bedrijven u bespioneren.",
-        "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
+        "message": "Stop companies from spying on you online. Made by member-supported digital rights nonprofit EFF.",
+        "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
         "message": "canvas-vingerafdrukken",
@@ -263,9 +263,13 @@
         "message": "Vertel uw kennissen over Privacy Badger",
         "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
+    "share_base_message": {
+        "message": "Privacy Badger (privacybadger.org) is a free browser extension made by the leading digital rights nonprofit EFF to stop companies from spying on you online.",
+        "description": "The base message that is always included in the share message"
+    },
     "share_tracker_header": {
         "message": "Privacy Badger heeft $COUNT$ potentiële volgers geblokkeerd op $DOMAIN$:",
-        "description": "Header above the list of tracking domains in the share message.",
+        "description": "Header above the list of tracking domains in the share message",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -276,10 +280,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is een browserextensie die automatisch leert om verborgen volgers te blokkeren. Privacy Badger wordt gemaakt door de Electronic Frontier Foundation, een non-profitorganisatie die online opkomt voor uw rechten.",
-        "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
         "message": "Kopiëren naar klembord",
@@ -464,7 +464,7 @@
     },
     "intro_welcome": {
         "message": "Privacy Badger leert automatisch om verborgen volgers te blokkeren. Neem een minuut de tijd om te zien hoe.",
-        "description": "Intro page welcome paragraph."
+        "description": "Intro page welcome paragraph"
     },
     "intro_beyond_ads": {
         "message": "Vangt stiekeme volgers",

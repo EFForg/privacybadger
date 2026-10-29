@@ -4,8 +4,8 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "自動學習封鎖隱藏的追蹤器。由領先的非營利數位權利組織電子前哨基金會製造，以阻止公司監視您。",
-        "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS. See also 'intro_welcome', 'share_base_message' and 'intro_learns_paragraph' messages."
+        "message": "Stop companies from spying on you online. Made by member-supported digital rights nonprofit EFF.",
+        "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
         "message": "Canvas 指紋辨識",
@@ -263,9 +263,13 @@
         "message": "和朋友分享",
         "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
+    "share_base_message": {
+        "message": "Privacy Badger (privacybadger.org) is a free browser extension made by the leading digital rights nonprofit EFF to stop companies from spying on you online.",
+        "description": "The base message that is always included in the share message"
+    },
     "share_tracker_header": {
         "message": "Privacy Badger 在 $DOMAIN$ 封鎖了 $COUNT$ 個潛在的追蹤器：",
-        "description": "Header above the list of tracking domains in the share message.",
+        "description": "Header above the list of tracking domains in the share message",
         "placeholders": {
             "count": {
                 "content": "$1",
@@ -276,10 +280,6 @@
                 "example": "example.com"
             }
         }
-    },
-    "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) 是一套瀏覽器擴充功能，可自動學習封鎖隱藏的追蹤器。Privacy Badger 是由電子前哨基金會所製作，該基金會是一個非營利組織，致力於爭取您的線上權利。",
-        "description": "The base message that is always included in the share message."
     },
     "copy_button_initial": {
         "message": "複製到剪貼簿",
@@ -464,7 +464,7 @@
     },
     "intro_welcome": {
         "message": "Privacy Badger 會自動學習封鎖隱藏的追蹤器。花一分鐘來看背後的原理。",
-        "description": "Intro page welcome paragraph."
+        "description": "Intro page welcome paragraph"
     },
     "intro_beyond_ads": {
         "message": "捕捉鬼鬼祟祟的追蹤器",
