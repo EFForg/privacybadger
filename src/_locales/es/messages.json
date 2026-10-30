@@ -264,7 +264,7 @@
         "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a free browser extension made by the leading digital rights nonprofit EFF to stop companies from spying on you online.",
+        "message": "Privacy Badger (privacybadger.org) es una extensión de navegador gratuita creada por la organización sin ánimo de lucro líder en derechos digitales EFF para evitar que las empresas te espíen en línea.",
         "description": "The base message that is always included in the share message"
     },
     "share_tracker_header": {

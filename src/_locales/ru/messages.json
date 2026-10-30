@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Stop companies from spying on you online. Made by member-supported digital rights nonprofit EFF.",
+        "message": "Остановите веб-отслеживание. Создан некоммерческой организацией по защите цифровых прав EFF.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
@@ -264,7 +264,7 @@
         "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a free browser extension made by the leading digital rights nonprofit EFF to stop companies from spying on you online.",
+        "message": "Privacy Badger (privacybadger.org) — это бесплатное расширение для браузера, сделанное ведущей некоммерческой группой по защите цифровых прав EFF, чтобы остановить веб-отслеживание.",
         "description": "The base message that is always included in the share message"
     },
     "share_tracker_header": {
@@ -503,7 +503,7 @@
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate1": {
-        "message": "Когда вы используете Privacy Badger, вы присоединяетесь к <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> и миллионам других пользователей в борьбе за приватность. Мы — некоммерческая организация, борющаяся за ваши права в интернете. Спасибо, что присоединились к нам!",
+        "message": "Когда вы используете Privacy Badger, вы присоединяетесь к <a href='https://www.eff.org/' target='_blank'>Electronic Frontier Foundation</a> и миллионам других пользователей в борьбе за приватность. Мы — некоммерческая организация, защищающая ваши права в интернете. Спасибо, что присоединились к нам!",
         "description": "Part of the 'donate' section on the intro page."
     },
     "intro_donate_subheading": {
