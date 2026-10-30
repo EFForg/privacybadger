@@ -19,7 +19,7 @@ if wget -q -T 30 -O "$TEMPFILE" -- $CNAME_LIST_URL && [ -s "$TEMPFILE" ]; then
     exit 1
   fi
 
-  node --input-type=module scripts/updatecnames.mjs "$TEMPFILE"
+  node scripts/updatecnames.mjs "$TEMPFILE"
 
   if cmp -s "$TEMPFILE" $CNAME_LIST_PATH; then
     echo "    no CNAME domain list updates"
