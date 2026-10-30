@@ -73,8 +73,19 @@ async function main() {
     }
 
     // remove domains not found in the top 1M site CrUX list
-    if (!topBases.has(getBaseDomain(alias))) {
-      delete cnameDomains[alias];
+    // but try to preserve international domains
+    if (alias.endsWith(".com") || alias.endsWith(".net") ||
+        alias.endsWith(".org") || alias.endsWith(".io") ||
+        alias.endsWith(".info") || alias.endsWith(".co") ||
+        alias.endsWith(".xyz") || alias.endsWith(".site") ||
+        alias.endsWith(".dev") || alias.endsWith(".ai") ||
+        alias.endsWith(".shop") || alias.endsWith(".store") ||
+        alias.endsWith(".app") || alias.endsWith(".video") ||
+        alias.endsWith(".digital") || alias.endsWith(".online") ||
+        alias.endsWith(".tech") || alias.endsWith(".technology")) {
+      if (!topBases.has(getBaseDomain(alias))) {
+        delete cnameDomains[alias];
+      }
     }
   }
 
