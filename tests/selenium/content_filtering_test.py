@@ -3,6 +3,8 @@
 import time
 import unittest
 
+import pytest
+
 import pbtest
 
 
@@ -143,6 +145,8 @@ class ContentFilteringTest(pbtest.PBSeleniumTest):
 
         assert self.js("return typeof window.Fingerprint2") == "undefined"
 
+    # TODO really only flaky on nightly, but no access to self...
+    @pytest.mark.flaky(reruns=3, condition=pbtest.shim.browser_type == "firefox")
     def test_surrogating_fp_script_from_cookieblocked_cdn(self):
         """Since we have a surrogate script for FingerprintJS (v3) served
         from cdn.jsdelivr.net, we test surrogation rather than blocking."""
