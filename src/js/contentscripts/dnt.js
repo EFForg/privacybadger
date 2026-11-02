@@ -28,16 +28,6 @@ if (document instanceof HTMLDocument === false && (
   return;
 }
 
-if (window.navigator.doNotTrack != "1") {
-  Object.defineProperty(window.Navigator.prototype, "doNotTrack", {
-    get: function doNotTrack() {
-      return "1";
-    },
-    configurable: true,
-    enumerable: true
-  });
-}
-
 if (!window.navigator.globalPrivacyControl) {
   try {
     Object.defineProperty(window.Navigator.prototype, "globalPrivacyControl", {

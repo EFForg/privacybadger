@@ -197,9 +197,7 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
         assert headers is not None, "It seems we failed to get headers"
-        assert 'Dnt' in headers, "DNT header should have been present"
         assert 'Sec-Gpc' in headers, "GPC header should have been present"
-        assert headers['Dnt'] == ["1"], 'DNT header should have been set to "1"'
         assert headers['Sec-Gpc'] == ["1"], 'Sec-Gpc header should have been set to "1"'
 
     def test_no_dnt_header_when_disabled_on_site(self):
@@ -208,7 +206,6 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
         assert headers is not None, "It seems we failed to get headers"
-        assert 'Dnt' not in headers, "DNT header should have been missing"
         assert 'Sec-Gpc' not in headers, "GPC header should have been missing"
 
     def test_no_dnt_header_when_dnt_disabled(self):
@@ -222,14 +219,10 @@ return (typeof navigator.globalPrivacyControl == 'undefined' ||
         headers = retry_until(partial(self.get_first_party_headers, TEST_URL),
                               times=8)
         assert headers is not None, "It seems we failed to get headers"
-        assert 'Dnt' not in headers, "DNT header should have been missing"
         assert 'Sec-Gpc' not in headers, "GPC header should have been missing"
 
     def test_navigator_object(self):
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
-        body_text = self.driver.find_element(By.TAG_NAME, 'body').text
-        assert body_text == 'no tracking (navigator.doNotTrack="1")', (
-            'navigator.doNotTrack should have been set to "1"')
         assert self.js("return navigator.globalPrivacyControl === true"), (
             "navigator.globalPrivacyControl should have been set to true")
         assert self.js("""
@@ -241,11 +234,6 @@ return Object.getOwnPropertyDescriptor(
         self.disable_badger_on_site(self.FIXTURE_URL)
 
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
-
-        # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
-        body_text = self.driver.find_element(By.TAG_NAME, 'body').text
-        assert body_text[0:5] == 'unset', (
-            "navigator.doNotTrack should be unset or \"unspecified\"")
 
         self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should be unset or False")
 
@@ -276,11 +264,6 @@ return Object.getOwnPropertyDescriptor(
 
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
 
-        # navigator.doNotTrack defaults to null in Chrome, "unspecified" in Firefox
-        body_text = self.driver.find_element(By.TAG_NAME, 'body').text
-        assert body_text[0:5] == 'unset', (
-            "navigator.doNotTrack should be unset or \"unspecified\"")
-
         self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should be unset or False")
 
     def test_navigator_toggling_dnt_and_disabled_sites(self):
@@ -301,8 +284,6 @@ return Object.getOwnPropertyDescriptor(
             "});", execute_async=True, timeout=3)
 
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
-        assert self.js("return navigator.doNotTrack") != "1", (
-            "navigator.doNotTrack should not be set")
         self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should be unset or False")
 
         # re-enable sending DNT signals
@@ -319,16 +300,12 @@ return Object.getOwnPropertyDescriptor(
             "});", execute_async=True, timeout=3)
 
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
-        assert self.js("return navigator.doNotTrack") != "1", (
-            "navigator.doNotTrack should still not be set")
         self.assert_navigator_gpc_unset("navigator.globalPrivacyControl should still be unset or False")
 
         # re-enable on site
         self.reenable_badger_on_site("efforg.github.io")
 
         self.load_url(self.FIXTURE_URL, wait_for_body_text=True)
-        assert self.js("return navigator.doNotTrack") == "1", (
-            "navigator.doNotTrack should now be set")
         assert self.js("return navigator.globalPrivacyControl"), (
             "navigator.globalPrivacyControl should also be set")
 

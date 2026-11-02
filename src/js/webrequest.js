@@ -398,7 +398,7 @@ function onBeforeSendHeaders(details) {
 
   if (details.type == 'main_frame') {
     if (badger.isDntSignalEnabled(tab_host) && badger.isPrivacyBadgerEnabled(tab_host)) {
-      details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
+      details.requestHeaders.push({ name: "Sec-GPC", value: "1" });
       return { requestHeaders: details.requestHeaders };
     }
 
@@ -421,7 +421,7 @@ function onBeforeSendHeaders(details) {
   if (!utils.isThirdPartyDomain(request_host, tab_host)) {
     if (badger.isDntSignalEnabled(tab_host) && badger.isPrivacyBadgerEnabled(tab_host)) {
       // send Do Not Track header even when HTTP and cookie blocking are disabled
-      details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
+      details.requestHeaders.push({ name: "Sec-GPC", value: "1" });
       return { requestHeaders: details.requestHeaders };
     }
 
@@ -465,16 +465,16 @@ function onBeforeSendHeaders(details) {
 
     // add DNT header
     if (badger.isDntSignalEnabled(tab_host)) {
-      newHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
+      newHeaders.push({ name: "Sec-GPC", value: "1" });
     }
 
-    return {requestHeaders: newHeaders};
+    return { requestHeaders: newHeaders };
   }
 
   // if we are here, we're looking at a third-party request
   // that's not yet blocked or cookieblocked
   if (badger.isDntSignalEnabled(tab_host)) {
-    details.requestHeaders.push({name: "DNT", value: "1"}, {name: "Sec-GPC", value: "1"});
+    details.requestHeaders.push({ name: "Sec-GPC", value: "1" });
   }
   return { requestHeaders: details.requestHeaders };
 }
