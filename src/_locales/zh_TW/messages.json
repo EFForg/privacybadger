@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "阻止企業在網路上監控您。由會員支持的數位權利非營利組織 EFF 製作。",
+        "message": "阻止企業在網路上監控您。由會員支持的數位權利非營利組織電子前哨基金會製作。",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
@@ -264,7 +264,7 @@
         "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) 是由領先的數位權利非營利組織 EFF 開發的一款免費瀏覽器擴充功能，旨在阻止企業在網路上監控您。",
+        "message": "Privacy Badger (privacybadger.org) 是由領先的數位權利非營利組織電子前哨基金會開發的一款免費瀏覽器擴充功能，旨在阻止企業在網路上監控您。",
         "description": "The base message that is always included in the share message"
     },
     "share_tracker_header": {

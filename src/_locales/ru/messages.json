@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Остановите веб-отслеживание. Создан некоммерческой организацией по защите цифровых прав EFF.",
+        "message": "Остановите веб-отслеживание. Создано некоммерческой организацией по защите цифровых прав EFF.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
