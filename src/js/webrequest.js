@@ -121,6 +121,10 @@ function onBeforeRequest(details) {
     return;
   }
 
+  if (badger.isLearningEnabled(tab_id)) {
+    badger.storage.recordThirdParty(tab_host, request_host);
+  }
+
   // TODO !from_current_tab requests shouldn't go through allowedOnTab()
   let action = checkAction(tab_id, tab_host, request_host, frame_id);
   if (!action) {

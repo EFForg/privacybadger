@@ -37,6 +37,7 @@ const USER_DATA_EXPORT_KEYS = [
   "settings_map",
   "tracking_map",
   "fp_scripts",
+  "third_parties"
 ];
 
 let i18n = chrome.i18n;

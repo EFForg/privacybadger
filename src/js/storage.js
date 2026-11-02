@@ -256,6 +256,16 @@ BadgerPen.prototype = {
     //   ...
     // }
     "fp_scripts",
+
+    // logs all third-party domains on a site:
+    // {
+    //   <site_fqdn>: [
+    //     <third_party_domain_fqdn>,
+    //     ...
+    //   ],
+    //   ...
+    // }
+    "third_parties",
   ],
 
   getStore: function (key) {
@@ -271,7 +281,7 @@ BadgerPen.prototype = {
   clearTrackerData: function () {
     let self = this;
 
-    for (let store_name of ['action_map', 'snitch_map', 'tracking_map', 'fp_scripts']) {
+    for (let store_name of ['action_map', 'snitch_map', 'tracking_map', 'fp_scripts', 'third_parties']) {
       let store = self.getStore(store_name);
       for (let key of store.keys()) {
         store.deleteItem(key);
@@ -310,7 +320,7 @@ BadgerPen.prototype = {
 
     // The order of these keys is also the order in which they should be imported.
     // It's important that snitch_map be imported before action_map (#1972)
-    for (let key of ["snitch_map", "action_map", "settings_map", "tracking_map", "fp_scripts"]) {
+    for (let key of ["snitch_map", "action_map", "settings_map", "tracking_map", "fp_scripts", "third_parties"]) {
       if (utils.hasOwn(data, key)) {
         self.getStore(key).merge(data[key]);
       }
@@ -677,6 +687,25 @@ BadgerPen.prototype = {
       entry[path] = 1;
     }
     fpStore.setItem(script_fqdn, entry);
+  },
+
+  /**
+   * Helps update third_parties
+   *
+   * @param {String} site - site FQDN
+   * @param {String} third_party - third-party FQDN
+   */
+  recordThirdParty: function (site, third_party) {
+    let self = this,
+      store = self.getStore('third_parties'),
+      thirdPartiesOnSite = store.getItem(site) || [];
+
+    if (thirdPartiesOnSite.includes(third_party)) {
+      return;
+    }
+
+    thirdPartiesOnSite.push(third_party);
+    store.setItem(site, thirdPartiesOnSite);
   }
 };
 
@@ -916,6 +945,12 @@ BadgerStorage.prototype = {
         }
         badger.storage.recordFingerprintingScript(script_fqdn,
           Object.keys(mapData[script_fqdn]));
+      }
+
+    } else if (self.name == "third_parties") {
+      // combine arrays of third-party FQDNs via set union
+      for (let site in mapData) {
+        self.setItem(site, utils.concatUniq(self.getItem(site) || [], mapData[site]));
       }
     }
   },
