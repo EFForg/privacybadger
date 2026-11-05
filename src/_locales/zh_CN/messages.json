@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Stop companies from spying on you online. Made by member-supported digital rights nonprofit EFF.",
+        "message": "阻止企业在线上监视你。由会员支持的数字权利非盈利机构 EFF 打造。",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
@@ -264,7 +264,7 @@
         "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
     "share_base_message": {
-        "message": "Privacy Badger (privacybadger.org) is a free browser extension made by the leading digital rights nonprofit EFF to stop companies from spying on you online.",
+        "message": "隐私獾（privacybadger.org) 是由领先的数字权利非盈利机构 EFF 打造的免费浏览器扩展，阻止企业在线上监视你。",
         "description": "The base message that is always included in the share message"
     },
     "share_tracker_header": {
