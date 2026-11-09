@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Stop companies from spying on you online. Made by member-supported digital rights nonprofit EFF.",
+        "message": "Verhindert Online-Spionage von Unternehmen. Entwickelt von der EFF, einer gemeinnützigen Organisation für digitale Rechte.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {

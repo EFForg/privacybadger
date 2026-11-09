@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "阻止企业在线上监视你。由会员支持的数字权利非盈利机构 EFF 打造。",
+        "message": "阻止企业在线上监视你。由会员支持的数字权利非盈利机构电子前哨基金会打造。",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
@@ -264,7 +264,7 @@
         "description": "Title of the Share overlay in the popup; also subheader above social sharing buttons on the intro page"
     },
     "share_base_message": {
-        "message": "隐私獾（privacybadger.org) 是由领先的数字权利非盈利机构 EFF 打造的免费浏览器扩展，阻止企业在线上监视你。",
+        "message": "隐私獾（privacybadger.org) 是由领先的数字权利非盈利机构 电子前哨基金会打造的免费浏览器扩展，阻止企业在线上监视你。",
         "description": "The base message that is always included in the share message"
     },
     "share_tracker_header": {
@@ -359,7 +359,7 @@
         "description": "Title of intro page"
     },
     "intro_logo_alt_text": {
-        "message": "EFF 标记",
+        "message": "电子前哨基金会标记",
         "description": "Alt text for EFF logo on the intro page"
     },
     "intro_eff_header": {
