@@ -17,7 +17,7 @@ The storage API lets extensions store information that persists after the browse
 The WebRequest API allows extensions to observe all incoming and outgoing network requests made by the browser. Privacy Badger inspects request for tracking behavior, and logs the destinations of outgoing requests that are flagged as tracking. No information is ever shared outside of the browser.
 
 ## WebRequestBlocking
-The blocking version of the WebRequest API allows extensions to modify or block network requests before they leave the browser. Privacy Badger uses this API to synchronously view, modify, and block requests to trackers. For example, Privacy Badger modifies requests made to domains on the yellowlist to remove the referer header and cookies.
+The blocking version of the WebRequest API allows extensions to modify or block network requests before they leave the browser. Privacy Badger uses this API to synchronously view, modify, and block requests to trackers. For example, Privacy Badger modifies requests made to domains on the yellowlist to remove cookies and trim the referer header.
 
 ## WebNavigation
 This API allows extensions to detect when the user navigates from one web page to another. Privacy Badger needs this in order to correctly determine whether each request is a first-party request (to the same domain as the web page) or a third-party request (to somewhere else). This permission allows it to avoid misattributing trackers on special pages such as Service Worker pages.

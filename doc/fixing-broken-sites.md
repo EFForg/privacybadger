@@ -59,7 +59,7 @@ We should also ask the service to adopt the [EFF Do Not Track policy](https://ww
 
 If nothing else seems to fit, adding the affected domain to the "[yellowlist](/doc/yellowlist-criteria.md)" will make Privacy Badger set the domain to "yellow" ("cookie-blocked") instead of "red" (blocked) after seeing it track on three or more sites.
 
-Resources from yellowlisted domains are requested without referrer headers, and are restricted from reading or writing cookies or localStorage.
+Resources from yellowlisted domains are requested with origin-only referrer headers, and are restricted from reading or writing cookies or localStorage.
 
 [Here is an example yellowlist pull request](https://github.com/EFForg/privacybadger/pull/1543) that shows what's good to know when deciding how to fix a breakage, and how to get that information.
 

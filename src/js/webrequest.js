@@ -436,28 +436,18 @@ function onBeforeSendHeaders(details) {
 
   // handle cookieblocked requests
   if (action == constants.COOKIEBLOCK || action == constants.USER_COOKIEBLOCK) {
-    let newHeaders;
-
-    // GET requests: remove cookie headers, reduce referrer header to origin
-    if (details.method == "GET") {
-      newHeaders = details.requestHeaders.filter(header => {
-        return (header.name.toLowerCase() != "cookie");
-      }).map(header => {
-        if (header.name.toLowerCase() == "referer") {
-          header.value = header.value.slice(
-            0,
-            header.value.indexOf('/', header.value.indexOf('://') + 3)
-          ) + '/';
-        }
-        return header;
-      });
-
-    // remove cookie and referrer headers otherwise
-    } else {
-      newHeaders = details.requestHeaders.filter(header => {
-        return (header.name.toLowerCase() != "cookie" && header.name.toLowerCase() != "referer");
-      });
-    }
+    // remove cookie headers, reduce referrer header to origin
+    let newHeaders = details.requestHeaders.filter(header => {
+      return (header.name.toLowerCase() != "cookie");
+    }).map(header => {
+      if (header.name.toLowerCase() == "referer") {
+        header.value = header.value.slice(
+          0,
+          header.value.indexOf('/', header.value.indexOf('://') + 3)
+        ) + '/';
+      }
+      return header;
+    });
 
     // add DNT header
     if (badger.isDntSignalEnabled(tab_host)) {
