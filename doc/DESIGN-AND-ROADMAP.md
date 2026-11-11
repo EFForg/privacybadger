@@ -50,9 +50,8 @@ Privacy Badger:
    prevents the browser from communicating with them. The exception is if the
    site is on Privacy Badger's "yellow list" (aka the "cookie block list"), in
    which case resources from the site are loaded, but without access to their
-   (third party) cookies or local storage, and with the referer header either
-   trimmed down to the origin (for GET requests) or removed outright (all other
-   requests). The yellow list is routinely fetched from the [remote config URL]
+   (third party) cookies or local storage, and with the referer header trimmed
+   down to the origin. The yellow list is routinely fetched from the [remote config URL]
    to allow prompt fixes for breakage.
 
    Until methods for blocking them have been implemented, domains that perform
