@@ -4,7 +4,7 @@
         "description": "The name of this extension."
     },
     "description": {
-        "message": "Stop companies from spying on you online. Made by member-supported digital rights nonprofit EFF.",
+        "message": "Hindra företag från att spionera på dig på nätet. Utvecklat av EFF, en medlemsstödd ideell organisation för digitala rättigheter.",
         "description": "Extension description used by browsers and extension store websites. LIMITED TO 132 CHARACTERS."
     },
     "canvas_fingerprinting": {
@@ -200,7 +200,7 @@
         "description": "Tooltip shown over the rightmost part of a domain slider."
     },
     "breakage_warning_tooltip": {
-        "message": "Om den här domänen blockeras kan webbplatser sluta fungera",
+        "message": "Det är känt att webbplatser kan sluta fungera om den här domänen blockeras",
         "description": "Tooltip for a warning icon that appears when move a domain slider to 'red' (block) for a domain that was automatically set to 'yellow' (block cookies)."
     },
     "google_signin_tooltip": {
@@ -224,7 +224,7 @@
         "description": "Popup domain slider list header text. Separates domains with detected tracking from domains where no tracking has yet been detected."
     },
     "non_tracker_tip": {
-        "message": "Privacy Badger kontrollerar för närvarande endast om tredjeparter använder kakor, HTML5-lagring eller canvasfingeravtryck för att spåra din surfning. Vissa domäner kan använda spårningsmetoder som Privacy Badger inte kan upptäcka.",
+        "message": "Privacy Badger kontrollerar för närvarande endast om tredjeparter använder kakor, lokal HTML5-lagring eller canvasfingeravtryck för att spåra din surfning. Vissa domäner kan använda spårningsmetoder som Privacy Badger inte kan upptäcka.",
         "description": "Tooltip for the 'non_tracker' message."
     },
     "report_input_label": {
@@ -617,7 +617,7 @@
         "description": "Checkbox label in general settings."
     },
     "local_learning_warning": {
-        "message": "Om inlärning aktiveras kan du bli lättare att identifiera på webbplatser",
+        "message": "Om du aktiverar inlärning kan det bli lättare för webbplatser att identifiera dig",
         "description": "Tooltip in general settings."
     },
     "options_show_nontracking_domains_checkbox": {
