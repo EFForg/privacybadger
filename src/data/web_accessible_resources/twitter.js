@@ -13,7 +13,9 @@
         _e = window.twttr._e;
     }
 
-    window.twttr = {};
+    if (!window.twttr) {
+        window.twttr = {};
+    }
     window.twttr.events = {
         bind: function () {}
     };
