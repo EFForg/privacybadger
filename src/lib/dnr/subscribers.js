@@ -241,6 +241,17 @@ function subscribeToActionMapUpdates() {
     log("[DNR] Size of fp_scripts rules queue:", Object.keys(fpStoreUpdateQueue).length);
 
     for (let domain in fpStoreUpdateQueue) {
+      let fpRemoveRuleIds = existingRules
+        .filter(r =>
+          (r.priority == constants.DNR_FP_SCRIPT_BLOCK ||
+            r.priority == constants.DNR_FP_SCRIPT_SURROGATE_REDIRECT) &&
+          r.condition.requestDomains &&
+          r.condition.requestDomains[0] == domain)
+        .map(r => r.id);
+      if (fpRemoveRuleIds.length) {
+        opts.removeRuleIds = opts.removeRuleIds.concat(fpRemoveRuleIds);
+      }
+
       // block rules
       for (let path of fpStoreUpdateQueue[domain]) {
         opts.addRules.push(dnrUtils.makeDnrFpScriptBlockRule(
@@ -260,6 +271,10 @@ function subscribeToActionMapUpdates() {
         opts.addRules.push(dnrUtils.makeDnrFpScriptSurrogateRule(
           badger.getDynamicRuleId(), domain, token, sdb.surrogates[token]));
       }
+    }
+
+    if (opts.removeRuleIds.length) {
+      opts.removeRuleIds = [...new Set(opts.removeRuleIds)];
     }
 
     if (opts.addRules.length || opts.removeRuleIds.length) {
